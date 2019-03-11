@@ -1,0 +1,143 @@
+<app-order-filter></app-order-filter>
+<div class="row">
+  <div class="col-md-3">
+    Showing <select name="limit" (change)="getList()" [(ngModel)]="limit"
+                    class="form-control-sm">
+    <option>20</option>
+    <option>50</option>
+    <option>100</option>
+  </select> / total <span class="text-danger">{{total}}</span> items
+
+  </div>
+  <div class="col-md-2">
+    <button  class="btn btn-sm btn-info" type="button"><i class="fa fa-download"></i> Export Data </button>
+  </div>
+  <div class="col-md-7">
+    <pagination [boundaryLinks]="true" [totalItems]="total" [(ngModel)]="current_page"
+                (pageChanged)="getList()" [itemsPerPage]="limit"
+                [maxSize]="10" class="pagination-sm pull-right"
+                [rotate]="true">
+    </pagination>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+      <div class="card style-card">
+        <div class="row margin-row">
+          <div class="col-md-3 border-col">
+            <div class="card-title">
+              <h5>
+                <strong class="text-uppercase">
+                  <a target="_blank"
+                     href="http://weshop.com.vn/order-BIN-C7FD4993274B/bill.html">
+                    <span class="text-danger">BIN-C7FD4993274B</span>
+                  </a>
+                </strong>/
+                <span class="badge badge-warning m-l-5 p-2 font-style">Unpaid</span>
+              </h5>
+            </div>
+            <div class="clearfix"></div>
+            <div>
+              <span></span>
+              <span class="m-l-5">Viet Nam</span>
+              <span class="badge badge-warning m-l-5 p-2 font-style">Request</span>
+              <span class="badge badge-warning m-l-5 p-2 font-style"></span>
+            </div>
+            <div>
+            </div>
+            <div>
+              <span><i class="fa fa-clock-o"></i></span>2019-03-06 16:07:50
+              <br>
+              <span class="text-dark"><i class="fa fa-clock-o"></i> an hour ago</span>
+            </div>
+          </div>
+          <div class="col-md-4 border-col CUSTOMER_INFO">
+            <h5>CUSTOMER INFO</h5>
+
+            <div class="row">
+              <div class="col-md-12">
+              Customer note :<strong class="text-danger"> khách hàng note</strong>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-5 style-col border-col">
+            <div class="row">
+              <div class="col-md-12">
+                <h5>FINANCE</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><strong>Quantity:</strong></div>
+              <div class="col-md-3 text-right style-padding-left">1</div>
+              <div class="style-padding-left"> (Exchage rate: 12345)</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dola">
+                <strong>Total value (<span class="text-line-through dola">
+                        <!--{{order.totalPrice | number}} {{getLocalCurrencyCodeByStore(0)}}-->
+                        12345
+                    </span>)</strong>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dola">
+                <strong>
+                  12345
+                  <!--{{order.finalPrice| number}} {{getLocalCurrencyCodeByStore(0)}}-->
+                </strong>
+              </div>
+              <div class="col-md-5 style-padding-left">Coupon: 1</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <strong>Total value (<span class="text-line-through dong">
+                      112
+                    </span>)</strong>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <strong>
+                  12345
+                </strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-danger">Paid</div>
+              <div class="col-md-3 text-right text-danger">123</div>
+              <div class="col-md-3 text-right text-danger">
+               123
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-info">Collect</div>
+              <div class="col-md-3 text-right text-info style-padding-left">
+               1234
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Refund</div>
+              <div class="col-md-3 text-right style-padding-left">
+              1234
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="button-group col-md-auto">
+                  <button class="paymentTransaction" >Payment Transaction</button>
+                </div>
+                <div class="button-group col-md-auto">
+                  <button class="btn btn-sm btn-info" >View More Log (BIN)</button>
+                </div>
+                <div class="button-group col-md-auto">
+                  <button class="btn btn-sm btn-info" >Confirm Purchase All</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-order-item></app-order-item>
+      </div>
+    </div>
+  <!--<div class="card-body" style="padding-left: 0; padding-right: 0" *ngIf="orders == ''">-->
+  <!--<h4 class="text-danger">Not Found</h4>-->
+  <!--</div>-->
+  </div>
+</div>
