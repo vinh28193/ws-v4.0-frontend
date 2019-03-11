@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import { ShipmentComponent } from './shipment.component';
-import { ItemComponent } from './item/item.component';
 
 
 const routes: Routes = [
@@ -14,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [ShipmentComponent, ItemComponent],
+    declarations: [ShipmentComponent],
     imports: [
         CommonModule,
         BrowserModule,
