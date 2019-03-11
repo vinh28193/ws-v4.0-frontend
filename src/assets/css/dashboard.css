@@ -1,0 +1,31 @@
+img.bell-shake {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+span.money-order{
+    font-size: 40px;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+td.label-order{
+    text-align: center;
+    vertical-align: middle;
+}
