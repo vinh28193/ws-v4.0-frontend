@@ -1,0 +1,102 @@
+<li>
+  <span class="style-strong">Local Name:</span>
+  <!--<app-span-label [value]="value"></app-span-label>-->
+  <a href="javascript:void(0)" (click)="showEditLocalName.show()">
+    <i class="fa fa-edit text-info"></i>
+  </a>
+</li>
+<li>
+  <span class="style-strong">Category:</span>
+  <!--<app-span-label [value]="getCategoryName()"></app-span-label>-->
+</li>
+<li>
+  <span class="style-strong">QTT set:</span>
+  <!--<app-span-label [value]="qttSet"></app-span-label>-->
+</li>
+<li>
+  <span class="style-strong">Fragile:</span>
+</li>
+<li>
+  <span class="style-strong">Packing Wood:</span>
+</li>
+<div bsModal #showEditLocalName="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Update </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <label>Local Name:</label>
+              </div>
+              <div class="col-md-12">
+                <input  type="text" class="form-control form-control-sm" [value]="value" [(ngModel)]="value" name="localProductName">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Category:</label>
+              </div>
+              <div class="col-md-12">
+                <select class="form-control form-control-sm" [value]="category" [(ngModel)]="category">
+                  <option >123</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>QTT set:</label>
+              </div>
+              <div class="col-md-12">
+                <input  type="text" class="form-control form-control-sm"  [value]="qttSet" [(ngModel)]="qttSet" name="qttSet">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Fragile:</label>
+              </div>
+              <div class="col-md-4 radio">
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> Yes</label>
+                </div>
+              </div>
+              <div class="col-md-4 radio">
+                <label><input type="radio" name="optradio"> No</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Packing Wood:</label>
+              </div>
+              <div class="col-md-4 radio">
+                <label><input type="radio" name="optradio"> Yes</label>
+              </div>
+              <div class="col-md-4 radio">
+                <label><input type="radio" name="optradio"> No</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <hr>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <div class="button-group text-right">
+                  <button class="btn btn-sm btn-success pull-right" (click)="editLocalName(); showEditLocalName.hide()">Update</button>
+                  <button class="btn btn-sm btn-secondary pull-right" aria-label="Close" (click)="showEditLocalName.hide()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

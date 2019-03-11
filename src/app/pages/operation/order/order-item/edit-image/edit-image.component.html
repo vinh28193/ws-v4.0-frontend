@@ -1,0 +1,12 @@
+<div *ngIf="image != ''">
+  <a href="javascript:void(0)">
+    <img [src]="image" alt="" class="style-image" width="100%" (dblclick)="updateImage()">
+  </a><br>
+</div>
+<div>
+  <img src="https://images-na.ssl-images-amazon.com/images/I/51S19OvPMBL.jpg" alt="" class="style-image" width="100%" (dblclick)="updateImage()">
+  <!--<a href="javascript:void(0)" (click)="updateImage()"><i class="	fa fa-plus-square"></i></a>-->
+</div>
+<div *ngIf="check">
+  <input type="text" style="max-width: 100px;" [(ngModel)] = "image" (keyup.enter)="editImage()">
+</div>

@@ -1,20 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { PackageModule } from './package/package.module';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {SharedModule} from './shared/shared.module';
+import {LoginComponent} from './shared/login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthService} from './core/service/auth.service';
+import {RequestInterceptor} from './core/interceptor/request.interceptor';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent
-  ],
-  imports: [
-    BrowserModule,
-    PackageModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent
+    ],
+    imports: [
+        SharedModule,
+        AppRoutingModule
+    ],
+    providers:
+        [ AuthService,
+            {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+        ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
