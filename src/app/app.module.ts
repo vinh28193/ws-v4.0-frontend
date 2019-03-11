@@ -11,6 +11,7 @@ import {AuthService} from './core/service/auth.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {RouterModule} from '@angular/router';
 import {routes} from './pages/operation/order/order.module';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,7 @@ import {routes} from './pages/operation/order/order.module';
         PagesModule,
         // AppRoutingModule,
         PackingModule,
-        RouterModule.forRoot(routes, {useHash: true})
+        AppRoutingModule
     ],
     providers:
         [ AuthService,

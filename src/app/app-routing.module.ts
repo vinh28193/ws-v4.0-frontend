@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './shared/login/login.component';
 import {PackingModule} from './packing/packing.module';
+import {SharedModule} from './shared/shared.module';
 
 const appRoutes: Routes = [
     {
@@ -10,20 +11,18 @@ const appRoutes: Routes = [
     },
     {path: '404', redirectTo: '404'},
     {
-        path: 'login', component: LoginComponent,
-        data: {
-            breadcrumb: 'Login'
-        },
-        redirectTo: 'login'
-    },
-    {
         path: 'packing',
         loadChildren: './packing/packing.module#PackingModule',
     },
+  {
+    path: 'login',
+    loadChildren: './packing/packing.module#SharedModule',
+  },
 ];
 
 @NgModule({
-    declarations: [],
+    declarations: [
+    ],
     imports: [
         RouterModule.forRoot(
             appRoutes,
