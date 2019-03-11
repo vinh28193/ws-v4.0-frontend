@@ -7,16 +7,20 @@ import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthService} from './core/service/auth.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
+import {RouterModule} from '@angular/router';
+import {routes} from './pages/operation/order/order.module';
 
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent
+        AppComponent
     ],
     imports: [
         SharedModule,
-        AppRoutingModule
+        AppRoutingModule,
+        // PagesModule,
+        // AppRoutingModule,
+        // RouterModule.forRoot(routes, {useHash: true})
     ],
     providers:
         [ AuthService,

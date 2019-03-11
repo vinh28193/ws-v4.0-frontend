@@ -29,9 +29,3 @@ jQuery(function ($) {
     $(".page-wrapper").addClass("toggled");
   });
 });
-
-// tool tip
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-

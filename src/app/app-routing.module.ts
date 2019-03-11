@@ -4,15 +4,16 @@ import {LoginComponent} from './shared/login/login.component';
 
 const appRoutes: Routes = [
     {
-        path: '', redirectTo: 'dashboard', pathMatch: 'full'
+        path: '', redirectTo: '#/', pathMatch: 'full'
         /* path: '', redirectTo: 'dashboard/home', pathMatch: 'full' */
     },
-    {path: '**', redirectTo: '404'},
+    {path: '404', redirectTo: '404'},
     {
         path: 'login', component: LoginComponent,
         data: {
             breadcrumb: 'Login'
         },
+        redirectTo: 'login'
     },
     {
         path: 'package',

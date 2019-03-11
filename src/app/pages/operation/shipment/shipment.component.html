@@ -54,19 +54,19 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Shipment Manifest Code</label>
-                  <input class="form-control" name="manifestCode" [(ngModel)]="filter.manifestCode" (keyup.enter)="getList()">
+                  <input class="form-control" name="manifestCode" [(ngModel)]="filter" (keyup.enter)="getList()">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Tracking Code</label>
-                  <input class="form-control" name="trackingCode" [(ngModel)]="filter.trackingCode" (keyup.enter)="getList()">
+                  <input class="form-control" name="trackingCode" [(ngModel)]="filter" (keyup.enter)="getList()">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Select store</label>
-                  <app-store [store]="filter.store" [cssClass]="'form-control'" (storeSelect)="filter.store=$event;getList()"></app-store>
+                  <app-store [store]="filter" [cssClass]="'form-control'" (storeSelect)="filter.store=$event;getList()"></app-store>
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
                 <div class="form-group">
                   <label>Search <!--div style="size: 10px;color: red">(SOI, BMxxxx , CBxxxx , bin, email, phone )</div--></label>
                   <div class="input-group">
-                    <input class="form-control" name="search_keyword" [(ngModel)]="filter.keyword" (keyup.enter)="getList()"
+                    <input class="form-control" name="search_keyword" [(ngModel)]="filter" (keyup.enter)="getList()"
                            placeholder="SOI, BMxxxx , CBxxxx , bin, email, phone ">
                   </div>
                 </div>

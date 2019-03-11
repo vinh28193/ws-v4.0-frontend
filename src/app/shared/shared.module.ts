@@ -4,7 +4,7 @@ import {SpanLabelComponent} from './span-label/span-label.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
   ]
