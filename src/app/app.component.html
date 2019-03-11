@@ -1,20 +1,110 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="page-wrapper chiller-theme toggled ml-0">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper" style="background-color: #2E9AB8">
+    <div class="sidebar-content">
+      <div class="sidebar-brand" style="background-color: #DDDDDD">
+        <a href="javascript:void(0)">
+          <img src="https://weshop.com.vn/images/logo/weshop/weshop-logo-vn.png" alt="">
+        </a>
+        <div id="close-sidebar">
+          <a href="javascript:void(0)"><i class="fas fa-times text-blue"></i></a>
+        </div>
+      </div>
+      <div class="sidebar-header" style="background-color: #1D8EAE; border: none">
+        <div class="user-pic" style="height: 4.2em">
+          <img class="shopee-avatar__img" src="https://cf.shopee.vn/file/8271c20ad3a209a70c81bc3aadd90692_tn" style="border-radius: 50%">
+        </div>
+        <div class="user-info">
+                    <span class="user-name text-white" >Jhon
+                        <strong>Smith</strong>
+                    </span>
+          <span class="user-role text-white">Administrator</span>
+          <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span class="text-white">Online</span>
+                    </span>
+        </div>
+      </div>
+      <div class="sidebar-menu sty-color" style="border: none">
+        <style>
+          .sty-color ul li a span {
+            color: white;
+          }
+          .sty-color ul li a i {
+            color: white;
+          }
+        </style>
+        <ul>
+          <li class="active">
+            <a [routerLink]="['order']">
+              <i class="fa fa-home"></i>
+              <span>Thống kê chung</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['shipment']">
+              <i class="fa fa-truck"></i>
+              <span>Shipment</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['order']">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Order</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-bell"></i>
+              <span>Thông Báo</span>
+            </a>
+            <div class="sidebar-submenu bg-info">
+              <ul>
+                <li>
+                  <a class="text-white" href="tb-update.html">Cập nhập đơn hàng</a>
+                </li>
+                <li>
+                  <a class="text-white" href="tb-khuyen-mai.html">Khuyến mại</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="voucher.html">
+              <i class="fa fa-globe"></i>
+              <span>Vi voucher</span>
+            </a>
+          </li>
+          <li>
+            <a href="weshop-xu.html">
+              <i class="fa fa-dot-circle-o"></i>
+              <span>Weshop xu</span>
+            </a>
+          </li>
+          <li >
+            <a [routerLink]="['login']">
+              <i class="fa fa-user"></i>
+              <span>Login</span>
+            </a>
+          </li>
+          <li >
+            <a href="javascript:void(0)">
+              <i class="fa fa-arrow-circle-left"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+  </nav>
+  <main class="page-content ml-2" style="background-color: #EEF5F9">
+    <div class="row m-0 p-0">
+      <div class="col-md-12 pl-0">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
