@@ -196,11 +196,11 @@
                   <li role="menuitem" *ngFor="let filter of itemFilterKeys">
                     <a (click)="createFilterFormKey(filter.name,filter.value)"
                        class="dropdown-item" href="javascript:void(0)">
-                      {{filter.label}} <i *ngIf="hasFilter(filter.name)" class="fa fa-check ng-star-inserted"></i>
+                       <i *ngIf="hasFilter(filter)" class="fa fa-check ng-star-inserted"></i>
                     </a>
                   </li>
                 </ul>
-                <span class="text-danger" style="margin-left: 15px;padding-top: 7px;">{{explodeFilter()}}</span>
+                <span class="text-danger" style="margin-left: 15px;padding-top: 7px;">123</span>
               </div>
             </div>
           </div>
@@ -340,7 +340,7 @@
                             </div>
                           </ng-template>
                         </li>
-                        <li><b style="font-weight: bold">Tracking:</b><br> {{item.trackingCode}}</li>
+                        <li><b style="font-weight: bold">Tracking:</b><br> {{item}}</li>
                         <li><b style="font-weight: bold">Box:</b><br>
                           <app-span-label [value]=""></app-span-label>
                         </li>
@@ -398,9 +398,9 @@
                           <!--<a href="" tooltip="{{item.productLocalizedName}}" *ngIf="item.productLocalizedName">-->
                             <!--{{ (item.productLocalizedName.length > 25)? ((item.productLocalizedName | slice:0:25)+'. . .'):(item.productLocalizedName)}}-->
                           <!--</a>-->
-                          <span *ngIf="item.productLocalizedName == null">
-                            <app-span-label [value]=""></app-span-label>
-                          </span>
+                          <!--<span *ngIf="item.productLocalizedName == null">-->
+                            <!--<app-span-label [value]=""></app-span-label>-->
+                          <!--</span>-->
                         </li>
                         <li>
                           <div class="hovergallery" style="margin-right: 5px">
