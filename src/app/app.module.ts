@@ -12,11 +12,10 @@ import {PopupService} from './core/service/popup.service';
 import {EncryptionService} from './core/service/encryption.service';
 import {StorageService} from './core/service/storage.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
-import {PackageModule} from './package/package.module';
 
 import {PagesModule} from './pages/pages.module';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpModule} from '@angular/http';
+import {LoadingModule} from './core/loading/loading.module';
 
 
 @NgModule({
@@ -29,8 +28,7 @@ import {HttpModule} from '@angular/http';
         SharedModule,
         AppRoutingModule,
         PagesModule,
-        PackageModule
-
+        LoadingModule,
     ],
     providers:
         [

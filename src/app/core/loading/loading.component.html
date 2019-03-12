@@ -1,0 +1,21 @@
+<!--<button id="toggle-loading-button" (click)="loading = !loading">Toggle loading</button>-->
+<!--<button id="toggle-colours-button" (click)="toggleColours()">Toggle colours</button>-->
+<!--<button id="toggle-template-button" (click)="toggleTemplate()">Toggle template</button>-->
+
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+    <h3>
+      Loading...
+    </h3>
+    <button (click)="showAlert()">
+      Click me!
+    </button>
+  </div>
+</ng-template>
+
+<div class="loading-container">
+
+  <div class="loading">
+    <ngx-loading #ngxLoading [show]="loading" [config]="loadingConfig" [template]="loadingTemplate"></ngx-loading>
+  </div>
+</div>

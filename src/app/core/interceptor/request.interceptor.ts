@@ -10,13 +10,13 @@ import {
 import {AuthService} from '../service/auth.service';
 
 import {Observable} from 'rxjs/Observable';
-import {NotifyUltis} from '../utility/notify.ultis';
 import 'rxjs-compat/add/operator/do';
 import 'rxjs-compat/add/operator/mergeMap';
 
+import {environment} from '../../../environments/environment';
 
 @Injectable()
-export class RequestInterceptor extends NotifyUltis implements HttpInterceptor {
+export class RequestInterceptor implements HttpInterceptor {
 
 
     constructor(private authService: AuthService) {
@@ -32,10 +32,10 @@ export class RequestInterceptor extends NotifyUltis implements HttpInterceptor {
             return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: false});
         } else {
             if (req.url.indexOf('cms') !== -1 || req.url.indexOf('language') !== -1 || req.url.indexOf('news') !== -1) {
-                return req.clone({url: req.url.replace(this.API_URL_BACKEND, this.API_URL), withCredentials: true});
+                return req.clone({url: req.url.replace(this.authService.API_URL_BACKEND, environment.API_URL), withCredentials: true});
             } else if (req.url.indexOf('upload') !== -1) {
                 return req.clone({
-                    url: req.url.replace(this.API_URL_BACKEND, this.IMG_URL_WH),
+                    url: req.url.replace(this.authService.API_URL_BACKEND, environment.IMG_URL_WH),
                     setHeaders: {Accept: 'application/json'},
                     withCredentials: true
                 });
@@ -50,13 +50,11 @@ export class RequestInterceptor extends NotifyUltis implements HttpInterceptor {
         return next.handle(this.addToken(req, this.authService.getAuthToken())).do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    // this.endLoading();
                     return event;
                     // do stuff with response if you want
                 }
             }).catch(error => {
             if (error instanceof HttpErrorResponse) {
-                // this.endLoading();
                 switch ((error as HttpErrorResponse).status) {
                     case 400:
                         return this.handle400Error(error);
@@ -97,7 +95,7 @@ export class RequestInterceptor extends NotifyUltis implements HttpInterceptor {
 
     logoutUser() {
         // Route to the login page (implementation up to you)
-        location.href = '/#/auth/login';
+        location.href = '/login';
         location.reload();
         return Observable.throw('');
     }

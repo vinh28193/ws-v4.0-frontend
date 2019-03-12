@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BaseComponent} from '../../core/base.compoment';
+
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-package-list',
-  templateUrl: './package-list.component.html',
-  styleUrls: ['./package-list.component.css']
+    selector: 'app-package-list',
+    templateUrl: './package-list.component.html',
+    styleUrls: ['./package-list.component.css']
 })
-export class PackageListComponent implements OnInit {
+export class PackageListComponent extends BaseComponent implements OnInit {
 
-  constructor() { }
+    // form Group
+    public searchForm: FormGroup;
 
-  ngOnInit() {
-  }
+    constructor(private fb: FormBuilder) {
+        super();
+    }
 
+    ngOnInit() {
+    }
+
+    buildForm() {
+        this.searchForm = this.fb.group({
+
+        });
+    }
 }
