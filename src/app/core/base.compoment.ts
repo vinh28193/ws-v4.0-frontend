@@ -1,8 +1,8 @@
-export interface ApplicationInterface {
+export interface NotifyInterface {
     notify(message);
 }
 
-export class BaseComponent implements ApplicationInterface {
+export class BaseComponent implements NotifyInterface {
 
     public store;
     public scope;

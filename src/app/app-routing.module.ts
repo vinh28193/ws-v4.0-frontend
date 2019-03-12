@@ -1,7 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
+import {SharedModule} from './shared/shared.module';
+import {PagesModule} from './pages/pages.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+
 
 const appRoutes: Routes = [
     {
@@ -24,14 +26,13 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    declarations: [],
+    declarations: [
+      PageNotFoundComponent
+    ],
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            {
-                enableTracing: true, // <-- debugging purposes only
-                preloadingStrategy: SelectivePreloadingStrategyService,
-            }
+            {enableTracing: true} // <-- debugging purposes only
         )
     ],
     exports: [

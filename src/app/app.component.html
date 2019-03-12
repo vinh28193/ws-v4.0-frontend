@@ -100,10 +100,32 @@
       <!-- sidebar-menu  -->
     </div>
   </nav>
-  <main class="page-content ml-2" style="background-color: #EEF5F9">
-    <div class="row m-0 p-0">
+  <main class="page-content ml-2 pt-0" style="background-color: #EEF5F9">
+    <div class="row m-0 p-0 bg-white">
       <div class="col-md-12 pl-0">
-        <router-outlet></router-outlet>
+        <div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">
+          <div class="col-md-5 align-self-center">
+            <h2 class="text-themecolor"> Order Manager</h2>
+          </div>
+          <div class="col-md-7 align-self-center text-right">
+            <ul class="bg-white text-right float-right" style="height: 100%">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Home</a>
+              </li><!---->
+              <li class="breadcrumb-item active">
+                <a href="#/order">Order</a>
+              </li>
+              <li class="breadcrumb-item active">
+                <a href="#/order">Order Manager</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
       </div>
     </div>
   </main>

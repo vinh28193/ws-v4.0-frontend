@@ -6,10 +6,12 @@ import {LoginComponent} from './login.component';
 import {AuthService} from '../core/service/auth.service';
 import {RequestInterceptor} from '../core/interceptor/request.interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         LoginRoutingModule
     ],
     declarations: [LoginComponent],

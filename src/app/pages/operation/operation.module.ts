@@ -9,7 +9,7 @@ import {ShipmentModule} from './shipment/shipment.module';
   imports: [
     CommonModule,
     OrderModule,
-    ShipmentModule
+    ShipmentModule,
   ]
 })
 export class OperationModule {

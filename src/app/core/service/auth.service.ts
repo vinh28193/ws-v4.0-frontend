@@ -9,24 +9,26 @@ import {EncryptionService} from './encryption.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private http: HttpClient, private popup: PopupService, private  encryption: EncryptionService) {
+    constructor(private http: HttpClient,
+                private popup: PopupService,
+                private  encryption: EncryptionService) {
 
     }
 
     getStoreCode($store) {
         switch (Number($store)) {
             case 6:
-                return "MY";
+                return 'MY';
             case 7:
-                return "ID";
+                return 'ID';
             case 9:
-                return "PH";
+                return 'PH';
             case 10:
-                return "TH";
+                return 'TH';
             case 1:
                 return 'VN';
             default:
-                return "";
+                return '';
         }
     }
 
@@ -87,8 +89,16 @@ export class AuthService {
     }
 
 
+<<<<<<<
+    HEAD;
     // isExpiredToken() {
     //     return (Date.now()) >= this.decrypt('expires_in');
     // }
+=======
+    // isExpiredToken() {
+    //   return (Date.now()) >= this.decrypt('expires_in');
+    // }
+>>>>>>>
+    d8cec9965b0e9bd278d3ba9f928c0a22098c7723;
 
 }
