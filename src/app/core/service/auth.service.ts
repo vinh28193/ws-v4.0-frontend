@@ -87,18 +87,4 @@ export class AuthService {
             'Error';
         });
     }
-
-
-<<<<<<<
-    HEAD;
-    // isExpiredToken() {
-    //     return (Date.now()) >= this.decrypt('expires_in');
-    // }
-=======
-    // isExpiredToken() {
-    //   return (Date.now()) >= this.decrypt('expires_in');
-    // }
->>>>>>>
-    d8cec9965b0e9bd278d3ba9f928c0a22098c7723;
-
 }
