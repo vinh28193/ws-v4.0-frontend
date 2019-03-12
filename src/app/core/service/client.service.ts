@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
@@ -16,240 +15,240 @@ declare var swal: any;
 
 @Injectable()
 export class ClientService extends NotifyUltis {
-  constructor(public http: HttpClient) {
-    super();
-  }
-
-  public total;
-  public page;
-  public httpOptions;
-
-  post(url, fd: FormData, page = null, limit = 20) {
-    if (page != null) {
-      const start = (page - 1) * limit;
-      fd.append('offset', start.toString());
-      fd.append('limit', limit.toString());
+    constructor(public http: HttpClient, public cryCode: ClientService) {
+        super();
     }
 
-    /*let header = new HttpHeaders().set('Content-Type', 'application/json');
-    application/x-www-form-urlencoded */
+    public total;
+    public page;
+    public httpOptions;
 
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-    header.append('X-Access-Token', this.cryCode.decrypt('access_token'));
-    return this.http.post(this.getApiURl(url), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
+    post(url, fd: FormData, page = null, limit = 20) {
+        if (page != null) {
+            const start = (page - 1) * limit;
+            fd.append('offset', start.toString());
+            fd.append('limit', limit.toString());
+        }
 
-  getApiURl(url, loading = true, fullPath = false, version = 'v1') {
-    if (loading) {
-      this.startLoading();
+        /*let header = new HttpHeaders().set('Content-Type', 'application/json');
+        application/x-www-form-urlencoded */
+
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+        header.append('X-Access-Token', this.cryCode.decrypt('access_token'));
+        return this.http.post(this.getApiURl(url), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
     }
-    if (fullPath) {
-      return url;
+
+    getApiURl(url, loading = true, fullPath = false, version = 'v1') {
+        if (loading) {
+            this.startLoading();
+        }
+        if (fullPath) {
+            return url;
+        }
+        return this.API_URL_BACKEND + '/' + url;
     }
-    return this.API_URL_BACKEND + '/' + url;
-  }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      // swal({
-      //   title: error.status,
-      //   text: error.error.message,
-      //   type: "error",
-      //   confirmButtonClass: "btn-danger"
-      // });
-      console.log('An error occurred:', error.error.message);
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            // A client-side or network error occurred. Handle it accordingly.
+            // swal({
+            //   title: error.status,
+            //   text: error.error.message,
+            //   type: "error",
+            //   confirmButtonClass: "btn-danger"
+            // });
+            console.log('An error occurred:', error.error.message);
 
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      // swal({
-      //   title: error.status,
-      //   text: "Error",
-      //   type: "error",
-      //   confirmButtonClass: "btn-danger"
-      // });
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            // swal({
+            //   title: error.status,
+            //   text: "Error",
+            //   type: "error",
+            //   confirmButtonClass: "btn-danger"
+            // });
 
-      console.log(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+            console.log(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+        }
+        // return an ErrorObservable with a user-facing error message
+        return new ErrorObservable(() => {
+            'Something bad happened; please try again later.';
+        });
     }
-    // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable(() => {
-      'Something bad happened; please try again later.';
-    });
-  }
 
-  downloadFile(action, fd: FormData): Observable<any> {
-    return this.http.post(this.getApiURl(action), fd)
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
-
-  uploadFile(action, fd: FormData) {
-    const header = new HttpHeaders().set('Accept', 'multipart/form-data').set('Content-Type', null);
-    return this.http.post(this.getApiURl(action), fd)
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
-
-  getList(action, fd: FormData, page: number = 0, limit: number = 10, loading = true): Observable<any> {
-
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-
-
-    const start = (page - 1) * limit;
-    fd.append('offset', start.toString());
-    fd.append('limit', limit.toString());
-
-    return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-
-  }
-
-  update(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-
-    return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
-
-  delete(action, fd: FormData, loading = true): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-
-    return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-
-  }
-
-  list(action, fd, loading = true, fullPath = false): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-
-    return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
-
-  getAll(action, fd = null, loading = true, version = 'v1'): Observable<any> {
-    if (fd == null) {
-      fd = new FormData();
+    downloadFile(action, fd: FormData): Observable<any> {
+        return this.http.post(this.getApiURl(action), fd)
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
     }
-    return this.http.get(this.getApiURl(action, loading)).map(response => {
-      const res: any = response;
-      return res.data;
-    });
 
-  }
-
-  // get(action, param?: any, fullUrl = false): Observable<any> {
-  //   const header = new HttpHeaders();
-  //   header.append('Accept', 'application/json');
-  //   header.append('Content-Type', 'application/x-www-form-urlencoded');
-  //   let url = this.getApiURl(action, true, fullUrl);
-  //   if (typeof param !== 'undefined' && typeof param === 'object') {
-  //     param = jQuery.param(param);
-  //     url += '?' + param;
-  //   }
-  //   return this.http.get(url, {headers: header, withCredentials: true}).pipe(
-  //     catchError(err => {
-  //       console.log('An error occurred:', err.error.message);
-  //       return throwError(err);
-  //     })
-  //   );
-  //
-  // }
-
-  public catchStatus(res, loading = true) {
-    if (loading) {
-      if (res.success) {
-        // console.log();
-        this.success(res.message, 'Success');
-        // this.success(customMsg != "" ? customMsg : res.message, "Success");
-      } else {
-        this.popupError('ERROR ', res.message);
-      }
-      this.endLoading();
+    uploadFile(action, fd: FormData) {
+        const header = new HttpHeaders().set('Accept', 'multipart/form-data').set('Content-Type', null);
+        return this.http.post(this.getApiURl(action), fd)
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
     }
-  }
 
-  put(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.put(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
+    getList(action, fd: FormData, page: number = 0, limit: number = 10, loading = true): Observable<any> {
 
-  //  methodGet('order-item-tracking-log/list-order-item-tracking-log',['id' => 12,'pape' => 1])
-  // methodGet(action,params = []){
-  //
-  // }
-  methodPost(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
 
-  // Test
+        const start = (page - 1) * limit;
+        fd.append('offset', start.toString());
+        fd.append('limit', limit.toString());
 
-  loadByID(id: number): Observable<any> {
+        return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
 
-    return this.http.get<any>(`${this.getApiURl}/${id}`);
-  }
+    }
+
+    update(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
+    }
+
+    delete(action, fd: FormData, loading = true): Observable<any> {
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
+
+    }
+
+    list(action, fd, loading = true, fullPath = false): Observable<any> {
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
+    }
+
+    getAll(action, fd = null, loading = true, version = 'v1'): Observable<any> {
+        if (fd == null) {
+            fd = new FormData();
+        }
+        return this.http.get(this.getApiURl(action, loading)).map(response => {
+            const res: any = response;
+            return res.data;
+        });
+
+    }
+
+    // get(action, param?: any, fullUrl = false): Observable<any> {
+    //   const header = new HttpHeaders();
+    //   header.append('Accept', 'application/json');
+    //   header.append('Content-Type', 'application/x-www-form-urlencoded');
+    //   let url = this.getApiURl(action, true, fullUrl);
+    //   if (typeof param !== 'undefined' && typeof param === 'object') {
+    //     param = jQuery.param(param);
+    //     url += '?' + param;
+    //   }
+    //   return this.http.get(url, {headers: header, withCredentials: true}).pipe(
+    //     catchError(err => {
+    //       console.log('An error occurred:', err.error.message);
+    //       return throwError(err);
+    //     })
+    //   );
+    //
+    // }
+
+    public catchStatus(res, loading = true) {
+        if (loading) {
+            if (res.success) {
+                // console.log();
+                this.success(res.message, 'Success');
+                // this.success(customMsg != "" ? customMsg : res.message, "Success");
+            } else {
+                this.popupError('ERROR ', res.message);
+            }
+            this.endLoading();
+        }
+    }
+
+    put(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this.http.put(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
+    }
+
+    //  methodGet('order-item-tracking-log/list-order-item-tracking-log',['id' => 12,'pape' => 1])
+    // methodGet(action,params = []){
+    //
+    // }
+    methodPost(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
+        const header = new HttpHeaders();
+        header.append('Accept', 'application/json');
+        header.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
+            .pipe(
+                catchError(err => {
+                    console.log('An error occurred:', err.error.message);
+                    return throwError(err);
+                })
+            );
+    }
+
+    // Test
+
+    loadByID(id: number): Observable<any> {
+
+        return this.http.get<any>(`${this.getApiURl}/${id}`);
+    }
 }
