@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BaseComponent} from '../../core/base.compoment';
 
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {PackageService} from '../package.service';
 
 @Component({
     selector: 'app-package-list',
@@ -13,16 +14,14 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-        super();
+    constructor(public packageService: PackageService, private fb: FormBuilder) {
+        super(packageService);
     }
 
     ngOnInit() {
     }
 
     buildForm() {
-        this.searchForm = this.fb.group({
-
-        });
+        this.searchForm = this.fb.group({});
     }
 }
