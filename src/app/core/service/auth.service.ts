@@ -68,8 +68,8 @@ export class AuthService extends NotifyUltis {
   }
 
 
-  isExpiredToken() {
-    return (Date.now()) >= this.decrypt('expires_in');
-  }
+  // isExpiredToken() {
+  //   return (Date.now()) >= this.decrypt('expires_in');
+  // }
 
 }
