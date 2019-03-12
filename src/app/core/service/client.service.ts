@@ -10,6 +10,7 @@ import {Type} from '@angular/core';
 
 import {NotifyUltis} from '../utility/notify.ultis';
 import 'rxjs-compat/add/operator/map';
+import {EncryptionService} from './encryption.service';
 
 declare var swal: any;
 
@@ -36,6 +37,7 @@ export class ClientService extends NotifyUltis {
     const header = new HttpHeaders();
     header.append('Accept', 'application/json');
     header.append('Content-Type', 'application/x-www-form-urlencoded');
+    header.append('X-Access-Token', this.cryCode.decrypt('access_token'));
     return this.http.post(this.getApiURl(url), fd, {headers: header, withCredentials: true})
       .pipe(
         catchError(err => {
