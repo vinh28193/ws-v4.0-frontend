@@ -2,13 +2,15 @@
  * Created by Thaim on 5/18/2017.
  */
 import {environment} from '../../../environments/environment';
+import NProgress from 'nprogress';
+import CryptoJS from 'crypto-js';
 
 declare var $: any;
 declare var jQuery: any;
 declare var swal: any;
 declare var toastr: any;
-declare var NProgress: any;
-declare var CryptoJS: any;
+// declare var NProgress: any;
+// declare var CryptoJS: any;
 
 export class NotifyUltis {
     // 'default','warning','danger','success', 'primary','secondary'
@@ -236,19 +238,17 @@ export class NotifyUltis {
     }
 
     encrypt(key, value) {
-        // const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value), '23ds43546324cxbfdh#44$**');
-        // localStorage.setItem(key, ciphertext);
-        localStorage.setItem(key, value);
+        const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value), '23ds43546324cxbfdh#44$**');
+        localStorage.setItem(key, ciphertext);
     }
 
     decrypt(key) {
         const ciphertext = localStorage.getItem(key);
-        return ciphertext;
-        // if (ciphertext == null) {
-        //     return '';
-        // }
-        // const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), '23ds43546324cxbfdh#44$**');
-        // return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        if (ciphertext == null) {
+            return '';
+        }
+        const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), '23ds43546324cxbfdh#44$**');
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
 
     getStoreCode($store) {
