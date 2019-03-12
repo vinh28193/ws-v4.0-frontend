@@ -17,47 +17,55 @@ export class AuthService extends GlobalService {
 
     }
 
+    /**
+     * Todo Validate pls
+     * @see authorizationCodeExpire
+     * string authorization code
+     * getter
+     */
     public get authorizationCode(): string {
         return this.decrypt('authorizationCode');
     }
 
+    /**
+     * setter
+     * @param {string} authorizationCode
+     */
     public set authorizationCode(authorizationCode: string) {
         this.encrypt('authorizationCode', authorizationCode);
     }
 
+    /**
+     * Todo Validate pls
+     * @see authorizationCode
+     * string authorization code expire
+     * getter
+     * @returns {string}
+     */
     public get authorizationCodeExpire(): string {
         return this.decrypt('authorizationCodeExpire');
     }
 
+    /**
+     * setter
+     * @param {string} authorizationCodeExpire
+     */
     public set authorizationCodeExpire(authorizationCodeExpire: string) {
         this.encrypt('authorizationCodeExpire', authorizationCodeExpire);
     }
 
+    /**
+     * get api auth url
+     * @param url
+     * @returns {any | string}
+     */
     public getApiAuthURl(url) {
         const fullUrl = environment.OAUTH_URL + '/' + url;
         return this.getApiURl(fullUrl, true);
     }
 
-    getStoreCode($store) {
-        switch (Number($store)) {
-            case 6:
-                return 'MY';
-            case 7:
-                return 'ID';
-            case 9:
-                return 'PH';
-            case 10:
-                return 'TH';
-            case 1:
-                return 'VN';
-            default:
-                return '';
-        }
-    }
-
     login(username, password) {
         return this.http.post(this.getApiAuthURl('login/authorize'), {username, password}, this.getSafeHttOptions());
-
     }
 
     getAccessToken() {

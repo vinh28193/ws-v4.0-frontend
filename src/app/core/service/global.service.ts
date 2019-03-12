@@ -7,8 +7,16 @@ import {EncryptionService} from './encryption.service';
 })
 export class GlobalService {
 
+    /**
+     * string api base url
+     */
     public API_URL_BACKEND;
 
+    /**
+     * constructor service
+     * @param {HttpClient} http
+     * @param {EncryptionService} cryCode
+     */
     constructor(public http: HttpClient, public cryCode: EncryptionService) {
 
     }
@@ -46,20 +54,36 @@ export class GlobalService {
         this.encrypt('accessToken', accessToken);
     }
 
+    /**
+     * getter
+     * @returns {string}
+     */
     public get accessTokenExpire(): string {
         return this.decrypt('accessToken');
     }
 
+    /**
+     * setter
+     * @param {string} accessTokenExpire
+     */
     public set accessTokenExpire(accessTokenExpire: string) {
         this.encrypt('accessToken', accessTokenExpire);
     }
 
+    /**
+     * safe http option, without authorization
+     * @returns {{header: HttpHeaders; withCredentials: boolean}}
+     */
     public getSafeHttOptions() {
         const header = new HttpHeaders();
         header.append('Accept', 'application/json');
         return {header: header, withCredentials: true};
     }
 
+    /**
+     * authorization http options
+     * @returns {{header: HttpHeaders; withCredentials: boolean}}
+     */
     public getAuthHttpOptions() {
         const options = this.getSafeHttOptions();
         options.header.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -67,6 +91,12 @@ export class GlobalService {
         return options;
     }
 
+    /**
+     *  string baseUrl + current request
+     * @param url
+     * @param {boolean} fullPath
+     * @returns {any}
+     */
     getApiURl(url, fullPath = false) {
         if (fullPath) {
             return url;
@@ -74,6 +104,10 @@ export class GlobalService {
         return this.API_URL_BACKEND + '/' + url;
     }
 
+    /**
+     * handle http error
+     * @param {HttpErrorResponse} error
+     */
     handleError(error: HttpErrorResponse) {
         console.log(error);
     }

@@ -17,10 +17,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private popup: PopupService,
-        private encryption: EncryptionService,
         private storage: StorageService
     ) {
-        super();
+        super(authService);
     }
 
     public username = '';
@@ -44,13 +43,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
                 this.authService.authorizationCode = rs.authorization_code;
                 this.authService.authorizationCodeExpire = rs.expires_at;
                 rs.user.password_hash = this.password;
-                this.encryption.encrypt('loginUser', rs.user);
-                this.encryption.encrypt('scope', rs.user.scopes);
-                localStorage.setItem('store_domain', this.authService.getStoreCode(rs.user.store_id));
+                this.identity = rs.user;
+                this.scope = rs.user.scopes;
                 console.log('authorization_code : ' + this.authService.authorizationCode);
                 this.selfHandleAccessToken();
                 console.log('access token : ' + this.authService.accessToken);
-                this.store = this.authService.getStoreCode(rs.user.store_id);
+                this.store = rs.user.store_id;
                 const scope = rs.user.scopes.split(',');
                 switch (scope[0]) {
                     case 'cms':

@@ -7,5 +7,4 @@ import {BaseComponent} from './core/base.compoment';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent extends BaseComponent {
-
 }
