@@ -30,13 +30,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     login() {
+        this.loading = true;
         if (!this.username || !this.password) {
+            this.loading = false;
             this.popup.error('Tài khoản hoặc mật khẩu không được để trống.', 'Lỗi');
         }
         this.authService.login(this.username, this.password).subscribe(ret => {
             console.log(ret);
             const res: any = ret;
             if (res.success) {
+                this.loading = false;
                 const rs: any = res.data;
                 this.encryption.encrypt('authorization_code', rs.authorization_code);
                 this.encryption.encrypt('authorization_code_expires_at', rs.expires_at);
@@ -79,8 +82,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
                 }
             } else {
+                this.loading = false;
                 this.popup.error(res.message, 'Error');
             }
+            this.loading = false;
             console.log('done');
         });
     }

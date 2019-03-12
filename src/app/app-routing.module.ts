@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CanActivate, RouterModule, Routes} from '@angular/router';
-import {SharedModule} from './shared/shared.module';
-import {PagesModule} from './pages/pages.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
+import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
 
 const appRoutes: Routes = [
     {
@@ -32,7 +31,11 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            {enableTracing: true} // <-- debugging purposes only
+            {
+                enableTracing: false,  // <-- debugging purposes only
+                preloadingStrategy: SelectivePreloadingStrategyService,
+            }
+
         )
     ],
     exports: [

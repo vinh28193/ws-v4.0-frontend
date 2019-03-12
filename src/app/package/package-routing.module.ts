@@ -5,11 +5,15 @@ import {PackageListComponent} from './package-list/package-list.component';
 
 const routes: Routes = [
     {
-        path: 'pakage',
+        path: '',
         component: PackageComponent,
         children: [
             {
                 path: '',
+                component: PackageListComponent
+            },
+            {
+                path: 'list',
                 component: PackageListComponent
             }
         ]
