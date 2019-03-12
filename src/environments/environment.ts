@@ -20,11 +20,11 @@ export const environment = {
   IMG_URL_TH: 'https://static-v3.weshop.asia',
 
   IMG_URL_WH: 'https://static-v3.weshop.asia',
-  API_URL_BACKEND: 'http://weshop-v31.beta/api',
+  API_URL_BACKEND: 'http://weshop.v4.api/v1/user/api/',
   // 'API_URL_BACKEND':"http://139.59.97.47:9082/api",
 
 
-  OAUTH_URL: 'http://weshop.v4.api/v1',
+  OAUTH_URL: 'http://weshop.v4.api/v1/user',
   CLIENT_ID: 'testclient',
   CLIENT_SECRET: 'testpass'
 };

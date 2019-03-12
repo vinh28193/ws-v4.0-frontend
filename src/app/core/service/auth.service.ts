@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     login(username, password) {
-        return this.http.post(environment.OAUTH_URL + '/user/login/authorize', {username, password}, {
+        return this.http.post(environment.OAUTH_URL + '/login/authorize', {username, password}, {
             headers: new HttpHeaders().set('Content-Type', 'application/json'),
             withCredentials: true
         });
@@ -45,7 +45,7 @@ export class AuthService {
             headers: new HttpHeaders().set('Content-Type', 'application/json'),
             withCredentials: true
         };
-        return this.http.post(environment.OAUTH_URL + '/user/login/accesstoken', {authorizationCode}, options);
+        return this.http.post(environment.OAUTH_URL + '/login/accesstoken', {authorizationCode}, options);
     }
 
     getAuthToken() {
@@ -60,7 +60,7 @@ export class AuthService {
                 Accept: 'application/json',
             },
         );
-        return this.http.post(environment.OAUTH_URL + '/user/login/accesstoken', fd, {
+        return this.http.post(environment.OAUTH_URL + '/login/accesstoken', fd, {
             headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
             withCredentials: true
         }).catch(this.handleError);
