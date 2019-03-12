@@ -236,17 +236,19 @@ export class NotifyUltis {
     }
 
     encrypt(key, value) {
-        const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value), '23ds43546324cxbfdh#44$**');
-        localStorage.setItem(key, ciphertext);
+        // const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(value), '23ds43546324cxbfdh#44$**');
+        // localStorage.setItem(key, ciphertext);
+        localStorage.setItem(key, value);
     }
 
     decrypt(key) {
         const ciphertext = localStorage.getItem(key);
-        if (ciphertext == null) {
-            return '';
-        }
-        const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), '23ds43546324cxbfdh#44$**');
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        return ciphertext;
+        // if (ciphertext == null) {
+        //     return '';
+        // }
+        // const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), '23ds43546324cxbfdh#44$**');
+        // return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
 
     getStoreCode($store) {
