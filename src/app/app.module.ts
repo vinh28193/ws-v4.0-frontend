@@ -1,29 +1,31 @@
 
+import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
-import {LoginComponent} from './shared/login/login.component';
+
 import {AppRoutingModule} from './app-routing.module';
+
+import {RequestInterceptor} from './core/interceptor/request.interceptor';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthService} from './core/service/auth.service';
-import {RequestInterceptor} from './core/interceptor/request.interceptor';
-import {RouterModule} from '@angular/router';
-import {routes} from './pages/operation/order/order.module';
-
+import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        PageNotFoundComponent
     ],
     imports: [
+        BrowserModule,
         SharedModule,
         AppRoutingModule,
-        // PagesModule,
-        // AppRoutingModule,
-        // RouterModule.forRoot(routes, {useHash: true})
     ],
     providers:
         [ AuthService,
+
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         ],
     bootstrap: [AppComponent]
