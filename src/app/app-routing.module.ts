@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './shared/login/login.component';
-import {PackingModule} from './packing/packing.module';
 import {SharedModule} from './shared/shared.module';
+import {PagesModule} from './pages/pages.module';
 
 const appRoutes: Routes = [
     {
@@ -11,13 +11,9 @@ const appRoutes: Routes = [
     },
     {path: '404', redirectTo: '404'},
     {
-        path: 'packing',
-        loadChildren: './packing/packing.module#PackingModule',
+      path: 'packing',
+      loadChildren: './packing/packing.module#PackingModule',
     },
-  {
-    path: 'login',
-    loadChildren: './packing/packing.module#SharedModule',
-  },
 ];
 
 @NgModule({
