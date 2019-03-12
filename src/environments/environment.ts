@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  API_URL_BACKEND: 'http://weshop.v4.api/v1',
   production: false,
   OAUTH_URL: 'http://weshop.v4.api/v1',
 };

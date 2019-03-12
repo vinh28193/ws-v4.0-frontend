@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
@@ -14,14 +13,15 @@ import 'rxjs-compat/add/operator/map';
 declare var swal: any;
 
 @Injectable()
-export class ClientService extends NotifyUltis {
+export class ClientService {
   constructor(public http: HttpClient) {
-    super();
+    this.API_URL_BACKEND = environment['API_URL_BACKEND'];
   }
 
   public total;
   public page;
   public httpOptions;
+  public API_URL_BACKEND = '';
 
   post(url, fd: FormData, page = null, limit = 20) {
     if (page != null) {
@@ -46,9 +46,6 @@ export class ClientService extends NotifyUltis {
   }
 
   getApiURl(url, loading = true, fullPath = false, version = 'v1') {
-    if (loading) {
-      this.startLoading();
-    }
     if (fullPath) {
       return url;
     }
@@ -118,7 +115,7 @@ export class ClientService extends NotifyUltis {
     fd.append('offset', start.toString());
     fd.append('limit', limit.toString());
 
-    return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
+    return this.http.get(`${this.getApiURl(action, loading)}/${fd}`, {headers: header, withCredentials: true})
       .pipe(
         catchError(err => {
           console.log('An error occurred:', err.error.message);
@@ -129,6 +126,20 @@ export class ClientService extends NotifyUltis {
   }
 
   update(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
+    const header = new HttpHeaders();
+    header.append('Accept', 'application/json');
+    header.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.put(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
+      .pipe(
+        catchError(err => {
+          console.log('An error occurred:', err.error.message);
+          return throwError(err);
+        })
+      );
+  }
+
+  Post(action, fd: FormData, loading = true, fullPath = false): Observable<any> {
     const header = new HttpHeaders();
     header.append('Accept', 'application/json');
     header.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -147,7 +158,7 @@ export class ClientService extends NotifyUltis {
     header.append('Accept', 'application/json');
     header.append('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post(this.getApiURl(action, loading), fd, {headers: header, withCredentials: true})
+    return this.http.delete(`${this.getApiURl(action, loading)}/${fd}`, {headers: header, withCredentials: true})
       .pipe(
         catchError(err => {
           console.log('An error occurred:', err.error.message);
@@ -156,49 +167,6 @@ export class ClientService extends NotifyUltis {
       );
 
   }
-
-  list(action, fd, loading = true, fullPath = false): Observable<any> {
-    const header = new HttpHeaders();
-    header.append('Accept', 'application/json');
-    header.append('Content-Type', 'application/x-www-form-urlencoded');
-
-    return this.http.post(this.getApiURl(action, loading, fullPath), fd, {headers: header, withCredentials: true})
-      .pipe(
-        catchError(err => {
-          console.log('An error occurred:', err.error.message);
-          return throwError(err);
-        })
-      );
-  }
-
-  getAll(action, fd = null, loading = true, version = 'v1'): Observable<any> {
-    if (fd == null) {
-      fd = new FormData();
-    }
-    return this.http.get(this.getApiURl(action, loading)).map(response => {
-      const res: any = response;
-      return res.data;
-    });
-
-  }
-
-  // get(action, param?: any, fullUrl = false): Observable<any> {
-  //   const header = new HttpHeaders();
-  //   header.append('Accept', 'application/json');
-  //   header.append('Content-Type', 'application/x-www-form-urlencoded');
-  //   let url = this.getApiURl(action, true, fullUrl);
-  //   if (typeof param !== 'undefined' && typeof param === 'object') {
-  //     param = jQuery.param(param);
-  //     url += '?' + param;
-  //   }
-  //   return this.http.get(url, {headers: header, withCredentials: true}).pipe(
-  //     catchError(err => {
-  //       console.log('An error occurred:', err.error.message);
-  //       return throwError(err);
-  //     })
-  //   );
-  //
-  // }
 
   public catchStatus(res, loading = true) {
     if (loading) {

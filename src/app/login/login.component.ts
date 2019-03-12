@@ -47,7 +47,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
                 console.log('authorization_code : ' + rs.authorization_code);
                 this.accessToken(rs.authorization_code);
                 console.log('authorization_code : ' + this.encryption.decrypt('access_token'));
-                this.store = this.authService.getStoreCode(rs.user.store_id);
+                this.store = this.authService.getStoreCode(rs.user.store_id)
+                console.log(rs.user.scopes);
                 const scope = rs.user.scopes.split(',');
                 switch (scope[0]) {
                     case 'cms':

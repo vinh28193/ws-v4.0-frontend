@@ -6,7 +6,7 @@ import {SharedModule} from './shared/shared.module';
 import {Router} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './core/service/auth.service';
 import {PopupService} from './core/service/popup.service';
 import {EncryptionService} from './core/service/encryption.service';
@@ -16,6 +16,7 @@ import {PackageModule} from './package/package.module';
 
 import {PagesModule} from './pages/pages.module';
 import {BrowserModule} from '@angular/platform-browser';
+import {HttpModule} from '@angular/http';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {BrowserModule} from '@angular/platform-browser';
         AppComponent,
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
         SharedModule,
         AppRoutingModule,
@@ -37,6 +39,7 @@ import {BrowserModule} from '@angular/platform-browser';
             EncryptionService,
             StorageService,
             AuthService,
+            HttpClient,
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         ],
     bootstrap: [AppComponent]
