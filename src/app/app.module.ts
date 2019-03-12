@@ -4,6 +4,10 @@ import {SharedModule} from './shared/shared.module';
 import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthService} from './core/service/auth.service';
+
+import {PopupService} from './core/service/popup.service';
+import {EncryptionService} from './core/service/encryption.service';
+import {StorageService} from './core/service/storage.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {PackageModule} from './package/package.module';
 import {PagesModule} from './pages/pages.module';
@@ -24,7 +28,12 @@ import {Router} from '@angular/router';
 
     ],
     providers:
-        [ AuthService,
+        [
+            PopupService,
+            AuthService,
+            EncryptionService,
+            StorageService,
+            AuthService,
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         ],
     bootstrap: [AppComponent]

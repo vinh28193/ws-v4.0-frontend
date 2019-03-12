@@ -50,13 +50,13 @@ export class RequestInterceptor extends NotifyUltis implements HttpInterceptor {
         return next.handle(this.addToken(req, this.authService.getAuthToken())).do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    this.endLoading();
+                    // this.endLoading();
                     return event;
                     // do stuff with response if you want
                 }
             }).catch(error => {
             if (error instanceof HttpErrorResponse) {
-                this.endLoading();
+                // this.endLoading();
                 switch ((error as HttpErrorResponse).status) {
                     case 400:
                         return this.handle400Error(error);
