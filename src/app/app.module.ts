@@ -14,7 +14,9 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthService} from './core/service/auth.service';
-import { LoginModule } from './login/login.module';
+import {PopupService} from './core/service/popup.service';
+import {EncryptionService} from './core/service/encryption.service';
+import {StorageService} from './core/service/storage.service';
 
 @NgModule({
     declarations: [
@@ -29,8 +31,11 @@ import { LoginModule } from './login/login.module';
 
     ],
     providers:
-        [ AuthService,
-
+        [
+            PopupService,
+            AuthService,
+            EncryptionService,
+            StorageService,
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         ],
     bootstrap: [AppComponent]

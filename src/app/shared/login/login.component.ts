@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseComponent} from '../../core/compoment/base.compoment';
+import {BaseComponent} from '../../core/base.compoment';
 import {AuthService} from '../../core/service/auth.service';
 
 @Component({
