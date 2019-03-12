@@ -13,12 +13,45 @@ export class GlobalService {
 
     }
 
-    public get accessToken(): string {
-        return this.cryCode.decrypt('accessToken');
+    /**
+     * @param {string} key
+     * @param {any | null} value
+     */
+    public encrypt(key: string, value: any | null) {
+        this.cryCode.encrypt(key, value);
     }
 
+    /**
+     * @param {string} key
+     * @returns {any}
+     */
+    public decrypt(key: string) {
+        return this.cryCode.decrypt(key);
+    }
+
+    /**
+     * getter
+     * string Access Token
+     * @returns {string}
+     */
+    public get accessToken(): string {
+        return this.decrypt('accessToken');
+    }
+
+    /**
+     * setter
+     * @param {string} accessToken
+     */
     public set accessToken(accessToken: string) {
-        this.cryCode.encrypt('accessToken', accessToken);
+        this.encrypt('accessToken', accessToken);
+    }
+
+    public get accessTokenExpire(): string {
+        return this.decrypt('accessToken');
+    }
+
+    public set accessTokenExpire(accessTokenExpire: string) {
+        this.encrypt('accessToken', accessTokenExpire);
     }
 
     public getSafeHttOptions() {

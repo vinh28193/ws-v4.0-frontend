@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
-import {Headers} from '@angular/http';
 import 'rxjs-compat/add/operator/catch';
 import {PopupService} from './popup.service';
 import {EncryptionService} from './encryption.service';
@@ -10,11 +9,28 @@ import {GlobalService} from './global.service';
 
 @Injectable()
 export class AuthService extends GlobalService {
+
     constructor(public http: HttpClient,
                 public encryption: EncryptionService,
                 public popup: PopupService) {
         super(http, encryption);
 
+    }
+
+    public get authorizationCode(): string {
+        return this.decrypt('authorizationCode');
+    }
+
+    public set authorizationCode(authorizationCode: string) {
+        this.encrypt('authorizationCode', authorizationCode);
+    }
+
+    public get authorizationCodeExpire(): string {
+        return this.decrypt('authorizationCodeExpire');
+    }
+
+    public set authorizationCodeExpire(authorizationCodeExpire: string) {
+        this.encrypt('authorizationCodeExpire', authorizationCodeExpire);
     }
 
     public getApiAuthURl(url) {
@@ -44,17 +60,13 @@ export class AuthService extends GlobalService {
 
     }
 
-    getAccessToken(authorizationCode) {
-        return this.http.post(this.getApiAuthURl('login/accesstoken'), {authorizationCode}, this.getSafeHttOptions());
-    }
-
-    getAuthToken() {
-        return this.encryption.decrypt('access_token');
+    getAccessToken() {
+        return this.http.post(this.getApiAuthURl('login/accesstoken'), this.authorizationCode, this.getSafeHttOptions());
     }
 
     refreshToken() {
         const fd = new FormData();
-        fd.append('authorization_code', this.encryption.decrypt('authorization_code'));
+        fd.append('authorization_code', this.authorizationCode);
         return this.http.post(this.getApiAuthURl('login/accesstoken'), fd, this.getSafeHttOptions()).catch(this.handleError);
 
     }
@@ -67,7 +79,7 @@ export class AuthService extends GlobalService {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
             if (error.status === 400) {
-                location.href = '/#/auth/login';
+                location.href = '/login';
                 location.reload();
             }
             console.error(
