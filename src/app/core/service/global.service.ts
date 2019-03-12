@@ -8,26 +8,83 @@ import {environment} from '../../../environments/environment.prod';
 })
 export class GlobalService {
 
+    /**
+     * string api base url
+     */
     public API_URL_BACKEND;
 
+    /**
+     * constructor service
+     * @param {HttpClient} http
+     * @param {EncryptionService} cryCode
+     */
     constructor(public http: HttpClient, public cryCode: EncryptionService) {
       this.API_URL_BACKEND = environment['API_URL_BACKEND'];
     }
 
+    /**
+     * @param {string} key
+     * @param {any | null} value
+     */
+    public encrypt(key: string, value: any | null) {
+        this.cryCode.encrypt(key, value);
+    }
+
+    /**
+     * @param {string} key
+     * @returns {any}
+     */
+    public decrypt(key: string) {
+        return this.cryCode.decrypt(key);
+    }
+
+    /**
+     * getter
+     * string Access Token
+     * @returns {string}
+     */
     public get accessToken(): string {
-        return this.cryCode.decrypt('accessToken');
+        return this.decrypt('accessToken');
     }
 
+    /**
+     * setter
+     * @param {string} accessToken
+     */
     public set accessToken(accessToken: string) {
-        this.cryCode.encrypt('accessToken', accessToken);
+        this.encrypt('accessToken', accessToken);
     }
 
+    /**
+     * getter
+     * @returns {string}
+     */
+    public get accessTokenExpire(): string {
+        return this.decrypt('accessToken');
+    }
+
+    /**
+     * setter
+     * @param {string} accessTokenExpire
+     */
+    public set accessTokenExpire(accessTokenExpire: string) {
+        this.encrypt('accessToken', accessTokenExpire);
+    }
+
+    /**
+     * safe http option, without authorization
+     * @returns {{header: HttpHeaders; withCredentials: boolean}}
+     */
     public getSafeHttOptions() {
         const header = new HttpHeaders();
         header.append('Accept', 'application/json');
         return {header: header, withCredentials: true};
     }
 
+    /**
+     * authorization http options
+     * @returns {{header: HttpHeaders; withCredentials: boolean}}
+     */
     public getAuthHttpOptions() {
         const options = this.getSafeHttOptions();
         options.header.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -35,6 +92,12 @@ export class GlobalService {
         return options;
     }
 
+    /**
+     *  string baseUrl + current request
+     * @param url
+     * @param {boolean} fullPath
+     * @returns {any}
+     */
     getApiURl(url, fullPath = false) {
         if (fullPath) {
             return url;
@@ -42,6 +105,10 @@ export class GlobalService {
         return this.API_URL_BACKEND + '/' + url;
     }
 
+    /**
+     * handle http error
+     * @param {HttpErrorResponse} error
+     */
     handleError(error: HttpErrorResponse) {
         console.log(error);
     }

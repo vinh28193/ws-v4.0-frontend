@@ -27,15 +27,23 @@ export class ClientService extends GlobalService {
       'Something bad happened; please try again later.';
     });
   }
-  get(url, stringQuery): Observable<any> {
-    url += '?' + stringQuery;
-    const action = this.getApiURl(url)
-    return this.http.get(url, this.getAuthHttpOptions())
+
+  /**
+   * @param url
+   * @param params
+   */
+  get(url: string, params: any | undefined): Observable<any> {
+    if (typeof params !== 'undefined' && typeof params === 'object') {
+      params = jQuery.param(params);
+      url += '?' + params;
+    }
+    return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
       .pipe(
         catchError(this.handleError)
       );
 
   }
+
   post(url, body) {
     return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
       .pipe(
@@ -49,8 +57,8 @@ export class ClientService extends GlobalService {
         catchError(this.handleError)
       );
   }
-  delete(url, body): Observable<any> {
 
+  delete(url, body): Observable<any> {
     return this.http.delete(`${this.getApiURl(url)}/${body}`, this.getAuthHttpOptions())
       .pipe(
         catchError(this.handleError)
