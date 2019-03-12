@@ -6,13 +6,20 @@ import {Headers} from '@angular/http';
 import 'rxjs-compat/add/operator/catch';
 import {PopupService} from './popup.service';
 import {EncryptionService} from './encryption.service';
+import {GlobalService} from './global.service';
 
 @Injectable()
-export class AuthService {
-    constructor(private http: HttpClient,
-                private popup: PopupService,
-                private  encryption: EncryptionService) {
+export class AuthService extends GlobalService {
+    constructor(public http: HttpClient,
+                public encryption: EncryptionService,
+                public popup: PopupService) {
+        super(http, encryption);
 
+    }
+
+    public getApiAuthURl(url) {
+        const fullUrl = environment.OAUTH_URL + '/' + url;
+        return this.getApiURl(fullUrl, true);
     }
 
     getStoreCode($store) {
@@ -33,19 +40,12 @@ export class AuthService {
     }
 
     login(username, password) {
-        return this.http.post(environment.OAUTH_URL + '/login/authorize', {username, password}, {
-            headers: new HttpHeaders().set('Content-Type', 'application/json'),
-            withCredentials: true
-        });
+        return this.http.post(this.getApiAuthURl('login/authorize'), {username, password}, this.getSafeHttOptions());
 
     }
 
     getAccessToken(authorizationCode) {
-        const options = {
-            headers: new HttpHeaders().set('Content-Type', 'application/json'),
-            withCredentials: true
-        };
-        return this.http.post(environment.OAUTH_URL + '/login/accesstoken', {authorizationCode}, options);
+        return this.http.post(this.getApiAuthURl('login/accesstoken'), {authorizationCode}, this.getSafeHttOptions());
     }
 
     getAuthToken() {
@@ -55,19 +55,11 @@ export class AuthService {
     refreshToken() {
         const fd = new FormData();
         fd.append('authorization_code', this.encryption.decrypt('authorization_code'));
-        const headers = new Headers(
-            {
-                Accept: 'application/json',
-            },
-        );
-        return this.http.post(environment.OAUTH_URL + '/login/accesstoken', fd, {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-            withCredentials: true
-        }).catch(this.handleError);
+        return this.http.post(this.getApiAuthURl('login/accesstoken'), fd, this.getSafeHttOptions()).catch(this.handleError);
 
     }
 
-    private handleError(error: HttpErrorResponse) {
+    handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);

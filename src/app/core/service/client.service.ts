@@ -1,43 +1,19 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
-import {map} from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
-import {Type} from '@angular/core';
 
-import {NotifyUltis} from '../utility/notify.ultis';
 import 'rxjs-compat/add/operator/map';
-import {EncryptionService} from './encryption.service';
+import {GlobalService} from './global.service';
 
 declare var swal: any;
 
 @Injectable()
-export class ClientService extends NotifyUltis {
-    constructor(public http: HttpClient, public cryCode: ClientService) {
-        super();
-    }
+export class ClientService extends GlobalService {
 
-    public total;
-    public page;
-    public httpOptions;
-
-    post(url, fd: FormData, page = null, limit = 20) {
-        if (page != null) {
-            const start = (page - 1) * limit;
-            fd.append('offset', start.toString());
-            fd.append('limit', limit.toString());
-        }
-
-        /*let header = new HttpHeaders().set('Content-Type', 'application/json');
-        application/x-www-form-urlencoded */
-
-        const header = new HttpHeaders();
-        header.append('Accept', 'application/json');
-        header.append('Content-Type', 'application/x-www-form-urlencoded');
-        header.append('X-Access-Token', this.cryCode.decrypt('access_token'));
-        return this.http.post(this.getApiURl(url), fd, {headers: header, withCredentials: true})
+    post(url, body) {
+        return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
             .pipe(
                 catchError(err => {
                     console.log('An error occurred:', err.error.message);
@@ -46,17 +22,7 @@ export class ClientService extends NotifyUltis {
             );
     }
 
-    getApiURl(url, loading = true, fullPath = false, version = 'v1') {
-        if (loading) {
-            this.startLoading();
-        }
-        if (fullPath) {
-            return url;
-        }
-        return this.API_URL_BACKEND + '/' + url;
-    }
-
-    private handleError(error: HttpErrorResponse) {
+     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             // swal({
