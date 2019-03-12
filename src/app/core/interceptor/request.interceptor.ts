@@ -20,7 +20,6 @@ export class RequestInterceptor implements HttpInterceptor {
 
 
     constructor(private authService: AuthService) {
-        super();
     }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -47,7 +46,7 @@ export class RequestInterceptor implements HttpInterceptor {
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        return next.handle(this.addToken(req, this.authService.getAuthToken())).do(
+        return next.handle(this.addToken(req, this.authService.accessToken)).do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     return event;
@@ -72,11 +71,11 @@ export class RequestInterceptor implements HttpInterceptor {
         return this.authService.refreshToken()
             .mergeMap(refreshResponse => {
                 const rs: any = refreshResponse;
-                this.encrypt('access_token', rs.access_token);
-                this.encrypt('expires_in', Date.now() + Number(rs.expires_in) * 1000);
-                this.encrypt('token_type', rs.token_type);
+                this.authService.encrypt('access_token', rs.access_token);
+                this.authService.encrypt('expires_in', Date.now() + Number(rs.expires_in) * 1000);
+                this.authService.encrypt('token_type', rs.token_type);
                 if (rs.refresh_token) {
-                    this.encrypt('refresh_token', rs.refresh_token);
+                    this.authService.encrypt('refresh_token', rs.refresh_token);
                 }
                 return next.handle(this.addToken(req, rs.access_token));
             });
