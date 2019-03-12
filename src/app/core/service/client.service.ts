@@ -14,7 +14,7 @@ import 'rxjs-compat/add/operator/map';
 declare var swal: any;
 
 @Injectable()
-export class ClientService<T> extends NotifyUltis {
+export class ClientService extends NotifyUltis {
   constructor(public http: HttpClient) {
     super();
   }
