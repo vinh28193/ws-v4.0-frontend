@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {CanActivate, RouterModule, Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
 import {PagesModule} from './pages/pages.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
