@@ -7,11 +7,18 @@ import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
 import 'rxjs-compat/add/operator/map';
 import {GlobalService} from './global.service';
 import {environment} from '../../../environments/environment.prod';
+import {BaseComponent} from '../base.compoment';
+import {EncryptionService} from './encryption.service';
+import {PopupService} from './popup.service';
 
 declare var swal: any;
 
 @Injectable()
 export class ClientService extends GlobalService {
+
+  constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
+    super(encryption);
+  }
 
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

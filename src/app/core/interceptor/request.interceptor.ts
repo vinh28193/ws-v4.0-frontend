@@ -23,15 +23,18 @@ export class RequestInterceptor implements HttpInterceptor {
     }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+      console.log(req.url);
         if (req.url.indexOf('token') === -1 &&
             req.url.indexOf('cms') === -1 &&
             req.url.indexOf('language') === -1 &&
             req.url.indexOf('upload') === -1 &&
             req.url.indexOf('news') === -1) {
             return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: false});
-        } else {
+        }  else {
             if (req.url.indexOf('cms') !== -1 || req.url.indexOf('language') !== -1 || req.url.indexOf('news') !== -1) {
                 return req.clone({url: req.url.replace(this.authService.API_URL_BACKEND, environment.API_URL), withCredentials: true});
+            } else if (req.url.indexOf('manifest') !== -1) {
+              return req.clone({setHeaders: {'X-Access-Token': token}, withCredentials: false});
             } else if (req.url.indexOf('upload') !== -1) {
                 return req.clone({
                     url: req.url.replace(this.authService.API_URL_BACKEND, environment.IMG_URL_WH),
