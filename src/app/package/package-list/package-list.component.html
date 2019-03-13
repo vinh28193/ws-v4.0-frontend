@@ -46,7 +46,43 @@
                 </section>
                 <article class="row item-list">
                     <div class="col-md-12">
+                        <div class="row pagination"></div>
+                        <div class="row grid">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-custom">
+                                        <thead>
+                                        <tr>
+                                            <th width="5%" class="text-center">
+                                                <input type="checkbox" name="checkAllPackage">
+                                            </th>
+                                            <th width="25%" class="text-left"><i class="fa fa-cube"></i> Package</th>
+                                            <th width="45%"><i class="fa fa-info-circle"></i> Detail</th>
+                                            <th width="25%" class="text-left"><i class="fa fa-bars"></i> Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" name="checkPackage1"></td>
+                                                <td>
+                                                    <p class="p-custom m-b-0">Current Status: <span class="label label-danger">Kho US</span></p>
+                                                    <p class="p-custom m-b-0">Seller Tracking: <strong>TB000009987</strong></p>
+                                                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+                                                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+                                                    <p class="p-custom m-b-0">Volume: <span class="text-danger">20x12x30</span><strong>(cm)</strong></p>
+                                                    <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
+                                                </td>
+                                                <td>
 
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </div>
@@ -54,4 +90,9 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #packageItemTemplate>
+    <h3>Test Tes</h3>
+</ng-template>
 
