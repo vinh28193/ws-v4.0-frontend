@@ -1,6 +1,6 @@
 import {Package} from './package';
 
-export const PACKAGES: Package[] = [
+export const PACKAGES: any = [
     {
         id: 123,
         package_code: '01312893174189',
@@ -13,11 +13,11 @@ export const PACKAGES: Package[] = [
         package_dimension_l: 90,
         package_dimension_w: 60,
         package_dimension_h: 85,
-        seller_shipped: '2019-03-12 12:00:00',
+        seller_shipped: '2019-03-11 12:00:00',
         stock_in_us: '2019-03-12 12:00:00',
-        stock_out_us: '2019-03-12 12:00:00',
-        stock_in_local: '2019-03-12 12:00:00',
-        lost: '2019-03-12 12:00:00',
+        stock_out_us: '2019-03-13 12:00:00',
+        stock_in_local: '2019-03-14 12:00:00',
+        lost: '2019-03-15 12:00:00',
         current_status: '2019-03-12 12:00:00',
         warehouse_id: '2019-03-12 12:00:00',
         orders: [
