@@ -47,7 +47,7 @@ export class RequestInterceptor implements HttpInterceptor {
     }
     intercept(
         req: HttpRequest<any>,
-        next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
+        next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> {
         return next.handle(this.addToken(req, this.authService.accessToken)).do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {

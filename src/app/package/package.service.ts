@@ -8,13 +8,13 @@ import {PopupService} from '../core/service/popup.service';
 })
 export class PackageService extends ClientService {
 
-    constructor(
-                public encryption: EncryptionService,
-                public popup: PopupService) {
-        super(encryption);
-
-    }
-    getAllList(filter: any | undefined) {
-        return this.get('package/index', filter);
-    }
+    // constructor(
+    //             public encryption: EncryptionService,
+    //             public popup: PopupService) {
+    //     super(encryption);
+    //
+    // }
+    // getAllList(filter: any | undefined) {
+    //     return this.get('package/index', filter);
+    // }
 }

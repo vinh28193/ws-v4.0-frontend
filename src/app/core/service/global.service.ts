@@ -59,7 +59,7 @@ export class GlobalService {
    * @returns {string}
    */
   public get accessTokenExpire(): string {
-    return this.decrypt('accessToken');
+    return this.decrypt('accessTokenExpire');
   }
 
   /**
@@ -67,7 +67,7 @@ export class GlobalService {
    * @param {string} accessTokenExpire
    */
   public set accessTokenExpire(accessTokenExpire: string) {
-    this.encrypt('accessToken', accessTokenExpire);
+    this.encrypt('accessTokenExpire', accessTokenExpire);
   }
 
   /**
