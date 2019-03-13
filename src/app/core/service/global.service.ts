@@ -15,10 +15,9 @@ export class GlobalService {
 
     /**
      * constructor service
-     * @param {HttpClient} http
      * @param {EncryptionService} cryCode
      */
-    constructor(public http: HttpClient, public cryCode: EncryptionService) {
+    constructor(public cryCode: EncryptionService) {
       this.API_URL_BACKEND = environment['API_URL_BACKEND'];
     }
 

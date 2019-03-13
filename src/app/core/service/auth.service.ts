@@ -13,7 +13,7 @@ export class AuthService extends GlobalService {
     constructor(public http: HttpClient,
                 public encryption: EncryptionService,
                 public popup: PopupService) {
-        super(http, encryption);
+        super(encryption);
 
     }
 
