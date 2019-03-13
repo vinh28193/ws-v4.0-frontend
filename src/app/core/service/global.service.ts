@@ -77,7 +77,7 @@ export class GlobalService {
   public getSafeHttpOptions() {
     const header = new HttpHeaders();
     header.append('Accept', 'application/json');
-    return {header: header, withCredentials: true};
+    return {headers: header, withCredentials: true};
   }
 
   /**
@@ -86,8 +86,8 @@ export class GlobalService {
    */
   public getAuthHttpOptions() {
     const options = this.getSafeHttpOptions();
-    options.header.append('Content-Type', 'application/x-www-form-urlencoded');
-    options.header.append('X-Access-Token', this.accessToken);
+    options.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    options.headers.append('X-Access-Token', this.accessToken);
     return options;
   }
 

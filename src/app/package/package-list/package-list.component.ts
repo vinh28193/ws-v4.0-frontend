@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BaseComponent} from '../../core/base.compoment';
 
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -11,8 +11,14 @@ import {PackageService} from '../package.service';
 })
 export class PackageListComponent extends BaseComponent implements OnInit {
 
+    @ViewChild('packageItemTemplate') packageItemTemplate: TemplateRef<any>;
+
+    public packages: any = [];
+
     // form Group
     public searchForm: FormGroup;
+    // Template
+    public itemTemplate: TemplateRef<any>;
 
     constructor(public packageService: PackageService, private fb: FormBuilder) {
         super(packageService);
@@ -23,5 +29,9 @@ export class PackageListComponent extends BaseComponent implements OnInit {
 
     buildForm() {
         this.searchForm = this.fb.group({});
+    }
+
+    getAllList() {
+        this;
     }
 }
