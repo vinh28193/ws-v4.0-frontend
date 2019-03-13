@@ -34,7 +34,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.loading = false;
       this.popup.error('Tài khoản hoặc mật khẩu không được để trống.', 'Lỗi');
     }
-    this.authService.login(this.username, this.password).subscribe(ret => {
+    this.authService.getAuthorize(this.username, this.password).subscribe(ret => {
       const res: any = ret;
       if (res.success) {
         this.loading = false;
