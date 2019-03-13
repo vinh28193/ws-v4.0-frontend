@@ -67,7 +67,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
         console.log('access token : ' + this.authService.accessToken);
         this.identity = userPublicIdentity;
         this.scope = userPublicIdentity.role;
-        this.store = rs.user.store_id;
+        // this.store = rs.user.store_id;
         switch (this.scope[0]) {
           case 'cms':
             setTimeout(() => {

@@ -65,13 +65,13 @@ export class AuthService extends GlobalService {
     }
 
     getAuthorize(username, password) {
-        return this.http.post(this.getApiAuthURl('/1/authorize'), {username, password}, this.getSafeHttpOptions());
+        return this.http.post(this.getApiAuthURl('/1/authorize'), {username, password});
     }
 
     getAccessToken() {
         const fd = new FormData();
         fd.append('authorization_code', this.authorizationCode);
-        return this.http.post(this.getApiAuthURl('/1/access-token'), this.authorizationCode, this.getSafeHttpOptions()).catch(this.handleError);
+        return this.http.post(this.getApiAuthURl('/1/access-token'), fd, { withCredentials: true});
     }
 
     refreshToken() {
