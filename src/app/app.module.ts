@@ -16,7 +16,6 @@ import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {PagesModule} from './pages/pages.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {LoadingModule} from './core/loading/loading.module';
-import {ToastModule} from 'ng2-toastr';
 
 
 @NgModule({
@@ -30,7 +29,6 @@ import {ToastModule} from 'ng2-toastr';
         AppRoutingModule,
         PagesModule,
         LoadingModule,
-        ToastModule.forRoot()
     ],
     providers:
         [

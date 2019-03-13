@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://weshop.v4.api/v1',
-  IMG_URL_WH: 'http://static.weshop.local',
-  API_URL_BACKEND: 'http://weshop.v4.api/v1',
-  OAUTH_URL: 'http://weshop.v4.api/v1',
+  API_URL: 'http://weshop-v4.back-end.local.vn',
+  IMG_URL_WH: 'http://weshop-v4.back-end.local.vn',
+  API_URL_BACKEND: 'http://weshop-v4.back-end.local.vn',
+  OAUTH_URL: 'http://weshop-v4.back-end.local.vn',
 };

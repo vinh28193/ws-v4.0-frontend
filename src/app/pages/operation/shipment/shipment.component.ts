@@ -16,7 +16,7 @@ export class ShipmentComponent extends BaseComponent implements OnInit {
   private filter: any = {};
 
   constructor(private shipmentService: ShipmentService) {
-    super();
+    super(shipmentService);
   }
 
   ngOnInit() {

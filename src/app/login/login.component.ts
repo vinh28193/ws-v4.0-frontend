@@ -7,98 +7,100 @@ import {EncryptionService} from '../core/service/encryption.service';
 import {StorageService} from '../core/service/storage.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
 
-    constructor(
-        private authService: AuthService,
-        private popup: PopupService,
-        private storage: StorageService
-    ) {
-        super(authService);
+  constructor(
+    private authService: AuthService,
+    private popup: PopupService,
+    private storage: StorageService
+  ) {
+    super(authService);
+  }
+
+  public username = '';
+  public password = '';
+
+  ngOnInit() {
+  }
+
+  login() {
+    this.loading = true;
+    if (!this.username || !this.password) {
+      this.loading = false;
+      this.popup.error('Tài khoản hoặc mật khẩu không được để trống.', 'Lỗi');
     }
+    this.authService.login(this.username, this.password).subscribe(ret => {
+      const res: any = ret;
+      if (res.success) {
+        this.loading = false;
+        const rs: any = res.data;
+        console.log('authorizationCode : ' + rs.code);
+        this.authService.authorizationCode = rs.code;
+        this.authService.authorizationCodeExpire = rs.expires_at;
+        console.log('authorizationCode : ' + this.authService.authorizationCode);
+        console.log('authorizationCodeExpire : ' + this.authService.authorizationCodeExpire);
+        this.selfHandleAccessToken();
+      } else {
+        this.loading = false;
+        this.popup.error(res.message, 'Error');
+      }
+      this.loading = false;
+      console.log('done');
+    });
+  }
 
-    public username = '';
-    public password = '';
+  selfHandleAccessToken() {
+    this.authService.getAccessToken().subscribe(rt => {
+      const res: any = rt;
+      if (res.success) {
+        const rs: any = res.data;
+        const accessToken = rs.accessToken;
+        const userPublicIdentity = rs.userPublicIdentity;
+        console.log(rs);
+        this.authService.accessToken = rs.accessToken.token;
+        this.authService.accessTokenExpire = rs.accessToken.expires_at;
+        console.log('access token : ' + this.authService.accessToken);
+        this.identity = userPublicIdentity;
+        this.scope = userPublicIdentity.role;
+        this.store = rs.user.store_id;
+        switch (this.scope[0]) {
+          case 'cms':
+            setTimeout(() => {
+              // location.reload();
+              window.location.href = '/cms';
+            }, 200);
+            break;
+          case 'warehouse':
+            setTimeout(() => {
+              // location.reload();
+              window.location.href = '/warehouse';
+            }, 200);
+            break;
+          case 'operation':
+          case 'sale':
+          case 'master_sale':
+          case 'master_operation':
+            setTimeout(() => {
+              // location.reload();
+              window.location.href = '/order';
+            }, 200);
+            break;
+          default :
+            setTimeout(() => {
+              // location.reload();
+              window.location.href = '/dashboard';
+            }, 200);
 
-    ngOnInit() {
-    }
-
-    login() {
-        this.loading = true;
-        if (!this.username || !this.password) {
-            this.loading = false;
-            this.popup.error('Tài khoản hoặc mật khẩu không được để trống.', 'Lỗi');
         }
-        this.authService.login(this.username, this.password).subscribe(ret => {
-            console.log(ret);
-            const res: any = ret;
-            if (res.success) {
-                this.loading = false;
-                const rs: any = res.data;
-                this.authService.authorizationCode = rs.authorization_code;
-                this.authService.authorizationCodeExpire = rs.expires_at;
-                rs.user.password_hash = this.password;
-                this.identity = rs.user;
-                this.scope = rs.user.scopes;
-                console.log('authorization_code : ' + this.authService.authorizationCode);
-                this.selfHandleAccessToken();
-                console.log('access token : ' + this.authService.accessToken);
-                this.store = rs.user.store_id;
-                const scope = rs.user.scopes.split(',');
-                switch (scope[0]) {
-                    case 'cms':
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '.cms';
-                        }, 200);
-                        break;
-                    case 'warehouse':
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/warehouse';
-                        }, 200);
-                        break;
-                    case 'operation':
-                    case 'sale':
-                    case 'master_sale':
-                    case 'master_operation':
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/order';
-                        }, 200);
-                        break;
-                    default :
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/dashboard';
-                        }, 200);
-
-                }
-            } else {
-                this.loading = false;
-                this.popup.error(res.message, 'Error');
-            }
-            this.loading = false;
-            console.log('done');
-        });
-    }
-
-    selfHandleAccessToken() {
-        this.authService.getAccessToken().subscribe(rt => {
-            const res: any = rt;
-            if (res.success) {
-                const rs: any = res.data;
-                this.authService.accessToken = rs.access_token;
-                this.authService.accessTokenExpire = rs.expires_at;
-            } else {
-                this.popup.error(res.message, 'Error');
-            }
-        });
-    }
+      } else {
+        this.popup.error(res.message, 'Error');
+      }
+    });
+  }
 
 }
