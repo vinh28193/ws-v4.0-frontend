@@ -4,14 +4,18 @@
             <div class="card-body">
                 <div class="card-title">
                     <h3>LIST ALL ITEMS OF PACKAGES</h3>
-
                 </div>
-                <form action="" class="row item-filter-option">
-                    <div class="col-md-2 form-group m-b-10">
-                        <label class="form-control-label">Code BM,CB,TK,SOI,SDT...</label>
-                        <input class="form-control form-control-sm" type="text" name="keyWord">
-                    </div>
-                </form>
+
+                <div class="item-filter-option">
+                    <form [formGroup]="searchForm" name="formSearch" class="col-md-12 p-l-0 p-r-0">
+                        <div formGroupName="filter" class="row">
+                            <div class="col-md-2 form-group m-b-10">
+                                <label for="keyWord" class="form-control-label">Code BM,CB,TK,SOI,SDT...</label>
+                                <input class="form-control form-control-sm" id="keyWord" formControlName="keyword" type="text" (keyup.enter)="search()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <section class="row item-operation">
                     <div class="col-md-9">
                         <div class="form-group">
@@ -52,13 +56,21 @@
                                     <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
                                         <div class="col-md-6 grid-view-col-padding-rl-0">
                                             Showing
-                                            <select [(ngModel)]="perPage" class="form-control-sm select-custom">
+                                            <select class="form-control-sm select-custom" (change)="handlePerPage($event)">
                                                 <option value="20">20</option>
-                                                <option value="20">50</option>
-                                                <option value="20">100</option>
-                                                <option value="20">200</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="200">200</option>
                                             </select>
                                             of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                                        </div>
+                                        <div class="col-md-6 grid-view-col-margin-rl-0">
+                                            <pagination [boundaryLinks]="true"
+                                                        [totalItems]="totalCount"
+                                                        (pageChanged)="handlePagination($event)"
+                                                        [itemsPerPage]="perPage" class="pagination-sm"
+                                                        [rotate]="true">
+                                            </pagination>
                                         </div>
                                     </div>
                                     <ng-container [ngTemplateOutlet]="togglePackageTemplate"></ng-container>

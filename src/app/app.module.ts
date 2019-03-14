@@ -28,7 +28,7 @@ import {LoadingModule} from './core/loading/loading.module';
         SharedModule,
         AppRoutingModule,
         PagesModule,
-        LoadingModule,
+        LoadingModule
     ],
     providers:
         [

@@ -5,8 +5,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PackageService} from '../package.service';
 import {PopupService} from '../../core/service/popup.service';
 
-import {APIREST} from '../mock-package';
-
 @Component({
     selector: 'app-package-list',
     templateUrl: './package-list.component.html',
@@ -35,35 +33,56 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.packages = PACKAGES;
+        this.currentPage = 1;
+        this.perPage = 20;
         this.getAllList();
+        this.buildForm();
         this.togglePackageTemplate = this.packageListTemplate;
     }
 
+    prepareSearch() {
+        return this.searchForm.value;
+    }
+
+    search() {
+        const params = this.prepareSearch();
+        console.log(params);
+    }
+
     buildForm() {
-        this.searchForm = this.fb.group({});
+        this.searchForm = this.fb.group({
+            filter: this.fb.group({
+                keyword: ''
+            }),
+            page: this.currentPage,
+            perPage: this.perPage,
+        });
+    }
+
+    handlePagination(event) {
+        const page = event.page;
+        this.searchForm.patchValue({page: page});
+        this.search();
+    }
+
+    handlePerPage(event) {
+        const value = Number(event.target.value);
+        this.searchForm.patchValue({perPage: value});
+        this.search();
     }
 
     getAllList() {
-        const data = APIREST.data;
-        console.log(data);
-        this.packages = data._items;
-        this.totalCount = data._meta.totalCount;
-        this.pageCount = data._meta.pageCount;
-        this.currentPage = data._meta.currentPage;
-        this.perPage = data._meta.perPage;
-
-        // this.packageService.getAllList(undefined).subscribe(response => {
-        //     if (response.success) {
-        //         const data: any = response.data;
-        //         this.packages = data._items;
-        //         this.totalCount = data._meta.totalCount;
-        //         this.pageCount = data._meta.pageCount;
-        //         this.currentPage = data._meta.currentPage;
-        //         this.perPage = data._meta.perPage;
-        //     } else {
-        //         this.popup.error(response.message);
-        //     }
-        // });
+        this.packageService.getAllList(undefined).subscribe(response => {
+            if (response.success) {
+                const data: any = response.data;
+                this.packages = data._items;
+                this.totalCount = data._meta.totalCount;
+                this.pageCount = data._meta.pageCount;
+                this.currentPage = data._meta.currentPage;
+                this.perPage = data._meta.perPage;
+            } else {
+                this.popup.error(response.message);
+            }
+        });
     }
 }
