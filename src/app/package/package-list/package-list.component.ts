@@ -14,31 +14,23 @@ import {PACKAGES} from '../mock-package';
 export class PackageListComponent extends BaseComponent implements OnInit {
 
     @ViewChild('packageListTemplate') packageListTemplate: TemplateRef<any>;
-
     @ViewChild('orderListTemplate') orderListTemplate: TemplateRef<any>;
-    @ViewChild('orderDetailTemplate') orderDetailTemplate: TemplateRef<any>;
     @ViewChild('productListTemplate') productListTemplate: TemplateRef<any>;
-    @ViewChild('productDetailTemplate') productDetailTemplate: TemplateRef<any>;
+
     public packages: any = [];
 
     // form Group
     public searchForm: FormGroup;
     // Template
     public togglePackageTemplate: TemplateRef<any>;
-    public toggleOrderTemplate: TemplateRef<any>;
-    public toggleProductTemplate: TemplateRef<any>;
 
     constructor(public packageService: PackageService, private fb: FormBuilder) {
         super(packageService);
     }
-
-    public tester = 'i am tester';
-
+    
     ngOnInit() {
         this.packages = PACKAGES;
         this.togglePackageTemplate = this.packageListTemplate;
-        this.toggleOrderTemplate = this.orderListTemplate;
-        this.toggleProductTemplate = this.productListTemplate;
     }
 
     buildForm() {

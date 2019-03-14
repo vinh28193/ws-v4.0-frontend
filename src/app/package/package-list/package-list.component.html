@@ -4,8 +4,7 @@
             <div class="card-body">
                 <div class="card-title">
                     <h3>LIST ALL ITEMS OF PACKAGES</h3>
-                    <small>Showing <span class="text-danger">100</span> of <span class="text-danger">6868</span> Items
-                    </small>
+
                 </div>
                 <form action="" class="row item-filter-option">
                     <div class="col-md-2 form-group m-b-10">
@@ -50,25 +49,19 @@
                         <div class="row grid">
                             <div class="col-md-12">
                                 <div class="grid-view grid-view-custom">
-                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary">
-
-                                    </div>
-                                    <div class="row grid-view-row-margin-rl-0 grid-view-content">
-                                        <div class="col-md-12 grid-view-col-padding-rl-0">
-                                            <div class="row grid-view-row-margin-rl-0 grid-header">
-                                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-                                                </div>
-                                                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                    Tracking
-                                                </div>
-                                                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
-                                                    Detail
-                                                </div>
-                                            </div>
-                                            <ng-container *ngFor="let p of packages" [ngTemplateOutletContext]="{package:p}" [ngTemplateOutlet]="togglePackageTemplate"></ng-container>
+                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
+                                        <div class="col-md-6 grid-view-col-padding-rl-0">
+                                            Showing
+                                            <select class="form-control-sm select-custom">
+                                                <option value="20">20</option>
+                                                <option value="20">50</option>
+                                                <option value="20">100</option>
+                                                <option value="20">200</option>
+                                            </select>
+                                            of page 1 in 8 page in total 2354 items
                                         </div>
                                     </div>
+                                    <ng-container [ngTemplateOutlet]="togglePackageTemplate"></ng-container>
                                 </div>
                             </div>
                         </div>
@@ -81,76 +74,91 @@
 </div>
 
 
-
-
-<ng-template #packageListTemplate let-package="package">
-    <div class="row grid-view-row-margin-rl-0 grid-content">
-        <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-            <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-        </div>
-        <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-            <h5 class="text-danger">TB000009987</h5>
-            <p class="p-custom m-b-0">Current Status:  <span class="label label-danger">Kho US</span></p>
-            <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
-            <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
-            <p class="p-custom m-b-0">Volume: <span class="text-danger">20x12x30</span><strong>(cm)</strong></p>
-            <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
-        </div>
-        <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
-            <ng-container *ngFor="let o of package.orders" [ngTemplateOutletContext]="{order:o}" [ngTemplateOutlet]="toggleOrderTemplate"></ng-container>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #orderListTemplate let-order='order'>
-    <div class="row grid-view-row-margin-rl-0 grid-content m-b-10 m-t-10">
-        <div class="col-md-12 col-sm-12 grid-view-col-border grid-view-col-content">
-            <h5 class="text-danger m-b-0">{{order.id}}</h5>
-        </div>
+<ng-template #packageListTemplate>
+    <div class="row grid-view-row-margin-rl-0 grid-view-content">
         <div class="col-md-12 grid-view-col-padding-rl-0">
             <div class="row grid-view-row-margin-rl-0 grid-header">
                 <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                    #ID
+                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
                 </div>
-                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
-                    Name
+                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                    Tracking
                 </div>
-                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                    Quantity
-                </div>
-                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                    Weight
-                </div>
-                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                    Warehouse Tag
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                    Detail
                 </div>
             </div>
-            <ng-container *ngFor="let p of order.products;let i=index" [ngTemplateOutletContext]="{product:p,index:i}" [ngTemplateOutlet]="toggleProductTemplate"></ng-container>
+            <div *ngFor="let package of packages" class="row grid-view-row-margin-rl-0 grid-content">
+                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                </div>
+                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <h5 class="text-danger">TB000009987</h5>
+                    <p class="p-custom m-b-0">Current Status: <span class="label label-danger">Kho US</span></p>
+                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+                    <p class="p-custom m-b-0">Volume: <span class="text-danger">20x12x30</span><strong>(cm)</strong></p>
+                    <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
+                </div>
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                    <div *ngFor="let order of package.orders"
+                         class="row grid-view-row-margin-rl-0 grid-content m-b-10 m-t-10">
+                        <div class="col-md-12 col-sm-12 grid-view-col-border grid-view-col-content">
+                            <h5 class="text-danger m-b-0">{{order.id}}</h5>
+                        </div>
+                        <div class="col-md-12 grid-view-col-padding-rl-0">
+                            <div class="row grid-view-row-margin-rl-0 grid-header">
+                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    #ID
+                                </div>
+                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    Name
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Quantity
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Weight
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Warehouse Tag
+                                </div>
+                            </div>
+                            <div *ngFor="let product of order.products;let i=index"
+                                 class="row grid-view-row-margin-rl-0 grid-content">
+                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    #{{i}}
+                                </div>
+                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    {{product.name}}
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.quantity}}
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.weight}} (gram)
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.warehouse_tag}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </ng-template>
 
-<ng-template #productListTemplate let-product='product' let-index="index">
-    <div class="row grid-view-row-margin-rl-0 grid-content">
-        <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-            #{{index}}
-        </div>
-        <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
-            {{product.name}}
-        </div>
-        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-            {{product.quantity}}
-        </div>
-        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-            {{product.weight}} (gram)
-        </div>
-        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-            {{product.warehouse_tag}}
-        </div>
-    </div>
+<ng-template #orderListTemplate>
+
+</ng-template>
+
+<ng-template #productListTemplate>
+
 </ng-template>
 
 <!--<ng-container [ngTemplateOutlet]="testTemplate" [ngTemplateOutletContext]="{clue:'IamTester'}"></ng-container>-->
 <!--<ng-template #testTemplate let-clue='clue'> -->
-    <!--<h3>{{clue}}</h3>-->
+<!--<h3>{{clue}}</h3>-->
 <!--</ng-template>-->

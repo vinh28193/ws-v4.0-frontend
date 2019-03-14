@@ -20,7 +20,7 @@ import {LoadingModule} from './core/loading/loading.module';
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         HttpClientModule,
