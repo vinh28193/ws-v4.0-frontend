@@ -23,7 +23,7 @@ export const PACKAGES: any = [
         orders: [
             {
                 id: 'Mã đơn 1',
-                product: [
+                products: [
                     {
                         name: 'Sản phẩm A1',
                         quantity: 1,
@@ -55,7 +55,7 @@ export const PACKAGES: any = [
                 ]
             },
             {
-                id: 'Mã đơn 2', product: [
+                id: 'Mã đơn 2', products: [
                     {
                         name: 'Sản phẩm A2',
                         quantity: 1,
@@ -86,7 +86,7 @@ export const PACKAGES: any = [
                 ]
             },
             {
-                id: 'Mã đơn 3', product: [
+                id: 'Mã đơn 3', products: [
                     {
                         name: 'Sản phẩm B1',
                         quantity: 1,
@@ -140,7 +140,7 @@ export const PACKAGES: any = [
         orders: [
             {
                 id: 'Mã đơn 1',
-                product: [
+                products: [
                     {
                         name: 'Sản phẩm A2',
                         quantity: 1,
@@ -153,7 +153,7 @@ export const PACKAGES: any = [
                 ],
             },
             {
-                id: 'Mã đơn 4', product: [
+                id: 'Mã đơn 4', products: [
                     {
                         name: 'Sản phẩm D1',
                         quantity: null,

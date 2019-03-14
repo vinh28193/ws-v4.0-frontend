@@ -49,37 +49,26 @@
                         <div class="row pagination"></div>
                         <div class="row grid">
                             <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-custom">
-                                        <thead>
-                                        <tr>
-                                            <th width="5%" class="text-center">
-                                                <input type="checkbox" name="checkAllPackage">
-                                            </th>
-                                            <th width="25%" class="text-left"><i class="fa fa-cube"></i> Package</th>
-                                            <th width="45%"><i class="fa fa-info-circle"></i> Detail</th>
-                                            <th width="25%" class="text-left"><i class="fa fa-bars"></i> Status</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input type="checkbox" name="checkPackage1"></td>
-                                                <td>
-                                                    <p class="p-custom m-b-0">Current Status: <span class="label label-danger">Kho US</span></p>
-                                                    <p class="p-custom m-b-0">Seller Tracking: <strong>TB000009987</strong></p>
-                                                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
-                                                    <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
-                                                    <p class="p-custom m-b-0">Volume: <span class="text-danger">20x12x30</span><strong>(cm)</strong></p>
-                                                    <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
-                                                </td>
-                                                <td>
+                                <div class="grid-view grid-view-custom">
+                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary">
 
-                                                </td>
-                                                <td></td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
+                                    </div>
+                                    <div class="row grid-view-row-margin-rl-0 grid-view-content">
+                                        <div class="col-md-12 grid-view-col-padding-rl-0">
+                                            <div class="row grid-view-row-margin-rl-0 grid-header">
+                                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                                                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                                                </div>
+                                                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                                                    Tracking
+                                                </div>
+                                                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                                                    Detail
+                                                </div>
+                                            </div>
+                                            <ng-container *ngFor="let p of packages" [ngTemplateOutletContext]="{package:p}" [ngTemplateOutlet]="togglePackageTemplate"></ng-container>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +81,76 @@
 </div>
 
 
-<ng-template #packageItemTemplate>
-    <h3>Test Tes</h3>
+
+
+<ng-template #packageListTemplate let-package="package">
+    <div class="row grid-view-row-margin-rl-0 grid-content">
+        <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+            <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+        </div>
+        <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+            <h5 class="text-danger">TB000009987</h5>
+            <p class="p-custom m-b-0">Current Status:  <span class="label label-danger">Kho US</span></p>
+            <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+            <p class="p-custom m-b-0">Manifest Weight: <strong>1000 gram</strong></p>
+            <p class="p-custom m-b-0">Volume: <span class="text-danger">20x12x30</span><strong>(cm)</strong></p>
+            <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
+        </div>
+        <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+            <ng-container *ngFor="let o of package.orders" [ngTemplateOutletContext]="{order:o}" [ngTemplateOutlet]="toggleOrderTemplate"></ng-container>
+        </div>
+    </div>
 </ng-template>
 
+<ng-template #orderListTemplate let-order='order'>
+    <div class="row grid-view-row-margin-rl-0 grid-content m-b-10 m-t-10">
+        <div class="col-md-12 col-sm-12 grid-view-col-border grid-view-col-content">
+            <h5 class="text-danger m-b-0">{{order.id}}</h5>
+        </div>
+        <div class="col-md-12 grid-view-col-padding-rl-0">
+            <div class="row grid-view-row-margin-rl-0 grid-header">
+                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                    #ID
+                </div>
+                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+                    Name
+                </div>
+                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                    Quantity
+                </div>
+                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                    Weight
+                </div>
+                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                    Warehouse Tag
+                </div>
+            </div>
+            <ng-container *ngFor="let p of order.products;let i=index" [ngTemplateOutletContext]="{product:p,index:i}" [ngTemplateOutlet]="toggleProductTemplate"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productListTemplate let-product='product' let-index="index">
+    <div class="row grid-view-row-margin-rl-0 grid-content">
+        <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+            #{{index}}
+        </div>
+        <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+            {{product.name}}
+        </div>
+        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+            {{product.quantity}}
+        </div>
+        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+            {{product.weight}} (gram)
+        </div>
+        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+            {{product.warehouse_tag}}
+        </div>
+    </div>
+</ng-template>
+
+<!--<ng-container [ngTemplateOutlet]="testTemplate" [ngTemplateOutletContext]="{clue:'IamTester'}"></ng-container>-->
+<!--<ng-template #testTemplate let-clue='clue'> -->
+    <!--<h3>{{clue}}</h3>-->
+<!--</ng-template>-->
