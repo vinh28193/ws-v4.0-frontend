@@ -62,8 +62,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
         const accessToken = rs.accessToken;
         const userPublicIdentity = rs.userPublicIdentity;
         console.log(rs);
-        this.authService.accessToken = rs.accessToken.token;
-        this.authService.accessTokenExpire = rs.accessToken.expires_at;
+        this.authService.accessToken = accessToken.token;
+        this.authService.accessTokenExpire = accessToken.expires_at;
         console.log('access token : ' + this.authService.accessToken);
         this.identity = userPublicIdentity;
         this.scope = userPublicIdentity.role;

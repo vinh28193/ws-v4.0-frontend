@@ -4,6 +4,8 @@ import {EncryptionService} from '../core/service/encryption.service';
 import {PopupService} from '../core/service/popup.service';
 import {HttpClient} from '@angular/common/http';
 
+import {RESPONSE} from './mock-package';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -18,6 +20,6 @@ export class PackageService extends ClientService {
     }
 
     getAllList(filter: any | undefined) {
-        return this.get('package/index', filter);
+        return this.get('package', filter);
     }
 }
