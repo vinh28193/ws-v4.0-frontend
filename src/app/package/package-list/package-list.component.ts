@@ -35,25 +35,44 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
-        this.getAllList();
         this.buildForm();
+        this.search();
         this.togglePackageTemplate = this.packageListTemplate;
     }
 
     prepareSearch() {
-        return this.searchForm.value;
+        const value = this.searchForm.value;
+        const params = {
+            filters: JSON.stringify(value.filters),
+            perPage: value.perPage,
+            page: value.page
+        };
+        return params;
     }
 
     search() {
         const params = this.prepareSearch();
-        console.log(params);
+        this.packageService.getAllList(params).subscribe(response => {
+            if (response.success) {
+                const data: any = response.data;
+                this.packages = data._items;
+                this.totalCount = data._meta.totalCount;
+                this.pageCount = data._meta.pageCount;
+                this.currentPage = data._meta.currentPage;
+                this.perPage = data._meta.perPage;
+            } else {
+                this.popup.error(response.message);
+            }
+        });
     }
 
     buildForm() {
         this.searchForm = this.fb.group({
-            filter: this.fb.group({
-                keyword: ''
-            }),
+            keyCategory: 'ALL',
+            keyWord: '',
+            timeKey: 'create_at',
+            timeRange: [],
+            currentStatus: 'ALL',
             page: this.currentPage,
             perPage: this.perPage,
         });
@@ -66,23 +85,8 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     }
 
     handlePerPage(event) {
-        const value = Number(event.target.value);
+        const value = event.target.value;
         this.searchForm.patchValue({perPage: value});
         this.search();
-    }
-
-    getAllList() {
-        this.packageService.getAllList(undefined).subscribe(response => {
-            if (response.success) {
-                const data: any = response.data;
-                this.packages = data._items;
-                this.totalCount = data._meta.totalCount;
-                this.pageCount = data._meta.pageCount;
-                this.currentPage = data._meta.currentPage;
-                this.perPage = data._meta.perPage;
-            } else {
-                this.popup.error(response.message);
-            }
-        });
     }
 }
