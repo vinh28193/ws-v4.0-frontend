@@ -25,8 +25,8 @@ export class ShipmentComponent extends BaseComponent implements OnInit {
 
   getlist() {
     this.shipmentService.getList('user/api/manifest', {limit: 20, page: 1}).subscribe(res => {
-      this.list = res.data;
-      console.log(this.list);
+      this.list = res;
+      console.log(this.list[0]['id']);
     });
     // this.shipmentService.getList(`user/api/manifest`) .subscribe(res => {
     //

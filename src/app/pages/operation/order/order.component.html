@@ -1,7 +1,7 @@
 <app-order-filter></app-order-filter>
 <div class="row">
   <div class="col-md-3">
-    Showing <select name="limit" (change)="getList()" [(ngModel)]="limit"
+    Showing <select name="limit" (change)="listOrder()" [(ngModel)]="limit"
                     class="form-control-sm">
     <option>20</option>
     <option>50</option>
@@ -13,8 +13,8 @@
     <button  class="btn btn-sm btn-info" type="button"><i class="fa fa-download"></i> Export Data </button>
   </div>
   <div class="col-md-7">
-    <pagination [boundaryLinks]="true" [totalItems]="total" [(ngModel)]="current_page"
-                (pageChanged)="getList()" [itemsPerPage]="limit"
+    <pagination [boundaryLinks]="true" [totalItems]="" [(ngModel)]="page"
+                (pageChanged)="listOrder()" [itemsPerPage]="20"
                 [maxSize]="10" class="pagination-sm pull-right"
                 [rotate]="true">
     </pagination>
@@ -22,46 +22,67 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-      <div class="card style-card">
+    <div class="card-body"  style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+      <div class="card style-card" *ngFor="let order of orders">
         <div class="row margin-row">
           <div class="col-md-3 border-col">
             <div class="card-title">
               <h5>
-                <strong class="text-uppercase">
-                  <a target="_blank"
-                     href="http://weshop.com.vn/order-BIN-C7FD4993274B/bill.html">
-                    <span class="text-danger">BIN-C7FD4993274B</span>
-                  </a>
-                </strong>/
-                <span class="badge badge-warning m-l-5 p-2 font-style">Unpaid</span>
+                <!--<strong class="text-uppercase">-->
+                  <!--<a target="_blank"-->
+                     <!--href="http://weshop.com.vn/order-BIN-C7FD4993274B/bill.html">-->
+                    <!--<span class="text-danger">BIN-C7FD4993274B</span>-->
+                  <!--</a>-->
+                <!--</strong>/-->
+                <span class="badge badge-{{order.quotation_status | quotationStatusClass}} m-l-5 p-2 font-style">
+                  {{order.quotation_status | quotationStatus}}
+                </span>
               </h5>
             </div>
             <div class="clearfix"></div>
-            <div>
-              <span></span>
-              <span class="m-l-5">Viet Nam</span>
-              <span class="badge badge-warning m-l-5 p-2 font-style">Request</span>
-              <span class="badge badge-warning m-l-5 p-2 font-style"></span>
+            <div class="mt-1">
+              <span><i [class]="order.store_id | iconFlag"></i> </span>
+              <span class="m-l-5 mt-1">{{order.store_id | store}}</span>
+              <span class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
             </div>
-            <div>
+            <div class="mt-1">
+              <span><i class="fa fa-user mr-1"></i> Sale:</span>
+              <app-assign-sale [saleEmail] = "order.support_email" [saleId] = "order.sale_support_id" [orderId] = "order.id"></app-assign-sale>
             </div>
-            <div>
-              <span><i class="fa fa-clock-o"></i></span>2019-03-06 16:07:50
-              <br>
-              <span class="text-dark"><i class="fa fa-clock-o"></i> an hour ago</span>
+            <div class="mt-1">
+              <span><i class="fa fa-user mr-1"></i> Seller:</span>
+              <span class="ml-2">{{order.seller_name}}</span>
+            </div>
+            <div class="mt-1">
+              <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
+            </div>
+            <div class="mt-1">
+              <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
             </div>
           </div>
           <div class="col-md-4 border-col CUSTOMER_INFO">
             <h5>CUSTOMER INFO</h5>
-
             <div class="row">
               <div class="col-md-12">
-              Customer note :<strong class="text-danger"> khách hàng note</strong>
+                <h5 class="text-bold mb-0">BUYER</h5>
+                <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}</span><br>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <h5 class="text-bold mb-0">RECEIVER</h5>
+                <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span><br>
+                <span>{{order.receiver_address}} - {{order.receiver_post_code}}</span><br>
+                <span>{{order.receiver_district_name}} - {{order.receiver_province_name}} - {{order.receiver_country_name}}</span>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+              Customer note :<strong class="text-danger">{{order.note_by_customer}}</strong>
             </div>
             </div>
           </div>
-          <div class="col-md-5 style-col border-col">
+          <div class="col-md-5 hover-row style-col border-col">
             <div class="row">
               <div class="col-md-12">
                 <h5>FINANCE</h5>
@@ -69,41 +90,117 @@
             </div>
             <div class="row">
               <div class="col-md-4"><strong>Quantity:</strong></div>
-              <div class="col-md-3 text-right style-padding-left">1</div>
-              <div class="style-padding-left"> (Exchage rate: 12345)</div>
-            </div>
-            <div class="row">
-              <div class="col-md-4 style-padding-right dola">
-                <strong>Total value (<span class="text-line-through dola">
-                        <!--{{order.totalPrice | number}} {{getLocalCurrencyCodeByStore(0)}}-->
-                        12345
-                    </span>)</strong>
+              <div class="col-md-3 text-right style-padding-left" *ngIf="order.products">
+                <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
               </div>
-              <div class="col-md-3 text-right style-padding-left dola">
-                <strong>
-                  12345
-                  <!--{{order.finalPrice| number}} {{getLocalCurrencyCodeByStore(0)}}-->
-                </strong>
-              </div>
-              <div class="col-md-5 style-padding-left">Coupon: 1</div>
+              <div class="style-padding-left"> (Exchage rate free: {{order.exchange_rate_fee}})</div>
             </div>
             <div class="row">
               <div class="col-md-4 style-padding-right dong">
-                <strong>Total value (<span class="text-line-through dong">
-                      112
-                    </span>)</strong>
+                <span>Total origin tax fee</span>
               </div>
               <div class="col-md-3 text-right style-padding-left dong">
-                <strong>
-                  12345
-                </strong>
+                <span>
+                  {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+              <div class="col-md-5 style-padding-left">(Exchage rate free : {{order.exchange_rate_purchase}})</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total origin shiping fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_origin_shipping_fee_local ? order.total_origin_shipping_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+              <div class="col-md-5 style-padding-left">Coupon: {{order.coupon_code}} - {{order.total_counpon_amount_local}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total weshop fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_weshop_fee_local ? order.total_weshop_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total shiping fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 style-padding-right dong">
+                <span>Total custom fee amount</span>
+              </div>
+              <div class="col-md-2 text-right style-padding-left dong">
+                <span>
+                  {{order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total delivery fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_delivery_fee_local ? order.total_delivery_fee_local : 0.00  | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total packing fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_packing_fee_local ? order.total_packing_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total insection fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_inspection_fee_local ? order.total_inspection_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total insurance fee</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_insurance_fee_local ? order.total_insurance_fee_local : 0.00 | currency: 'VND'}}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 style-padding-right dong">
+                <span>Total VAT amount</span>
+              </div>
+              <div class="col-md-3 text-right style-padding-left dong">
+                <span>
+                  {{order.total_vat_amount_local ? order.total_vat_amount_local : 0.00 | currency: 'VND'}}
+                </span>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4 text-danger">Paid</div>
-              <div class="col-md-3 text-right text-danger">123</div>
               <div class="col-md-3 text-right text-danger">
-               123
+               {{order.total_paid_amount_local ? order.total_paid_amount_local : 0.00 | currency: 'VND'}}
               </div>
             </div>
             <div class="row">
@@ -115,29 +212,42 @@
             <div class="row">
               <div class="col-md-4">Refund</div>
               <div class="col-md-3 text-right style-padding-left">
-              1234
+              {{order.total_refund_amount_local | currency: 'VND'}}
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="button-group col-md-auto">
+                <div class="button-group mt-1 col-md-auto">
                   <button class="paymentTransaction" >Payment Transaction</button>
                 </div>
                 <div class="button-group col-md-auto">
                   <button class="btn btn-sm btn-info" >View More Log (BIN)</button>
                 </div>
-                <div class="button-group col-md-auto">
-                  <button class="btn btn-sm btn-info" >Confirm Purchase All</button>
-                </div>
+                <!--<div class="button-group col-md-auto">-->
+                  <!--<button class="btn btn-sm btn-info" >Confirm Purchase All</button>-->
+                <!--</div>-->
               </div>
             </div>
           </div>
         </div>
-        <app-order-item></app-order-item>
+        <app-order-item  [products]= "order.products"
+                         [new] = "order.new"
+                         [purchased] = "order.purchased"
+                         [seller_shipped] = "order.seller_shipped"
+                         [stockin_us] = "order.stockin_us"
+                         [stockout_us] = "order.stockout_us"
+                         [stockin_local] = "order.stockin_local"
+                         [stockout_local] = "order.stockout_local"
+                         [at_customer] = "order.at_customer"
+                         [returned] = "order.returned"
+                         [cancelled] = "order.cancelled"
+                         [lost] = "order.lost">
+
+        </app-order-item>
       </div>
     </div>
-  <!--<div class="card-body" style="padding-left: 0; padding-right: 0" *ngIf="orders == ''">-->
-  <!--<h4 class="text-danger">Not Found</h4>-->
-  <!--</div>-->
+    <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
+      <!--<h4 class="text-danger">Not Found</h4>-->
+    <!--</div>-->
   </div>
 </div>

@@ -42,8 +42,10 @@ h5 {
   width: inherit;
 }
 .hover-row .row:hover{
-  background: #fff;
+  background: gray;
+  color: white;
   border-bottom: 1px dashed;
+  font-weight: 300;
 }
 .style-binCode {
   text-decoration: underline;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PackageComponent } from './package.component';
+import { EditVariantComponent } from './edit-variant.component';
 
-describe('DetailPackageComponent', () => {
-  let component: PackageComponent;
-  let fixture: ComponentFixture<PackageComponent>;
+describe('EditVariantComponent', () => {
+  let component: EditVariantComponent;
+  let fixture: ComponentFixture<EditVariantComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PackageComponent ]
+      declarations: [ EditVariantComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PackageComponent);
+    fixture = TestBed.createComponent(EditVariantComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

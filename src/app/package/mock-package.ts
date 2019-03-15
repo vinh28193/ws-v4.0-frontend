@@ -8603,13 +8603,13 @@ export const APIREST:any = {
         ],
         "_links": {
             "self": {
-                "href": "http://weshop-4.0.api.vn/v1/package/index?page=1"
+                "href": "http://weshop-4.0.api.vn/v1/detail-package/index?page=1"
             },
             "next": {
-                "href": "http://weshop-4.0.api.vn/v1/package/index?page=2"
+                "href": "http://weshop-4.0.api.vn/v1/detail-package/index?page=2"
             },
             "last": {
-                "href": "http://weshop-4.0.api.vn/v1/package/index?page=2"
+                "href": "http://weshop-4.0.api.vn/v1/detail-package/index?page=2"
             }
         },
         "_meta": {

@@ -8,7 +8,15 @@ import {HttpClient} from '@angular/common/http';
     providedIn: 'root'
 })
 export class PackageService extends ClientService {
-
+    // constructor(
+    //             public encryption: EncryptionService,
+    //             public popup: PopupService) {
+    //     super(encryption);
+    //
+    // }
+    // getAllList(filter: any | undefined) {
+    //     return this.get('detail-package/index', filter);
+    // }
     constructor(
         public http: HttpClient,
         public encryption: EncryptionService,
@@ -20,4 +28,5 @@ export class PackageService extends ClientService {
     getAllList(filter: any | undefined) {
         return this.get('p', filter);
     }
+
 }

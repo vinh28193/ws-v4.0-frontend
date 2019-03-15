@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {OrderModule} from './order/order.module';
 import {ShipmentModule} from './shipment/shipment.module';
 import {ShipmentService} from './shipment/shipment.service';
+import {OrderService} from './order/order.service';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {ShipmentService} from './shipment/shipment.service';
     ShipmentModule,
   ],
   providers: [
-    ShipmentService
+    ShipmentService,
+    OrderService,
   ]
 })
 export class OperationModule {
