@@ -1,23 +1,21 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {BsDaterangepickerConfig} from 'ngx-bootstrap';
+import {PackageService} from '../../package/package.service';
+import {PopupService} from '../../core/service/popup.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {BaseComponent} from '../../core/base.compoment';
 
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {PackageService} from '../package.service';
-import {PopupService} from '../../core/service/popup.service';
-import {BsDaterangepickerConfig} from 'ngx-bootstrap';
-
 @Component({
-    selector: 'app-package-list',
-    templateUrl: './package-list.component.html',
-    styleUrls: ['./package-list.component.css']
+  selector: 'app-shipment-list',
+  templateUrl: './shipment-list.component.html',
+  styleUrls: ['./shipment-list.component.css']
 })
-export class PackageListComponent extends BaseComponent implements OnInit {
+export class ShipmentListComponent extends BaseComponent implements OnInit {
 
-    @ViewChild('packageListTemplate') packageListTemplate: TemplateRef<any>;
-    @ViewChild('orderListTemplate') orderListTemplate: TemplateRef<any>;
-    @ViewChild('productListTemplate') productListTemplate: TemplateRef<any>;
+    @ViewChild('shipmentListTemplate') shipmentListTemplate: TemplateRef<any>;
+    @ViewChild('shipmentCreateTemplate') shipmentCreateFormTemplate: TemplateRef<any>;
 
-    public packages: any = [];
+    public shipments: any = [];
 
     // meta
     public totalCount: number;
@@ -26,8 +24,9 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     public perPage: number;
     // form Group
     public searchForm: FormGroup;
+    public createFrom: FormGroup;
     // Template
-    public togglePackageTemplate: TemplateRef<any>;
+    public toggleShipmentTemplate: TemplateRef<any>;
 
     public dateTime: Date;
     public bsRangeValue: Date[];
@@ -46,7 +45,7 @@ export class PackageListComponent extends BaseComponent implements OnInit {
         this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildSearchForm();
         this.search();
-        this.togglePackageTemplate = this.packageListTemplate;
+        this.toggleShipmentTemplate = this.shipmentListTemplate;
     }
 
     prepareSearch() {
@@ -69,7 +68,7 @@ export class PackageListComponent extends BaseComponent implements OnInit {
         }
         if (filter.length > 0) {
             const object = filter.reduce((obj, item) => Object.assign(obj, {[item.key]: item.value}), {});
-            params.filter = JSON.stringify(object);
+            console.log(object);
         }
         return params;
     }
@@ -79,7 +78,7 @@ export class PackageListComponent extends BaseComponent implements OnInit {
         this.packageService.getAllList(params).subscribe(response => {
             if (response.success) {
                 const data: any = response.data;
-                this.packages = data._items;
+                this.shipments = data._items;
                 this.totalCount = data._meta.totalCount;
                 this.pageCount = data._meta.pageCount;
                 this.currentPage = data._meta.currentPage;

@@ -1,23 +1,26 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {BrowserModule} from '@angular/platform-browser';
-import { ShipmentComponent } from './shipment.component';
+import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
+import {ReactiveFormsModule} from '@angular/forms';
 
+import {ShipmentRoutingModule} from './shipment-routing.module';
 
-const routes: Routes = [
-    {
-        path: '', redirectTo: 'dashboard', pathMatch: 'full'
-    },
+import {ShipmentComponent} from './shipment.component';
+import {ShipmentListComponent} from './shipment-list/shipment-list.component';
 
-];
+import {ShipmentService} from '../pages/operation/shipment/shipment.service';
 
 @NgModule({
-    declarations: [ShipmentComponent],
     imports: [
         CommonModule,
-        BrowserModule,
-        RouterModule.forRoot(routes, {useHash: true}),
+        ShipmentRoutingModule,
+        ReactiveFormsModule,
+        PaginationModule.forRoot(),
+        BsDatepickerModule.forRoot()
+    ],
+    declarations: [ShipmentComponent, ShipmentListComponent],
+    providers: [
+        ShipmentService
     ]
 })
 export class ShipmentModule {

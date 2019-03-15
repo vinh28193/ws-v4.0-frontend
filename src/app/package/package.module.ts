@@ -13,8 +13,8 @@ import {PackageDirective} from './package.directive';
 @NgModule({
     imports: [
         CommonModule,
-        ReactiveFormsModule,
         PackageRoutingModule,
+        ReactiveFormsModule,
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot()
     ],
