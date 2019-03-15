@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
 
 import {PackageRoutingModule} from './package-routing.module';
 import {PackageComponent} from './package.component';
 import {PackageListComponent} from './package-list/package-list.component';
 import {PackageService} from './package.service';
-import {PaginationModule} from 'ngx-bootstrap';
+import {PackageDirective} from './package.directive';
 
 
 @NgModule({
@@ -14,11 +15,13 @@ import {PaginationModule} from 'ngx-bootstrap';
         CommonModule,
         ReactiveFormsModule,
         PackageRoutingModule,
-        PaginationModule.forRoot()
+        PaginationModule.forRoot(),
+        BsDatepickerModule.forRoot()
     ],
     declarations: [
         PackageComponent,
-        PackageListComponent
+        PackageListComponent,
+        PackageDirective
     ],
     providers: [
         PackageService
