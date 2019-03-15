@@ -18,5 +18,6 @@ export class Package {
     lost: string;
     current_status: string;
     warehouse_id: string;
+    orders: any;
 
 }

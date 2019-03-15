@@ -4,15 +4,18 @@
             <div class="card-body">
                 <div class="card-title">
                     <h3>LIST ALL ITEMS OF PACKAGES</h3>
-                    <small>Showing <span class="text-danger">100</span> of <span class="text-danger">6868</span> Items
-                    </small>
                 </div>
-                <form action="" class="row item-filter-option">
-                    <div class="col-md-2 form-group m-b-10">
-                        <label class="form-control-label">Code BM,CB,TK,SOI,SDT...</label>
-                        <input class="form-control form-control-sm" type="text" name="keyWord">
-                    </div>
-                </form>
+
+                <div class="item-filter-option">
+                    <form [formGroup]="searchForm" name="formSearch" class="col-md-12 p-l-0 p-r-0">
+                        <div formGroupName="filter" class="row">
+                            <div class="col-md-2 form-group m-b-10">
+                                <label for="keyWord" class="form-control-label">Code BM,CB,TK,SOI,SDT...</label>
+                                <input class="form-control form-control-sm" id="keyWord" formControlName="keyword" type="text" (keyup.enter)="search()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <section class="row item-operation">
                     <div class="col-md-9">
                         <div class="form-group">
@@ -46,7 +49,34 @@
                 </section>
                 <article class="row item-list">
                     <div class="col-md-12">
-
+                        <div class="row pagination"></div>
+                        <div class="row grid">
+                            <div class="col-md-12">
+                                <div class="grid-view grid-view-custom">
+                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
+                                        <div class="col-md-6 grid-view-col-padding-rl-0">
+                                            Showing
+                                            <select class="form-control-sm select-custom" (change)="handlePerPage($event)">
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                                <option value="200">200</option>
+                                            </select>
+                                            of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                                        </div>
+                                        <div class="col-md-6 grid-view-col-margin-rl-0">
+                                            <pagination [boundaryLinks]="true"
+                                                        [totalItems]="totalCount"
+                                                        (pageChanged)="handlePagination($event)"
+                                                        [itemsPerPage]="perPage" class="pagination-sm"
+                                                        [rotate]="true">
+                                            </pagination>
+                                        </div>
+                                    </div>
+                                    <ng-container [ngTemplateOutlet]="togglePackageTemplate"></ng-container>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </div>
@@ -55,3 +85,100 @@
     </div>
 </div>
 
+
+<ng-template #packageListTemplate>
+    <div class="row grid-view-row-margin-rl-0 grid-view-content">
+        <div class="col-md-12 grid-view-col-padding-rl-0">
+            <div class="row grid-view-row-margin-rl-0 grid-header">
+                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                </div>
+                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                    Tracking
+                </div>
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                    Detail
+                </div>
+            </div>
+            <div *ngFor="let package of packages" class="row grid-view-row-margin-rl-0 grid-content">
+                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                </div>
+                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <h5 class="text-danger">{{package.tracking_seller}}</h5>
+                    <p class="p-custom m-b-0">Current Status: <span class="label label-danger">{{package.current_status}}</span></p>
+                    <p class="p-custom m-b-0">Package Weight: <strong>{{package.package_weight}} gram</strong></p>
+                    <p class="p-custom m-b-0">ChangeWeight: <strong>{{package.change_weight}} gram</strong></p>
+                    <p class="p-custom m-b-0">Volume (w.l.h): <span class="text-danger">{{package.package_dimension_w}}x{{package.package_dimension_l}}x{{package.package_dimension_h}}</span><strong>(cm)</strong></p>
+                    <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
+                </div>
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                    <div *ngFor="let packageItem of package.packageItems"
+                         class="row grid-view-row-margin-rl-0 grid-content m-b-10 m-t-10">
+                        <div class="col-md-12 col-sm-12 grid-view-col-border grid-view-col-content">
+                            <h5 class="text-danger m-b-0">{{packageItem.order.type_order}}/{{packageItem.order.portal}}</h5>
+                        </div>
+                        <div class="col-md-12 grid-view-col-padding-rl-0">
+                            <div class="row grid-view-row-margin-rl-0 grid-header">
+                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    #ID
+                                </div>
+                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    Name
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Quantity
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Weight
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    Warehouse Tag
+                                </div>
+                            </div>
+                            <div *ngFor="let product of packageItem.order.products;"
+                                 class="row grid-view-row-margin-rl-0 grid-content">
+                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    # {{product.id}}
+                                </div>
+                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
+                                    <div class="row grid-view-row-margin-rl-0">
+                                        <div class="col-md-4 p-0">
+                                            <img src="{{product.link_img}}" alt="" width="100%">
+                                        </div>
+                                        <div class="col-md-8" style="border-left: 2px solid #00aff0; padding-left: 0.25rem">
+                                            <p class="p-custom m-b-0">Sku: <span class="text-danger">{{product.sku}}</span></p>
+                                            <p class="p-custom m-b-0">Parent Sku: <span class="text-danger">{{product.parent_sku}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.quantity}}
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.weight}} (gram)
+                                </div>
+                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                    {{product.warehouse_tag}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #orderListTemplate>
+
+</ng-template>
+
+<ng-template #productListTemplate>
+
+</ng-template>
+
+<!--<ng-container [ngTemplateOutlet]="testTemplate" [ngTemplateOutletContext]="{clue:'IamTester'}"></ng-container>-->
+<!--<ng-template #testTemplate let-clue='clue'> -->
+<!--<h3>{{clue}}</h3>-->
+<!--</ng-template>-->
