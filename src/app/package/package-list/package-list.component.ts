@@ -4,6 +4,7 @@ import {BaseComponent} from '../../core/base.compoment';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PackageService} from '../package.service';
 import {PopupService} from '../../core/service/popup.service';
+import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-package-list',
@@ -28,6 +29,10 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     // Template
     public togglePackageTemplate: TemplateRef<any>;
 
+    public dateTime: Date;
+    public bsRangeValue: Date[];
+    public bsConfig: BsDaterangepickerConfig;
+
     constructor(public packageService: PackageService, private popup: PopupService, private fb: FormBuilder) {
         super(packageService);
     }
@@ -35,6 +40,10 @@ export class PackageListComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
+        this.dateTime = new Date();
+        const maxDateTime: Date = this.dateTime;
+        maxDateTime.setDate(this.dateTime.getDate() + 1);
+        this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildForm();
         this.search();
         this.togglePackageTemplate = this.packageListTemplate;
@@ -42,11 +51,26 @@ export class PackageListComponent extends BaseComponent implements OnInit {
 
     prepareSearch() {
         const value = this.searchForm.value;
-        const params = {
-            filters: JSON.stringify(value.filters),
+
+        const params: any = {
             perPage: value.perPage,
             page: value.page
         };
+        const filter = [];
+        if (value.keyWord !== '') {
+            const keywordDeep = {key: 'keyWord', value: {key: value.keyCategory, value: value.keyWord}};
+            filter.push(keywordDeep);
+        }
+        if (value.currentStatus !== 'ALL') {
+            filter.push({key: 'currentStatus', value: value.currentStatus});
+        }
+        if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
+
+        }
+        if (filter.length > 0) {
+            const object = filter.reduce((obj, item) => Object.assign(obj, {[item.key]: item.value}), {});
+            console.log(object);
+        }
         return params;
     }
 
@@ -71,7 +95,7 @@ export class PackageListComponent extends BaseComponent implements OnInit {
             keyCategory: 'ALL',
             keyWord: '',
             timeKey: 'create_at',
-            timeRange: [],
+            timeRange: this.bsRangeValue,
             currentStatus: 'ALL',
             page: this.currentPage,
             perPage: this.perPage,

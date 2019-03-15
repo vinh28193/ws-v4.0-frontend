@@ -15,7 +15,7 @@
                             <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord" type="text" (keyup.enter)="search()">
                         </div>
                     </div>
-                    <div class="col-md-4 form-group m-b-10">
+                    <div class="col-md-3 form-group m-b-10">
                         <label for="currentStatus" class="form-control-label">Current Status</label>
                         <select class="form-control form-control-sm" name="currentStatus" id="currentStatus" formControlName="currentStatus">
                             <option value="ALL">--All Status--</option>
@@ -23,14 +23,20 @@
                             <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
                         </select>
                     </div>
-                    <div class="col-md-4 form-group m-b-10">
+                    <div class="col-md-5 form-group m-b-10">
                         <label for="dateTimePicker" class="form-control-label">Time Search</label>
                         <div class="row input-group input-group-sm" id="dateTimePicker">
                             <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey" formControlName="timeKey">
                                 <option value="create_at">Create Time</option>
                                 <option value="SELLER_SHIPPED">Seller ship Time</option>
                             </select>
-                            <input class="col-sm-7 form-control form-control-sm">
+                            <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
+                            <span class="input-group-btn">
+                                <button (click)="drp.toggle()"
+                                        [attr.aria-expanded]="drp.isOpen"
+                                        class="btn btn-sm btn-info" type="button"><i
+                                        class="fa fa-calendar"></i></button>
+                            </span>
                         </div>
                     </div>
                 </form>
