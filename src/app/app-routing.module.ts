@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'package',
-        loadChildren: './detail-package/detail-package.module#PackageModule',
+        loadChildren: './package/package.module#PackageModule',
     },
 ];
 
