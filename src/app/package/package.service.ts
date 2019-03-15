@@ -15,7 +15,7 @@ export class PackageService extends ClientService {
     //
     // }
     // getAllList(filter: any | undefined) {
-    //     return this.get('package/index', filter);
+    //     return this.get('detail-package/index', filter);
     // }
     constructor(
         public http: HttpClient,

@@ -15,7 +15,7 @@ import {NgxDaterangepickerMd} from 'ngx-daterangepicker-material';
 import {SharedModule} from '../../../shared/shared.module';
 import { EditVariantComponent } from './order-item/edit-variant/edit-variant.component';
 import { AssignSaleComponent } from './assign-sale/assign-sale.component';
-import { PackageComponent } from './order-item/package/package.component';
+import { DetailPackageComponent } from './order-item/detail-package/detail-package.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +25,7 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'package', component: PackageComponent,
+        path: 'package', component: DetailPackageComponent,
         data: {
           breadcrumb: 'Order Manager'
         },
@@ -50,7 +50,7 @@ export const routes: Routes = [
     EditLocalNameComponent,
     EditVariantComponent,
     AssignSaleComponent,
-    PackageComponent,
+    DetailPackageComponent,
   ],
   imports: [
     CommonModule,

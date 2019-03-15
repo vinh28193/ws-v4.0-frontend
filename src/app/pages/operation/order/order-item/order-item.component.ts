@@ -27,7 +27,7 @@ export class OrderItemComponent implements OnInit {
   ngOnInit() {
     this.tabs = [
       {id: 'purchase', title: 'Purchase Info', router: '/purchase'},
-      {id: 'package', title: 'Package Info', router: '/package'},
+      {id: 'package', title: 'Package Info', router: '/detail-package'},
       {id: 'shipment', title: 'Delivery Info', router: '/shipment'},
       {id: 'payment', title: 'Refund/Addfee', router: '/return-addfee'}
     ];
