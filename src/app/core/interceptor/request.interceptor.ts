@@ -27,7 +27,7 @@ export class RequestInterceptor implements HttpInterceptor {
             req.url.indexOf('access-token') === -1 &&
             req.url.indexOf('language') === -1 &&
             req.url.indexOf('upload') === -1) {
-            return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: false});
+            return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: true});
         }  else {
             if (req.url.indexOf('cms') !== -1 || req.url.indexOf('language') !== -1 || req.url.indexOf('news') !== -1) {
                 return req.clone({url: req.url.replace(this.authService.API_URL_BACKEND, environment.API_URL), withCredentials: true});

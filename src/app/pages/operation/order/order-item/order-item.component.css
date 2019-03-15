@@ -3,9 +3,9 @@ ul {
   margin: 0px;
   padding: 0px;
 }
-/*strong {*/
-/*font-weight: bold;*/
-/*}*/
+strong {
+font-weight: 300;
+}
 h5 {
   font-weight: bold;
   color: black;
@@ -66,7 +66,7 @@ h5 {
   width: 100%; border: 1px solid #e1e1e1;
 }
 .originalLink {
-  font-size: 14px; text-align: center;
+  font-size: 12px; text-align: center;
 }
 .versionOnPayment {
   font-size: 7px;
