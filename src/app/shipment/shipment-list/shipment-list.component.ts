@@ -1,14 +1,14 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
-import {PackageService} from '../../package/package.service';
 import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BaseComponent} from '../../core/base.compoment';
+import {ShipmentService} from '../shipment.service';
 
 @Component({
-  selector: 'app-shipment-list',
-  templateUrl: './shipment-list.component.html',
-  styleUrls: ['./shipment-list.component.css']
+    selector: 'app-shipment-list',
+    templateUrl: './shipment-list.component.html',
+    styleUrls: ['./shipment-list.component.css']
 })
 export class ShipmentListComponent extends BaseComponent implements OnInit {
 
@@ -32,8 +32,8 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
 
-    constructor(public packageService: PackageService, private popup: PopupService, private fb: FormBuilder) {
-        super(packageService);
+    constructor(public shipmentService: ShipmentService, private popup: PopupService, private fb: FormBuilder) {
+        super(shipmentService);
     }
 
     ngOnInit() {
@@ -51,40 +51,35 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
     prepareSearch() {
         const value = this.searchForm.value;
 
-        const params: any = {
-            perPage: value.perPage,
-            page: value.page
-        };
-        const filter = [];
+        const params: any = {};
         if (value.keyWord !== '') {
-            const keywordDeep = {key: 'keyWord', value: {key: value.keyCategory, value: value.keyWord}};
-            filter.push(keywordDeep);
+            params.q = value.keyWord;
+            params.qref = value.keyCategory;
         }
         if (value.currentStatus !== 'ALL') {
-            filter.push({key: 'currentStatus', value: value.currentStatus});
+            params.s = value.currentStatus;
         }
         if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
 
         }
-        if (filter.length > 0) {
-            const object = filter.reduce((obj, item) => Object.assign(obj, {[item.key]: item.value}), {});
-            console.log(object);
-        }
+        params.prep = value.perPage;
+        params.p = value.page;
         return params;
     }
 
     search() {
         const params = this.prepareSearch();
-        this.packageService.getAllList(params).subscribe(response => {
-            if (response.success) {
-                const data: any = response.data;
+        this.shipmentService.search(params).subscribe(response => {
+            const result: any = response;
+            if (result.success) {
+                const data: any = result.data;
                 this.shipments = data._items;
                 this.totalCount = data._meta.totalCount;
                 this.pageCount = data._meta.pageCount;
                 this.currentPage = data._meta.currentPage;
                 this.perPage = data._meta.perPage;
             } else {
-                this.popup.error(response.message);
+                this.popup.error(result.message);
             }
         });
     }

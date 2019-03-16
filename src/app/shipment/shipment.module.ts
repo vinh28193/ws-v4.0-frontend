@@ -7,8 +7,8 @@ import {ShipmentRoutingModule} from './shipment-routing.module';
 
 import {ShipmentComponent} from './shipment.component';
 import {ShipmentListComponent} from './shipment-list/shipment-list.component';
+import {ShipmentService} from './shipment.service';
 
-import {ShipmentService} from '../pages/operation/shipment/shipment.service';
 
 @NgModule({
     imports: [
