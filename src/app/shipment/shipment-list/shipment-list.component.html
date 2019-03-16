@@ -109,23 +109,113 @@
                     Parcel
                 </div>
             </div>
-        </div>
-        <div *ngFor="let shipment of shipments" class="row grid-view-row-margin-rl-0 grid-content">
-            <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+            <div *ngFor="let shipment of shipments" class="row grid-view-row-margin-rl-0">
+                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                </div>
+                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                    <h5 class="text-danger">{{shipment.shipment_code}} <span class="label label-danger">{{shipment.shipment_status}}</span></h5>
+                    <p class="p-custom m-b-0" *ngIf="shipment.customer?.email">Customer: <strong>{{shipment.customer.email}}</strong></p>
+                    <p class="p-custom m-b-0">Note: <span class="text-muted">{{shipment.note_by_customer}}</span></p>
+                    <hr style="width: 75%" class="mt-2 mb-2">
+                    <h6>Ship Form</h6>
+                    <p class="p-custom m-b-0">Warehouse: <strong>BoxMe Ho Chi Minh</strong></p>
+                    <p class="p-custom m-b-0">Location: <strong>45 Tan Son</strong></p>
+                    <hr style="width: 75%" class="mt-2 mb-2">
+                    <h6>Ship To <i class="fa fa-edit"></i></h6>
+                    <p class="p-custom m-b-0">Name: <strong>{{shipment.receiver_name}}</strong></p>
+                    <p class="p-custom m-b-0">Address: <strong>{{shipment.receiver_name}}</strong></p>
+                    <p class="p-custom m-b-0">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
+                </div>
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
+                    <div class="row grid-view-row-margin-rl-0 grid-content m-b-10">
+                        <ng-container [ngTemplateOutlet]="toggleParcelTemplate"
+                                      [ngTemplateOutletContext]="{parcel:pullParcelData(shipment)}"></ng-container>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                <h5 class="text-danger">{{shipment.shipment_code}}</h5>
-                <p class="p-custom m-b-0">Current Status: <span class="label label-danger">{{shipment.current_status}}</span></p>
-                <p class="p-custom m-b-0">Package Weight: <strong>{{shipment.weight}} gram</strong></p>
-                <p class="p-custom m-b-0">Change Weight: <strong>{{shipment.change_weight}} gram</strong></p>
-                <p class="p-custom m-b-0">Quantity: <strong>{{shipment.quantity}} gram</strong></p>
-                <p class="p-custom m-b-0">Volume (w.l.h): <span class="text-danger">{{shipment.dimension_w}}x{{shipment.dimension_l}}x{{shipment.dimension_h}}</span><strong>(cm)</strong></p>
-                <p class="p-custom m-b-0">Total COD: <strong>{{shipment.cod}} VND</strong></p>
-                <p class="p-custom m-b-0">Total Trice: <strong>{{shipment.price}} VND</strong></p>
-            </div>
-            {{shipment|json}}
         </div>
-
     </div>
+</ng-template>
+
+<ng-template #shipmentParcelListTemplate let-parcel="parcel">
+    <div class="col-md-12 grid-view-col-content">
+        <div class="row grid-view-row-margin-rl-0 grid-content">
+            <h5>Total: <span class="text-danger">{{parcel.totalParcel}}</span> items - Quantity: <span class="text-danger">{{parcel.totalQuantity}}</span> - Weight: <span class="text-danger">{{parcel.totalWeight}}</span>gram</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row grid-view-row-margin-rl-0 grid-header">
+                    <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                        ID
+                    </div>
+                    <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                        Warehouse Tag
+                    </div>
+                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
+                        Quantity(*)/Weight(g)
+                    </div>
+                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
+                       COD/Price (VND)
+                    </div>
+                    <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
+                        Action
+                    </div>
+                </div>
+                <div *ngFor="let item of parcel.parcels" class="row grid-view-row-margin-rl-0 grid-content">
+                    <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
+                       ##{{item.id}}
+                    </div>
+                    <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                       {{item.box_me_warehouse_tag}}
+                    </div>
+                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
+                        {{item.quantity}}/{{item.weight}}
+                    </div>
+                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
+                        {{item.cod}}/{{item.price}}
+                    </div>
+                    <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
+                        Action
+                    </div>
+                </div>
+                <hr>
+                <div class="row grid-view-row-margin-rl-0">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-2 p-0">
+                                <img src="{{parcel.courier.logo}}" alt="" width="100%">
+                            </div>
+                            <div class="col-md-10 pl-2" style="padding-top: 0.4rem">
+                                <p class="p-custom m-b-0">Name: <span class="text-danger">Viettel Post CPN</span></p>
+                                <p class="p-custom m-b-0">Estimate: <span class="text-danger">{{parcel.courier.estimate.from}} hrs - {{parcel.courier.estimate.to}} days</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-style-none text-right">
+                            <li>COD: <span class="text-danger">{{parcel.totalCod}} VND</span>  </li>
+                            <li>Shipping Fee: <span class="text-danger">{{parcel.totalPrice}}VND </span> </li>
+                            <li>Item Price: <span class="text-danger">{{parcel.totalPrice}}VND </span>  </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="mt-2 mb-2">
+                <div class="row grid-view-row-margin-rl-0">
+                    <div class="col-md-12 text-right">
+                            <strong>Total Price</strong> : <span class="text-danger">{{parcel.totalPrice}}VND </span>
+                    </div>
+                </div>
+                <div class="row grid-view-row-margin-rl-0 m-t-10">
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-sm btn-success">Create Shipment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #shipmentParcelCreateTemplate let-parcel="parcel">
+    {{parcel|json}}
 </ng-template>

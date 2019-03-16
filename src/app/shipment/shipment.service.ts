@@ -16,8 +16,8 @@ export class ShipmentService extends ClientService {
         super(http, encryption, popup);
     }
 
-    search(params) {
-        return this.get('s', params);
+    search(filter: any | undefined) {
+        return this.get('s', filter);
     }
 
 }

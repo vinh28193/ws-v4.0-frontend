@@ -4,6 +4,7 @@ import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BaseComponent} from '../../core/base.compoment';
 import {ShipmentService} from '../shipment.service';
+import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
     selector: 'app-shipment-list',
@@ -13,7 +14,10 @@ import {ShipmentService} from '../shipment.service';
 export class ShipmentListComponent extends BaseComponent implements OnInit {
 
     @ViewChild('shipmentListTemplate') shipmentListTemplate: TemplateRef<any>;
-    @ViewChild('shipmentCreateTemplate') shipmentCreateFormTemplate: TemplateRef<any>;
+
+    @ViewChild('shipmentParcelListTemplate') shipmentParcelListTemplate: TemplateRef<any>;
+    @ViewChild('shipmentParcelCreateTemplate') shipmentParcelCreateTemplate: TemplateRef<any>;
+
 
     public shipments: any = [];
 
@@ -28,6 +32,7 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
     // Template
     public toggleShipmentTemplate: TemplateRef<any>;
 
+    public toggleParcelTemplate: TemplateRef<any>;
     public dateTime: Date;
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
@@ -46,6 +51,7 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
         this.buildSearchForm();
         this.search();
         this.toggleShipmentTemplate = this.shipmentListTemplate;
+        this.toggleParcelTemplate = this.shipmentParcelListTemplate;
     }
 
     prepareSearch() {
@@ -82,6 +88,7 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
                 this.popup.error(result.message);
             }
         });
+        console.log(this.shipments);
     }
 
     buildSearchForm() {
@@ -96,6 +103,26 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
         });
     }
 
+    pullParcelData(shipment) {
+        const items = shipment.packageItems;
+        // for (const item of items) {
+        //     console.log(item);
+        // }
+        return {
+            parcels: items,
+            totalParcel: items.length,
+            totalWeight: shipment.total_weight,
+            totalQuantity: shipment.total_quantity,
+            totalCod: shipment.total_cod,
+            totalPrice: shipment.total_price,
+            courier: {
+                code: shipment.courier_code,
+                logo: shipment.courier_logo,
+                estimate: {from: 1, to: 2}
+            }
+        };
+    }
+
     handlePagination(event) {
         const page = event.page;
         this.searchForm.patchValue({page: page});
@@ -106,5 +133,9 @@ export class ShipmentListComponent extends BaseComponent implements OnInit {
         const value = event.target.value;
         this.searchForm.patchValue({perPage: value});
         this.search();
+    }
+
+    consoleLog(value){
+       ;
     }
 }
