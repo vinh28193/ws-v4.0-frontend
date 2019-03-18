@@ -10,7 +10,8 @@ import {LoadingModule} from '../loading/loading.module';
     imports: [
         CommonModule,
         OperationRoutingModule,
-        LoadingModule
+        LoadingModule,
+
     ],
     declarations: [OperationRoutingComponent],
     providers: [
