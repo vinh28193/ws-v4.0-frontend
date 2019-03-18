@@ -40,9 +40,9 @@ Thumbs.db
 
 # Envaroment
 /src/environments\environmentTs.prod.ts
-/src/environments\environment.ts
+/src/environments\environmentTs.ts
 
-./src/environments/environment.prod.ts
+./src/environments/environmentTs.prod.ts
 ./src/environments\environment.ts
 
 # Json package
