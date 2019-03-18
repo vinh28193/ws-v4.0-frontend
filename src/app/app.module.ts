@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {AppRoutingComponent} from './app.routing.component';
+import {AppRoutingComponent} from './app-routing.component';
 import {SharedModule} from './shared/shared.module';
 
 import {Router} from '@angular/router';
