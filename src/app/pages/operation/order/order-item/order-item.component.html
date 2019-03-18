@@ -111,7 +111,7 @@
           </div>
           <div class="row">
             <div class="col-md-7"><strong>Price Amount Local:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount | number}}{{product.currency_symbol}} </div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount | currency}}</div>
           </div>
           <hr>
           <div class="row">
@@ -120,11 +120,11 @@
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
               </strong>
             </div>
-            <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}{{product.currency_symbol}}</div>
+            <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | currency: 'VND'}}</div>
           </div>
           <div class="row">
             <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate:
-              {{product.exchange_rate | number}}{{product.currency_symbol}}
+              {{product.exchange_rate | number}}
             </i>
             </div>
           </div>
@@ -204,8 +204,8 @@
             <div class="col-md-7 text-right">{{ returned | date:'dd/MM/yyyy HH:mm'}}</div>
           </div>
           <div class="row">
-            <div class="col-md-5  pr-0">Cancelled:</div>
-            <div class="col-md-7 text-right">{{cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
+            <div class="col-md-6  pr-0">Cancelled:</div>
+            <div class="col-md-6 text-right">{{cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
           </div>
           <div class="row">
             <div class="col-md-5  pr-0">Lost:</div>
@@ -277,7 +277,9 @@
             </a>
           </li>
         </ul>
-        <router-outlet></router-outlet>
+        <div>
+          <app-detail-package></app-detail-package>
+        </div>
       </div>
     </div>
   </div>

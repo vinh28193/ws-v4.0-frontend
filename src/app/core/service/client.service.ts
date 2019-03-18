@@ -10,14 +10,20 @@ import {environment} from '../../../environments/environment.prod';
 import {BaseComponent} from '../base.compoment';
 import {EncryptionService} from './encryption.service';
 import {PopupService} from './popup.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 declare var swal: any;
 
 @Injectable()
 export class ClientService extends GlobalService {
+  public formGroup: FormGroup;
+  public model: any;
 
-  constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
+  constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService, public formBuilder: FormBuilder) {
     super(encryption);
+  }
+  public setFormValue() {
+    this.formGroup.setValue(ObjectUtil.mergeValue(this.formGroup.value, this.model));
   }
 
   handleError(error: HttpErrorResponse) {

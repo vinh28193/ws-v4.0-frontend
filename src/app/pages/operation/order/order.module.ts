@@ -16,6 +16,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import { EditVariantComponent } from './order-item/edit-variant/edit-variant.component';
 import { AssignSaleComponent } from './assign-sale/assign-sale.component';
 import { DetailPackageComponent } from './order-item/detail-package/detail-package.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export const routes: Routes = [
   {
@@ -57,6 +58,7 @@ export const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     SharedModule,
     NgxDaterangepickerMd.forRoot(),
     Daterangepicker,
