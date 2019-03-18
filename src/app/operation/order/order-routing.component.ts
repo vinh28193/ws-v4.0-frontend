@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {OperationRoutingComponent} from '../operation-routing.component';
 import {ActivatedRoute} from '@angular/router';
+import {OperationRoutingComponent} from '../operation-routing.component';
 
 @Component({
-    selector: 'app-package',
+    selector: 'app-order-routing',
     template: '<router-outlet></router-outlet>'
 })
-export class PackageRoutingComponent extends OperationRoutingComponent implements OnInit {
+export class OrderRoutingComponent extends OperationRoutingComponent implements OnInit {
 
     constructor(public activatedRoute: ActivatedRoute) {
         super(activatedRoute);
