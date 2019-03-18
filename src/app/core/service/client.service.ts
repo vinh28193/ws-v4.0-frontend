@@ -16,16 +16,11 @@ declare var swal: any;
 
 @Injectable()
 export class ClientService extends GlobalService {
-  public formGroup: FormGroup;
   public model: any;
 
-  constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService, public formBuilder: FormBuilder) {
+  constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
     super(encryption);
   }
-  public setFormValue() {
-    this.formGroup.setValue(ObjectUtil.mergeValue(this.formGroup.value, this.model));
-  }
-
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.log('An error occurred:', error.error.message);

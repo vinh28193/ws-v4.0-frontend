@@ -11,7 +11,7 @@ import {OrderService} from './order/order.service';
   imports: [
     CommonModule,
     OrderModule,
-    ShipmentModule,
+    ShipmentModule
   ],
   providers: [
     ShipmentService,
