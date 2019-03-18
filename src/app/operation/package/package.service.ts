@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {ClientService} from '../core/service/client.service';
-import {EncryptionService} from '../core/service/encryption.service';
-import {PopupService} from '../core/service/popup.service';
 import {HttpClient} from '@angular/common/http';
+import {EncryptionService} from '../../core/service/encryption.service';
+import {PopupService} from '../../core/service/popup.service';
+import {OperationService} from '../operation.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PackageService extends ClientService {
+export class PackageService extends OperationService {
 
     constructor(
         public http: HttpClient,

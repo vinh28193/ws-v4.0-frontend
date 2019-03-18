@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
+import {AppRoutingComponent} from './app.routing.component';
 import {SharedModule} from './shared/shared.module';
 
 import {Router} from '@angular/router';
@@ -15,12 +15,11 @@ import {RequestInterceptor} from './core/interceptor/request.interceptor';
 
 import {PagesModule} from './pages/pages.module';
 import {BrowserModule} from '@angular/platform-browser';
-import {LoadingModule} from './core/loading/loading.module';
-
+import {LoadingModule} from './loading/loading.module';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppRoutingComponent
     ],
     imports: [
         HttpClientModule,
@@ -40,7 +39,7 @@ import {LoadingModule} from './core/loading/loading.module';
             HttpClient,
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppRoutingComponent]
 })
 export class AppModule {
     // Diagnostic only: inspect router configuration

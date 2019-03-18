@@ -1,17 +1,16 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
-import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {BaseComponent} from '../../core/base.compoment';
+import {PopupService} from '../../../core/service/popup.service';
 import {ShipmentService} from '../shipment.service';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
+import {ShipmentDataComponent} from '../shipment-data.component';
 
 @Component({
     selector: 'app-shipment-list',
     templateUrl: './shipment-list.component.html',
     styleUrls: ['./shipment-list.component.css']
 })
-export class ShipmentListComponent extends BaseComponent implements OnInit {
+export class ShipmentListComponent extends ShipmentDataComponent implements OnInit {
 
     @ViewChild('shipmentListTemplate') shipmentListTemplate: TemplateRef<any>;
 

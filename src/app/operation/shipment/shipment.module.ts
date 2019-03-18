@@ -4,10 +4,11 @@ import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {ShipmentRoutingModule} from './shipment-routing.module';
+import {ShipmentRoutingComponent} from './shipment-routing.component';
 
-import {ShipmentComponent} from './shipment.component';
 import {ShipmentListComponent} from './shipment-list/shipment-list.component';
 import {ShipmentService} from './shipment.service';
+import { ShipmentDataComponent } from './shipment-data.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import {ShipmentService} from './shipment.service';
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot()
     ],
-    declarations: [ShipmentComponent, ShipmentListComponent],
+    declarations: [ShipmentRoutingComponent, ShipmentListComponent],
     providers: [
         ShipmentService
     ]

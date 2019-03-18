@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {ShipmentComponent} from './shipment.component';
+import {ShipmentRoutingComponent} from './shipment-routing.component';
 import {ShipmentListComponent} from './shipment-list/shipment-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: ShipmentComponent,
+        component: ShipmentRoutingComponent,
         children: [
             {
                 path: '',

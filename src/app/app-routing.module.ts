@@ -19,12 +19,8 @@ const appRoutes: Routes = [
         },
     },
     {
-        path: 'package',
-        loadChildren: './package/package.module#PackageModule',
-    },
-    {
-        path: 'shipment2',
-        loadChildren: './shipment/shipment.module#ShipmentModule',
+        path: 'operation',
+        loadChildren: './operation/operation.module#OperationModule',
     },
 ];
 

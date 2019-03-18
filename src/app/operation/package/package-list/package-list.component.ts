@@ -1,29 +1,24 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {BaseComponent} from '../../core/base.compoment';
+import {BaseComponent} from '../../../core/base.compoment';
 
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PackageService} from '../package.service';
-import {PopupService} from '../../core/service/popup.service';
+import {PopupService} from '../../../core/service/popup.service';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
+import {PackageDataComponent} from '../package-data.component';
 
 @Component({
     selector: 'app-package-list',
     templateUrl: './package-list.component.html',
     styleUrls: ['./package-list.component.css']
 })
-export class PackageListComponent extends BaseComponent implements OnInit {
+export class PackageListComponent extends PackageDataComponent implements OnInit {
 
     @ViewChild('packageListTemplate') packageListTemplate: TemplateRef<any>;
     @ViewChild('orderListTemplate') orderListTemplate: TemplateRef<any>;
     @ViewChild('productListTemplate') productListTemplate: TemplateRef<any>;
 
     public packages: any = [];
-
-    // meta
-    public totalCount: number;
-    public pageCount: number;
-    public currentPage: number;
-    public perPage: number;
     // form Group
     public searchForm: FormGroup;
     // Template

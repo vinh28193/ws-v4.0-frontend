@@ -4,11 +4,12 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
 
 import {PackageRoutingModule} from './package-routing.module';
-import {PackageComponent} from './package.component';
+import {PackageRoutingComponent} from './package-routing.component';
+
 import {PackageListComponent} from './package-list/package-list.component';
+
 import {PackageService} from './package.service';
 import {PackageDirective} from './package.directive';
-
 
 @NgModule({
     imports: [
@@ -19,7 +20,7 @@ import {PackageDirective} from './package.directive';
         BsDatepickerModule.forRoot()
     ],
     declarations: [
-        PackageComponent,
+        PackageRoutingComponent,
         PackageListComponent,
         PackageDirective
     ],
