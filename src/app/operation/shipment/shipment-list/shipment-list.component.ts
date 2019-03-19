@@ -134,7 +134,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
         this.search();
     }
 
-    consoleLog(value){
-       ;
+    consoleLog(value) {
+        console.log(value);
     }
 }
