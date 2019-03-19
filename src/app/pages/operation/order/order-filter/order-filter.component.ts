@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {moment} from 'ngx-bootstrap/chronos/test/chain';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-order-filter',
@@ -7,6 +8,7 @@ import {moment} from 'ngx-bootstrap/chronos/test/chain';
   styleUrls: ['./order-filter.component.css']
 })
 export class OrderFilterComponent implements OnInit {
+  [x: string]: any;
   filter: any = {};
   itemStatus = [];
   searchKeys = [];
@@ -16,7 +18,7 @@ export class OrderFilterComponent implements OnInit {
   bsRangeValue: Date[];
   maxDate = new Date();
 
-  constructor() { }
+  constructor(public formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.filter = {
@@ -33,6 +35,7 @@ export class OrderFilterComponent implements OnInit {
       extractTime: {timeKey: 'all', timeValue: {start: '', end: ''}},
       paymentStatus: '',
       store: '',
+      keyTime: '',
     };
     this.itemStatus = [
       {key: 'NEW', name: 'New order'},
@@ -99,23 +102,25 @@ export class OrderFilterComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate() + 7);
     this.bsRangeValue = [this.bsValue, this.maxDate];
   }
-  public onChangeDate(event) {
-    this.bsRangeValue = event;
-    const item: any = {};
-    item.start = this.convertDateTime(event[0]);
-    item.end = this.convertDateTime(event[1]);
-    this.filter.extractTime.timeValue = item;
-    // this.onSearch();
+  buildForm(): FormGroup {
+    return this.formBuilder.group({
+      keyTime: new FormControl(null),
+      key: new FormControl(null),
+      value: new FormControl(null),
+      orderType: new FormControl(null),
+      period: new FormControl(null),
+      itemType: new FormControl(null),
+      itemStatus: new FormControl(null),
+      sale: new FormControl(null),
+      payment: new FormControl(null),
+      local: new FormControl(null),
+      approve_status: new FormControl(null),
+      policy: new FormControl(null),
+    });
   }
-  convertDateTime(value) {
-    const date = new Date(value);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    const hours = ('0' + date.getHours()).slice(-2);
-    const minutes = ('0' + date.getMinutes()).slice(-2);
-    const seconds = ('0' + date.getSeconds()).slice(-2);
-    const mySQLDate = [date.getFullYear(), month, day].join('/');
-    const mySQLTime = [hours, minutes, seconds].join(':');
-    return [mySQLDate, mySQLTime].join(' ');
+
+  onSearch() {
+    this.search.emit(this.filter.buildForm);
   }
+
 }

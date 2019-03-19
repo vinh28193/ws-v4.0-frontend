@@ -13,10 +13,10 @@ const routes: Routes = [
                 path: '',
                 component: OrderListComponent
             },
-            {
-                path: 'list',
-                component: OrderListComponent
-            },
+            // {
+            //     path: 'list',
+            //     component: OrderListComponent
+            // },
             {
                 path: ':id',
                 component: OrderDetailComponent

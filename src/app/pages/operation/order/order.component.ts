@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderService} from './order.service';
 import {BaseComponent} from '../../../core/base.compoment';
-import NumberFormat = Intl.NumberFormat;
-import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {HttpParams} from '@angular/common/http';
+// import NumberFormat = Intl.NumberFormat;
+// import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
   selector: 'app-order',
@@ -12,8 +13,10 @@ import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 export class OrderComponent extends BaseComponent implements OnInit {
   public orders: any = [];
   public total: any;
-  public limit: 20;
-  public page: 1;
+  private limit: 20;
+  private page: 1;
+  public filter: any = {};
+  public status: any;
   constructor(private orderService: OrderService) {
     super(orderService);
   }
@@ -22,7 +25,11 @@ export class OrderComponent extends BaseComponent implements OnInit {
   }
 
   listOrder() {
-    this.orderService.getList('order', {limit: 20, page: 1}).subscribe(res => {
+    this.limit = 20;
+    this.page = 1;
+    const param: any = {};
+    param.t = this.filter.status;
+    this.orderService.getList(`${'order'}?limit=${this.limit}&page=${this.page}`, {param}).subscribe(res => {
       this.orders = res.data;
       this.orders = Object.entries(res.data).map(e => {
         return e[1];

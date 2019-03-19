@@ -10,16 +10,17 @@ import {environment} from '../../../environments/environment.prod';
 import {BaseComponent} from '../base.compoment';
 import {EncryptionService} from './encryption.service';
 import {PopupService} from './popup.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 declare var swal: any;
 
 @Injectable()
 export class ClientService extends GlobalService {
+  public model: any;
 
   constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
     super(encryption);
   }
-
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.log('An error occurred:', error.error.message);
