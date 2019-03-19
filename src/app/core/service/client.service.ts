@@ -13,6 +13,8 @@ import {PopupService} from './popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 declare var swal: any;
+declare var $: any;
+declare var jQuery: any;
 
 @Injectable()
 export class ClientService extends GlobalService {

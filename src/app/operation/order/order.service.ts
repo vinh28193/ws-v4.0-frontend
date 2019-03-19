@@ -4,6 +4,8 @@ import {EncryptionService} from '../../core/service/encryption.service';
 import {PopupService} from '../../core/service/popup.service';
 import {HttpClient} from '@angular/common/http';
 
+declare var $: any;
+
 @Injectable({
     providedIn: 'root'
 })

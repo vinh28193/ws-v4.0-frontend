@@ -37,7 +37,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     maxDateTime.setDate(this.dateTime.getDate() + 1);
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
-    this.listOrder();
+    this.listOrders();
     this.searchKeys = [
       {key: 'order_item.id', name: 'SOI'},
       {key: 'order.binCode', name: 'BIN'},
@@ -84,7 +84,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     ];
   }
 
-  listOrder() {
+  listOrders() {
     const params = this.prepareSearch();
     this.orderService.search(params).subscribe(response => {
       const result: any = response;
@@ -96,10 +96,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orders = Object.entries(data._items).map(e => {
           return e[1];
         });
-        this.total = data._meta.totalCount;
-        this.pageCount = data._meta.pageCount;
-        this.currentPage = data._meta.currentPage;
-        this.perPage = data._meta.perPage;
+        this.total = data.totalCount;
+        this.pageCount = data.pageCount;
+        this.currentPage = data.page;
+        this.perPage = data.size;
       } else {
         this.popup.error(result.message);
       }
@@ -124,7 +124,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             portal: this.allKey,
             status: this.allKey,
             location: this.allKey,
-            sale: this.allKey
+            sale: this.allKey,
+            page: this.currentPage,
+            perPage: this.perPage,
         });
     }
   prepareSearch() {
@@ -170,15 +172,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   handlePagination(event) {
-    console.log(event)
     const page = event.page;
     this.searchForm.patchValue({page: page});
-    this.listOrder();
+    this.listOrders();
   }
 
   handlePerPage(event) {
     const value = event.target.value;
     this.searchForm.patchValue({perPage: value});
-    this.listOrder();
+    this.listOrders();
   }
 }

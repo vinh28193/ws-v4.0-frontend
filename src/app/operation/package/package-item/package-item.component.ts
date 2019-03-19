@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PackageDataComponent} from '../package-data.component';
 import {PackageService} from '../package.service';
-import {PackageItem} from '../package-item';
 
 @Component({
     selector: 'app-package-item',

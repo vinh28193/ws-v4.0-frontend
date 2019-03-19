@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
+declare var $: any;
+declare var jQuery: any;
 
 @Component({
     selector: 'app-operation',
