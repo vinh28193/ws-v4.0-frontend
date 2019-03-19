@@ -13,12 +13,15 @@ export class GlobalService {
    */
   public API_URL_BACKEND;
 
+  public OAUTH_URL;
+
   /**
    * constructor service
    * @param {EncryptionService} cryCode
    */
   constructor(public cryCode: EncryptionService) {
     this.API_URL_BACKEND = environment['API_URL_BACKEND'];
+    this.OAUTH_URL = environment['OAUTH_URL'];
   }
 
   /**
@@ -102,6 +105,19 @@ export class GlobalService {
       return url;
     }
     return this.API_URL_BACKEND + '/' + url;
+  }
+
+  /**
+   *  string baseUrl + current request
+   * @param url
+   * @param {boolean} fullPath
+   * @returns {any}
+   */
+  getApiOrderURl(url, fullPath = false) {
+    if (fullPath) {
+      return url;
+    }
+    return this.OAUTH_URL + '/' + url;
   }
 
   /**

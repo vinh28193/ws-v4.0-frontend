@@ -21,6 +21,6 @@ export class OrderService extends OperationService {
       return this.get(url, params);
     }
     search(filter: any | undefined) {
-      return this.get('order', filter);
+      return this.getOrder('v1/order', filter);
     }
 }

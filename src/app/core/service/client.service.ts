@@ -52,6 +52,22 @@ export class ClientService extends GlobalService {
 
   }
 
+  /**
+   * @param url
+   * @param params
+   */
+  getOrder(url: string, params: any | undefined): Observable<any> {
+    if (typeof params !== 'undefined' && typeof params === 'object') {
+      params = jQuery.param(params);
+      url += '?' + params;
+    }
+    return this.http.get(this.getApiOrderURl(url), this.getAuthHttpOptions())
+        .pipe(
+            catchError(this.handleError)
+        );
+
+  }
+
   post(url, body) {
     return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
       .pipe(
