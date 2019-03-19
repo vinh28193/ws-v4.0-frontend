@@ -107,18 +107,6 @@ export class GlobalService {
     return this.API_URL_BACKEND + '/' + url;
   }
 
-  /**
-   *  string baseUrl + current request
-   * @param url
-   * @param {boolean} fullPath
-   * @returns {any}
-   */
-  getApiOrderURl(url, fullPath = false) {
-    if (fullPath) {
-      return url;
-    }
-    return this.OAUTH_URL + '/' + url;
-  }
 
   /**
    * handle http error

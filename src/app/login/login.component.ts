@@ -38,24 +38,22 @@ export class LoginComponent extends BaseComponent implements OnInit {
         }
         this.authService.getAuthorize(this.username, this.password).subscribe(ret => {
             const res: any = ret;
-            /*console.log('res' + JSON.stringify(res)); */
-
+            // console.log('res' + JSON.stringify(res));
             if (res.success) {
                 this.loading = false;
                 const rs: any = res.data;
-                console.log('authorizationCode : ' + rs.code);
+                // console.log('authorizationCode : ' + rs.code);
                 this.authService.authorizationCode = rs.code;
                 this.authService.authorizationCodeExpire = rs.expires_at;
-                console.log('authorizationCode : ' + this.authService.authorizationCode);
-                console.log('authorizationCodeExpire : ' + this.authService.authorizationCodeExpire);
+                // console.log('authorizationCode : ' + this.authService.authorizationCode);
+                // console.log('authorizationCodeExpire : ' + this.authService.authorizationCodeExpire);
                 this.selfHandleAccessToken();
             } else {
                 this.loading = false;
                 this.popup.error(res.message, 'Error');
             }
             this.loading = false;
-            console.log('done');
-
+            // console.log('done');
         });
     }
 
@@ -73,8 +71,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
                 this.identity = userPublicIdentity;
                 this.scope = userPublicIdentity.role;
                 // this.store = rs.user.store_id;
-                console.log('res Roles : ' + JSON.stringify(userPublicIdentity));
-                console.log('res scope : ' + JSON.stringify(this.scope));
+                // console.log('res Roles : ' + JSON.stringify(userPublicIdentity));
+                // console.log('res scope : ' + JSON.stringify(this.scope));
                 switch (this.scope) {
                     case 'cms':
                         setTimeout(() => {

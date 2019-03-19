@@ -88,11 +88,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.prepareSearch();
     this.orderService.search(params).subscribe(response => {
       const result: any = response;
-      if (result.message === 'Success') {
-        this.popup.success(result.message);
+      if (result.message === 'ok') {
+        // this.popup.success(result.message);
         const data: any = result.data;
         this.orders = data._items;
-        this.orders = Object.entries(result.data).map(e => {
+        // console.log(' data Order : ' + JSON.stringify(this.orders));
+        this.orders = Object.entries(data._items).map(e => {
           return e[1];
         });
         this.total = data._meta.totalCount;
