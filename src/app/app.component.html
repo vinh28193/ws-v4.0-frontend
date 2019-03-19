@@ -1,139 +1,175 @@
-<app-loading [loading]="loading"></app-loading>
-<div class="page-wrapper chiller-theme toggled ml-0">
-  <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
-    <i class="fas fa-bars"></i>
-  </a>
-  <nav id="sidebar" class="sidebar-wrapper" style="background-color: #2E9AB8">
-    <div class="sidebar-content">
-      <div class="sidebar-brand" style="background-color: #DDDDDD">
-        <a href="javascript:void(0)">
-          <img src="https://weshop.com.vn/images/logo/weshop/weshop-logo-vn.png" alt="">
-        </a>
-        <div id="close-sidebar">
-          <a href="javascript:void(0)"><i class="fas fa-times text-blue"></i></a>
-        </div>
-      </div>
-      <div class="sidebar-header" style="background-color: #1D8EAE; border: none">
-        <div class="user-pic" style="height: 4.2em">
-          <img class="shopee-avatar__img" src="https://cf.shopee.vn/file/8271c20ad3a209a70c81bc3aadd90692_tn" style="border-radius: 50%">
-        </div>
-        <div class="user-info">
-                    <span class="user-name text-white" >Jhon
-                        <strong>Smith</strong>
-                    </span>
-          <span class="user-role text-white">Administrator</span>
-          <span class="user-status">
-                        <i class="fa fa-circle"></i>
-                        <span class="text-white">Online</span>
-                    </span>
-        </div>
-      </div>
-      <div class="sidebar-menu sty-color" style="border: none">
-        <style>
-          .sty-color ul li a span {
-            color: white;
-          }
-          .sty-color ul li a i {
-            color: white;
-          }
-        </style>
-        <ul>
-          <li class="active">
-            <a [routerLink]="['order']">
-              <i class="fa fa-home"></i>
-              <span>Thống kê chung</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['shipment']">
-              <i class="fa fa-truck"></i>
-              <span>Shipment</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['package']">
-              <i class="fa fa-truck"></i>
-              <span>Package</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['order']">
-              <i class="fa fa-shopping-cart"></i>
-              <span>Order</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown">
-            <a href="javascript:void(0)">
-              <i class="fa fa-bell"></i>
-              <span>Thông Báo</span>
-            </a>
-            <div class="sidebar-submenu bg-info">
-              <ul>
-                <li>
-                  <a class="text-white" href="javascript:void(0)">Cập nhập đơn hàng</a>
-                </li>
-                <li>
-                  <a class="text-white" href="javascript:void(0)">Khuyến mại</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="fa fa-globe"></i>
-              <span>Vi voucher</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="fa fa-dot-circle-o"></i>
-              <span>Weshop xu</span>
-            </a>
-          </li>
-          <li >
-            <a [routerLink]="['login']">
-              <i class="fa fa-user"></i>
-              <span>Login</span>
-            </a>
-          </li>
-          <li >
-            <a href="javascript:void(0)">
-              <i class="fa fa-arrow-circle-left"></i>
-              <span>Logout</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- sidebar-menu  -->
-    </div>
-  </nav>
-  <main class="page-content ml-2 pt-0" style="background-color: #EEF5F9;">
-    <div class="row m-0 p-0 bg-white">
-      <div class="col-md-12 pl-0">
-        <div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">
-          <div class="col-md-5 align-self-center">
-            <h2 class="text-themecolor"> Order Manager</h2>
-          </div>
-          <div class="col-md-7 align-self-center text-right">
-            <ul class="bg-white text-right float-right" style="height: 100%">
-              <li class="breadcrumb-item">
-                <a href="javascript:void(0)">Home</a>
-              </li><!---->
-              <li class="breadcrumb-item active">
-                <a href="#/order">Order</a>
-              </li>
-              <li class="breadcrumb-item active">
-                <a href="#/order">Order Manager</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
+<!--<app-loading [loading]="loading"></app-loading>-->
+<!--<div class="page-wrapper chiller-theme toggled ml-0">-->
+  <!--<a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">-->
+    <!--<i class="fas fa-bars"></i>-->
+  <!--</a>-->
+  <!--<nav id="sidebar" class="sidebar-wrapper" style="background-color: #2E9AB8">-->
+    <!--<div class="sidebar-content">-->
+      <!--<div class="sidebar-brand" style="background-color: #DDDDDD">-->
+        <!--<a href="#">-->
+          <!--<img src="https://weshop.com.vn/images/logo/weshop/weshop-logo-vn.png" alt="">-->
+        <!--</a>-->
+        <!--<div id="close-sidebar">-->
+          <!--<i class="fas fa-times text-blue"></i>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="sidebar-header" style="background-color: #1D8EAE; border: none">-->
+        <!--<div class="user-pic" style="height: 4.2em">-->
+          <!--<img class="shopee-avatar__img" src="https://cf.shopee.vn/file/8271c20ad3a209a70c81bc3aadd90692_tn" style="border-radius: 50%">-->
+        <!--</div>-->
+        <!--<div class="user-info">-->
+                    <!--<span class="user-name text-white" >Jhon-->
+                        <!--<strong>Smith</strong>-->
+                    <!--</span>-->
+          <!--<span class="user-role text-white">Administrator</span>-->
+          <!--<span class="user-status">-->
+                        <!--<i class="fa fa-circle"></i>-->
+                        <!--<span class="text-white">Online</span>-->
+                    <!--</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="sidebar-menu sty-color" style="border: none">-->
+        <!--<style>-->
+          <!--.sty-color ul li a span {-->
+            <!--color: white;-->
+          <!--}-->
+          <!--.sty-color ul li a i {-->
+            <!--color: white;-->
+          <!--}-->
+        <!--</style>-->
+        <!--<ul>-->
+          <!--<li class="active">-->
+            <!--<a href="/">-->
+              <!--<i class="fa fa-tachometer-alt"></i>-->
+              <!--<span>Thống kê chung</span>-->
+            <!--</a>-->
+          <!--</li>-->
+          <!--<li class="sidebar-dropdown">-->
+            <!--<a href="#">-->
+              <!--<i class="fa fa-dollar"></i>-->
+              <!--<span>Quản lí ví tiền</span>-->
+            <!--</a>-->
+            <!--<div class="sidebar-submenu bg-info">-->
+              <!--<ul>-->
+                <!--<li >-->
+                  <!--<a class="text-white" href="qlt-nap-tien.html">Nạp tiền</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="qlt-giao-dich.html">Giao dịch</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="qlt-tai-khoan-ngan-hang.html">Tài khoản ngân hàng</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="qlt-rut-tien.html">Rút tiền</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="sidebar-dropdown">-->
+            <!--<a href="#">-->
+              <!--<i class="fa fa-shopping-cart"></i>-->
+              <!--<span>Đơn hàng</span>-->
+            <!--</a>-->
+            <!--<div class="sidebar-submenu bg-info">-->
+              <!--<ul>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="dh-cho-thanh-toan.html">Chờ thanh toán</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="dh-waiting.html">Chờ lấy hàng</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="dh-being-shiped.html">Đang giao</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="dh-being-shiped.html">Đã giao</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="dh-cancel.html">Đã hủy</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li class="sidebar-dropdown">-->
+            <!--<a href="#">-->
+              <!--<i class="fa fa-bell"></i>-->
+              <!--<span>Thông Báo</span>-->
+            <!--</a>-->
+            <!--<div class="sidebar-submenu bg-info">-->
+              <!--<ul>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="tb-update.html">Cập nhập đơn hàng</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="tb-khuyen-mai.html">Khuyến mại</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<a href="voucher.html">-->
+              <!--<i class="fa fa-globe"></i>-->
+              <!--<span>Vi voucher</span>-->
+            <!--</a>-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<a href="weshop-xu.html">-->
+              <!--<i class="fa fa-book"></i>-->
+              <!--<span>Weshop xu</span>-->
+            <!--</a>-->
+          <!--</li>-->
+          <!--<li class="sidebar-dropdown ">-->
+            <!--<a href="#">-->
+              <!--<i class="fa fa-user"></i>-->
+              <!--<span>Tài khoản cá nhân</span>-->
+            <!--</a>-->
+            <!--<div class="sidebar-submenu bg-info">-->
+              <!--<ul>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="tk-tai-khoan.html">Thông tin cá nhân</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="tk-san-pham-uu-dai.html">Sản phẩm đã lưu</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a class="text-white" href="tk-cap-do-vip.html">Cấp độ Vip</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <!--&lt;!&ndash; sidebar-menu  &ndash;&gt;-->
+    <!--</div>-->
+  <!--</nav>-->
+  <!--<main class="page-content ml-2 pt-0" style="background-color: #EEF5F9;">-->
+    <!--<div class="row m-0 p-0 bg-white">-->
+      <!--<div class="col-md-12 pl-0">-->
+        <!--<div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">-->
+          <!--<div class="col-md-5 align-self-center">-->
+            <!--<h2 class="text-themecolor"> Order Manager</h2>-->
+          <!--</div>-->
+          <!--<div class="col-md-7 align-self-center text-right">-->
+            <!--<ul class="bg-white text-right float-right" style="height: 100%">-->
+              <!--<li class="breadcrumb-item">-->
+                <!--<a href="javascript:void(0)">Home</a>-->
+              <!--</li>&lt;!&ndash;&ndash;&gt;-->
+              <!--<li class="breadcrumb-item active">-->
+                <!--<a href="#/order">Order</a>-->
+              <!--</li>-->
+              <!--<li class="breadcrumb-item active">-->
+                <!--<a href="#/order">Order Manager</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+          <!--<div class="col-md-12">-->
+            <!--<router-outlet></router-outlet>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</main>-->
+<!--</div>-->

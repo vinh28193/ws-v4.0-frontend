@@ -89,16 +89,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.orderService.search(params).subscribe(response => {
       const result: any = response;
       if (result.message === 'Success') {
-        this.popup.success(result.message);
         const data: any = result.data;
         this.orders = data._items;
         this.orders = Object.entries(result.data).map(e => {
           return e[1];
         });
-        this.total = data._meta.totalCount;
-        this.pageCount = data._meta.pageCount;
-        this.currentPage = data._meta.currentPage;
-        this.perPage = data._meta.perPage;
+        this.total = data.totalCount;
+        this.pageCount = data.pageCount;
+        this.currentPage = data.page;
+        this.perPage = data.size;
       } else {
         this.popup.error(result.message);
       }
@@ -123,7 +122,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             portal: this.allKey,
             status: this.allKey,
             location: this.allKey,
-            sale: this.allKey
+            sale: this.allKey,
+            page: this.currentPage,
+            perPage: this.perPage,
         });
     }
   prepareSearch() {
@@ -169,7 +170,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   handlePagination(event) {
-    console.log(event)
     const page = event.page;
     this.searchForm.patchValue({page: page});
     this.listOrder();
