@@ -60,7 +60,6 @@ export const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule,
     NgxDaterangepickerMd.forRoot(),
     Daterangepicker,
     Select2Module,
