@@ -21,8 +21,8 @@
           <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label">Keyword...</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
-                      id="keyCategory" formControlName="keyCategory">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
+                      id="searchKeyword" formControlName="searchKeyword">
                 <option value="ALL">ALL Keyword</option>
                 <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
               </select>
@@ -35,7 +35,7 @@
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
                       formControlName="timeKey">
-                <option [value]="allKey">Create Time</option>
+                <option [value]="allKey">Time Key</option>
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
               <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
@@ -48,6 +48,32 @@
                                     </span>
             </div>
           </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="type" class="form-control-label">Order Type</label>
+            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
+              <option [value]="allKey">--All Type--</option>
+              <option value="SHOP">Shop</option>
+              <option value="REQUEST">Request</option>
+              <option value="POS">Pos</option>
+              <option value="SHIP">Ship</option>
+              <option value="NEXTTECH">Nexttech</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label  class="form-control-label">Order Status</label>
+            <select class="form-control form-control-sm" name="orderStatus" id="orderStatus" formControlName="orderStatus">
+              <option [value]="allKey">--All Type--</option>
+              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-2 col-sm-6 form-group m-b-10">
+            <label  class="form-control-label">Product Type</label>
+            <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
+              <option [value]="allKey">--All Atatus--</option>
+              <option value="AMAZON_US">AMAZON US</option>
+              <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+            </select>
+          </div>
           <div class="col-md-2 col-sm-6 form-group m-b-10">
             <label for="paymentStatus" class="form-control-label">Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
@@ -57,33 +83,8 @@
               <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="type" class="form-control-label">Order Type</label>
-            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
-              <option [value]="allKey">--All Type--</option>
-              <option value="0">Shop</option>
-              <option value="1">Request</option>
-              <option value="5">Pos</option>
-              <option value="6">Ship</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Product Status</label>
-            <select class="form-control form-control-sm" name="store" id="portal" formControlName="portal">
-              <option [value]="allKey">--All Type--</option>
-              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
-            </select>
-          </div>
           <div class="col-md-2 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Product Type</label>
-            <select class="form-control form-control-sm" name="status" id="status" formControlName="status">
-              <option [value]="allKey">--All Atatus--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-            </select>
-          </div>
-          <div class="col-md-2 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Location</label>
+            <label  class="form-control-label">Location</label>
             <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
               <option [value]="allKey">--All Location--</option>
               <option value="STOCK_IN_US">STOCK_IN_US</option>
@@ -95,7 +96,7 @@
               <button class="btn btn-sm btn-success" (click)="listOrders()">Search</button>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 pt-3">
             Showing
             <select class="form-control-sm select-custom"
                     (change)="handlePerPage($event)">
@@ -230,7 +231,7 @@
                                     {{order.total_origin_shipping_fee_local ? order.total_origin_shipping_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-5 style-padding-left">Coupon: {{order.coupon_code}} -
+                                <div class="col-md-5 style-padding-left">Coupon: {{order.coupon?.code}} -
                                   {{order.total_counpon_amount_local}}
                                 </div>
                               </div>
