@@ -117,53 +117,70 @@
                     <p class="p-custom m-b-0">Volume (w.l.h): <span class="text-danger">{{package.package_dimension_w}}x{{package.package_dimension_l}}x{{package.package_dimension_h}}</span><strong>(cm)</strong></p>
                     <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong></p>
                 </div>
-                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
-                    <div *ngFor="let packageItem of package.packageItems" class="row grid-view-row-margin-rl-0 grid-content m-b-10 m-t-10">
-                        <div class="col-md-12 col-sm-12 grid-view-col-border grid-view-col-content">
-                            <h5 class="text-danger m-b-0">{{packageItem.order.type_order}}/{{packageItem.order.portal}}</h5>
-                        </div>
-                        <div class="col-md-12 grid-view-col-padding-rl-0">
-                            <div class="row grid-view-row-margin-rl-0 grid-header">
-                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                                    #ID
-                                </div>
-                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
-                                    Name
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    Quantity
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    Weight
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    Warehouse Tag
+                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-padding-rl-0">
+                    <div *ngFor="let packageItem of package.packageItems" class="row grid-view-row-margin-rl-0 grid-content m-b-10">
+
+                        <div class="col-md-12 grid-view-col-border grid-view-col-padding-rl-0 grid-view-col-content" style="border-top: none">
+                            <div class="row grid-view-row-margin-rl-0">
+                                <div class="col-md-12 grid-view-col-content">
+                                    <p class="p-custom m-b-0">Packing Code: <strong>{{packageItem.package_code}}</strong></p>
+                                    <p class="p-custom m-b-5">Create:<i class="fa fa-location-arrow"></i> 2018/02/12 23:09:33</p>
+                                    <p class="p-custom m-b-0">Warehouse Tag: <strong>{{packageItem. box_me_warehouse_tag}}</strong></p>
                                 </div>
                             </div>
-                            <div *ngFor="let product of packageItem.order.products;"
-                                 class="row grid-view-row-margin-rl-0 grid-content">
-                                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                                    # {{product.id}}
+                            <hr class="mt-2 mb-2">
+                            <div class="row grid-view-row-margin-rl-0">
+                                <div class="col-md-6 grid-view-col-content">
+                                    <p class="p-custom">Order ID: <strong>{{packageItem.order.id}}</strong></p>
+                                    <p class="p-custom">Type: {{packageItem.order.type_order}}</p>
+                                    <p class="p-custom">Portal: {{packageItem.order.portal}}</p>
+                                    <p class="p-custom">Customer: <a href="#">#{{packageItem.order.customer_id}}</a> </p>
+                                    <p class="p-custom">Note: <span class="text-muted">{{packageItem.order.note_by_customer}}</span></p>
                                 </div>
-                                <div class="col-md-5 col-sm-6 grid-view-col-border grid-view-col-content">
-                                    <div class="row grid-view-row-margin-rl-0">
-                                        <div class="col-md-4 p-0">
-                                            <img src="{{product.link_img}}" alt="" width="100%">
+                                <div class="col-md-6 grid-view-col-content">
+                                    <p class="p-custom">Receiver: <strong>{{packageItem.order.receiver_name}} - {{packageItem.order.receiver_phone}}</strong></p>
+                                    <p class="p-custom">Receiver Address:  <strong>{{packageItem.order.receiver_address}}</strong></p>
+                                    <p class="p-custom">Receiver Location: <strong>{{packageItem.order.receiver_post_code}} - {{packageItem.order.receiver_district_name}} - {{packageItem.order.receiver_province_name}}</strong></p>
+                                </div>
+                            </div>
+                            <div class="row grid-view-row-margin-rl-0">
+                                <div class="col-md-12 grid-view-col-content">
+                                    <p class="p-custom m-b-0">PO ID: <strong>{{packageItem.order.purchase_order_id}}</strong></p>
+                                    <p class="p-custom m-b-0">Purchase Transaction: <strong>{{packageItem.order.purchase_transaction_id}}</strong></p>
+                                    <p class="p-custom m-b-0">Purchase Account: <strong>{{packageItem.order.purchase_account_email}}</strong></p>
+                                </div>
+                            </div>
+                            <div class="row grid-view-row-margin-rl-0">
+                                <div class="col-md-12 grid-view-col-content">
+                                    <div class="row grid-view-row-margin-rl-0 grid-header">
+                                        <div class="col-md-2 col-sm-6 grid-view-col-border grid-view-col-content">
+                                            PID
                                         </div>
-                                        <div class="col-md-8" style="border-left: 2px solid #00aff0; padding-left: 0.25rem">
-                                            <p class="p-custom m-b-0">Sku: <span class="text-danger">{{product.sku}}</span></p>
-                                            <p class="p-custom m-b-0">Parent Sku: <span class="text-danger">{{product.parent_sku}}</span></p>
+                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            WT
+                                        </div>
+                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            Qty/W
+                                        </div>
+                                        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            Action
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    {{product.quantity}}
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    {{product.weight}} (gram)
-                                </div>
-                                <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                    {{product.warehouse_tag}}
+                                    <div *ngFor="let product of packageItem.order.products;"
+                                         class="row grid-view-row-margin-rl-0 grid-content">
+                                        <div class="col-md-2 col-sm-6 grid-view-col-border grid-view-col-content">
+                                            # {{product.id}}
+                                        </div>
+                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            {{product.warehouse_tag}}
+                                        </div>
+                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            {{product.quantity}}/{{product.weight}}(g)
+                                        </div>
+                                        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
+                                            <span class="label label-danger"><i class="fa fa-remove"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
