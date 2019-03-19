@@ -10,6 +10,7 @@ import {PackageListComponent} from './package-list/package-list.component';
 
 import {PackageService} from './package.service';
 import {PackageDirective} from './package.directive';
+import { PackageItemComponent } from './package-item/package-item.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import {PackageDirective} from './package.directive';
     declarations: [
         PackageRoutingComponent,
         PackageListComponent,
-        PackageDirective
+        PackageDirective,
+        PackageItemComponent
     ],
     providers: [
         PackageService
