@@ -20,4 +20,8 @@ export class ShipmentService extends OperationService {
         return this.get('s', filter);
     }
 
+    edit(data: any | undefined) {
+        return this.update('s', data);
+    }
+
 }
