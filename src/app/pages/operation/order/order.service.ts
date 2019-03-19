@@ -9,8 +9,8 @@ export class OrderService extends ClientService {
   constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
     super(http, encryption, popup);
   }
-  getList(url, pararms) {
-    pararms = $.param(pararms);
-    return this.get(url, pararms);
+  getList(url, params) {
+    params = $.param(params);
+    return this.get(url, params);
   }
 }

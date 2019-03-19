@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {AppRoutingComponent} from './app-routing.component';
-import {SharedModule} from './shared/shared.module';
-
+import {BrowserModule} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 
@@ -12,9 +11,6 @@ import {PopupService} from './core/service/popup.service';
 import {EncryptionService} from './core/service/encryption.service';
 import {StorageService} from './core/service/storage.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
-
-import {PagesModule} from './pages/pages.module';
-import {BrowserModule} from '@angular/platform-browser';
 import {LoadingModule} from './loading/loading.module';
 
 @NgModule({
@@ -24,10 +20,7 @@ import {LoadingModule} from './loading/loading.module';
     imports: [
         HttpClientModule,
         BrowserModule,
-        SharedModule,
-        AppRoutingModule,
-        PagesModule,
-        LoadingModule
+        AppRoutingModule
     ],
     providers:
         [

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OperationRoutingComponent} from '../operation-routing.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-shipment',
@@ -7,8 +8,8 @@ import {OperationRoutingComponent} from '../operation-routing.component';
 })
 export class ShipmentRoutingComponent extends OperationRoutingComponent implements OnInit {
 
-    constructor() {
-        super();
+    constructor(public activatedRoute: ActivatedRoute) {
+        super(activatedRoute);
     }
 
     ngOnInit() {

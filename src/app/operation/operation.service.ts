@@ -14,6 +14,5 @@ export class OperationService  extends ClientService {
         public encryption: EncryptionService,
         public popup: PopupService) {
         super(http, encryption, popup);
-
     }
 }

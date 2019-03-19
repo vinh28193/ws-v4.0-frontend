@@ -39,14 +39,14 @@
       <div class="col-md-7 pl-0">
         <ul>
           <!--<li *ngIf="order.type == 1" >-->
-            <!--Status:-->
-            <!--&lt;!&ndash;<span class="badge badge-{{item.ApproveStatus == 2 ? 'danger' : (item.ApproveStatus == 1 ? 'success' : 'warning')}} m-l-5 p-2 font-style">{{item.ApproveStatus == 2 ? 'Decline' : (item.ApproveStatus == 1 ? 'Approve' : 'Not Approve')}}</span>&ndash;&gt;-->
-            <!--<span *ngIf="item.ApproveStatus ==0" class="badge badge-warning m-l-5 p-2 font-style">Not Approve</span>-->
-            <!--<span *ngIf="item.ApproveStatus ==1" class="badge badge-success m-l-5 p-2 font-style">Approve</span>-->
-            <!--<span *ngIf="item.ApproveStatus ==2" class="badge badge-danger m-l-5 p-2 font-style" data-placement="bottom" [popover]="ApproveStatus" popoverTitle="Approve Note">Decline</span>-->
-            <!--<ng-template #ApproveStatus>-->
-              <!--<p> {{item.ApproveNote}}</p>-->
-            <!--</ng-template>-->
+          <!--Status:-->
+          <!--&lt;!&ndash;<span class="badge badge-{{item.ApproveStatus == 2 ? 'danger' : (item.ApproveStatus == 1 ? 'success' : 'warning')}} m-l-5 p-2 font-style">{{item.ApproveStatus == 2 ? 'Decline' : (item.ApproveStatus == 1 ? 'Approve' : 'Not Approve')}}</span>&ndash;&gt;-->
+          <!--<span *ngIf="item.ApproveStatus ==0" class="badge badge-warning m-l-5 p-2 font-style">Not Approve</span>-->
+          <!--<span *ngIf="item.ApproveStatus ==1" class="badge badge-success m-l-5 p-2 font-style">Approve</span>-->
+          <!--<span *ngIf="item.ApproveStatus ==2" class="badge badge-danger m-l-5 p-2 font-style" data-placement="bottom" [popover]="ApproveStatus" popoverTitle="Approve Note">Decline</span>-->
+          <!--<ng-template #ApproveStatus>-->
+          <!--<p> {{item.ApproveNote}}</p>-->
+          <!--</ng-template>-->
           <!--</li>-->
           <li>
             <a href="{{product.sourceId}}" target="_blank" tooltip="{{product.product_name}}">{{ (product.product_name?.length > 25)? ((product.product_name
@@ -61,8 +61,8 @@
             <app-span-label [value]="product.parent_sku"></app-span-label>
           </li>
           <!--<li>-->
-            <!--<span class="style-strong Condition">Condition:</span>-->
-            <!--<app-span-label [value]="product.description"></app-span-label>-->
+          <!--<span class="style-strong Condition">Condition:</span>-->
+          <!--<app-span-label [value]="product.description"></app-span-label>-->
           <!--</li>-->
           <li class="text-danger">
             <span class="style-strong">Item Variant:</span>
@@ -130,15 +130,15 @@
           </div>
         </div>
         <!--<div *ngIf="order.paymentStatus == 2 && checkShowPopupPrice(item)">-->
-          <!--<div class="quote-container"><i class="pin"></i>-->
-            <!--<blockquote class="note {{getChangePrice(item,item.ExRate) > 0 ? 'yellow' : 'red'}}">-->
-              <!--Warning. There is a difference in money ! {{getChangePrice(item,item.ExRate)}} {{getLocalCurrencyCodeByStore(item.storeId)}}-->
-              <!--<br>-->
-              <!--<cite class="author" style="margin: 0px;cursor: pointer; font-size: 10px"-->
-                    <!--(click)="closeNotify()"><i-->
-                <!--class="fa fa-hand-o-right"></i> Disable notify...</cite>-->
-            <!--</blockquote>-->
-          <!--</div>-->
+        <!--<div class="quote-container"><i class="pin"></i>-->
+        <!--<blockquote class="note {{getChangePrice(item,item.ExRate) > 0 ? 'yellow' : 'red'}}">-->
+        <!--Warning. There is a difference in money ! {{getChangePrice(item,item.ExRate)}} {{getLocalCurrencyCodeByStore(item.storeId)}}-->
+        <!--<br>-->
+        <!--<cite class="author" style="margin: 0px;cursor: pointer; font-size: 10px"-->
+        <!--(click)="closeNotify()"><i-->
+        <!--class="fa fa-hand-o-right"></i> Disable notify...</cite>-->
+        <!--</blockquote>-->
+        <!--</div>-->
         <!--</div>-->
         <div class="row style-margin-bottom style-margin-top" >
           <div class="col-md-6 text-center pl-0">
@@ -278,7 +278,7 @@
           </li>
         </ul>
         <div>
-          <app-detail-package></app-detail-package>
+
         </div>
       </div>
     </div>

@@ -9,8 +9,7 @@
           <div class="col-md-12">
             <div class="form-group form-group-sm">
               <label class="form-control-label">Store</label>
-              <select class="form-control form-control-sm" name="store"
-                      [(ngModel)]="filter.store">
+              <select class="form-control form-control-sm" name="store">
                 <option value="">All Weshop</option>
                 <option value="1">Weshop VN</option>
                 <option value="7">Weshop ID</option>
@@ -26,8 +25,7 @@
           <div class="col-md-12">
             <div class="form-group form-group-sm">
               <label class="form-control-label">Payment Status</label>
-              <select class="form-control form-control-sm"  name="paymentStatus"
-                      [(ngModel)]="filter.paymentStatus">
+              <select class="form-control form-control-sm"  name="paymentStatus">
                 <option value="">All Status</option>
                 <option value="2">Paid</option>
                 <option value="0">Unpaid</option>
@@ -55,142 +53,140 @@
       <div class="card-header">
         <h5 class="m-b-0 text-white">Filter</h5>
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Time</label>
-              <div class="input-group input-group-sm">
-                <select class="input-group-addon" name="keyTime"
-                        [(ngModel)]="filter.extractTime.timeKey">
-                  <option value="all">ALL Select Time</option>
-                  <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
-                </select>
-                <input type="text" class="form-control form-control-sm"
-                       #drpTime="bsDaterangepicker"
-                       bsDaterangepicker
-                       [disabled]="filter.extractTime.timeKey === 'all'"
-                       [maxDate]="maxDate"
-                       [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
-                       (bsValueChange)="onChangeDate($event)">
-                <span class="input-group-btn">
+      <form action="" [formGroup]="searchForm">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Time</label>
+                <div class="input-group input-group-sm">
+                  <select class="input-group-addon" name="keyTime" formControlName="keyTime" id="keyTime">
+                    <option value="all">ALL Select Time</option>
+                    <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
+                  </select>
+                  <input type="text" class="form-control form-control-sm"
+                         #drpTime="bsDaterangepicker"
+                         bsDaterangepicker
+                         [disabled]="filter.extractTime.timeKey === 'all'"
+                         [maxDate]="maxDate"
+                         [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
+                         (bsValueChange)="onChangeDate($event)">
+                  <span class="input-group-btn">
                                 <button (click)="drpTime.toggle()"
                                         [attr.aria-expanded]="drpTime.isOpen"
                                         class="btn btn-sm btn-info" type="button"><i
                                   class="fa fa-calendar"></i></button>
                             </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">KeyWord</label>
+                <div class="input-group input-group-sm">
+                  <select class="input-group-addon" formControlName="key" id="key" name="key">
+                    <option value="all">All Category</option>
+                    <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
+                  </select>
+                  <input type="text" name="value"
+                         (keyup.enter)="onSearch()" formControlName="value" id="value" class="form-control form-control-sm"
+                         placeholder="enter keyword">
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">KeyWord</label>
-              <div class="input-group input-group-sm">
-                <select class="input-group-addon" name="key" [(ngModel)]="filter.searchKeyword.key">
-                  <option value="all">All Category</option>
-                  <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Order Type</label>
+                <select class="form-control form-control-sm" formcontrolname="orderType" id="orderType" name="orderType">
+                  <option value="">All Order Type</option>
+                  <option value="0">Shop</option>
+                  <option value="1">Request</option>
+                  <option value="5">Pos</option>
+                  <option value="6">Ship</option>
                 </select>
-                <input type="text" name="value" [(ngModel)]="filter.searchKeyword.value"
-                       (keyup.enter)="onSearch()" class="form-control form-control-sm"
-                       placeholder="enter keyword">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Item Type</label>
+                <select class="form-control form-control-sm" formcontrolname="itemType" name="itemType" id="itemType">
+                  <option value="">All Item Type</option>
+                  <option value="EBAY">Ebay</option>
+                  <option value="AMAZON">Amazon</option>
+                  <option value="AMAZONJP">Amazon JP</option>
+                  <option value="AMAZONUK">Amazon UK</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Item Status</label>
+                <select class="form-control form-control-sm" formcontrolname="itemStatus" id="itemStatus" name="itemStatus">
+                  <option value="">All Item Status</option>
+                  <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Sale</label>
+                <select class="form-control form-control-sm" name="sale" formcontrolname="sale" id="sale">
+                  <option value="">All Sale</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Payment Request</label>
+                <select class="form-control form-control-sm" formcontrolname="payment" id="payment" name="payment">
+                  <option value="">All Payment Request</option>
+                  <option [value]="payment.key" *ngFor="let payment of paymentRequests">{{payment.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Location</label>
+                <select class="form-control form-control-sm" formcontrolname="local" id="local" name="local">
+                  <option value="">All Location</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Approve Status</label>
+                <select class="form-control form-control-sm" formcontrolname="approve_status" id="approve_status" name="approve-status">
+                  <option value="">All Approve Status</option>
+                  <option value="1">Approve</option>
+                  <option value="2">Decline</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group form-group-sm">
+                <label class="form-control-label">Category Customer Policy</label>
+                <select class="form-control form-control-sm" formcontrolname="policy" id="policy" name="policy">
+                  <option value="">All Policy</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-group">
+                <button class="btn btn-sm btn-success" (click)="onSearch()">Search</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Order Type</label>
-              <select class="form-control form-control-sm" name="orderType"
-                      [(ngModel)]="filter.orderType">
-                <option value="">All Order Type</option>
-                <option value="0">Shop</option>
-                <option value="1">Request</option>
-                <option value="5">Pos</option>
-                <option value="6">Ship</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Item Type</label>
-              <select class="form-control form-control-sm" name="itemType" [(ngModel)]="filter.itemType">
-                <option value="">All Item Type</option>
-                <option value="EBAY">Ebay</option>
-                <option value="AMAZON">Amazon</option>
-                <option value="AMAZONJP">Amazon JP</option>
-                <option value="AMAZONUK">Amazon UK</option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Item Status</label>
-              <select class="form-control form-control-sm" name="itemStatus"
-                      [(ngModel)]="filter.itemStatus">
-                <option value="">All Item Status</option>
-                <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Sale</label>
-              <select class="form-control form-control-sm" name="sale" [(ngModel)]="filter.sale">
-                <option value="">All Sale</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Payment Request</label>
-              <select class="form-control form-control-sm" name="advanced"
-                      [(ngModel)]="filter.paymentRequest">
-                <option value="">All Payment Request</option>
-                <option [value]="payment.key" *ngFor="let payment of paymentRequests">{{payment.name}}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Location</label>
-              <select class="form-control form-control-sm" [(ngModel)]="filter.location">
-                <option value="">All Location</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Approve Status</label>
-              <select class="form-control form-control-sm" [(ngModel)]="filter.approveStatus">
-                <option value="">All Approve Status</option>
-                <option value="1">Approve</option>
-                <option value="2">Decline</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-sm">
-              <label class="form-control-label">Category Customer Policy</label>
-              <select class="form-control form-control-sm" [(ngModel)]="filter.policyId">
-                <option value="">All Policy</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="button-group">
-              <button class="btn btn-sm btn-success">Search</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

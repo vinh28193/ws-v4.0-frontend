@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ModuleComponent} from './module.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -7,5 +8,8 @@ import {ModuleComponent} from './module.component';
 })
 export class AppRoutingComponent extends ModuleComponent {
 
+    constructor(public activatedRoute: ActivatedRoute) {
+        super(activatedRoute);
+    }
 
 }
