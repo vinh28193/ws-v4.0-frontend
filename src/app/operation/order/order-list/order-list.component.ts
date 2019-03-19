@@ -88,7 +88,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.prepareSearch();
     this.orderService.search(params).subscribe(response => {
       const result: any = response;
-      if (result.message === 'ok') {
+      if (result.message === 'Success') {
         // this.popup.success(result.message);
         const data: any = result.data;
         this.orders = data._items;
