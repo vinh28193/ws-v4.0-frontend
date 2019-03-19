@@ -10,7 +10,6 @@ import {Select2Module} from 'ng2-select2';
 import {BsDatepickerModule, BsDropdownModule, ModalModule, PaginationModule, PopoverModule, TabsModule, TooltipModule} from 'ngx-bootstrap';
 import { StoreComponent } from './store/store.component';
 import { ShipmentItemComponent } from './shipment-item/shipment-item.component';
-import {SharedModule} from '../../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -38,7 +37,6 @@ const routes: Routes = [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    SharedModule,
     ReactiveFormsModule,
     NgxDaterangepickerMd.forRoot(),
     Daterangepicker,

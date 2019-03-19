@@ -1,6 +1,6 @@
-<app-loading [loading]="loading"></app-loading>
+<!--<app-loading [loading]="loading"></app-loading>-->
 <div class="page-wrapper chiller-theme toggled ml-0">
-  <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
+  <a id="show-sidebar" (click)="showSidebar()" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
     <i class="fas fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper" style="background-color: #2E9AB8">
@@ -9,7 +9,7 @@
         <a href="javascript:void(0)">
           <img src="https://weshop.com.vn/images/logo/weshop/weshop-logo-vn.png" alt="">
         </a>
-        <div id="close-sidebar">
+        <div id="close-sidebar" (click)="closeSidebar()">
           <a href="javascript:void(0)"><i class="fas fa-times text-blue"></i></a>
         </div>
       </div>
@@ -107,33 +107,34 @@
       <!-- sidebar-menu  -->
     </div>
   </nav>
-  <main class="page-content ml-2 pt-0" style="background-color: #EEF5F9;">
-    <div class="row m-0 p-0 bg-white">
-      <div class="col-md-12 pl-0">
-        <div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">
-          <div class="col-md-5 align-self-center">
-            <h2 class="text-themecolor"> Order Manager</h2>
-          </div>
-          <div class="col-md-7 align-self-center text-right">
-            <ul class="bg-white text-right float-right" style="height: 100%">
-              <li class="breadcrumb-item">
-                <a href="javascript:void(0)">Home</a>
-              </li><!---->
-              <li class="breadcrumb-item active">
-                <a href="#/order">Order</a>
-              </li>
-              <li class="breadcrumb-item active">
-                <a href="#/order">Order Manager</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
-      </div>
-    </div>
+  <main style="background-color: #EEF5F9;">
+    <router-outlet></router-outlet>
+    <!--<div class="row m-0 p-0 bg-white">-->
+      <!--<div class="col-md-12 pl-0">-->
+        <!--<div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">-->
+          <!--<div class="col-md-5 align-self-center">-->
+            <!--<h2 class="text-themecolor"> Order Manager</h2>-->
+          <!--</div>-->
+          <!--<div class="col-md-7 align-self-center text-right">-->
+            <!--<ul class="bg-white text-right float-right" style="height: 100%">-->
+              <!--<li class="breadcrumb-item">-->
+                <!--<a href="javascript:void(0)">Home</a>-->
+              <!--</li>&lt;!&ndash;&ndash;&gt;-->
+              <!--<li class="breadcrumb-item active">-->
+                <!--<a href="#/order">Order</a>-->
+              <!--</li>-->
+              <!--<li class="breadcrumb-item active">-->
+                <!--<a href="#/order">Order Manager</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+          <!--<div class="col-md-12">-->
+            <!--<router-outlet></router-outlet>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </main>
 </div>

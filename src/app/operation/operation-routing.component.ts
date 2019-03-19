@@ -16,4 +16,12 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     ngOnInit() {
     }
 
+    closeSidebar() {
+        $('.page-wrapper').removeClass('toggled');
+
+    }
+
+    showSidebar() {
+        $('.page-wrapper').addClass('toggled');
+    }
 }

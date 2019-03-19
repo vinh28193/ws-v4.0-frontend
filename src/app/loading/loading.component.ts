@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ngxLoadingAnimationTypes , NgxLoadingComponent} from 'ngx-loading';
+import {ngxLoadingAnimationTypes, NgxLoadingComponent} from 'ngx-loading';
 
 const PrimaryWhite = '#ffffff';
 const SecondaryGrey = '#ccc';
@@ -14,7 +14,7 @@ const SecondaryBlue = '#006ddd';
 })
 export class LoadingComponent implements OnInit {
 
-    @Input() public loading: boolean;
+    @Input() public loading = false;
     @Input() public loadingConfig: any = {};
 
     @ViewChild('ngxLoading') ngxLoadingComponent: NgxLoadingComponent;

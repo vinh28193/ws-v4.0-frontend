@@ -10,10 +10,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AssignSaleComponent} from './order-list/assign-sale/assign-sale.component';
 import {EditImageComponent} from './order-detail/edit-image/edit-image.component';
 import {EditVariantComponent} from './order-detail/edit-variant/edit-variant.component';
-import {RouterModule} from '@angular/router';
 import {OperationModule} from '../operation.module';
 import {OrderService} from './order.service';
-import * as $ from 'jquery';
 
 @NgModule({
     imports: [
