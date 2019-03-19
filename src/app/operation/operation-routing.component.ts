@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
+declare var $: any;
+declare var jQuery: any;
 
 @Component({
     selector: 'app-operation',
@@ -16,4 +18,12 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     ngOnInit() {
     }
 
+    closeSidebar() {
+        $('.page-wrapper').removeClass('toggled');
+
+    }
+
+    showSidebar() {
+        $('.page-wrapper').addClass('toggled');
+    }
 }

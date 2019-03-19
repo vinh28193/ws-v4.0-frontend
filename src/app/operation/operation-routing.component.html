@@ -1,6 +1,6 @@
 <app-loading [loading]="loading"></app-loading>
 <div class="page-wrapper chiller-theme toggled ml-0">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
+    <a id="show-sidebar" (click)="showSidebar()" class="btn btn-sm btn-dark" href="javascript:void(0)" style="position: fixed; z-index: 99">
         <i class="fas fa-bars"></i>
     </a>
     <nav id="sidebar" class="sidebar-wrapper" style="background-color: #2E9AB8">
@@ -9,7 +9,7 @@
                 <a href="javascript:void(0)">
                     <img src="https://weshop.com.vn/images/logo/weshop/weshop-logo-vn.png" alt="">
                 </a>
-                <div id="close-sidebar">
+                <div id="close-sidebar" (click)="closeSidebar()">
                     <a href="javascript:void(0)"><i class="fas fa-times text-blue"></i></a>
                 </div>
             </div>

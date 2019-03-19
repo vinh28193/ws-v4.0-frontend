@@ -37,7 +37,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     maxDateTime.setDate(this.dateTime.getDate() + 1);
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
-    this.listOrder();
+    this.listOrders();
     this.searchKeys = [
       {key: 'order_item.id', name: 'SOI'},
       {key: 'order.binCode', name: 'BIN'},
@@ -84,14 +84,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     ];
   }
 
-  listOrder() {
+  listOrders() {
     const params = this.prepareSearch();
     this.orderService.search(params).subscribe(response => {
       const result: any = response;
       if (result.message === 'Success') {
+        // this.popup.success(result.message);
         const data: any = result.data;
         this.orders = data._items;
-        this.orders = Object.entries(result.data).map(e => {
+        // console.log(' data Order : ' + JSON.stringify(this.orders));
+        this.orders = Object.entries(data._items).map(e => {
           return e[1];
         });
         this.total = data.totalCount;
@@ -172,12 +174,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   handlePagination(event) {
     const page = event.page;
     this.searchForm.patchValue({page: page});
-    this.listOrder();
+    this.listOrders();
   }
 
   handlePerPage(event) {
     const value = event.target.value;
     this.searchForm.patchValue({perPage: value});
-    this.listOrder();
+    this.listOrders();
   }
 }
