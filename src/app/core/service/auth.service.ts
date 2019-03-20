@@ -17,40 +17,66 @@ export class AuthService extends GlobalService {
 
     }
 
+    private _redirectURL: string;
+    public get redirectURL(): string {
+        if (!this.isValidValue(this._redirectURL)) {
+            switch (this.scope) {
+                case 'cms':
+                case 'warehouse':
+                case 'operation':
+                case 'sale':
+                case 'master_sale':
+                case 'master_operation':
+                case 'superAdmin' :
+                    this._redirectURL = '/operation/order';
+                    break;
+                default :
+                    this._redirectURL = '/operation/order';
+            }
+        }
+        return this._redirectURL;
+    }
+
+    public set redirectURL(redirectURL: string) {
+        this._redirectURL = redirectURL;
+    }
+
     /**
-     * Todo Validate pls
-     * @see authorizationCodeExpire
-     * string authorization code
      * getter
+     * authorization code false if can not get or expired
+     * @return {any}
      */
-    public get authorizationCode(): string {
-        return this.decrypt('authorizationCode');
+    public get authorizationCode(): any {
+        const authorizationCode = this.decrypt('authorizationCode');
+        if (!this.isValidValue(authorizationCode) || this.authorizationCodeExpire === false) {
+            return false;
+        }
+        return authorizationCode;
     }
 
     /**
      * setter
-     * @param {string} authorizationCode
+     * @param {any} authorizationCode
      */
-    public set authorizationCode(authorizationCode: string) {
+    public set authorizationCode(authorizationCode: any) {
         this.encrypt('authorizationCode', authorizationCode);
     }
 
     /**
-     * Todo Validate pls
-     * @see authorizationCode
-     * string authorization code expire
      * getter
-     * @returns {string}
+     * return false if expired
+     * @return {string | boolean}
      */
-    public get authorizationCodeExpire(): string {
-        return this.decrypt('authorizationCodeExpire');
+    public get authorizationCodeExpire(): string | boolean {
+        const authorizationCodeExpire = this.decrypt('authorizationCodeExpire');
+        return this.isExpired(authorizationCodeExpire) ? false : authorizationCodeExpire;
     }
 
     /**
      * setter
-     * @param {string} authorizationCodeExpire
+     * @param {string | boolean} authorizationCodeExpire
      */
-    public set authorizationCodeExpire(authorizationCodeExpire: string) {
+    public set authorizationCodeExpire(authorizationCodeExpire: string | boolean) {
         this.encrypt('authorizationCodeExpire', authorizationCodeExpire);
     }
 
@@ -71,14 +97,35 @@ export class AuthService extends GlobalService {
     getAccessToken() {
         const fd = new FormData();
         fd.append('authorization_code', this.authorizationCode);
-        return this.http.post(this.getApiAuthURl('/1/access-token'), fd, { withCredentials: true});
+        return this.http.post(this.getApiAuthURl('/1/access-token'), fd, {withCredentials: true});
     }
 
-    refreshToken() {
-        const fd = new FormData();
-        fd.append('authorization_code', this.authorizationCode);
-        return this.http.post(this.getApiAuthURl('/1/access-token'), fd, this.getSafeHttpOptions()).catch(this.handleError);
+    handleAccessToken(response: any, redirect: boolean | true) {
+        const rs: any = response.data;
+        const accessToken = rs.accessToken;
+        const userPublicIdentity = rs.userPublicIdentity;
+        // console.log('res AccessToken : ' + JSON.stringify(res));
+        this.accessToken = accessToken.token;
+        this.accessTokenExpire = accessToken.expires_at;
+        // console.log('access token : ' + this.accessToken);
+        this.identity = userPublicIdentity;
+        this.scope = userPublicIdentity.role;
+        // this.store = rs.user.store_id;
+        // console.log('res Roles : ' + JSON.stringify(userPublicIdentity));
+        // console.log('res scope : ' + JSON.stringify(this.scope));
+        if (redirect === true) {
+            this.handleRedirectURL();
+        }
+    }
 
+    handleRedirectURL() {
+        console.log(this.redirectURL);
+        if (this.isValidValue(this.redirectURL)) {
+            setTimeout(() => {
+                // location.reload();
+                window.location.href = this.redirectURL;
+            }, 200);
+        }
     }
 
     handleError(error: HttpErrorResponse) {

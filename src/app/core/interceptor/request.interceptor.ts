@@ -1,11 +1,16 @@
 import {Injectable} from '@angular/core';
 
 import {
-    HttpErrorResponse, HttpEvent,
-    HttpHandler, HttpHeaderResponse,
-    HttpInterceptor, HttpProgressEvent,
-    HttpRequest, HttpResponse,
-    HttpSentEvent, HttpUserEvent
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpHeaderResponse,
+    HttpInterceptor,
+    HttpProgressEvent,
+    HttpRequest,
+    HttpResponse,
+    HttpSentEvent,
+    HttpUserEvent
 } from '@angular/common/http';
 import {AuthService} from '../service/auth.service';
 
@@ -28,7 +33,7 @@ export class RequestInterceptor implements HttpInterceptor {
             req.url.indexOf('language') === -1 &&
             req.url.indexOf('upload') === -1) {
             return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: true});
-        }  else {
+        } else {
             if (req.url.indexOf('cms') !== -1 || req.url.indexOf('language') !== -1 || req.url.indexOf('news') !== -1) {
                 return req.clone({url: req.url.replace(this.authService.API_URL_BACKEND, environment.API_URL), withCredentials: true});
             } else if (req.url.indexOf('upload') !== -1) {
@@ -42,49 +47,52 @@ export class RequestInterceptor implements HttpInterceptor {
             }
         }
     }
+
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        return next.handle(this.addToken(req, this.authService.accessToken)).do(
+        return next.handle(this.addToken(req, this.authService.accessToken))
+            .do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     return event;
                     // do stuff with response if you want
+                } else if (event instanceof HttpHeaderResponse) {
+
                 }
-            }).catch(error => {
-            if (error instanceof HttpErrorResponse) {
-                switch ((error as HttpErrorResponse).status) {
-                    case 400:
-                        return this.handle400Error(error);
-                    case 401:
-                        return this.handle401Error(req, next);
+                return event;
+            })
+            .catch(error => {
+                if (error instanceof HttpErrorResponse) {
+                    switch ((error as HttpErrorResponse).status) {
+                        case 400:
+                            return this.handle400Error(error);
+                        case 401:
+                            return this.handle401Error(req, next);
+                    }
                 }
-            } else {
-                return Observable.throw(error);
-            }
-        });
+            });
     }
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-        return this.authService.refreshToken()
-            .mergeMap(refreshResponse => {
-                const rs: any = refreshResponse;
-                this.authService.encrypt('access_token', rs.access_token);
-                this.authService.encrypt('expires_in', Date.now() + Number(rs.expires_in) * 1000);
-                this.authService.encrypt('token_type', rs.token_type);
-                if (rs.refresh_token) {
-                    this.authService.encrypt('refresh_token', rs.refresh_token);
-                }
-                return next.handle(this.addToken(req, rs.access_token));
+        if (this.authService.authorizationCode !== false) {
+            return this.authService.getAccessToken().mergeMap(refreshResponse => {
+                this.authService.handleAccessToken(refreshResponse, false);
+                return next.handle(this.addToken(req, this.authService.accessToken));
             });
+        }
+        // } else {
+        //     this.authService.redirectURL = '/login';
+        //     this.authService.handleRedirectURL();
+        // }
 
     }
 
     handle400Error(error) {
         if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
             // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
-
             return this.logoutUser();
+
         }
 
         return Observable.throw(error);

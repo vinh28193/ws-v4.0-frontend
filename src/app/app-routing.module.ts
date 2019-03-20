@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
-import {CanActivate, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
+import {AuthGuard} from './core/guard/auth.guard';
 
 const appRoutes: Routes = [
     {
@@ -10,7 +11,8 @@ const appRoutes: Routes = [
         /* path: '', redirectTo: 'dashboard/home', pathMatch: 'full' */
     },
     {
-        path: '404', component: PageNotFoundComponent},
+        path: '404', component: PageNotFoundComponent
+    },
     {
         path: 'login',
         loadChildren: './login/login.module#LoginModule',
@@ -21,12 +23,14 @@ const appRoutes: Routes = [
     {
         path: 'operation',
         loadChildren: './operation/operation.module#OperationModule',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard]
     },
 ];
 
 @NgModule({
     declarations: [
-      PageNotFoundComponent
+        PageNotFoundComponent
     ],
     imports: [
         RouterModule.forRoot(
@@ -35,7 +39,6 @@ const appRoutes: Routes = [
                 enableTracing: false,  // <-- debugging purposes only
                 preloadingStrategy: SelectivePreloadingStrategyService,
             }
-
         )
     ],
     exports: [
