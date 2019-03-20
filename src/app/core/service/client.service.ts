@@ -62,7 +62,7 @@ export class ClientService extends GlobalService {
   }
 
   update(url, body): Observable<any> {
-    return this.http.put(`${this.getApiURl(url)}/ ${body}`, this.getAuthHttpOptions())
+    return this.http.put(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
       .pipe(
         catchError(this.handleError)
       );

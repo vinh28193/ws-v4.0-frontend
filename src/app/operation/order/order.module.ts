@@ -12,12 +12,16 @@ import {EditImageComponent} from './order-detail/edit-image/edit-image.component
 import {EditVariantComponent} from './order-detail/edit-variant/edit-variant.component';
 import {OperationModule} from '../operation.module';
 import {OrderService} from './order.service';
+import {FormsModule} from '@angular/forms';
+import { EditFinanceComponent } from './order-list/edit-finance/edit-finance.component';
+import { ChatComponent } from './order-list/chat/chat.component';
 
 @NgModule({
     imports: [
         CommonModule,
         OrderRoutingModule,
         OperationModule,
+        FormsModule,
         ReactiveFormsModule,
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot(),
@@ -33,7 +37,9 @@ import {OrderService} from './order.service';
         OrderDetailComponent,
         AssignSaleComponent,
         EditImageComponent,
-        EditVariantComponent
+        EditVariantComponent,
+        EditFinanceComponent,
+        ChatComponent,
     ],
     providers: [
       OrderService

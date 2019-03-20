@@ -18,10 +18,9 @@ export class OrderService extends OperationService {
         super(http, encryption, popup);
 
     }
-    getList(url, params) {
-      params = $.param(params);
-      return this.get(url, params);
-    }
+     getPut(url, item: any | undefined) {
+        return this.update(`order/${url}`, item);
+     }
     search(filter: any | undefined) {
       return this.get('order', filter);
     }

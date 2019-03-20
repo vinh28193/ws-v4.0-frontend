@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-order-list',
@@ -11,12 +12,16 @@ import {PopupService} from '../../../core/service/popup.service';
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
+  // @ViewChild(ModalDirective) showChat: ModalDirective;
+  // @ViewChild(ModalDirective) showChatGroup: ModalDirective;
   public orders: any = [];
+  public listChat: any = [];
   public total: any;
   public pageCount: number;
   public currentPage: number;
   public perPage: number;
   public dateTime: Date;
+  public orderIdChat: any;
   // form Group
   public searchForm: FormGroup;
   itemStatus: any = [];
@@ -26,6 +31,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   paymentRequests: any = [];
   public filter: any = {};
   public status: any;
+  public checkF = false;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -39,37 +45,31 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.buildSearchForm();
     this.listOrders();
     this.searchKeys = [
-      {key: 'order_item.id', name: 'SOI'},
-      {key: 'order.binCode', name: 'BIN'},
-      {key: 'order_item.sku', name: 'SKU'},
-      {key: 'order_item_trackingcode.trackingCode', name: 'Tracking Code'},
-      {key: 'order.couponCode', name: 'Coupon Code'},
-      {key: 'order.paymentToken', name: 'Payment Token'},
-      {key: 'order_item.purchaseTransactionCode', name: 'PO Transaction Code'},
-      {key: 'order_item.purchaseOrderId', name: 'PO'},
-      {key: 'order_item.itemCategoryId', name: 'Category Id'},
-      {key: 'order_item.Name', name: 'Product Name'},
-      {key: 'order.buyerEmail', name: 'Email'},
-      {key: 'order.buyerPhone', name: 'Phone'},
-      {key: 'order.customerId', name: 'CustomerId'},
-      {key: 'order.paymentMethod', name: 'Payment Method'},
+      {key: 'product.id', name: 'SOI'},
+      {key: 'product.sku', name: 'SKU'},
+      {key: 'coupon.code', name: 'Coupon Code'},
+      {key: 'product.category_id', name: 'Category Id'},
+      {key: 'product.product_name', name: 'Product Name'},
+      {key: 'customer.email1', name: 'Buy Email'},
+      {key: 'order.receiver_phone', name: 'Receiver Email'},
+      {key: 'order.receiver_email', name: 'Receiver Email'},
+      {key: 'customer.phone1', name: 'Phone'},
+      {key: 'order.payment_type', name: 'Payment Type'},
     ];
     this.timeKeys = [
-      {key: 'order.createTime', name: 'Created Time'},
-      {key: 'order_item.supportStartTime', name: 'Support Start'},
-      {key: 'order_item.supportCompleteTime', name: 'Support Complete'},
-      {key: 'order_item.purchaseCompleteTime', name: 'PurchaseTime'},
-      {key: 'order.LastPaidTime', name: 'Payment Time'},
-      {key: 'order_item.exportWarehouseStockInTime', name: 'US StockIn'},
-      {key: 'order_item.exportWarehouseInpalletTime', name: 'US packing box'},
-      {key: 'order_item.exportWarehouseStockOutTime', name: 'Us StockOut'},
-      {key: 'order_item.localWarehouseStockinTime', name: 'Local Stockin'},
-      {key: 'order_item.localWarehouseStockoutTime', name: 'Local Stockout'},
-      {key: 'order_item.customerDeliveryTime', name: 'At Customer Time'},
-      {key: 'order_payment.addfee', name: 'Addfee Create Time'},
-      {key: 'order_payment.addfee.paid', name: 'Addfee Paid Time'},
-      {key: 'order_payment.refund', name: 'Refund Create Time'},
-      {key: 'order_payment.refund.paid', name: 'Refund Paid Time'},
+      {key: 'order.created_at', name: 'Created Time'},
+      {key: 'order.updated_at', name: 'Update Time'},
+      {key: 'order.new', name: 'New'},
+      {key: 'order.purchased', name: 'Purchased'},
+      {key: 'order.seller_shipped', name: 'Seller Shipped'},
+      {key: 'order.stockin_us', name: 'StockIn US'},
+      {key: 'order.stockout_us', name: 'StockOut US'},
+      {key: 'order.stockin_local', name: 'StockIn Local'},
+      {key: 'order.stockout_local', name: 'StockOut Local'},
+      {key: 'order.at_customer', name: 'At Customer'},
+      {key: 'order.returned', name: 'Return'},
+      {key: 'order.cancelled', name: 'Cancelled'},
+      {key: 'order.lost', name: 'Lost'}
     ];
     this.paymentRequests = [
       {key: 'order.createTime', name: 'New Add fee'},
@@ -81,6 +81,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       {key: 'order.createTime', name: 'Refund Requested'},
       {key: 'order.createTime', name: 'Refund/Addfee success'},
       {key: 'order.createTime', name: 'Refund/Addfee Fail'},
+    ];
+    this.itemStatus = [
+      {key: 'NEW', name: 'New order'},
+      {key: 'SUPPORTING', name: 'Supporting'},
+      {key: 'SUPPORTED', name: 'Supported'},
+      {key: 'READY2PURCHASE', name: 'Ready purchase'},
+      {key: 'PURCHASING', name: 'Purchasing'},
+      {key: 'PURCHASE_PENDING', name: 'Purchase pending'},
+      {key: 'PURCHASED', name: 'Purchased'},
+      {key: 'EXPWH_STOCKOUT', name: 'US warehouse'},
+      {key: 'IMPWH_STOCKIN', name: 'Local warehouse'},
+      {key: 'CUSTOMER_RECEIVED', name: 'Success order'},
+      {key: 'REFUNDED', name: 'Refunded order'},
+      {key: 'CANCEL', name: 'Cancel order'},
+      {key: 'REPLACED', name: 'Replaced order'},
+      {key: 'JUNK', name: 'Junk'},
+      {key: 'PAYMENT_EXPIRED', name: 'Payment Expired'},
+      {key: '', name: 'SanBox'}
     ];
   }
 
@@ -116,17 +134,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.searchForm = this.fb.group({
             store: this.allKey,
             paymentStatus: this.allKey,
-            keyWord: this.allKey,
-            keyCategory: this.allKey,
+            keyWord: '',
+            searchKeyword: this.allKey,
             timeKey: this.allKey,
             timeRange: '',
             type: this.allKey,
-            portal: this.allKey,
-            status: this.allKey,
+            orderStatus: this.allKey,
+          portal: this.allKey,
             location: this.allKey,
             sale: this.allKey,
             page: this.currentPage,
             perPage: this.perPage,
+            sale: this.allKey,
+            seller: this.allKey
         });
     }
   prepareSearch() {
@@ -140,19 +160,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       params.paymentStatus = value.paymentStatus;
     }
     if (value.keyWord !== '' && value.keyWord !== 'ALL') {
-      params.keyWord = value.keyWord;
+      params.value = value.keyWord;
     }
-    if (value.keyCategory !== '' && value.keyCategory !== 'ALL') {
-      params.keyCategory = value.keyCategory;
+    if (value.searchKeyword !== '' && value.searchKeyword !== 'ALL') {
+      params.searchKeyword = value.searchKeyword;
     }
     if (value.type !== '' && value.type !== 'ALL') {
       params.type = value.type;
     }
+    if (value.orderStatus !== '' && value.orderStatus !== 'ALL') {
+      params.orderStatus = value.orderStatus;
+    }
     if (value.portal !== '' && value.portal !== 'ALL') {
       params.portal = value.portal;
-    }
-    if (value.status !== '' && value.status !== 'ALL') {
-      params.status = value.status;
     }
     if (value.location !== '' && value.location !== 'ALL') {
       params.location = value.location;
@@ -166,8 +186,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
 
     }
-    params.limit = this.perPage;
-    params.page = this.currentPage;
+    console.log(this.perPage);
+    params.limit = 20;
+    params.page = 1;
     return params;
   }
 
@@ -182,4 +203,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.searchForm.patchValue({perPage: value});
     this.listOrders();
   }
+  followOrder() {
+    this.checkF = !this.checkF;
+  }
+  chat(id) {
+    this.orderIdChat = id;
+    this.orderService.get(`chat/${id}`).subscribe(res => {
+      const result: any = res;
+      this.listChat = result.data;
+      console.log(this.listChat);
+    });
+  }
 }
+

@@ -21,8 +21,8 @@
           <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label">Keyword...</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
-                      id="keyCategory" formControlName="keyCategory">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
+                      id="searchKeyword" formControlName="searchKeyword">
                 <option value="ALL">ALL Keyword</option>
                 <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
               </select>
@@ -35,7 +35,7 @@
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
                       formControlName="timeKey">
-                <option [value]="allKey">Create Time</option>
+                <option [value]="allKey">Time Key</option>
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
               <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
@@ -48,7 +48,34 @@
                                     </span>
             </div>
           </div>
-          <div class="col-md-2 col-sm-6 form-group m-b-10">
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="type" class="form-control-label">Order Type</label>
+            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
+              <option [value]="allKey">--All Type--</option>
+              <option value="SHOP">Shop</option>
+              <option value="REQUEST">Request</option>
+              <option value="POS">Pos</option>
+              <option value="SHIP">Ship</option>
+              <option value="NEXTTECH">Nexttech</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Order Status</label>
+            <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
+                    formControlName="orderStatus">
+              <option [value]="allKey">--All Type--</option>
+              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Product Type</label>
+            <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
+              <option [value]="allKey">--All Atatus--</option>
+              <option value="AMAZON_US">AMAZON US</option>
+              <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="paymentStatus" class="form-control-label">Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
                     formControlName="paymentStatus">
@@ -58,33 +85,24 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="type" class="form-control-label">Order Type</label>
-            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
-              <option [value]="allKey">--All Type--</option>
-              <option value="0">Shop</option>
-              <option value="1">Request</option>
-              <option value="5">Pos</option>
-              <option value="6">Ship</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Product Status</label>
-            <select class="form-control form-control-sm" name="store" id="portal" formControlName="portal">
-              <option [value]="allKey">--All Type--</option>
-              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
-            </select>
-          </div>
-          <div class="col-md-2 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Product Type</label>
-            <select class="form-control form-control-sm" name="status" id="status" formControlName="status">
-              <option [value]="allKey">--All Atatus--</option>
+            <label class="form-control-label">Location</label>
+            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
+              <option [value]="allKey">--All Location--</option>
               <option value="STOCK_IN_US">STOCK_IN_US</option>
               <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
             </select>
           </div>
-          <div class="col-md-2 col-sm-6 form-group m-b-10">
-            <label for="portal" class="form-control-label">Location</label>
-            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Sale</label>
+            <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
+              <option [value]="allKey">--All Location--</option>
+              <option value="STOCK_IN_US">STOCK_IN_US</option>
+              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Seller</label>
+            <select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">
               <option [value]="allKey">--All Location--</option>
               <option value="STOCK_IN_US">STOCK_IN_US</option>
               <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
@@ -93,9 +111,10 @@
           <div class="col-md-12 mt-1">
             <div class="button-group">
               <button class="btn btn-sm btn-success" (click)="listOrders()">Search</button>
+              <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()">Refresh</button>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 pt-3">
             Showing
             <select class="form-control-sm select-custom"
                     (change)="handlePerPage($event)">
@@ -129,7 +148,7 @@
           <div class="col-md-12">
             <div class="row pagination"></div>
             <div class="row grid">
-              <div class="col-md-12">
+              <div class="col-md-12 pl-0 pr-0">
                 <div class="grid-view grid-view-custom">
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
@@ -194,6 +213,20 @@
                                   Customer note :<strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
                               </div>
+                              <div class="row mt-2">
+                                <div class="btn-group" role="group" style="margin: auto" aria-label="Basic example">
+                                  <button type="button" (click)="chat(order.id); showChat.show()" class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                    Trao đổi với khách
+                                  </button>
+                                  <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-bell mr-1"></i>Theo dõi đơn hàng
+                                  </button>
+                                  <button (click)="followOrder()" *ngIf="checkF" type="button" class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Bỏ theo dõi đơn hàng
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                             <div class="col-md-5 hover-row style-col border-col">
                               <div class="row">
@@ -230,7 +263,7 @@
                                     {{order.total_origin_shipping_fee_local ? order.total_origin_shipping_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-5 style-padding-left">Coupon: {{order.coupon_code}} -
+                                <div class="col-md-5 style-padding-left">Coupon: {{order.coupon?.code}} -
                                   {{order.total_counpon_amount_local}}
                                 </div>
                               </div>
@@ -333,17 +366,12 @@
                                   {{order.total_refund_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="button-group mt-1 col-md-auto">
-                                    <button class="paymentTransaction">Payment Transaction</button>
-                                  </div>
-                                  <div class="button-group col-md-auto">
-                                    <button class="btn btn-sm btn-info">View More Log (BIN)</button>
-                                  </div>
-                                  <!--<div class="button-group col-md-auto">-->
-                                  <!--<button class="btn btn-sm btn-info" >Confirm Purchase All</button>-->
-                                  <!--</div>-->
+                              <div>
+                                <div class="col-md-12 pl-0 mt-2 pb-2">
+                                  <button type="button" (click)="chat(order.id);showChatGroup.show()" class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                    Trao đổi nội bộ
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -374,6 +402,159 @@
             </div>
           </div>
         </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #showChat="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card m-b-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="modal-header pl-3 pr-3" style="border-bottom: none">
+                    <h4 class="modal-title"><i class="fa fa-comments mr-1"></i>Trao đổi với khách hàng:
+                      <strong _ngcontent-c27="" class="text-uppercase text-danger mr-1 ml-1">{{orderIdChat}}</strong><a
+                        href="javascript:void(0)" style="text-decoration: underline">xem</a>
+                    </h4>
+                    <a href="javascript:void(0)" class="text-right text-darkgray" (click)="showChat.hide()"><i
+                      class="fa fa-close"></i></a>
+                  </div>
+                  <div>
+                    <div class="modal-body p-0">
+                      <div class="container-fluid ng-star-inserted">
+                        <div class="row">
+                          <div class="messaging" style="width: 100%">
+                            <div class="inbox_msg">
+                              <div class="mesgs">
+                                <div class="msg_history">
+                                  <div *ngFor="let chat of listChat">
+                                    <div class="incoming_msg" *ngIf="chat.type_chat == 'CUSTOMER_WS'">
+                                      <div class="incoming_msg_img"><img
+                                        src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div>
+                                      <div class="received_msg">
+                                        <div class="received_withd_msg">
+                                          <p>Test which is a new approach to have all
+                                            solutions</p>
+                                          <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                                      </div>
+                                    </div>
+                                    <div class="outgoing_msg" *ngIf="chat.type_chat == 'WS_CUSTOMER'">
+                                      <div class="incoming_msg_img float-right"><img
+                                        src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                      </div>
+                                      <div class="sent_msg mr-2">
+                                        <p>{{chat.message}}</p>
+                                        <!--<span>{{chat.user_name}}</span>-->
+                                        <span class="time_date"> {{chat.date}}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="type_msg">
+                                  <div class="input_msg_write">
+                                    <input type="text" class="write_msg" placeholder="Type a message"/>
+                                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane"
+                                                                                  aria-hidden="true"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="switch form-control-sm mt-2 pl-0">
+                              <label><input type="checkbox"><span class="lever"></span>  Gửi email tới khách hàng</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #showChatGroup="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card m-b-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- DIRECT CHAT PRIMARY -->
+                  <div class="box box-primary direct-chat direct-chat-primary">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Trao đổi nội bộ : <strong class="mr-1">{{orderIdChat}}</strong><a href="javascript:void(0)">xem</a></h3>
+                      <div class="box-tools pull-right">
+                        <span data-toggle="tooltip" title="" class="badge bg-light-blue"
+                              data-original-title="3 New Messages">3</span>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                          class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts"
+                                data-widget="chat-pane-toggle">
+                          <i class="fa fa-comments"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" (click)="showChatGroup.hide()"><i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <!-- Conversations are loaded here -->
+                      <div class="direct-chat-messages" *ngFor="let chat of listChat">
+                        <div class="direct-chat-msg" *ngIf="chat.type_chat == 'GROUP_WS'">
+                          <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-left">{{chat.user_name}}</span>
+                            <span class="direct-chat-timestamp pull-right">{{chat.date}}</span>
+                          </div>
+                          <img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg"
+                               alt="Message User Image"><!-- /.direct-chat-img -->
+                          <div class="direct-chat-text">
+                            {{chat.message}}
+                          </div>
+                        </div>
+                        <!--<div class="direct-chat-msg right">-->
+                          <!--<div class="direct-chat-info clearfix">-->
+                            <!--<span class="direct-chat-name pull-right">Sarah Bullock</span>-->
+                            <!--<span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>-->
+                          <!--</div>-->
+                          <!--<img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg"-->
+                               <!--alt="Message User Image">&lt;!&ndash; /.direct-chat-img &ndash;&gt;-->
+                          <!--<div class="direct-chat-text">-->
+                            <!--You better believe it!-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <form action="#" method="post">
+                        <div class="input-group">
+                          <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                          <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-paper-plane"></i></button>
+                          </span>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
