@@ -19,8 +19,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
     imports: [
         CommonModule,
         OperationRoutingModule,
-        LoadingModule,
-
+        LoadingModule
     ],
     declarations: [
       OperationRoutingComponent,

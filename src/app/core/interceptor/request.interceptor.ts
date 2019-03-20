@@ -51,7 +51,8 @@ export class RequestInterceptor implements HttpInterceptor {
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        return next.handle(this.addToken(req, this.authService.accessToken)).do(
+        return next.handle(this.addToken(req, this.authService.accessToken))
+            .do(
             (event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     return event;
@@ -60,29 +61,30 @@ export class RequestInterceptor implements HttpInterceptor {
 
                 }
                 return event;
-            }).catch(error => {
-            if (error instanceof HttpErrorResponse) {
-                switch ((error as HttpErrorResponse).status) {
-                    case 400:
-                        return this.handle400Error(error);
-                    case 401:
-                        return this.handle401Error(req, next);
+            })
+            .catch(error => {
+                if (error instanceof HttpErrorResponse) {
+                    switch ((error as HttpErrorResponse).status) {
+                        case 400:
+                            return this.handle400Error(error);
+                        case 401:
+                            return this.handle401Error(req, next);
+                    }
                 }
-            } else {
-                return Observable.throw(error);
-            }
-        });
+            });
     }
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-        if(this.authService.authorizationCode !== false){
+        if (this.authService.authorizationCode !== false) {
             return this.authService.getAccessToken().subscribe(refreshResponse => {
-                console.log(refreshResponse);
                 this.authService.handleAccessToken(refreshResponse, false);
                 return next.handle(this.addToken(req, this.authService.accessToken));
             });
         }
-        this.logoutUser();
+        // } else {
+        //     this.authService.redirectURL = '/login';
+        //     this.authService.handleRedirectURL();
+        // }
 
     }
 
