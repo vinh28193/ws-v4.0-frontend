@@ -142,7 +142,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             orderStatus: this.allKey,
           portal: this.allKey,
             location: this.allKey,
-            sale: this.allKey,
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
@@ -209,8 +208,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   chat(id) {
     this.orderIdChat = id;
     this.orderService.get(`chat/${id}`).subscribe(res => {
-      const result: any = res;
-      this.listChat = result.data;
+      const result1: any = res;
+      this.listChat = result1.data;
       console.log(this.listChat);
     });
   }
