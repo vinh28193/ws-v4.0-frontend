@@ -6,6 +6,7 @@ import {PackageItemRoutingComponent} from './package-item-routing.component';
 import {PackageItemListComponent} from './package-item-list/package-item-list.component';
 import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
+import {PackageItemService} from './package-item.service';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot()
     ],
-    declarations: [PackageItemRoutingComponent, PackageItemListComponent]
+    declarations: [PackageItemRoutingComponent, PackageItemListComponent],
+    providers: [PackageItemService]
 })
 export class PackageItemModule {
 }

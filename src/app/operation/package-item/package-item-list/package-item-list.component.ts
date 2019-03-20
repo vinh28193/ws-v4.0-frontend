@@ -3,9 +3,9 @@ import {PackageItemDataComponent} from '../package-item-data.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
-import {PackageService} from '../../package/package.service';
 
 import {RESPONSE} from '../mock-response';
+import {PackageItemService} from '../package-item.service';
 
 @Component({
     selector: 'app-package-item-list',
@@ -22,8 +22,8 @@ export class PackageItemListComponent extends PackageItemDataComponent implement
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
 
-    constructor(public packageService: PackageService, private popup: PopupService, private fb: FormBuilder) {
-        super(packageService);
+    constructor(public packageItemService: PackageItemService, private popup: PopupService, private fb: FormBuilder) {
+        super(packageItemService);
     }
 
     ngOnInit() {
@@ -73,7 +73,7 @@ export class PackageItemListComponent extends PackageItemDataComponent implement
         this.currentPage = data._meta.currentPage;
         this.perPage = data._meta.perPage;
 
-        // this.packageService.getAllList(params).subscribe(response => {
+        // this.packageService.search(params).subscribe(response => {
         //     if (response.success) {
         //         const data: any = response.data;
         //         this.packages = data._items;

@@ -89,35 +89,33 @@
                                         <div class="col-md-12 grid-view-col-padding-rl-0">
                                             <div class="row grid-view-row-margin-rl-0 grid-header">
                                                 <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                                                    <input type="checkbox" class="checkbox custom-checkbox"
+                                                           style="z-index: 9999">
                                                 </div>
-                                                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
+                                                <div class="col-md-4 col-sm-6 grid-view-col-border grid-view-col-content">
                                                     Package
                                                 </div>
-                                                <div class="col-md-4 col-sm-12 grid-view-col-border grid-view-col-content">
+                                                <div class="col-md-5 col-sm-12 grid-view-col-border grid-view-col-content">
                                                     Order
                                                 </div>
-                                                <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                                                    Status
-                                                </div>
-                                                <div class="col-md-1 col-sm-12 grid-view-col-border grid-view-col-content">
+                                                <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
                                                     Action
                                                 </div>
                                             </div>
-                                            <div *ngFor="let item of items" class="row grid-view-row-margin-rl-0 grid-content">
+                                            <div *ngFor="let item of items"
+                                                 class="row grid-view-row-margin-rl-0 grid-content">
                                                 <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
+                                                    <input type="checkbox" class="checkbox custom-checkbox"
+                                                           style="z-index: 9999">
                                                 </div>
-                                                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                    Package
+                                                <div class="col-md-4 col-sm-6 grid-view-col-border grid-view-col-content">
+                                                    <p class="p-custom">Trạng thái kiện: <span class="label label-danger">{{item.current_status}}</span></p>
+                                                    <p class="p-custom">Mã kiện: <span class="label label-danger">{{item.package_code}}</span></p>
                                                 </div>
-                                                <div class="col-md-4 col-sm-12 grid-view-col-border grid-view-col-content">
+                                                <div class="col-md-5 col-sm-12 grid-view-col-border grid-view-col-content">
                                                     Order
                                                 </div>
-                                                <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                                                    Status
-                                                </div>
-                                                <div class="col-md-1 col-sm-12 grid-view-col-border grid-view-col-content">
+                                                <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
                                                     Action
                                                 </div>
                                             </div>
