@@ -1,18 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {PackageItemDataComponent} from '../package-item-data.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
-import {PackageService} from '../../package/package.service';
-
-import {RESPONSE} from '../mock-response';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {RESPONSE} from './mock-response';
+import {PackageItemService} from './package-item.service';
+import {PackageDataComponent} from '../package-data.component';
 
 @Component({
-    selector: 'app-package-item-list',
-    templateUrl: './package-item-list.component.html',
-    styleUrls: ['./package-item-list.component.css']
+  selector: 'app-package-item',
+  templateUrl: './package-item.component.html',
+  styleUrls: ['./package-item.component.css']
 })
-export class PackageItemListComponent extends PackageItemDataComponent implements OnInit {
+export class PackageItemComponent extends PackageDataComponent implements OnInit {
 
     public items: any = [];
     // form Group
@@ -22,8 +21,8 @@ export class PackageItemListComponent extends PackageItemDataComponent implement
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
 
-    constructor(public packageService: PackageService, private popup: PopupService, private fb: FormBuilder) {
-        super(packageService);
+    constructor(public packageItemService: PackageItemService, private popup: PopupService, private fb: FormBuilder) {
+        super(packageItemService);
     }
 
     ngOnInit() {
@@ -73,7 +72,7 @@ export class PackageItemListComponent extends PackageItemDataComponent implement
         this.currentPage = data._meta.currentPage;
         this.perPage = data._meta.perPage;
 
-        // this.packageService.getAllList(params).subscribe(response => {
+        // this.packageService.search(params).subscribe(response => {
         //     if (response.success) {
         //         const data: any = response.data;
         //         this.packages = data._items;
