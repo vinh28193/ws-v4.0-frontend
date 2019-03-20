@@ -76,7 +76,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
         if (this.authService.authorizationCode !== false) {
-            return this.authService.getAccessToken().subscribe(refreshResponse => {
+            return this.authService.getAccessToken().mergeMap(refreshResponse => {
                 this.authService.handleAccessToken(refreshResponse, false);
                 return next.handle(this.addToken(req, this.authService.accessToken));
             });
