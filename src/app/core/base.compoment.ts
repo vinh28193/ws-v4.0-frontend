@@ -43,7 +43,7 @@ export class BaseComponent implements NotifyInterface {
      * @returns {string}
      */
     public get scope(): string {
-        return this.httpClient.decrypt('scope');
+        return this.httpClient.scope;
     }
 
     /**
@@ -51,7 +51,7 @@ export class BaseComponent implements NotifyInterface {
      * @param {string} scope
      */
     public set scope(scope: string) {
-        this.httpClient.encrypt('scope', scope);
+        this.httpClient.scope = scope;
     }
 
     /**
@@ -85,7 +85,7 @@ export class BaseComponent implements NotifyInterface {
      * @returns {any}
      */
     public get identity(): any {
-        return this.httpClient.decrypt('userLogin');
+        return this.httpClient.identity;
     }
 
     /**
@@ -93,6 +93,6 @@ export class BaseComponent implements NotifyInterface {
      * @param {any | null} identity
      */
     public set identity(identity: any | null) {
-        this.httpClient.encrypt('userLogin', identity);
+        this.httpClient.identity = identity;
     }
 }

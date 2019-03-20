@@ -3,9 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {BaseComponent} from '../core/base.compoment';
 import {AuthService} from '../core/service/auth.service';
 import {PopupService} from '../core/service/popup.service';
-import {EncryptionService} from '../core/service/encryption.service';
 import {StorageService} from '../core/service/storage.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -14,20 +13,25 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
+    public username = '';
+    public password = '';
 
     constructor(
         private authService: AuthService,
         private popup: PopupService,
         private storage: StorageService,
         private router: Router,
+        private activeRouter: ActivatedRoute
     ) {
         super(authService);
     }
 
-    public username = '';
-    public password = '';
-
     ngOnInit() {
+        const queryParams = this.activeRouter.snapshot.queryParams;
+        if (queryParams.hasOwnProperty('r')) {
+            this.authService.redirectURL = queryParams.r;
+        }
+        console.log(this.authService.redirectURL);
     }
 
     login() {
@@ -61,48 +65,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.authService.getAccessToken().subscribe(rt => {
             const res: any = rt;
             if (res.success) {
-                const rs: any = res.data;
-                const accessToken = rs.accessToken;
-                const userPublicIdentity = rs.userPublicIdentity;
-                console.log('res AcessToken : ' + JSON.stringify(res));
-                this.authService.accessToken = accessToken.token;
-                this.authService.accessTokenExpire = accessToken.expires_at;
-                console.log('access token : ' + this.authService.accessToken);
-                this.identity = userPublicIdentity;
-                this.scope = userPublicIdentity.role;
-                // this.store = rs.user.store_id;
-                // console.log('res Roles : ' + JSON.stringify(userPublicIdentity));
-                // console.log('res scope : ' + JSON.stringify(this.scope));
-                switch (this.scope) {
-                    case 'cms':
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/cms';
-                        }, 200);
-                        break;
-                    case 'warehouse':
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/warehouse';
-                        }, 200);
-                        break;
-                    case 'operation':
-                    case 'sale':
-                    case 'master_sale':
-                    case 'master_operation':
-                    case 'superAdmin' :
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/operation/order';
-                        }, 200);
-                        break;
-                    default :
-                        setTimeout(() => {
-                            // location.reload();
-                            window.location.href = '/dashboard';
-                        }, 200);
-                }
-
+                this.authService.handleAccessToken(res, true);
             } else {
                 this.popup.error(res.message, 'Error');
             }
