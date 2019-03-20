@@ -14,6 +14,7 @@ import {OperationModule} from '../operation.module';
 import {OrderService} from './order.service';
 import {FormsModule} from '@angular/forms';
 import { EditFinanceComponent } from './order-list/edit-finance/edit-finance.component';
+import { ChatComponent } from './order-list/chat/chat.component';
 
 @NgModule({
     imports: [
@@ -38,6 +39,7 @@ import { EditFinanceComponent } from './order-list/edit-finance/edit-finance.com
         EditImageComponent,
         EditVariantComponent,
         EditFinanceComponent,
+        ChatComponent,
     ],
     providers: [
       OrderService

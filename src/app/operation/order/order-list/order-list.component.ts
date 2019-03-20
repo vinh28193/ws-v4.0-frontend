@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-order-list',
@@ -11,12 +12,16 @@ import {PopupService} from '../../../core/service/popup.service';
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
+  // @ViewChild(ModalDirective) showChat: ModalDirective;
+  // @ViewChild(ModalDirective) showChatGroup: ModalDirective;
   public orders: any = [];
+  public listChat: any = [];
   public total: any;
   public pageCount: number;
   public currentPage: number;
   public perPage: number;
   public dateTime: Date;
+  public orderIdChat: any;
   // form Group
   public searchForm: FormGroup;
   itemStatus: any = [];
@@ -26,6 +31,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   paymentRequests: any = [];
   public filter: any = {};
   public status: any;
+  public checkF = false;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -139,6 +145,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             sale: this.allKey,
             page: this.currentPage,
             perPage: this.perPage,
+            sale: this.allKey,
+            seller: this.allKey
         });
     }
   prepareSearch() {
@@ -195,4 +203,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.searchForm.patchValue({perPage: value});
     this.listOrders();
   }
+  followOrder() {
+    this.checkF = !this.checkF;
+  }
+  chat(id) {
+    this.orderIdChat = id;
+    this.orderService.get(`chat/${id}`).subscribe(res => {
+      const result: any = res;
+      this.listChat = result.data;
+      console.log(this.listChat);
+    });
+  }
 }
+
