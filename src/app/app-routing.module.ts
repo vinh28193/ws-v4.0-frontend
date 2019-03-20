@@ -6,7 +6,7 @@ import {SelectivePreloadingStrategyService} from './selective-preloading-strateg
 
 const appRoutes: Routes = [
     {
-        path: '', redirectTo: '#/', pathMatch: 'full'
+        path: '', redirectTo: '/operation/order', pathMatch: 'full'
         /* path: '', redirectTo: 'dashboard/home', pathMatch: 'full' */
     },
     {
