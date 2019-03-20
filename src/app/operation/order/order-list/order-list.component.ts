@@ -207,7 +207,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   chat(id) {
     this.orderIdChat = id;
-    this.orderService.get(`chat/${id}`).subscribe(res => {
+    this.orderService.get(`chat/${id}`, 1).subscribe(res => {
       const result1: any = res;
       this.listChat = result1.data;
       console.log(this.listChat);
