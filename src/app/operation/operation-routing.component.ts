@@ -16,6 +16,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         super(activatedRoute);
     }
 
+    public statusSidebar = localStorage.getItem('status-sidebar') ? localStorage.getItem('status-sidebar') : 'show';
     public address: any;
 
     ngOnInit() {
@@ -23,10 +24,13 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
 
     closeSidebar() {
         $('.page-wrapper').removeClass('toggled');
-
+        this.statusSidebar = 'hide';
+        localStorage.setItem('status-sidebar', this.statusSidebar);
     }
 
     showSidebar() {
         $('.page-wrapper').addClass('toggled');
+        this.statusSidebar = 'show';
+        localStorage.setItem('status-sidebar', this.statusSidebar);
     }
 }

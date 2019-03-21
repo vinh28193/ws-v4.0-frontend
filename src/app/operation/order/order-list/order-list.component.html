@@ -153,7 +153,7 @@
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <div class="card style-card" *ngFor="let order of orders">
+                        <div class="card style-card div-hover" *ngFor="let order of orders">
                           <div class="row margin-row">
                             <div class="col-md-3 border-col">
                               <div class="card-title">
@@ -191,6 +191,10 @@
                               <div class="mt-1">
                                 <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                               </div>
+                                <div class="mt-1 btn-group">
+                                    <button class="btn btn-secondary btn-sm" (click)="viewProduct(order.id)" ><i class="fa fa-eye"> View product</i></button>
+                                    <button class="btn btn-secondary btn-sm" ><i class="fa fa-eye"> View package</i></button>
+                                </div>
                             </div>
                             <div class="col-md-4 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
@@ -376,7 +380,7 @@
                               </div>
                             </div>
                           </div>
-                          <app-order-detail [products]="order.products"
+                          <app-order-detail id="order_item_{{order.id}}" class="hidden-md-up" [products]="order.products"
                                             [new]="order.new"
                                             [purchased]="order.purchased"
                                             [seller_shipped]="order.seller_shipped"
