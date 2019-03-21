@@ -160,10 +160,10 @@
                                 <h5>
                                   <strong class="text-uppercase">
                                   <a target="_blank"
-                                  href="http://weshop.com.vn/order-BIN-C7FD4993274B/bill.html">
-                                  <span class="text-danger">{{order.ordercode}}</span>
+                                  href="http://weshop.com.vn/order-BIN-{{order.Ordercode}}/bill.html">
+                                  <span class="text-danger">{{order.Ordercode}}</span>
                                   </a>
-                                  </strong>/
+                                  </strong> /
                                   <span class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
                                     {{order.current_status}}
                                   </span>
@@ -239,22 +239,40 @@
                                 <div class="col-md-3 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-5 style-padding-left"> (Exchage rate free: {{order.exchange_rate_fee}})</div>
+                                <div class="col-md-5 style-padding-left"> (Exchage rate: {{order.exchange_rate_fee}})</div>
                               </div>
-                              <div class="row">
-                                <div class="col-md-4 style-padding-right dong">
+                              <div class="row total_fee_amount_local">
+                                <div class="col-md-4 style-padding-right  dong">
                                   <span>Total origin tax fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-3 text-right style-padding-left total_fee_amount_local dong">
+                                  <span>
+                                    {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div class="row total_origin_tax_fee_local">
+                                <div class="col-md-4 style-padding-right total_fee_amount_local dong">
+                                  <span>Total origin tax fee local </span>
+                                </div>
+                                <div class="col-md-3 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-5 style-padding-left">(Exchage rate free :
-                                  {{order.exchange_rate_purchase}})
+                              </div>
+
+                              <div class="row exchange_rate_purchase">
+                                <div class="col-md-4 style-padding-right  dong">
+                                  <span>(Exchage rate Purchase:  </span>
+                                </div>
+                                <div class="col-md-3 text-right style-padding-left Exchage_local">
+                                    {{order.exchange_rate_purchase}})
                                 </div>
                               </div>
-                              <div class="row">
+
+                              <div class="row Total_origin_shiping_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total origin shiping fee</span>
                                 </div>
@@ -267,7 +285,7 @@
                                   {{order.total_counpon_amount_local}}
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_weshop_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total weshop fee</span>
                                 </div>
@@ -277,7 +295,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_shiping_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total shiping fee</span>
                                 </div>
@@ -287,7 +305,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_custom_fee_amount">
                                 <div class="col-md-5 style-padding-right dong">
                                   <span>Total custom fee amount</span>
                                 </div>
@@ -297,7 +315,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_delivery_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total delivery fee</span>
                                 </div>
@@ -307,7 +325,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_packing_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total packing fee</span>
                                 </div>
@@ -317,7 +335,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_insection_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insection fee</span>
                                 </div>
@@ -327,7 +345,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_insurance_fee">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insurance fee</span>
                                 </div>
@@ -337,7 +355,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Total_VAT_amount">
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total VAT amount</span>
                                 </div>
@@ -347,20 +365,20 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Paid">
                                 <div class="col-md-4 text-danger">Paid</div>
                                 <div class="col-md-3 text-right text-danger">
                                   {{order.total_paid_amount_local ? order.total_paid_amount_local : 0.00 | currency:
                                   'VND'}}
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Collect">
                                 <div class="col-md-4 text-info">Collect</div>
                                 <div class="col-md-3 text-right text-info style-padding-left">
                                   1234
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row Refund">
                                 <div class="col-md-4">Refund</div>
                                 <div class="col-md-3 text-right style-padding-left">
                                   {{order.total_refund_amount_local | currency: 'VND'}}
@@ -376,7 +394,7 @@
                               </div>
                             </div>
                             <div class="col-md-2 border-col">
-                              <div class="row">
+                              <div class="row STATUS">
                                 <div class="col-md-12">
                                   <h5>STATUS</h5>
                                 </div>
