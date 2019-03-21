@@ -185,11 +185,15 @@
                                 <span><i class="fa fa-user mr-1"></i> Seller:</span>
                                 <span class="ml-2">{{order.seller?.seller_name}}</span>
                               </div>
-                              <div class="mt-1">
+                              <div class="mt-1 created_at">
                                 <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                               </div>
-                              <div class="mt-1">
+                              <div class="mt-1 created_at_timeAgo">
                                 <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
+                              </div>
+                              <div class="portal OrderType">
+                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}}</span></div>
+                                <br>
                               </div>
                             </div>
                             <div class="col-md-3 border-col CUSTOMER_INFO">
@@ -220,7 +224,7 @@
                                     Trao đổi với khách
                                   </button><br>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
-                                    <i class="fa fa-bell mr-1"></i>Theo dõi đơn hàng
+                                    <i class="fa fa-bell mr-1"></i>Notification
                                   </button>
                                   <button (click)="followOrder()" *ngIf="checkF" type="button" class="btn mt-2 btn-secondary btn-sm">
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Bỏ theo dõi đơn hàng
