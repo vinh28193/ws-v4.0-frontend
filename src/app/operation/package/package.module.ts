@@ -7,7 +7,6 @@ import {PackageRoutingModule} from './package-routing.module';
 import {PackageRoutingComponent} from './package-routing.component';
 
 import {PackageListComponent} from './package-list/package-list.component';
-import {PackageRawComponent} from './package-raw/package-raw.component';
 import {PackageItemComponent} from './package-item/package-item.component';
 
 import {PackageService} from './package.service';
@@ -26,7 +25,6 @@ import {PackageItemService} from './package-item/package-item.service';
         PackageRoutingComponent,
         PackageListComponent,
         PackageDirective,
-        PackageRawComponent,
         PackageItemComponent
     ],
     providers: [

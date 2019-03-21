@@ -1,3 +1,96 @@
-<p>
-  tracking-list works!
-</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title m-b-0">Tracking Code</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row form-search"></div>
+                        <div class="row summary">
+                            <div class="col-md-12">
+                                <p class="mb-1">Tổng khối lượng người bán giử - kho kiểm: <span
+                                        class="text-danger"><strong>{{summary.totalSellerWeight}} - {{summary.totalSellerWeight}}</strong></span>
+                                </p>
+                                <p class="mb-1">Tổng số lượng người bán giử - kho kiểm: <span
+                                        class="text-danger"><strong>{{summary.totalSellerWeight}} - {{summary.totalSellerWeight}}</strong></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row list">
+                            <div class="col-md-12">
+                                <div class="row list-summary">
+                                    <div class="col-md-6">
+                                        Showing
+                                        <select class="form-control-sm select-custom"
+                                                (change)="handlePerPage($event)">
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="200">200</option>
+                                            <option value="all">All</option>
+                                        </select>
+                                        of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                                    </div>
+                                    <div class="col-md-6">
+                                        <pagination [boundaryLinks]="true"
+                                                    [totalItems]="totalCount"
+                                                    (pageChanged)="handlePagination($event)"
+                                                    [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                                                    [rotate]="true">
+                                        </pagination>
+                                    </div>
+                                </div>
+                                <div class="row list-content">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-custom">
+                                                <thead>
+                                                <th width="8%"></th>
+                                                <th width="40%">Thông tin kiện</th>
+                                                <th width="35%">Thông tin đơn</th>
+                                                <th width="17%">Hành động</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let tracking of trackings">
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="seller-row">
+                                                                <h6 class="text-danger">{{tracking.weshop_tag}}</h6>
+                                                                <hr class="mt-1 mb-1">
+                                                                <p class="mb-1">Tracking: <strong>{{tracking.seller_tracking}}</strong></p>
+                                                                <p class="mb-1">Reference 1: <strong>{{tracking.seller_tracking_reference_1}}</strong></p>
+                                                                <p class="mb-1">Reference 2: <strong>{{tracking.seller_tracking_reference_1}}</strong></p>
+                                                                <p class="mb-1">Qty/Weight(kg): <strong>{{tracking.seller_quantity}}/{{tracking.seller_weight}}</strong></p>
+                                                                <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
+                                                                <p class="mb-1">Ship at: <strong>{{tracking.seller_shipped_at}}</strong></p>
+                                                                <p class="mb-1">Ship to: <strong>Kho Hop nhat US</strong></p>
+                                                                <p class="mb-1">Note to: <strong>{{tracking.receiver_warehouse_note}}</strong></p>
+                                                            </div>
+                                                            <hr class="mt-1 mb-1">
+                                                            <div class="local-warehouse-row">
+                                                                <p class="mb-1">Warehouse: <strong>Boxme HCM (45 Tan Son)</strong> </p>
+                                                                <p class="mb-1">Tag: <strong>{{tracking.local_warehouse_tag}}</strong><span class="label label-danger">close</span> </p>
+                                                                <p class="mb-1">Qty/Weight(kg): <strong>{{tracking.local_warehouse_quantity}}/{{tracking.local_warehouse_weight}}</strong></p>
+                                                                <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
+                                                                <p class="mb-1">Note: <strong>{{tracking.receiver_warehouse_note}}</strong></p>
+                                                            </div>
+
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
