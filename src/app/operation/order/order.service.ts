@@ -24,4 +24,10 @@ export class OrderService extends OperationService {
     search(filter: any | undefined) {
       return this.get('order', filter);
     }
+    putChat(url, item: any | undefined) {
+      return this.update(`chat-service/${url}`, item);
+    }
+    patchChat(url, item: any | undefined) {
+      return this.updatePatch(`chat-service/${url}`, item);
+    }
 }

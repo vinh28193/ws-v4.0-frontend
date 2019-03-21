@@ -67,6 +67,12 @@ export class ClientService extends GlobalService {
         catchError(this.handleError)
       );
   }
+  updatePatch(url, body): Observable<any> {
+    return this.http.patch(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   delete(url, body): Observable<any> {
     return this.http.delete(`${this.getApiURl(url)}/${body}`, this.getAuthHttpOptions())
