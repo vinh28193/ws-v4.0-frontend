@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
+
 declare var $: any;
 declare var jQuery: any;
 
@@ -14,6 +15,8 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     constructor(public activatedRoute: ActivatedRoute) {
         super(activatedRoute);
     }
+
+    public address: any;
 
     ngOnInit() {
     }

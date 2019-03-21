@@ -134,7 +134,15 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
         this.search();
     }
 
+    // edit(item){
+    //
+    // }
+
     consoleLog(value) {
         console.log(value);
+    }
+
+    showEditAddress(shipment){
+
     }
 }

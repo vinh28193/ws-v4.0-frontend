@@ -1,1 +1,13 @@
 
+p{
+    margin: 2px;
+}
+*{
+    font-family: "fontawesome",Helvetica,Arial,sans-serif;
+}
+.div-hover{
+    background: white;
+}
+.div-hover:hover{
+    background: #f5f5f5;
+}
