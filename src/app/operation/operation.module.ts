@@ -20,8 +20,7 @@ import { CurrentStatusPipe } from './pipes/current-status.pipe';
     imports: [
         CommonModule,
         OperationRoutingModule,
-        LoadingModule,
-
+        LoadingModule
     ],
     declarations: [
       OperationRoutingComponent,
