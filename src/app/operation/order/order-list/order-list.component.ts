@@ -7,21 +7,25 @@ import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-order-list',
-    templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.css']
+  selector: 'app-order-list',
+  templateUrl: './order-list.component.html',
+  styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
   // @ViewChild(ModalDirective) showChat: ModalDirective;
   // @ViewChild(ModalDirective) showChatGroup: ModalDirective;
   public orders: any = [];
-  public listChat: any = [];
   public total: any;
-  public pageCount: number;
-  public currentPage: number;
-  public perPage: number;
   public dateTime: Date;
   public orderIdChat: any;
+  public code: any;
+  public checkLoad: boolean = false;
+  public checkLoadG: boolean = false;
+
+  // show
+  isShow = false;
+  public activeId;
+  public activeTab;
   // form Group
   public searchForm: FormGroup;
   itemStatus: any = [];
@@ -32,9 +36,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public filter: any = {};
   public status: any;
   public checkF = false;
+
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
+
   ngOnInit() {
     this.currentPage = 1;
     this.perPage = 20;
@@ -114,7 +120,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orders = Object.entries(data._items).map(e => {
           return e[1];
         });
-        this.total = data.totalCount;
+        this.totalCount = data.totalCount;
         this.pageCount = data.pageCount;
         this.currentPage = data.page;
         this.perPage = data.size;
@@ -123,34 +129,37 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     });
   }
+
   quantityOrder(quantityC, quantityL) {
     let quantityA = 0;
-    for (let i = 0; i < quantityL ; i++) {
+    for (let i = 0; i < quantityL; i++) {
       quantityA += quantityC[i]['quantity_customer'];
     }
     return quantityA;
   }
-    buildSearchForm() {
-        this.searchForm = this.fb.group({
-            store: this.allKey,
-            paymentStatus: this.allKey,
-            keyWord: '',
-            searchKeyword: this.allKey,
-            timeKey: this.allKey,
-            timeRange: '',
-            type: this.allKey,
-            orderStatus: this.allKey,
-          portal: this.allKey,
-            location: this.allKey,
-            page: this.currentPage,
-            perPage: this.perPage,
-            sale: this.allKey,
-            seller: this.allKey
-        });
-    }
+
+  buildSearchForm() {
+    this.searchForm = this.fb.group({
+      store: this.allKey,
+      paymentStatus: this.allKey,
+      keyWord: '',
+      searchKeyword: this.allKey,
+      timeKey: this.allKey,
+      timeRange: '',
+      type: this.allKey,
+      orderStatus: this.allKey,
+      portal: this.allKey,
+      location: this.allKey,
+      page: this.currentPage,
+      perPage: this.perPage,
+      sale: this.allKey,
+      seller: this.allKey
+    });
+  }
+
   prepareSearch() {
     const value = this.searchForm.value;
-    console.log(this.searchForm);
+    console.log(this.searchForm.value);
     const params: any = {};
     if (value.store !== '' && value.store !== 'ALL') {
       params.store = value.store;
@@ -202,16 +211,41 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.searchForm.patchValue({perPage: value});
     this.listOrders();
   }
+
   followOrder() {
     this.checkF = !this.checkF;
   }
-  chat(id) {
+
+  chat(id, code) {
+    this.checkLoad = true;
     this.orderIdChat = id;
-    this.orderService.get(`chat/${id}`, 1).subscribe(res => {
-      const result1: any = res;
-      this.listChat = result1.data;
-      console.log(this.listChat);
-    });
+    this.code = code;
   }
+
+  chatG(id) {
+    this.checkLoadG = true;
+    this.orderIdChat = id;
+  }
+
+  clickOff() {
+    this.checkLoad = false;
+  }
+
+  clickOffG() {
+    this.checkLoadG = false;
+  }
+
+  // createTab(tab, id) {
+  //   return 'tab' + tab + id;
+  // }
+  //
+  // clickTab(tab, id) {
+  //   this.activeId = id;
+  //   this.activeTab = tab;
+  // }
+  //
+  // isActiveTab(tab, id) {
+  //   return this.activeId === id && this.activeTab === tab;
+  // }
 }
 

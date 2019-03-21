@@ -14,6 +14,7 @@ import {QuotationStatusClassPipe} from './pipes/quotation-status-class.pipe';
 import {StorePipe} from './pipes/store.pipe';
 import {SpanLabelComponent} from './span-label/span-label.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { CurrentStatusPipe } from './pipes/current-status.pipe';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
       QuotationPipe,
       StorePipe,
       SpanLabelComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      CurrentStatusPipe
     ],
     providers: [
         OperationService
@@ -48,7 +50,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
     QuotationPipe,
     StorePipe,
     SpanLabelComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    CurrentStatusPipe
   ]
 })
 export class OperationModule {
