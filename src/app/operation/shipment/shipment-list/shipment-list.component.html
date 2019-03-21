@@ -122,7 +122,7 @@
                     <p class="p-custom m-b-0">Warehouse: <strong>BoxMe Ho Chi Minh</strong></p>
                     <p class="p-custom m-b-0">Location: <strong>45 Tan Son</strong></p>
                     <hr style="width: 75%" class="mt-2 mb-2">
-                    <h6>Ship To <i class="fa fa-edit"></i></h6>
+                    <h6>Ship To <a href="javascript:void (0);" (click)="showEditAddress(shipment)" ><i class="fa fa-edit"></i></a></h6>
                     <p class="p-custom m-b-0">Name: <strong>{{shipment.receiver_name}}</strong></p>
                     <p class="p-custom m-b-0">Address: <strong>{{shipment.receiver_name}}</strong></p>
                     <p class="p-custom m-b-0">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
@@ -247,3 +247,61 @@
 <ng-template #shipmentParcelCreateTemplate let-parcel="parcel">
     {{parcel|json}}
 </ng-template>
+<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="editAddress" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAddressLable">Edit Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Full Name</label>
+                        <input [(ngModel)]="address.receiver_name" name="fullname" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Email</label>
+                        <input [(ngModel)]="address.receiver_email" name="email" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Phone</label>
+                        <input [(ngModel)]="address.receiver_name" name="phone" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Address</label>
+                        <input [(ngModel)]="address.receiver_address" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Country</label>
+                        <input [(ngModel)]="address.receiver_country_id" name="fullname" type="text"
+                               class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Province</label>
+                        <input [(ngModel)]="address.receiver_province_id" name="email" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">District</label>
+                        <input [(ngModel)]="address.receiver_district_id" name="phone" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="form-control-label">Zip Code</label>
+                        <input [(ngModel)]="address.receiver_post_code" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
