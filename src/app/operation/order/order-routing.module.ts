@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {OrderRoutingComponent} from './order-routing.component';
 import {OrderListComponent} from './order-list/order-list.component';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {PackageItemComponent} from './order-list/package-item/package-item.component';
 
 const routes: Routes = [
     {
@@ -11,7 +12,13 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                component: OrderListComponent
+                component: OrderListComponent,
+                children: [
+                  {
+                    path: 'detail-package-item',
+                    component: PackageItemComponent,
+                  }
+              ]
             },
             // {
             //     path: 'list',
@@ -24,7 +31,7 @@ const routes: Routes = [
             {
                 path: ':id/detail',
                 component: OrderDetailComponent
-            }
+            },
         ]
     }
 ];

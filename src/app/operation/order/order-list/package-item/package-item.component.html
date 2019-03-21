@@ -1,0 +1,47 @@
+<div class="table-responsive">
+  <table border="1 solid #DFDFDF" cellpadding="1" class="table" *ngIf="packages.length > 0">
+    <thead>
+    <tr>
+      <th>No</th>
+      <th>Package Code/Tag Code</th>
+      <th>Quantity</th>
+      <th>Weight</th>
+      <th>Stock In Local/ Stock Out Local</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let package of packages; let i = index">
+      <td>
+        {{i+1}}<br>
+        <a href="javascript:void(0)"><i class="fa fa-edit text-info"></i></a>
+      </td>
+      <td>
+        <a href="avascript:void(0)" target="_blank" class="tracking">{{package.package_code}}</a>
+        <div class="Tagcode" > {{package.box_me_warehouse_tag}}</div>
+      </td>
+      <td>
+        {{package.quantity}}
+      </td>
+      <td>
+        <ul>
+          <li>{{(package.dimension_l*package.dimension_w*package.dimension_h)/5000}}kg({{package.dimension_l}}x{{package.dimension_w}}x{{package.dimension_h}})</li>
+          <li>{{package.change_weight/1000}}kg</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Stock In Local: {{package.stock_in_local}}</li>
+          <li>Stock Out Local: {{package.stock_out_local}}</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>{{package.current_status}}</li>
+          <li>{{package.created_at}}</li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

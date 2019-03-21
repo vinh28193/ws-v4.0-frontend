@@ -8,7 +8,7 @@ import {ExcelDemoComponent} from './excel/excel-demo/excel-demo.component';
 
 const appRoutes: Routes = [
     {
-        path: '', redirectTo: '#/', pathMatch: 'full'
+        path: '', redirectTo: '/operation/order', pathMatch: 'full'
         /* path: '', redirectTo: 'dashboard/home', pathMatch: 'full' */
     },
     {

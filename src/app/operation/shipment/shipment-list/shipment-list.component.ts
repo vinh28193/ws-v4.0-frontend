@@ -4,7 +4,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../core/service/popup.service';
 import {ShipmentService} from '../shipment.service';
 import {ShipmentDataComponent} from '../shipment-data.component';
-
+declare var $: any;
+declare var jQuery: any;
 @Component({
     selector: 'app-shipment-list',
     templateUrl: './shipment-list.component.html',
@@ -35,6 +36,10 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     public dateTime: Date;
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
+    public address: any = {
+        receiver_name : '',
+        receiver_email : '',
+    };
 
     constructor(public shipmentService: ShipmentService, private popup: PopupService, private fb: FormBuilder) {
         super(shipmentService);
@@ -134,7 +139,16 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
         this.search();
     }
 
+    // edit(item){
+    //
+    // }
+
     consoleLog(value) {
         console.log(value);
+    }
+
+    showEditAddress(shipment) {
+        this.address = shipment;
+        $('#editAddress').modal();
     }
 }
