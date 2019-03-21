@@ -28,3 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## create pipe
 ng generate pipe shared/pipes
+ng generate component operation

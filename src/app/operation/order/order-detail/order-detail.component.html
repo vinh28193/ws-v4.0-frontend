@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <h5>
           <a href="">SOI-{{product.id}}</a>
-          <span class="badge badge-primary badge-info mr-2 mb-2 ng-star-inserted m-l-5 p-2 font-style">NEW</span>
+          <!--<span class="badge badge-primary badge-info mr-2 mb-2 ng-star-inserted m-l-5 p-2 font-style">NEW</span>-->
         </h5>
       </div>
     </div>
@@ -28,7 +28,6 @@
                            <span class="star ng-star-inserted text-warning">★</span>
                            <span class="star ng-star-inserted text-dark">★</span>
                            <span class="star ng-star-inserted text-dark">★</span>
-                           <span class="star ng-star-inserted text-dark">★</span>
                         </span>
         </div>
         <button class="btn btn-sm btn-info versionOnPayment mt-2">Version One Payment</button>
@@ -36,7 +35,7 @@
         <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"></div>
         <br>
       </div>
-      <div class="col-md-7 pl-0">
+      <div class="col-md-7 pl-1">
         <ul>
           <!--<li *ngIf="order.type == 1" >-->
           <!--Status:-->
@@ -106,12 +105,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-7"><strong>Price Amount:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount | currency}}</div>
+            <div class="col-md-7"><strong>Price Amount Origin:</strong></div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_origin | currency}}</div>
           </div>
           <div class="row">
             <div class="col-md-7"><strong>Price Amount Local:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount | currency}}</div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_local | currency: 'VND'}}</div>
           </div>
           <hr>
           <div class="row">

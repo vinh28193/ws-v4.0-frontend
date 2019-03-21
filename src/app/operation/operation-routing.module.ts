@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {OperationRoutingComponent} from './operation-routing.component';
+import {} from './package-item/package-item.module';
 
 const routes: Routes = [
     {
@@ -14,6 +15,10 @@ const routes: Routes = [
             {
                 path: 'package',
                 loadChildren: './package/package.module#PackageModule',
+            },
+            {
+                path: 'package-item',
+                loadChildren: './package-item/package-item.module#PackageItemModule',
             },
             {
                 path: 'shipment2',
