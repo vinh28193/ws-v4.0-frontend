@@ -188,57 +188,7 @@
                                 <span
                                   class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
                               </div>
-                              <div class="mt-1 portal">
-                                <span class="sty-font purchase_order_id"> Portal: </span>
-                                {{order.portal}}
-                              </div>
-                              <div class="mt-1 seller_store">
-                                <span class="sty-font"><i class="fa fa-link mr-1"></i> Website:</span>
-                                <span class="ml-2">{{order.seller_store}}</span>
-                              </div>
-                              <div class="mt-1 seller_name">
-                                <span class="sty-font"><i class="fa fa-user mr-1"></i> Seller:</span>
-                                <span class="ml-2">{{order.seller_name}}</span>
-                              </div>
-                              <div class="mt-1 purchase_order_id">
-                                <span class="sty-font purchase_order_id"> Purchase Order: </span>
-                                {{order.purchase_order_id}}
-                              </div>
-                              <div class="mt-1 purchase_order_id">
-                                <span class="sty-font purchase_transaction_id">Purchase Transaction: </span>
-                                {{order.purchase_transaction_id}}
-                              </div>
-                              <div class="mt-1">
-                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale:</span>
-                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id">  </app-assign-sale>
-                                <i class="fa fa-filter"> </i>
 
-                              </div>
-                              <div class="mt-1 support_email">
-                                <span class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale:</span>
-                                <span class="ml-2">{{order.support_email}}</span>
-                              </div>
-                              <div class="mt-1 revenue_xu">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu revenue: </span>
-                                {{order.revenue_xu}}
-                              </div>
-                              <div class="mt-1 xu_amount">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Amount: </span>
-                                {{order.xu_amount}}
-                              </div>
-                              <div class="mt-1 xu_count">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Count: </span>
-                                {{order.xu_count}}
-                              </div>
-                              <div class="mt-1 xu_log">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Log: </span>
-                                {{order.xu_log}}
-                              </div>
-                              <div class="mt-1 xu_time">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-clock-o"></i> Xu Time: </span>
-                                {{order.xu_time}}
-                              </div>
                               <div class="mt-1 created_at">
                                 <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                               </div>
@@ -246,9 +196,31 @@
                                 <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                               </div>
                               <div class="portal OrderType">
-                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}}</span></div>
+                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
                               </div>
-                              <button class="btn btn-sm btn-info version_ws_prod mt-2"> Version : {{order.version}}</button>
+
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_order_id">{{order.portal}} Order code: </span>
+                                {{order.purchase_order_id}}
+                              </div>
+                              <div class="mt-1 purchase_transaction">
+                                <span class="sty-font purchase_transaction_id">{{order.portal}} Transaction: </span>
+                                {{order.purchase_transaction_id}}
+                              </div>
+                              <div class="mt-1">
+                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
+                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
+                                                 [orderId]="order.id">  </app-assign-sale>
+                                <i class="fa fa-filter"> </i>
+                              </div>
+
+                              <div class=" mt-1  infor_seller">
+                                <ul>
+                                  <li class="sty-font"><i class="fa fa-link mr-1"></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
+                                  <li class="sty-font"><i class="fa fa-user mr-1"></i> Seller Name : {{order.seller_name}}</li>
+                                  <li class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale: {{order.support_email}}</li>
+                                </ul>
+                              </div>
                               <br>
                             </div>
 
