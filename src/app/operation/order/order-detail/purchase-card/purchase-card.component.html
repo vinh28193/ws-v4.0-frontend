@@ -1,46 +1,155 @@
-<div class="modal-dialog" style="max-width: 95%;">
-  <div class="modal-content">
-    <div class="modal-header" style="background: #00000052;">
-      <h3 style="color: #fff">Purchase Card</h3>
-    </div>
-    <div class="modal-body">
+<div class="modal-header" style="background: #00000052;">
+  <h3 style="color: #fff">Purchase Card</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-lg-12">
       <div class="row">
         <div class="col-lg-12">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="main_content_right" style="max-width: 95%; margin: auto">
-                <div class="row">
-                  <div class="col-md-12">
-                    <strong>NGƯỜI MUA:</strong>
-                    <span></span>
-                  </div>
+          <div class="main_content_right" style="max-width: 95%; margin: auto">
+            <div class="row">
+              <div class="col-md-12">
+                <strong>NGƯỜI MUA:</strong>
+                <span></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table table-striped" style="border-radius: 2em;overflow: hidden;font-size: 10px">
+                  <thead>
+                  <tr class="bg-info" style="color: #fff">
+                    <th scope="col">No</th>
+                    <th scope="col">SOI</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name Item</th>
+                    <th scope="col">QTT</th>
+                    <th scope="col">Total price amount local</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td scope="row">1</td>
+                    <td>
+                      <span>SOI-{{product.id}}</span><br>
+                    </td>
+                    <td>
+                      <img [src]="product.link_img" alt="" width="100px"><br>
+                    </td>
+                    <td>
+                      <a>{{product.product_name}}</a><br>
+                      <br>
+                      <span><b>ParentSku:</b> {{product.parent_sku}}</span><br>
+                      <span><b>Seller:</b> {{product.seller_id}}</span>
+                    </td>
+                    <td>{{product.quantity_customer}}</td>
+                    <td>{{product.total_price_amount_local}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row pl-2">
+              <div class="col-md-3">
+                <strong>Total amount to collect:</strong>
+              </div>
+              <div class="col-md-4">
+                <strong>111</strong>
+              </div>
+            </div>
+            <div class="row pl-2 mt-2">
+              <div class="col-md-3">
+                <strong>Changing Price:</strong>
+              </div>
+              <div class="col-md-2">
+                <strong style="color: red"></strong>
+              </div>
+              <div class="col-md-3">
+                <div class="checkbox checkbox-success" style="float: left">
+                  <input id="checkSendEmailPrice"  class="custom-control-input" name="checkSendEmailPrice"
+                         type="checkbox">
+                  <label for="checkSendEmailPrice">
+                    Send email to customer for changing price
+                  </label>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <table class="table table-striped" style="border-radius: 2em;overflow: hidden;font-size: 10px">
-                      <thead>
-                      <tr class="bg-info" style="color: #fff">
-                        <th scope="col">No</th>
-                        <th scope="col">BIN/SOI</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name Item</th>
-                        <th scope="col">Size/Type</th>
-                        <th scope="col">QTT Order</th>
-                        <th scope="col">QTT Checkout</th>
-                        <th scope="col">Unit Price</th>
-                        <th scope="col">Us Ship</th>
-                        <th scope="col">Us Tax</th>
-                        <th scope="col">Subtotal Collect</th>
-                        <th scope="col"><strong>Paid to seller</strong></th>
-                        <th scope="col"><strong>Changing Price</strong></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+              </div>
+            </div>
 
+            <div class="row pl-2 mt-2">
+              <div class="col-md-3">
+                <strong>Total paid to seller:</strong>
+              </div>
+              <div class="col-md-2">
+                <strong style="color: red"></strong>
+              </div>
+              <div class="col-md-3">
+                <div class="checkbox checkbox-success" style="float: left">
+                  <input id="checkSendEmailFragile"  class="custom-control-input" name="checkSendEmailFragile"
+                         type="checkbox">
+                  <label for="checkSendEmailFragile">
+                    Send email to customer for fragile
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Export Warehouse</strong>
+              </div>
+              <div class="col-md-3">
+                <select class="form-control-sm" name="warehouse"
+                >
+                  <option value="">--- Select WareHouse ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Purchase Account</strong>
+              </div>
+              <div class="col-md-3">
+                <input list="listAccounts"  type="text"
+                       class="form-control-sm" placeholder="Chose an account">
+                <datalist id="listAccounts">
+                  <option>1</option>
+                </datalist>
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Card</strong>
+              </div>
+              <div class="col-md-3">
+                <select class="form-control-sm" name="warehouse">
+                  <option value="">--- Select Card ---</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point">
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Order ID</strong>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control-sm" placeholder="Type order ID">
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Paypal Transaction</strong>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control-sm"
+                       placeholder="Only ebay Oder and PP Payment">
+              </div>
+            </div>
+            <div class="row mt-2 pl-2">
+              <div class="col-md-2">
+                <strong>Note</strong>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control-sm input-control-ws" placeholder="Note">
               </div>
             </div>
           </div>
