@@ -9,19 +9,20 @@ import {OperationService} from '../operation.service';
 })
 export class ShipmentService extends OperationService {
 
-    constructor(
-        public http: HttpClient,
-        public encryption: EncryptionService,
-        public popup: PopupService) {
-        super(http, encryption, popup);
-    }
+  constructor(
+    public http: HttpClient,
+    public encryption: EncryptionService,
+    public popup: PopupService) {
+    super(http, encryption, popup);
+
+  }
 
     search(filter: any | undefined) {
         return this.get('s', filter);
     }
 
     edit(data: any | undefined) {
-        return this.update('s', data);
+        return this.put('s', data);
     }
 
 }

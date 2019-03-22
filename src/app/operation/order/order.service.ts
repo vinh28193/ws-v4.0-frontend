@@ -19,19 +19,19 @@ export class OrderService extends OperationService {
 
     }
      getPut(url, item: any | undefined) {
-        return this.update(`order/${url}`, item);
+        return this.put(`order/${url}`, item);
      }
     search(filter: any | undefined) {
       return this.get('order', filter);
     }
     putChat(url, item: any | undefined) {
-      return this.update(`chat-service/${url}`, item);
+      return this.put(`chat-service/${url}`, item);
     }
 
     putProduct(url, item: any | undefined) {
-      return this.update(`product/${url}`, item);
+      return this.put(`product/${url}`, item);
     }
     patchChat(url, item: any | undefined) {
-      return this.updatePatch(`chat-service/${url}`, item);
+      return this.patch(`chat-service/${url}`, item);
     }
 }

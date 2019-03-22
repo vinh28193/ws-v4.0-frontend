@@ -34,6 +34,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public filter: any = {};
   public status: any;
   public checkF = false;
+  updateProductId: any;
+  productQ: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -242,6 +244,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   clickOffG() {
     this.checkLoadG = false;
+  }
+
+  openUpdateOrder(id, product) {
+    this.updateProductId = id;
+    this.productQ = product;
   }
 }
 

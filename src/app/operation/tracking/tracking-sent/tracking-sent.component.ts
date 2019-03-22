@@ -16,6 +16,7 @@ export class TrackingSentComponent extends TrackingDataComponent implements OnIn
     public file: File;
 
     constructor(public trackingService: TrackingService, public fb: FormBuilder, public popUp: PopupService) {
+      super(trackingService);
     }
 
 

@@ -116,8 +116,9 @@
           </div>
           <div class="col-md-12 mt-1">
             <div class="button-group">
-              <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
-              <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
+                <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
+                <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
+                <button class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export Excel</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
@@ -147,15 +148,12 @@
             </pagination>
           </div>
         </form>
+
         <section class="row item-operation mb-3">
           <div class="col-md-12">
-            <div class="form-inline pull-right">
-                            <span class="button-group">
-                                <a class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export Excel</a>
-                            </span>
-            </div>
           </div>
         </section>
+
         <article class="row item-list">
           <div class="col-md-12">
             <div class="row pagination"></div>
@@ -190,57 +188,7 @@
                                 <span
                                   class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
                               </div>
-                              <div class="mt-1 portal">
-                                <span class="sty-font purchase_order_id"> Portal: </span>
-                                {{order.portal}}
-                              </div>
-                              <div class="mt-1 seller_store">
-                                <span class="sty-font"><i class="fa fa-link mr-1"></i> Website:</span>
-                                <span class="ml-2">{{order.seller_store}}</span>
-                              </div>
-                              <div class="mt-1 seller_name">
-                                <span class="sty-font"><i class="fa fa-user mr-1"></i> Seller:</span>
-                                <span class="ml-2">{{order.seller_name}}</span>
-                              </div>
-                              <div class="mt-1 purchase_order_id">
-                                <span class="sty-font purchase_order_id"> Purchase Order: </span>
-                                {{order.purchase_order_id}}
-                              </div>
-                              <div class="mt-1 purchase_order_id">
-                                <span class="sty-font purchase_transaction_id">Purchase Transaction: </span>
-                                {{order.purchase_transaction_id}}
-                              </div>
-                              <div class="mt-1">
-                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale:</span>
-                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id">  </app-assign-sale>
-                                <i class="fa fa-filter"> </i>
 
-                              </div>
-                              <div class="mt-1 support_email">
-                                <span class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale:</span>
-                                <span class="ml-2">{{order.support_email}}</span>
-                              </div>
-                              <div class="mt-1 revenue_xu">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu revenue: </span>
-                                {{order.revenue_xu}}
-                              </div>
-                              <div class="mt-1 xu_amount">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Amount: </span>
-                                {{order.xu_amount}}
-                              </div>
-                              <div class="mt-1 xu_count">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Count: </span>
-                                {{order.xu_count}}
-                              </div>
-                              <div class="mt-1 xu_log">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Log: </span>
-                                {{order.xu_log}}
-                              </div>
-                              <div class="mt-1 xu_time">
-                                <span class="sty-font purchase_transaction_id"><i class="fa fa-clock-o"></i> Xu Time: </span>
-                                {{order.xu_time}}
-                              </div>
                               <div class="mt-1 created_at">
                                 <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                               </div>
@@ -248,9 +196,33 @@
                                 <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                               </div>
                               <div class="portal OrderType">
-                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}}</span></div>
+                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
                               </div>
-                              <button class="btn btn-sm btn-info version_ws_prod mt-2"> Version : {{order.version}}</button>
+
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_order_id">{{order.portal}} Order code: </span>
+                                {{order.purchase_order_id}}
+                              </div>
+                              <div class="mt-1 purchase_transaction">
+                                <span class="sty-font purchase_transaction_id">{{order.portal}} Transaction: </span>
+                                {{order.purchase_transaction_id}}
+                              </div>
+                              <div class="mt-1">
+                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
+                                {{order.saleSupport.username}}
+                                <i class="fa fa-filter"> </i>
+                              </div>
+                              <div class="mt-1">
+                                <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+                                {{order.saleSupport.email}}
+                              </div>
+
+                              <div class=" mt-1  infor_seller">
+                                <ul>
+                                  <li class="sty-font"><i class="fa fa-link mr-1"></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
+                                  <li class="sty-font"><i class="fa fa-user mr-1"></i> Seller Name : {{order.seller_name}}</li>
+                                </ul>
+                              </div>
                               <br>
                             </div>
 
@@ -462,6 +434,15 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Trao đổi nội bộ
                                   </button>
+                                  <button type="button" class="btn btn-secondary ml-2 btn-sm"
+                                          (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
+                                    <i class="fa fa-edit mr-1" aria-hidden="true"></i>
+                                    Update Order
+                                  </button>
+                                  <button type="button" class="btn btn-secondary mt-2 btn-sm"
+                                          (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
+                                    Buy it now
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -560,14 +541,15 @@
                           <div class="row pb-1 pt-1">
                             <div class="col-md-12">
                               <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.ordercode = !order.ordercode">Package</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.new = !order.new">Package</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Giao dịch</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Giao dịch</button>
                             </div>
                           </div>
                           <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
-                          <app-package-item *ngIf="!order.ordercode" [packages]="order.packageItems"></app-package-item>
+                          <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
+                          <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
@@ -585,7 +567,19 @@
   </div>
 </div>
 
-
+<div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Update Order {{updateOrderId}} -  1 item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
+        </button>
+      </div>
+      <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
+    </div>
+  </div>
+</div>
 <div bsModal #showChat="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="false">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
@@ -601,9 +595,6 @@
                       <app-chat [id]="orderIdChat" [code]="code"></app-chat>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-12 text-right">
-                  <button class="btn btn-danger btn-sm" (click)="clickOff();showChat.hide() ">Hủy Bỏ</button>
                 </div>
               </div>
             </div>
@@ -626,13 +617,21 @@
                 <div class="col-md-12 p-0">
                   <app-chat-group [id]="orderIdChat" [code]="code" *ngIf="checkLoadG"></app-chat-group>
                 </div>
-                <div class="col-md-12 text-right">
-                  <button class="btn btn-danger btn-sm" (click)="clickOffG(); showChatGroup.hide()">Hủy Bỏ</button>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 95%;">
+    <div class="modal-content">
+      <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
       </div>
     </div>
   </div>

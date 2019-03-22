@@ -28,9 +28,4 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     ];
   }
 
-  openUpdateOrder(id, product) {
-    this.updateProductId = id;
-    this.productQ = product;
-  }
-
 }

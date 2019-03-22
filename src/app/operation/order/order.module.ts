@@ -18,6 +18,8 @@ import { ChatComponent } from './order-list/chat/chat.component';
 import { PackageItemComponent } from './order-list/package-item/package-item.component';
 import { ChatGroupComponent } from './order-list/chat-group/chat-group.component';
 import { UpdateProductComponent } from './order-list/update-order/update-product.component';
+import { WalletTransactionsComponent } from './order-list/wallet-transactions/wallet-transactions.component';
+import { PurchaseCardComponent } from './order-detail/purchase-card/purchase-card.component';
 
 @NgModule({
     imports: [
@@ -46,6 +48,8 @@ import { UpdateProductComponent } from './order-list/update-order/update-product
         PackageItemComponent,
         ChatGroupComponent,
         UpdateProductComponent,
+        WalletTransactionsComponent,
+        PurchaseCardComponent,
     ],
     providers: [
       OrderService
