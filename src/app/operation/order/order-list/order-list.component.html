@@ -209,16 +209,18 @@
                               </div>
                               <div class="mt-1">
                                 <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
-                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id">  </app-assign-sale>
+                                {{order.saleSupport.username}}
                                 <i class="fa fa-filter"> </i>
+                              </div>
+                              <div class="mt-1">
+                                <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+                                {{order.saleSupport.email}}
                               </div>
 
                               <div class=" mt-1  infor_seller">
                                 <ul>
                                   <li class="sty-font"><i class="fa fa-link mr-1"></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
                                   <li class="sty-font"><i class="fa fa-user mr-1"></i> Seller Name : {{order.seller_name}}</li>
-                                  <li class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale: {{order.support_email}}</li>
                                 </ul>
                               </div>
                               <br>

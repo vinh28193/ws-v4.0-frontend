@@ -116,6 +116,10 @@
               <i class="fa fa-edit mr-1" aria-hidden="true"></i>
               Update Order
             </button>
+            <button type="button" class="btn btn-secondary ml-2 btn-sm"
+                    (click)="purchaseCard(product.id, product);purchaseCard.show()">
+              Buy it now
+            </button>
           </div>
         </div>
       </div>
@@ -129,5 +133,12 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <app-purchase-card></app-purchase-card>
   </div>
 </div>
