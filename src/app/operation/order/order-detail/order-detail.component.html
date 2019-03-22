@@ -138,7 +138,12 @@
 
 <div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <app-purchase-card *ngIf="checkOpenPurchaseCard" [product]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+  <div class="modal-dialog modal-xl" style="max-width: 95%;">
+    <div class="modal-content">
+      <app-purchase-card *ngIf="checkOpenPurchaseCard" [product]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
+      </div>
+    </div>
   </div>
 </div>
