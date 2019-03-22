@@ -38,7 +38,13 @@
                 <option [value]="allKey">Time Key</option>
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
-              <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
+              <input #drp="bsDaterangepicker"
+                     bsDaterangepicker
+                     [maxDate]="maxDateTime"
+                     [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
+                     (bsValueChange)="bsRangeValue"
+                     formControlName="bsRangeValue"
+                     class="col-sm-7 form-control form-control-sm ">
               <span class="input-group-btn">
                                         <button (click)="drp.toggle()"
                                                 [attr.aria-expanded]="drp.isOpen"
@@ -64,7 +70,7 @@
             <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
                     formControlName="orderStatus">
               <option [value]="allKey">--All Type--</option>
-              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
+              <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -112,6 +118,12 @@
             <div class="button-group">
               <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
               <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
+              <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
+              <!--</button>-->
+              <!--<div class="dropdown-menu p-0" style="font-size: 11px">-->
+                <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="col-md-6 pt-3">
@@ -154,17 +166,19 @@
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
                         <div class="card style-card" *ngFor="let order of orders">
-                          <div class="row margin-row">
-                            <div class="col-md-3 border-col">
+                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
+
+                            <div class="col-md-2 border-col">
                               <div class="card-title">
                                 <h5>
                                   <strong class="text-uppercase">
-                                  <a target="_blank"
-                                  href="http://weshop.com.vn/order-BIN-{{order.Ordercode}}/bill.html">
-                                  <span class="text-danger">{{order.Ordercode}}</span>
-                                  </a>
-                                  </strong> /
-                                  <span class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
+                                    <a target="_blank"
+                                       href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
+                                      <span class="text-danger">{{order.ordercode}}</span>
+                                    </a>
+                                  </strong>/
+                                  <span
+                                    class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
                                     {{order.current_status}}
                                   </span>
                                 </h5>
@@ -176,14 +190,56 @@
                                 <span
                                   class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
                               </div>
-                              <div class="mt-1">
-                                <span><i class="fa fa-user mr-1"></i> Sale:</span>
-                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id"></app-assign-sale>
+                              <div class="mt-1 portal">
+                                <span class="sty-font purchase_order_id"> Portal: </span>
+                                {{order.portal}}
+                              </div>
+                              <div class="mt-1 seller_store">
+                                <span class="sty-font"><i class="fa fa-link mr-1"></i> Website:</span>
+                                <span class="ml-2">{{order.seller_store}}</span>
+                              </div>
+                              <div class="mt-1 seller_name">
+                                <span class="sty-font"><i class="fa fa-user mr-1"></i> Seller:</span>
+                                <span class="ml-2">{{order.seller_name}}</span>
+                              </div>
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_order_id"> Purchase Order: </span>
+                                {{order.purchase_order_id}}
+                              </div>
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_transaction_id">Purchase Transaction: </span>
+                                {{order.purchase_transaction_id}}
                               </div>
                               <div class="mt-1">
-                                <span><i class="fa fa-user mr-1"></i> Seller:</span>
-                                <span class="ml-2">{{order.seller?.seller_name}}</span>
+                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale:</span>
+                                <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
+                                                 [orderId]="order.id">  </app-assign-sale>
+                                <i class="fa fa-filter"> </i>
+
+                              </div>
+                              <div class="mt-1 support_email">
+                                <span class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale:</span>
+                                <span class="ml-2">{{order.support_email}}</span>
+                              </div>
+                              <div class="mt-1 revenue_xu">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu revenue: </span>
+                                {{order.revenue_xu}}
+                              </div>
+                              <div class="mt-1 xu_amount">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Amount: </span>
+                                {{order.xu_amount}}
+                              </div>
+                              <div class="mt-1 xu_count">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Count: </span>
+                                {{order.xu_count}}
+                              </div>
+                              <div class="mt-1 xu_log">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Log: </span>
+                                {{order.xu_log}}
+                              </div>
+                              <div class="mt-1 xu_time">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-clock-o"></i> Xu Time: </span>
+                                {{order.xu_time}}
                               </div>
                               <div class="mt-1 created_at">
                                 <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
@@ -193,22 +249,29 @@
                               </div>
                               <div class="portal OrderType">
                                 <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}}</span></div>
-                                <br>
                               </div>
+                              <button class="btn btn-sm btn-info version_ws_prod mt-2"> Version : {{order.version}}</button>
+                              <br>
                             </div>
+
                             <div class="col-md-3 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
+                                  <h5 class="text-bold mb-0">{{order.customer_type}}</h5>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
                                   <h5 class="text-bold mb-0">BUYER</h5>
-                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}</span><br>
+                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter"> </i></span><br>
                                 </div>
                               </div>
                               <div class="row mt-3">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">RECEIVER</h5>
                                   <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span><br>
-                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}</span><br>
+                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}  <i class="fa fa-filter"> </i></span>  <br>
                                   <span>{{order.receiver_district_name}} - {{order.receiver_province_name}} - {{order.receiver_country_name}}</span>
                                 </div>
                               </div>
@@ -219,14 +282,16 @@
                               </div>
                               <div class="row mt-2">
                                 <div role="group" style="margin: auto" aria-label="Basic example">
-                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()" class="btn btn-secondary btn-sm">
+                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"
+                                          class="btn btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Trao đổi với khách
                                   </button><br>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
                                     <i class="fa fa-bell mr-1"></i>Notification
                                   </button>
-                                  <button (click)="followOrder()" *ngIf="checkF" type="button" class="btn mt-2 btn-secondary btn-sm">
+                                  <button (click)="followOrder()" *ngIf="checkF" type="button"
+                                          class="btn mt-2 btn-secondary btn-sm">
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Bỏ theo dõi đơn hàng
                                   </button>
                                 </div>
@@ -243,7 +308,9 @@
                                 <div class="col-md-3 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-5 style-padding-left"> (Exchage rate: {{order.exchange_rate_fee}})</div>
+                                <div class="col-md-5 style-padding-left"> (Exchage rate free:
+                                  {{order.exchange_rate_fee}})
+                                </div>
                               </div>
                               <div class="row total_fee_amount_local">
                                 <div class="col-md-4 style-padding-right  dong">
@@ -390,7 +457,8 @@
                               </div>
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                  <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()" class="btn btn-secondary btn-sm">
+                                  <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
+                                          class="btn btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Trao đổi nội bộ
                                   </button>
@@ -410,11 +478,12 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Purchased:</div>
-                                  <div class="col-md-6 text-right">{{order.purchased  | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right">{{order.purchased | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Seller shipped:</div>
-                                  <div class="col-md-6 text-right">{{order.seller_shipped  | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right">{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Stock in US:</div>
@@ -426,15 +495,18 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Stock in local:</div>
-                                  <div class="col-md-7 text-right" >{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Stock out local:</div>
-                                  <div class="col-md-7 text-right">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">At customer:</div>
-                                  <div class="col-md-7 text-right">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Returned:</div>
@@ -457,11 +529,27 @@
                                     </button>
                                     <div class="btn-group">
                                       <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <div class="dropdown-item"> Option</div>
+                                         Option
                                       </button>
-                                      <div class="dropdown-menu p-0">
-                                        <a class="dropdown-item sty-drop" href="javascript:void(0);">Approve</a>
-                                        <a class="dropdown-item sty-drop" href="javascript:void(0);">Decline</a>
+                                      <div class="dropdown-menu p-0" style="font-size: 11px">
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Cập nhập khuyến
+                                          mại</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Điều chỉnh tiền
+                                          đặt cọc</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Trả lại tiền do
+                                          Khiếu Nại</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Shop TQ
+                                          Refund</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Đánh dấu đơn
+                                          chờ Refund</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Đánh dấu khách
+                                          tự mặc cả</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Shop phát thêm
+                                          kiện</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Đánh dấu khách
+                                          tự mặc cả</a>
+                                        <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Đánh dấu chờ
+                                          phản hồi</a>
                                       </div>
                                     </div>
                                   </div>
@@ -479,7 +567,7 @@
                             </div>
                           </div>
                           <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
-                          <app-package-item *ngIf="!order.ordercode" [packages] = "order.packageItems"></app-package-item>
+                          <app-package-item *ngIf="!order.ordercode" [packages]="order.packageItems"></app-package-item>
                         </div>
                       </div>
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
@@ -509,8 +597,8 @@
               <div class="row">
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
-                    <div class="ng-star-inserted"  *ngIf="checkLoad">
-                      <app-chat [id] = "orderIdChat" [code] = "code"></app-chat>
+                    <div class="ng-star-inserted" *ngIf="checkLoad">
+                      <app-chat [id]="orderIdChat" [code]="code"></app-chat>
                     </div>
                   </div>
                 </div>

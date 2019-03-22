@@ -57,7 +57,7 @@ h5 {
   font-size: 11px; padding-top: 3px; padding-bottom: 3px;
 }
 .style-card {
-  margin-bottom: 20px; border-bottom: 1px solid black; width: 100%;
+  border-bottom: 2px solid black; width: 100%;
 }
 .paymentTransaction {
   border: 1px solid gray; margin-bottom: 10px;
@@ -155,3 +155,11 @@ strong {
 .sty-drop {
   border-bottom: 1px solid darkgrey;
 }
+.sty-font {
+  font-weight: bold;
+}
+i.fa.fa-filter {
+  float: right;
+  padding-right: 2px;
+}
+

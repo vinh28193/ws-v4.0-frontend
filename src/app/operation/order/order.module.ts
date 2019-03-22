@@ -17,6 +17,7 @@ import { EditFinanceComponent } from './order-list/edit-finance/edit-finance.com
 import { ChatComponent } from './order-list/chat/chat.component';
 import { PackageItemComponent } from './order-list/package-item/package-item.component';
 import { ChatGroupComponent } from './order-list/chat-group/chat-group.component';
+import { UpdateProductComponent } from './order-list/update-order/update-product.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { ChatGroupComponent } from './order-list/chat-group/chat-group.component
         ChatComponent,
         PackageItemComponent,
         ChatGroupComponent,
+        UpdateProductComponent,
     ],
     providers: [
       OrderService

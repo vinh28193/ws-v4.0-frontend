@@ -10,20 +10,10 @@ import {FormBuilder} from '@angular/forms';
     styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent extends OrderDataComponent implements OnInit {
-
-  @Input() products: any = null;
-  @Input() new: any = null;
-  @Input() purchased: any = null;
-  @Input() seller_shipped: any = null;
-  @Input() stockin_us: any = null;
-  @Input() stockout_us: any = null;
-  @Input() stockin_local: any = null;
-  @Input() stockout_local: any = null;
-  @Input() at_customer: any = null;
-  @Input() returned: any = null;
-  @Input() cancelled: any = null;
-  @Input() lost: any = null;
   private tabs: any [];
+  updateProductId: any;
+  productQ: any;
+  @Input() products: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -36,6 +26,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       {id: 'shipment', title: 'Delivery Info', router: '/shipment'},
       {id: 'payment', title: 'Refund/Addfee', router: '/return-addfee'}
     ];
+  }
+
+  openUpdateOrder(id, product) {
+    this.updateProductId = id;
+    this.productQ = product;
   }
 
 }
