@@ -194,7 +194,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
 
     }
-    console.log(this.perPage);
+    //console.log(this.perPage);
     params.limit = 20;
     params.page = 1;
     return params;

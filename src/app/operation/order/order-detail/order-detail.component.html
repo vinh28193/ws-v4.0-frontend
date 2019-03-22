@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <div class="col-md-5 text-center">
-        <div>
+        <div class="images">
           <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
         </div>
         <div class="mt-2">
@@ -31,34 +31,38 @@
                            <span class="star ng-star-inserted text-dark">★</span>
                         </span>
         </div>
-        <button class="btn btn-sm btn-info versionOnPayment mt-2">Version One Payment</button>
+        <!--div class="btn btn-sm btn-info Version mt-2 row">Version: {{product.version}}</div-->
         <p></p>
       </div>
       <div class="col-md-7 pl-1">
         <ul>
-          <li>
-            <a href="{{product.sourceId}}" target="_blank" tooltip="{{product.product_name}}">{{ (product.product_name?.length > 25)? ((product.product_name
-              | slice:0:25)+'. . .'):(product.product_name)}}</a>
+          <li class="product_name">
+            <a href="{{product.sourceId}}" target="_blank" tooltip="{{product.product_name}}">
+              {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. . .'):(product.product_name)}}
+            </a>
           </li>
-          <li>
+          <li class="sku">
             <span class="style-strong">Sku:</span>
             <app-span-label [value]="product.sku"></app-span-label>
           </li>
-          <li>
+          <li class="parent_sku">
             <span class="style-strong">ParentId:</span>
             <app-span-label [value]="product.parent_sku"></app-span-label>
           </li>
-          <li class="text-danger">
+          <li class="text-danger variations">
             <span class="style-strong">Item Variant:</span>
             <app-edit-variant [id]="product.id" [variant]="product.variations"></app-edit-variant>
           </li>
-          <li>
+          <li class="seller_id">
             <span class="style-strong">Local Seller:</span>
             <app-span-label [value]="product.seller_id"></app-span-label>
           </li>
-          <li>
+          <li class="total_weight_temporary">
             <span class="style-strong ShippingWeight">Total weight temporary:</span>
             <app-span-label [value]="product.total_weight_temporary"></app-span-label>
+          </li>
+          <li class="note_by_customer">
+            <i class="fa fa-comments" aria-hidden="true"> {{product.note_by_customer}}</i>
           </li>
         </ul>
       </div>
@@ -102,8 +106,7 @@
             <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | currency: 'VND'}}</div>
           </div>
           <div class="row">
-            <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate:
-              {{product.exchange_rate | number}}
+            <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate: {{product.exchange_rate | number}}
             </i>
             </div>
           </div>
