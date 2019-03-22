@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {PackageItemRoutingComponent} from './package-item-routing.component';
-import {PackageItemListComponent} from './package-item-list/package-item-list.component';
 
+import {TrackingRoutingComponent} from './tracking-routing.component';
+import {TrackingListComponent} from './tracking-list/tracking-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: PackageItemRoutingComponent,
+        component: TrackingRoutingComponent,
         children: [
             {
                 path: '',
-                component: PackageItemListComponent
+                component: TrackingListComponent
             },
             {
                 path: 'list',
-                component: PackageItemListComponent
+                component: TrackingListComponent
             }
         ]
     }
@@ -25,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PackageItemRoutingModule { }
+export class TrackingRoutingModule { }

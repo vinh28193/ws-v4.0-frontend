@@ -4,6 +4,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
 import {AuthGuard} from './core/guard/auth.guard';
+import {ExcelDemoComponent} from './excel/excel-demo/excel-demo.component';
 
 const appRoutes: Routes = [
     {
@@ -12,6 +13,9 @@ const appRoutes: Routes = [
     },
     {
         path: '404', component: PageNotFoundComponent
+    },
+    {
+        path: 'excel', component: ExcelDemoComponent
     },
     {
         path: 'login',
