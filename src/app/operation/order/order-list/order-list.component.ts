@@ -25,7 +25,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public updateOrderCode: any;
   // form Group
   public searchForm: FormGroup;
-  itemStatus: any = [];
+  orderStatus: any = [];
   searchKeys: any = [];
   timeKeys: any = [];
   products: any;
@@ -86,7 +86,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       {key: 'order.createTime', name: 'Refund/Addfee success'},
       {key: 'order.createTime', name: 'Refund/Addfee Fail'},
     ];
-    this.itemStatus = [
+    this.orderStatus = [
       {key: 'NEW', name: 'New order'},
       {key: 'SUPPORTING', name: 'Supporting'},
       {key: 'SUPPORTED', name: 'Supported'},
@@ -151,8 +151,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       page: this.currentPage,
       perPage: this.perPage,
       sale: this.allKey,
-      seller: this.allKey
+      seller: this.allKey,
+      bsRangeValue: {start: '', end: ''}
     });
+  }
+  convertDateTime(value) {
+    const date = new Date(value);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const seconds = ('0' + date.getSeconds()).slice(-2);
+    const mySQLDate = [date.getFullYear(), month, day].join('/');
+    const mySQLTime = [hours, minutes, seconds].join(':');
+    return [mySQLDate, mySQLTime].join(' ');
   }
 
   prepareSearch() {
@@ -188,10 +200,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.timeKey !== '' && value.timeKey !== 'ALL') {
       params.timeKey = value.timeKey;
     }
-    if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
-
+    if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
+      params.startTime = this.convertDateTime(value.bsRangeValue['0']);
+      params.endTime = this.convertDateTime(value.bsRangeValue['1']);
     }
-    console.log(this.perPage);
     params.limit = 20;
     params.page = 1;
     return params;

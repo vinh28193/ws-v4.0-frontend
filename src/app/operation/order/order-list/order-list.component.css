@@ -155,3 +155,6 @@ strong {
 .sty-drop {
   border-bottom: 1px solid darkgrey;
 }
+.sty-font {
+  font-weight: bold;
+}
