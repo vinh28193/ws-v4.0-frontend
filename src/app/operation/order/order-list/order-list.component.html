@@ -541,14 +541,14 @@
                           <div class="row pb-1 pt-1">
                             <div class="col-md-12">
                               <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.ordercode = !order.ordercode">Package</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.new = !order.new">Package</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Giao dịch</button>
                             </div>
                           </div>
                           <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
-                          <app-package-item *ngIf="!order.ordercode" [packages]="order.packageItems"></app-package-item>
+                          <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
                           <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
