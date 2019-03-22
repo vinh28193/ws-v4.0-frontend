@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class PurchaseCardComponent implements OnInit {
 
   constructor() { }
-  @Input() product: any;
+  @Input() products: any;
   @Input() updateProductId: any;
 
   ngOnInit() {
