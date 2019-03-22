@@ -21,16 +21,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public code: any;
   public checkLoad: boolean = false;
   public checkLoadG: boolean = false;
-
-  // show
-  isShow = false;
-  public activeId;
-  public activeTab;
+  public updateOrderId: any;
+  public updateOrderCode: any;
   // form Group
   public searchForm: FormGroup;
   itemStatus: any = [];
   searchKeys: any = [];
   timeKeys: any = [];
+  products: any;
   public bsRangeValue: Date[];
   paymentRequests: any = [];
   public filter: any = {};
@@ -159,7 +157,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   prepareSearch() {
     const value = this.searchForm.value;
-    console.log(this.searchForm.value);
     const params: any = {};
     if (value.store !== '' && value.store !== 'ALL') {
       params.store = value.store;
@@ -234,18 +231,5 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   clickOffG() {
     this.checkLoadG = false;
   }
-
-  // createTab(tab, id) {
-  //   return 'tab' + tab + id;
-  // }
-  //
-  // clickTab(tab, id) {
-  //   this.activeId = id;
-  //   this.activeTab = tab;
-  // }
-  //
-  // isActiveTab(tab, id) {
-  //   return this.activeId === id && this.activeTab === tab;
-  // }
 }
 
