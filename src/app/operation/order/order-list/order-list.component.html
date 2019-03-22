@@ -181,7 +181,9 @@
                               <div class="mt-1">
                                 <span><i class="fa fa-user mr-1"></i> Sale:</span>
                                 <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id"></app-assign-sale>
+                                                 [orderId]="order.id">  </app-assign-sale>
+                                <i class="fa fa-filter"> </i>
+
                               </div>
                               <div class="mt-1">
                                 <span><i class="fa fa-user mr-1"></i> Seller:</span>
@@ -205,14 +207,14 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">BUYER</h5>
-                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}</span><br>
+                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter"> </i></span><br>
                                 </div>
                               </div>
                               <div class="row mt-3">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">RECEIVER</h5>
                                   <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span><br>
-                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}</span><br>
+                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}  <i class="fa fa-filter"> </i></span>  <br>
                                   <span>{{order.receiver_district_name}} - {{order.receiver_province_name}} - {{order.receiver_country_name}}</span>
                                 </div>
                               </div>

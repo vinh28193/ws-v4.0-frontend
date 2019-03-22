@@ -155,3 +155,9 @@ strong {
 .sty-drop {
   border-bottom: 1px solid darkgrey;
 }
+
+i.fa.fa-filter {
+  float: right;
+  padding-right: 2px;
+}
+
