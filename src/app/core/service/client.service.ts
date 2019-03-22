@@ -81,7 +81,7 @@ export class ClientService extends GlobalService {
 
     }
 
-    request(method, url, body): HttpResponse {
+    request(method, url, body) {
         const req = new HttpRequest(method, this.getApiURl(url), body, this.getAuthHttpOptions());
         return this.http.request(req).pipe(
             catchError(this.handleError)
