@@ -1,0 +1,26 @@
+<table class="table" style="max-width: 100%">
+  <thead>
+    <tr>
+      <th>Transaction code</th>
+      <th>Transaction amount local</th>
+      <th>Transaction type</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Note</th>
+      <th>Create</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let walletTransaction of walletTransactions">
+      <td>{{walletTransaction.transaction_code}}</td>
+      <td>{{walletTransaction.transaction_amount_local}}</td>
+      <td>{{walletTransaction.transaction_type}}</td>
+      <td>{{walletTransaction.transaction_status}}</td>
+      <td>{{walletTransaction.transaction_description}}</td>
+      <td>{{walletTransaction.note}}</td>
+      <td>{{walletTransaction.created_at}}</td>
+      <td>{{walletTransaction.updated_at}}</td>
+    </tr>
+  </tbody>
+</table>
