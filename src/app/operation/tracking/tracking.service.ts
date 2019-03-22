@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {OperationService} from '../operation.service';
+import {HttpClient} from '@angular/common/http';
 import {PopupService} from '../../core/service/popup.service';
 import {EncryptionService} from '../../core/service/encryption.service';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PackageItemService extends OperationService {
+export class TrackingService extends OperationService {
 
     constructor(
         public http: HttpClient,
@@ -16,7 +16,7 @@ export class PackageItemService extends OperationService {
         super(http, encryption, popup);
     }
 
-    search(params: any | undefined) {
-        return this.get('pi', params);
+    search(params) {
+        return this.get('tracking', params);
     }
 }

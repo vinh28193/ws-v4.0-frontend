@@ -9,8 +9,13 @@
       </div>
     </div>
     <div class="row">
+<<<<<<< HEAD
       <div class="col-md-5 text-center">
         <div class="images">
+=======
+      <div class="col-md-5 pb-1 text-center">
+        <div>
+>>>>>>> 68773f9060bfa9fb6bb1c550f7367362279b5d28
           <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
         </div>
         <div class="mt-2">
@@ -110,9 +115,24 @@
             </i>
             </div>
           </div>
+          <div class="row">
+            <button type="button" class="btn btn-secondary ml-2 btn-sm"
+                    (click)="openUpdateOrder(product.id, product);updateOrder.show(); checkOpen = !checkOpen">
+              <i class="fa fa-edit mr-1" aria-hidden="true"></i>
+              Update Order
+            </button>
+          </div>
         </div>
       </div>
       <p></p>
     </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
   </div>
 </div>

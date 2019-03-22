@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PackageRoutingComponent} from './package-routing.component';
 import {PackageListComponent} from './package-list/package-list.component';
+import {PackageItemComponent} from './package-item/package-item.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,10 @@ const routes: Routes = [
             {
                 path: 'list',
                 component: PackageListComponent
+            },
+            {
+                path: 'item',
+                component: PackageItemComponent
             }
         ]
     }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PackageItemListComponent } from './package-item-list.component';
+import { ExcelDemoComponent } from './excel-demo.component';
 
-describe('PackageItemListComponent', () => {
-  let component: PackageItemListComponent;
-  let fixture: ComponentFixture<PackageItemListComponent>;
+describe('ExcelDemoComponent', () => {
+  let component: ExcelDemoComponent;
+  let fixture: ComponentFixture<ExcelDemoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PackageItemListComponent ]
+      declarations: [ ExcelDemoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PackageItemListComponent);
+    fixture = TestBed.createComponent(ExcelDemoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
