@@ -563,11 +563,12 @@
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.ordercode = !order.ordercode">Package</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Giao dịch</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Giao dịch</button>
                             </div>
                           </div>
                           <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
                           <app-package-item *ngIf="!order.ordercode" [packages]="order.packageItems"></app-package-item>
+                          <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
