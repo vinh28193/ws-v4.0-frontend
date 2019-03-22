@@ -85,7 +85,7 @@ export class TrackingSentComponent extends TrackingDataComponent implements OnIn
         return fd;
     }
 
-    public sent() {
+    public create() {
         this.trackingService.create(this.preSent()).subscribe(res => {
             console.log(res);
         });

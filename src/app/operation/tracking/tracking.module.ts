@@ -7,7 +7,7 @@ import {TrackingRoutingModule} from './tracking-routing.module';
 import {TrackingRoutingComponent} from './tracking-routing.component';
 import { TrackingListComponent } from './tracking-list/tracking-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {BsDatepickerModule, PaginationModule} from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
 import { TrackingSentComponent } from './tracking-sent/tracking-sent.component';
 import {Select2Module} from 'ng2-select2';
 
@@ -17,6 +17,7 @@ import {Select2Module} from 'ng2-select2';
         TrackingRoutingModule,
         ReactiveFormsModule,
         Select2Module,
+        ModalModule.forRoot(),
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot()
     ],
