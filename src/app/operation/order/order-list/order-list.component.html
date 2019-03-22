@@ -38,7 +38,13 @@
                 <option [value]="allKey">Time Key</option>
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
-              <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
+              <input #drp="bsDaterangepicker"
+                     bsDaterangepicker
+                     [maxDate]="maxDateTime"
+                     [bsConfig]="{dateInputFormat: 'YYYY-MM-DD'}"
+                     (bsValueChange)="bsRangeValue"
+                     formControlName="bsRangeValue"
+                     class="col-sm-7 form-control form-control-sm ">
               <span class="input-group-btn">
                                         <button (click)="drp.toggle()"
                                                 [attr.aria-expanded]="drp.isOpen"
@@ -64,7 +70,7 @@
             <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
                     formControlName="orderStatus">
               <option [value]="allKey">--All Type--</option>
-              <option [value]="status.key" *ngFor="let status of itemStatus">{{status.name}}</option>
+              <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -113,6 +119,12 @@
                 <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
                 <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
                 <button class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export Excel</button>
+              <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
+              <!--</button>-->
+              <!--<div class="dropdown-menu p-0" style="font-size: 11px">-->
+                <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="col-md-6 pt-3">
@@ -176,16 +188,56 @@
                                 <span
                                   class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
                               </div>
+                              <div class="mt-1 portal">
+                                <span class="sty-font purchase_order_id"> Portal: </span>
+                                {{order.portal}}
+                              </div>
+                              <div class="mt-1 seller_store">
+                                <span class="sty-font"><i class="fa fa-link mr-1"></i> Website:</span>
+                                <span class="ml-2">{{order.seller_store}}</span>
+                              </div>
+                              <div class="mt-1 seller_name">
+                                <span class="sty-font"><i class="fa fa-user mr-1"></i> Seller:</span>
+                                <span class="ml-2">{{order.seller_name}}</span>
+                              </div>
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_order_id"> Purchase Order: </span>
+                                {{order.purchase_order_id}}
+                              </div>
+                              <div class="mt-1 purchase_order_id">
+                                <span class="sty-font purchase_transaction_id">Purchase Transaction: </span>
+                                {{order.purchase_transaction_id}}
+                              </div>
                               <div class="mt-1">
-                                <span><i class="fa fa-user mr-1"></i> Sale:</span>
+                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale:</span>
                                 <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
                                                  [orderId]="order.id">  </app-assign-sale>
                                 <i class="fa fa-filter"> </i>
 
                               </div>
-                              <div class="mt-1">
-                                <span><i class="fa fa-user mr-1"></i> Seller:</span>
-                                <span class="ml-2">{{order.seller?.seller_name}}</span>
+                              <div class="mt-1 support_email">
+                                <span class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale:</span>
+                                <span class="ml-2">{{order.support_email}}</span>
+                              </div>
+                              <div class="mt-1 revenue_xu">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu revenue: </span>
+                                {{order.revenue_xu}}
+                              </div>
+                              <div class="mt-1 xu_amount">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Amount: </span>
+                                {{order.xu_amount}}
+                              </div>
+                              <div class="mt-1 xu_count">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Count: </span>
+                                {{order.xu_count}}
+                              </div>
+                              <div class="mt-1 xu_log">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-dot-circle-o"></i> Xu Log: </span>
+                                {{order.xu_log}}
+                              </div>
+                              <div class="mt-1 xu_time">
+                                <span class="sty-font purchase_transaction_id"><i class="fa fa-clock-o"></i> Xu Time: </span>
+                                {{order.xu_time}}
                               </div>
                               <div class="mt-1 created_at">
                                 <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
@@ -202,6 +254,11 @@
 
                             <div class="col-md-3 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h5 class="text-bold mb-0">{{order.customer_type}}</h5>
+                                </div>
+                              </div>
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">BUYER</h5>
@@ -470,7 +527,7 @@
                                     </button>
                                     <div class="btn-group">
                                       <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <div class="dropdown-item"> Option</div>
+                                         Option
                                       </button>
                                       <div class="dropdown-menu p-0" style="font-size: 11px">
                                         <a class="dropdown-item p-1 sty-drop" href="javascript:void(0);">Cập nhập khuyến
