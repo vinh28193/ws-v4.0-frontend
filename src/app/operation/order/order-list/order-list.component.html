@@ -165,9 +165,10 @@
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <div class="card style-card mb-3" *ngFor="let order of orders">
-                          <div class="row margin-row">
-                            <div class="col-md-3 border-col">
+                        <div class="card style-card" *ngFor="let order of orders">
+                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
+
+                            <div class="col-md-2 border-col">
                               <div class="card-title">
                                 <h5>
                                   <strong class="text-uppercase">
@@ -212,7 +213,9 @@
                               <div class="mt-1">
                                 <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale:</span>
                                 <app-assign-sale [saleEmail]="order.support_email" [saleId]="order.sale_support_id"
-                                                 [orderId]="order.id"></app-assign-sale>
+                                                 [orderId]="order.id">  </app-assign-sale>
+                                <i class="fa fa-filter"> </i>
+
                               </div>
                               <div class="mt-1 support_email">
                                 <span class="sty-font"><i class="fa fa-envelope mr-1"></i> Email Sale:</span>
@@ -246,9 +249,11 @@
                               </div>
                               <div class="portal OrderType">
                                 <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}}</span></div>
-                                <br>
                               </div>
+                              <button class="btn btn-sm btn-info version_ws_prod mt-2"> Version : {{order.version}}</button>
+                              <br>
                             </div>
+
                             <div class="col-md-3 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
                               <div class="row">
@@ -259,14 +264,14 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">BUYER</h5>
-                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}</span><br>
+                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter"> </i></span><br>
                                 </div>
                               </div>
                               <div class="row mt-3">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">RECEIVER</h5>
                                   <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span><br>
-                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}</span><br>
+                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}  <i class="fa fa-filter"> </i></span>  <br>
                                   <span>{{order.receiver_district_name}} - {{order.receiver_province_name}} - {{order.receiver_country_name}}</span>
                                 </div>
                               </div>

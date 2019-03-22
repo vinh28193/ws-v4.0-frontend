@@ -158,3 +158,8 @@ strong {
 .sty-font {
   font-weight: bold;
 }
+i.fa.fa-filter {
+  float: right;
+  padding-right: 2px;
+}
+
