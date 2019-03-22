@@ -434,6 +434,15 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Trao đổi nội bộ
                                   </button>
+                                  <button type="button" class="btn btn-secondary ml-2 btn-sm"
+                                          (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
+                                    <i class="fa fa-edit mr-1" aria-hidden="true"></i>
+                                    Update Order
+                                  </button>
+                                  <button type="button" class="btn btn-secondary mt-2 btn-sm"
+                                          (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
+                                    Buy it now
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -558,7 +567,19 @@
   </div>
 </div>
 
-
+<div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Update Order {{updateOrderId}} -  1 item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
+        </button>
+      </div>
+      <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
+    </div>
+  </div>
+</div>
 <div bsModal #showChat="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="false">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
@@ -574,9 +595,6 @@
                       <app-chat [id]="orderIdChat" [code]="code"></app-chat>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-12 text-right">
-                  <button class="btn btn-danger btn-sm" (click)="clickOff();showChat.hide() ">Hủy Bỏ</button>
                 </div>
               </div>
             </div>
@@ -599,13 +617,21 @@
                 <div class="col-md-12 p-0">
                   <app-chat-group [id]="orderIdChat" [code]="code" *ngIf="checkLoadG"></app-chat-group>
                 </div>
-                <div class="col-md-12 text-right">
-                  <button class="btn btn-danger btn-sm" (click)="clickOffG(); showChatGroup.hide()">Hủy Bỏ</button>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 95%;">
+    <div class="modal-content">
+      <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
       </div>
     </div>
   </div>

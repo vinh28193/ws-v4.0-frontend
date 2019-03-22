@@ -42,24 +42,49 @@
             </a>
           </li>
           <li class="sku">
-            <span class="style-strong">Sku:</span>
+            <span class="mr-2">Sku:</span>
             <app-span-label [value]="product.sku"></app-span-label>
           </li>
           <li class="parent_sku">
-            <span class="style-strong">ParentId:</span>
+            <span class="mr-2">ParentId:</span>
             <app-span-label [value]="product.parent_sku"></app-span-label>
           </li>
           <li class="text-danger variations">
-            <span class="style-strong">Item Variant:</span>
+            <span class="mr-2">Item Variant:</span>
             <app-edit-variant [id]="product.id" [variant]="product.variations"></app-edit-variant>
           </li>
           <li class="seller_id">
-            <span class="style-strong">Local Seller:</span>
+            <span class="mr-2">Local Seller:</span>
             <app-span-label [value]="product.seller_id"></app-span-label>
           </li>
+          <li class="seller_id">
+            <span class="mr-2">Size:</span>
+            <app-span-label [value]=""></app-span-label>
+          </li>
           <li class="total_weight_temporary">
-            <span class="style-strong ShippingWeight">Total weight temporary:</span>
+            <span class="mr-2 ShippingWeight">Total weight temporary:</span>
             <app-span-label [value]="product.total_weight_temporary"></app-span-label>
+          </li>
+          <hr>
+          <li>
+            <span class="mr-2">Local Name</span>
+            <app-span-label [value]=""></app-span-label>
+          </li>
+          <li>
+            <span class="mr-2">Category</span>
+            <app-span-label [value]=""></app-span-label>
+          </li>
+          <li>
+            <span class="mr-2">QTT Set</span>
+            <app-span-label [value]=""></app-span-label>
+          </li>
+          <li>
+            <span class="mr-2">Fragile</span>
+            <app-span-label [value]=""></app-span-label>
+          </li>
+          <li>
+            <span class="mr-2">Packing Wood</span>
+            <app-span-label [value]=""></app-span-label>
           </li>
           <li class="note_by_customer">
             <i class="fa fa-comments" aria-hidden="true"> {{product.note_by_customer}}</i>
@@ -98,6 +123,18 @@
           </div>
           <hr>
           <div class="row">
+            <div class="col-md-7"><strong>Amount:</strong></div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.amount | currency: 'VND'}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-7"><strong>Amount Local:</strong></div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.local_amount | currency: 'VND'}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-7"><strong>Discount Amount:</strong></div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.discount_amount | currency: 'VND'}}</div>
+          </div>
+          <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value">
               <strong>Total value
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
@@ -110,40 +147,9 @@
             </i>
             </div>
           </div>
-          <div class="row">
-            <button type="button" class="btn btn-secondary ml-2 btn-sm"
-                    (click)="openUpdateOrder(product.id, product);updateOrder.show(); checkOpen = !checkOpen">
-              <i class="fa fa-edit mr-1" aria-hidden="true"></i>
-              Update Order
-            </button>
-            <button type="button" class="btn btn-secondary ml-2 btn-sm"
-                    (click)="openUpdateOrder(product.id, product);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
-              Buy it now
-            </button>
-          </div>
         </div>
       </div>
       <p></p>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
-  </div>
-</div>
-
-<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" style="max-width: 95%;">
-    <div class="modal-content">
-      <app-purchase-card *ngIf="checkOpenPurchaseCard" [product]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
-      <div class="modal-footer">
-        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
-      </div>
     </div>
   </div>
 </div>

@@ -1,84 +1,77 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Update Order {{product.id}} -  1 item</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
-    </button>
-  </div>
-  <div class="modal-body" style="border-bottom: 1px solid black">
-    <div class="container-fluid ng-star-inserted">
-      <form [formGroup]="formGroup">
-        <div class="row">
-          <div class="col-md-6">
-            <div class=" row table-second box_ls_purchase clearfix">
-              <div class="col-md-2 p-0 img-thumb">
-                <a href="#">
-                  <img src="{{product.link_img}}" width="100%">
-                </a>
-              </div>
-              <div class="col-md-10 text-thumb">
-                <strong class="text-danger" title="ORDER: ">SOI:{{product.id}}
-                </strong><br>
-                <a href="#"></a>
-                <ul title="SOI Total:">
-                  <li><span class="text-small ml-2"> Qty: {{product.quantity_customer}}</span></li>
-                  <li><span class="text-small ml-2"> Price Amount Local: {{product.price_amount_local}} </span></li>
-                  <li><span class="text-small ml-2"> Price Amount Orrigin: {{product.price_amount_origin}} </span></li>
-                </ul>
-                <strong class="text-info" title="ORDER: ">Total:{{product.total_price_amount_local}}</strong>
-              </div>
+<div class="modal-body" style="border-bottom: 1px solid black">
+  <div class="container-fluid ng-star-inserted">
+    <form [formGroup]="formGroup">
+      <div class="row" *ngFor="let product of product">
+        <div class="col-md-6">
+          <div class=" row table-second box_ls_purchase clearfix">
+            <div class="col-md-2 p-0 img-thumb">
+              <a href="#">
+                <img src="{{product.link_img}}" width="100%">
+              </a>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="box_right_info_tracking">
-              <p class="text-uppercase text-danger">
-                <strong><i class="fa fa-calculator" aria-hidden="true"></i>
-                  Total: <i class="fa fa-usd"></i>
-                </strong>
-              </p>
-              <div>
-                <div class="form-group">
-                  <label for="skuChange">Sku <i class="text-danger">*</i></label>
-                  <input type="text" data-toggle="skuChange" id="skuChange" formControlName="skuChange" class="form-control" name="skuChange"
-                         value="">
-                </div>
-              </div>
-              <div>
-                <div class="form-group">
-                  <label for="skuChange">Sku Parent<i class="text-danger">*</i></label>
-                  <input type="text" data-toggle="parent_sku" id="parent_sku" formControlName="parent_sku" class="form-control" name="skuChange"
-                         value="">
-                </div>
-              </div>
-              <div>
-                <div class="form-group">
-                  <label for="portal">Portal<i class="text-danger">*</i></label>
-                  <select class="form-control" id="portal" name="portal" formControlName="portal" required>
-                    <option value="">-Select-</option>
-                    <option> AMAZON_US</option>
-                    <option> EBAY</option>
-                    <option> OTHER</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <div class="form-group">
-                  <label for="skuChange">Variations<i class="text-danger">*</i></label>
-                  <input type="text" data-toggle="variations" id="variations" formControlName="variations" class="form-control" name="skuChange"
-                         value="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Note</label>
-                <input class="form-control" formControlName="note" name="note">
-              </div>
-              <div class="form-group">
-               <button class="btn btn-info mr-2" (click)="update">Update</button>
-               <button class="btn btn-info" (click)="buildForm()">Reser</button>
-              </div>
+            <div class="col-md-10 text-thumb">
+              <strong class="text-danger" title="ORDER: ">SOI:{{product.id}}
+              </strong><br>
+              <a href="#"></a>
+              <ul title="SOI Total:">
+                <li><span class="text-small ml-2"> Qty: {{product.quantity_customer}}</span></li>
+                <li><span class="text-small ml-2"> Price Amount Local: {{product.price_amount_local}} </span></li>
+                <li><span class="text-small ml-2"> Price Amount Orrigin: {{product.price_amount_origin}} </span></li>
+              </ul>
+              <strong class="text-info" title="ORDER: ">Total:{{product.total_price_amount_local}}</strong>
             </div>
           </div>
         </div>
-      </form>
-    </div>
+        <div class="col-md-6">
+          <div class="box_right_info_tracking">
+            <p class="text-uppercase text-danger">
+              <strong><i class="fa fa-calculator" aria-hidden="true"></i>
+                Total: <i class="fa fa-usd"></i>
+              </strong>
+            </p>
+            <div>
+              <div class="form-group">
+                <label for="skuChange">Sku <i class="text-danger">*</i></label>
+                <input type="text" data-toggle="skuChange" id="skuChange" formControlName="skuChange" class="form-control" name="skuChange"
+                       value="">
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label for="skuChange">Sku Parent<i class="text-danger">*</i></label>
+                <input type="text" data-toggle="parent_sku" id="parent_sku" formControlName="parent_sku" class="form-control" name="skuChange"
+                       value="">
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label for="portal">Portal<i class="text-danger">*</i></label>
+                <select class="form-control" id="portal" name="portal" formControlName="portal" required>
+                  <option value="">-Select-</option>
+                  <option> AMAZON_US</option>
+                  <option> EBAY</option>
+                  <option> OTHER</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label for="skuChange">Variations<i class="text-danger">*</i></label>
+                <input type="text" data-toggle="variations" id="variations" formControlName="variations" class="form-control" name="skuChange"
+                       value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Note</label>
+              <input class="form-control" formControlName="note" name="note">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-info mr-2" (click)="update">Update</button>
+              <button class="btn btn-info" (click)="buildForm()">Reser</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
