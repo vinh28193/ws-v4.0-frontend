@@ -15,8 +15,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class TrackingListComponent extends TrackingDataComponent implements OnInit {
 
     public trackings: any = [];
-    public summary: any = {};
 
+    public showImageRow = -1;
+
+    // form
     public searchForm: FormGroup;
 
     constructor(
@@ -31,21 +33,24 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     ngOnInit() {
         this.buildSearchForm();
         this.search();
-        console.log(this.summary);
     }
 
     buildSearchForm() {
 
     }
 
+
     search() {
         const data: any = TRACKINGS.data;
         this.trackings = data._items;
-        this.summary = data._summary[0];
         this.totalCount = data._meta.totalCount;
         this.pageCount = data._meta.pageCount;
         this.currentPage = data._meta.currentPage;
         this.perPage = data._meta.perPage;
+    }
+
+    handleShowImageRow(row) {
+
     }
 
     handlePerPage(perPage) {

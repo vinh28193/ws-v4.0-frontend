@@ -8,16 +8,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row form-search"></div>
-                        <div class="row summary">
-                            <div class="col-md-12">
-                                <p class="mb-1">Tổng khối lượng người bán giử - kho kiểm: <span
-                                        class="text-danger"><strong>{{summary.totalSellerWeight}} - {{summary.totalSellerWeight}}</strong></span>
-                                </p>
-                                <p class="mb-1">Tổng số lượng người bán giử - kho kiểm: <span
-                                        class="text-danger"><strong>{{summary.totalSellerWeight}} - {{summary.totalSellerWeight}}</strong></span>
-                                </p>
-                            </div>
-                        </div>
                         <div class="row list">
                             <div class="col-md-12">
                                 <div class="row list-summary">
@@ -48,37 +38,29 @@
                                             <table class="table table-bordered table-custom">
                                                 <thead>
                                                 <th width="8%"></th>
-                                                <th width="40%">Thông tin kiện</th>
-                                                <th width="35%">Thông tin đơn</th>
-                                                <th width="17%">Hành động</th>
+                                                <th width="40%">Tracking</th>
+                                                <th width="35%">Warehouse</th>
+                                                <th width="17%">Action</th>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let tracking of trackings">
                                                         <td></td>
                                                         <td>
                                                             <div class="seller-row">
-                                                                <h6 class="text-danger">{{tracking.weshop_tag}}</h6>
-                                                                <hr class="mt-1 mb-1">
-                                                                <p class="mb-1">Tracking: <strong>{{tracking.seller_tracking}}</strong></p>
-                                                                <p class="mb-1">Reference 1: <strong>{{tracking.seller_tracking_reference_1}}</strong></p>
-                                                                <p class="mb-1">Reference 2: <strong>{{tracking.seller_tracking_reference_1}}</strong></p>
-                                                                <p class="mb-1">Qty/Weight(kg): <strong>{{tracking.seller_quantity}}/{{tracking.seller_weight}}</strong></p>
-                                                                <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
-                                                                <p class="mb-1">Ship at: <strong>{{tracking.seller_shipped_at}}</strong></p>
-                                                                <p class="mb-1">Ship to: <strong>Kho Hop nhat US</strong></p>
-                                                                <p class="mb-1">Note to: <strong>{{tracking.receiver_warehouse_note}}</strong></p>
+                                                                <h6 class="text-danger">{{tracking.tracking_code}}</h6>
+                                                                <p class="mb-1">Manifest: <strong>{{tracking.manifest_code}}</strong></p>
+                                                                <p class="mb-1">Package: <strong>{{tracking.package_code}}</strong></p>
+                                                                <p class="mb-1">Warehouse: <a href="#">{{tracking.warehouse_tag}}</a></p>
+                                                                <p class="mb-1">Operation Note: <a href="#">{{tracking.operation_note}}</a></p>
                                                             </div>
-                                                            <hr class="mt-1 mb-1">
-                                                            <div class="local-warehouse-row">
-                                                                <p class="mb-1">Warehouse: <strong>Boxme HCM (45 Tan Son)</strong> </p>
-                                                                <p class="mb-1">Tag: <strong>{{tracking.local_warehouse_tag}}</strong><span class="label label-danger">close</span> </p>
-                                                                <p class="mb-1">Qty/Weight(kg): <strong>{{tracking.local_warehouse_quantity}}/{{tracking.local_warehouse_weight}}</strong></p>
-                                                                <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
-                                                                <p class="mb-1">Note: <strong>{{tracking.receiver_warehouse_note}}</strong></p>
-                                                            </div>
-
                                                         </td>
-                                                        <td></td>
+                                                        <td>
+                                                            <p class="mb-1">Warehouse: <strong>{{tracking.warehouse_alias}}</strong></p>
+                                                            <p class="mb-1">Status: <strong>close</strong> 2019/03/20 22:22:22</p>
+                                                            <p class="mb-1">Quantity/Weight: <strong>{{tracking.quantity}}/{{tracking.weight}} gram</strong></p>
+                                                            <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
+                                                            <p class="mb-1">Note: <a href="#">{{tracking.warehouse_note}}</a></p>
+                                                        </td>
                                                         <td></td>
                                                     </tr>
                                                 </tbody>
