@@ -5,6 +5,7 @@ import {OrderService} from '../order.service';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-order-list',
@@ -36,6 +37,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public checkF = false;
   updateProductId: any;
   productQ: any;
+  public moreLog: any = {};
+  public ids: any = [];
+  public orderID: any;
+  public typeViewLogs = 'all';
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -249,6 +254,42 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openUpdateOrder(id, product) {
     this.updateProductId = id;
     this.productQ = product;
+  }
+
+  viewMoreLog(status, orders, type = 'item') {
+    this.moreLog.status = status;
+    this.moreLog.order = orders;
+    for (let i = 0; i < orders.length; i++) {
+      this.ids[i] = orders[i]['id'];
+    }
+    this.moreLog.orderID = this.ids;
+    this.moreLog.type = type;
+    console.log(this.moreLog);
+  }
+
+  viewMoreLogg(event) {
+    this.moreLog.level = 'Support';
+    this.moreLog.note = '';
+    this.typeViewLogs = 'support_logs';
+    this.moreLog.ItemIds = event.ItemIds;
+    if (event.type === 'item' && (this.moreLog.id !== event.item.id || !this.moreLog.data)) {
+      this.moreLog.id = event.item.id;
+      this.moreLog.orderId = event.item.orderId;
+      this.moreLog.status = event.status;
+      this.moreLog.data = {};
+    } else if (event.type === 'order') {
+      this.moreLog.id = null;
+      this.moreLog.orderId = event.item.id;
+      this.moreLog.status = event.status;
+      this.moreLog.data = {};
+    }
+  }
+
+  confirmAll(products) {
+    console.log(products);
+  }
+
+  markAsJunk(productsId) {
   }
 }
 

@@ -15,6 +15,8 @@ import {StorePipe} from './pipes/store.pipe';
 import {SpanLabelComponent} from './span-label/span-label.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { CurrentStatusPipe } from './pipes/current-status.pipe';
+import {RequestInterceptor} from '../core/interceptor/request.interceptor';
+import { CustomerInformationComponent } from './customer-information/customer-information.component';
 
 @NgModule({
     imports: [
@@ -34,11 +36,11 @@ import { CurrentStatusPipe } from './pipes/current-status.pipe';
       StorePipe,
       SpanLabelComponent,
       TimeAgoPipe,
-      CurrentStatusPipe
+      CurrentStatusPipe,
     ],
     providers: [
-        OperationService
-    ],
+        OperationService,
+,    ],
   exports: [
     CamelizePipe,
     IconFlagPipe,

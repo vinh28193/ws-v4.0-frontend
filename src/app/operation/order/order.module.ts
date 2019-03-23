@@ -20,6 +20,7 @@ import { ChatGroupComponent } from './order-list/chat-group/chat-group.component
 import { UpdateProductComponent } from './order-list/update-order/update-product.component';
 import { WalletTransactionsComponent } from './order-list/wallet-transactions/wallet-transactions.component';
 import { PurchaseCardComponent } from './order-detail/purchase-card/purchase-card.component';
+import {CustomerInformationComponent} from '../customer-information/customer-information.component';
 
 @NgModule({
     imports: [
@@ -50,9 +51,10 @@ import { PurchaseCardComponent } from './order-detail/purchase-card/purchase-car
         UpdateProductComponent,
         WalletTransactionsComponent,
         PurchaseCardComponent,
+        CustomerInformationComponent
     ],
     providers: [
-      OrderService
+      OrderService,
     ]
 })
 export class OrderModule {
