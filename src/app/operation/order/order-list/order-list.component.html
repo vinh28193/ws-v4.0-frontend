@@ -226,7 +226,7 @@
                               <br>
                             </div>
 
-                            <div class="col-md-3 border-col CUSTOMER_INFO">
+                            <div class="col-md-4 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
@@ -241,10 +241,23 @@
                               </div>
                               <div class="row mt-3">
                                 <div class="col-md-12">
-                                  <h5 class="text-bold mb-0">RECEIVER</h5>
-                                  <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span><br>
-                                  <span>{{order.receiver_address}} - {{order.receiver_post_code}}  <i class="fa fa-filter"> </i></span>  <br>
-                                  <span>{{order.receiver_district_name}} - {{order.receiver_province_name}} - {{order.receiver_country_name}}</span>
+                                  <app-customer-information
+                                    [labelText]="'BUYER'"
+                                    [disable]="false"
+                                    [componentUnique]="'BUYER'"
+                                    [customerIdentity]="order.id"
+                                    [customerName]="order.receiver_name"
+                                    [customerPhone]="order.receiver_phone"
+                                    [customerEmail]="order.receiver_email"
+                                    [customerAddress]="order.receiver_address"
+                                    [customerDistrict]="order.receiver_district_id"
+                                    [customerDistrictName]="order.receiver_district_name"
+                                    [customerProvince]="order.receiver_province_id"
+                                    [customerProvinceName]="order.receiver_province_name"
+                                    [customerCountry]="order.receiver_country_id"
+                                    [customerCountryName]="order.receiver_country_name"
+                                    [customerPostcode]="order.receiver_post_code">
+                                  </app-customer-information>
                                 </div>
                               </div>
                               <div class="row mt-3">
@@ -277,10 +290,10 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-4"><strong>Quantity:</strong></div>
-                                <div class="col-md-3 text-right style-padding-left" *ngIf="order.products">
+                                <div class="col-md-4 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-5 style-padding-left"> (Exchage rate free:
+                                <div class="col-md-4 style-padding-left"> (Exchage rate free:
                                   {{order.exchange_rate_fee}})
                                 </div>
                               </div>
@@ -288,7 +301,7 @@
                                 <div class="col-md-4 style-padding-right  dong">
                                   <span>Total origin tax fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left total_fee_amount_local dong">
+                                <div class="col-md-4 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
                                     {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
                                   </span>
@@ -299,7 +312,7 @@
                                 <div class="col-md-4 style-padding-right total_fee_amount_local dong">
                                   <span>Total origin tax fee local </span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left total_origin_tax_fee_local dong">
+                                <div class="col-md-4 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
@@ -310,7 +323,7 @@
                                 <div class="col-md-4 style-padding-right  dong">
                                   <span>(Exchage rate Purchase:  </span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left Exchage_local">
+                                <div class="col-md-4 text-right style-padding-left Exchage_local">
                                     {{order.exchange_rate_purchase}})
                                 </div>
                               </div>
@@ -319,12 +332,12 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total origin shiping fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_origin_shipping_fee_local ? order.total_origin_shipping_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_origin_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-5 style-padding-left Ws-bold-font">Coupon: {{order.coupon?.code}} -
+                                <div class="col-md-4 style-padding-left Ws-bold-font">Coupon: {{order.coupon?.code}} -
                                   {{order.total_counpon_amount_local}}
                                 </div>
                               </div>
@@ -332,9 +345,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total weshop fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_weshop_fee_local ? order.total_weshop_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_weshop_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -342,19 +355,19 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total shiping fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_intl_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_custom_fee_amount">
-                                <div class="col-md-5 style-padding-right dong">
+                                <div class="col-md-4 style-padding-right dong">
                                   <span>Total custom fee amount</span>
                                 </div>
-                                <div class="col-md-2 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_custom_fee_amount_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -362,9 +375,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total delivery fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_delivery_fee_local ? order.total_delivery_fee_local : 0.00  | currency: 'VND'}}
+                                    {{order.total_delivery_fee_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -372,9 +385,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total packing fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_packing_fee_local ? order.total_packing_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_packing_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -382,9 +395,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insection fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_inspection_fee_local ? order.total_inspection_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_inspection_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -392,9 +405,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insurance fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_insurance_fee_local ? order.total_insurance_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_insurance_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -402,44 +415,48 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total VAT amount</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_vat_amount_local ? order.total_vat_amount_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_vat_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Paid">
                                 <div class="col-md-4 text-success Ws-bold-font">Paid</div>
-                                <div class="col-md-3 text-right text-success">
-                                  {{order.total_paid_amount_local ? order.total_paid_amount_local : 0.00 | currency: 'VND'}}
+                                <div class="col-md-4 text-right text-success">
+                                  {{order.total_paid_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
                                 <div class="col-md-4 text-info cod">Collect</div>
-                                <div class="col-md-3 text-right text-info style-padding-left"> </div>
+                                <div class="col-md-4 text-right text-info style-padding-left"> </div>
                               </div>
                               <div class="row Refund">
                                 <div class="col-md-4">Refund</div>
-                                <div class="col-md-3 text-right style-padding-left">
+                                <div class="col-md-4 text-right style-padding-left">
                                   {{order.total_refund_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
                                   <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
-                                          class="btn btn-secondary btn-sm">
+                                          class="btn btn-secondary mr-2 mb-2 btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                      Chat Group WS
                                   </button>
-                                  <button type="button" class="btn btn-secondary btn-sm"
+                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm"
                                           (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
-                                    <i class="fa fa-edit mr-1" aria-hidden="true"></i>
+                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i>
                                     Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary btn-sm"
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
                                           (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
+                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)
+                                  </button>
+                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
                                 </div>
                               </div>
                             </div>
@@ -618,6 +635,124 @@
       <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
       <div class="modal-footer">
         <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #ModalviewMoreLog="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog width-max" style="max-width: 95%;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+
+              <div class="modal-header">
+
+                <h2 class="modal-title">View More Log - <strong class="text-uppercase text-danger">
+                  SOI-{{moreLog.id}}
+                </strong>
+                </h2>
+                <button class="btn btn-skype" (click)="getLogs()">Refresh</button>
+              </div>
+              <div>
+                <div class="modal-body">
+
+                  <div class="container-fluid ng-star-inserted">
+                    <div class="row btn-group">
+                      <button class="btn btn-{{typeViewLogs == 'support_logs' ? 'warning' : 'default'}}" (click)="typeViewLogs = 'support_logs'">Support</button>
+                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="typeViewLogs = 'action_logs'">Action</button>
+                      <button class="btn btn-{{typeViewLogs == 'operation_logs' ? 'primary' : 'default'}}" (click)="typeViewLogs = 'operation_logs'">Operation</button>
+                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="typeViewLogs = 'payment_logs'">Payment</button>
+                      <button class="btn btn-{{typeViewLogs == 'warehouse' ? 'dark' : 'default'}}" (click)="typeViewLogs = 'warehouse'">Warehouse</button>
+                      <button class="btn btn-{{typeViewLogs == 'all' ? 'info' : 'default'}}" (click)="typeViewLogs = 'all'">View All</button>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <table
+                        *ngIf="moreLog.data && moreLog.data[typeViewLogs] && moreLog.data[typeViewLogs].length > 0"
+                        class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
+
+                        <thead>
+                        <tr>
+                          <th width="15%">Create time</th>
+                          <th width="50%">Content</th>
+                          <th width="15%">Employee</th>
+                          <th width="20%">Level</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let logItem of moreLog.data[typeViewLogs];let ind = index;">
+                          <td>{{logItem.created_at}}</td>
+                          <td>
+                            <div *ngIf="checkAdminAccess()" id="detail_log">
+                              <i style="cursor: pointer" class="fa fa-eye" data-placement="right" [popover]="logDetal" popoverTitle="View detail log"></i>
+                              <ng-template #logDetal>
+                                <div [innerHTML]="logItem.Content">
+
+                                </div>
+                              </ng-template>
+                            </div>
+                            <div [innerHTML]="logItem.Note"></div>
+                          </td>
+                          <td>{{logItem.username}}</td>
+                          <td>{{logItem.LevelSupport}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <div class="col-md-12" *ngIf="typeViewLogs == 'support_logs'">
+                        <strong>
+                          <span>
+                            <i class="fa fa-pencil-square-o"></i>
+                            Create Log</span> - <span><i class="fa fa-long-arrow-down"></i> Level Support</span>
+                          <select name="LevelSupport" [(ngModel)]="moreLog.level" class="ng-pristine ng-valid ng-touched">
+                            <option id="0" value="Support">---Note Order Log of BIN 0ede4034837b ---</option>
+                            <option id="1" value="New SOI" class="ng-star-inserted"> Level 1 - New SOI
+                              (SUPPORTING)
+                            </option>
+                            <option id="2" value="SOI Confirm" class="ng-star-inserted"> Level 2 - SOI Confirm
+                              (SUPORTTED)
+                            </option>
+                            <option id="3" value="Payment Confirm" class="ng-star-inserted">Level 3 - Payment Confirm
+                              (SUPORTTED)
+                            </option>
+                            <option id="5" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supported">SUP ADMIN Change Supported (All SOI-SUPPOTED) </option>
+                            <option id="6" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supporting">SUP ADMINChange Supporting (All SOI-SUPORTING) </option>
+
+                            <!--option id="7" *ngIf="checkPurchaseAccess() && order.status != ORDERITEM_STATUS_REPLACED  " value="Package Tracking">Level 5 - Package Tracking</option-->
+                            <!-- System Sales + Purchase report customer Order is transper -->
+                            <option id="8" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED'  " value="CHANGES_FROM_CANCEL_TO_SUPORTED">SUP ADMIN Change Supporting (CANCEL-SUPORTED) </option>
+                          </select>
+                        </strong>
+                        <div class="form-group">
+                          <textarea
+                            class="form-control ng-untouched ng-pristine ng-valid"
+                            name="note"
+                            [(ngModel)]="moreLog.note"
+                            placeholder="Please write log contents. You can Enter or click button Save"
+                            style="height: 100px">
+
+                        </textarea>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
+                (click)="ModalviewMoreLog.hide();">Cancel
+        </button>
+        <button *ngIf="typeViewLogs == 'support_logs'" class="btn btn-sm btn-primary pull-right" aria-label="Save"
+                (click)="saveLogSupport()">Save
+        </button>
       </div>
     </div>
   </div>
