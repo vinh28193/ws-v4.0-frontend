@@ -123,18 +123,6 @@
           </div>
           <hr>
           <div class="row">
-            <div class="col-md-7"><strong>Amount:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.amount | currency: 'VND'}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-7"><strong>Amount Local:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.local_amount | currency: 'VND'}}</div>
-          </div>
-          <div class="row">
-            <div class="col-md-7"><strong>Discount Amount:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.orderFees?.discount_amount | currency: 'VND'}}</div>
-          </div>
-          <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value">
               <strong>Total value
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
@@ -146,6 +134,26 @@
             <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate: {{product.exchange_rate | number}}
             </i>
             </div>
+          </div>
+        </div>
+        <div>
+          <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="text-bold">Name</th>
+                  <th class="text-bold">Local Amount</th>
+                  <th class="text-bold">Discount Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let orderFee of product.orderFee">
+                  <td>{{orderFee.name}}</td>
+                  <td>{{orderFee.local_amount | currency: 'VND'}}</td>
+                  <td>{{orderFee.discount_amount | currency: 'VND'}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

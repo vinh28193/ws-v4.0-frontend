@@ -21,6 +21,6 @@ export class TrackingService extends OperationService {
     }
 
     create(formData) {
-        return this.request('POST', 'tracking-code', formData);
+        return this.post('tracking-code', formData);
     }
 }

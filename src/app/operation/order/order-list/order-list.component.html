@@ -226,7 +226,7 @@
                               <br>
                             </div>
 
-                            <div class="col-md-3 border-col CUSTOMER_INFO">
+                            <div class="col-md-4 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
@@ -270,14 +270,14 @@
                                   <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"
                                           class="btn btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-                                    Trao đổi với khách
+                                    Chat With Customer
                                   </button><br>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
-                                    <i class="fa fa-bell mr-1"></i>Notification
+                                    <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
                                   <button (click)="followOrder()" *ngIf="checkF" type="button"
-                                          class="btn mt-2 btn-secondary btn-sm">
-                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Bỏ theo dõi đơn hàng
+                                          class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
+                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Quit tracking Order
                                   </button>
                                 </div>
                               </div>
@@ -290,10 +290,10 @@
                               </div>
                               <div class="row">
                                 <div class="col-md-4"><strong>Quantity:</strong></div>
-                                <div class="col-md-3 text-right style-padding-left" *ngIf="order.products">
+                                <div class="col-md-4 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-5 style-padding-left"> (Exchage rate free:
+                                <div class="col-md-4 style-padding-left"> (Exchage rate free:
                                   {{order.exchange_rate_fee}})
                                 </div>
                               </div>
@@ -301,7 +301,7 @@
                                 <div class="col-md-4 style-padding-right  dong">
                                   <span>Total origin tax fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left total_fee_amount_local dong">
+                                <div class="col-md-4 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
                                     {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
                                   </span>
@@ -312,7 +312,7 @@
                                 <div class="col-md-4 style-padding-right total_fee_amount_local dong">
                                   <span>Total origin tax fee local </span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left total_origin_tax_fee_local dong">
+                                <div class="col-md-4 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
@@ -323,7 +323,7 @@
                                 <div class="col-md-4 style-padding-right  dong">
                                   <span>(Exchage rate Purchase:  </span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left Exchage_local">
+                                <div class="col-md-4 text-right style-padding-left Exchage_local">
                                     {{order.exchange_rate_purchase}})
                                 </div>
                               </div>
@@ -332,12 +332,12 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total origin shiping fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_origin_shipping_fee_local ? order.total_origin_shipping_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_origin_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-5 style-padding-left">Coupon: {{order.coupon?.code}} -
+                                <div class="col-md-4 style-padding-left Ws-bold-font">Coupon: {{order.coupon?.code}} -
                                   {{order.total_counpon_amount_local}}
                                 </div>
                               </div>
@@ -345,9 +345,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total weshop fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_weshop_fee_local ? order.total_weshop_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_weshop_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -355,19 +355,19 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total shiping fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_intl_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_custom_fee_amount">
-                                <div class="col-md-5 style-padding-right dong">
+                                <div class="col-md-4 style-padding-right dong">
                                   <span>Total custom fee amount</span>
                                 </div>
-                                <div class="col-md-2 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_custom_fee_amount_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -375,9 +375,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total delivery fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_delivery_fee_local ? order.total_delivery_fee_local : 0.00  | currency: 'VND'}}
+                                    {{order.total_delivery_fee_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -385,9 +385,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total packing fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_packing_fee_local ? order.total_packing_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_packing_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -395,9 +395,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insection fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_inspection_fee_local ? order.total_inspection_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_inspection_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -405,9 +405,9 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total insurance fee</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_insurance_fee_local ? order.total_insurance_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_insurance_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -415,28 +415,25 @@
                                 <div class="col-md-4 style-padding-right dong">
                                   <span>Total VAT amount</span>
                                 </div>
-                                <div class="col-md-3 text-right style-padding-left dong">
+                                <div class="col-md-4 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_vat_amount_local ? order.total_vat_amount_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_vat_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Paid">
-                                <div class="col-md-4 text-danger">Paid</div>
-                                <div class="col-md-3 text-right text-danger">
-                                  {{order.total_paid_amount_local ? order.total_paid_amount_local : 0.00 | currency:
-                                  'VND'}}
+                                <div class="col-md-4 text-success Ws-bold-font">Paid</div>
+                                <div class="col-md-4 text-right text-success">
+                                  {{order.total_paid_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
-                              <div class="row Collect">
-                                <div class="col-md-4 text-info">Collect</div>
-                                <div class="col-md-3 text-right text-info style-padding-left">
-                                  1234
-                                </div>
+                              <div class="row Collect so-tien-thu-them Cod">
+                                <div class="col-md-4 text-info cod">Collect</div>
+                                <div class="col-md-4 text-right text-info style-padding-left"> </div>
                               </div>
                               <div class="row Refund">
                                 <div class="col-md-4">Refund</div>
-                                <div class="col-md-3 text-right style-padding-left">
+                                <div class="col-md-4 text-right style-padding-left">
                                   {{order.total_refund_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
@@ -445,16 +442,16 @@
                                   <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
                                           class="btn btn-secondary mr-2 mb-2 btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-                                    Trao đổi nội bộ
+                                     Chat Group WS
                                   </button>
                                   <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm"
                                           (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i>
-                                    Update Order
+                                    Update Order Purchase
                                   </button>
                                   <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
                                           (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
-                                    Buy it now
+                                    <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
                                   <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)
                                   </button>
@@ -463,7 +460,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-3 border-col">
+                            <div class="col-md-2 border-col">
                               <div class="row STATUS">
                                 <div class="col-md-12">
                                   <h5>STATUS</h5>
