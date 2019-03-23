@@ -114,11 +114,12 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     public create() {
         this.trackingService.create(this.preCreate()).subscribe(res => {
-            if (res.success) {
-                this.popUp.success(res.message);
+            const rs:any = res;
+            if (rs.success) {
+                this.popUp.success(rs.message);
                 this.usSendingModal.hide();
             } else {
-                this.popUp.error(res.message);
+                this.popUp.error(rs.message);
                 this.buildUsSendingForm();
             }
         });
@@ -140,15 +141,16 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     search() {
         const params = this.preSearch();
         this.trackingService.search(params).subscribe(response => {
-            if (response.success) {
-                const data: any = response.data;
+            const rs:any = response;
+            if (rs.success) {
+                const data: any = rs.data;
                 this.trackings = data._items;
                 this.totalCount = data._meta.totalCount;
                 this.pageCount = data._meta.pageCount;
                 this.currentPage = data._meta.currentPage;
                 this.perPage = data._meta.perPage;
             } else {
-                this.popup.error(response.message);
+                this.popUp.error(rs.message);
             }
         });
     }
