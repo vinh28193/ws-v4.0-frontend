@@ -136,3 +136,8 @@ h5 {
   border-bottom: 1px dashed;
   font-weight: 300;
 }
+
+strong {
+  font-weight: bold !important;
+  font-size: 10px;
+}

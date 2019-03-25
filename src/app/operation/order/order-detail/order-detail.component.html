@@ -86,13 +86,14 @@
             <span class="mr-2">Packing Wood</span>
             <app-span-label [value]=""></app-span-label>
           </li>
-          <li class="note_by_customer">
-            <i class="fa fa-comments" aria-hidden="true"> {{product.note_by_customer}}</i>
+          <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
+            <i class="fa fa-comments"  > {{product.note_by_customer}}</i>
           </li>
         </ul>
       </div>
     </div>
   </div>
+
   <div class="col-md-7 border-col">
     <div class="row">
       <div class="col-md-12 style-border-finance">
@@ -104,26 +105,43 @@
         <div class="hover-row">
           <div class="row">
             <div class="col-md-12">
-              <strong>Purchaser:</strong>
+              <strong> Employee Purchase :</strong>
             </div>
           </div>
-          <div class="row">
+          <div class="row quantity_customer ">
             <div class="col-md-7"><strong>Quantity:</strong></div>
             <div class="col-md-5 text-right style-padding Quantity">
               {{product.quantity_customer}}/{{product.quantity_purchase}}/{{product.quantity_inspect}}
             </div>
           </div>
-          <div class="row">
+          <div class="row price_amount_origin">
             <div class="col-md-7"><strong>Price Amount Origin:</strong></div>
             <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_origin | currency}}</div>
           </div>
-          <div class="row">
+
+          <div class="row price_amount_local">
             <div class="col-md-7"><strong>Price Amount Local:</strong></div>
             <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_local | currency: 'VND'}}</div>
           </div>
+
           <hr>
+
+          <div *ngFor="let ProFee of productsFee">
+            <div class="row ProductFees ">
+              <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-4"><strong>{{ProFee.type | ProductFee }} :</strong></div>
+              <div *ngIf="product.id == ProFee.product_id" class="origin-amount {{ProFee.amount}} col-md-4 text-right style-padding ">
+                {{ProFee.local_amount | currency: 'VND'}}
+              </div>
+              <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
+                Discount Amount : {{ProFee.discount_amount | currency: 'VND'}}
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
           <div class="row">
-            <div class="col-md-6 pr-0 soi-toltal-value">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
               <strong>Total value
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
               </strong>
@@ -131,33 +149,17 @@
             <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | currency: 'VND'}}</div>
           </div>
           <div class="row">
-            <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate: {{product.exchange_rate | number}}
-            </i>
+            <div class="col-md-12 exchangeRate">
+              <i class="style-font-size">Exchage rate: {{product.exchange_rate | number}} </i>
             </div>
           </div>
         </div>
-        <div>
-          <div class="row">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="text-bold">Name</th>
-                  <th class="text-bold">Local Amount</th>
-                  <th class="text-bold">Discount Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let orderFee of product.orderFee">
-                  <td>{{orderFee.name}}</td>
-                  <td>{{orderFee.local_amount | currency: 'VND'}}</td>
-                  <td>{{orderFee.discount_amount | currency: 'VND'}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+
+
       </div>
+
       <p></p>
+
     </div>
   </div>
 </div>

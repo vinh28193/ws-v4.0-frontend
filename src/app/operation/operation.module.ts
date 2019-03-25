@@ -14,9 +14,11 @@ import {QuotationStatusClassPipe} from './pipes/quotation-status-class.pipe';
 import {StorePipe} from './pipes/store.pipe';
 import {SpanLabelComponent} from './span-label/span-label.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
-import { CurrentStatusPipe } from './pipes/current-status.pipe';
+import {CurrentStatusPipe } from './pipes/current-status.pipe';
 import {RequestInterceptor} from '../core/interceptor/request.interceptor';
-import { CustomerInformationComponent } from './customer-information/customer-information.component';
+import {CustomerInformationComponent } from './customer-information/customer-information.component';
+
+import {ProductFeePipe } from './pipes/ProductFee.pipe';
 
 @NgModule({
     imports: [
@@ -37,6 +39,7 @@ import { CustomerInformationComponent } from './customer-information/customer-in
       SpanLabelComponent,
       TimeAgoPipe,
       CurrentStatusPipe,
+      ProductFeePipe
     ],
     providers: [
         OperationService,
@@ -52,7 +55,8 @@ import { CustomerInformationComponent } from './customer-information/customer-in
     StorePipe,
     SpanLabelComponent,
     TimeAgoPipe,
-    CurrentStatusPipe
+    CurrentStatusPipe,
+    ProductFeePipe,
   ]
 })
 export class OperationModule {

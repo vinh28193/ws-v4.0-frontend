@@ -13,7 +13,6 @@ import {EventEmitter} from '@angular/core';
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
-    // @ViewChild(ModalDirective) purchaseCard: ModalDirective;
     // @ViewChild(ModalDirective) showChat: ModalDirective;
     // @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     public orders: any = [];
@@ -21,8 +20,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
-    public checkLoad = false;
-    public checkLoadG = false;
+    public checkLoad: boolean = false;
+    public checkLoadG: boolean = false;
     public updateOrderId: any;
     public updateOrderCode: any;
     // form Group
@@ -57,15 +56,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.buildSearchForm();
         this.listOrders();
         this.searchKeys = [
+            {key: 'order.ordercode', name: 'BIN'},
             {key: 'product.id', name: 'SOI'},
             {key: 'product.sku', name: 'SKU'},
             {key: 'coupon.code', name: 'Coupon Code'},
             {key: 'product.category_id', name: 'Category Id'},
             {key: 'product.product_name', name: 'Product Name'},
             {key: 'customer.email1', name: 'Buy Email'},
-            {key: 'order.receiver_phone', name: 'Receiver Email'},
             {key: 'order.receiver_email', name: 'Receiver Email'},
-            {key: 'customer.phone1', name: 'Phone'},
+            {key: 'order.receiver_phone', name: 'Phone receiver'},
+            {key: 'customer.phone1', name: 'Phone buyers'},
             {key: 'order.payment_type', name: 'Payment Type'},
         ];
         this.timeKeys = [
@@ -253,7 +253,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkLoadG = false;
     }
 
-    openUpdateOrder(id) {
+    openUpdateOrder(id, product) {
         this.updateProductId = id;
     }
 
