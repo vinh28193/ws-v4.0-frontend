@@ -288,11 +288,11 @@
                               </div>
                               <div class="row mt-2">
                                 <div role="group" style="margin: auto" aria-label="Basic example">
-                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"
-                                          class="btn btn-secondary btn-sm">
+                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"  class="btn btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
-                                  </button><br>
+                                  </button>
+                                  <br>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
@@ -314,8 +314,8 @@
                                 <div class="col-md-4 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-4 style-padding-left"> (Exchage rate free:
-                                  {{order.exchange_rate_fee}})
+                                <div class="col-md-4 style-padding-left">
+                                  (Exchage rate free: {{order.exchange_rate_fee}})
                                 </div>
                               </div>
                               <div class="row total_fee_amount_local">
@@ -571,7 +571,7 @@
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
                             </div>
                           </div>
-                          <app-order-detail *ngIf="!order.id" [products]="order.products" ></app-order-detail>
+                          <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
                           <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
                           <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
@@ -655,7 +655,7 @@
     <div class="modal-content">
       <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
       <div class="modal-footer">
-        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
+        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Cancel</button>
       </div>
     </div>
   </div>

@@ -93,6 +93,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-7 border-col">
     <div class="row">
       <div class="col-md-12 style-border-finance">
@@ -104,7 +105,7 @@
         <div class="hover-row">
           <div class="row">
             <div class="col-md-12">
-              <strong>Purchaser:</strong>
+              <strong> Employee Purchase :</strong>
             </div>
           </div>
           <div class="row quantity_customer ">
@@ -131,12 +132,13 @@
             <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | currency: 'VND'}}</div>
           </div>
           <div class="row">
-            <div class="col-md-12 exchangeRate"><i class="style-font-size">Exchage rate: {{product.exchange_rate | number}}
-            </i>
+            <div class="col-md-12 exchangeRate">
+              <i class="style-font-size">Exchage rate: {{product.exchange_rate | number}} </i>
             </div>
           </div>
         </div>
-        <div>
+
+        <div class="CHECK">
           <div class="row">
             <table class="table">
               <thead>
@@ -147,17 +149,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let orderFee of product.orderFee">
-                  <td>{{orderFee.name}}</td>
-                  <td>{{orderFee.local_amount | currency: 'VND'}}</td>
-                  <td>{{orderFee.discount_amount | currency: 'VND'}}</td>
+                <tr *ngFor="let ProFee of productsFee">
+                  <td class="name {{ProFee.name}}">{{ProFee.type}}</td>
+                  <td class="origin-amount {{ProFee.amount}}">{{ProFee.local_amount | currency: 'VND'}}</td>
+                  <td class="discount_amount {{ProFee.discount_amount}}">{{ProFee.discount_amount | currency: 'VND'}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+
       <p></p>
+
     </div>
   </div>
 </div>
