@@ -162,7 +162,7 @@
                 <div class="grid-view grid-view-custom">
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
-                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black" *ngIf="orders">
                         <div class="card style-card" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
@@ -209,12 +209,12 @@
                               </div>
                               <div class="mt-1">
                                 <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
-                                {{order.saleSupport.username}}
+                                {{order.saleSupport ? order.saleSupport.username : ""}}
                                 <i class="fa fa-filter"> </i>
                               </div>
                               <div class="mt-1">
                                 <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
-                                {{order.saleSupport.email}}
+                                {{order.saleSupport ? order.saleSupport.email : ""}}
                               </div>
 
                               <div class=" mt-1  infor_seller">
@@ -445,12 +445,12 @@
                                      Chat Group WS
                                   </button>
                                   <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
+                                          (click)="openUpdateOrder(order.id);">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i>
                                     Update Order Purchase
                                   </button>
                                   <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
+                                          (click)="openUpdateOrder(order.id);purchaseCard.show();">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
                                   <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)
@@ -579,7 +579,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
         </button>
       </div>
-      <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
+      <app-update-order [updateProductId] = "updateProductId"></app-update-order>
     </div>
   </div>
 </div>
@@ -632,7 +632,7 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+      <app-purchase-card [updateProductId] = "updateProductId"></app-purchase-card>
       <div class="modal-footer">
         <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
       </div>
@@ -697,7 +697,7 @@
                             </div>
                             <div [innerHTML]="logItem.Note"></div>
                           </td>
-                          <td>{{logItem.username}}</td>
+                          <td>{{logItem ? logItem.username : ""}}</td>
                           <td>{{logItem.LevelSupport}}</td>
                         </tr>
                         </tbody>

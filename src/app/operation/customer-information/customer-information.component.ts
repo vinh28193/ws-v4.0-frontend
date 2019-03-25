@@ -183,12 +183,12 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
   //   ];
   // }
 
-  // getProvinces() {
-  //   if (this.provinces.length === 0) {
-  //     this.provinces = this.local.getAllProvinces(this.customerCountry);
-  //   }
-  //   return this.provinces;
-  // }
+  getProvinces() {
+    if (this.provinces.length === 0) {
+      // this.provinces = this.local.getAllProvinces(this.customerCountry);
+    }
+    return this.provinces;
+  }
 
   getDistricts() {
     let loaded = false;
