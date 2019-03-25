@@ -286,13 +286,14 @@
                                   <i class="fa fa-comments"></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
                               </div>
-                              <div class="row mt-2">
-                                <div role="group" style="margin: auto" aria-label="Basic example">
+
+                              <hr>
+
+                              <div class="row col-md-12">
                                   <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"  class="btn btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
-                                  <br>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
@@ -300,9 +301,19 @@
                                           class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Quit tracking Order
                                   </button>
-                                </div>
                               </div>
+                              <p></p>
+
+                              <div class="row col-md-12">
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+                              </div>
+
+
                             </div>
+
+
                             <div class="col-md-4 hover-row style-col border-col">
                               <div class="row">
                                 <div class="col-md-12">
@@ -318,17 +329,6 @@
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
                               </div>
-
-
-                              <div class="row Quantity">
-                                <div class="col-md-6 style-padding-right  dong">
-                                  <span>Exchage rate free:</span>
-                                </div>
-                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
-                                  <span> {{order.exchange_rate_fee}} </span>
-                                </div>
-                              </div>
-
 
                               <div class="row total_fee_amount_local">
                                 <div class="col-md-6 style-padding-right  dong">
@@ -352,15 +352,6 @@
                                 </div>
                               </div>
 
-                              <div class="row exchange_rate_purchase">
-                                <div class="col-md-6 style-padding-right  dong">
-                                  <span>Exchage rate Purchase:  </span>
-                                </div>
-                                <div class="col-md-6 text-right style-padding-left Exchage_local">
-                                    {{order.exchange_rate_purchase}}
-                                </div>
-                              </div>
-
                               <div class="row Total_origin_shiping_fee">
                                 <div class="col-md-6 style-padding-right dong">
                                   <span>Total origin shiping fee</span>
@@ -368,18 +359,6 @@
                                 <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_origin_shipping_fee_local | currency: 'VND'}}
-                                  </span>
-                                </div>
-                              </div>
-
-
-                              <div class="row Total_weshop_fee">
-                                <div class="col-md-6 style-padding-right dong">
-                                  <span class="Ws-bold-font">Coupon Code/Amount : </span>
-                                </div>
-                                <div class="col-md-6 text-right style-padding-left ">
-                                  <span>
-                                      {{order.coupon?.code ? order.coupon?.code : 'Null'}} / {{order.total_counpon_amount_local}}
                                   </span>
                                 </div>
                               </div>
@@ -455,13 +434,68 @@
                                   </span>
                                 </div>
                               </div>
+
                               <div class="row Total_VAT_amount">
                                 <div class="col-md-6 style-padding-right dong">
                                   <span>Total VAT amount</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_vat_amount_local | currency: 'VND'}}
+                                    {{order.total_amount_local | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr>
+
+                              <div class="row Quantity">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate free:</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
+                                  <span> {{order.exchange_rate_fee}} </span>
+                                </div>
+                              </div>
+                              <div class="row exchange_rate_purchase">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate Purchase:  </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left Exchage_local">
+                                  {{order.exchange_rate_purchase}}
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row total_amount_local">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total money</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                                  <span>
+                                    {{order.total_amount_local | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row Coupon">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font">Coupon Code/Amount : </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left ">
+                                  <span>
+                                      {{order.coupon?.code ? order.coupon?.code : 'Null'}} / {{order.total_counpon_amount_local}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div class="row total_final_amount_local -discount">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total value of orders (-discount)</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                                  <span>
+                                    {{order.total_final_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -474,11 +508,11 @@
                                 </div>
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
-                                <div class="col-md-6 text-info cod">Collect</div>
-                                <div class="col-md-6 text-right text-info style-padding-left"> </div>
+                                <div id="số tiền còn thiếu" class="col-md-6 text-info cod">Collect</div>
+                                <div class="col-md-6 text-right text-info style-padding-left"> 0 đ </div>
                               </div>
-                              <div class="row Refund">
-                                <div class="col-md-6">Refund</div>
+                              <div class="row Refund" *ngIf="order.total_refund_amount_local">
+                                <div id="Số tiền thừa" class="col-md-6">Refund</div>
                                 <div class="col-md-6 text-right style-padding-left">
                                   {{order.total_refund_amount_local | currency: 'VND'}}
                                 </div>
@@ -493,19 +527,13 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                      Chat Group WS
                                   </button>
-                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
-                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i>
-                                    Update Order Purchase
+                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
+                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)
-                                  </button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+
                                 </div>
                               </div>
                             </div>
