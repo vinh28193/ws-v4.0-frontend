@@ -150,9 +150,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let ProFee of productsFee">
-                  <td class="name {{ProFee.name}}">{{ProFee.type}}</td>
-                  <td class="origin-amount {{ProFee.amount}}">{{ProFee.local_amount | currency: 'VND'}}</td>
-                  <td class="discount_amount {{ProFee.discount_amount}}">{{ProFee.discount_amount | currency: 'VND'}}</td>
+                  <td *ngIf="product.id == ProFee.product_id" class="name {{ProFee.name}}">{{ProFee.type}}</td>
+                  <td *ngIf="product.id == ProFee.product_id" class="origin-amount {{ProFee.amount}}">{{ProFee.local_amount | currency: 'VND'}}</td>
+                  <td *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}}">{{ProFee.discount_amount | currency: 'VND'}}</td>
                 </tr>
               </tbody>
             </table>
