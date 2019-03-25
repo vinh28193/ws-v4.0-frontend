@@ -172,7 +172,7 @@
                                   <strong class="text-uppercase">
                                     <a target="_blank"
                                        href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
-                                      <span class="text-danger">{{order.ordercode}}</span>
+                                      <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong>/
                                   <span
@@ -571,7 +571,7 @@
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
                             </div>
                           </div>
-                          <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
+                          <app-order-detail *ngIf="!order.id" [products]="order.products" ></app-order-detail>
                           <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
                           <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>

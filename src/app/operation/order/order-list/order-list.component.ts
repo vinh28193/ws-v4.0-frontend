@@ -56,6 +56,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.buildSearchForm();
         this.listOrders();
         this.searchKeys = [
+            {key: 'order.ordercode', name: 'BIN'},
             {key: 'product.id', name: 'SOI'},
             {key: 'product.sku', name: 'SKU'},
             {key: 'coupon.code', name: 'Coupon Code'},
