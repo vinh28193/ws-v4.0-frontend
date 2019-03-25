@@ -92,8 +92,9 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     }
 
     getProvince() {
-        const provinces = this.getProvinces();
         /*
+        const provinces = this.getProvinces();
+
         if (provinces.length > 0) {
             const province = provinces.filter(p => Number(p.id) === Number(this.customerProvince));
             return province.length > 0 ? province[0] : null;
@@ -102,7 +103,6 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
         return null;
     }
 
-    getProvinces(){}
 
     getDistrict() {
         let districts = this.getDistricts();
@@ -126,7 +126,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
         this.provinces = [];  // clear old provinces
         this.districts = []; // clear old districts
         this.data = []; // clear old data
-        this.getProvinces();
+        //this.getProvinces();
         this.customerProvince = '';
         this.customerDistrictName = null;
         if (this.provinces.length > 0) {
