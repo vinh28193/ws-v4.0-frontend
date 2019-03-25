@@ -90,14 +90,14 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     this.update.show();
   }
 
-  getProvince() {
-    const provinces = this.getProvinces();
-    if (provinces.length > 0) {
-      const province = provinces.filter(p => Number(p.id) === Number(this.customerProvince));
-      return province.length > 0 ? province[0] : null;
-    }
-    return null;
-  }
+  // getProvince() {
+  //   const provinces = this.getProvinces();
+  //   if (provinces.length > 0) {
+  //     const province = provinces.filter(p => Number(p.id) === Number(this.customerProvince));
+  //     return province.length > 0 ? province[0] : null;
+  //   }
+  //   return null;
+  // }
 
   getDistrict() {
     let districts = this.getDistricts();
@@ -121,7 +121,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     this.provinces = [];  // clear old provinces
     this.districts = []; // clear old districts
     this.data = []; // clear old data
-    this.getProvinces();
+    // this.getProvinces();
     this.customerProvince = '';
     this.customerDistrictName = null;
     if (this.provinces.length > 0) {
@@ -192,15 +192,15 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
 
   getDistricts() {
     let loaded = false;
-    if (this.districts.length === 0 && loaded === false) {
-      const province = this.getProvince();
-      if (province !== null && typeof province === 'object') {
-        this.districts = province.districts;
-      } else {
-        loaded = true;
-        this.districts = [];
-      }
-    }
+    // if (this.districts.length === 0 && loaded === false) {
+    //   const province = this.getProvince();
+    //   if (province !== null && typeof province === 'object') {
+    //     this.districts = province.districts;
+    //   } else {
+    //     loaded = true;
+    //     this.districts = [];
+    //   }
+    // }
     console.log(this.districts);
     return this.districts;
   }
