@@ -27,6 +27,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public updateOrderCode: any;
   public listSeller: any = [];
   public listSale: any = [];
+  public email: any;
+  public sale_support_id: any;
   // form Group
   public searchForm: FormGroup;
   orderStatus: any = [];
@@ -190,7 +192,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       params.paymentStatus = value.paymentStatus;
     }
     if (value.keyWord !== '' && value.keyWord !== 'ALL') {
-      params.value = value.keyWord;
+      params.keyWord = value.keyWord;
     }
     if (value.searchKeyword !== '' && value.searchKeyword !== 'ALL') {
       params.searchKeyword = value.searchKeyword;
@@ -237,8 +239,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    this.getSale();
-    this.getSeller();
+    // this.getSale();
+    // this.getSeller();
   }
 
   followOrder() {
@@ -312,6 +314,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.orderService.get('sale-support', undefined).subscribe(rss => {
       this.listSale = rss.data;
     });
+  }
+  filterOneCustome(email) {
+    this.email = email;
+    this.searchForm.patchValue({
+      keyWord : this.email,
+      searchKeyword : 'customer.email'
+    });
+    this.listOrders();
+  }
+  filterOneSale(sale_support_id) {
+    this.sale_support_id = sale_support_id;
+    this.searchForm.patchValue({
+      sale : this.sale_support_id,
+    });
+    this.listOrders();
   }
 }
 
