@@ -52,6 +52,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
       params.Order_path = this.code;
     }
     params.type_chat = 'WS_CUSTOMER';
+    params.user_request_suorce = 'BACK_END';
     return params;
   }
 }

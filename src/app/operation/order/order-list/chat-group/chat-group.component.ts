@@ -53,6 +53,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
       params.Order_path = this.code;
     }
     params.type_chat = 'GROUP_WS';
+    params.user_request_suorce = 'BACK_END';
     return params;
   }
 

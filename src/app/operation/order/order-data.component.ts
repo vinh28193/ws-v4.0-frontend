@@ -7,9 +7,9 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
   public country: any;
   public province: any;
   public district: any;
-  public countries = [];
-  public provinces = [];
-  public districts = [];
+  public countries: any = [];
+  public provinces: any = [];
+  public districts: any = [];
 
 
   constructor(public http: OrderService) {

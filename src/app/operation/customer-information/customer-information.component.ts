@@ -64,7 +64,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     }
 
     getInputUnique(attribute: string, unique?: string) {
-        return attribute + (typeof unique !== 'undefined' ? unique : (this.customerIdentity + this.componentUnique));
+        return attribute + (typeof unique !== 'undefined' ? unique : (this.identity + this.unique));
     }
 
     prepareModalData() {

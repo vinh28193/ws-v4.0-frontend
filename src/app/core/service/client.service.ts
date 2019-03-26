@@ -40,7 +40,7 @@ export class ClientService extends GlobalService {
      * @param url
      * @param params
      */
-    get(url: string, params: any | undefined): Observable<any> {
+    get(url: string, params?: any | undefined): Observable<any> {
         if (typeof params !== 'undefined' && typeof params === 'object') {
             params = jQuery.param(params);
             url += '?' + params;

@@ -16,6 +16,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   @ViewChild(ModalDirective) showChat: ModalDirective;
   @ViewChild(ModalDirective) showChatGroup: ModalDirective;
   public orders: any = [];
+  public listSeller: any = [];
   public total: any;
   public dateTime: Date;
   public orderIdChat: any;
@@ -45,8 +46,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public orderID: any;
   public typeViewLogs = 'all';
 
-  public modalOption: ModalOptions;
-
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -60,9 +59,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
     this.listOrders();
-    this.modalOption.keyboard = false;
-    this.showChat.config = this.modalOption;
-    this.this.searchKeys = [
+    this.getSeller();
+    this.searchKeys = [
       {key: 'order.ordercode', name: 'BIN'},
       {key: 'product.id', name: 'SOI'},
       {key: 'product.sku', name: 'SKU'},
@@ -296,6 +294,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   markAsJunk(productsId) {
+  }
+
+  getSeller() {
+    this.orderService.get('seller', undefined).subscribe(res => {
+      this.listSeller = res.data;
+    });
   }
 }
 
