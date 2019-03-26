@@ -16,7 +16,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   @ViewChild(ModalDirective) showChat: ModalDirective;
   @ViewChild(ModalDirective) showChatGroup: ModalDirective;
   public orders: any = [];
-  public listSeller: any = [];
   public total: any;
   public dateTime: Date;
   public orderIdChat: any;
@@ -26,8 +25,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public checkLoadG = false;
   public updateOrderId: any;
   public updateOrderCode: any;
-  public listChat: any = [];
-  public listChatG: any = [];
+  public listSeller: any = [];
+  public listSale: any = [];
   // form Group
   public searchForm: FormGroup;
   orderStatus: any = [];
@@ -59,7 +58,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
     this.listOrders();
-    this.getSeller();
     this.searchKeys = [
       {key: 'order.ordercode', name: 'BIN'},
       {key: 'product.id', name: 'SOI'},
@@ -117,6 +115,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       {key: 'PAYMENT_EXPIRED', name: 'Payment Expired'},
       {key: '', name: 'SanBox'}
     ];
+    this.load();
   }
 
   listOrders() {
@@ -211,6 +210,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.sale !== '' && value.sale !== 'ALL') {
       params.sale = value.sale;
     }
+    if (value.seller !== '' && value.seller !== 'ALL') {
+      params.seller = value.seller;
+    }
     if (value.timeKey !== '' && value.timeKey !== 'ALL') {
       params.timeKey = value.timeKey;
     }
@@ -233,6 +235,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const value = event.target.value;
     this.searchForm.patchValue({perPage: value});
     this.listOrders();
+  }
+  load() {
+    this.getSale();
+    this.getSeller();
   }
 
   followOrder() {
@@ -297,8 +303,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   getSeller() {
-    this.orderService.get('seller', undefined).subscribe(res => {
-      this.listSeller = res.data;
+    this.orderService.get('seller', undefined).subscribe(rs => {
+      this.listSeller = rs.data;
+    });
+  }
+
+  getSale() {
+    this.orderService.get('sale-support', undefined).subscribe(rss => {
+      this.listSale = rss.data;
     });
   }
 }

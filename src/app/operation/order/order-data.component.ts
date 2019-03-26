@@ -114,4 +114,5 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     }
     return this.districts;
   }
+
 }

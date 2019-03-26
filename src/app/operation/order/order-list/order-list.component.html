@@ -102,8 +102,7 @@
             <label class="form-control-label">Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
               <option [value]="allKey">--All Location--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+              <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale.username}}</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -117,7 +116,7 @@
             <div class="button-group">
                 <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
                 <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
-                <button class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export Excel</button>
+                <button class="btn btn-info btn-sm text-white ml-1"><i class="fa fa-file-excel-o"></i> Export Excel</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
