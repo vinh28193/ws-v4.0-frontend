@@ -656,7 +656,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
         </button>
       </div>
-      <app-update-order [updateProductId] = "updateProductId"></app-update-order>
+      <app-update-order *ngIf="updateProductId" [updateProductId] = "updateProductId"></app-update-order>
     </div>
   </div>
 </div>
