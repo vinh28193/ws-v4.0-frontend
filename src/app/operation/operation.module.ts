@@ -17,6 +17,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
 import {CurrentStatusPipe} from './pipes/current-status.pipe';
 
 import {ProductFeePipe} from './pipes/ProductFee.pipe';
+import { SerialNumerPipe } from './pipes/serial-numer.pipe';
+import { SerialCharPipe } from './pipes/serial-char.pipe';
 
 @NgModule({
     imports: [
@@ -37,7 +39,9 @@ import {ProductFeePipe} from './pipes/ProductFee.pipe';
         SpanLabelComponent,
         TimeAgoPipe,
         CurrentStatusPipe,
-        ProductFeePipe
+        ProductFeePipe,
+        SerialNumerPipe,
+        SerialCharPipe
     ],
     providers: [
         OperationService
@@ -55,6 +59,8 @@ import {ProductFeePipe} from './pipes/ProductFee.pipe';
         TimeAgoPipe,
         CurrentStatusPipe,
         ProductFeePipe,
+        SerialNumerPipe,
+        SerialCharPipe,
     ]
 })
 export class OperationModule {

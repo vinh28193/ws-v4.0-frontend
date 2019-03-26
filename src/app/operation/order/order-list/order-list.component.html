@@ -715,10 +715,7 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card [updateProductId] = "updateProductId"></app-purchase-card>
-      <div class="modal-footer">
-        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Cancel</button>
-      </div>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateProductId"></app-purchase-card>
     </div>
   </div>
 </div>
