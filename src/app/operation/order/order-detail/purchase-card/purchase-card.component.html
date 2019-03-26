@@ -9,10 +9,6 @@
                     <div class="main_content_right" style="max-width: 95%; margin: auto">
                         <div class="row">
                             <div class="col-md-12">
-                                <strong><a (click)="checkOrder();">checkData</a></strong>
-                                <span></span>
-                            </div>
-                            <div class="col-md-12">
                                 <strong>NGƯỜI MUA:</strong>
                                 <span></span>
                             </div>
@@ -59,14 +55,14 @@
                                         </td>
                                         <td>{{product.quantity}}</td>
                                         <td>
-                                            <input class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.quantityPurchase">
+                                            <input class="input-sm" style="width: 50%" type="number" (change)="changeAmount(product)" [(ngModel)]="product.quantityPurchase">
                                         </td>
                                         <td>
-                                            <span><b>Price:</b><br> <input class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.quantityPurchase"></span><br>
-                                            <span><b>Us ship purchase:</b><br> <input class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_ship_purchase"></span><br>
-                                            <span><b>Us tax purchase:</b><br> <input class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_tax_purchase"></span><br>
+                                            <span><b>Price:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.price_purchase"></span><br>
+                                            <span><b>Us ship purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_ship_purchase"></span><br>
+                                            <span><b>Us tax purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_tax_purchase"></span><br>
                                         </td>
-                                        <td>{{product.paidToSeller}}</td>
+                                        <td>{{product.paidToSeller | currency : 'USD'}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
