@@ -27,8 +27,8 @@ export class OrderService extends OperationService {
         return this.get('order', filter);
     }
 
-    putChat(url, item: any | undefined) {
-        return this.put(`chat-service/${url}`, item);
+    postChat(item: any | undefined) {
+        return this.post(`chat`, item);
     }
 
     putProduct(url, item: any | undefined) {

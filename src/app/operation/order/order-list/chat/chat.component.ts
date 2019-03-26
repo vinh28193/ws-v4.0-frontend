@@ -10,8 +10,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent extends OrderDataComponent implements OnInit {
-  @Input() id: any = null;
   @Input() code: any = null;
+  @Input() id: any = null;
   public listChat: any = [];
   public chatGroup: FormGroup;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -19,17 +19,27 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildChat();
+    this.chatCustomerAll();
+  }
+  buildChat() {
     this.chatGroup = this.fb.group({
       message: ''
     });
-    this.orderService.get(`chat/${this.id}`, 1).subscribe(res => {
+  }
+
+  chatCustomerAll() {
+    this.orderService.get(`chat/${this.code}`, 1).subscribe(res => {
       const result1: any = res;
       this.listChat = result1.data;
     });
   }
+
   createChat() {
     const params = this.prepare();
-    this.orderService.putChat(this.id, params).subscribe(res => {
+    this.orderService.postChat(params).subscribe(res => {
+      this.buildChat();
+      this.chatCustomerAll();
     });
   }
   prepare() {
@@ -38,6 +48,10 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     if (value.message !== '') {
       params.message = value.message;
     }
+    if (this.code !== '') {
+      params.Order_path = this.code;
+    }
+    params.type_chat = 'WS_CUSTOMER';
     return params;
   }
 }
