@@ -215,3 +215,7 @@
 .bd-highlight {
   background-color: rgba(0,0,0,.03);
 }
+.text-gray span {
+  color: darkgrey;
+  font-size: 11px;
+}

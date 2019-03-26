@@ -249,6 +249,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.codeG = code;
   }
 
+  offModeChat() {
+    this.checkLoadG = false;
+    this.checkLoad = false;
+  }
+
   openUpdateOrder(id, product) {
     this.updateProductId = id;
   }

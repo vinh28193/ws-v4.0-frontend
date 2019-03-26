@@ -48,15 +48,21 @@
               <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg"
                    class="rounded-circle user_img_msg">
             </div>
-            <div class="msg_cotainer">
-              {{chat.message}}
-              <span class="msg_time">{{chat.date}}</span>
+            <div>
+              <span class="msg_cotainer_send float-left">{{chat.message}}</span><br>
+              <div class="float-left text-gray">
+                <span class="mr-2">{{chat.user_name}}</span>
+                <span class="text-darkgray">{{chat.date}}</span>
+              </div>
             </div>
           </div>
           <div class="d-flex justify-content-end mb-4" *ngIf="chat.type_chat == 'WS_CUSTOMER'">
-            <div class="msg_cotainer_send">
-              <span>{{chat.message}}</span>
-              <span class="msg_time_send" style="color: black">{{chat.date}}</span>
+            <div>
+              <span class="msg_cotainer_send float-right">{{chat.message}}</span><br>
+              <div class="float-right text-gray">
+                <span class="mr-2">{{chat.user_name}}</span>
+                <span class="text-darkgray">{{chat.date}}</span>
+              </div>
             </div>
             <div class="img_cont_msg">
               <img

@@ -42,19 +42,13 @@
           <!--</div>-->
         <!--</div>-->
         <div *ngFor="let chat of listChatG">
-          <div class="d-flex justify-content-start mb-4" *ngIf="chat.type_chat == 'CUSTOMER_WS'">
-          <div class="img_cont_msg">
-          <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg" class="rounded-circle user_img_msg">
-          </div>
-          <div class="msg_cotainer">
-          {{chat.message}}<br>
-          <p class="msg_time" style="color: black">{{chat.date}}</p>
-          </div>
-          </div>
           <div class="d-flex justify-content-end mb-4" *ngIf="chat.type_chat == 'GROUP_WS'">
-            <div class="msg_cotainer_send">
-              {{chat.message}}
-              <span class="msg_time_send">{{chat.date}}</span>
+            <div>
+              <span class="msg_cotainer_send float-right">{{chat.message}}</span><br>
+              <div class="float-right text-gray">
+                <span class="mr-2">{{chat.user_name}}</span>
+                <span class="text-darkgray">{{chat.date}}</span>
+              </div>
             </div>
             <div class="img_cont_msg">
               <img
