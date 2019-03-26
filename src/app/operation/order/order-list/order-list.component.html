@@ -660,6 +660,7 @@
     </div>
   </div>
 </div>
+
 <div bsModal #showChat="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="false">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
@@ -671,8 +672,8 @@
               <div class="row">
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
-                    <div class="ng-star-inserted" *ngIf="checkLoad">
-                      <app-chat [id]="orderIdChat" [code]="code"></app-chat>
+                    <div class="ng-star-inserted">
+                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat" [code]="code"></app-chat>
                     </div>
                   </div>
                 </div>
@@ -695,7 +696,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12 p-0">
-                  <app-chat-group [id]="orderIdChat" [code]="code" *ngIf="checkLoadG"></app-chat-group>
+                  <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [code]="codeG"></app-chat-group>
                 </div>
               </div>
             </div>

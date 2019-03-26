@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import {OrderDataComponent} from '../../order-data.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-chat-group',
@@ -11,26 +12,35 @@ import {OrderService} from '../../order.service';
 })
 export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public chatGroup: FormGroup;
-  public listChat: any = [];
-  @Input() id: any = null;
   @Input() code: any = null;
+  @Input() id: any = null;
+  public listChatG: any = [];
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
 
   ngOnInit() {
+    this.buildChat();
+    this.chatGroupAll();
+  }
+  buildChat() {
     this.chatGroup = this.fb.group({
       message: '',
     });
-    this.orderService.get(`chat/${this.id}`, 1).subscribe(res => {
+  }
+
+  chatGroupAll() {
+    this.orderService.get(`chat/${this.code}`, 1).subscribe(res => {
       const result1: any = res;
-      this.listChat = result1.data;
+      this.listChatG = result1.data;
     });
   }
 
   createChatG() {
     const params = this.prepare();
-    this.orderService.patchChat(this.id, params).subscribe(res => {
+    this.orderService.postChat(params).subscribe(res => {
+      this.chatGroupAll();
+      this.buildChat();
     });
   }
   prepare() {
@@ -39,6 +49,10 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     if (value.message !== '') {
       params.message = value.message;
     }
+    if (this.code !== '') {
+      params.Order_path = this.code;
+    }
+    params.type_chat = 'GROUP_WS';
     return params;
   }
 
