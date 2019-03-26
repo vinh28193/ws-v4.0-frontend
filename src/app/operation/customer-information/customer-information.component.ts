@@ -44,7 +44,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     buildFormData() {
         const form = new FormData();
         const customer = {
-            identity: this.customerIdentity,
+            identity: this.identity,
             // name: this.customerName,
             // phone: this.customerPhone,
             // email: this.customerEmail,
@@ -57,8 +57,8 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
             // countryName: this.countryName,
             // postCode: this.customerPostcode
         };
-        console.log(customer);
-        form.append('component', this.componentUnique);
+        // console.log(customer);
+        form.append('component', this.unique);
         form.append('customer', JSON.stringify(customer));
         return form;
     }

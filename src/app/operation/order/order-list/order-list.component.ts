@@ -2,15 +2,15 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
-import {BsDaterangepickerConfig} from 'ngx-bootstrap';
+import {BsDaterangepickerConfig, ModalOptions} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {EventEmitter} from '@angular/core';
 
 @Component({
-    selector: 'app-order-list',
-    templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.css']
+  selector: 'app-order-list',
+  templateUrl: './order-list.component.html',
+  styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
   @ViewChild(ModalDirective) showChat: ModalDirective;
@@ -45,6 +45,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public orderID: any;
   public typeViewLogs = 'all';
 
+  public modalOption: ModalOptions;
+
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -58,7 +60,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
     this.listOrders();
-    this.searchKeys = [
+    this.modalOption.keyboard = false;
+    this.showChat.config = this.modalOption;
+    this.this.searchKeys = [
       {key: 'order.ordercode', name: 'BIN'},
       {key: 'product.id', name: 'SOI'},
       {key: 'product.sku', name: 'SKU'},
