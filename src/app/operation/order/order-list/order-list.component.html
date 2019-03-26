@@ -166,13 +166,13 @@
                         <div class="card style-card" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
-                            <div class="col-md-2 border-col">
+                            <div class="col-md-3 border-col">
                               <div class="card-title">
                                 <h5>
                                   <strong class="text-uppercase">
                                     <a target="_blank"
                                        href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
-                                      <span class="text-danger">{{order.ordercode}}</span>
+                                      <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong>/
                                   <span
@@ -189,33 +189,52 @@
                                   class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
                               </div>
 
-                              <div class="mt-1 created_at">
-                                <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
-                              </div>
-                              <div class="mt-1 created_at_timeAgo">
-                                <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
-                              </div>
-                              <div class="portal OrderType">
-                                <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
+                              <hr style="margin: 5px;">
+
+                              <div class="mt-1">
+                                <ul>
+                                  <li class="created_at">
+                                    <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
+                                  </li>
+                                  <li class="created_at_timeAgo">
+                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
+                                  </li>
+                                  <li class="portal OrderType">
+                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
+                                  </li>
+                                </ul>
                               </div>
 
-                              <div class="mt-1 purchase_order_id">
-                                <span class="sty-font purchase_order_id">{{order.portal}} Order code: </span>
-                                {{order.purchase_order_id}}
-                              </div>
-                              <div class="mt-1 purchase_transaction">
-                                <span class="sty-font purchase_transaction_id">{{order.portal}} Transaction: </span>
-                                {{order.purchase_transaction_id}}
-                              </div>
+                              <hr style="margin: 5px;">
+
                               <div class="mt-1">
-                                <span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
-                                {{order.saleSupport.username}}
-                                <i class="fa fa-filter"> </i>
+                                <ul>
+                                  <li class="purchase_order_id">
+                                    <span class="sty-font purchase_order_id">{{order.portal}} Order code: </span>
+                                    {{order.purchase_order_id}}
+                                  </li>
+                                  <li class="purchase_transaction">
+                                    <span class="sty-font purchase_transaction_id">{{order.portal}} Transaction: </span>
+                                    {{order.purchase_transaction_id}}
+                                  </li>
+                                </ul>
                               </div>
+
+                              <hr style="margin: 5px;">
+
                               <div class="mt-1">
-                                <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
-                                {{order.saleSupport.email}}
+                                <ul>
+                                  <li><span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
+                                    {{order.saleSupport ? order.saleSupport.username : ""}}
+                                    <i class="fa fa-filter"> </i>
+                                  </li>
+                                  <li > <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+                                    {{order.saleSupport ? order.saleSupport.email : ""}}
+                                  </li>
+                                </ul>
                               </div>
+
+                              <hr style="margin: 5px;">
 
                               <div class=" mt-1  infor_seller">
                                 <ul>
@@ -223,10 +242,11 @@
                                   <li class="sty-font"><i class="fa fa-user mr-1"></i> Seller Name : {{order.seller_name}}</li>
                                 </ul>
                               </div>
+
                               <br>
                             </div>
 
-                            <div class="col-md-4 border-col CUSTOMER_INFO">
+                            <div class="col-md-3 border-col CUSTOMER_INFO">
                               <h5>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
@@ -236,15 +256,16 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0">BUYER</h5>
-                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter"> </i></span><br>
+                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></span>
                                 </div>
                               </div>
+                              <hr style="margin: 5px;">
                               <div class="row mt-3">
                                 <div class="col-md-12">
                                   <app-customer-information
-                                    [labelText]="'BUYER'"
+                                    [labelText]="'RECEIVER'"
                                     [disable]="false"
-                                    [componentUnique]="'BUYER'"
+                                    [componentUnique]="'RECEIVER'"
                                     [customerIdentity]="order.id"
                                     [customerName]="order.receiver_name"
                                     [customerPhone]="order.receiver_phone"
@@ -261,17 +282,18 @@
                                 </div>
                               </div>
                               <div class="row mt-3">
-                                <div class="col-md-12">
-                                  Customer note :<strong class="text-danger">{{order.note_by_customer}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Customer notes Order !">
+                                  <i class="fa fa-comments"></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
                               </div>
-                              <div class="row mt-2">
-                                <div role="group" style="margin: auto" aria-label="Basic example">
-                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"
-                                          class="btn btn-secondary btn-sm">
+
+                              <hr>
+
+                              <div class="row col-md-12">
+                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"  class="btn mt-2 btn-secondary btn-sm">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
-                                  </button><br>
+                                  </button>
                                   <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
@@ -279,29 +301,40 @@
                                           class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Quit tracking Order
                                   </button>
-                                </div>
                               </div>
+                              <p></p>
+
+                              <div class="row col-md-12">
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+                              </div>
+
+
                             </div>
+
+
                             <div class="col-md-4 hover-row style-col border-col">
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5>FINANCE</h5>
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col-md-4"><strong>Quantity:</strong></div>
-                                <div class="col-md-4 text-right style-padding-left" *ngIf="order.products">
+
+                              <div class="row Quantity">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Quantity</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
                                   <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                 </div>
-                                <div class="col-md-4 style-padding-left"> (Exchage rate free:
-                                  {{order.exchange_rate_fee}})
-                                </div>
                               </div>
+
                               <div class="row total_fee_amount_local">
-                                <div class="col-md-4 style-padding-right  dong">
+                                <div class="col-md-6 style-padding-right  dong">
                                   <span>Total origin tax fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left total_fee_amount_local dong">
+                                <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
                                     {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
                                   </span>
@@ -309,134 +342,184 @@
                               </div>
 
                               <div class="row total_origin_tax_fee_local">
-                                <div class="col-md-4 style-padding-right total_fee_amount_local dong">
+                                <div class="col-md-6 style-padding-right total_fee_amount_local dong">
                                   <span>Total origin tax fee local </span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left total_origin_tax_fee_local dong">
+                                <div class="col-md-6 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
 
-                              <div class="row exchange_rate_purchase">
-                                <div class="col-md-4 style-padding-right  dong">
-                                  <span>(Exchage rate Purchase:  </span>
-                                </div>
-                                <div class="col-md-4 text-right style-padding-left Exchage_local">
-                                    {{order.exchange_rate_purchase}})
-                                </div>
-                              </div>
-
                               <div class="row Total_origin_shiping_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total origin shiping fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_origin_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
-                                <div class="col-md-4 style-padding-left Ws-bold-font">Coupon: {{order.coupon?.code}} -
-                                  {{order.total_counpon_amount_local}}
-                                </div>
                               </div>
+
                               <div class="row Total_weshop_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total weshop fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_weshop_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
+
                               <div class="row Total_shiping_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total shiping fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_intl_shipping_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_custom_fee_amount">
-                                <div class="col-md-4 style-padding-right dong">
-                                  <span>Total custom fee amount</span>
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total custom fee </span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_custom_fee_amount_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_delivery_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total delivery fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_delivery_fee_local  | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_packing_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total packing fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_packing_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_insection_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total insection fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_inspection_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
                               <div class="row Total_insurance_fee">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total insurance fee</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_insurance_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
+
                               <div class="row Total_VAT_amount">
-                                <div class="col-md-4 style-padding-right dong">
+                                <div class="col-md-6 style-padding-right dong">
                                   <span>Total VAT amount</span>
                                 </div>
-                                <div class="col-md-4 text-right style-padding-left dong">
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_vat_amount_local | currency: 'VND'}}
+                                    {{order.total_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
+
+                              <hr>
+
+                              <div class="row Quantity">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate free:</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
+                                  <span> {{order.exchange_rate_fee}} </span>
+                                </div>
+                              </div>
+                              <div class="row exchange_rate_purchase">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate Purchase:  </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left Exchage_local">
+                                  {{order.exchange_rate_purchase}}
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row total_amount_local">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total money</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                                  <span>
+                                    {{order.total_amount_local | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row Coupon">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font">Coupon Code/Amount : </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left ">
+                                  <span>
+                                      {{order.coupon?.code ? order.coupon?.code : 'Null'}} / {{order.total_counpon_amount_local}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div class="row total_final_amount_local -discount">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total value of orders (-discount)</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                                  <span>
+                                    {{order.total_final_amount_local | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr>
                               <div class="row Paid">
-                                <div class="col-md-4 text-success Ws-bold-font">Paid</div>
-                                <div class="col-md-4 text-right text-success">
+                                <div class="col-md-6 text-success Ws-bold-font ">Paid</div>
+                                <div class="col-md-6 text-right text-success">
                                   {{order.total_paid_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
-                                <div class="col-md-4 text-info cod">Collect</div>
-                                <div class="col-md-4 text-right text-info style-padding-left"> </div>
+                                <div id="số tiền còn thiếu" class="col-md-6 text-info cod">Collect</div>
+                                <div class="col-md-6 text-right text-info style-padding-left"> 0 đ </div>
                               </div>
-                              <div class="row Refund">
-                                <div class="col-md-4">Refund</div>
-                                <div class="col-md-4 text-right style-padding-left">
+                              <div class="row Refund" *ngIf="order.total_refund_amount_local">
+                                <div id="Số tiền thừa" class="col-md-6">Refund</div>
+                                <div class="col-md-6 text-right style-padding-left">
                                   {{order.total_refund_amount_local | currency: 'VND'}}
                                 </div>
                               </div>
+
+                              <hr>
+
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
                                   <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
@@ -444,19 +527,13 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                      Chat Group WS
                                   </button>
-                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);updateOrder.show(); checkOpen = !checkOpen">
-                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i>
-                                    Update Order Purchase
+                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order.id);updateOrder.show();">
+                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="openUpdateOrder(order.products.id, order.products);purchaseCard.show(); checkOpenPurchaseCard = !checkOpenPurchaseCard">
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.id);purchaseCard.show();">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)
-                                  </button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
-                                  <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+
                                 </div>
                               </div>
                             </div>
@@ -547,10 +624,10 @@
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.new = !order.new">Package</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Giao dịch</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
                             </div>
                           </div>
-                          <app-order-detail *ngIf="!order.id" [products]="order.products"></app-order-detail>
+                          <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
                           <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
                           <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
@@ -579,7 +656,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
         </button>
       </div>
-      <app-update-order *ngIf="checkOpen" [product]="productQ" [updateProductId] = "updateProductId"></app-update-order>
+      <app-update-order [updateProductId] = "updateProductId"></app-update-order>
     </div>
   </div>
 </div>
@@ -632,9 +709,9 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card *ngIf="checkOpenPurchaseCard" [products]="productQ" [updateProductId] = "updateProductId"></app-purchase-card>
+      <app-purchase-card [updateProductId] = "updateProductId"></app-purchase-card>
       <div class="modal-footer">
-        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Hủy Bỏ</button>
+        <button class="btn btn-sm btn-danger" (click)="purchaseCard.hide()">Cancel</button>
       </div>
     </div>
   </div>
@@ -697,7 +774,7 @@
                             </div>
                             <div [innerHTML]="logItem.Note"></div>
                           </td>
-                          <td>{{logItem.username}}</td>
+                          <td>{{logItem ? logItem.username : ""}}</td>
                           <td>{{logItem.LevelSupport}}</td>
                         </tr>
                         </tbody>

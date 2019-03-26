@@ -18,20 +18,29 @@ export class OrderService extends OperationService {
         super(http, encryption, popup);
 
     }
-     getPut(url, item: any | undefined) {
+
+    getPut(url, item: any | undefined) {
         return this.put(`order/${url}`, item);
-     }
-    search(filter: any | undefined) {
-      return this.get('order', filter);
     }
+
+    search(filter: any | undefined) {
+        return this.get('order', filter);
+    }
+
     putChat(url, item: any | undefined) {
-      return this.put(`chat-service/${url}`, item);
+        return this.put(`chat-service/${url}`, item);
     }
 
     putProduct(url, item: any | undefined) {
-      return this.put(`product/${url}`, item);
+        return this.put(`product/${url}`, item);
     }
+
     patchChat(url, item: any | undefined) {
-      return this.patch(`chat-service/${url}`, item);
+        return this.patch(`chat-service/${url}`, item);
+    }
+
+    putPurchase(url, item: any | undefined) {
+        console.log(url);
+        return this.put('purchase/' + url, item);
     }
 }

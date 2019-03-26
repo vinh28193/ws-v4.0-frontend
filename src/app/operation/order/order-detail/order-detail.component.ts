@@ -14,6 +14,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   updateProductId: any;
   productQ: any;
   @Input() products: any;
+  @Input() productsFee: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
