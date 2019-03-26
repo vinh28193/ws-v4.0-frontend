@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {EncryptionService} from './encryption.service';
 import {environment} from '../../../environments/environment.prod';
+import {isArray, isString} from 'util';
 
 @Injectable({
     providedIn: 'root'
@@ -163,7 +164,11 @@ export class GlobalService {
      * @return {boolean}
      */
     isValidValue(value): boolean {
-        return typeof value !== 'undefined' && value !== null && value !== '';
+        return !(typeof value === 'undefined' ||
+            value === null ||
+            (isString(value) && value === '') ||
+            (isArray(value) && value.length === 0)
+        );
     }
 
     /**

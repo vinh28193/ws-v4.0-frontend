@@ -9,9 +9,9 @@
       </h5>
     </div>
     <div class="address">
-      <span>{{customerName}} - {{customerPhone}} - {{customerEmail}}</span>
+      <span>{{name}} - {{phone}} - {{email}}</span>
       <br>
-      <span>{{customerAddress}} ( {{customerDistrictName }} - {{customerProvinceName}}) - {{customerPostcode}}</span>
+      <span>{{address}} ( {{districtName }} - {{provinceName}}) - {{countryName}}</span>
     </div>
     <div class="modal fade" bsModal #update="bs-modal" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -24,70 +24,70 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerName')" class="form-control-label">Name</label>
-                  <input type="text" [(ngModel)]="customerName"
-                         class="form-control form-control-sm" [id]="getInputUnique('customerName')"
-                         [name]="getInputUnique('customerName')">
+                  <label [for]="getInputUnique('name')" class="form-control-label">Name</label>
+                  <input type="text" [(ngModel)]="name"
+                         class="form-control form-control-sm" [id]="getInputUnique('name')"
+                         [name]="getInputUnique('name')">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerPhone')" class="form-control-label">Phone</label>
-                  <input type="text" [(ngModel)]="customerPhone"
+                  <label [for]="getInputUnique('phone')" class="form-control-label">Phone</label>
+                  <input type="text" [(ngModel)]="phone"
                          class="form-control form-control-sm"
-                         [id]="getInputUnique('customerPhone')" [name]="getInputUnique('customerPhone')">
+                         [id]="getInputUnique('phone')" [name]="getInputUnique('phone')">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerEmail')" class="form-control-label">Email</label>
-                  <input type="text" [(ngModel)]="customerEmail"
+                  <label [for]="getInputUnique('email')" class="form-control-label">Email</label>
+                  <input type="text" [(ngModel)]="email"
                          class="form-control form-control-sm"
-                         [id]="getInputUnique('customerEmail')" [name]="getInputUnique('customerEmail')">
+                         [id]="getInputUnique('email')" [name]="getInputUnique('email')">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerAddress')" class="form-control-label">Address</label>
-                  <input type="text" [(ngModel)]="customerAddress"
-                         class="form-control form-control-sm" [id]="getInputUnique('customerAddress')"
-                         [name]="getInputUnique('customerAddress')">
+                  <label [for]="getInputUnique('address')" class="form-control-label">Address</label>
+                  <input type="text" [(ngModel)]="address"
+                         class="form-control form-control-sm" [id]="getInputUnique('address')"
+                         [name]="getInputUnique('address')">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerPostcode')" class="form-control-label">PostCode</label>
-                  <input type="text" [(ngModel)]="customerPostcode" (keyup)="suggestionAddress($event)"
-                         class="form-control form-control-sm" [id]="getInputUnique('customerPostcode')"
-                         [name]="getInputUnique('customerPostcode')">
+                  <label [for]="getInputUnique('postCode')" class="form-control-label">PostCode</label>
+                  <input type="text" [(ngModel)]="postCode" (keyup)="suggestionAddress($event)"
+                         class="form-control form-control-sm" [id]="getInputUnique('postCode')"
+                         [name]="getInputUnique('postCode')">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerCountry')" class="form-control-label">Country</label>
-                  <select [(ngModel)]="customerCountry"  class="form-control form-control-sm" [name]="getInputUnique('customerCountry')" [id]="getInputUnique('customerCountry')" (change)="onCountry($event)">
+                  <label [for]="getInputUnique('country')" class="form-control-label">Country</label>
+                  <select [(ngModel)]="country"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)">
                     <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerProvince')" class="form-control-label">Province</label>
-                  <select [(ngModel)]="customerProvince"  class="form-control form-control-sm" [name]="getInputUnique('customerProvince')" [id]="getInputUnique('customerProvince')" (change)="onProvince($event)">
+                  <label [for]="getInputUnique('province')" class="form-control-label">Province</label>
+                  <select [(ngModel)]="province"  class="form-control form-control-sm" [name]="getInputUnique('province')" [id]="getInputUnique('province')" (change)="onProvince($event)">
                     <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group form-group-sm">
-                  <label [for]="getInputUnique('customerDistrict')" class="form-control-label">District</label>
-                  <select [(ngModel)]="customerDistrict"  class="form-control form-control-sm" [name]="getInputUnique('customerDistrict')" [id]="getInputUnique('customerDistrict')" (change)="onDistrict($event)">
+                  <label [for]="getInputUnique('district')" class="form-control-label">District</label>
+                  <select [(ngModel)]="district"  class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)">
                     <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
                   </select>
                 </div>

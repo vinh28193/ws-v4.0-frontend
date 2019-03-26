@@ -51,7 +51,7 @@ import {CustomerInformationComponent} from '../customer-information/customer-inf
         UpdateProductComponent,
         WalletTransactionsComponent,
         PurchaseCardComponent,
-        CustomerInformationComponent
+        CustomerInformationComponent,
     ],
     providers: [
       OrderService,

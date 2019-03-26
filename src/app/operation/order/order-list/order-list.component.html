@@ -1,972 +1,838 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">
-                    <h3>LIST ALL ITEMS OF ORDER - RAW</h3>
-                </div>
-                <form [formGroup]="searchForm" class="row search-form">
-                    <div class="col-md-2 col-sm-12  form-group m-b-10">
-                        <label for="store" class="form-control-label">Store</label>
-                        <select class="form-control form-control-sm" name="store" id="store"
-                                formControlName="store">
-                            <option [value]="allKey">All Weshop</option>
-                            <option [value]="1">Weshop VN</option>
-                            <option [value]="7">Weshop ID</option>
-                            <option [value]="6">Weshop MY</option>
-                            <option [value]="9">Weshop PH</option>
-                            <option [value]="10">Weshop TH</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-sm-12 form-group m-b-10">
-                        <label for="keyWordGroup" class="form-control-label">Keyword...</label>
-                        <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
-                                    id="searchKeyword" formControlName="searchKeyword">
-                                <option value="ALL">ALL Keyword</option>
-                                <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
-                            </select>
-                            <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
-                                   type="text" (keyup.enter)="listOrders()">
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12 form-group m-b-10">
-                        <label for="dateTimePicker" class="form-control-label">Time Search</label>
-                        <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
-                                    id="timeKey"
-                                    formControlName="timeKey">
-                                <option [value]="allKey">Time Key</option>
-                                <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
-                            </select>
-                            <input #drp="bsDaterangepicker"
-                                   bsDaterangepicker
-                                   [maxDate]="maxDateTime"
-                                   [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
-                                   (bsValueChange)="bsRangeValue"
-                                   formControlName="bsRangeValue"
-                                   class="col-sm-7 form-control form-control-sm ">
-                            <span class="input-group-btn">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <h3>LIST ALL ITEMS OF ORDER - RAW</h3>
+        </div>
+        <form [formGroup]="searchForm" class="row search-form">
+          <div class="col-md-2 col-sm-12  form-group m-b-10">
+            <label for="store" class="form-control-label">Store</label>
+            <select class="form-control form-control-sm" name="store" id="store"
+                    formControlName="store">
+              <option [value]="allKey">All Weshop</option>
+              <option [value]="1">Weshop VN</option>
+              <option [value]="7">Weshop ID</option>
+              <option [value]="6">Weshop MY</option>
+              <option [value]="9">Weshop PH</option>
+              <option [value]="10">Weshop TH</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-12 form-group m-b-10">
+            <label for="keyWordGroup" class="form-control-label">Keyword...</label>
+            <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
+                      id="searchKeyword" formControlName="searchKeyword">
+                <option value="ALL">ALL Keyword</option>
+                <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
+              </select>
+              <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
+                     type="text" (keyup.enter)="listOrders()">
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12 form-group m-b-10">
+            <label for="dateTimePicker" class="form-control-label">Time Search</label>
+            <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
+                      formControlName="timeKey">
+                <option [value]="allKey">Time Key</option>
+                <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
+              </select>
+              <input #drp="bsDaterangepicker"
+                     bsDaterangepicker
+                     [maxDate]="maxDateTime"
+                     [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+                     (bsValueChange)="bsRangeValue"
+                     formControlName="bsRangeValue"
+                     class="col-sm-7 form-control form-control-sm ">
+              <span class="input-group-btn">
                                         <button (click)="drp.toggle()"
                                                 [attr.aria-expanded]="drp.isOpen"
                                                 class="btn btn-sm btn-info" type="button"><i
-                                                class="fa fa-calendar"></i>
+                                          class="fa fa-calendar"></i>
                                         </button>
                                     </span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label for="type" class="form-control-label">Order Type</label>
-                        <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
-                            <option [value]="allKey">--All Type--</option>
-                            <option value="SHOP">Shop</option>
-                            <option value="REQUEST">Request</option>
-                            <option value="POS">Pos</option>
-                            <option value="SHIP">Ship</option>
-                            <option value="NEXTTECH">Nexttech</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label class="form-control-label">Order Status</label>
-                        <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
-                                formControlName="orderStatus">
-                            <option [value]="allKey">--All Type--</option>
-                            <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label class="form-control-label">Product Type</label>
-                        <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
-                            <option [value]="allKey">--All Atatus--</option>
-                            <option value="AMAZON_US">AMAZON US</option>
-                            <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label for="paymentStatus" class="form-control-label">Payment Status</label>
-                        <select class="form-control form-control-sm" name="store" id="paymentStatus"
-                                formControlName="paymentStatus">
-                            <option [value]="allKey">--All Status--</option>
-                            <option value="STOCK_IN_US">STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label class="form-control-label">Location</label>
-                        <select class="form-control form-control-sm" name="status" id="location"
-                                formControlName="location">
-                            <option [value]="allKey">--All Location--</option>
-                            <option value="STOCK_IN_US">STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label class="form-control-label">Sale</label>
-                        <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
-                            <option [value]="allKey">--All Location--</option>
-                            <option value="STOCK_IN_US">STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-6 form-group m-b-10">
-                        <label class="form-control-label">Seller</label>
-                        <select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">
-                            <option [value]="allKey">--All Location--</option>
-                            <option value="STOCK_IN_US">STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-12 mt-1">
-                        <div class="button-group">
-                            <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search">
-                                Search</i></button>
-                            <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i
-                                    class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
-                            <button class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export
-                                Excel
-                            </button>
-                            <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                            <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
-                            <!--</button>-->
-                            <!--<div class="dropdown-menu p-0" style="font-size: 11px">-->
-                            <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                    <div class="col-md-6 pt-3">
-                        Showing
-                        <select class="form-control-sm select-custom"
-                                (change)="handlePerPage($event)">
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="all">All</option>
-                        </select>
-                        of page {{perPage}} in {{pageCount}} page in total {{totalCount}} items
-                    </div>
-                    <div class="col-md-6">
-                        <pagination [boundaryLinks]="true"
-                                    [totalItems]="totalCount"
-                                    (pageChanged)="handlePagination($event)"
-                                    [itemsPerPage]="perPage" class="pagination-sm pull-right"
-                                    [rotate]="true">
-                        </pagination>
-                    </div>
-                </form>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="type" class="form-control-label">Order Type</label>
+            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
+              <option [value]="allKey">--All Type--</option>
+              <option value="SHOP">Shop</option>
+              <option value="REQUEST">Request</option>
+              <option value="POS">Pos</option>
+              <option value="SHIP">Ship</option>
+              <option value="NEXTTECH">Nexttech</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Order Status</label>
+            <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
+                    formControlName="orderStatus">
+              <option [value]="allKey">--All Type--</option>
+              <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Product Type</label>
+            <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
+              <option [value]="allKey">--All Atatus--</option>
+              <option value="AMAZON_US">AMAZON US</option>
+              <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="paymentStatus" class="form-control-label">Payment Status</label>
+            <select class="form-control form-control-sm" name="store" id="paymentStatus"
+                    formControlName="paymentStatus">
+              <option [value]="allKey">--All Status--</option>
+              <option value="STOCK_IN_US">STOCK_IN_US</option>
+              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Location</label>
+            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
+              <option [value]="allKey">--All Location--</option>
+              <option value="STOCK_IN_US">STOCK_IN_US</option>
+              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Sale</label>
+            <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
+              <option [value]="allKey">--All Location--</option>
+              <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale.username}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Seller</label>
+            <select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">
+              <option [value]="allKey">--All Location--</option>
+              <option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-12 mt-1">
+            <div class="button-group">
+                <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"> Search</i></button>
+                <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()"><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
+                <button class="btn btn-info btn-sm text-white ml-1"><i class="fa fa-file-excel-o"></i> Export Excel</button>
+              <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
+              <!--</button>-->
+              <!--<div class="dropdown-menu p-0" style="font-size: 11px">-->
+                <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
+              <!--</div>-->
+            </div>
+          </div>
+          <div class="col-md-6 pt-3">
+            Showing
+            <select class="form-control-sm select-custom"
+                    (change)="handlePerPage($event)">
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="all">All</option>
+            </select>
+            of page {{perPage}} in {{pageCount}} page in total {{totalCount}} items
+          </div>
+          <div class="col-md-6">
+            <pagination [boundaryLinks]="true"
+                        [totalItems]="totalCount"
+                        (pageChanged)="handlePagination($event)"
+                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                        [rotate]="true">
+            </pagination>
+          </div>
+        </form>
 
-                <section class="row item-operation mb-3">
+        <section class="row item-operation mb-3">
+          <div class="col-md-12">
+          </div>
+        </section>
+
+        <article class="row item-list">
+          <div class="col-md-12">
+            <div class="row pagination"></div>
+            <div class="row grid">
+              <div class="col-md-12 pl-0 pr-0">
+                <div class="grid-view grid-view-custom">
+                  <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
-                    </div>
-                </section>
+                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                        <div class="card style-card" *ngFor="let order of orders">
+                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
-                <article class="row item-list">
-                    <div class="col-md-12">
-                        <div class="row pagination"></div>
-                        <div class="row grid">
-                            <div class="col-md-12 pl-0 pr-0">
-                                <div class="grid-view grid-view-custom">
-                                    <div class="row" style="font-size: 0.7em">
-                                        <div class="col-md-12">
-                                            <div class="card-body"
-                                                 style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                                                <div class="card style-card" *ngFor="let order of orders">
-                                                    <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
-
-                                                        <div class="col-md-3 border-col">
-                                                            <div class="card-title">
-                                                                <h5>
-                                                                    <strong class="text-uppercase">
-                                                                        <a target="_blank"
-                                                                           href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
-                                                                            <span class="text-danger">BIN-{{order.ordercode}}</span>
-                                                                        </a>
-                                                                    </strong>/
-                                                                    <span
-                                                                            class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
+                            <div class="col-md-3 border-col">
+                              <div class="card-title">
+                                <h5>
+                                  <strong class="text-uppercase">
+                                    <a target="_blank"
+                                       href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
+                                      <span class="text-danger">BIN-{{order.ordercode}}</span>
+                                    </a>
+                                  </strong>/
+                                  <span
+                                    class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
                                     {{order.current_status}}
                                   </span>
-                                                                </h5>
-                                                            </div>
-                                                            <div class="clearfix"></div>
-                                                            <div class="mt-1">
-                                                                <span><i
-                                                                        [class]="order.store_id | iconFlag"></i> </span>
-                                                                <span class="m-l-5 mt-1">{{order.store_id | store}}</span>
-                                                                <span
-                                                                        class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
-                                                            </div>
+                                </h5>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="mt-1">
+                                <span><i [class]="order.store_id | iconFlag"></i> </span>
+                                <span class="m-l-5 mt-1">{{order.store_id | store}}</span>
+                                <span
+                                  class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
+                              </div>
 
-                                                            <hr style="margin: 5px;">
+                              <hr style="margin: 5px;">
 
-                                                            <div class="mt-1">
-                                                                <ul>
-                                                                    <li class="created_at">
-                                                                        <span><i
-                                                                                class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
-                                                                    </li>
-                                                                    <li class="created_at_timeAgo">
-                                                                        <span style="color: #C1C1C1"><i
-                                                                                class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
-                                                                    </li>
-                                                                    <li class="portal OrderType">
-                                                                        <div class="btn btn-sm btn-warning mr-2 mr_list OrderType">
-                                                                            <span class="badge badge-info">{{order.portal}}
-                                                                                / Version : {{order.version}} </span>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                              <div class="mt-1">
+                                <ul>
+                                  <li class="created_at">
+                                    <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
+                                  </li>
+                                  <li class="created_at_timeAgo">
+                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
+                                  </li>
+                                  <li class="portal OrderType">
+                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
+                                  </li>
+                                </ul>
+                              </div>
 
-                                                            <hr style="margin: 5px;">
+                              <hr style="margin: 5px;">
 
-                                                            <div class="mt-1">
-                                                                <ul>
-                                                                    <li class="purchase_order_id">
-                                                                        <span class="sty-font purchase_order_id">{{order.portal}}
-                                                                            Order code: </span>
-                                                                        {{order.purchase_order_id}}
-                                                                    </li>
-                                                                    <li class="purchase_transaction">
-                                                                        <span class="sty-font purchase_transaction_id">{{order.portal}}
-                                                                            Transaction: </span>
-                                                                        {{order.purchase_transaction_id}}
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                              <div class="mt-1">
+                                <ul>
+                                  <li class="purchase_order_id">
+                                    <span class="sty-font purchase_order_id">{{order.portal}} Order code: </span>
+                                    {{order.purchase_order_id}}
+                                  </li>
+                                  <li class="purchase_transaction">
+                                    <span class="sty-font purchase_transaction_id">{{order.portal}} Transaction: </span>
+                                    {{order.purchase_transaction_id}}
+                                  </li>
+                                </ul>
+                              </div>
 
-                                                            <hr style="margin: 5px;">
+                              <hr style="margin: 5px;">
 
-                                                            <div class="mt-1">
-                                                                <ul>
-                                                                    <li><span class="sty-font"><i
-                                                                            class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
-                                                                        {{order.saleSupport ? order.saleSupport.username : ""}}
-                                                                        <i class="fa fa-filter"> </i>
-                                                                    </li>
-                                                                    <li><span class="sty-font"><i
-                                                                            class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
-                                                                        {{order.saleSupport ? order.saleSupport.email : ""}}
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                              <div class="mt-1">
+                                <ul>
+                                  <li><span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
+                                    {{order.saleSupport ? order.saleSupport.username : ""}}
+                                    <i class="fa fa-filter"> </i>
+                                  </li>
+                                  <li > <span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+                                    {{order.saleSupport ? order.saleSupport.email : ""}}
+                                  </li>
+                                </ul>
+                              </div>
 
-                                                            <hr style="margin: 5px;">
+                              <hr style="margin: 5px;">
 
-                                                            <div class=" mt-1  infor_seller">
-                                                                <ul>
-                                                                    <li class="sty-font"><i class="fa fa-link mr-1"></i>
-                                                                        Seller Store : <a
-                                                                                href="{{order.seller_store}}">{{order.seller_store}}</a>
-                                                                    </li>
-                                                                    <li class="sty-font"><i class="fa fa-user mr-1"></i>
-                                                                        Seller Name : {{order.seller_name}}</li>
-                                                                </ul>
-                                                            </div>
+                              <div class=" mt-1  infor_seller">
+                                <ul>
+                                  <li class="sty-font"><i class="fa fa-link mr-1"></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
+                                  <li class="sty-font"><i class="fa fa-user mr-1"></i> Seller Name : {{order.seller_name}}</li>
+                                </ul>
+                              </div>
 
-                                                            <br>
-                                                        </div>
+                              <br>
+                            </div>
 
-                                                        <div class="col-md-3 border-col CUSTOMER_INFO">
-                                                            <h5>CUSTOMER INFO</h5>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <h5 class="text-bold mb-0">{{order.customer_type}}</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <h5 class="text-bold mb-0">BUYER</h5>
-                                                                    <span>{{order.customer?.first_name}}
-                                                                        - {{order.customer?.phone}}
-                                                                        - {{order.customer?.email}} <i
-                                                                                class="fa fa-filter"
-                                                                                data-toggle="tooltip"
-                                                                                data-placement="top"
-                                                                                title="Filter Email BUYER!"> </i></span>
-                                                                </div>
-                                                            </div>
-                                                            <hr style="margin: 5px;">
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-12">
-                                                                    <app-customer-information
-                                                                            [labelText]="'RECEIVER'"
-                                                                            [disable]="false"
-                                                                            [componentUnique]="'RECEIVER'"
-                                                                            [customerIdentity]="order.id"
-                                                                            [customerName]="order.receiver_name"
-                                                                            [customerPhone]="order.receiver_phone"
-                                                                            [customerEmail]="order.receiver_email"
-                                                                            [customerAddress]="order.receiver_address"
-                                                                            [customerDistrict]="order.receiver_district_id"
-                                                                            [customerDistrictName]="order.receiver_district_name"
-                                                                            [customerProvince]="order.receiver_province_id"
-                                                                            [customerProvinceName]="order.receiver_province_name"
-                                                                            [customerCountry]="order.receiver_country_id"
-                                                                            [customerCountryName]="order.receiver_country_name"
-                                                                            [customerPostcode]="order.receiver_post_code">
-                                                                    </app-customer-information>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-12" data-toggle="tooltip"
-                                                                     data-placement="top"
-                                                                     title="Customer notes Order !">
-                                                                    <i class="fa fa-comments"></i> Customer note :
-                                                                    <strong class="text-danger">{{order.note_by_customer}}</strong>
-                                                                </div>
-                                                            </div>
+                            <div class="col-md-3 border-col CUSTOMER_INFO">
+                              <h5>CUSTOMER INFO</h5>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h5 class="text-bold mb-0">{{order.customer_type}}</h5>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h5 class="text-bold mb-0">BUYER</h5>
+                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}} <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></span>
+                                </div>
+                              </div>
+                              <hr style="margin: 5px;">
+                              <div class="row mt-3">
+                                <div class="col-md-12">
+                                  <app-customer-information
+                                    [labelText]="'RECEIVER'"
+                                    [disable]="false"
+                                    [unique]="'RECEIVER'"
+                                    [identity]="order.id"
+                                    [name]="order.receiver_name"
+                                    [phone]="order.receiver_phone"
+                                    [email]="order.receiver_email"
+                                    [address]="order.receiver_address"
+                                    [district]="order.receiver_district_id"
+                                    [districtName]="order.receiver_district_name"
+                                    [province]="order.receiver_province_id"
+                                    [provinceName]="order.receiver_province_name"
+                                    [country]="order.receiver_country_id"
+                                    [countryName]="order.receiver_country_name"
+                                    [postCode]="order.receiver_post_code">
+                                  </app-customer-information>
+                                </div>
+                              </div>
+                              <div class="row mt-3">
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Customer notes Order !">
+                                  <i class="fa fa-comments"></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
+                                </div>
+                              </div>
 
-                                                            <hr>
+                              <hr>
 
-                                                            <div class="row col-md-12">
-                                                                <button type="button"
-                                                                        (click)="chat(order.id, order.ordercode); showChat.show()"
-                                                                        class="btn mt-2 btn-secondary btn-sm">
-                                                                    <i class="fa fa-comments mr-1"
-                                                                       aria-hidden="true"></i>
-                                                                    Chat With Customer
-                                                                </button>
-                                                                <button (click)="followOrder()" *ngIf="!checkF"
-                                                                        type="button"
-                                                                        class="btn btn-secondary mt-2 btn-sm">
-                                                                    <i class="fa fa-bell mr-1"></i> push notifi Track
-                                                                    Orders
-                                                                </button>
-                                                                <button (click)="followOrder()" *ngIf="checkF"
-                                                                        type="button"
-                                                                        class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
-                                                                    <i class="fa fa-bell-slash mr-1"
-                                                                       aria-hidden="true"></i>Quit tracking Order
-                                                                </button>
-                                                            </div>
-                                                            <p></p>
+                              <div class="row col-md-12">
+                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"  class="btn mt-2 btn-secondary btn-sm">
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                    Chat With Customer
+                                  </button>
+                                  <button (click)="followOrder()" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm">
+                                    <i class="fa fa-bell mr-1"></i> push notifi Track Orders
+                                  </button>
+                                  <button (click)="followOrder()" *ngIf="checkF" type="button"
+                                          class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
+                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>Quit tracking Order
+                                  </button>
+                              </div>
+                              <p></p>
 
-                                                            <div class="row col-md-12">
-                                                                <button class="btn btn-sm btn-info mb-2 mr-2"
-                                                                        (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">
-                                                                    View More Log (SOI)
-                                                                </button>
-                                                                <button class="btn btn-sm btn-info mb-2 mr-2"
-                                                                        (click)="confirmAll(order.products)">Confirm
-                                                                    Purchase All
-                                                                </button>
-                                                                <button class="btn btn-sm btn-info mb-2 mr-2"
-                                                                        (click)="markAsJunk(item.id)">Mark as Junk
-                                                                </button>
-                                                            </div>
+                              <div class="row col-md-12">
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+                              </div>
 
 
-                                                        </div>
+                            </div>
 
 
-                                                        <div class="col-md-4 hover-row style-col border-col">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <h5>FINANCE</h5>
-                                                                </div>
-                                                            </div>
+                            <div class="col-md-4 hover-row style-col border-col">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h5>FINANCE</h5>
+                                </div>
+                              </div>
 
-                                                            <div class="row Quantity">
-                                                                <div class="col-md-6 style-padding-right  dong">
-                                                                    <span>Quantity</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left"
-                                                                     *ngIf="order.products">
-                                                                    <span>{{quantityOrder(order.products, order.products['length'])}}</span>
-                                                                </div>
-                                                            </div>
+                              <div class="row Quantity">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Quantity</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
+                                  <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
+                                </div>
+                              </div>
 
-                                                            <div class="row total_fee_amount_local">
-                                                                <div class="col-md-6 style-padding-right  dong">
-                                                                    <span>Total origin tax fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
+                              <div class="row total_fee_amount_local">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Total origin tax fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
                                     {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row total_origin_tax_fee_local">
-                                                                <div class="col-md-6 style-padding-right total_fee_amount_local dong">
-                                                                    <span>Total origin tax fee local </span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left total_origin_tax_fee_local dong">
+                              <div class="row total_origin_tax_fee_local">
+                                <div class="col-md-6 style-padding-right total_fee_amount_local dong">
+                                  <span>Total origin tax fee local </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row Total_origin_shiping_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total origin shiping fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                              <div class="row Total_origin_shiping_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total origin shiping fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_origin_shipping_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row Total_weshop_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total weshop fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                              <div class="row Total_weshop_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total weshop fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_weshop_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row Total_shiping_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total shiping fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                              <div class="row Total_shiping_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total shiping fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_intl_shipping_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Total_custom_fee_amount">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total custom fee </span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                                </div>
+                              </div>
+                              <div class="row Total_custom_fee_amount">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total custom fee </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_custom_fee_amount_local  | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Total_delivery_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total delivery fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                                </div>
+                              </div>
+                              <div class="row Total_delivery_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total delivery fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_delivery_fee_local  | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Total_packing_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total packing fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                                </div>
+                              </div>
+                              <div class="row Total_packing_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total packing fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_packing_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Total_insection_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total insection fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                                </div>
+                              </div>
+                              <div class="row Total_insection_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total insection fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_inspection_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Total_insurance_fee">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total insurance fee</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                                </div>
+                              </div>
+                              <div class="row Total_insurance_fee">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total insurance fee</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_insurance_fee_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row Total_VAT_amount">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span>Total VAT amount</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left dong">
+                              <div class="row Total_VAT_amount">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total VAT amount</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_amount_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <hr>
+                              <hr>
 
-                                                            <div class="row Quantity">
-                                                                <div class="col-md-6 style-padding-right  dong">
-                                                                    <span>Exchage rate free:</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left"
-                                                                     *ngIf="order.products">
-                                                                    <span> {{order.exchange_rate_fee}} </span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row exchange_rate_purchase">
-                                                                <div class="col-md-6 style-padding-right  dong">
-                                                                    <span>Exchage rate Purchase:  </span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left Exchage_local">
-                                                                    {{order.exchange_rate_purchase}}
-                                                                </div>
-                                                            </div>
+                              <div class="row Quantity">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate free:</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
+                                  <span> {{order.exchange_rate_fee}} </span>
+                                </div>
+                              </div>
+                              <div class="row exchange_rate_purchase">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span>Exchage rate Purchase:  </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left Exchage_local">
+                                  {{order.exchange_rate_purchase}}
+                                </div>
+                              </div>
 
-                                                            <hr>
-                                                            <div class="row total_amount_local">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span class="Ws-bold-font">Total money</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                              <hr>
+                              <div class="row total_amount_local">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total money</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
                                   <span>
                                     {{order.total_amount_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <hr>
-                                                            <div class="row Coupon">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span class="Ws-bold-font">Coupon Code/Amount : </span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left ">
+                              <hr>
+                              <div class="row Coupon">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font">Coupon Code/Amount : </span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left ">
                                   <span>
-                                      {{order.coupon?.code ? order.coupon?.code : 'Null'}}
-                                      / {{order.total_counpon_amount_local}}
+                                      {{order.coupon?.code ? order.coupon?.code : 'Null'}} / {{order.total_counpon_amount_local}}
                                   </span>
-                                                                </div>
-                                                            </div>
+                                </div>
+                              </div>
 
-                                                            <div class="row total_final_amount_local -discount">
-                                                                <div class="col-md-6 style-padding-right dong">
-                                                                    <span class="Ws-bold-font">Total value of orders (-discount)</span>
-                                                                </div>
-                                                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
+                              <div class="row total_final_amount_local -discount">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span class="Ws-bold-font" >Total value of orders (-discount)</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_final_amount_local">
                                   <span>
                                     {{order.total_final_amount_local | currency: 'VND'}}
                                   </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <hr>
-                                                            <div class="row Paid">
-                                                                <div class="col-md-6 text-success Ws-bold-font ">Paid
-                                                                </div>
-                                                                <div class="col-md-6 text-right text-success">
-                                                                    {{order.total_paid_amount_local | currency: 'VND'}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Collect so-tien-thu-them Cod">
-                                                                <div id="số tiền còn thiếu"
-                                                                     class="col-md-6 text-info cod">Collect
-                                                                </div>
-                                                                <div class="col-md-6 text-right text-info style-padding-left">
-                                                                    0 đ
-                                                                </div>
-                                                            </div>
-                                                            <div class="row Refund"
-                                                                 *ngIf="order.total_refund_amount_local">
-                                                                <div id="Số tiền thừa" class="col-md-6">Refund</div>
-                                                                <div class="col-md-6 text-right style-padding-left">
-                                                                    {{order.total_refund_amount_local | currency: 'VND'}}
-                                                                </div>
-                                                            </div>
-
-                                                            <hr>
-
-                                                            <div>
-                                                                <div class="col-md-12 pl-0 mt-2 pb-2">
-                                                                    <button type="button"
-                                                                            (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
-                                                                            class="btn btn-secondary mr-2 mb-2 btn-sm">
-                                                                        <i class="fa fa-comments mr-1"
-                                                                           aria-hidden="true"></i>
-                                                                        Chat Group WS
-                                                                    </button>
-                                                                    <button type="button"
-                                                                            class="btn btn-secondary mr-2 mb-2 btn-sm"
-                                                                            (click)="openUpdateOrder(order.id);updateOrder.show();">
-                                                                        <i class="fa fa-edit mr-1 "
-                                                                           aria-hidden="true"></i> Update Order Purchase
-                                                                    </button>
-                                                                    <button type="button"
-                                                                            class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                                                            (click)="openUpdateOrder(order.id);purchaseCard.show();">
-                                                                        <i class="fa fa-shopping-cart"></i> Purchase
-                                                                        BuyNow
-                                                                    </button>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2 border-col">
-                                                            <div class="row STATUS">
-                                                                <div class="col-md-12">
-                                                                    <h5>STATUS</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div class="hover-row">
-                                                                <div class="row">
-                                                                    <div class="col-md-5 pr-0">New:</div>
-                                                                    <div class="col-md-7 text-right">{{order.new | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6 pr-0">Purchased:</div>
-                                                                    <div class="col-md-6 text-right">{{order.purchased | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6 pr-0">Seller shipped:</div>
-                                                                    <div class="col-md-6 text-right">{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6 pr-0">Stock in US:</div>
-                                                                    <div class="col-md-6 text-right">{{order.stockin_us | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6 pr-0">Stock out US:</div>
-                                                                    <div class="col-md-6 text-right">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-5  pr-0">Stock in local:</div>
-                                                                    <div class="col-md-7 text-right">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-5  pr-0">Stock out local:</div>
-                                                                    <div class="col-md-7 text-right">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-5  pr-0">At customer:</div>
-                                                                    <div class="col-md-7 text-right">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-5  pr-0">Returned:</div>
-                                                                    <div class="col-md-7 text-right">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6  pr-0">Cancelled:</div>
-                                                                    <div class="col-md-6 text-right">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-5  pr-0">Lost:</div>
-                                                                    <div class="col-md-7 text-right">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row m-t-10">
-                                                                <div class="col-md-12 p-0 text-center">
-                                                                    <div class="btn-group">
-                                                                        <button class="btn btn-sm btn-danger">
-                                                                            <i class="fa fa-trash" aria-hidden="true">
-                                                                                Cancel Order</i>
-                                                                        </button>
-                                                                        <div class="btn-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-warning btn-sm dropdown-toggle"
-                                                                                    data-toggle="dropdown"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false">
-                                                                                Option
-                                                                            </button>
-                                                                            <div class="dropdown-menu p-0"
-                                                                                 style="font-size: 11px">
-                                                                                <a class="dropdown-item p-1 sty-drop"
-                                                                                   id="Cập nhập khuyến mại"
-                                                                                   href="javascript:void(0);">Promotion
-                                                                                    updates</a>
-                                                                                <a class="dropdown-item p-1 sty-drop "
-                                                                                   id="Điều_chỉnh_tiền_thanh_toán"
-                                                                                   href="javascript:void(0);">Adjust
-                                                                                    payment</a>
-                                                                                <a class="dropdown-item p-1 sty-drop "
-                                                                                   id="Trả_lại_tiền_do_Khiếu_Nại"
-                                                                                   href="javascript:void(0);">Pay back
-                                                                                    the Complaint</a>
-                                                                                <a class="dropdown-item p-1 sty-drop"
-                                                                                   id="Người bán Refund"
-                                                                                   href="javascript:void(0);">Seller
-                                                                                    Refund</a>
-                                                                                <a class="dropdown-item p-1 sty-drop"
-                                                                                   id="Đánh dấu đơn  chờ Refund"
-                                                                                   href="javascript:void(0);">Mark the
-                                                                                    order waiting for Refund</a>
-                                                                                <a class="dropdown-item p-1 sty-drop"
-                                                                                   id="Seller phát thêm  kiện"
-                                                                                   href="javascript:void(0);">the seller
-                                                                                    added the package</a>
-                                                                                <a class="dropdown-item p-1 sty-drop"
-                                                                                   id="Đánh dấu chờ phản hồi"
-                                                                                   href="javascript:void(0);">Mark
-                                                                                    orders waiting for feedback</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row pb-1 pt-1">
-                                                        <div class="col-md-12">
-                                                            <button class="btn btn-sm bg-white mr-2 style-but"
-                                                                    (click)="order.id = !order.id">Product
-                                                            </button>
-                                                            <button class="btn btn-sm bg-white mr-2 style-but"
-                                                                    (click)="order.new = !order.new">Package
-                                                            </button>
-                                                            <button class="btn btn-sm bg-white mr-2 style-but">Purchase
-                                                                infor
-                                                            </button>
-                                                            <button class="btn btn-sm bg-white mr-2 style-but">Deliver
-                                                                Info
-                                                            </button>
-                                                            <button class="btn btn-sm bg-white mr-2 style-but"
-                                                                    (click)="order.walletTransactions.id = !order.walletTransactions.id">
-                                                                Payment Transaction
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <app-order-detail *ngIf="!order.id" [products]="order.products"
-                                                                      [productsFee]="order.orderFees"></app-order-detail>
-                                                    <app-package-item *ngIf="!order.new"
-                                                                      [packages]="order.packageItems"></app-package-item>
-                                                    <app-wallet-transactions *ngIf="order.walletTransactions.id"
-                                                                             [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
-                                                </div>
-                                            </div>
-                                            <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
-                                            <!--<h4 class="text-danger">Not Found</h4>-->
-                                            <!--</div>-->
-                                        </div>
-                                    </div>
                                 </div>
+                              </div>
+
+                              <hr>
+                              <div class="row Paid">
+                                <div class="col-md-6 text-success Ws-bold-font ">Paid</div>
+                                <div class="col-md-6 text-right text-success">
+                                  {{order.total_paid_amount_local | currency: 'VND'}}
+                                </div>
+                              </div>
+                              <div class="row Collect so-tien-thu-them Cod">
+                                <div id="số tiền còn thiếu" class="col-md-6 text-info cod">Collect</div>
+                                <div class="col-md-6 text-right text-info style-padding-left"> 0 đ </div>
+                              </div>
+                              <div class="row Refund" *ngIf="order.total_refund_amount_local">
+                                <div id="Số tiền thừa" class="col-md-6">Refund</div>
+                                <div class="col-md-6 text-right style-padding-left">
+                                  {{order.total_refund_amount_local | currency: 'VND'}}
+                                </div>
+                              </div>
+
+                              <hr>
+
+                              <div>
+                                <div class="col-md-12 pl-0 mt-2 pb-2">
+                                  <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
+                                          class="btn btn-secondary mr-2 mb-2 btn-sm">
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                     Chat Group WS
+                                  </button>
+                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order.id);updateOrder.show();">
+                                    <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
+                                  </button>
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.id);purchaseCard.show();">
+                                    <i class="fa fa-shopping-cart"></i> Purchase BuyNow
+                                  </button>
+
+                                </div>
+                              </div>
                             </div>
+                            <div class="col-md-2 border-col">
+                              <div class="row STATUS">
+                                <div class="col-md-12">
+                                  <h5>STATUS</h5>
+                                </div>
+                              </div>
+                              <div class="hover-row">
+                                <div class="row">
+                                  <div class="col-md-5 pr-0">New:</div>
+                                  <div class="col-md-7 text-right">{{order.new | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0">Purchased:</div>
+                                  <div class="col-md-6 text-right">{{order.purchased | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0">Seller shipped:</div>
+                                  <div class="col-md-6 text-right">{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0">Stock in US:</div>
+                                  <div class="col-md-6 text-right">{{order.stockin_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0">Stock out US:</div>
+                                  <div class="col-md-6 text-right">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0">Stock in local:</div>
+                                  <div class="col-md-7 text-right">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0">Stock out local:</div>
+                                  <div class="col-md-7 text-right">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0">At customer:</div>
+                                  <div class="col-md-7 text-right">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0">Returned:</div>
+                                  <div class="col-md-7 text-right">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6  pr-0">Cancelled:</div>
+                                  <div class="col-md-6 text-right">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0">Lost:</div>
+                                  <div class="col-md-7 text-right">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                              </div>
+                              <div class="row m-t-10">
+                                <div class="col-md-12 p-0 text-center">
+                                  <div class="btn-group">
+                                    <button class="btn btn-sm btn-danger">
+                                      <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
+                                    </button>
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         Option
+                                      </button>
+                                      <div class="dropdown-menu p-0" style="font-size: 11px">
+                                        <a class="dropdown-item p-1 sty-drop"  id="Cập nhập khuyến mại" href="javascript:void(0);">Promotion updates</a>
+                                        <a class="dropdown-item p-1 sty-drop " id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);">Adjust payment</a>
+                                        <a class="dropdown-item p-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);">Pay back the Complaint</a>
+                                        <a class="dropdown-item p-1 sty-drop" id="Người bán Refund" href="javascript:void(0);">Seller Refund</a>
+                                        <a class="dropdown-item p-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);">Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item p-1 sty-drop" id="Seller phát thêm  kiện" href="javascript:void(0);">the seller added the package</a>
+                                        <a class="dropdown-item p-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);">Mark orders waiting for feedback</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row pb-1 pt-1">
+                            <div class="col-md-12">
+                              <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.new = !order.new">Package</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
+                            </div>
+                          </div>
+                          <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
+                          <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
+                          <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
+                      </div>
+                      <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
+                      <!--<h4 class="text-danger">Not Found</h4>-->
+                      <!--</div>-->
                     </div>
-                </article>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        </article>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">Update Order {{updateOrderId}} - 1 item</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                        (click)="updateOrder.hide()">×
-                </button>
-            </div>
-            <!--<app-update-order *ngIf="updateProductId" [updateProductId] = "updateProductId"></app-update-order>-->
-        </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Update Order {{updateOrderId}} -  1 item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
+        </button>
+      </div>
+      <app-update-order *ngIf="updateProductId" [updateProductId] = "updateProductId"></app-update-order>
     </div>
+  </div>
 </div>
-<div bsModal #showChat="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="false">
-    <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
-        <div class="modal-content">
-            <div class="row">
+
+<div bsModal #showChat="bs-modal" id="modal-chat" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true" data-keyboard="false">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-lg-12 p-0">
+          <div class="card m-b-0">
+            <div class="card-body">
+              <div class="row">
                 <div class="col-lg-12 p-0">
-                    <div class="card m-b-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-12 p-0">
-                                    <div class="modal-body p-0">
-                                        <div class="ng-star-inserted" *ngIf="checkLoad">
-                                            <app-chat [id]="orderIdChat" [code]="code"></app-chat>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                  <div class="modal-body p-0">
+                    <div class="ng-star-inserted">
+                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat" [code]="code"></app-chat>
                     </div>
+                  </div>
                 </div>
+                <div class="col-md-12 text-right mt-2">
+                  <button class="btn btn-danger btn-sm" (click)="offModeChat(); showChat.hide()">Hủy Bỏ</button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div bsModal #showChatGroup="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="false">
-    <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
-        <div class="modal-content">
-            <div class="row">
-                <div class="col-lg-12 p-0">
-                    <div class="card m-b-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 p-0">
-                                    <app-chat-group [id]="orderIdChat" [code]="code"
-                                                    *ngIf="checkLoadG"></app-chat-group>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+     aria-labelledby="showChatGroup"  aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-lg-12 p-0">
+          <div class="card m-b-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 p-0">
+                  <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [code]="codeG"></app-chat-group>
                 </div>
+                <div class="col-md-12 mt-2 text-right">
+                  <button class="btn btn-danger btn-sm" (click)="offModeChat(); showChatGroup.hide()">Hủy Bỏ</button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="max-width: 95%;">
-        <div class="modal-content">
-            <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateProductId"></app-purchase-card>
-        </div>
+  <div class="modal-dialog modal-xl" style="max-width: 95%;">
+    <div class="modal-content">
+      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateProductId"></app-purchase-card>
     </div>
+  </div>
 </div>
 
 <div bsModal #ModalviewMoreLog="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog width-max" style="max-width: 95%;">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="card-body">
+  <div class="modal-dialog width-max" style="max-width: 95%;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+
+              <div class="modal-header">
+
+                <h2 class="modal-title">View More Log - <strong class="text-uppercase text-danger">
+                  SOI-{{moreLog.id}}
+                </strong>
+                </h2>
+                <button class="btn btn-skype" (click)="getLogs()">Refresh</button>
+              </div>
+              <div>
+                <div class="modal-body">
+
+                  <div class="container-fluid ng-star-inserted">
+                    <div class="row btn-group">
+                      <button class="btn btn-{{typeViewLogs == 'support_logs' ? 'warning' : 'default'}}" (click)="typeViewLogs = 'support_logs'">Support</button>
+                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="typeViewLogs = 'action_logs'">Action</button>
+                      <button class="btn btn-{{typeViewLogs == 'operation_logs' ? 'primary' : 'default'}}" (click)="typeViewLogs = 'operation_logs'">Operation</button>
+                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="typeViewLogs = 'payment_logs'">Payment</button>
+                      <button class="btn btn-{{typeViewLogs == 'warehouse' ? 'dark' : 'default'}}" (click)="typeViewLogs = 'warehouse'">Warehouse</button>
+                      <button class="btn btn-{{typeViewLogs == 'all' ? 'info' : 'default'}}" (click)="typeViewLogs = 'all'">View All</button>
+                    </div>
+                    <hr>
                     <div class="row">
-                        <div class="col-lg-12">
+                      <table
+                        *ngIf="moreLog.data && moreLog.data[typeViewLogs] && moreLog.data[typeViewLogs].length > 0"
+                        class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
 
-                            <div class="modal-header">
+                        <thead>
+                        <tr>
+                          <th width="15%">Create time</th>
+                          <th width="50%">Content</th>
+                          <th width="15%">Employee</th>
+                          <th width="20%">Level</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let logItem of moreLog.data[typeViewLogs];let ind = index;">
+                          <td>{{logItem.created_at}}</td>
+                          <td>
+                            <div *ngIf="checkAdminAccess()" id="detail_log">
+                              <i style="cursor: pointer" class="fa fa-eye" data-placement="right" [popover]="logDetal" popoverTitle="View detail log"></i>
+                              <ng-template #logDetal>
+                                <div [innerHTML]="logItem.Content">
 
-                                <h2 class="modal-title">View More Log - <strong class="text-uppercase text-danger">
-                                    SOI-{{moreLog.id}}
-                                </strong>
-                                </h2>
-                                <button class="btn btn-skype" (click)="getLogs()">Refresh</button>
+                                </div>
+                              </ng-template>
                             </div>
-                            <div>
-                                <div class="modal-body">
-
-                                    <div class="container-fluid ng-star-inserted">
-                                        <div class="row btn-group">
-                                            <button class="btn btn-{{typeViewLogs == 'support_logs' ? 'warning' : 'default'}}"
-                                                    (click)="typeViewLogs = 'support_logs'">Support
-                                            </button>
-                                            <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}"
-                                                    (click)="typeViewLogs = 'action_logs'">Action
-                                            </button>
-                                            <button class="btn btn-{{typeViewLogs == 'operation_logs' ? 'primary' : 'default'}}"
-                                                    (click)="typeViewLogs = 'operation_logs'">Operation
-                                            </button>
-                                            <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}"
-                                                    (click)="typeViewLogs = 'payment_logs'">Payment
-                                            </button>
-                                            <button class="btn btn-{{typeViewLogs == 'warehouse' ? 'dark' : 'default'}}"
-                                                    (click)="typeViewLogs = 'warehouse'">Warehouse
-                                            </button>
-                                            <button class="btn btn-{{typeViewLogs == 'all' ? 'info' : 'default'}}"
-                                                    (click)="typeViewLogs = 'all'">View All
-                                            </button>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <table
-                                                    *ngIf="moreLog.data && moreLog.data[typeViewLogs] && moreLog.data[typeViewLogs].length > 0"
-                                                    class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
-
-                                                <thead>
-                                                <tr>
-                                                    <th width="15%">Create time</th>
-                                                    <th width="50%">Content</th>
-                                                    <th width="15%">Employee</th>
-                                                    <th width="20%">Level</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr *ngFor="let logItem of moreLog.data[typeViewLogs];let ind = index;">
-                                                    <td>{{logItem.created_at}}</td>
-                                                    <td>
-                                                        <div *ngIf="checkAdminAccess()" id="detail_log">
-                                                            <i style="cursor: pointer" class="fa fa-eye"
-                                                               data-placement="right" [popover]="logDetal"
-                                                               popoverTitle="View detail log"></i>
-                                                            <ng-template #logDetal>
-                                                                <div [innerHTML]="logItem.Content">
-
-                                                                </div>
-                                                            </ng-template>
-                                                        </div>
-                                                        <div [innerHTML]="logItem.Note"></div>
-                                                    </td>
-                                                    <td>{{logItem ? logItem.username : ""}}</td>
-                                                    <td>{{logItem.LevelSupport}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="col-md-12" *ngIf="typeViewLogs == 'support_logs'">
-                                                <strong>
+                            <div [innerHTML]="logItem.Note"></div>
+                          </td>
+                          <td>{{logItem ? logItem.username : ""}}</td>
+                          <td>{{logItem.LevelSupport}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <div class="col-md-12" *ngIf="typeViewLogs == 'support_logs'">
+                        <strong>
                           <span>
                             <i class="fa fa-pencil-square-o"></i>
                             Create Log</span> - <span><i class="fa fa-long-arrow-down"></i> Level Support</span>
-                                                    <select name="LevelSupport" [(ngModel)]="moreLog.level"
-                                                            class="ng-pristine ng-valid ng-touched">
-                                                        <option id="0" value="Support">---Note Order Log of BIN
-                                                            0ede4034837b ---
-                                                        </option>
-                                                        <option id="1" value="New SOI" class="ng-star-inserted"> Level 1
-                                                            - New SOI
-                                                            (SUPPORTING)
-                                                        </option>
-                                                        <option id="2" value="SOI Confirm" class="ng-star-inserted">
-                                                            Level 2 - SOI Confirm
-                                                            (SUPORTTED)
-                                                        </option>
-                                                        <option id="3" value="Payment Confirm" class="ng-star-inserted">
-                                                            Level 3 - Payment Confirm
-                                                            (SUPORTTED)
-                                                        </option>
-                                                        <option id="5"
-                                                                *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' "
-                                                                value="Change Supported">SUP ADMIN Change Supported (All
-                                                            SOI-SUPPOTED)
-                                                        </option>
-                                                        <option id="6"
-                                                                *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' "
-                                                                value="Change Supporting">SUP ADMINChange Supporting
-                                                            (All SOI-SUPORTING)
-                                                        </option>
+                          <select name="LevelSupport" [(ngModel)]="moreLog.level" class="ng-pristine ng-valid ng-touched">
+                            <option id="0" value="Support">---Note Order Log of BIN 0ede4034837b ---</option>
+                            <option id="1" value="New SOI" class="ng-star-inserted"> Level 1 - New SOI
+                              (SUPPORTING)
+                            </option>
+                            <option id="2" value="SOI Confirm" class="ng-star-inserted"> Level 2 - SOI Confirm
+                              (SUPORTTED)
+                            </option>
+                            <option id="3" value="Payment Confirm" class="ng-star-inserted">Level 3 - Payment Confirm
+                              (SUPORTTED)
+                            </option>
+                            <option id="5" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supported">SUP ADMIN Change Supported (All SOI-SUPPOTED) </option>
+                            <option id="6" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supporting">SUP ADMINChange Supporting (All SOI-SUPORTING) </option>
 
-                                                        <!--option id="7" *ngIf="checkPurchaseAccess() && order.status != ORDERITEM_STATUS_REPLACED  " value="Package Tracking">Level 5 - Package Tracking</option-->
-                                                        <!-- System Sales + Purchase report customer Order is transper -->
-                                                        <option id="8"
-                                                                *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED'  "
-                                                                value="CHANGES_FROM_CANCEL_TO_SUPORTED">SUP ADMIN Change
-                                                            Supporting (CANCEL-SUPORTED)
-                                                        </option>
-                                                    </select>
-                                                </strong>
-                                                <div class="form-group">
+                            <!--option id="7" *ngIf="checkPurchaseAccess() && order.status != ORDERITEM_STATUS_REPLACED  " value="Package Tracking">Level 5 - Package Tracking</option-->
+                            <!-- System Sales + Purchase report customer Order is transper -->
+                            <option id="8" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED'  " value="CHANGES_FROM_CANCEL_TO_SUPORTED">SUP ADMIN Change Supporting (CANCEL-SUPORTED) </option>
+                          </select>
+                        </strong>
+                        <div class="form-group">
                           <textarea
-                                  class="form-control ng-untouched ng-pristine ng-valid"
-                                  name="note"
-                                  [(ngModel)]="moreLog.note"
-                                  placeholder="Please write log contents. You can Enter or click button Save"
-                                  style="height: 100px">
+                            class="form-control ng-untouched ng-pristine ng-valid"
+                            name="note"
+                            [(ngModel)]="moreLog.note"
+                            placeholder="Please write log contents. You can Enter or click button Save"
+                            style="height: 100px">
 
                         </textarea>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                      </div>
+
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
-                        (click)="ModalviewMoreLog.hide();">Cancel
-                </button>
-                <button *ngIf="typeViewLogs == 'support_logs'" class="btn btn-sm btn-primary pull-right"
-                        aria-label="Save"
-                        (click)="saveLogSupport()">Save
-                </button>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
+                (click)="ModalviewMoreLog.hide();">Cancel
+        </button>
+        <button *ngIf="typeViewLogs == 'support_logs'" class="btn btn-sm btn-primary pull-right" aria-label="Save"
+                (click)="saveLogSupport()">Save
+        </button>
+      </div>
     </div>
+  </div>
 </div>
