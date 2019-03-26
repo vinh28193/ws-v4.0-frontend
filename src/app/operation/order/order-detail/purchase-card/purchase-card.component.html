@@ -32,7 +32,7 @@
                                     <tr style="background: #8fc0ff;">
                                         <td colspan="7">
                                             <H4>
-                                                {{indOrder+1}}.
+                                                <b style="font-family: auto">{{indOrder+1  | serialNumer}}. </b>
                                                 <i>Order: <strong>{{order.order_id}}</strong></i>
                                                 <i> - Portal: <b>{{order.portal}}</b></i>
                                                 <i> - Seller: <b>{{order.seller}}</b></i>
@@ -41,7 +41,7 @@
                                         </td>
                                     </tr>
                                     <tr *ngFor="let product of order.products;let indProd = index;">
-                                        <td>{{indProd+1}}</td>
+                                        <td>&emsp; {{indProd + 1}}</td>
                                         <td>
                                             <img class="img-thumbnail" [src]="product.image" alt="" width="100px"><br>
                                         </td>
@@ -62,7 +62,10 @@
                                             <span><b>Us ship purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_ship_purchase"></span><br>
                                             <span><b>Us tax purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_tax_purchase"></span><br>
                                         </td>
-                                        <td>{{product.paidToSeller | currency : 'USD'}}</td>
+                                        <td>
+                                            <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}" class="{{edit_id != product.id ? '' : 'hidden-md-up'}}" >{{ product.paidToSeller | currency : 'USD'}}</span>
+                                            <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller" id="paidToSeller_{{product.id}}" type="{{edit_id == product.id ? 'number' : 'hidden'}}" style="width: 50%">
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -70,10 +73,18 @@
                         </div>
                         <div class="row pl-2">
                             <div class="col-md-3">
-                                <strong>Total amount to collect:</strong>
+                                <strong>Total amount can use:</strong>
                             </div>
                             <div class="col-md-4">
-                                <strong>111</strong>
+                                <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
+                            </div>
+                        </div>
+                        <div class="row pl-2">
+                            <div class="col-md-3">
+                                <strong>Total amount use:</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>{{totalPaid | currency : 'USD'}}</strong>
                             </div>
                         </div>
                         <div class="row pl-2 mt-2">
@@ -81,12 +92,13 @@
                                 <strong>Changing Price:</strong>
                             </div>
                             <div class="col-md-2">
-                                <strong style="color: red"></strong>
+                                <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
                             </div>
                             <div class="col-md-3">
                                 <div class="checkbox checkbox-success" style="float: left">
                                     <input id="checkSendEmailPrice" class="custom-control-input"
                                            name="checkSendEmailPrice"
+                                           [(ngModel)]="data.emailPrice"
                                            type="checkbox">
                                     <label for="checkSendEmailPrice">
                                         Send email to customer for changing price
@@ -106,6 +118,7 @@
                                 <div class="checkbox checkbox-success" style="float: left">
                                     <input id="checkSendEmailFragile" class="custom-control-input"
                                            name="checkSendEmailFragile"
+                                           [(ngModel)]="data.emailFragile"
                                            type="checkbox">
                                     <label for="checkSendEmailFragile">
                                         Send email to customer for fragile
@@ -118,7 +131,7 @@
                                 <strong>Export Warehouse</strong>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control-sm" name="warehouse"
+                                <select class="form-control-sm" name="warehouse" [(ngModel)]="data.warehouse"
                                 >
                                     <option value="">--- Select WareHouse ---</option>
                                 </select>
@@ -130,6 +143,7 @@
                             </div>
                             <div class="col-md-3">
                                 <input list="listAccounts" type="text"
+                                       [(ngModel)]="data.accountPurchase"
                                        class="form-control-sm" placeholder="Chose an account">
                                 <datalist id="listAccounts">
                                     <option>1</option>
@@ -141,12 +155,12 @@
                                 <strong>Card</strong>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control-sm" name="warehouse">
+                                <select class="form-control-sm" name="cart" [(ngModel)]="data.card_payment">
                                     <option value="">--- Select Card ---</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point">
+                                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point" [(ngModel)]="data.buckAmount">
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
@@ -154,7 +168,7 @@
                                 <strong>Order ID</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Type order ID">
+                                <input type="text" class="form-control-sm" placeholder="Type order ID" [(ngModel)]="data.orderIdPurchase">
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
@@ -163,7 +177,7 @@
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control-sm"
-                                       placeholder="Only ebay Oder and PP Payment">
+                                       placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId">
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
@@ -171,12 +185,18 @@
                                 <strong>Note</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm input-control-ws" placeholder="Note">
+                                <input type="text" class="form-control-sm input-control-ws" placeholder="Note" [(ngModel)]="data.note">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal-footer"  style="text-align: center;">
+    <div class="btn-group">
+        <button class="btn btn-danger" (click)="closePop()">Cancel</button>
+        <button class="btn btn-success">Save</button>
     </div>
 </div>
