@@ -24,7 +24,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public checkLoad = false;
   public checkLoadG = false;
   public updateOrderId: any;
-  public updateOrderCode: any;
+  public updateOrderPurchaseId: any;
   public listSeller: any = [];
   public listSale: any = [];
   public email: any;
@@ -41,7 +41,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public status: any;
   public checkF = false;
   updateProductId: any;
-  productQ: any;
+  public orderUpdatePurchase: any;
   public moreLog: any = {};
   public ids: any = [];
   public orderID: any;
@@ -241,8 +241,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    this.getSale();
-    this.getSeller();
+    // this.getSale();
+    // this.getSeller();
   }
 
   followOrder() {
@@ -266,8 +266,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.checkLoad = false;
   }
 
-  openUpdateOrder(id, product) {
-    this.updateProductId = id;
+  openUpdateOrder(order) {
+    this.orderUpdatePurchase = order;
+    this.updateOrderPurchaseId = order.id;
   }
 
   viewMoreLog(status, id, type = 'item') {

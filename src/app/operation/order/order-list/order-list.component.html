@@ -522,7 +522,7 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order.id);updateOrder.show();">
+                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
                                   <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.id);purchaseCard.show();">
@@ -645,13 +645,17 @@
 <div class="modal fade" bsModal #updateOrder="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Update Order {{updateOrderId}} -  1 item</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="updateOrder.hide()">×
+    <div class="modal-content" style="width: 80em">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title">Thông tin đơn hàng Weshop: <span class="label label-warning">{{orderUpdatePurchase?.ordercode}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <a href="javascript:void(0)">
+            <span aria-hidden="true" (click)="updateOrder.hide()">×</span>
+          </a>
+          <span class="sr-only">Đóng</span>
         </button>
       </div>
-      <app-update-order *ngIf="updateProductId" [updateProductId] = "updateProductId"></app-update-order>
+      <app-update-order *ngIf="orderUpdatePurchase" [orderUpdatePurchase] = "orderUpdatePurchase"></app-update-order>
     </div>
   </div>
 </div>

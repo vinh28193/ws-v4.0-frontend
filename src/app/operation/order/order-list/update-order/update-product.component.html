@@ -1,77 +1,135 @@
-<div class="modal-body" style="border-bottom: 1px solid black">
-  <div class="container-fluid ng-star-inserted">
-    <form [formGroup]="formGroup">
-      <div class="row" *ngFor="let product of product">
-        <div class="col-md-6">
-          <div class=" row table-second box_ls_purchase clearfix">
-            <div class="col-md-2 p-0 img-thumb">
-              <a href="#">
-                <img src="{{product.link_img}}" width="100%">
-              </a>
-            </div>
-            <div class="col-md-10 text-thumb">
-              <strong class="text-danger" title="ORDER: ">SOI:{{product.id}}
-              </strong><br>
-              <a href="#"></a>
-              <ul title="SOI Total:">
-                <li><span class="text-small ml-2"> Qty: {{product.quantity_customer}}</span></li>
-                <li><span class="text-small ml-2"> Price Amount Local: {{product.price_amount_local}} </span></li>
-                <li><span class="text-small ml-2"> Price Amount Orrigin: {{product.price_amount_origin}} </span></li>
-              </ul>
-              <strong class="text-info" title="ORDER: ">Total:{{product.total_price_amount_local}}</strong>
-            </div>
+<div class="modal-body ng-scope">
+  <p class="ng-binding">
+    <strong>NGƯỜI MUA</strong> <a href="javascript:void(0)" title="Sao chép mã đơn và Email Khách"><i class="fa fa-clipboard"></i></a>
+
+  </p>
+  <form class="form-horizontal confirmPubrchased ng-dirty ng-valid ng-valid-parse">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th width="2%">#</th>
+        <th width="7%" class="text-center">Ảnh</th>
+        <th width="20%">Tên</th>
+        <th width="20%">Thuộc tính</th>
+        <th width="10%">Khách đặt</th>
+        <th width="10%">Nh.Viên Đặt</th>
+        <th width="10%">Giá</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="ng-scope" *ngFor="let product of orderUpdatePurchase?.products;let i = index">
+        <td class="ng-binding">{{i+1}}</td>
+        <td>
+          <img [src]="product.link_img" width="50" height="50"></td>
+        <td class="ng-binding">
+          <a href="{{product.product_link}}" target="_blank" class="ng-binding">{{product.product_name}}</a>
+          <div class="text-warning note-item-customer ng-binding ng-scope" >
+            <i class="fa fa-comment-o"></i>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="box_right_info_tracking">
-            <p class="text-uppercase text-danger">
-              <strong><i class="fa fa-calculator" aria-hidden="true"></i>
-                Total: <i class="fa fa-usd"></i>
-              </strong>
-            </p>
-            <div>
-              <div class="form-group">
-                <label for="skuChange">Sku <i class="text-danger">*</i></label>
-                <input type="text" data-toggle="skuChange" id="skuChange" formControlName="skuChange" class="form-control" name="skuChange"
-                       value="">
-              </div>
-            </div>
-            <div>
-              <div class="form-group">
-                <label for="skuChange">Sku Parent<i class="text-danger">*</i></label>
-                <input type="text" data-toggle="parent_sku" id="parent_sku" formControlName="parent_sku" class="form-control" name="skuChange"
-                       value="">
-              </div>
-            </div>
-            <div>
-              <div class="form-group">
-                <label for="portal">Portal<i class="text-danger">*</i></label>
-                <select class="form-control" id="portal" name="portal" formControlName="portal" required>
-                  <option value="">-Select-</option>
-                  <option> AMAZON_US</option>
-                  <option> EBAY</option>
-                  <option> OTHER</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <div class="form-group">
-                <label for="skuChange">Variations<i class="text-danger">*</i></label>
-                <input type="text" data-toggle="variations" id="variations" formControlName="variations" class="form-control" name="skuChange"
-                       value="">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Note</label>
-              <input class="form-control" formControlName="note" name="note">
-            </div>
-            <div class="form-group">
-              <button class="btn btn-info mr-2" (click)="update()">Update</button>
-              <button class="btn btn-info" (click)="buildForm()">Reser</button>
-            </div>
-          </div>
-        </div>
+        </td>
+        <td>
+          <input name="" placeholder="Thuộc tính" type="text" [value]="product.variations" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty">
+        </td>
+        <td class="text-center ng-binding" style="line-height: 27px;">{{product.quantity_customer}}</td>
+        <td>
+          <input name="" placeholder="SL" min="0" [value]="product.quantity_purchase" type="text"  class="form-control ng-touched ng-dirty ng-not-empty ng-valid ng-valid-parse">
+        </td>
+        <td style="line-height: 27px;" class="text-warning">
+          <span class="ng-binding ng-scope">
+            {{product.total_price_amount_local}}
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p><i class="fa fa-comment-o"></i> Khách ghi chú: <strong class="text-danger ng-binding">{{orderUpdatePurchase.note_by_customer}}</strong></p>
+    <p class="text-warning">
+            <span class="sendMessageToCustomer">Nếu có thay đổi về giá cần Khách Hàng xác nhận:;
+                <label style="cursor: pointer" class="text-danger">
+                  <input name="freeShip" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty"> Gửi thêm Email</label>
+                <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                  <i class="fa fa-paper-plane"></i> Gửi tới khách
+                </button>
+            </span>
+      <button type="button" class="btn btn-success btn-sm btn-rounded btnConfirmChangePrice hidden">
+        <i class="fa fa-check"></i> Khách đồng ý thay đổi giá
+      </button>
+    </p>
+    <div class="form-group">
+      <div class="col-md-4 text-bold text-left">
+        Tài khoản đặt mua:
       </div>
-    </form>
-  </div>
+      <div class="col-md-4">
+        <select name="receiverCityId" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+          <option value=""> -- LỰA CHỌN TÀI KHOẢN --</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 text-bold text-left">
+        Danh mục sản phẩm:
+      </div>
+      <div class="col-md-4">
+        <select name="receiverCityId"  class="form-control list-group ng-pristine ng-untouched ng-valid ng-empty" data-live-search="true">
+          <option value=""> -- Chọn danh mục sản phẩm --</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 text-bold text-left">Tổng tiền hàng:</div>
+      <div class="col-md-4">
+        <input type="text"  placeholder="Nhập số tiền sẽ thanh toán" tabindex="4" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-4 text-bold text-left">
+        Danh mục hàng dễ vỡ:
+      </div>
+      <div class="col-md-4">
+        <label style="cursor: pointer" title="Chào quý khách">
+          <input name="fragileMessage" type="checkbox" class="ng-pristine ng-untouched ng-valid ng-empty"> Gửi thông báo tới khách
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <h5 class="padding">Tổng tiền hàng &amp; Phí VC nội địa TQ thu KH:</h5>
+        <h5 class="padding">Tổng tiền sẽ thanh toán với Alipay:</h5>
+        <h5 class="padding">Tổng tiền hàng VNĐ:  <strong class="text-danger font-size20 ng-binding">7.948.160đ</strong></h5>
+
+      </div>
+    </div>
+    <div class="alert alert-warning" role="alert">
+      <p><strong>Lưu ý: Hãy chọn gửi thông báo tới khách cho đơn nào có sản phẩm thuộc mục hàng dễ vỡ</strong></p>
+    </div>
+    <h4><i class="fa fa-history"></i> Lịch sử những đơn mua gần đây [<strong class="ng-binding">0</strong>]
+      <a href="javascript:;"><i class="fa fa-eye"></i> Xem</a>
+      <a href="javascript:;" class="ng-hide"><i class="fa fa-eye-slash"></i> Ẩn</a>
+    </h4>
+    <table class="table table-striped ng-hide" ng-show="order_history_view">
+      <thead>
+      <tr>
+        <th width="2%">STT</th>
+        <th width="10%">Mã đơn</th>
+        <th width="20%">Email Khách</th>
+        <th width="20%">TK đặt mua</th>
+        <th width="20%">Thời gian tạo</th>
+        <th width="10%">Trạng thái</th>
+        <th width="13%" class="text-center">Đã mặc cả</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-show="history_dataCount <= 0" class="">
+        <td colspan="7" class="text-center text-danger">
+          <i class="fa fa-sad"></i> Không tìm thấy đơn hàng nào mua gần đây
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+
+</div>
+<div class="modal-footer ng-scope">
+  <button class="btn btn-success" type="button">Xác nhận đã mua hàng</button>
+  <button class="btn btn-warning" type="button">Đóng</button>
 </div>
