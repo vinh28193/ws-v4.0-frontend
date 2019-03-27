@@ -302,7 +302,7 @@
 
                               <div class="row col-md-12">
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order.id); ModalviewMoreLog.show()">View More Log (SOI)</button>
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'SUPPORTED'">Confirm Purchase All</button>
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
                               </div>
 

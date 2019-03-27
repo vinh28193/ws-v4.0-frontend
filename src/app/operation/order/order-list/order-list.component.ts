@@ -241,8 +241,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    // this.getSale();
-    // this.getSeller();
+    this.getSale();
+    this.getSeller();
   }
 
   followOrder() {
@@ -275,8 +275,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.logIdOrder = id;
   }
 
-  confirmAll(products) {
-    this.orderService.put(`order`)
+  confirmAll(id) {
+    const put = this.orderService.createPostParams({
+      current_status: 'READY_PURCHASE',
+    }, 'confirmPurchase');
+    this.orderService.put(`order/${id}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
   }
 
   markAsJunk(productsId) {
