@@ -59,7 +59,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         const type = this.orders ? this.orders[0].portal : 'all';
         this.listAccount = nocache ? null : JSON.parse(this.storegate.get('list_account_for_' + type));
         if (!this.listAccount) {
-            this.orderService.getForPurchase('/get-list-account?type=' + type, undefined).subscribe(rs => {
+            this.orderService.getForPurchase('/list-account', undefined).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
                     this.listAccount = res.data;
@@ -72,7 +72,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     getCardPayment(nocache = false) {
         this.listCard = nocache ? null : JSON.parse(this.storegate.get('list_payment_card'));
         if (!this.listCard) {
-            this.orderService.postForPurchase('/get-list-card-payment', undefined).subscribe(rs => {
+            this.orderService.getListCardPayment('/list-card-payment', undefined).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
                     this.listCard = res.data;
