@@ -99,6 +99,29 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
         this.update.show();
     }
 
+    updateReceiver() {
+        const post = this.orderService.createPostParams({
+            receiver_name: this.name,
+            receiver_phone: this.phone,
+            receiver_address: this.address,
+            receiver_country_id: this.country,
+            receiver_country_name: this.countryName,
+            receiver_province_id: this.province,
+            receiver_province_name: this.provinceName,
+            receiver_district_id: this.district,
+            receiver_district_name: this.districtName
+        }, 'updateReceiver');
+        this.orderService.put(`order/${this.identity}`, post).subscribe(res => {
+            const rs: any = res;
+            this.update.hide();
+            if (rs.success) {
+                this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
+            }
+        });
+    }
+
     suggestionAddress(zip) {
         // give full address by zip code
         // see onCountry($event)

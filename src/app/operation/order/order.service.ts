@@ -44,6 +44,20 @@ export class OrderService extends OperationService {
         return this.put('purchase/' + url, item);
     }
 
+    /**
+     * @param {any | {}} order
+     * @param {any | null} scenario
+     * @return {any[]}
+     */
+    createPostParams(order: any | {}, scenario?: any | null) {
+        const params: any = {};
+        params.Order = order;
+        if (this.isValidValue(scenario)) {
+            params.OrderScenario = scenario;
+        }
+        return params;
+    }
+
     createCart(url, item: any | undefined) {
         return this.post('purchase/' + url, item);
     }
