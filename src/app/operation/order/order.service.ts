@@ -63,6 +63,10 @@ export class OrderService extends OperationService {
     }
 
     getForPurchase(url, item: any | undefined) {
-        return this.get('purchase' + url, item);
+        return this.get('purchase-service' + url, item);
+    }
+
+    postForPurchase(url, item: any | undefined) {
+        return this.post('purchase-service' + url, item);
     }
 }

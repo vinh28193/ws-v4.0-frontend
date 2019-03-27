@@ -57,28 +57,27 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
 
     getaccount(nocache = false) {
         const type = this.orders ? this.orders[0].portal : 'all';
-        this.listAccount = nocache ? null : this.storegate.get('list_account_for_' + type);
+        this.listAccount = nocache ? null : JSON.parse(this.storegate.get('list_account_for_' + type));
         if (!this.listAccount) {
-            this.orderService.getForPurchase('?action=getlistaccount&type=' + type, undefined).subscribe(rs => {
+            this.orderService.getForPurchase('/get-list-account?type=' + type, undefined).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
                     this.listAccount = res.data;
                     console.log(res);
-                    this.storegate.set('list_account_for_' + type, this.listAccount);
+                    this.storegate.set('list_account_for_' + type, JSON.stringify(this.listAccount));
                 }
             });
         }
     }
     getCardPayment(nocache = false) {
-        const type = this.orders ? this.orders[0].portal : 'all';
-        this.listCard = nocache ? null : this.storegate.get('list_payment_card');
+        this.listCard = nocache ? null : JSON.parse(this.storegate.get('list_payment_card'));
         if (!this.listCard) {
-            this.orderService.getForPurchase('?action=getlistcard', undefined).subscribe(rs => {
+            this.orderService.postForPurchase('/get-list-card-payment', undefined).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
                     this.listCard = res.data;
                     console.log(res);
-                    this.storegate.set('list_payment_card', this.listCard);
+                    this.storegate.set('list_payment_card', JSON.stringify(this.listCard));
                 }
             });
         }

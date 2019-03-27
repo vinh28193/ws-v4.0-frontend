@@ -63,7 +63,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
         return form;
     }
 
-    getInputUnique(attribute: string, unique?: string) {
+    getInputUnique(attribute: string, unique?: string): string {
         return attribute + (typeof unique !== 'undefined' ? unique : (this.identity + this.unique));
     }
 
