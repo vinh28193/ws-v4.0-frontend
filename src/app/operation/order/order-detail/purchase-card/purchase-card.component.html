@@ -145,8 +145,8 @@
                                 <input list="listAccounts" type="text"
                                        [(ngModel)]="data.accountPurchase"
                                        class="form-control-sm" placeholder="Chose an account">
-                                <datalist id="listAccounts">
-                                    <option>1</option>
+                                <datalist id="listAccounts" *ngIf="listAccount">
+                                    <option *ngFor="let account of listAccount" value="{{account.id}}">{{account.email}}</option>
                                 </datalist>
                             </div>
                         </div>
@@ -157,6 +157,9 @@
                             <div class="col-md-3">
                                 <select class="form-control-sm" name="cart" [(ngModel)]="data.card_payment">
                                     <option value="">--- Select Card ---</option>
+                                    <optgroup label="List card" *ngIf="listCard">
+                                        <option *ngFor="let cart_payment of listCard" value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
+                                    </optgroup>
                                 </select>
                             </div>
                             <div class="col-md-3">

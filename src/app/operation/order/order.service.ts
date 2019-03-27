@@ -61,4 +61,8 @@ export class OrderService extends OperationService {
     createCart(url, item: any | undefined) {
         return this.post('purchase/' + url, item);
     }
+
+    getForPurchase(url, item: any | undefined) {
+        return this.get('purchase' + url, item);
+    }
 }
