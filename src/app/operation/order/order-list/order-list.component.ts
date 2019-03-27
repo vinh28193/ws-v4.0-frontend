@@ -241,8 +241,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    this.getSale();
-    this.getSeller();
+    // this.getSale();
+    // this.getSeller();
   }
 
   followOrder() {
@@ -324,7 +324,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       if (res.success) {
         this.popup.success(res.message);
       }
-        this.popup.error(res.message);
+        this.popup.error('error');
     });
 }
 
