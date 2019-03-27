@@ -69,6 +69,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             });
         }
     }
+
     getCardPayment(nocache = false) {
         this.listCard = nocache ? null : JSON.parse(this.storegate.get('list_payment_card'));
         if (!this.listCard) {
@@ -82,6 +83,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             });
         }
     }
+
     addcart() {
         console.log(this.current_id);
         this.orderService.putPurchase('update/' + this.current_id, '').subscribe(rs => {
@@ -135,9 +137,8 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             const res: any = rs;
             console.log(res);
             if (res.success) {
-                this.orders = res.data;
-                console.log(this.orders);
-                this.setTotal();
+                this.orders = [];
+                alert('Purchase success!');
             }
         });
     }
