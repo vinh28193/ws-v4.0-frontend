@@ -76,8 +76,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       {key: 'order.payment_type', name: 'Payment Type'},
     ];
     this.timeKeys = [
-      {key: 'order.created_at', name: 'Created Time'},
-      {key: 'order.updated_at', name: 'Update Time'},
       {key: 'order.new', name: 'New'},
       {key: 'order.purchased', name: 'Purchased'},
       {key: 'order.seller_shipped', name: 'Seller Shipped'},
@@ -160,6 +158,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       searchKeyword: this.allKey,
       timeKey: this.allKey,
       timeRange: '',
+      timeKeyCreate: this.allKey,
+      valueCreate: '',
       type: this.allKey,
       orderStatus: this.allKey,
       portal: this.allKey,
@@ -241,8 +241,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    this.getSale();
-    this.getSeller();
+    // this.getSale();
+    // this.getSeller();
   }
 
   followOrder() {

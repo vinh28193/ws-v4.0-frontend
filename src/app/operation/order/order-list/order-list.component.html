@@ -54,6 +54,33 @@
                                     </span>
             </div>
           </div>
+
+          <div class="col-md-6 col-sm-12 form-group m-b-10">
+            <label for="dateTimePicker" class="form-control-label">Time Search</label>
+            <div class="row input-group input-group-sm ml-0 mr-0">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
+                      formControlName="timeKeyCreate">
+                <option [value]="allKey">Time Key</option>
+                <option value="order.created_at">Create Time</option>
+                <option value="order.updated_at">Update Time</option>
+              </select>
+              <input #drp="bsDaterangepicker"
+                     bsDaterangepicker
+                     [maxDate]="maxDateTime"
+                     [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+                     (bsValueChange)="bsRangeValue"
+                     formControlName="valueCreate"
+                     class="col-sm-7 form-control form-control-sm ">
+              <span class="input-group-btn">
+                                        <button (click)="drp.toggle()"
+                                                [attr.aria-expanded]="drp.isOpen"
+                                                class="btn btn-sm btn-info" type="button"><i
+                                          class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+            </div>
+          </div>
+
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="type" class="form-control-label">Order Type</label>
             <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
