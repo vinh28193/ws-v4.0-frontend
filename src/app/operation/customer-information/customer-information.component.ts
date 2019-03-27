@@ -111,9 +111,15 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
             receiver_district_id: this.district,
             receiver_district_name: this.districtName
         }, 'updateReceiver');
-       this.orderService.put(`order/${this.identity}`, post).subscribe(res => {
-           console.log(res);
-       })
+        this.orderService.put(`order/${this.identity}`, post).subscribe(res => {
+            const rs: any = res;
+            this.update.hide();
+            if (rs.success) {
+                this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
+            }
+        });
     }
 
     suggestionAddress(zip) {
