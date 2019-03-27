@@ -304,7 +304,7 @@
                               <p></p>
 
                               <div class="row col-md-12">
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order); ModalviewMoreLog.show()">View More Log (SOI)</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()">View More Log (SOI)</button>
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
                               </div>
@@ -619,14 +619,14 @@
                           <div class="row pb-1 pt-1">
                             <div class="col-md-12">
                               <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.new = !order.new">Package</button>
+                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.packageItems.id = !order.packageItems.id">Package</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
                               <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
                               <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
                             </div>
                           </div>
                           <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
-                          <app-package-item *ngIf="!order.new" [packages]="order.packageItems"></app-package-item>
+                          <app-package-item *ngIf="order.packageItems.id" [packages]="order.packageItems"></app-package-item>
                           <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
@@ -735,7 +735,7 @@
               <div class="modal-header">
 
                 <h2 class="modal-title">View More Log - <strong class="text-uppercase text-danger">
-                  SOI-{{moreLog.id}}
+                  Order-{{codeO}}
                 </strong>
                 </h2>
                 <button class="btn btn-skype" (click)="getLogs()">Refresh</button>
@@ -745,82 +745,35 @@
 
                   <div class="container-fluid ng-star-inserted">
                     <div class="row btn-group">
-                      <button class="btn btn-{{typeViewLogs == 'support_logs' ? 'warning' : 'default'}}" (click)="typeViewLogs = 'support_logs'">Support</button>
-                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="typeViewLogs = 'action_logs'">Action</button>
-                      <button class="btn btn-{{typeViewLogs == 'operation_logs' ? 'primary' : 'default'}}" (click)="typeViewLogs = 'operation_logs'">Operation</button>
-                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="typeViewLogs = 'payment_logs'">Payment</button>
-                      <button class="btn btn-{{typeViewLogs == 'warehouse' ? 'dark' : 'default'}}" (click)="typeViewLogs = 'warehouse'">Warehouse</button>
-                      <button class="btn btn-{{typeViewLogs == 'all' ? 'info' : 'default'}}" (click)="typeViewLogs = 'all'">View All</button>
+                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', codeO); typeViewLogs = 'action_logs'">Action</button>
+                      <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', codeO); typeViewLogs = 'wallet_logs'">Wallet</button>
+                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="loadData('paymentlog', codeO); typeViewLogs = 'payment_logs'">Payment</button>
+                      <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}" (click)="loadData('boxme-inspect-log', codeO); typeViewLogs = 'boxme'">Boxme Inspect</button>
+                      <button class="btn btn-{{typeViewLogs == 'send-shipment-return-logs' ? 'warning' : 'default'}}" (click)="loadData('send-shipment-return-log', codeO); typeViewLogs = 'send-shipment-return-logs'">Send Shipment Return</button>
+                      <button class="btn btn-{{typeViewLogs == 'send-shipment-logs' ? 'success' : 'default'}}" (click)="loadData('send-shipment-log', codeO); typeViewLogs = 'send-shipment-logs'">Send Shipment</button>
                     </div>
                     <hr>
                     <div class="row">
-                      <table
-                        *ngIf="moreLog.data && moreLog.data[typeViewLogs] && moreLog.data[typeViewLogs].length > 0"
-                        class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
-
+                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
                         <thead>
                         <tr>
                           <th width="15%">Create time</th>
-                          <th width="50%">Content</th>
-                          <th width="15%">Employee</th>
-                          <th width="20%">Level</th>
+                          <th>Data Input</th>
+                          <th>Data Output</th>
+                          <th>Employee</th>
+                          <th>Role</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let logItem of moreLog.data[typeViewLogs];let ind = index;">
-                          <td>{{logItem.created_at}}</td>
-                          <td>
-                            <div *ngIf="checkAdminAccess()" id="detail_log">
-                              <i style="cursor: pointer" class="fa fa-eye" data-placement="right" [popover]="logDetal" popoverTitle="View detail log"></i>
-                              <ng-template #logDetal>
-                                <div [innerHTML]="logItem.Content">
-
-                                </div>
-                              </ng-template>
-                            </div>
-                            <div [innerHTML]="logItem.Note"></div>
-                          </td>
-                          <td>{{logItem ? logItem.username : ""}}</td>
-                          <td>{{logItem.LevelSupport}}</td>
+                        <tr *ngFor="let log of listLog">
+                          <td>{{log.date}}</td>
+                          <td>{{log.data_input}}</td>
+                          <td>{{log.data_output}}</td>
+                          <td>{{log.user_name}}</td>
+                          <td>{{log.Role}}</td>
                         </tr>
                         </tbody>
                       </table>
-                      <div class="col-md-12" *ngIf="typeViewLogs == 'support_logs'">
-                        <strong>
-                          <span>
-                            <i class="fa fa-pencil-square-o"></i>
-                            Create Log</span> - <span><i class="fa fa-long-arrow-down"></i> Level Support</span>
-                          <select name="LevelSupport" [(ngModel)]="moreLog.level" class="ng-pristine ng-valid ng-touched">
-                            <option id="0" value="Support">---Note Order Log of BIN 0ede4034837b ---</option>
-                            <option id="1" value="New SOI" class="ng-star-inserted"> Level 1 - New SOI
-                              (SUPPORTING)
-                            </option>
-                            <option id="2" value="SOI Confirm" class="ng-star-inserted"> Level 2 - SOI Confirm
-                              (SUPORTTED)
-                            </option>
-                            <option id="3" value="Payment Confirm" class="ng-star-inserted">Level 3 - Payment Confirm
-                              (SUPORTTED)
-                            </option>
-                            <option id="5" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supported">SUP ADMIN Change Supported (All SOI-SUPPOTED) </option>
-                            <option id="6" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED' " value="Change Supporting">SUP ADMINChange Supporting (All SOI-SUPORTING) </option>
-
-                            <!--option id="7" *ngIf="checkPurchaseAccess() && order.status != ORDERITEM_STATUS_REPLACED  " value="Package Tracking">Level 5 - Package Tracking</option-->
-                            <!-- System Sales + Purchase report customer Order is transper -->
-                            <option id="8" *ngIf="checkAdminAccess() && moreLog.status != 'REPLACED'  " value="CHANGES_FROM_CANCEL_TO_SUPORTED">SUP ADMIN Change Supporting (CANCEL-SUPORTED) </option>
-                          </select>
-                        </strong>
-                        <div class="form-group">
-                          <textarea
-                            class="form-control ng-untouched ng-pristine ng-valid"
-                            name="note"
-                            [(ngModel)]="moreLog.note"
-                            placeholder="Please write log contents. You can Enter or click button Save"
-                            style="height: 100px">
-
-                        </textarea>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>
