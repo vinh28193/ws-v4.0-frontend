@@ -12,13 +12,18 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class UpdateProductComponent extends OrderDataComponent implements OnInit {
   @Input() orderUpdatePurchase: any;
   public formGroup: FormGroup;
+  public checkS: boolean = false;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
-  orders: any = [];
+  clickCheckShow() {
+    this.checkS = !this.checkS;
+  }
 
   ngOnInit() {
+  }
+  loadHistory() {
   }
 
 }
