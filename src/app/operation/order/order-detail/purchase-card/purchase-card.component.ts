@@ -35,6 +35,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         buckAmount: '',
         orderIdPurchase: '',
         note: '',
+        cart: {},
     };
 
     ngDoCheck(): void {
@@ -94,5 +95,18 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
 
     closePop() {
         this.closePopup.emit(true);
+    }
+
+    updatePurchase() {
+        this.data.cart = this.orders;
+        this.orderService.createCart('create', this.data).subscribe(rs => {
+            const res: any = rs;
+            console.log(res);
+            if (res.success) {
+                this.orders = res.data;
+                console.log(this.orders);
+                this.setTotal();
+            }
+        });
     }
 }
