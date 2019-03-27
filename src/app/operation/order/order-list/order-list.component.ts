@@ -24,7 +24,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public checkLoad = false;
   public checkLoadG = false;
   public updateOrderId: any;
-  public updateOrderCode: any;
+  public updateOrderPurchaseId: any;
   public listSeller: any = [];
   public listSale: any = [];
   public email: any;
@@ -41,7 +41,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public status: any;
   public checkF = false;
   updateProductId: any;
-  productQ: any;
+  public orderUpdatePurchase: any;
   public moreLog: any = {};
   public ids: any = [];
   public orderID: any;
@@ -76,8 +76,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       {key: 'order.payment_type', name: 'Payment Type'},
     ];
     this.timeKeys = [
-      {key: 'order.created_at', name: 'Created Time'},
-      {key: 'order.updated_at', name: 'Update Time'},
       {key: 'order.new', name: 'New'},
       {key: 'order.purchased', name: 'Purchased'},
       {key: 'order.seller_shipped', name: 'Seller Shipped'},
@@ -160,6 +158,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       searchKeyword: this.allKey,
       timeKey: this.allKey,
       timeRange: '',
+      timeKeyCreate: this.allKey,
+      valueCreate: {startDate: '', endDate: ''}
       type: this.allKey,
       orderStatus: this.allKey,
       portal: this.allKey,
@@ -220,10 +220,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.timeKey !== '' && value.timeKey !== 'ALL') {
       params.timeKey = value.timeKey;
     }
+    if (value.timeKeyCreate !== '' && value.timeKeyCreate !== 'ALL') {
+      params.timeKeyCreate = value.timeKeyCreate;
+    }
     if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
       params.startTime = this.convertDateTime(value.bsRangeValue['0']);
       params.endTime = this.convertDateTime(value.bsRangeValue['1']);
     }
+    if (value.valueCreate.length > 0 && value.valueCreate !== 'ALL') {
+      params.startDate = this.convertDateTime(value.valueCreate['0']);
+      params.endDate = this.convertDateTime(value.valueCreate['1']);
+    }
+
     params.limit = 20;
     params.page = 1;
     return params;
@@ -235,15 +243,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
 
-  handlePerPage(event) {
-    const value = event.target.value;
-    this.searchForm.patchValue({perPage: value});
-    this.listOrders();
-  }
-  load() {
-    this.getSale();
-    this.getSeller();
-  }
+    handlePerPage(event) {
+        const value = event.target.value;
+        this.searchForm.patchValue({perPage: value});
+        this.listOrders();
+    }
+
+    load() {
+        // this.getSale();
+        // this.getSeller();
+    }
 
   followOrder() {
     this.checkF = !this.checkF;
@@ -266,8 +275,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.checkLoad = false;
   }
 
-  openUpdateOrder(id, product) {
-    this.updateProductId = id;
+  openUpdateOrder(order) {
+    this.orderUpdatePurchase = order;
+    this.updateOrderPurchaseId = order.id;
   }
 
   viewMoreLog(status, id, type = 'item') {

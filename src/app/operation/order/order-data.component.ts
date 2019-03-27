@@ -1,8 +1,8 @@
-import {AfterViewInit, OnInit} from '@angular/core';
+import {AfterViewChecked, OnInit} from '@angular/core';
 import {OperationDataComponent} from '../operation-data.component';
 import {OrderService} from './order.service';
 
-export class OrderDataComponent extends OperationDataComponent implements OnInit, AfterViewInit {
+export class OrderDataComponent extends OperationDataComponent implements OnInit {
 
     public country: any;
     public province: any;
@@ -13,15 +13,16 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
 
     constructor(public http: OrderService) {
         super(http);
+        this.loadSystemLocation();
     }
 
     ngOnInit() {
-        this.loadSystemLocation();
+
     }
 
-    ngAfterViewInit() {
-        this.loadSystemLocation();
-    }
+    // ngAfterViewChecked() {
+    //     this.loadSystemLocation();
+    // }
 
     isValidValue(value) {
         return this.http.isValidValue(value);

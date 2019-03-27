@@ -10,7 +10,15 @@ declare var swal: any;
 
 export class PopupService {
 
-    constructor() {
+
+    popup(type, message, title) {
+        if (type === 'success') {
+            this.success(message, title);
+        } else if (type === 'error') {
+            this.error(message, title);
+        } else {
+            this.error('unknown type:' + type, 'Ejected !');
+        }
     }
 
     error(message: string, title: any = null || 'Error') {
@@ -32,7 +40,63 @@ export class PopupService {
         });
     }
 
-    warning(){
+    warning(funcAction, message, funcDismiss = null) {
+        swal({
+            title: 'Are you sure ?',
+            text: message,
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Back',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then(function () {
+            funcAction();
+            return true;
+        }, function (dismiss) {
+            // dismiss can be 'cancel', 'overlay',
+            // 'close', and 'timer'
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                    'You cancelled action',
+                    'error'
+                );
+                if (funcDismiss != null) {
+                    funcDismiss();
+                }
+            }
+            return false;
+        });
+    }
 
+    confirm(funcAction, message, action = 'remove') {
+        swal({
+            title: 'Are you sure?',
+            text: message,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger',
+            confirmButtonText: 'Yes, ' + action + ' it',
+            cancelButtonText: 'Cancel',
+            closeOnCancel: false
+        }).then(
+            function (isConfirm) {
+                if (isConfirm) {
+                    funcAction();
+                    swal({
+                        title: action + ' !',
+                        text: 'Action completed.',
+                        type: 'success',
+                        confirmButtonClass: 'btn-success'
+                    });
+                } else {
+                    swal({
+                        title: 'Cancelled',
+                        text: 'Action cancel',
+                        type: 'error',
+                        confirmButtonClass: 'btn-danger'
+                    });
+                }
+            });
     }
 }
