@@ -289,7 +289,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" (click)="chat(order.id, order.ordercode); showChat.show()"  class="btn mt-2 btn-secondary btn-sm">
+                                  <button type="button" (click)="chat(order.id, order.ordercode)" class="btn btn-secondary btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
@@ -335,7 +335,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
-                                    {{order.total_fee_amount_local ? order.total_fee_amount_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_fee_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -346,7 +346,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
-                                    {{order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0.00 | currency: 'VND'}}
+                                    {{order.total_origin_tax_fee_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
@@ -521,11 +521,10 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                  <button type="button" (click)="chatG(order.id, order.ordercode);showChatGroup.show()"
-                                          class="btn btn-secondary mr-2 mb-2 btn-sm">
-                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                    <button type="button" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                                      <i class="fa fa-comments mr-2 mb-2" aria-hidden="true"></i>
                                      Chat Group WS
-                                  </button>
+                                    </button>
                                   <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order.id);updateOrder.show();">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
@@ -660,8 +659,8 @@
   </div>
 </div>
 
-<div bsModal #showChat="bs-modal" id="modal-chat" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" data-keyboard="false" data-dismiss="dismiss">
+<div id="showChat" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="row">
@@ -677,7 +676,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 text-right mt-2">
-                  <button class="btn btn-danger btn-sm" (click)="offModeChat(); showChat.hide()">Hủy Bỏ</button>
+                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" >Hủy Bỏ</button>
                 </div>
               </div>
             </div>
@@ -688,8 +687,8 @@
   </div>
 </div>
 
-<div bsModal #showChatGroup="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="showChatGroup"  aria-hidden="true">
+<div id="showChatGroup" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel1">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="row">
@@ -698,10 +697,14 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12 p-0">
-                  <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [code]="codeG"></app-chat-group>
+                  <div class="modal-body p-0">
+                    <div class="ng-star-inserted">
+                      <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [code]="codeG"></app-chat-group>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-12 mt-2 text-right">
-                  <button class="btn btn-danger btn-sm" (click)="offModeChat(); showChatGroup.hide()">Hủy Bỏ</button>
+                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" >Hủy Bỏ</button>
                 </div>
               </div>
             </div>
