@@ -1,6 +1,7 @@
 import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {EventHandlerVars} from '@angular/compiler/src/compiler_util/expression_converter';
+import {StorageService} from '../../../../core/service/storage.service';
 
 declare var swal: any;
 declare var $: any;
@@ -13,7 +14,7 @@ declare var jQuery: any;
 })
 export class PurchaseCardComponent implements OnInit, DoCheck {
 
-    constructor(public orderService: OrderService) {
+    constructor(public orderService: OrderService, public storegate: StorageService) {
     }
 
     @Input() updateProductId: any;
@@ -25,6 +26,8 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     public totalPaid = 0;
     public totalChanging = 0;
     public totalAmountCanBuy = 0;
+    public listAccount: any;
+    public listCard: any;
     public data: any = {
         PPTranId: '',
         emailFragile: '',
@@ -42,6 +45,8 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         if (this.current_id !== this.updateProductId && this.updateProductId !== undefined) {
             console.log('chhange');
             this.current_id = this.updateProductId;
+            this.getaccount();
+            this.getCardPayment();
             this.addcart();
         }
     }
@@ -50,6 +55,34 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         // this.addcart();
     }
 
+    getaccount(nocache = false) {
+        const type = this.orders ? this.orders[0].portal : 'all';
+        this.listAccount = nocache ? null : this.storegate.get('list_account_for_' + type);
+        if (!this.listAccount) {
+            this.orderService.getForPurchase('?action=getlistaccount&type=' + type, undefined).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.listAccount = res.data;
+                    console.log(res);
+                    this.storegate.set('list_account_for_' + type, this.listAccount);
+                }
+            });
+        }
+    }
+    getCardPayment(nocache = false) {
+        const type = this.orders ? this.orders[0].portal : 'all';
+        this.listCard = nocache ? null : this.storegate.get('list_payment_card');
+        if (!this.listCard) {
+            this.orderService.getForPurchase('?action=getlistcard', undefined).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.listCard = res.data;
+                    console.log(res);
+                    this.storegate.set('list_payment_card', this.listCard);
+                }
+            });
+        }
+    }
     addcart() {
         console.log(this.current_id);
         this.orderService.putPurchase('update/' + this.current_id, '').subscribe(rs => {
