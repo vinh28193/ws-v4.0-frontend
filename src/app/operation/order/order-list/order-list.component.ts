@@ -242,8 +242,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    // this.getSale();
-    // this.getSeller();
+    this.getSale();
+    this.getSeller();
   }
 
   followOrder() {
