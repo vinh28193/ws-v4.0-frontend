@@ -6,7 +6,7 @@
           <h3>LIST ALL ITEMS OF ORDER - RAW</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
-          <div class="col-md-2 col-sm-12  form-group m-b-10">
+          <div class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label">Store</label>
             <select class="form-control form-control-sm" name="store" id="store"
                     formControlName="store">
@@ -30,7 +30,18 @@
                      type="text" (keyup.enter)="listOrders()">
             </div>
           </div>
-          <div class="col-md-4 col-sm-12 form-group m-b-10">
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="type" class="form-control-label">Order Type</label>
+            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
+              <option [value]="allKey">--All Type--</option>
+              <option value="SHOP">Shop</option>
+              <option value="REQUEST">Request</option>
+              <option value="POS">Pos</option>
+              <option value="SHIP">Ship</option>
+              <option value="NEXTTECH">Nexttech</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label">Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
@@ -82,17 +93,6 @@
           </div>
 
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="type" class="form-control-label">Order Type</label>
-            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
-              <option [value]="allKey">--All Type--</option>
-              <option value="SHOP">Shop</option>
-              <option value="REQUEST">Request</option>
-              <option value="POS">Pos</option>
-              <option value="SHIP">Ship</option>
-              <option value="NEXTTECH">Nexttech</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label">Order Status</label>
             <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
                     formControlName="orderStatus">
@@ -106,6 +106,8 @@
               <option [value]="allKey">--All Atatus--</option>
               <option value="AMAZON_US">AMAZON US</option>
               <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+              <option value="OTHER">OTHER</option>
+              <option value="EBAY">EBAY</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
