@@ -21,8 +21,10 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`sale-support/${this.orderId}`, undefined).subscribe(res => {
             if (res.success) {
                 this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
             }
-            this.popup.error(res.message);
+
         });
     }
 
