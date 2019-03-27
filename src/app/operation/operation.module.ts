@@ -15,7 +15,7 @@ import {StorePipe} from './pipes/store.pipe';
 import {SpanLabelComponent} from './span-label/span-label.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import {CurrentStatusPipe} from './pipes/current-status.pipe';
-
+import {QuotationStatusPipe} from './pipes/quotation-status.pipe';
 import {ProductFeePipe} from './pipes/ProductFee.pipe';
 import { SerialNumerPipe } from './pipes/serial-numer.pipe';
 import { SerialCharPipe } from './pipes/serial-char.pipe';
@@ -34,14 +34,14 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
         OrderTypePipe,
         QuotationPipe,
         QuotationStatusClassPipe,
-        QuotationPipe,
         StorePipe,
         SpanLabelComponent,
         TimeAgoPipe,
         CurrentStatusPipe,
         ProductFeePipe,
         SerialNumerPipe,
-        SerialCharPipe
+        SerialCharPipe,
+        QuotationStatusPipe,
     ],
     providers: [
         OperationService
@@ -53,7 +53,6 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
         OrderTypePipe,
         QuotationPipe,
         QuotationStatusClassPipe,
-        QuotationPipe,
         StorePipe,
         SpanLabelComponent,
         TimeAgoPipe,
@@ -61,6 +60,7 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
         ProductFeePipe,
         SerialNumerPipe,
         SerialCharPipe,
+        QuotationStatusPipe
     ]
 })
 export class OperationModule {
