@@ -1,24 +1,17 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderDataComponent} from '../order/order-data.component';
 import {OrderService} from '../order/order.service';
 import {PopupService} from '../../core/service/popup.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
     selector: 'app-customer-information',
     templateUrl: './customer-information.component.html',
     styleUrls: ['./customer-information.component.css']
 })
-export class CustomerInformationComponent extends OrderDataComponent implements OnInit {
+export class CustomerInformationComponent extends OrderDataComponent implements OnInit, AfterContentChecked {
 
-    @ViewChild('update') update: ModalDirective;
-
-    @Input() disable: any = false;
-    @Input() showLabel: any = true;
-    @Input() labelText: any = 'Customer';
-    @Input() unique: any = 'customer';
-    @Input() identity: any = '';
+    @Input() orderId: any = '';
     @Input() name: any = '';
     @Input() phone: any = '';
     @Input() email: any = '';
@@ -30,51 +23,22 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     @Input() country: any = '';
     @Input() countryName: any = '';
     @Input() postCode: any = '';
-
-    public formGroup: FormGroup;
+    @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
         super(orderService);
     }
 
     ngOnInit() {
+        console.log(this.orderId);
         this.getCountries();
-    }
-
-    buildFormData() {
-        const form = new FormData();
-        const customer = {
-            identity: this.identity,
-            // name: this.customerName,
-            // phone: this.customerPhone,
-            // email: this.customerEmail,
-            // address: this.customerAddress,
-            // districtId: this.district,
-            // districtName: this.districtName,
-            // provinceId: this.province,
-            // provinceName: this.provinceName,
-            // countryId: this.customerCountry,
-            // countryName: this.countryName,
-            // postCode: this.customerPostcode
-        };
-        // console.log(customer);
-        form.append('component', this.unique);
-        form.append('customer', JSON.stringify(customer));
-        return form;
-    }
-
-    getInputUnique(attribute: string, unique?: string): string {
-        return attribute + (typeof unique !== 'undefined' ? unique : (this.identity + this.unique));
-    }
-
-    prepareModalData() {
-        if (this.country === null || this.country === '') {
+        if (!this.isValidValue(this.country)) {
             this.provinces = [];  // clear old provinces
             this.districts = []; // clear old districts
-            this.getCountries();
             const firstC = this.countries[0];
             this.country = firstC.id;
             this.countryName = firstC.name;
+            console.log(112);
         }
         this.getProvinces();
         this.province = '';
@@ -94,10 +58,15 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
         }
     }
 
-    onOpenModal() {
-        this.prepareModalData();
-        this.update.show();
+    ngAfterContentChecked() {
+
     }
+
+
+    getInputUnique(attribute: string, unique?: string): string {
+        return attribute + (typeof unique !== 'undefined' ? unique : this.orderId);
+    }
+
 
     updateReceiver() {
         const post = this.orderService.createPostParams({
@@ -111,9 +80,9 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
             receiver_district_id: this.district,
             receiver_district_name: this.districtName
         }, 'updateReceiver');
-        this.orderService.put(`order/${this.identity}`, post).subscribe(res => {
+        this.orderService.put(`order/${this.orderId}`, post).subscribe(res => {
             const rs: any = res;
-            this.update.hide();
+            this.success.emit(res.success);
             if (rs.success) {
                 this.popup.success(res.message);
             } else {

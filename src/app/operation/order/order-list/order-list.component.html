@@ -285,23 +285,23 @@
                               <hr style="margin: 5px;">
                               <div class="row mt-3">
                                 <div class="col-md-12">
-                                  <app-customer-information
-                                    [labelText]="'RECEIVER'"
-                                    [disable]="false"
-                                    [unique]="'RECEIVER'"
-                                    [identity]="order.id"
-                                    [name]="order.receiver_name"
-                                    [phone]="order.receiver_phone"
-                                    [email]="order.receiver_email"
-                                    [address]="order.receiver_address"
-                                    [district]="order.receiver_district_id"
-                                    [districtName]="order.receiver_district_name"
-                                    [province]="order.receiver_province_id"
-                                    [provinceName]="order.receiver_province_name"
-                                    [country]="order.receiver_country_id"
-                                    [countryName]="order.receiver_country_name"
-                                    [postCode]="order.receiver_post_code">
-                                  </app-customer-information>
+                                  <div class="row">
+                                    <div class="col-md-12" style="margin-bottom: 2%">
+                                      <div>
+                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px">RECIEVER
+                                          <a href="javascript:void(0)"
+                                             (click)="activeOrder = order;updateReceiverModal.show()">
+                                            <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+                                          </a>
+                                        </h5>
+                                      </div>
+                                      <div class="address">
+                                        <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span>
+                                        <br>
+                                        <span>{{order.receiver_address}} ( {{order.receiver_district_name }} - {{order.receiver_province_name}}) - {{order.receiver_country_name}}</span>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                               <div class="row mt-3">
@@ -313,7 +313,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" (click)="chat(order.id, order.ordercode)" class="btn btn-secondary btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                                  <button type="button" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
@@ -699,7 +699,7 @@
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat" [code]="code"></app-chat>
+                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat"  [status]="orderChatStatus" [code]="code"></app-chat>
                     </div>
                   </div>
                 </div>
@@ -819,5 +819,36 @@
         </button>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #updateReceiverModal="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Update {{activeOrder?.id}}</h4>
+        <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <app-customer-information *ngIf="activeOrder"
+                [orderId]="activeOrder.id"
+                [name]="activeOrder.receiver_name"
+                [phone]="activeOrder.receiver_phone"
+                [email]="activeOrder.receiver_email"
+                [address]="activeOrder.receiver_address"
+                [district]="activeOrder.receiver_district_id"
+                [districtName]="activeOrder.receiver_district_name"
+                [province]="activeOrder.receiver_province_id"
+                [provinceName]="activeOrder.receiver_province_name"
+                [country]="activeOrder.receiver_country_id"
+                [countryName]="activeOrder.receiver_country_name"
+                [postCode]="activeOrder.receiver_post_code"
+                (success)="updateReceiverModal.hide()">
+        </app-customer-information>
+        <h3 *ngIf="!activeOrder">Failed</h3>
+      </div>
+    </div>
+
   </div>
 </div>
