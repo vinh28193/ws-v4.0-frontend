@@ -18,14 +18,17 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     }
 
     assignSale() {
-        this.orderService.get(`order/assign/${this.orderId}`, undefined).subscribe(res => {
+      const put = this.orderService.createPostParams({
+        sale_support_id: this.saleSupport.id
+      }, 'assignSale');
+        this.orderService.put(`order/${this.orderId}`, put).subscribe(res => {
             if (res.success) {
                 this.popup.success(res.message);
+            } else {
+              this.popup.error(res.message);
             }
-            this.popup.error(res.message);
         });
     }
-
     ngOnInit() {
     }
 

@@ -323,8 +323,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.orderService.put(`order/${id}`, put).subscribe(res => {
       if (res.success) {
         this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
       }
-        this.popup.error('error');
     });
 }
 
