@@ -102,7 +102,7 @@
             <label class="form-control-label">Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
               <option [value]="allKey">--All Location--</option>
-              <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale.username}}</option>
+              <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -302,7 +302,7 @@
 
                               <div class="row col-md-12">
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order.id); ModalviewMoreLog.show()">View More Log (SOI)</button>
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.products)">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'SUPPORTED'">Confirm Purchase All</button>
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
                               </div>
 
@@ -591,7 +591,7 @@
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger">
+                                    <button class="btn btn-sm btn-danger" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING' || order.current_status == 'SUPPORTED'" (click)="cancelOrder(order.id)">
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">

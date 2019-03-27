@@ -31,4 +31,8 @@ export class PopupService {
             confirmButtonText: 'Success'
         });
     }
+
+    warning(){
+
+    }
 }

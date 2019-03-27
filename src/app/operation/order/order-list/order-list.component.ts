@@ -47,7 +47,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public orderID: any;
   public typeViewLogs = 'all';
   public listLog: any = [];
-  public codeO: any;
   public logIdOrder: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -276,8 +275,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.logIdOrder = id;
   }
 
-  confirmAll(products) {
-    console.log(products);
+  confirmAll(id) {
+    const put = this.orderService.createPostParams({
+      current_status: 'READY_PURCHASE',
+    }, 'confirmPurchase');
+    this.orderService.put(`order/${id}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
   }
 
   markAsJunk(productsId) {
@@ -316,6 +324,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.listLog = rs.data._items;
     });
   }
+
+  cancelOrder(id) {
+    const put = this.orderService.createPostParams({
+      current_status: 'CANCEL',
+    }, 'updateStatus');
+    this.orderService.put(`order/${id}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
+}
 
 }
 
