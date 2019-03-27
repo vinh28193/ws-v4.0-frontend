@@ -1,46 +1,32 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OrderDataComponent} from '../../order-data.component';
+import {OrderService} from '../../order.service';
+import {PopupService} from '../../../../core/service/popup.service';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
-  selector: 'app-assign-sale',
-  templateUrl: './assign-sale.component.html',
-  styleUrls: ['./assign-sale.component.css']
+    selector: 'app-assign-sale',
+    templateUrl: './assign-sale.component.html',
+    styleUrls: ['./assign-sale.component.css']
 })
-export class AssignSaleComponent implements OnInit {
-  @Input() orderId: any;
-  @Input() saleId: any;
-  @Input() saleEmail: any;
-  @Input() store: any;
+export class AssignSaleComponent extends OrderDataComponent implements OnInit {
+    @Input() orderId: any;
+    @Input() saleSupport: any;
 
-  public localStorageKey = 'assignSale';
-
-  public sale;
-  public sales = [];
-
-  private isMe;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.sale = this.saleId;
-    this.saleEmail = this.safeName(this.saleEmail);
-  }
-
-  safeName(email) {
-    if (typeof email === 'undefined' || email === null || email === '') {
-      return 'undefined';
+    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+        super(orderService);
     }
-    return email.replace('@peacesoft.net', '').replace('@weshop.asia', '').replace('@gmail.com', '').replace('@yahoo.com', '').replace('@hotmail.com', '');
-  }
 
-  clearBoth(sales) {
-    let clearSales = sales.filter(sale => Number(sale.id) !== Number(this.saleId));
-    if (clearSales.length > 0) {
-      clearSales = clearSales.map(sale => {
-        return {id: sale.id, name: this.safeName(sale.email)};
-      });
-      return clearSales;
+    assignSale() {
+        this.orderService.get(`order/assign/${this.orderId}`, undefined).subscribe(res => {
+            if (res.success) {
+                this.popup.success(res.message);
+            }
+            this.popup.error(res.message);
+        });
     }
-    return [];
-  }
+
+    ngOnInit() {
+    }
 
 }

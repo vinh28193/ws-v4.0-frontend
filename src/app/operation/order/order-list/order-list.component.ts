@@ -48,6 +48,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public typeViewLogs = 'all';
   public listLog: any = [];
   public codeO: any;
+  public logIdOrder: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -241,8 +242,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
   load() {
-    // this.getSale();
-    // this.getSeller();
+    this.getSale();
+    this.getSeller();
   }
 
   followOrder() {
@@ -270,9 +271,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.updateProductId = id;
   }
 
-  viewMoreLog(status, code, type = 'item') {
+  viewMoreLog(status, id, type = 'item') {
     this.moreLog.status = status;
-    this.codeO = code;
+    this.logIdOrder = id;
   }
 
   confirmAll(products) {
@@ -309,12 +310,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.listOrders();
   }
 
-  loadData(tab, codeO) {
-    this.codeO = codeO
-    this.orderService.get(`${tab}/${this.codeO}`, undefined).subscribe(res => {
+  loadData(tab, id: number) {
+    this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
       const rs = res;
       this.listLog = rs.data._items;
     });
   }
+
 }
 
