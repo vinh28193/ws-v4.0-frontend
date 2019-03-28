@@ -658,7 +658,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail [products]="order.products" ></app-order-detail>
+                                <app-order-detail (editFee)="productUpdateFee = $event; editAllFeeProduct.show()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item  [packages]="order.packageItems"></app-package-item>
@@ -866,5 +866,58 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div class="modal fade" bsModal #editAllFeeProduct="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header"><h3>Update fee for Product ID {{productUpdateFee.id}}</h3></div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+              <i style="color: red;font-weight: 800">* All fees are in $ </i>
+            </div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total origin tax fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total origin tax fee local</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total origin shiping fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total weshop fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total shiping fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total custom fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total delivery fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total packing fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total insection fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total insurance fee</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+            <div class="col-md-6 label-edit-fee" ><label>Total VAT amount</label></div>
+            <div class="col-md-6 input-edit-fee"><input class="form-control"></div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
   </div>
 </div>

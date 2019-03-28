@@ -174,3 +174,9 @@ i.fa.fa-filter {
 .st-ul li {
   float: left;
 }
+.label-edit-fee{
+  text-align: right
+}
+.input-edit-fee input{
+  width: 50%;
+}

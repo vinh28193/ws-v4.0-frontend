@@ -29,6 +29,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public listSale: any = [];
   public email: any;
   public sale_support_id: any;
+  public productUpdateFee: any;
   // form Group
   public searchForm: FormGroup;
   orderStatus: any = [];
