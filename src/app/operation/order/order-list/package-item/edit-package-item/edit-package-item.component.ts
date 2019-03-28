@@ -11,16 +11,17 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 })
 export class EditPackageItemComponent extends OrderDataComponent implements OnInit {
   @Input() package: any;
-  formGroup: FormGroup;
+  @Input() orderIdd: any;
+  public editForm: FormGroup;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
 
   ngOnInit() {
-    this.build();
+    this.buildEdit();
   }
-  build() {
+  buildEdit() {
     this.editForm = this.fb.group({
       package_code: this.package.package_code,
       quantity: this.package.quantity,
@@ -31,7 +32,7 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     });
   }
 
-  preparPackage() {
+  preparPackages() {
     const value = this.editForm.value;
     const params: any = {};
     if (value.package_code !== '') {
@@ -52,12 +53,15 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     if (value.dimension_h !== '') {
       params.dimension_h = value.dimension_h;
     }
+    if (this.orderIdd !== '') {
+      params.order_id = this.orderIdd;
+    }
     console.log(this.editForm.value);
     return params;
   }
 
   updatePackage() {
-    const params = this.preparPackage();
+    const params = this.preparPackages();
     console.log(params);
     this.orderService.put(`package-item/${this.package.id}`, params).subscribe(res => {
       if (res.success) {
@@ -66,9 +70,6 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
         this.popup.error(res.message);
       }
     });
-  }
-  addPackageItem() {
-
   }
 
 }

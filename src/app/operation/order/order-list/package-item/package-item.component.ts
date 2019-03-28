@@ -15,7 +15,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   public package: any;
   public check: boolean = false;
   public checkCreate: boolean = false;
-  formGroup: FormGroup;
+  public createForm: FormGroup;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -37,12 +37,13 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   }
 
   addPackageItem() {
-    const params = this.preparPackage();
+    const params = this.preparPackagesss();
     this.orderService.post('package-item', params).subscribe(res => {
-      if (res.success) {
-        this.popup.success(res.message);
+      const rs: any = res;
+      if (rs.success) {
+        this.popup.success(rs.message);
       } else {
-        this.popup.error(res.message);
+        this.popup.error(rs.message);
       }
     });
   }
@@ -51,7 +52,6 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     this.createForm = this.fb.group({
       package_code: '',
       quantity: '',
-      weight: '',
       price: '',
       weight: '',
       change_weight: '',
@@ -62,7 +62,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     });
   }
 
-  preparPackage() {
+  preparPackagesss() {
     const value = this.createForm.value;
     const params: any = {};
     if (value.package_code !== '') {
