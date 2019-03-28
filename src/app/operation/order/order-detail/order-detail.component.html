@@ -126,7 +126,7 @@
 
           <hr>
 
-          <div *ngFor="let ProFee of productsFee">
+          <div *ngFor="let ProFee of product.productFees">
             <div class="row ProductFees ">
               <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-4"><strong>{{ProFee.type | ProductFee }} :</strong></div>
               <div *ngIf="product.id == ProFee.product_id" class="origin-amount {{ProFee.amount}} col-md-4 text-right style-padding ">
