@@ -28,11 +28,11 @@
           </div>
         </td>
         <td>
-          <input name="" placeholder="Thuộc tính" type="text" [value]="product.variations" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty">
+          <input name="" placeholder="Thuộc tính" type="text" [value]="product.variations" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty">
         </td>
         <td class="text-center ng-binding" style="line-height: 27px;">{{product.quantity_customer}}</td>
         <td>
-          <input name="" placeholder="SL" min="0" [value]="product.quantity_purchase" type="text"  class="form-control ng-touched ng-dirty ng-not-empty ng-valid ng-valid-parse">
+          <input name="" placeholder="SL" min="0" [value]="product.quantity_purchase" type="text"  class="form-control-sm ng-touched ng-dirty ng-not-empty ng-valid ng-valid-parse">
         </td>
         <td style="line-height: 27px;" class="text-warning">
           <span class="ng-binding ng-scope">
@@ -60,7 +60,7 @@
         Tài khoản đặt mua:
       </div>
       <div class="col-md-4">
-        <select name="receiverCityId" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+        <select name="receiverCityId" class="form-control-sm ng-pristine ng-untouched ng-valid ng-empty">
           <option value=""> -- LỰA CHỌN TÀI KHOẢN --</option>
         </select>
       </div>
@@ -70,7 +70,7 @@
         Danh mục sản phẩm:
       </div>
       <div class="col-md-4">
-        <select name="receiverCityId"  class="form-control list-group ng-pristine ng-untouched ng-valid ng-empty" data-live-search="true">
+        <select name="receiverCityId"  class="form-control-sm list-group ng-pristine ng-untouched ng-valid ng-empty" data-live-search="true">
           <option value=""> -- Chọn danh mục sản phẩm --</option>
         </select>
       </div>
@@ -78,7 +78,7 @@
     <div class="row mt-3">
       <div class="col-md-4 text-bold text-left">Tổng tiền hàng:</div>
       <div class="col-md-4">
-        <input type="text"  placeholder="Nhập số tiền sẽ thanh toán" tabindex="4" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty">
+        <input type="text"  placeholder="Nhập số tiền sẽ thanh toán" tabindex="4" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty">
       </div>
     </div>
     <div class="row mt-3">
@@ -131,6 +131,6 @@
 
 </div>
 <div class="modal-footer ng-scope">
-  <button class="btn btn-success" type="button">Xác nhận đã mua hàng</button>
-  <button class="btn btn-warning" type="button">Đóng</button>
+  <button class="btn btn-success btn-sm" type="button">Xác nhận đã mua hàng</button>
+  <button class="btn btn-warning btn-sm" type="button">Đóng</button>
 </div>

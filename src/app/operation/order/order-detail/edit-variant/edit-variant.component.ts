@@ -19,7 +19,7 @@ export class EditVariantComponent extends OrderDataComponent implements OnInit {
 
   ngOnInit() {
     this.editForm = this.fb.group({
-      variant: this.variant.value
+      variant: this.variant,
     });
   }
 

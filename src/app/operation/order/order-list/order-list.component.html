@@ -6,7 +6,7 @@
           <h3>LIST ALL ITEMS OF ORDER - RAW</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
-          <div class="col-md-2 col-sm-12  form-group m-b-10">
+          <div class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label">Store</label>
             <select class="form-control form-control-sm" name="store" id="store"
                     formControlName="store">
@@ -30,7 +30,18 @@
                      type="text" (keyup.enter)="listOrders()">
             </div>
           </div>
-          <div class="col-md-4 col-sm-12 form-group m-b-10">
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="type" class="form-control-label">Order Type</label>
+            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
+              <option [value]="allKey">--All Type--</option>
+              <option value="SHOP">Shop</option>
+              <option value="REQUEST">Request</option>
+              <option value="POS">Pos</option>
+              <option value="SHIP">Ship</option>
+              <option value="NEXTTECH">Nexttech</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label">Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
@@ -82,17 +93,6 @@
           </div>
 
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="type" class="form-control-label">Order Type</label>
-            <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
-              <option [value]="allKey">--All Type--</option>
-              <option value="SHOP">Shop</option>
-              <option value="REQUEST">Request</option>
-              <option value="POS">Pos</option>
-              <option value="SHIP">Ship</option>
-              <option value="NEXTTECH">Nexttech</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label">Order Status</label>
             <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
                     formControlName="orderStatus">
@@ -106,6 +106,8 @@
               <option [value]="allKey">--All Atatus--</option>
               <option value="AMAZON_US">AMAZON US</option>
               <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+              <option value="OTHER">OTHER</option>
+              <option value="EBAY">EBAY</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -552,7 +554,7 @@
                                   <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.id);purchaseCard.show();">
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
 
@@ -641,17 +643,31 @@
                             </div>
                           </div>
                           <div class="row pb-1 pt-1">
-                            <div class="col-md-12">
-                              <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.packageItems.id = !order.packageItems.id">Package</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
+                            <div class="col-md-12 tab-slider--nav">
+                              <ul class="tab-slider--tabs st-ul">
+                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)="viewMode = 'pro' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Product</button>
+                                </li>
+                                <li class="tab-slider--trigger" [class.active]="viewMode == 'package' + order.id" rel="tab2" (click)="viewMode ='package' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Package Infor</button>
+                                </li>
+                                <li class="tab-slider--trigger" [class.active]="viewMode == 'payment' + order.id" rel="tab2" (click)="viewMode ='payment' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Payment Transaction</button>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
+                              <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
+                                <app-order-detail [products]="order.products" ></app-order-detail>
+                              </div>
+                              <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
+                                <app-package-item  [packages]="order.packageItems" [order_id] = "order.id"></app-package-item>
+                              </div>
+                              <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
+                                <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                              </div>
                             </div>
                           </div>
-                          <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
-                          <app-package-item *ngIf="order.packageItems.id" [packages]="order.packageItems"></app-package-item>
-                          <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
@@ -746,7 +762,7 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateProductId"></app-purchase-card>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
 </div>

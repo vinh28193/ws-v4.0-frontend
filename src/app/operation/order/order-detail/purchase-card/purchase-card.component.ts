@@ -2,6 +2,7 @@ import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/
 import {OrderService} from '../../order.service';
 import {EventHandlerVars} from '@angular/compiler/src/compiler_util/expression_converter';
 import {StorageService} from '../../../../core/service/storage.service';
+import {PopupService} from '../../../../core/service/popup.service';
 
 declare var swal: any;
 declare var $: any;
@@ -14,7 +15,7 @@ declare var jQuery: any;
 })
 export class PurchaseCardComponent implements OnInit, DoCheck {
 
-    constructor(public orderService: OrderService, public storegate: StorageService) {
+    constructor(public orderService: OrderService, public storegate: StorageService, public pop: PopupService) {
     }
 
     @Input() updateProductId: any;
@@ -69,6 +70,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             });
         }
     }
+
     getCardPayment(nocache = false) {
         this.listCard = nocache ? null : JSON.parse(this.storegate.get('list_payment_card'));
         if (!this.listCard) {
@@ -82,6 +84,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             });
         }
     }
+
     addcart() {
         console.log(this.current_id);
         this.orderService.putPurchase('update/' + this.current_id, '').subscribe(rs => {
@@ -90,6 +93,9 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 this.orders = res.data;
                 console.log(this.orders);
                 this.setTotal();
+                this.pop.success(res.message);
+            } else {
+                this.pop.error(res.message);
             }
         });
     }
@@ -135,9 +141,10 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             const res: any = rs;
             console.log(res);
             if (res.success) {
-                this.orders = res.data;
-                console.log(this.orders);
-                this.setTotal();
+                this.orders = [];
+                this.pop.success(res.message);
+            } else {
+                this.pop.error(res.message);
             }
         });
     }
