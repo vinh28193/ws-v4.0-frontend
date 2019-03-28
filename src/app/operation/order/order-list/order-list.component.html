@@ -554,7 +554,7 @@
                                   <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order.id);purchaseCard.show();">
+                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
 
@@ -762,7 +762,7 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateProductId"></app-purchase-card>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
 </div>
