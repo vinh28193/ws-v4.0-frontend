@@ -332,7 +332,7 @@
                               <div class="row col-md-12">
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order.id); ModalviewMoreLog.show()">View More Log (SOI)</button>
                                 <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'SUPPORTED'">Confirm Purchase All</button>
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>
+                                <!--<button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>-->
                               </div>
 
 
@@ -661,7 +661,7 @@
                                 <app-order-detail (editFee)="productUpdateFee = $event; editAllFeeProduct.show()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
-                                <app-package-item  [packages]="order.packageItems"></app-package-item>
+                                <app-package-item  [packages]="order.packageItems" [order_id] = "order.id"></app-package-item>
                               </div>
                               <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
                                 <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>

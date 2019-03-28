@@ -2,20 +2,20 @@
 <!--<button id="toggle-colours-button" (click)="toggleColours()">Toggle colours</button>-->
 <!--<button id="toggle-template-button" (click)="toggleTemplate()">Toggle template</button>-->
 
-<ng-template #customLoadingTemplate>
-  <div class="custom-class">
-    <h3>
-      Loading...
-    </h3>
-    <button (click)="showAlert()">
-      Click me!
-    </button>
-  </div>
-</ng-template>
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+      <button (click)="showAlert()">
+        Click me!
+      </button>
+    </div>
+  </ng-template>
 
-<div class="loading-container">
-
-  <div class="loading">
-    <ngx-loading #ngxLoading [show]="loading" [config]="loadingConfig" [template]="loadingTemplate"></ngx-loading>
-  </div>
+  <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+        primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }" [template]="customLoadingTemplate"></ngx-loading>
+  //...
 </div>
