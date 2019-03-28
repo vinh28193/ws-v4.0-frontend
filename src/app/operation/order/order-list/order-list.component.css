@@ -171,3 +171,6 @@ i.fa.fa-filter {
   font-weight: bold;
   font-size: 12px;
 }
+.st-ul li {
+  float: left;
+}

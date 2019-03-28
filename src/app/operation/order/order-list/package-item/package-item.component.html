@@ -14,7 +14,7 @@
     <tr *ngFor="let package of packages; let i = index">
       <td>
         {{i+1}}<br>
-        <a href="javascript:void(0)"><i class="fa fa-edit text-info"></i></a>
+        <a href="javascript:void(0)" (click)="packageEdit() ;editPackage.show()"><i class="fa fa-edit text-info"></i></a>
       </td>
       <td>
         <a href="avascript:void(0)" target="_blank" class="tracking">{{package.package_code}}</a>
@@ -44,4 +44,93 @@
     </tr>
     </tbody>
   </table>
+</div>
+
+<div class="modal fade" bsModal #editPackage="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"><div class="modal-header ng-scope">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Đóng</span>
+      </button>
+      <h3 class="modal-title">Cập nhật lại thông tin kiện hàng</h3>
+    </div>
+      <div class="modal-body ng-scope">
+        <form class="form-horizontal ng-pristine ng-valid">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>信息</th>
+              <th>Email</th>
+              <th class="ng-binding">TAOBAO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><h3 class="text-danger ng-binding">CP27673122</h3></td>
+              <th scope="row"><h3 class="text-danger ng-binding">chipo.vn@gmail.com</h3></th>
+              <th scope="row" class="ng-binding">456343</th>
+            </tr>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-md-12">
+              <p class="font-size20" ng-init="CHECKING = (dataOrder.financials | filter:{orderService: 'CHECKING'}).length; WOOD_CRATING = (dataOrder.financials | filter:{orderService: 'WOOD_CRATING'}).length; ">
+              </p><p>Khách dùng dịch vụ chipo | 客户使用其他业务:</p>
+              <p ng-if="dataOrder.warehouseVnReceiveId > 0" class="ng-scope">越南仓库: <span class="text-primary text-bold ng-binding">HNCTC - Trường Chinh - Hà Nội (Fang)</span></p>
+                <span style="font-size: 300%" ng-if="CHECKING <= 0 &amp;&amp; WOOD_CRATING <= 0" class="ng-scope">
+                        Không dùng | 无
+                    </span>
+              <p></p>
+            </div>
+          </div>
+          <table class="table table-striped form-update-package">
+            <thead>
+            <tr>
+              <th width="2%">#</th>
+              <th width="25%" class="text-center" title="Mã kiện hàng">运单号</th>
+              <th width="10%" title="Cân nặng tịch">重量 (Kg)</th>
+              <th width="10%">Quy đổi (Kg)</th>
+              <th width="10%" title="Dài">长度(cm)</th>
+              <th width="10%" title="Rộng">宽度(cm)</th>
+              <th width="10%" title="Cao">高度(cm)</th>
+              <th width="10%" title="Cân sau đóng gỗ">打木架后(Kg)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- ngRepeat: package in dataOrder.packages| filter: {id: packageId } --><tr ng-repeat="package in dataOrder.packages| filter: {id: packageId }" class="ng-scope">
+              <td class="ng-binding">1</td>
+              <td><input name="ladingId" ng-model="package.ladingId" ng-disabled="true" placeholder="Mã kiện hàng" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" disabled="disabled"></td>
+              <td><input name="netWeight" ng-change="change()" ng-model-options="{debounce: 200}" ng-model="package.netWeight" placeholder="Cân nặng" type="text" class="form-control  ng-pristine ng-valid ng-not-empty ng-touched"></td>
+              <td class="text-center"><span class="label label-info label-form ng-binding">1.5</span></td>
+              <td><input name="lengthPackage" ng-change="change()" ng-model="package.lengthPackage" placeholder="Dài" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty"></td>
+              <td><input name="widthPackage" ng-change="change()" ng-model="package.widthPackage" placeholder="Rộng" type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty"></td>
+              <td><input name="heightPackage" ng-change="change()" ng-model="package.heightPackage" placeholder="Cao" type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty"></td>
+              <td><input name="weightWoodCrating" ng-change="change()" ng-model-options="{debounce: 200}" ng-model="package.weightWoodCrating" placeholder="Cân nặng" type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty"></td>
+            </tr><!-- end ngRepeat: package in dataOrder.packages| filter: {id: packageId } -->
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-md-6 text-left">
+            </div>
+            <div class="col-md-6 text-right">
+              <h5 class="padding">Tổng cân nặng thực:  <strong class="text-danger ng-binding">0.5kg</strong></h5>
+              <h5 class="padding">Tổng cân nặng quy đổi:  <strong class="text-danger ng-binding">1.5kg</strong></h5>
+              <h5 class="padding">Cân nặng tính phí:  <strong class="text-danger ng-binding">1.5kg</strong></h5>
+            </div>
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            <p><strong>Lưu ý: Chỉ cập nhật được khi khách hàng chưa nhận</strong></p>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer ng-scope">
+        <button class="btn btn-success" type="button" ng-click="ok()">更新|Cập nhật</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">关|Đóng</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -643,17 +643,31 @@
                             </div>
                           </div>
                           <div class="row pb-1 pt-1">
-                            <div class="col-md-12">
-                              <button class="btn btn-sm bg-white mr-2 style-but"  (click)="order.id = !order.id">Product</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.packageItems.id = !order.packageItems.id">Package</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Purchase infor</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but">Deliver Info</button>
-                              <button class="btn btn-sm bg-white mr-2 style-but" (click)="order.walletTransactions.id = !order.walletTransactions.id">Payment Transaction</button>
+                            <div class="col-md-12 tab-slider--nav">
+                              <ul class="tab-slider--tabs st-ul">
+                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)="viewMode = 'pro' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Product</button>
+                                </li>
+                                <li class="tab-slider--trigger" [class.active]="viewMode == 'package' + order.id" rel="tab2" (click)="viewMode ='package' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Package Infor</button>
+                                </li>
+                                <li class="tab-slider--trigger" [class.active]="viewMode == 'payment' + order.id" rel="tab2" (click)="viewMode ='payment' + order.id">
+                                  <button class="btn btn-sm bg-white mr-2 style-but">Payment Transaction</button>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
+                              <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
+                                <app-order-detail [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
+                              </div>
+                              <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
+                                <app-package-item  [packages]="order.packageItems"></app-package-item>
+                              </div>
+                              <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
+                                <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                              </div>
                             </div>
                           </div>
-                          <app-order-detail *ngIf="!order.id" [products]="order.products" [productsFee]="order.orderFees" ></app-order-detail>
-                          <app-package-item *ngIf="order.packageItems.id" [packages]="order.packageItems"></app-package-item>
-                          <app-wallet-transactions *ngIf="order.walletTransactions.id" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                         </div>
                       </div>
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->

@@ -13,4 +13,6 @@ export class PackageItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  packageEdit() {}
+
 }

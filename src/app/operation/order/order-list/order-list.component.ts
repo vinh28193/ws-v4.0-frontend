@@ -159,7 +159,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       timeKey: this.allKey,
       timeRange: '',
       timeKeyCreate: this.allKey,
-      valueCreate: {startDate: '', endDate: ''}
+      valueCreate: {startDate: '', endDate: ''},
       type: this.allKey,
       orderStatus: this.allKey,
       portal: this.allKey,
@@ -346,7 +346,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
-}
+  }
+
+  openProduct(id) {
+    const pro = id + 'detail';
+    return pro;
+  }
 
 }
 

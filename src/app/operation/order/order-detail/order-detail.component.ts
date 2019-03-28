@@ -19,7 +19,6 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
-
   ngOnInit() {
     this.tabs = [
       {id: 'purchase', title: 'Purchase Info', router: '/purchase'},
