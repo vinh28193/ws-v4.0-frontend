@@ -67,5 +67,8 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
       }
     });
   }
+  addPackageItem() {
+
+  }
 
 }
