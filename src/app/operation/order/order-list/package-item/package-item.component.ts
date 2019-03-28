@@ -7,12 +7,19 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PackageItemComponent implements OnInit {
   @Input() packages: any;
+  public package: any;
+  public check: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  packageEdit() {}
-
+  packageEdit(item) {
+    this.package = item;
+    this.check = true;
+  }
+  offEditPackage() {
+    this.check = false;
+  }
 }

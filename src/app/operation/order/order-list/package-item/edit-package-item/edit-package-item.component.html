@@ -1,0 +1,49 @@
+<div class="modal-body ng-scope">
+  <form [formGroup] = "editForm" class="form-horizontal ng-pristine ng-valid">
+    <table class="table table-striped form-update-package">
+      <thead>
+      <tr>
+        <th width="2%">#</th>
+        <th  class="text-center" title="Mã kiện hàng">Mã kiện Weshop</th>
+        <th  class="text-center">Số lượng</th>
+        <th  title="Cân nặng tạm tính">Cân nặng tịnh (Kg)</th>
+        <th title="Dài">Dài(cm)</th>
+        <th title="Rộng">Rộng(cm)</th>
+        <th title="Cao">Cao(cm)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="ng-scope">
+        <td class="ng-binding">1</td>
+        <td>
+          <input name="ladingId" formControlName="package_code" (change)="preparPackage()"  placeholder="Mã kiện hàng" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty" disabled="disabled">
+        </td>
+        <td>
+          <input name="ladingId" formControlName="quantity" (change)="preparPackage()"  placeholder="Mã kiện hàng" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form">
+        </td>
+        <td><input name="netWeight" formControlName="weight"  placeholder="Cân nặng" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form"></td>
+        <td><input name="lengthPackage" formControlName="dimension_l"  placeholder="Dài" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form"></td>
+        <td><input name="widthPackage" formControlName="dimension_w" placeholder="Rộng" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form"></td>
+        <td><input name="heightPackage" formControlName="dimension_h" placeholder="Cao" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form"></td>
+        <!--<td><input name="weightWoodCrating" formControlName="weightWoodCrating"  placeholder="Cân nặng" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form"></td>-->
+      </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-md-6 text-left">
+      </div>
+      <div class="col-md-6 text-right">
+        <h5 class="padding">Tổng cân nặng thực:  <strong class="text-danger ng-binding">{{ this.editForm.get('weight').value }}</strong></h5>
+        <h5 class="padding">Tổng cân nặng quy đổi:  <strong class="text-danger ng-binding">{{(this.editForm.get('quantity').value * (this.editForm.get('dimension_l').value * this.editForm.get('dimension_w').value * this.editForm.get('dimension_h').value))/5000}}kg</strong></h5>
+        <h5 class="padding">Cân nặng tính phí:  <strong class="text-danger ng-binding">1.5kg</strong></h5>
+      </div>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+      <p><strong>Lưu ý: Chỉ cập nhật được khi khách hàng chưa nhận</strong></p>
+    </div>
+  </form>
+</div>
+<div class="modal-footer ng-scope">
+  <button class="btn btn-success" (click)="updatePackage()" type="button">Cập nhập</button>
+</div>
