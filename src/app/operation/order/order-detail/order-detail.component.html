@@ -135,15 +135,20 @@
                 {{ProFee.local_amount | currency: 'VND'}}
               </div>
               <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                Discount Amount : {{ProFee.discount_amount | currency: 'VND'}}
+                Discount : {{ProFee.discount_amount | currency: 'VND'}}
               </div>
             </div>
+          </div>
+          <hr>
+          <div class="row total_fee_product">
+            <div class="col-md-7"><strong>Total Fee Product :</strong></div>
+            <div class="col-md-5 text-right style-padding ">{{ 0 | currency: 'VND'}}</div>
           </div>
           <hr>
 
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value text-bold">
-              <strong>Total value
+              <strong>Total value Product
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
               </strong>
             </div>

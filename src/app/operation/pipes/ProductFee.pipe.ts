@@ -37,6 +37,11 @@ export class ProductFeePipe implements PipeTransform {
             case 'vat_fee' :
             case 'vat_fee ' :
                 return 'VAT Fee';
+            case 'import_fee':
+            case 'import_fee ':
+                return 'Import Fee';
+            default :
+                return 'Unknow Fee';
         }
 
     }

@@ -315,7 +315,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                                  <button type="button" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
@@ -330,8 +330,8 @@
                               <p></p>
 
                               <div class="row col-md-12">
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="viewMoreLog(order.current_status, order.id); ModalviewMoreLog.show()">View More Log (SOI)</button>
-                                <button class="btn btn-sm btn-info mb-2 mr-2" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'SUPPORTED'">Confirm Purchase All</button>
+                                <button class="btn btn-sm btn-info mt-2 " (click)="viewMoreLog(order.current_status, order.id); ModalviewMoreLog.show()">View More Log (SOI)</button>
+                                <button class="btn btn-sm btn-info mt-2 " (click)="confirmAll(order.id)" *ngIf="order.current_status == 'SUPPORTED'">Confirm Purchase All</button>
                                 <!--<button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>-->
                               </div>
 
@@ -473,6 +473,19 @@
 
                               <hr>
 
+                              <div class="Ws-bold-font row Total_fee_order">
+                                <div class="col-md-6 style-padding-right dong">
+                                  <span>Total Fee Order :</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left dong">
+                                  <span>
+                                    {{ 0 | currency: 'VND'}}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr>
+
                               <div class="row Quantity">
                                 <div class="col-md-6 style-padding-right  dong">
                                   <span>Exchage rate free:</span>
@@ -505,11 +518,11 @@
                               <hr>
                               <div class="row Coupon">
                                 <div class="col-md-6 style-padding-right dong">
-                                  <span class="Ws-bold-font">Coupon Code/Amount : </span>
+                                  <span class="Ws-bold-font">Coupon Code / Amount : </span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left ">
                                   <span>
-                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.total_counpon_amount_local}}
+                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.total_counpon_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
