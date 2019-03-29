@@ -58,8 +58,10 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
                     const res: any = rs;
                     if (res.success) {
                         console.log('Cập nhật thành công!');
+                        this.editFee.emit(true);
                     } else {
                         prodFee.local_amount = this.oldfee;
+                        this.editFee.emit(true);
                         this.popup.error(res.message);
                     }
                     this.idEdit = 0;

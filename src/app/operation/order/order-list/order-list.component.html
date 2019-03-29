@@ -674,7 +674,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail (editFee)="productUpdateFee = $event; editAllFeeProduct.show()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
