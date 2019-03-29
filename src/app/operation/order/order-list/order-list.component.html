@@ -409,7 +409,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row Total_custom_fee_amount">
+                              <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
                                 <div class="col-md-6 style-padding-right dong">
                                   <span>Total custom fee </span>
                                 </div>

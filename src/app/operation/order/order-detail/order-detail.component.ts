@@ -46,4 +46,12 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
         }
       }
   }
+
+  getProFee(fee, cusId) {
+      console.log(cusId);
+      if (fee === 'custom_fee' && cusId === null) {
+        return false;
+      }
+      return true;
+  }
 }

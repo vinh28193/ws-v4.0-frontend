@@ -288,6 +288,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
 
+  checkCustomer(item) {
+    if (item.length > 0) {
+      for (let i = 0; i < item.length; i++) {
+        if (item[i]['custom_category_id'] !== '' && item[i]['custom_category_id'] !== null) {
+          return true;
+        }
+        return false;
+      }
+    }
+    return false;
+  }
+
   cancelOrder(id) {
     const put = this.orderService.createPostParams({
       current_status: 'CANCEL',
