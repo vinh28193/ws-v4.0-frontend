@@ -1,4 +1,4 @@
-import {AfterViewChecked, OnInit} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {OperationDataComponent} from '../operation-data.component';
 import {OrderService} from './order.service';
 
@@ -11,9 +11,12 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     public provinces: any = [];
     public districts: any = [];
 
+    public sales: any = [];
+
     constructor(public http: OrderService) {
         super(http);
         this.loadSystemLocation();
+        this.loadAllSales();
     }
 
     ngOnInit() {
@@ -113,5 +116,20 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
             }
         }
         return this.districts;
+    }
+
+    loadAllSales(refresh = false): any | [] {
+        this.sales = this.http.decrypt('systemSale');
+        this.sales = JSON.parse(this.sales);
+        const wait = this.http.decrypt('loading-sale');
+        if ((!this.http.isValidValue(this.sales) && wait !== 'wait') || refresh) {
+            this.http.encrypt('loading-sale', 'wait');
+            this.http.get('sale-support', undefined).subscribe(res => {
+                this.sales = res;
+                this.http.encrypt('systemSale', JSON.stringify(this.sales));
+                this.http.encrypt('loading-sale', 'done');
+            });
+        }
+        return this.sales;
     }
 }
