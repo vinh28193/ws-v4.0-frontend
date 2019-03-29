@@ -341,8 +341,11 @@
 
                             <div class="col-md-4 hover-row style-col border-col">
                               <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                   <h5>FINANCE</h5>
+                                </div>
+                                <div class="col-md-6" style="text-align: right">
+                                  <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
                                 </div>
                               </div>
 
@@ -671,7 +674,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail (editFee)="productUpdateFee = $event; editAllFeeProduct.show()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
