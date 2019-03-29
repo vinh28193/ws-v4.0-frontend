@@ -332,7 +332,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   loadData(tab, id: number) {
     this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
       const rs = res;
-      this.listLog = rs.data._items;
+      this.listLog = rs.data;
+      console.log(this.listLog);
     });
   }
 
@@ -347,11 +348,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
-  }
-
-  openProduct(id) {
-    const pro = id + 'detail';
-    return pro;
   }
 
 }
