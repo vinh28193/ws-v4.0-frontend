@@ -562,51 +562,51 @@
                               <div class="hover-row">
                                 <div class="row">
                                   <div class="col-md-5 pr-0">New:</div>
-                                  <div class="col-md-7 text-right">{{order.new*1000 | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.new" >{{order.new*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Purchased:</div>
-                                  <div class="col-md-6 text-right">{{order.purchased | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Seller shipped:</div>
-                                  <div class="col-md-6 text-right">{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-6 text-right" *ngIf="order.seller_shipped" >{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Stock in US:</div>
-                                  <div class="col-md-6 text-right">{{order.stockin_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.stockin_us" >{{order.stockin_us | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0">Stock out US:</div>
-                                  <div class="col-md-6 text-right">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Stock in local:</div>
-                                  <div class="col-md-7 text-right">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Stock out local:</div>
-                                  <div class="col-md-7 text-right">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">At customer:</div>
-                                  <div class="col-md-7 text-right">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Returned:</div>
-                                  <div class="col-md-7 text-right">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6  pr-0">Cancelled:</div>
-                                  <div class="col-md-6 text-right">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0">Lost:</div>
-                                  <div class="col-md-7 text-right">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                               </div>
                               <div class="row m-t-10">
