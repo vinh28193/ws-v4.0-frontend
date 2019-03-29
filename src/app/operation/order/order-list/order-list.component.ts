@@ -6,6 +6,8 @@ import {BsDaterangepickerConfig, ModalOptions} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {EventEmitter} from '@angular/core';
+import {searchKeys,orderStatus,paymentRequests,timeKeys} from '../order-enum';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
   selector: 'app-order-list',
@@ -63,61 +65,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.bsRangeValue = [this.dateTime, maxDateTime];
     this.buildSearchForm();
     this.listOrders();
-    this.searchKeys = [
-      {key: 'order.ordercode', name: 'BIN'},
-      {key: 'product.id', name: 'SOI'},
-      {key: 'product.sku', name: 'SKU'},
-      {key: 'coupon.code', name: 'Coupon Code'},
-      {key: 'product.category_id', name: 'Category Id'},
-      {key: 'product.product_name', name: 'Product Name'},
-      {key: 'customer.email1', name: 'Buy Email'},
-      {key: 'order.receiver_email', name: 'Receiver Email'},
-      {key: 'order.receiver_phone', name: 'Phone receiver'},
-      {key: 'customer.phone1', name: 'Phone buyers'},
-      {key: 'order.payment_type', name: 'Payment Type'},
-    ];
-    this.timeKeys = [
-      {key: 'order.new', name: 'New'},
-      {key: 'order.purchased', name: 'Purchased'},
-      {key: 'order.seller_shipped', name: 'Seller Shipped'},
-      {key: 'order.stockin_us', name: 'StockIn US'},
-      {key: 'order.stockout_us', name: 'StockOut US'},
-      {key: 'order.stockin_local', name: 'StockIn Local'},
-      {key: 'order.stockout_local', name: 'StockOut Local'},
-      {key: 'order.at_customer', name: 'At Customer'},
-      {key: 'order.returned', name: 'Return'},
-      {key: 'order.cancelled', name: 'Cancelled'},
-      {key: 'order.lost', name: 'Lost'}
-    ];
-    this.paymentRequests = [
-      {key: 'order.createTime', name: 'New Add fee'},
-      {key: 'order.createTime', name: 'Aproved Add fee'},
-      {key: 'order.createTime', name: 'Addffee Requested'},
-      {key: 'order.createTime', name: 'Not Has Refund'},
-      {key: 'order.createTime', name: 'New Refund'},
-      {key: 'order.createTime', name: 'Aproved Refund'},
-      {key: 'order.createTime', name: 'Refund Requested'},
-      {key: 'order.createTime', name: 'Refund/Addfee success'},
-      {key: 'order.createTime', name: 'Refund/Addfee Fail'},
-    ];
-    this.orderStatus = [
-      {key: 'NEW', name: 'New order'},
-      {key: 'SUPPORTING', name: 'Supporting'},
-      {key: 'SUPPORTED', name: 'Supported'},
-      {key: 'READY2PURCHASE', name: 'Ready purchase'},
-      {key: 'PURCHASING', name: 'Purchasing'},
-      {key: 'PURCHASE_PENDING', name: 'Purchase pending'},
-      {key: 'PURCHASED', name: 'Purchased'},
-      {key: 'EXPWH_STOCKOUT', name: 'US warehouse'},
-      {key: 'IMPWH_STOCKIN', name: 'Local warehouse'},
-      {key: 'CUSTOMER_RECEIVED', name: 'Success order'},
-      {key: 'REFUNDED', name: 'Refunded order'},
-      {key: 'CANCEL', name: 'Cancel order'},
-      {key: 'REPLACED', name: 'Replaced order'},
-      {key: 'JUNK', name: 'Junk'},
-      {key: 'PAYMENT_EXPIRED', name: 'Payment Expired'},
-      {key: '', name: 'SanBox'}
-    ];
+    this.searchKeys = searchKeys;
+    this.timeKeys = timeKeys;
+    this.paymentRequests = paymentRequests;
+    this.orderStatus = orderStatus;
     this.load();
   }
 
@@ -281,9 +232,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.updateOrderPurchaseId = order.id;
   }
 
-  viewMoreLog(status, id, type = 'item') {
+  viewMoreLog(status, code, type = 'item') {
     this.moreLog.status = status;
-    this.logIdOrder = id;
+    this.logIdOrder = code;
   }
 
   confirmAll(id) {
@@ -337,6 +288,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
 
+  checkCustomer(item) {
+    if (item.length > 0) {
+      for (let i = 0; i < item.length; i++) {
+        if (item[i]['custom_category_id'] !== '' && item[i]['custom_category_id'] !== null) {
+          return true;
+        }
+        return false;
+      }
+    }
+    return false;
+  }
+
   cancelOrder(id) {
     const put = this.orderService.createPostParams({
       current_status: 'CANCEL',
@@ -348,6 +311,40 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
+  }
+
+  getTotalOrderFee(f, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11) {
+   if (f === undefined) {
+     f = 0;
+   } if (f1 === undefined) {
+    f1 = 0;
+  } if (f2 === undefined) {
+    f2 = 0;
+  } if (f3 === undefined) {
+    f3 = 0;
+  } if (f4 === undefined) {
+    f4 = 0;
+  } if (f4 === undefined) {
+    f4 = 0;
+  } if (f5 === undefined) {
+    f5 = 0;
+  } if (f6 === undefined) {
+    f6 = 0;
+  } if (f7 === undefined) {
+    f7 = 0;
+  } if (f8 === undefined) {
+    f8 = 0;
+  } if (f9 === undefined) {
+    f9 = 0;
+  }if (f10 === undefined) {
+    f10 = 0;
+  } if (f11 === undefined) {
+    f11 = 0;
+  }
+  const totalOrderFee = toNumber(f) + toNumber(f1) + toNumber(f2) + toNumber(f3)
+    + toNumber(f4) + toNumber(f5) + toNumber(f6) + toNumber(f7) + toNumber(f8) +
+    toNumber(f9) + toNumber(f10) + toNumber(f11);
+    return totalOrderFee;
   }
 
 }

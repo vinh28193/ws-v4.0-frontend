@@ -10,11 +10,13 @@ import {OrderDataComponent} from '../../order-data.component';
   styleUrls: ['./package-item.component.css']
 })
 export class PackageItemComponent extends OrderDataComponent implements OnInit {
-  @Input() packages: any;
-  @Input() order_id: any;
+  public packages: any = [];
+  @Input() orderCode: any;
+  @Input() orderIDD: any;
   public package: any;
   public check: boolean = false;
   public checkCreate: boolean = false;
+  public checkLoadPackage: boolean = false;
   public createForm: FormGroup;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -23,6 +25,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   ngOnInit() {
     this.buildCreate();
+    this.listPackageItem();
   }
 
   packageEdit(item) {
@@ -36,12 +39,19 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     this.checkCreate = false;
   }
 
+  listPackageItem() {
+    this.orderService.get(`package-item/${this.orderIDD}`, undefined).subscribe(res => {
+      this.packages = res.data;
+    });
+  }
+
   addPackageItem() {
     const params = this.preparPackagesss();
     this.orderService.post('package-item', params).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
         this.popup.success(rs.message);
+        this.listPackageItem();
       } else {
         this.popup.error(rs.message);
       }
@@ -92,9 +102,17 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     if (value.box_me_warehouse_tag !== '') {
       params.box_me_warehouse_tag = value.box_me_warehouse_tag;
     }
-    if (this.order_id !== '') {
-      params.order_id = this.order_id;
+    if (this.orderCode !== '') {
+      params.ordercode = this.orderCode;
     }
+    params.order_id = this.orderIDD;
     return params;
+  }
+
+  handleChange(event) {
+    this.checkLoadPackage = event;
+    if (this.checkLoadPackage = true) {
+      this.listPackageItem();
+    }
   }
 }
