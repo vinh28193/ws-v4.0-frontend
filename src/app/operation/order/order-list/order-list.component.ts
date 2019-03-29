@@ -239,7 +239,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     confirmAll(id) {
         const put = this.orderService.createPostParams({
-            current_status: 'READY_PURCHASE',
+            current_status: 'SUPPORTED',
         }, 'confirmPurchase');
         this.orderService.put(`order/${id}`, put).subscribe(res => {
             if (res.success) {
