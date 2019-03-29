@@ -8,7 +8,7 @@
       <th class="text-center">Weight</th>
       <th class="text-center">Stock In Local/ Stock Out Local</th>
       <th class="text-center">Status</th>
-      <th><button class="btn btn-sm btn-default" (click)="offCreatePackage()" data-target="#showCreatePackage" data-toggle="modal" data-backdrop="static" data-keyboard="false">Thêm Kiện</button></th>
+      <th><button class="btn btn-sm btn-default" (click)="offCreatePackage()" data-target="#showCreatePackage" data-toggle="modal" data-backdrop="static" data-keyboard="false">Create Package Item</button></th>
     </tr>
     </thead>
     <tbody class="text-center"  *ngIf="packages.length > 0">
@@ -54,10 +54,10 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width: 1000px">
       <div class="modal-header ng-scope">
-        <h3 class="modal-title">Cập nhật lại thông tin kiện hàng</h3>
+        <h3 class="modal-title">Update Package item</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offEditPackage()">
           <span aria-hidden="true">×</span>
-          <span class="sr-only">Đóng</span>
+          <span class="sr-only">close</span>
         </button>
       </div>
       <app-edit-package-item (checkEdit)="handleChange($event)" *ngIf="check" [orderC]="orderCode" [package] = 'package'></app-edit-package-item>
@@ -70,55 +70,55 @@
   <div class="modal-dialog modal-lg" style="max-width: 1000px">
     <div class="modal-content" style="width: 1000px">
       <div class="modal-header ng-scope">
-        <h3 class="modal-title">Thêm mới kiện hàng</h3>
+        <h3 class="modal-title">Create Package Item</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offCreatePackage()">
           <span aria-hidden="true">×</span>
-          <span class="sr-only">Đóng</span>
+          <span class="sr-only">close</span>
         </button>
       </div>
       <form [formGroup] = "createForm" class="form-horizontal ng-pristine ng-valid">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Mã kiện Weshop</label>
-              <input name="ladingId" formControlName="package_code"  placeholder="Mã kiện hàng" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Package Code</label>
+              <input name="ladingId" formControlName="package_code"  placeholder="Package Code" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Mã thẻ kho</label>
-              <input name="ladingId" formControlName="box_me_warehouse_tag"  placeholder="Mã thẻ kho" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Boxme Werehouse Tag</label>
+              <input name="ladingId" formControlName="box_me_warehouse_tag"  placeholder="Mã thẻ khoBoxme Werehouse Tag" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Số lượng</label>
-              <input name="ladingId" formControlName="quantity" placeholder="Số lượng" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Quantity</label>
+              <input name="ladingId" formControlName="quantity" placeholder="Quantity" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Cân nặng tịnh (g)</label>
-              <input name="netWeight" formControlName="weight"  placeholder="Cân nặng" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
+              <label for="" class="mb-2">Weight (g)</label>
+              <input name="netWeight" formControlName="weight"  placeholder="weight" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Cân nặng quy đổi (g)</label>
-              <input name="netWeight" formControlName="change_weight"  placeholder="Cân nặng" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
+              <label for="" class="mb-2">Change Weight (g)</label>
+              <input name="netWeight" formControlName="change_weight"  placeholder="Change Weight" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Dài(cm)</label>
-              <input name="widthPackage" formControlName="dimension_l" placeholder="Dài" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Dimension Length(cm)</label>
+              <input name="widthPackage" formControlName="dimension_l" placeholder="Dimension Length" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Rộng(cm)</label>
-              <input name="widthPackage" formControlName="dimension_w" placeholder="Rộng" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Dimension Width(cm)</label>
+              <input name="widthPackage" formControlName="dimension_w" placeholder="Dimension Width" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Cao(cm)</label>
-              <input name="widthPackage" formControlName="dimension_h" placeholder="Rộng" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
+              <label for="" class="mb-2">Dimensionh Height(cm)</label>
+              <input name="widthPackage" formControlName="dimension_h" placeholder="Dimensionh Height" type="text" class="form-control-sm  ng-pristine ng-untouched ng-valid ng-not-empty style-width-form1">
             </div>
             <div class="col-md-2 mt-4">
-              <label for="" class="mb-2">Giá/1 sản phẩm</label>
-              <input name="netWeight" formControlName="price"  placeholder="Giá tiền 1 sản phẩm" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
+              <label for="" class="mb-2">Price/1 Product</label>
+              <input name="netWeight" formControlName="price"  placeholder="Price/1 Product" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched style-width-form1">
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" (click)="addPackageItem()" type="button">Thêm mới</button>
+          <button class="btn btn-success" (click)="addPackageItem()" type="button">Create</button>
         </div>
       </form>
     </div>
