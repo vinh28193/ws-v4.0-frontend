@@ -47,10 +47,12 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   addPackageItem() {
     const params = this.preparPackagesss();
+    console.log(params);
     this.orderService.post('package-item', params).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
         this.popup.success(rs.message);
+        this.buildCreate();
         this.listPackageItem();
       } else {
         this.popup.error(rs.message);
@@ -96,12 +98,13 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     if (value.price !== '') {
       params.price = value.price;
     }
+    if (value.quantity !== '') {
+      params.quantity = value.quantity;
+    }
     if (value.change_weight !== '') {
       params.change_weight = value.change_weight;
     }
-    if (value.box_me_warehouse_tag !== '') {
-      params.box_me_warehouse_tag = value.box_me_warehouse_tag;
-    }
+    params.box_me_warehouse_tag = value.box_me_warehouse_tag;
     if (this.orderCode !== '') {
       params.ordercode = this.orderCode;
     }
