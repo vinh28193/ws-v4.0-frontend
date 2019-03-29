@@ -11,7 +11,7 @@ import {OrderDataComponent} from '../../order-data.component';
 })
 export class PackageItemComponent extends OrderDataComponent implements OnInit {
   @Input() packages: any;
-  @Input() order_id: any;
+  @Input() orderCode: any;
   public package: any;
   public check: boolean = false;
   public checkCreate: boolean = false;
@@ -92,8 +92,8 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
     if (value.box_me_warehouse_tag !== '') {
       params.box_me_warehouse_tag = value.box_me_warehouse_tag;
     }
-    if (this.order_id !== '') {
-      params.order_id = this.order_id;
+    if (this.orderCode !== '') {
+      params.ordercode = this.orderCode;
     }
     return params;
   }

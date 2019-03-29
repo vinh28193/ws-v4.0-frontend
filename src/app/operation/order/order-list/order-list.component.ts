@@ -252,8 +252,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     load() {
-        this.getSale();
-        this.getSeller();
+        // this.getSale();
+        // this.getSeller();
     }
 
   followOrder() {
@@ -282,9 +282,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.updateOrderPurchaseId = order.id;
   }
 
-  viewMoreLog(status, id, type = 'item') {
+  viewMoreLog(status, code, type = 'item') {
     this.moreLog.status = status;
-    this.logIdOrder = id;
+    this.logIdOrder = code;
   }
 
   confirmAll(id) {
