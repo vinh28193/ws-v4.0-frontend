@@ -40,7 +40,6 @@ export class OrderService extends OperationService {
     }
 
     putPurchase(url, item: any | undefined) {
-        console.log(url);
         return this.put('purchase/' + url, item);
     }
 
@@ -68,5 +67,9 @@ export class OrderService extends OperationService {
 
     getListCardPayment(url, item: any | undefined) {
         return this.post('card-payment', item);
+    }
+
+    putProductFee(url, item: any | undefined) {
+        return this.put('fee/' + url, item);
     }
 }
