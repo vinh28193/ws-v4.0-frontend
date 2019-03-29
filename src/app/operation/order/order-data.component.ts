@@ -37,7 +37,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
         const wait = this.http.decrypt('loading-countries');
         if ((!this.http.isValidValue(this.countries) && wait !== 'wait') || refresh) {
             this.http.encrypt('loading-countries', 'wait');
-            this.http.get('system-location', undefined).subscribe(res => {
+                  this.http.get('system-location', undefined).subscribe(res => {
                 this.countries = res;
                 this.countries = this.countries.map(c => {
                     return {

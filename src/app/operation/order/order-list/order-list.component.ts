@@ -29,6 +29,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public listSale: any = [];
   public email: any;
   public sale_support_id: any;
+  public productUpdateFee: any;
   // form Group
   public searchForm: FormGroup;
   orderStatus: any = [];
@@ -250,8 +251,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     load() {
-        // this.getSale();
-        // this.getSeller();
+        this.getSale();
+        this.getSeller();
     }
 
   followOrder() {
@@ -309,7 +310,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   getSale() {
     this.orderService.get('sale-support', undefined).subscribe(rss => {
-      this.listSale = rss.data;
+      this.listSale = rss;
     });
   }
   filterOneCustome(email) {
@@ -331,7 +332,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   loadData(tab, id: number) {
     this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
       const rs = res;
-      this.listLog = rs.data._items;
+      this.listLog = rs.data;
+      console.log(this.listLog);
     });
   }
 
@@ -346,11 +348,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
-  }
-
-  openProduct(id) {
-    const pro = id + 'detail';
-    return pro;
   }
 
 }
