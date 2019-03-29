@@ -479,7 +479,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
-                                    {{ 0 | currency: 'VND'}}
+                                    {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>

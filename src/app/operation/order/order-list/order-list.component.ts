@@ -6,6 +6,7 @@ import {BsDaterangepickerConfig, ModalOptions} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {EventEmitter} from '@angular/core';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
   selector: 'app-order-list',
@@ -251,8 +252,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     load() {
-        this.getSale();
-        this.getSeller();
+        // this.getSale();
+        // this.getSeller();
     }
 
   followOrder() {
@@ -348,6 +349,40 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
+  }
+
+  getTotalOrderFee(f, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11) {
+   if (f === undefined) {
+     f = 0;
+   } if (f1 === undefined) {
+    f1 = 0;
+  } if (f2 === undefined) {
+    f2 = 0;
+  } if (f3 === undefined) {
+    f3 = 0;
+  } if (f4 === undefined) {
+    f4 = 0;
+  } if (f4 === undefined) {
+    f4 = 0;
+  } if (f5 === undefined) {
+    f5 = 0;
+  } if (f6 === undefined) {
+    f6 = 0;
+  } if (f7 === undefined) {
+    f7 = 0;
+  } if (f8 === undefined) {
+    f8 = 0;
+  } if (f9 === undefined) {
+    f9 = 0;
+  }if (f10 === undefined) {
+    f10 = 0;
+  } if (f11 === undefined) {
+    f11 = 0;
+  }
+  const totalOrderFee = toNumber(f) + toNumber(f1) + toNumber(f2) + toNumber(f3)
+    + toNumber(f4) + toNumber(f5) + toNumber(f6) + toNumber(f7) + toNumber(f8) +
+    toNumber(f9) + toNumber(f10) + toNumber(f11);
+    return totalOrderFee;
   }
 
 }
