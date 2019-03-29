@@ -11,7 +11,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 })
 export class EditPackageItemComponent extends OrderDataComponent implements OnInit {
   @Input() package: any;
-  @Input() orderIdd: any;
+  @Input() orderC: any;
   public editForm: FormGroup;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -53,8 +53,8 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     if (value.dimension_h !== '') {
       params.dimension_h = value.dimension_h;
     }
-    if (this.orderIdd !== '') {
-      params.order_id = this.orderIdd;
+    if (this.orderC !== '') {
+      params.ordercode = this.orderC;
     }
     console.log(this.editForm.value);
     return params;

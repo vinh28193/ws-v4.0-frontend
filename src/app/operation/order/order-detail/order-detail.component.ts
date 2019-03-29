@@ -33,4 +33,17 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
         console.log(productFee);
         this.editFee.emit(productFee);
     }
+
+  getTotalProductFee(fee) {
+    const total = 0
+      if (fee.length > 0) {
+        for (let i = 0; i < fee.length; i++) {
+          if (fee[i]['local_amount'] === undefined) {
+            fee[i]['local_amount'] = 0;
+          }
+          total += fee[i]['local_amount'];
+          return total;
+        }
+      }
+  }
 }

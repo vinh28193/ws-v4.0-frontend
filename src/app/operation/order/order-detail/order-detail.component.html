@@ -141,8 +141,8 @@
           </div>
           <hr>
           <div class="row total_fee_product">
-            <div class="col-md-7"><strong>Total Fee Product :</strong></div>
-            <div class="col-md-5 text-right style-padding ">{{ 0 | currency: 'VND'}}</div>
+            <div class="col-md-7"><strong>Total Fee Product : </strong></div>
+            <div class="col-md-5 text-right style-padding ">{{ getTotalProductFee(product.productFees) | currency: 'VND'}}</div>
           </div>
           <hr>
 
