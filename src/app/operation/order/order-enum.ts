@@ -13,17 +13,19 @@ export const searchKeys = [
     {key: 'order.payment_type', name: 'Payment Type'},
 ];
 export const timeKeys = [
-    {key: 'order.new', name: 'New'},
-    {key: 'order.purchased', name: 'Purchased'},
-    {key: 'order.seller_shipped', name: 'Seller Shipped'},
-    {key: 'order.stockin_us', name: 'StockIn US'},
-    {key: 'order.stockout_us', name: 'StockOut US'},
-    {key: 'order.stockin_local', name: 'StockIn Local'},
-    {key: 'order.stockout_local', name: 'StockOut Local'},
-    {key: 'order.at_customer', name: 'At Customer'},
-    {key: 'order.returned', name: 'Return'},
-    {key: 'order.cancelled', name: 'Cancelled'},
-    {key: 'order.lost', name: 'Lost'}
+    {key: 'order.created_at', name: 'Time Create Order'},
+    {key: 'order.updated_at', name: 'Time Update Order'},
+    {key: 'order.new', name: 'Time New'},
+    {key: 'order.purchased', name: 'Time Purchased'},
+    {key: 'order.seller_shipped', name: 'Time Seller Shipped'},
+    {key: 'order.stockin_us', name: 'Time StockIn US'},
+    {key: 'order.stockout_us', name: 'Time StockOut US'},
+    {key: 'order.stockin_local', name: 'Time StockIn Local'},
+    {key: 'order.stockout_local', name: 'Time StockOut Local'},
+    {key: 'order.at_customer', name: 'Time At Customer'},
+    {key: 'order.returned', name: 'Time Return'},
+    {key: 'order.cancelled', name: 'Time Cancelled'},
+    {key: 'order.lost', name: 'Time Lost'}
 ];
 export const paymentRequests = [
     {key: 'order.createTime', name: 'New Add fee'},

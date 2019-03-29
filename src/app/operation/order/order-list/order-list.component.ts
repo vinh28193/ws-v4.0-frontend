@@ -110,8 +110,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             searchKeyword: this.allKey,
             timeKey: this.allKey,
             timeRange: '',
-            timeKeyCreate: this.allKey,
-            valueCreate: {startDate: '', endDate: ''},
             type: this.allKey,
             orderStatus: this.allKey,
             portal: this.allKey,
@@ -172,16 +170,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.timeKey !== '' && value.timeKey !== 'ALL') {
             params.timeKey = value.timeKey;
         }
-        if (value.timeKeyCreate !== '' && value.timeKeyCreate !== 'ALL') {
-            params.timeKeyCreate = value.timeKeyCreate;
-        }
         if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
             params.startTime = this.convertDateTime(value.bsRangeValue['0']);
             params.endTime = this.convertDateTime(value.bsRangeValue['1']);
-        }
-        if (value.valueCreate.length > 0 && value.valueCreate !== 'ALL') {
-            params.startDate = this.convertDateTime(value.valueCreate['0']);
-            params.endDate = this.convertDateTime(value.valueCreate['1']);
         }
 
         params.limit = 20;
@@ -239,7 +230,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     confirmAll(id) {
         const put = this.orderService.createPostParams({
-            current_status: 'READY_PURCHASE',
+            current_status: 'SUPPORTED',
         }, 'confirmPurchase');
         this.orderService.put(`order/${id}`, put).subscribe(res => {
             if (res.success) {
