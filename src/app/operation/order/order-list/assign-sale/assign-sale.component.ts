@@ -34,7 +34,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         if (this.oldSaleSupport.id == this.saleSupport.id || this.oldSaleSupport.id === this.allKey) {
             this.popup.error('pls select other sale');
         }
-        const messagePop = 'Do you want assign order ' + this.orderId + 'to new sale ' + this.saleSupport.username;
+        const messagePop = 'Do you want assign order ' + this.orderId + ' to new sale ' + this.saleSupport.username;
         this.popup.warning(() => {
             this.orderService.put(`sale-support/${this.orderId}`, {sale_support_id: this.saleSupport.id}).subscribe(res => {
                 if (res.success) {

@@ -873,7 +873,7 @@
                 [country]="activeOrder.receiver_country_id"
                 [countryName]="activeOrder.receiver_country_name"
                 [postCode]="activeOrder.receiver_post_code"
-                (success)="updateReceiverModal.hide()">
+                (success)="updateReceiverModal.hide();listOrders()">
         </app-customer-information>
         <h3 *ngIf="!activeOrder">Failed</h3>
       </div>
