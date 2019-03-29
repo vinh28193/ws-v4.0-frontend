@@ -12,10 +12,12 @@ import {EncryptionService} from './core/service/encryption.service';
 import {StorageService} from './core/service/storage.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {ExcelModule} from './excel/excel.module';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     declarations: [
-        AppRoutingComponent
+        AppRoutingComponent,
+        LogoutComponent
     ],
     imports: [
         HttpClientModule,

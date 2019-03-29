@@ -148,4 +148,9 @@ export class AuthService extends GlobalService {
             'Error';
         });
     }
+
+  logout(): void {
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('accessToken');
+  }
 }

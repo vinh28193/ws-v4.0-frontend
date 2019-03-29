@@ -5,6 +5,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {SelectivePreloadingStrategyService} from './selective-preloading-strategy.service';
 import {AuthGuard} from './core/guard/auth.guard';
 import {ExcelDemoComponent} from './excel/excel-demo/excel-demo.component';
+import {LogoutComponent} from './logout/logout.component';
 
 const appRoutes: Routes = [
     {
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
             breadcrumb: 'Login'
         },
     },
+    { path: 'logout', component: LogoutComponent},
     {
         path: 'operation',
         loadChildren: './operation/operation.module#OperationModule',
