@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {OrderDataComponent} from '../../../order-data.component';
 import {OrderService} from '../../../order.service';
 import {PopupService} from '../../../../../core/service/popup.service';
@@ -12,6 +12,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 export class EditPackageItemComponent extends OrderDataComponent implements OnInit {
   @Input() package: any;
   @Input() orderC: any;
+  @Output() checkEdit = new EventEmitter();
+  public  checkLoadPackage: boolean = false;
   public editForm: FormGroup;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -66,6 +68,8 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     this.orderService.put(`package-item/${this.package.id}`, params).subscribe(res => {
       if (res.success) {
         this.popup.success(res.message);
+        this.checkLoadPackage = true;
+        this.checkEdit.emit(this.checkLoadPackage);
       } else {
         this.popup.error(res.message);
       }

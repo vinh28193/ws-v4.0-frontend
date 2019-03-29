@@ -674,7 +674,7 @@
                                 <app-order-detail (editFee)="productUpdateFee = $event; editAllFeeProduct.show()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
-                                <app-package-item  [packages]="order.packageItems" [orderCode] = "order.ordercode"></app-package-item>
+                                <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
                                 <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
