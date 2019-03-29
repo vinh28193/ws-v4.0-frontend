@@ -250,8 +250,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     load() {
-        // this.getSale();
-        // this.getSeller();
+        this.getSale();
+        this.getSeller();
     }
 
   followOrder() {
@@ -309,7 +309,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   getSale() {
     this.orderService.get('sale-support', undefined).subscribe(rss => {
-      this.listSale = rss.data;
+      this.listSale = rss;
     });
   }
   filterOneCustome(email) {
