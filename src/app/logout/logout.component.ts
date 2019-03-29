@@ -8,7 +8,7 @@ import {AuthService} from '../core/service/auth.service';
 export class LogoutComponent implements OnInit {
 
   constructor(private _authService: AuthService, private router: Router) {}
-
+  id = '';
   ngOnInit() {
     this.id = localStorage.getItem('token');
     this.logout();
