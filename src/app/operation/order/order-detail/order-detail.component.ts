@@ -90,24 +90,28 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
         return proFee;
     }
 
-  getTotalProductFee(fee) {
-    let totalPro = 0;
-      if (fee.length > 0) {
-        for (let i = 0; i < fee.length; i++) {
-          if (fee[i]['local_amount'] === undefined) {
-            fee[i]['local_amount'] = 0;
-          }
-          totalPro += fee[i]['local_amount'];
-          return totalPro;
+    getTotalProductFee(fee) {
+        let totalPro = 0;
+        if (fee.length > 0) {
+            for (let i = 0; i < fee.length; i++) {
+                if (fee[i]['local_amount'] === undefined) {
+                    fee[i]['local_amount'] = 0;
+                }
+                totalPro += fee[i]['local_amount'];
+                return totalPro;
+            }
         }
-      }
-  }
+    }
 
-  getProFee(fee, cusId) {
-      console.log(cusId);
-      if (fee === 'custom_fee' && cusId === null) {
-        return false;
-      }
-      return true;
-  }
+    getProFee(fee, cusId) {
+        console.log(cusId);
+        if (fee === 'custom_fee' && cusId === null) {
+            return false;
+        }
+        return true;
+    }
+
+    checkShowEdit(type) {
+        return (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee');
+    }
 }
