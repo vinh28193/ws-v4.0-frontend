@@ -27,6 +27,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public codeG: any;
     public checkLoad = false;
     public checkLoadG = false;
+    public AdjustPaymentOderId = false;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -352,6 +353,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             toNumber(f9) + toNumber(f10) + toNumber(f11);
         return totalOrderFee;
     }
+
+  updateAdjustPayment(id, code) {
+      this.AdjustPaymentOderId = id;
+  }
+  confirmAdjustPayment() {
+    const put = this.orderService.createPostParams({
+      total_paid_amount_local: 'SUPPORTED',
+    }, 'confirmPurchase');
+    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
+
+  }
 
 }
 

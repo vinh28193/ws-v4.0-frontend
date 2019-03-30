@@ -620,13 +620,13 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px">
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại" href="javascript:void(0);"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);">Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);">Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);">Seller Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);">Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Seller phát thêm  kiện" href="javascript:void(0);">the seller added the package</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);">Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);"><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Seller phát thêm  kiện" href="javascript:void(0);"><i class="fa fa-plus-square mr-2" aria-hidden="true"></i>the seller added the package</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
                                   </div>
@@ -858,5 +858,47 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div id="showPromotion" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title ">Update Promotion: <span class="ng-binding">CP27673122</span></h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">close</span>
+        </button>
+      </div>
+      <div class="modal-body ng-scope">
+      </div>
+      <div class="modal-footer ng-scope">
+        <button class="btn btn-success" type="button">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="showAdjustPayment" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title text-primary">Điều chỉnh tiền đặt cọc của đơn: <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Đóng</span>
+        </button>
+      </div>
+      <div class="modal-body ng-scope">
+
+      </div>
+      <div class="modal-footer ng-scope">
+        <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()">Confirm</button>
+      </div>
+    </div>
   </div>
 </div>

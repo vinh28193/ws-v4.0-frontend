@@ -120,7 +120,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   }
 
   RemovePackage(id) {
-    const messagePop = 'delete pakage item ' + this.id ;
+    const messagePop = 'delete pakage item ' + id ;
     this.popup.warning(() =>  {
       this.orderService.delete(`package-item/${id}`).subscribe(res => {
         if (res.success) {
