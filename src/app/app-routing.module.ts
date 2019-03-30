@@ -9,7 +9,7 @@ import {LogoutComponent} from './logout/logout.component';
 
 const appRoutes: Routes = [
     {
-        path: '', redirectTo: '/operation/order', pathMatch: 'full'
+        path: 'full', redirectTo: '/operation/order', pathMatch: 'full'
         /* path: '', redirectTo: 'dashboard/home', pathMatch: 'full' */
     },
     {
@@ -19,13 +19,13 @@ const appRoutes: Routes = [
         path: 'excel', component: ExcelDemoComponent
     },
     {
-        path: 'login',
+        path: 'operation/login',
         loadChildren: './login/login.module#LoginModule',
         data: {
             breadcrumb: 'Login'
         },
     },
-    { path: 'logout', component: LogoutComponent},
+    { path: 'operation/logout', component: LogoutComponent},
     {
         path: 'operation',
         loadChildren: './operation/operation.module#OperationModule',
