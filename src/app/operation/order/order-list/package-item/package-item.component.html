@@ -18,6 +18,9 @@
         <a href="javascript:void(0)" (click)="packageEdit(package)" data-target="#showEditPackage" data-toggle="modal" data-backdrop="static" data-keyboard="false">
           <i class="fa fa-edit text-info"></i>
         </a>
+        <a href="javascript:void(0)" class="ml-1" (click)="RemovePackage(package.id)">
+          <i class="fa fa-remove text-danger"></i>
+        </a>
       </td>
       <td class="text-center">
         <a href="avascript:void(0)" target="_blank" class="tracking">{{package.package_code}}</a>

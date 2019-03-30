@@ -73,8 +73,8 @@ export class ClientService extends GlobalService {
             );
     }
 
-    delete(url, body): Observable<any> {
-        return this.http.delete(`${this.getApiURl(url)}/${body}`, this.getAuthHttpOptions())
+    delete(url): Observable<any> {
+        return this.http.delete(`${this.getApiURl(url)}`, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
             );

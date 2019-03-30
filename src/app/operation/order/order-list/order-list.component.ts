@@ -8,6 +8,8 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {EventEmitter} from '@angular/core';
 import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {AuthService} from '../../../core/service/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-order-list',
@@ -51,8 +53,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public typeViewLogs = 'all';
     public listLog: any = [];
     public logIdOrder: any;
-
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+    constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
 

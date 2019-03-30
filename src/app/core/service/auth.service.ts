@@ -136,7 +136,7 @@ export class AuthService extends GlobalService {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
             if (error.status === 400) {
-                location.href = '/login';
+                location.href = 'operation/login';
                 location.reload();
             }
             console.error(
@@ -152,5 +152,6 @@ export class AuthService extends GlobalService {
   logout(): void {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('authorizationCode');
   }
 }

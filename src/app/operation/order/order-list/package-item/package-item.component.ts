@@ -118,4 +118,18 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
       this.listPackageItem();
     }
   }
+
+  RemovePackage(id) {
+    const messagePop = 'delete pakage item ' + this.id ;
+    this.popup.warning(() =>  {
+      this.orderService.delete(`package-item/${id}`).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+          this.listPackageItem();
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
 }
