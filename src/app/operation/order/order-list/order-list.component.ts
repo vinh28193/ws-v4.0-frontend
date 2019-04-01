@@ -397,7 +397,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return (order.current_status === 'PURCHASED'
             || order.current_status === 'PURCHASE_PART')
-            && order.purchase_assignee_id === this.identity.id;
+            && (order.purchase_assignee_id === this.identity.id
+                || this.checkAdminAccess());
     }
 
     checkBuynow(order) {
@@ -406,7 +407,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return (order.current_status === 'PURCHASE_PART' ||
             order.current_status === 'READY_PURCHASE' ||
-            (order.current_status === 'PURCHASING' && order.purchase_assignee_id === this.identity.id)
+            (order.current_status === 'PURCHASING' &&
+                (order.purchase_assignee_id === this.identity.id
+                    || this.checkAdminAccess()))
         );
     }
 }
