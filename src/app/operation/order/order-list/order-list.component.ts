@@ -390,5 +390,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     getChangeAmount(price1, price2) {
         return price1 - price2;
     }
+
+    checkUpdatenow(order) {
+        if (this.checkAdminAccess()) {
+            // return true;
+        }
+        return (order.current_status === 'PURCHASED'
+            || order.current_status === 'PURCHASE_PART')
+            && order.purchase_assignee_id === this.identity.id;
+    }
+
+    checkBuynow(order) {
+        if (this.checkAdminAccess()) {
+            // return true;
+        }
+        return (order.current_status === 'PURCHASE_PART' ||
+            order.current_status === 'READY_PURCHASE' ||
+            (order.current_status === 'PURCHASING' && order.purchase_assignee_id === this.identity.id)
+        );
+    }
 }
 

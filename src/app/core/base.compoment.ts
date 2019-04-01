@@ -95,4 +95,8 @@ export class BaseComponent implements NotifyInterface {
     public set identity(identity: any | null) {
         this.httpClient.identity = identity;
     }
+
+    checkAdminAccess() {
+        return this.scope === 'superAdmin';
+    }
 }

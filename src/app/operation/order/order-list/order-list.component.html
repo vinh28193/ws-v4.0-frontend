@@ -543,10 +543,10 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                  <button type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">
+                                  <button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">
                                     <i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase
                                   </button>
-                                  <button type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();">
+                                  <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();">
                                     <i class="fa fa-shopping-cart"></i> Purchase BuyNow
                                   </button>
 

@@ -143,8 +143,10 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             if (res.success) {
                 this.orders = [];
                 this.pop.success(res.message);
+                this.closePop();
             } else {
                 this.pop.error(res.message);
+                this.closePop();
             }
         });
     }
