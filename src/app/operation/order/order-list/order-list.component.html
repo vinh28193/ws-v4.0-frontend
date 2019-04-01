@@ -637,8 +637,8 @@
                                       <div class="dropdown-menu style-d" style="font-size: 11px">
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="getCheckAction()" id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="getCheckAction()" id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode, order.total_paid_amount_local)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);"><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order.id, order.ordercode, order.total_refund_amount_local)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-arrow-left mr-2" aria-hidden="true" ></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark the order waiting for Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Seller phát thêm  kiện" href="javascript:void(0);"><i class="fa fa-plus-square mr-2" aria-hidden="true"></i>the seller added the package</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
@@ -882,7 +882,7 @@
     <div class="modal-content">
       <div class="modal-header ng-scope">
         <h3 class="modal-title ">Update Promotion: <span class="ng-binding">{{code}}</span></h3>
-        <button type="button" class="close" data-dismiss="modal" (click)="offPromotion()">
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span aria-hidden="true">×</span>
           <span class="sr-only">close</span>
         </button>
@@ -899,7 +899,7 @@
     <div class="modal-content">
       <div class="modal-header ng-scope">
         <h3 class="modal-title text-primary">Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
-        <button type="button" class="close" data-dismiss="modal" (click)="offAdJustPayment()">
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span aria-hidden="true">×</span>
           <span class="sr-only">Đóng</span>
         </button>
@@ -910,12 +910,74 @@
            <div class="col-md-6">
              <label>Total Paid Amount Local</label>
              <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <label style="font-size: 2em; color: red">Giá :{{this.editForm.get('total_paid_amount_local').value | number}} <span>{{order.store_id | currencyStore}}</span></label>
+             <label style="font-size: 2em; color: red">Giá :{{this.editForm.get('total_paid_amount_local').value | number}}</label>
            </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
           <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="showPayBack" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title text-primary">Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Đóng</span>
+        </button>
+      </div>
+      <form [formGroup] = "editForm" *ngIf="checkOpenPayBack == true">
+        <div class="modal-body ng-scope">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Total refund Amount Local</label>
+              <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
+              <label style="font-size: 2em; color: red">Giá :{{this.editForm.get('total_refund_amount_local').value | number}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer ng-scope">
+          <button class="btn btn-success" type="button" (click)="updatePayBack()">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="showSellerRefund" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title text-primary">Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Đóng</span>
+        </button>
+      </div>
+      <form [formGroup] = "editForm" *ngIf="checkSellerRefund == true">
+        <div class="modal-body ng-scope">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Purchase Amount Buck</label>
+              <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
+              <label style="font-size: 2em; color: red">Giá :{{this.editForm.get('purchase_amount_buck').value | number}}</label>
+            </div>
+            <div class="col-md-6">
+              <label>Purchase Amount Refund</label>
+              <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer ng-scope">
+          <button class="btn btn-success" type="button" (click)="updateSellerRefund()">Confirm</button>
         </div>
       </form>
     </div>

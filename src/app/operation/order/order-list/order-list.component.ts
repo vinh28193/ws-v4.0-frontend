@@ -36,11 +36,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public sale_support_id: any;
     public productUpdateFee: any;
     public total_paid_amount_local: any;
+    public purchase_amount_refund: any;
+    public purchase_amount_buck: any;
+    public total_refund_amount_local: any;
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
+    public checkOpenPayBack = false;
+    public checkSellerRefund = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -376,9 +381,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         total_paid_amount_local: this.total_paid_amount_local
       });
   }
-  offAdJustPayment() {
-      this.checkOpenAdJustPayment = false;
-  }
   confirmAdjustPayment() {
     const put = this.orderService.createPostParams({
       total_paid_amount_local: this.editForm.value.total_paid_amount_local
@@ -399,8 +401,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.checkOpenPromotion = true;
   }
 
-  offPromotion() {
+  offOption() {
       this.checkOpenPromotion = false;
+      this.checkOpenAdJustPayment = false;
+      this.checkOpenPayBack = false;
+      this.checkSellerRefund = false;
   }
 
     getChangeAmount(price1, price2) {
@@ -439,6 +444,50 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
         return true;
       }
+  }
+  openUpdatePayBack(id, code, total_refund_amount_local) {
+      this.AdjustPaymentOderId = id;
+      this.total_refund_amount_local = total_refund_amount_local;
+      this.checkOpenPayBack = true;
+      this.editForm = this.fb.group({
+        total_refund_amount_local: this.total_refund_amount_local
+      });
+  }
+  updatePayBack() {
+    const put = this.orderService.createPostParams({
+      total_refund_amount_local: this.editForm.value.total_refund_amount_local
+    }, 'updatePayBack');
+    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
+  }
+  openSellerRefund(order) {
+      this.AdjustPaymentOderId = order.id;
+      this.code = order.ordercode;
+      this.purchase_amount_buck = order.purchase_amount_buck;
+      this.purchase_amount_refund = order.purchase_amount_refund;
+      this.checkSellerRefund = true;
+    this.editForm = this.fb.group({
+      purchase_amount_buck: this.purchase_amount_buck,
+      purchase_amount_refund: this.purchase_amount_refund,
+    });
+  }
+  updateSellerRefund() {
+    const put = this.orderService.createPostParams({
+      purchase_amount_buck: this.editForm.value.purchase_amount_buck,
+      purchase_amount_refund: this.editForm.value.purchase_amount_refund
+    }, 'updateSellerRefund');
+    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
   }
 }
 
