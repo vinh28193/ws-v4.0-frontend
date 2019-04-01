@@ -12,7 +12,7 @@ export class SerialNumerPipe implements PipeTransform {
         if (value <= 10) {
             return arr[value];
         } else if (10 < value && value < 40) {
-            return arr[Math.floor((value / 10))] + '' + arr[value % 10];
+            return 'X' + arr[Math.floor((value / 10)) - 1] + '' + arr[value % 10];
         } else if (40 <= value && value < 50) {
             return value === 40 ? 'XL' : 'XL' + arr[value % 10];
         } else if (50 <= value && value < 90) {

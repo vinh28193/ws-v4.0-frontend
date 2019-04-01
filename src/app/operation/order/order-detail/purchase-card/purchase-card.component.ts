@@ -145,7 +145,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         this.data.cart = this.orders;
         this.orderService.createCart('create', this.data).subscribe(rs => {
             const res: any = rs;
-            console.log(res);
             if (res.success) {
                 this.orders = [];
                 this.pop.success(res.message);
@@ -171,5 +170,21 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 }
             });
         }
+    }
+
+    removeCart(id, order_code) {
+        this.pop.warning(() => {
+            this.orderService.removeCartPurchase(id).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.orders = res.data;
+                    console.log(this.orders);
+                    this.setTotal();
+                    this.pop.success(res.message);
+                } else {
+                    this.pop.error(res.message);
+                }
+            });
+        }, 'Do you want remove order ' + order_code + ' to cart?');
     }
 }
