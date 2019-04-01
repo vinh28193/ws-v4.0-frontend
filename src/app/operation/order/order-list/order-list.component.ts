@@ -40,6 +40,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public searchForm: FormGroup;
     public editForm: FormGroup;
     public checkOpenAdJustPayment: boolean = false;
+    public checkOpenPromotion: boolean = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -419,6 +420,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 (order.purchase_assignee_id === this.identity.id
                     || this.checkAdminAccess()))
         );
+    }
+    checkCancel(item) {
+      if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'warehouse' || localStorage.getItem('scope') === 'master_sale') {
+          return true;
+        }
+      }
     }
 }
 

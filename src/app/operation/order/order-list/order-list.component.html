@@ -612,7 +612,7 @@
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING' || order.current_status == 'SUPPORTED'" (click)="cancelOrder(order.id)">
+                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)">
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
