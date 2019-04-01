@@ -19,6 +19,7 @@ import {QuotationStatusPipe} from './pipes/quotation-status.pipe';
 import {ProductFeePipe} from './pipes/ProductFee.pipe';
 import { SerialNumerPipe } from './pipes/serial-numer.pipe';
 import { SerialCharPipe } from './pipes/serial-char.pipe';
+import { CurrencyStorePipe } from './pipes/currency-store.pipe';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
         SerialNumerPipe,
         SerialCharPipe,
         QuotationStatusPipe,
+        CurrencyStorePipe,
     ],
     providers: [
         OperationService
@@ -60,7 +62,8 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
         ProductFeePipe,
         SerialNumerPipe,
         SerialCharPipe,
-        QuotationStatusPipe
+        QuotationStatusPipe,
+        CurrencyStorePipe
     ]
 })
 export class OperationModule {
