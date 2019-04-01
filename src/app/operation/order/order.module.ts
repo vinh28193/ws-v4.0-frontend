@@ -22,6 +22,7 @@ import { WalletTransactionsComponent } from './order-list/wallet-transactions/wa
 import { PurchaseCardComponent } from './order-detail/purchase-card/purchase-card.component';
 import {CustomerInformationComponent} from '../customer-information/customer-information.component';
 import { EditPackageItemComponent } from './order-list/package-item/edit-package-item/edit-package-item.component';
+import { UpdateCouponComponent } from './order-list/update-coupon/update-coupon.component';
 
 @NgModule({
     imports: [
@@ -54,6 +55,7 @@ import { EditPackageItemComponent } from './order-list/package-item/edit-package
         PurchaseCardComponent,
         CustomerInformationComponent,
         EditPackageItemComponent,
+        UpdateCouponComponent,
     ],
     providers: [
       OrderService,
