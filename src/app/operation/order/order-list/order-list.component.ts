@@ -55,7 +55,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public moreLog: any = {};
     public ids: any = [];
     public orderID: any;
-    public typeViewLogs = 'all';
+    public typeViewLogs = 'actionlog';
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
@@ -234,6 +234,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     viewMoreLog(status, code, type = 'item') {
         this.moreLog.status = status;
         this.logIdOrder = code;
+      if (this.typeViewLogs === 'actionlog') {
+        this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+          const rs = res;
+          this.listLog = rs.data;
+        });
+      }
     }
 
     confirmAll(id) {
@@ -281,12 +287,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.listOrders();
     }
 
-    loadData(tab, id: number) {
-        this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
+    loadData(tab, id) {
+        if (tab !== this.typeViewLogs) {
+          this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
             const rs = res;
             this.listLog = rs.data;
-            console.log(this.listLog);
-        });
+          });
+        }
     }
 
     checkCustomer(item) {

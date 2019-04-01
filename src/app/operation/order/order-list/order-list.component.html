@@ -796,7 +796,7 @@
 
                   <div class="container-fluid ng-star-inserted">
                     <div class="row btn-group">
-                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
+                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}} active" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
                       <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet</button>
                       <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="loadData('paymentlog', logIdOrder); typeViewLogs = 'payment_logs'">Payment</button>
                       <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}" (click)="loadData('boxme-inspect-log', logIdOrder); typeViewLogs = 'boxme'">Boxme Inspect</button>
