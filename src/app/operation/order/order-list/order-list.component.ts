@@ -39,8 +39,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
-    public checkOpenAdJustPayment: boolean = false;
-    public checkOpenPromotion: boolean = false;
+    public checkOpenAdJustPayment = false;
+    public checkOpenPromotion = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -423,15 +423,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkCancel(item) {
       if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'warehouse' || localStorage.getItem('scope') === 'master_sale') {
+        if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale')) {
           return true;
         }
       }
     }
-  getCurrency(price) {
-      if (price) {
-      }
-  }
   getCheckAction() {
       if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
         return true;
