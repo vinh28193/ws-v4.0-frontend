@@ -19,6 +19,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     }
 
     @Input() updateProductId: any;
+    @Input() clickBtn: false;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
     public current_id = 0;
     public orders: any;
@@ -27,6 +28,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     public totalPaid = 0;
     public totalChanging = 0;
     public totalAmountCanBuy = 0;
+    public warehouse: any;
     public listAccount: any;
     public listCard: any;
     public data: any = {
@@ -43,11 +45,13 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     };
 
     ngDoCheck(): void {
-        if (this.current_id !== this.updateProductId && this.updateProductId !== undefined) {
+        if ((this.current_id !== this.updateProductId && this.updateProductId !== undefined) || this.clickBtn) {
+            this.clickBtn = false;
             console.log('chhange');
             this.current_id = this.updateProductId;
             this.getaccount();
             this.getCardPayment();
+            this.getwarehouse();
             this.addcart();
         }
     }
@@ -66,6 +70,8 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                     this.listAccount = res.data;
                     console.log(res);
                     this.storegate.set('list_account_for_' + type, JSON.stringify(this.listAccount));
+                } else {
+                    this.storegate.set('list_account_for_' + type, null);
                 }
             });
         }
@@ -149,5 +155,21 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 this.closePop();
             }
         });
+    }
+
+    getwarehouse(nocache = false) {
+        this.warehouse = nocache ? null : JSON.parse(this.storegate.get('list_warehouse'));
+        if (!this.warehouse) {
+            this.orderService.getListWarehouse('/list', undefined).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.warehouse = res.data;
+                    console.log(res);
+                    this.storegate.set('list_warehouse', JSON.stringify(this.warehouse));
+                } else {
+                    this.storegate.set('list_warehouse', null);
+                }
+            });
+        }
     }
 }

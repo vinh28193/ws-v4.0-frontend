@@ -134,10 +134,7 @@
                                 <select class="form-control-sm" name="warehouse" [(ngModel)]="data.warehouse"
                                 >
                                     <option value="0">--- Select WareHouse ---</option>
-                                    <option value="1">Kho anh Lâm</option>
-                                    <option value="2">Kho RVS</option>
-                                    <option value="3">Kho VA</option>
-                                    <option value="4">Kho cũ</option>
+                                    <option *ngFor="let wh of warehouse" value="{{wh.id}}">{{wh.name}}</option>
                                 </select>
                             </div>
                         </div>

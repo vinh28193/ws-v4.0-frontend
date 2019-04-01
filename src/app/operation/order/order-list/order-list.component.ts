@@ -415,7 +415,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             // return true;
         }
         return (order.current_status === 'PURCHASE_PART' ||
-            order.current_status === 'READY_PURCHASE' ||
+            order.current_status === 'READY2PURCHASE' ||
             (order.current_status === 'PURCHASING' &&
                 (order.purchase_assignee_id === this.identity.id
                     || this.checkAdminAccess()))

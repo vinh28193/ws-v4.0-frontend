@@ -72,4 +72,8 @@ export class OrderService extends OperationService {
     putProductFee(url, item: any | undefined) {
         return this.put('fee/' + url, item);
     }
+
+    getListWarehouse(url, item: any | undefined) {
+        return this.get('warehouse', item);
+    }
 }
