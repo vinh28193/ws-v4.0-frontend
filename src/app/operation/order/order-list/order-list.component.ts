@@ -428,5 +428,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
       }
     }
+  getCurrency(price) {
+      if (price) {
+      }
+  }
+  getCheckAction() {
+      if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
+        return true;
+      }
+  }
 }
 

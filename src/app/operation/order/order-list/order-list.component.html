@@ -341,7 +341,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
-                                    {{order.total_fee_amount_local | currency: 'VND'}}
+                                    {{getCurrency(order.total_fee_amount_local)}}
                                   </span>
                                 </div>
                               </div>
@@ -621,8 +621,8 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px">
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode, order.total_paid_amount_local)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="getCheckAction()" id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="getCheckAction()" id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode, order.total_paid_amount_local)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);"><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark the order waiting for Refund</a>
