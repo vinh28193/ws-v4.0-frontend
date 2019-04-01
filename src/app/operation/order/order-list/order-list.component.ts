@@ -54,9 +54,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public moreLog: any = {};
     public ids: any = [];
     public orderID: any;
+    public checkOpenPromotion: boolean = false;
     public typeViewLogs = 'all';
     public listLog: any = [];
     public logIdOrder: any;
+    public coupon_id: any;
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
@@ -381,7 +383,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.error(res.message);
       }
     });
+  }
+  updatePromotion(order) {
+      this.coupon_id = order.coupon_id;
+      console.log(this.coupon_id);
+      this.orderID = order.id;
+      this.code = order.ordercode;
+      this.checkOpenPromotion = true;
+  }
 
+  offPromotion() {
+      this.checkOpenPromotion = false;
   }
 
 }
