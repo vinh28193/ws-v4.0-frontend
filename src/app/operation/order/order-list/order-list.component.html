@@ -341,7 +341,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
-                                    {{getCurrency(order.total_fee_amount_local)}}
+                                    {{order.total_fee_amount_local | currency: 'VND'}}
                                   </span>
                                 </div>
                               </div>
