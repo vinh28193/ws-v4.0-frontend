@@ -30,7 +30,7 @@
                                     </thead>
                                     <tbody *ngFor="let order of orders;let indOrder=index;">
                                     <tr style="background: #8fc0ff;">
-                                        <td colspan="7">
+                                        <td colspan="6">
                                             <H4>
                                                 <b style="font-family: auto">{{indOrder+1  | serialNumer}}. </b>
                                                 <i>Order: <strong>{{order.ordercode}}</strong></i>
@@ -38,6 +38,9 @@
                                                 <i> - Seller: <b>{{order.seller}}</b></i>
                                                 <i> - Final Total Amount: <b>{{order.total_amount}}</b></i>
                                             </H4>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger" (click)="removeCart(order.order_id,order.ordercode)">Remove <i class="fa fa-remove"></i></button>
                                         </td>
                                     </tr>
                                     <tr *ngFor="let product of order.products;let indProd = index;">

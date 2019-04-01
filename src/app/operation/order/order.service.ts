@@ -76,4 +76,8 @@ export class OrderService extends OperationService {
     getListWarehouse(url, item: any | undefined) {
         return this.get('warehouse', item);
     }
+
+    removeCartPurchase(id) {
+        return this.delete('purchase/delete/' + id);
+    }
 }
