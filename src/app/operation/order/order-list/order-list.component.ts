@@ -57,7 +57,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public typeViewLogs = 'all';
     public listLog: any = [];
     public logIdOrder: any;
-
+    public coupon_id: any;
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
@@ -359,33 +359,41 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return totalOrderFee;
     }
 
-    updateAdjustPayment(id, code, total_paid_amount_local) {
-        this.AdjustPaymentOderId = id;
-        this.total_paid_amount_local = total_paid_amount_local;
-        this.code = code;
-        this.checkOpenAdJustPayment = true;
-        this.editForm = this.fb.group({
-            total_paid_amount_local: this.total_paid_amount_local
-        });
-    }
+  updateAdjustPayment(id, code, total_paid_amount_local) {
+      this.AdjustPaymentOderId = id;
+      this.total_paid_amount_local = total_paid_amount_local;
+      this.code = code;
+      this.checkOpenAdJustPayment = true;
+      this.editForm = this.fb.group({
+        total_paid_amount_local: this.total_paid_amount_local
+      });
+  }
+  offAdJustPayment() {
+      this.checkOpenAdJustPayment = false;
+  }
+  confirmAdjustPayment() {
+    const put = this.orderService.createPostParams({
+      total_paid_amount_local: this.editForm.value.total_paid_amount_local
+    }, 'editAdjustPayment');
+    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+      if (res.success) {
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
+  }
+  updatePromotion(order) {
+      this.coupon_id = order.coupon_id;
+      console.log(this.coupon_id);
+      this.orderID = order.id;
+      this.code = order.ordercode;
+      this.checkOpenPromotion = true;
+  }
 
-    offAdJustPayment() {
-        this.checkOpenAdJustPayment = false;
-    }
-
-    confirmAdjustPayment() {
-        const put = this.orderService.createPostParams({
-            total_paid_amount_local: this.editForm.value.total_paid_amount_local
-        }, 'editAdjustPayment');
-        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-            if (res.success) {
-                this.popup.success(res.message);
-            } else {
-                this.popup.error(res.message);
-            }
-        });
-
-    }
+  offPromotion() {
+      this.checkOpenPromotion = false;
+  }
 
     getChangeAmount(price1, price2) {
         return price1 - price2;
