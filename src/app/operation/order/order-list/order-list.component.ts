@@ -35,8 +35,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public email: any;
     public sale_support_id: any;
     public productUpdateFee: any;
+    public total_paid_amount_local: any;
     // form Group
     public searchForm: FormGroup;
+    public editForm: FormGroup;
+    public checkOpenAdJustPayment: boolean = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -223,6 +226,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openUpdateOrder(order) {
         this.orderUpdatePurchase = order;
         this.updateOrderPurchaseId = order.id;
+        this.buildSearchForm();
     }
 
     viewMoreLog(status, code, type = 'item') {
@@ -354,13 +358,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return totalOrderFee;
     }
 
-  updateAdjustPayment(id, code) {
+  updateAdjustPayment(id, code, total_paid_amount_local) {
       this.AdjustPaymentOderId = id;
+      this.total_paid_amount_local = total_paid_amount_local;
+      this.code = code;
+      this.checkOpenAdJustPayment = true;
+      this.editForm = this.fb.group({
+        total_paid_amount_local: this.total_paid_amount_local
+      });
+  }
+  offAdJustPayment() {
+      this.checkOpenAdJustPayment = false;
   }
   confirmAdjustPayment() {
     const put = this.orderService.createPostParams({
-      total_paid_amount_local: 'SUPPORTED',
-    }, 'confirmPurchase');
+      total_paid_amount_local: this.editForm.value.total_paid_amount_local
+    }, 'editAdjustPayment');
     this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
       if (res.success) {
         this.popup.success(res.message);
