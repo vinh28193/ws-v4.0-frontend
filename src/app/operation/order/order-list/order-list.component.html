@@ -526,7 +526,7 @@
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
                                 <div id="số tiền còn thiếu" class="col-md-6 text-info cod">Collect</div>
-                                <div class="col-md-6 text-right text-info style-padding-left"> 0 đ </div>
+                                <div class="col-md-6 text-right text-info style-padding-left">{{order.total_final_amount_local > order.total_paid_amount_local ? getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) : 0 | currency : 'VND'}}</div>
                               </div>
                               <div class="row Refund" *ngIf="order.total_refund_amount_local">
                                 <div id="Số tiền thừa" class="col-md-6">Refund</div>
