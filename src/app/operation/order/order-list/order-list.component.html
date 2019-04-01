@@ -613,7 +613,7 @@
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group">
-                                    <button class="btn btn-sm btn-danger" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING' || order.current_status == 'SUPPORTED'" (click)="cancelOrder(order.id)">
+                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)">
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
@@ -755,7 +755,7 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" [clickBtn]="true" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
 </div>
@@ -894,9 +894,9 @@
         <div class="modal-body ng-scope">
           <div class="row">
            <div class="col-md-6">
-             <label for="">Total Paid Amount Local</label>
+             <label>Total Paid Amount Local</label>
              <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <label for="" style="font-size: 2em; color: red">Giá :{{this.editForm.get('total_paid_amount_local').value | currency:'VND'}}</label>
+             <label style="font-size: 2em; color: red">Giá :{{this.editForm.get('total_paid_amount_local').value | currency:'VND'}}</label>
            </div>
           </div>
         </div>
