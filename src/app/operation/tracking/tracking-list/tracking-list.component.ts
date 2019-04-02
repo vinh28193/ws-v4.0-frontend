@@ -2,8 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TrackingDataComponent} from '../tracking-data.component';
 import {TrackingService} from '../tracking.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-
-import {TRACKINGS} from '../mock-tracking';
 import {PopupService} from '../../../core/service/popup.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ModalDirective} from 'ngx-bootstrap';
@@ -18,7 +16,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     @ViewChild('usSendingModal') usSendingModal: ModalDirective;
 
-    public trackings: any = [];
+    public tracks: any = [];
     public showImageRow = -1;
 
     // file
@@ -37,6 +35,8 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     }
 
     ngOnInit() {
+        this.currentPage = 1;
+        this.perPage = 20;
         this.buildSearchForm();
         this.buildUsSendingForm();
         this.search();
@@ -64,7 +64,6 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     }
 
     get warehouses(): any {
-
         const store = this.store;
         let warehouses = [
             {key: this.allKey, value: '--select store first--'}
@@ -98,12 +97,17 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.file = event.target.files[0];
     }
 
-
     public preCreate() {
         const value = this.usSendingForm.getRawValue();
         if (typeof this.file === 'undefined') {
             this.popUp.error('no file update ?');
         }
+        // return {
+        //     store: value.store,
+        //     warehouse: value.warehouse,
+        //     manifest: value.manifest,
+        //     file: this.file
+        // };
         const fd = new FormData();
         fd.append('store', value.store);
         fd.append('warehouse', value.warehouse);
@@ -114,7 +118,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     public create() {
         this.trackingService.create(this.preCreate()).subscribe(res => {
-            const rs:any = res;
+            const rs: any = res;
             if (rs.success) {
                 this.popUp.success(rs.message);
                 this.usSendingModal.hide();
@@ -141,7 +145,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     search() {
         const params = this.preSearch();
         this.trackingService.search(params).subscribe(response => {
-            const rs:any = response;
+            const rs: any = response;
             if (rs.success) {
                 const data: any = rs.data;
                 this.trackings = data._items;
