@@ -17,10 +17,6 @@ const routes: Routes = [
             {
                 path: 'list',
                 component: TrackingListComponent
-            },
-            {
-                path: 'sent',
-                component: TrackingSentComponent
             }
         ]
     }

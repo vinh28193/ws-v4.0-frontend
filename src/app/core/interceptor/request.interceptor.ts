@@ -100,7 +100,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
     logoutUser() {
         // Route to the login page (implementation up to you)
-        location.href = '/login';
+        location.href = '/operation/login';
         location.reload();
         return Observable.throw('');
     }
