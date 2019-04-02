@@ -8,7 +8,7 @@
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label">Store</label>
-            <select class="form-control form-control-sm" name="store" id="store"
+            <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey">All Weshop</option>
               <option [value]="1">Weshop VN</option>
@@ -83,20 +83,20 @@
               <option value="EBAY">EBAY</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="paymentStatus" class="form-control-label">Payment Status</label>
-            <select class="form-control form-control-sm" name="store" id="paymentStatus"
-                    formControlName="paymentStatus">
-              <option [value]="allKey">--All Status--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-            </select>
-          </div>
+          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
+            <!--<label for="paymentStatus" class="form-control-label">Payment Status</label>-->
+            <!--<select class="form-control form-control-sm" name="store" id="paymentStatus"-->
+                    <!--formControlName="paymentStatus">-->
+              <!--<option [value]="allKey">&#45;&#45;All Status&#45;&#45;</option>-->
+              <!--<option value="STOCK_IN_US">STOCK_IN_US</option>-->
+              <!--<option value="SELLER_SHIPPED">SELLER_SHIPPED</option>-->
+            <!--</select>-->
+          <!--</div>-->
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label">Location</label>
             <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
               <option [value]="allKey">--All Location--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
+              <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
               <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
             </select>
           </div>

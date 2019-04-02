@@ -50,6 +50,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     searchKeys: any = [];
     timeKeys: any = [];
     products: any;
+    provinces: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
     public filter: any = {};
@@ -117,7 +118,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     buildSearchForm() {
         this.searchForm = this.fb.group({
             store: this.allKey,
-            paymentStatus: this.allKey,
+            // paymentStatus: this.allKey,
             keyWord: '',
             searchKeyword: this.allKey,
             timeKey: this.allKey,
@@ -152,9 +153,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.store !== '' && value.store !== 'ALL') {
             params.store = value.store;
         }
-        if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
-            params.paymentStatus = value.paymentStatus;
-        }
+        // if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
+        //     params.paymentStatus = value.paymentStatus;
+        // }
         if (value.keyWord !== '' && value.keyWord !== 'ALL') {
             params.keyWord = value.keyWord;
         }
@@ -189,6 +190,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
         params.limit = 20;
         params.page = 1;
+        this.country = params.store;
+        this.getProvinces();
+        console.log(this.provinces);
         return params;
     }
 

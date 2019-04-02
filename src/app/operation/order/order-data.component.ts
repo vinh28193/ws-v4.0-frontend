@@ -13,6 +13,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
 
     public sales: any = [];
 
+
     constructor(public http: OrderService) {
         super(http);
         this.loadSystemLocation();
