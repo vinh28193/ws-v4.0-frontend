@@ -263,7 +263,7 @@
                                   <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 2%">
                                       <div>
-                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px">RECIEVER
+                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px">RECEIVER
                                           <a href="javascript:void(0)"
                                              (click)="activeOrder = order;updateReceiverModal.show()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
@@ -429,7 +429,7 @@
                               </div>
                               <div class="row Total_insection_fee">
                                 <div class="col-md-6 style-padding-right dong">
-                                  <span>Total insection fee</span>
+                                  <span>Total inspection fee</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
@@ -480,7 +480,7 @@
 
                               <div class="row Quantity">
                                 <div class="col-md-6 style-padding-right  dong">
-                                  <span>Exchage rate free:</span>
+                                  <span>Exchage rate:</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
                                   <span> {{order.exchange_rate_fee}} </span>
@@ -664,7 +664,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail *ngIf="order.id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
