@@ -148,7 +148,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             const rs: any = response;
             if (rs.success) {
                 const data: any = rs.data;
-                this.trackings = data._items;
+                this.tracks = data._items;
                 this.totalCount = data._meta.totalCount;
                 this.pageCount = data._meta.pageCount;
                 this.currentPage = data._meta.currentPage;
