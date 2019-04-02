@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {TrackingRoutingComponent} from './tracking-routing.component';
 import {TrackingListComponent} from './tracking-list/tracking-list.component';
-import {TrackingSentComponent} from './tracking-sent/tracking-sent.component';
 
 const routes: Routes = [
     {
