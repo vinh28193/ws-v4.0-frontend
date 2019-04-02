@@ -11,7 +11,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     public countries: any = [];
     public provinces: any = [];
     public districts: any = [];
-    // public getPolicy: any = [];
+    public getPolicy: any = [];
 
     public sales: any = [];
 
