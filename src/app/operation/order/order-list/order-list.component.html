@@ -8,14 +8,11 @@
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label">Store</label>
-            <select class="form-control form-control-sm" name="store" id="store"
+            <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey">All Weshop</option>
               <option [value]="1">Weshop VN</option>
               <option [value]="7">Weshop ID</option>
-              <option [value]="6">Weshop MY</option>
-              <option [value]="9">Weshop PH</option>
-              <option [value]="10">Weshop TH</option>
             </select>
           </div>
           <div class="col-md-6 col-sm-12 form-group m-b-10">
@@ -60,9 +57,7 @@
               <option [value]="allKey">--All Type--</option>
               <option value="SHOP">Shop</option>
               <option value="REQUEST">Request</option>
-              <option value="POS">Pos</option>
               <option value="SHIP">Ship</option>
-              <option value="NEXTTECH">Nexttech</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -83,21 +78,23 @@
               <option value="EBAY">EBAY</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="paymentStatus" class="form-control-label">Payment Status</label>
-            <select class="form-control form-control-sm" name="store" id="paymentStatus"
-                    formControlName="paymentStatus">
-              <option [value]="allKey">--All Status--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
-            </select>
-          </div>
+          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
+            <!--<label for="paymentStatus" class="form-control-label">Payment Status</label>-->
+            <!--<select class="form-control form-control-sm" name="store" id="paymentStatus"-->
+                    <!--formControlName="paymentStatus">-->
+              <!--<option [value]="allKey">&#45;&#45;All Status&#45;&#45;</option>-->
+              <!--<option value="STOCK_IN_US">STOCK_IN_US</option>-->
+              <!--<option value="SELLER_SHIPPED">SELLER_SHIPPED</option>-->
+            <!--</select>-->
+          <!--</div>-->
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label">Location</label>
             <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
               <option [value]="allKey">--All Location--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+              <option value="SELLER_SHIPPED">DELIVERING US</option>
+              <option value="SELLER_SHIPPED">US RECEIVER</option>
+              <option value="SELLER_SHIPPED">LOCAL RECEIVER</option>
+              <option value="SELLER_SHIPPED">AT CUSTOMER</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -112,6 +109,13 @@
             <select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">
               <option [value]="allKey">--All Location--</option>
               <option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">Policy</label>
+            <select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">
+              <option [value]="allKey">--All Policy--</option>
+              <option value="{{policy.id}}" *ngFor="let policy of getPolicy">{{policy.name}}</option>
             </select>
           </div>
           <div class="col-md-12 mt-1">
@@ -263,7 +267,7 @@
                                   <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 2%">
                                       <div>
-                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px">RECIEVER
+                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px">RECEIVER
                                           <a href="javascript:void(0)"
                                              (click)="activeOrder = order;updateReceiverModal.show()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
@@ -429,7 +433,7 @@
                               </div>
                               <div class="row Total_insection_fee">
                                 <div class="col-md-6 style-padding-right dong">
-                                  <span>Total insection fee</span>
+                                  <span>Total inspection fee</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left dong">
                                   <span>
@@ -480,7 +484,7 @@
 
                               <div class="row Quantity">
                                 <div class="col-md-6 style-padding-right  dong">
-                                  <span>Exchage rate free:</span>
+                                  <span>Exchage rate:</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left" *ngIf="order.products">
                                   <span> {{order.exchange_rate_fee}} </span>
@@ -664,7 +668,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail *ngIf="order.id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
