@@ -192,7 +192,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.page = 1;
         this.country = params.store;
         this.getProvinces();
-        console.log(this.provinces);
         return params;
     }
 
