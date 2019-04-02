@@ -1,6 +1,7 @@
 import {OnInit} from '@angular/core';
 import {OperationDataComponent} from '../operation-data.component';
 import {OrderService} from './order.service';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 export class OrderDataComponent extends OperationDataComponent implements OnInit {
 
@@ -10,6 +11,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     public countries: any = [];
     public provinces: any = [];
     public districts: any = [];
+    // public getPolicy: any = [];
 
     public sales: any = [];
 
@@ -132,5 +134,13 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
             });
         }
         return this.sales;
+    }
+    loadPolicy(id: number) {
+      if (id) {
+        this.http.get(`policy/${id}`).subscribe(res => {
+          this.getPolicy = res.data;
+        });
+        return this.getPolicy;
+      }
     }
 }
