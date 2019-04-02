@@ -640,7 +640,6 @@
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order.id, order.ordercode, order.total_refund_amount_local)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-arrow-left mr-2" aria-hidden="true" ></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Seller phát thêm  kiện" href="javascript:void(0);"><i class="fa fa-plus-square mr-2" aria-hidden="true"></i>the seller added the package</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
@@ -665,7 +664,7 @@
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail *ngIf="order.id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
                                 <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
@@ -805,7 +804,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
+                      <table class="table-bordered table-hover table_support_logs table-striped ng-star-inserted">
                         <thead>
                         <tr>
                           <th>Create time</th>
