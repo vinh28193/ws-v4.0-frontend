@@ -61,12 +61,38 @@
                                                     <p class="mb-1">Create At: <strong>{{item.created_at}}</strong></p>
                                                 </td>
                                                 <td>
-                                                    <ng-container  [ngTemplateOutlet]="!isUndefined(item) ? definedItem : unDefinedItem" [ngTemplateOutletContext]="{order:item.order}"></ng-container>
-                                                    <ng-template #definedItem let-order="order">
-                                                        <h5>Order: {{order.id}} <span class="label label-info"> {{order.type_order}}</span> <span class="label label-danger">{{order.portal}}</span></h5>
+                                                    <ng-container  [ngTemplateOutlet]="!isUndefined(item) ? definedItem : unDefinedItem" [ngTemplateOutletContext]="{order:item.order,product:item.product}"></ng-container>
+                                                    <ng-template #definedItem let-order="order" let-product="product">
+                                                        <h5>Order: <span class="text-danger">{{order.id}}</span>/{{order.type_order}}/{{order.portal}}</h5>
+                                                        <p class="mb-1">Customer: <span class="text-danger">{{order.customer_id}}</span></p>
+                                                        <p class="mb-1">Receiver Name: <span class="text-danger">{{order.receiver_name}}</span></p>
+                                                        <p class="mb-1">Receiver Contact: <strong>{{order.receiver_email }}-{{order.receiver_phone}}</strong></p>
+                                                        <p class="mb-1">Receiver Address: <strong>{{order.receiver_address }}</strong></p>
+                                                        <p class="mb-1">Receiver Location:
+                                                            <strong>
+                                                                {{order.receiver_post_code }} -
+                                                                {{order.receiver_country_name}} -
+                                                                {{order.receiver_province_name}}-
+                                                                {{order.receiver_district_name }}
+                                                            </strong>
+                                                        </p>
+                                                        <h5>Product: <span class="text-danger">{{product.id}}</span>/SDFSDFSDF/ADASDAD</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <img src="https://lorempixel.com/640/480/?55964" alt="" width="100%">
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <p class="mb-1">{{product.product_name}}</p>
+                                                                <p class="mb-1">{{product.created_at}}</p>
+                                                            </div>
+                                                        </div>
                                                     </ng-template>
                                                     <ng-template #unDefinedItem let-order="order">
                                                         <h4>Undefined</h4>
+                                                        <div class="form-group">
+                                                            <input type="text" placeholder="enter Product ID">
+                                                        </div>
+                                                        <button class="btn btn-sm btn-success">Map Product</button>
                                                     </ng-template>
                                                 </td>
                                                 <td>
