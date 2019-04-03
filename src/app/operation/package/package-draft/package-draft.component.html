@@ -56,21 +56,18 @@
                                                     <p class="mb-1">Manifest: <a href="javascript:void(0)">{{item.manifest_code}}</a></p>
                                                     <p class="mb-1">Quantity: <strong>{{item.quantity}}</strong></p>
                                                     <p class="mb-1">Weight: <strong>{{item.quantity}} gram</strong></p>
-                                                    <p class="mb-1">Dimension Weight: <strong>{{item.weight}} gram</strong></p>
-                                                    <p class="mb-1">Volume (w.l.h): <strong>10x20x13 cm</strong></p>
+                                                    <p class="mb-1">Dimension Weight: <strong>{{item.dimension}} gram</strong></p>
+                                                    <p class="mb-1">Volume ({{item.volume_label}}): <strong>{{item.volume}} (cm)</strong></p>
                                                     <p class="mb-1">Create At: <strong>{{item.created_at}}</strong></p>
                                                 </td>
                                                 <td>
-                                                    <div class="row">
-                                                        <div *ngIf="!isUndefined(item);else undefinedItem" class="col-md-12">
-
-                                                        </div>
-                                                        <ng-template #undefinedItem>
-                                                            <div class="col-md-12">
-                                                                    <h4>Undefined</h4>
-                                                            </div>
-                                                        </ng-template>
-                                                    </div>
+                                                    <ng-container  [ngTemplateOutlet]="!isUndefined(item) ? definedItem : unDefinedItem" [ngTemplateOutletContext]="{order:item.order}"></ng-container>
+                                                    <ng-template #definedItem let-order="order">
+                                                        <h5>Order: {{order.id}} <span class="label label-info"> {{order.type_order}}</span> <span class="label label-danger">{{order.portal}}</span></h5>
+                                                    </ng-template>
+                                                    <ng-template #unDefinedItem let-order="order">
+                                                        <h4>Undefined</h4>
+                                                    </ng-template>
                                                 </td>
                                                 <td>
                                                     <div class="button-group">

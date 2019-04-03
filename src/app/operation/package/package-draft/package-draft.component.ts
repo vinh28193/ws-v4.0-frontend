@@ -33,8 +33,8 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
 
     isUndefined($item) {
         return !(
-            this.draftPackageService.isValidValue($item.order_id) &&
-            this.draftPackageService.isValidValue($item.product_id)
+            this.draftPackageService.isValidValue($item.order) &&
+            this.draftPackageService.isValidValue($item.product)
         );
     }
 
