@@ -12,6 +12,7 @@ import {PackageItemComponent} from './package-item/package-item.component';
 import {PackageService} from './package.service';
 import {PackageDirective} from './package.directive';
 import {PackageItemService} from './package-item/package-item.service';
+import { PackageDraftComponent } from './package-draft/package-draft.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import {PackageItemService} from './package-item/package-item.service';
         PackageRoutingComponent,
         PackageListComponent,
         PackageDirective,
-        PackageItemComponent
+        PackageItemComponent,
+        PackageDraftComponent
     ],
     providers: [
         PackageService,
