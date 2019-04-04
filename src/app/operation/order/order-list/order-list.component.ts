@@ -493,5 +493,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     });
   }
+  buyNow(item) {}
 }
 
