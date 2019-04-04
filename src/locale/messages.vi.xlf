@@ -1163,6 +1163,14 @@
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="883fc4aaa422ccc4f35f7010861930780f2068c1" datatype="html">
+              <source>Original Link</source>
+              <target>Link gốc</target>
+              <context-group purpose="location">
+                <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
+                <context context-type="linenumber">17</context>
+              </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
