@@ -514,7 +514,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left ">
                                   <span>
-                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.total_counpon_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
+                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
                               </div>
@@ -557,6 +557,9 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
+                                  <button class="btn btn-success btn-sm" (click)="buyNow(order)">
+                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}" target="_blank">Buy Now</a>
+                                  </button>
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
