@@ -96,7 +96,7 @@
       </trans-unit>
       <trans-unit id="edf3e407cae7ea37af884282579f16743e104a2d" datatype="html">
         <source>Voucher</source>
-        <target>Voucher</target>
+        <target>Phiếu quà tặng</target>
         <target></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
@@ -121,7 +121,7 @@
       </trans-unit>
       <trans-unit id="bb694b49d408265c91c62799c2b3a7e3151c824d" datatype="html">
         <source>Logout</source>
-        <target>Thoát Phiên Làm Việc</target>
+        <target>Thoát</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
           <context context-type="linenumber">120</context>
@@ -545,7 +545,7 @@
       </trans-unit>
       <trans-unit id="9a3bd82a58e5681679345ac7612227d7275f4387" datatype="html">
         <source>Total origin tax fee</source>
-        <target>Tổng phí thuế Tại Mỹ/US/JaPan</target>
+        <target>Tổng phí thuế Tại Mỹ/UK/JaPan</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">344</context>
@@ -561,7 +561,7 @@
       </trans-unit>
       <trans-unit id="b8042d543ffb3b6101788165a01a55025a6f4835" datatype="html">
         <source>Total origin shiping fee</source>
-        <target>Tổng phí vận chuyển Tại Mỹ/US/JaPan </target>
+        <target>Tổng phí vận chuyển Tại Mỹ/UK/JaPan </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">368</context>
@@ -641,7 +641,7 @@
       </trans-unit>
       <trans-unit id="3a62aacb244046be3ce442ea73ec77fca31d56a4" datatype="html">
         <source>Exchage rate:</source>
-        <target>Tỉ giá VNĐ</target>
+        <target>Tỉ giá</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">487</context>
@@ -708,7 +708,7 @@
                                       <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
                                      Chat Group WS
                                     </source>
-        <target>  <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Chat Group WS </target>
+        <target>  <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Chat Nhóm WS </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">561</context>
