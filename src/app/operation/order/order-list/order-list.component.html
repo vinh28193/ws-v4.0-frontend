@@ -647,7 +647,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row pb-1 pt-1">
+                          <div class="row pb-1 pt-1" style="margin-left: 1px; margin-top: 0.5em;">
                             <div class="col-md-12 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
                                 <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)="viewMode = 'pro' + order.id">
@@ -803,7 +803,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <table class="table-bordered table-hover table_support_logs table-striped ng-star-inserted">
+                      <table class="table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
                         <thead>
                         <tr>
                           <th i18n>Create time</th>

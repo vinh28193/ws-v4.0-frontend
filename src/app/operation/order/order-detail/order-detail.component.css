@@ -141,3 +141,13 @@ strong {
   font-weight: bold !important;
   font-size: 10px;
 }
+
+.row.pb-1.pt-1 {
+  margin-left: 1px;
+  margin-top: 0.5em;
+}
+
+.col-md-12 .tab-slider--nav
+{
+  margin-left: 1px; margin-top: 0.5em;
+}
