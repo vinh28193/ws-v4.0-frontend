@@ -132,13 +132,6 @@
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3dc29e2eba41072e5f93156b30c230927349392f" datatype="html">
-        <source>LISTS ORDERS</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="a1e52a20f61252c0278ef5204837f0fb6b111d88" datatype="html">
         <source>All Weshop</source>
         <context-group purpose="location">
@@ -757,26 +750,27 @@
           <context context-type="linenumber">665</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="91830191fdd52fbe7dc020375f625539c136ba79" datatype="html">
-        <source>Order Infor : <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{orderUpdatePurchase?.ordercode}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">703</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="51c2ceebaae8dcc3dd66b2923756ab40428fff38" datatype="html">
+      <trans-unit id="f4e529ae5ffd73001d1ff4bbdeeb0a72e342e5c8" datatype="html">
         <source>Close</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">708</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="a8510ea95b20777bd953fb013512466eb31c35d4" datatype="html">
-        <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">733</context>
+          <context context-type="linenumber">907</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">936</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">965</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a8510ea95b20777bd953fb013512466eb31c35d4" datatype="html">
+        <source>Hủy Bỏ</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">761</context>
@@ -872,21 +866,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">904</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="f4e529ae5ffd73001d1ff4bbdeeb0a72e342e5c8" datatype="html">
-        <source>Close</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">907</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">936</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">965</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c6af5e481cbfa4769c780bed735815029d2e6276" datatype="html">
