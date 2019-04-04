@@ -3,24 +3,24 @@
     <div class="card">
       <div class="card-body">
         <div class="card-title">
-          <h3>LIST ALL ITEMS OF ORDER - RAW</h3>
+          <h3 i18n>LIST ALL ITEMS OF ORDER - RAW</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label">Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
-              <option [value]="allKey">All Weshop</option>
-              <option [value]="1">Weshop VN</option>
-              <option [value]="7">Weshop ID</option>
+              <option [value]="allKey" i18n>All Weshop</option>
+              <option [value]="1" i18n>Weshop VN</option>
+              <option [value]="7" i18n>Weshop ID</option>
             </select>
           </div>
           <div class="col-md-6 col-sm-12 form-group m-b-10">
-            <label for="keyWordGroup" class="form-control-label">Keyword...</label>
+            <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
                       id="searchKeyword" formControlName="searchKeyword">
-                <option value="ALL">ALL Keyword</option>
+                <option value="ALL" i18n>ALL Keyword</option>
                 <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
               </select>
               <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-12 form-group m-b-10">
-            <label for="dateTimePicker" class="form-control-label">Time Search</label>
+            <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
                       formControlName="timeKey">
@@ -37,7 +37,6 @@
               </select>
               <input #drp="bsDaterangepicker"
                      bsDaterangepicker
-                     [maxDate]="maxDateTime"
                      [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
                      (bsValueChange)="bsRangeValue"
                      formControlName="bsRangeValue"
@@ -601,30 +600,30 @@
                                   <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-5  pr-0">Stock in local:</div>
+                                  <div class="col-md-5  pr-0" i18n>Stock in local:</div>
                                   <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-5  pr-0">Stock out local:</div>
+                                  <div class="col-md-5  pr-0" i18n>Stock out local:</div>
                                   <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-5  pr-0">At customer:</div>
+                                  <div class="col-md-5  pr-0" i18n>At customer:</div>
                                   <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-5  pr-0">Returned:</div>
+                                  <div class="col-md-5  pr-0" i18n>Returned:</div>
                                   <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-6  pr-0">Cancelled:</div>
+                                  <div class="col-md-6  pr-0" i18n>Cancelled:</div>
                                   <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-5  pr-0">Lost:</div>
+                                  <div class="col-md-5  pr-0" i18n>Lost:</div>
                                   <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
                                 </div>
                               </div>
@@ -853,10 +852,10 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Update {{activeOrder?.id}}</h4>
+        <h4 class="modal-title pull-left">Update</h4>
         <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
-      <div class="modal-body">
+      <!--div class="modal-body">
         <app-customer-information *ngIf="activeOrder"
                 [orderId]="activeOrder.id"
                 [name]="activeOrder.receiver_name"
@@ -873,7 +872,7 @@
                 (success)="updateReceiverModal.hide();listOrders()">
         </app-customer-information>
         <h3 *ngIf="!activeOrder">Failed</h3>
-      </div>
+      </div-->
     </div>
 
   </div>
