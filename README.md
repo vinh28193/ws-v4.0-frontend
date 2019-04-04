@@ -30,3 +30,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ng generate pipe shared/pipes
 ng generate component operation
 ng generate service operation
+
+
+###------i18n--------
+ng xi18n --output-path=locale
+ng serve --configuration=vi

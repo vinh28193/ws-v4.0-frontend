@@ -7,10 +7,12 @@ import {ActivatedRoute} from '@angular/router';
  */
 export class ModuleComponent implements OnInit {
 
-    constructor(public activatedRoute: ActivatedRoute) {
-    }
+  public loading: any = false;
 
-    ngOnInit() {
-    }
+  constructor(public activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+  }
 
 }

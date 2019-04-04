@@ -21,7 +21,7 @@
                     <span class="user-name text-white" >Jhon
                         <strong>Smith</strong>
                     </span>
-                    <span class="user-role text-white">Administrator</span>
+                    <span class="user-role text-white" i18n>Administrator</span>
                     <span class="user-status">
                         <i class="fa fa-circle"></i>
                         <span class="text-white">Online</span>
@@ -41,57 +41,57 @@
                     <li class="active">
                         <a [routerLink]="['order']">
                             <i class="fa fa-home"></i>
-                            <span>Thống kê chung</span>
+                            <span i18n  data-toggle="tooltip" data-placement="top" title="Thống kê chung" >Statistics all </span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['shipment2']">
                             <i class="fa fa-truck"></i>
-                            <span>Shipment</span>
+                            <span i18n>Shipment</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['tracking']">
                             <i class="fa fa-truck"></i>
-                            <span>Tracking</span>
+                            <span i18n>Tracking</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['package']">
                             <i class="fa fa-truck"></i>
-                            <span>Package</span>
+                            <span i18n>Package</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['package/item']">
                             <i class="fa fa-truck"></i>
-                            <span>Package Item</span>
+                            <span i18n>Package Item</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['package/draft']">
                             <i class="fa fa-truck"></i>
-                            <span>Package Draft</span>
+                            <span i18n>Package Draft</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['order']">
                             <i class="fa fa-shopping-cart"></i>
-                            <span>Order</span>
+                            <span i18n>Order</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bell"></i>
-                            <span>Thông Báo</span>
+                            <span i18n>Notification</span>
                         </a>
                         <div class="sidebar-submenu bg-info">
                             <ul>
                                 <li>
-                                    <a class="text-white" href="javascript:void(0)">Cập nhập đơn hàng</a>
+                                    <a class="text-white" href="javascript:void(0)" i18n>Update orders</a>
                                 </li>
                                 <li>
-                                    <a class="text-white" href="javascript:void(0)">Khuyến mại</a>
+                                    <a class="text-white" href="javascript:void(0)" i18n>Promotion</a>
                                 </li>
                             </ul>
                         </div>
@@ -99,25 +99,25 @@
                     <li>
                         <a href="javascript:void(0)">
                             <i class="fa fa-globe"></i>
-                            <span>Vi voucher</span>
+                            <span i18n>Voucher</span>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
                             <i class="fa fa-dot-circle-o"></i>
-                            <span>Weshop xu</span>
+                            <span i18n>Weshop coin</span>
                         </a>
                     </li>
                     <li >
                         <a [routerLink]="['login']">
                             <i class="fa fa-user"></i>
-                            <span>Login</span>
+                            <span i18n>Login</span>
                         </a>
                     </li>
                     <li >
                         <a [routerLink]="['logout']">
                             <i class="fa fa-arrow-circle-left"></i>
-                            <span>Logout</span>
+                            <span i18n>Logout</span>
                         </a>
                     </li>
                 </ul>
@@ -130,18 +130,18 @@
             <div class="col-md-12 pl-0">
                 <div class="row m-0 pt-2 pb-2" style="border-bottom: 0.8em solid #EEF5F9">
                     <div class="col-md-5 align-self-center">
-                        <h2 class="text-themecolor"> Order Manager</h2>
+                        <h2 class="text-themecolor" i18n> Order Manager</h2>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <ul class="bg-white text-right float-right" style="height: 100%">
                             <li class="breadcrumb-item">
-                                <a href="javascript:void(0)">Home</a>
+                                <a href="javascript:void(0)" i18n>Home</a>
                             </li><!---->
                             <li class="breadcrumb-item active">
-                                <a href="#/order">Order</a>
+                                <a href="#/order" i18n>Order</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                <a href="#/order">Order Manager</a>
+                                <a href="#/order" i18n>Order Manager</a>
                             </li>
                         </ul>
                     </div>

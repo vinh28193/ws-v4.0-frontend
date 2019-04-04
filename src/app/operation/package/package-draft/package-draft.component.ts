@@ -16,12 +16,9 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     public itemForm: FormGroup;
     public mapFrom: FormGroup;
     public searchForm: FormGroup;
-
-
     constructor(public draftPackageService: PackageDraftService) {
         super(draftPackageService);
     }
-
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
@@ -60,4 +57,11 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
         this.perPage = data._meta.perPage;
     }
 
+    handlePagination(event) {
+
+    }
+
+    handlePerPage(event) {
+
+    }
 }

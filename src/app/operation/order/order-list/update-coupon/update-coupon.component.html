@@ -5,9 +5,9 @@
         <div id="tab1" *ngIf="!coupon_id" class="tab-slider--body">
           <div class="row">
             <div class="col-md-12">
-              <label for="">Chọn Coupon</label>
+              <label for="" i18n>Select Coupon Code</label>
               <select class="form-control form-control-sm" name="couponId" id="couponId" formControlName="couponId">
-                <option [value]="0">--All Coupon--</option>
+                <option [value]="0" i18n>--All Coupon--</option>
                 <option value="{{coupon.id}}" *ngFor="let coupon of listCoupon">{{coupon.name}}</option>
               </select>
             </div>
@@ -16,37 +16,37 @@
         <div id="tab2" *ngIf="coupon_id" class="tab-slider--body">
           <div class="row mt-2">
             <div class="col-md-6">
-              <label for="">Start Time</label>
+              <label for="" i18n>Start Time</label>
               <input type="text" formControlName="start_time" [value]="coupon.start_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
-              <label for="">End Time</label>
+              <label for="" i18n>End Time</label>
               <input type="text" formControlName="end_time" [value]="coupon.end_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label for="">Name</label>
+              <label for="" i18n>Name</label>
               <input type="text" formControlName="name" [value]="coupon.end_time" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
-              <label for="">Code</label>
+              <label for="" i18n>Code</label>
               <input type="text" formControlName="code" [value]="coupon.code" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
-              <label for="">limit Amount Use</label>
+              <label for="" i18n>limit Amount Use</label>
               <input type="text" formControlName="limit_amount_use" [value]="coupon.limit_amount_use" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
-              <label for="">limit Amount Use Order</label>
+              <label for="" i18n>limit Amount Use Order</label>
               <input type="text" formControlName="limit_amount_use_order" [value]="coupon.limit_amount_use_order" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
-              <label for="">Message</label>
+              <label for="" i18n >Message</label>
               <textarea class="form-control form-control-sm" formControlName="message" [value]="coupon.message" rows="4" id="comment"></textarea>
             </div>
           </div>
@@ -55,6 +55,6 @@
     </div>
   </div>
   <div class="modal-footer ng-scope">
-    <button class="btn btn-success" type="button" (click)="updatePromotionOrder()">Update</button>
+    <button class="btn btn-success" type="button" (click)="updatePromotionOrder()" i18n>Update</button>
   </div>
 </form>
