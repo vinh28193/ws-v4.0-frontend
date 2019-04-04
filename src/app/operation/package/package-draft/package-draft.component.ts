@@ -49,6 +49,9 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     }
 
     search() {
+        this.draftPackageService.search({}).subscribe(rs => {
+            console.log(rs);
+        });
         const data: any = MockResponse.data;
         this.items = data._items;
         this.totalCount = data._meta.totalCount;
