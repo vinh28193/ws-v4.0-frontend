@@ -58,6 +58,15 @@
                                                     <p class="mb-1">Dimension Weight: <strong>{{item.dimension}} gram</strong></p>
                                                     <p class="mb-1">Volume ({{item.volume_label}}): <strong>{{item.volume}} (cm)</strong></p>
                                                     <p class="mb-1">Create At: <strong>{{item.created_at}}</strong></p>
+                                                    <p class="mb-1">Product Name: <strong>{{item.item_name}}</strong></p>
+                                                    <div class="mb-1">
+                                                        <strong>List Image</strong>
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3" *ngFor="let img of getListImage(item.image)" >
+                                                                <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <ng-container  [ngTemplateOutlet]="!isUndefined(item) ? definedItem : unDefinedItem" [ngTemplateOutletContext]="{order:item.order,product:item.product}"></ng-container>
