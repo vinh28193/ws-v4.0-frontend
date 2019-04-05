@@ -2,20 +2,20 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title m-b-0">Tracking Code</h3>
+                <h3 class="card-title m-b-0" i18n>Tracking Code</h3>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
                             <div class="col-md-4 form-group m-b-10">
-                                <label for="q" class="form-control-label">Keyword...</label>
+                                <label for="q" class="form-control-label" i18n>Keyword...</label>
                                 <input class="form-control form-control-sm" id="q" formControlName="q"
                                        type="text" (keyup.enter)="search()">
                             </div>
                             <div class="col-md-4 form-group m-b-10">
                                 <div class="button-group" style="margin-top: 1.7rem;">
-                                    <button class="btn btn-sm btn-success" (click)="search()">Search</button>
+                                    <button class="btn btn-sm btn-success" (click)="search()" i18n>Search</button>
                                 </div>
                             </div>
                         </form>
@@ -27,7 +27,7 @@
                         <div class="row mb-2 toolbar">
                             <div class="col-md-12">
                                 <div class="button-group">
-                                    <button class="btn btn-sm btn-success" (click)="openUsSendingModal()">Us Sending</button>
+                                    <button class="btn btn-sm btn-success" (click)="openUsSendingModal()" i18n>Us Sending</button>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <div class="col-md-12">
                                 <div class="row list-summary">
                                     <div class="col-md-6">
-                                        Showing
+                                        <span i18n>Showing</span>
                                         <select class="form-control-sm select-custom"
                                                 (change)="handlePerPage($event)">
                                             <option value="20">20</option>
@@ -44,7 +44,7 @@
                                             <option value="200">200</option>
                                             <option value="all">All</option>
                                         </select>
-                                        of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                                        <span i18n>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
                                     </div>
                                     <div class="col-md-6">
                                         <pagination [boundaryLinks]="true"
@@ -62,9 +62,9 @@
                                             <table class="table table-bordered table-custom">
                                                 <thead>
                                                 <th width="8%"></th>
-                                                <th width="40%">Tracking</th>
-                                                <th width="35%">Warehouse</th>
-                                                <th width="17%">Action</th>
+                                                <th width="40%" i18n>Tracking</th>
+                                                <th width="35%" i18n>Warehouse</th>
+                                                <th width="17%" i18n>Action</th>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let tracking of tracks">

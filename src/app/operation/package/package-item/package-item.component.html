@@ -3,11 +3,12 @@
     <div class="card">
       <div class="card-body">
         <div class="card-title">
-          <h3>LIST ALL ITEMS OF PACKAGES</h3>
+          <h3 i18n>LIST ALL ITEMS OF PACKAGES</h3>
+
         </div>
         <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
           <div class="col-md-4 form-group m-b-10">
-            <label for="keyWordGroup" class="form-control-label">Keyword...</label>
+            <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
                       id="keyCategory" formControlName="keyCategory">
