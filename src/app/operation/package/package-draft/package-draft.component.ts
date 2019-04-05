@@ -3,6 +3,7 @@ import {PackageDataComponent} from '../package-data.component';
 import {PackageDraftService} from './package-draft.service';
 import {FormGroup} from '@angular/forms';
 import {MockResponse} from './mock-response';
+import {PopupService} from '../../../core/service/popup.service';
 
 @Component({
     selector: 'app-package-draft',
@@ -16,9 +17,11 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     public itemForm: FormGroup;
     public mapFrom: FormGroup;
     public searchForm: FormGroup;
-    constructor(public draftPackageService: PackageDraftService) {
+
+    constructor(public draftPackageService: PackageDraftService, public popup: PopupService) {
         super(draftPackageService);
     }
+
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
@@ -50,14 +53,18 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
 
     search() {
         this.draftPackageService.search({}).subscribe(rs => {
-            console.log(rs);
+            if (rs.success) {
+                const data: any = rs.data;
+                console.log(rs);
+                this.items = data._items;
+                this.totalCount = data._meta.totalCount;
+                this.pageCount = data._meta.pageCount;
+                this.currentPage = data._meta.currentPage;
+                this.perPage = data._meta.perPage;
+            } else {
+                this.popup.error(rs.message);
+            }
         });
-        const data: any = MockResponse.data;
-        this.items = data._items;
-        this.totalCount = data._meta.totalCount;
-        this.pageCount = data._meta.pageCount;
-        this.currentPage = data._meta.currentPage;
-        this.perPage = data._meta.perPage;
     }
 
     handlePagination(event) {
@@ -66,5 +73,9 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
 
     handlePerPage(event) {
 
+    }
+
+    getListImage(images) {
+        return images.split(',');
     }
 }
