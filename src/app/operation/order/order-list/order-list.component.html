@@ -131,7 +131,7 @@
             </div>
           </div>
           <div class="col-md-6 pt-3">
-            Showing
+            <span i18n>Showing </span>
             <select class="form-control-sm select-custom"
                     (change)="handlePerPage($event)">
               <option value="20">20</option>
@@ -140,7 +140,7 @@
               <option value="200">200</option>
               <option value="all" i18n>All</option>
             </select>
-            of page {{perPage}} in {{pageCount}} page in total {{totalCount}} items
+            <span i18n>of page {{perPage}} in {{pageCount}} page in total {{totalCount}} items</span>
           </div>
           <div class="col-md-6">
             <pagination [boundaryLinks]="true"
@@ -213,7 +213,7 @@
                               <div class="mt-1">
                                 <ul>
                                   <li class="purchase_order_id">
-                                    <span class="sty-font purchase_order_id" i18n >{{order.portal}} Order code: </span>
+                                    <span class="sty-font purchase_order_id" i18n>{{order.portal}} Order code: </span>
                                     {{order.purchase_order_id}}
                                   </li>
                                   <li class="purchase_transaction">
@@ -639,10 +639,10 @@
                                       <div class="dropdown-menu style-d" style="font-size: 11px">
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="getCheckAction()" id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="getCheckAction()" id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode, order.total_paid_amount_local)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order.id, order.ordercode, order.total_refund_amount_local)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-arrow-left mr-2" aria-hidden="true"  i18n ></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-reply-all mr-2" aria-hidden="true" i18n ></i>Seller Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true" i18n></i>Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);"><i class="fa fa-check-circle mr-2" aria-hidden="true" i18n></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order.id, order.ordercode, order.total_refund_amount_local)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true" ></i>Seller Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
                                   </div>
