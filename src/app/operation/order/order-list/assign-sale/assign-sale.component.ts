@@ -31,7 +31,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     }
 
     assignSale() {
-        if (this.oldSaleSupport.id == this.saleSupport.id || this.oldSaleSupport.id === this.allKey) {
+        if (this.oldSaleSupport.id === this.saleSupport.id || this.oldSaleSupport.id === this.allKey) {
             this.popup.error('pls select other sale');
         }
         const messagePop = 'Do you want assign order ' + this.orderId + ' to new sale ' + this.saleSupport.username;

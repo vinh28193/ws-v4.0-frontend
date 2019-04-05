@@ -13,6 +13,7 @@ import {PackageService} from './package.service';
 import {PackageDirective} from './package.directive';
 import {PackageItemService} from './package-item/package-item.service';
 import { PackageDraftComponent } from './package-draft/package-draft.component';
+import {PackageDraftService} from './package-draft/package-draft.service';
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { PackageDraftComponent } from './package-draft/package-draft.component';
     ],
     providers: [
         PackageService,
+        PackageDraftService,
         PackageItemService
     ]
 })

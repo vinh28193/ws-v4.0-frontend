@@ -2,7 +2,7 @@ import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output} fro
 import {OrderDataComponent} from '../order/order-data.component';
 import {OrderService} from '../order/order.service';
 import {PopupService} from '../../core/service/popup.service';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-customer-information',
@@ -10,7 +10,6 @@ import {FormBuilder} from '@angular/forms';
   styleUrls: ['./customer-information.component.css']
 })
 export class CustomerInformationComponent extends OrderDataComponent implements OnInit, AfterContentChecked {
-
   @Input() orderId: any = '';
   @Input() name: any = '';
   @Input() phone: any = '';

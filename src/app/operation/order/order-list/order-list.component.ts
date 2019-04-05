@@ -56,7 +56,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public filter: any = {};
     public status: any;
     public checkF = false;
-    updateProductId: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -65,6 +64,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public activeOrder: any = [];
+    public checkUpdateCustomer: boolean = false;
+    public CheeckLoadPromotions: boolean = false;
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
@@ -134,6 +136,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             bsRangeValue: {start: '', end: ''}
         });
     }
+  updateCustomer(order) {
+      this.checkUpdateCustomer = true;
+      this.activeOrder = order;
+  }
 
     convertDateTime(value) {
         const date = new Date(value);
@@ -250,18 +256,28 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
       }
     }
+  freshMoreLog(code) {
+    this.orderService.get(`actionlog/${code}`, undefined).subscribe(res => {
+      const rs = res;
+      this.listLog = rs.data;
+    });
+  }
 
     confirmAll(id) {
+      const messagePop = 'Do you want Confirm order ' + id;
+      this.popup.warning(() => {
         const put = this.orderService.createPostParams({
-            current_status: 'SUPPORTED',
+          current_status: 'SUPPORTED',
         }, 'confirmPurchase');
         this.orderService.put(`order/${id}`, put).subscribe(res => {
-            if (res.success) {
-                this.popup.success(res.message);
-            } else {
-                this.popup.error(res.message);
-            }
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+          } else {
+            this.popup.error(res.message);
+          }
         });
+      }, messagePop);
     }
 
     markAsJunk(productsId) {
@@ -318,16 +334,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     cancelOrder(id) {
+      const messagePop = 'Do you want Cancel order ' + id;
+      this.popup.warning(() => {
         const put = this.orderService.createPostParams({
-            current_status: 'CANCEL',
+          current_status: 'CANCEL',
         }, 'updateStatus');
         this.orderService.put(`order/${id}`, put).subscribe(res => {
-            if (res.success) {
-                this.popup.success(res.message);
-            } else {
-                this.popup.error(res.message);
-            }
+          if (res.success) {
+            this.popup.success(res.message);
+          } else {
+            this.popup.error(res.message);
+          }
         });
+      }, messagePop);
     }
 
     getTotalOrderFee(f, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11) {
@@ -463,6 +482,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }, 'updatePayBack');
     this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
       if (res.success) {
+        this.listOrders();
         this.popup.success(res.message);
       } else {
         this.popup.error(res.message);
@@ -493,5 +513,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     });
   }
+  handleChangeAmount(event) {
+    if (event) {
+      this.listOrders();
+    }
+  }
+  buyNow(item) {}
 }
 

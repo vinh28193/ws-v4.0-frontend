@@ -17,37 +17,43 @@
           <div class="row mt-2">
             <div class="col-md-6">
               <label for="" i18n>Start Time</label>
-              <input type="text" formControlName="start_time" [value]="coupon.start_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
+              <input type="text" formControlName="start_time" [value]="coupon?.start_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
               <label for="" i18n>End Time</label>
-              <input type="text" formControlName="end_time" [value]="coupon.end_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
+              <input type="text" formControlName="end_time" [value]="coupon?.end_time *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
               <label for="" i18n>Name</label>
-              <input type="text" formControlName="name" [value]="coupon.end_time" class="form-control form-control-sm">
+              <input type="text" formControlName="name" [value]="coupon?.name" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
               <label for="" i18n>Code</label>
-              <input type="text" formControlName="code" [value]="coupon.code" class="form-control form-control-sm">
+              <input type="text" formControlName="code" [value]="coupon?.code" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
               <label for="" i18n>limit Amount Use</label>
-              <input type="text" formControlName="limit_amount_use" [value]="coupon.limit_amount_use" class="form-control form-control-sm">
+              <input type="text" formControlName="limit_amount_use" [value]="coupon?.limit_amount_use" class="form-control form-control-sm">
             </div>
             <div class="col-md-6">
               <label for="" i18n>limit Amount Use Order</label>
-              <input type="text" formControlName="limit_amount_use_order" [value]="coupon.limit_amount_use_order" class="form-control form-control-sm">
+              <input type="text" formControlName="limit_amount_use_order" [value]="coupon?.limit_amount_use_order" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Amount</label>
+              <input type="number" formControlName="amount" [value]="coupon?.amount" class="form-control form-control-sm">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-12">
               <label for="" i18n >Message</label>
-              <textarea class="form-control form-control-sm" formControlName="message" [value]="coupon.message" rows="4" id="comment"></textarea>
+              <textarea class="form-control form-control-sm" formControlName="message" [value]="coupon?.message" rows="4" id="comment"></textarea>
             </div>
           </div>
         </div>

@@ -6,10 +6,8 @@ export const searchKeys = [
     {key: 'coupon.code', name: 'Coupon Code'},
     {key: 'product.category_id', name: 'Category Id'},
     {key: 'product.product_name', name: 'Product Name'},
-    {key: 'customer.email1', name: 'Buy Email'},
-    {key: 'order.receiver_email', name: 'Receiver Email'},
-    {key: 'order.receiver_phone', name: 'Phone receiver'},
-    {key: 'customer.phone1', name: 'Phone buyers'},
+    {key: 'email', name: 'Email'},
+    {key: 'phone', name: 'Phone'},
     {key: 'order.payment_type', name: 'Payment Type'},
 ];
 export const timeKeys = [
@@ -53,6 +51,5 @@ export const orderStatus = [
     {key: 'CANCEL', name: 'Cancel order'},
     {key: 'REPLACED', name: 'Replaced order'},
     {key: 'JUNK', name: 'Junk'},
-    {key: 'PAYMENT_EXPIRED', name: 'Payment Expired'},
     {key: '', name: 'SanBox'}
 ];

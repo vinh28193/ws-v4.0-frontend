@@ -16,7 +16,7 @@
             </select>
           </div>
           <div class="col-md-6 col-sm-12 form-group m-b-10">
-            <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
+            <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
                       id="searchKeyword" formControlName="searchKeyword">
@@ -238,8 +238,8 @@
 
                               <div class=" mt-1  infor_seller">
                                 <ul>
-                                  <li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
-                                  <li class="sty-font"><i class="fa fa-user mr-1" i18n></i> Seller Name : {{order.seller_name}}</li>
+                                  <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
+                                  <li class="sty-font"><i class="fa fa-user mr-1" i18n></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
                                 </ul>
                               </div>
 
@@ -263,7 +263,7 @@
                                       <div>
                                         <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px" i18n >RECEIVER
                                           <a href="javascript:void(0)"
-                                             (click)="activeOrder = order;updateReceiverModal.show()">
+                                             (click)="updateCustomer(order);updateReceiverModal.show()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
                                           </a>
                                         </h5>
@@ -497,7 +497,7 @@
                               <hr>
                               <div class="row total_amount_local">
                                 <div class="col-md-6 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Total money</span>
+                                  <span class="Ws-bold-font" i18n>Total Amout Local</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_final_amount_local">
                                   <span>
@@ -514,7 +514,7 @@
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left ">
                                   <span>
-                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.total_counpon_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
+                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
                               </div>
@@ -557,6 +557,9 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
+                                  <button class="btn btn-success btn-sm" (click)="buyNow(order)">
+                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}" target="_blank">Buy Now</a>
+                                  </button>
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
@@ -787,14 +790,14 @@
                   Order-{{logIdOrder}}
                 </strong>
                 </h2>
-                <button class="btn btn-skype" i18n>Refresh</button>
+                <button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button>
               </div>
               <div>
                 <div class="modal-body">
 
                   <div class="container-fluid ng-star-inserted">
                     <div class="row btn-group">
-                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}} active" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
+                      <button class="active btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
                       <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet</button>
                       <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="loadData('paymentlog', logIdOrder); typeViewLogs = 'payment_logs'">Payment</button>
                       <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}" (click)="loadData('boxme-inspect-log', logIdOrder); typeViewLogs = 'boxme'">Boxme Inspect</button>
@@ -803,12 +806,11 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <table class="table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
+                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
                         <thead>
                         <tr>
                           <th i18n>Create time</th>
-                          <th i18n>Data Input</th>
-                          <th i18n>Data Output</th>
+                          <th i18n>Content</th>
                           <th i18n>Employee</th>
                           <th i18n>Role</th>
                         </tr>
@@ -816,8 +818,14 @@
                         <tbody>
                         <tr *ngFor="let log of listLog">
                           <td>{{log.date}}</td>
-                          <td>{{log.data_input}}</td>
-                          <td>{{log.data_output}}</td>
+                          <td>
+                            <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
+                            <ng-template #logDetail style="max-width: 500px">
+                              <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>
+                              <strong>Data Output</strong><div [innerHTML]="log.data_output"></div>
+                            </ng-template>
+                            {{log.action_path}}
+                          </td>
                           <td>{{log.user_name}}</td>
                           <td>{{log.Role}}</td>
                         </tr>
@@ -851,8 +859,8 @@
         <h4 class="modal-title pull-left" i18n>Update</h4>
         <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
-      <!--div class="modal-body">
-        <app-customer-information *ngIf="activeOrder"
+      <div class="modal-body">
+        <app-customer-information
                 [orderId]="activeOrder.id"
                 [name]="activeOrder.receiver_name"
                 [phone]="activeOrder.receiver_phone"
@@ -868,7 +876,7 @@
                 (success)="updateReceiverModal.hide();listOrders()">
         </app-customer-information>
         <h3 *ngIf="!activeOrder">Failed</h3>
-      </div-->
+      </div>
     </div>
 
   </div>
@@ -885,7 +893,7 @@
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon *ngIf="checkOpenPromotion" [id] = "orderID" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
     </div>
   </div>
 </div>

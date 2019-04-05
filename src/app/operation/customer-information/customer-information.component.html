@@ -6,7 +6,7 @@
           <label [for]="getInputUnique('name')" class="form-control-label">Name</label>
           <input type="text" [(ngModel)]="name"
                  class="form-control form-control-sm" [id]="getInputUnique('name')"
-                 [name]="getInputUnique('name')">
+                 [name]="getInputUnique('name')" required>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <div class="col-md-6">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('email')" class="form-control-label">Email</label>
-          <input type="text" [(ngModel)]="email"
+          <input required="required" type="text" [(ngModel)]="email"
                  class="form-control form-control-sm"
                  [id]="getInputUnique('email')" [name]="getInputUnique('email')">
         </div>
@@ -34,7 +34,7 @@
           <label [for]="getInputUnique('address')" class="form-control-label">Address</label>
           <input type="text" [(ngModel)]="address"
                  class="form-control form-control-sm" [id]="getInputUnique('address')"
-                 [name]="getInputUnique('address')">
+                 [name]="getInputUnique('address')" required>
         </div>
       </div>
       <div class="col-md-4">
@@ -42,7 +42,7 @@
           <label [for]="getInputUnique('postCode')" class="form-control-label">PostCode</label>
           <input type="text" [(ngModel)]="postCode" (keyup)="suggestionAddress($event)"
                  class="form-control form-control-sm" [id]="getInputUnique('postCode')"
-                 [name]="getInputUnique('postCode')">
+                 [name]="getInputUnique('postCode')" required>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
       <div class="col-md-4">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('country')" class="form-control-label">Country</label>
-          <select [(ngModel)]="country"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)">
+          <select [(ngModel)]="country"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)" required>
             <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
           </select>
         </div>
@@ -58,7 +58,7 @@
       <div class="col-md-4">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('province')" class="form-control-label">Province</label>
-          <select [(ngModel)]="province"  class="form-control form-control-sm" [name]="getInputUnique('province')" [id]="getInputUnique('province')" (change)="onProvince($event)">
+          <select [(ngModel)]="province"  class="form-control form-control-sm" [name]="getInputUnique('province')" [id]="getInputUnique('province')" (change)="onProvince($event)" required>
             <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
           </select>
         </div>
@@ -66,7 +66,7 @@
       <div class="col-md-4">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('district')" class="form-control-label">District</label>
-          <select [(ngModel)]="district"  class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)">
+          <select [(ngModel)]="district"  class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)" required>
             <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
           </select>
         </div>
