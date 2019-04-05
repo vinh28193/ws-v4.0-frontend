@@ -56,7 +56,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public filter: any = {};
     public status: any;
     public checkF = false;
-    updateProductId: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -65,6 +64,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public activeOrder: any = [];
+    public checkUpdateCustomer: boolean = false;
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
@@ -134,6 +135,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             bsRangeValue: {start: '', end: ''}
         });
     }
+  updateCustomer(order) {
+      this.checkUpdateCustomer = true;
+      this.activeOrder = order;
+  }
 
     convertDateTime(value) {
         const date = new Date(value);

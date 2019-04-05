@@ -263,7 +263,7 @@
                                       <div>
                                         <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px" i18n >RECEIVER
                                           <a href="javascript:void(0)"
-                                             (click)="activeOrder = order;updateReceiverModal.show()">
+                                             (click)="updateCustomer(order);updateReceiverModal.show()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
                                           </a>
                                         </h5>
@@ -859,8 +859,8 @@
         <h4 class="modal-title pull-left" i18n>Update</h4>
         <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
-      <!--div class="modal-body">
-        <app-customer-information *ngIf="activeOrder"
+      <div class="modal-body">
+        <app-customer-information
                 [orderId]="activeOrder.id"
                 [name]="activeOrder.receiver_name"
                 [phone]="activeOrder.receiver_phone"
@@ -876,7 +876,7 @@
                 (success)="updateReceiverModal.hide();listOrders()">
         </app-customer-information>
         <h3 *ngIf="!activeOrder">Failed</h3>
-      </div-->
+      </div>
     </div>
 
   </div>
