@@ -797,7 +797,7 @@
 
                   <div class="container-fluid ng-star-inserted">
                     <div class="row btn-group">
-                      <button class="btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}} active" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
+                      <button class="active btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
                       <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet</button>
                       <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="loadData('paymentlog', logIdOrder); typeViewLogs = 'payment_logs'">Payment</button>
                       <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}" (click)="loadData('boxme-inspect-log', logIdOrder); typeViewLogs = 'boxme'">Boxme Inspect</button>
@@ -806,12 +806,11 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <table class="table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
+                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
                         <thead>
                         <tr>
                           <th i18n>Create time</th>
-                          <th i18n>Data Input</th>
-                          <th i18n>Data Output</th>
+                          <th i18n>Content</th>
                           <th i18n>Employee</th>
                           <th i18n>Role</th>
                         </tr>
@@ -819,8 +818,14 @@
                         <tbody>
                         <tr *ngFor="let log of listLog">
                           <td>{{log.date}}</td>
-                          <td>{{log.data_input}}</td>
-                          <td>{{log.data_output}}</td>
+                          <td>
+                            <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
+                            <ng-template #logDetail style="max-width: 500px">
+                              <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>
+                              <strong>Data Output</strong><div [innerHTML]="log.data_output"></div>
+                            </ng-template>
+                            {{log.action_path}}
+                          </td>
                           <td>{{log.user_name}}</td>
                           <td>{{log.Role}}</td>
                         </tr>
