@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -13,10 +13,12 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
   @Input() id: any;
   @Input() coupon_id: any;
   @Input() ordercode: any;
+  @Output() checkEdit = new EventEmitter();
   formEditCoupon: FormGroup;
   public coupon: any;
   public listCoupon: any = [];
   public checkDisabled: boolean = false;
+  public checkLoadAmount: boolean = false;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -35,6 +37,7 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
         limit_amount_use: '',
         limit_amount_use_order: '',
         message: '',
+        amount: '',
       });
     } else if (!this.coupon_id) {
       this.orderService.get('coupon', undefined).subscribe(res => {
@@ -71,6 +74,10 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
       if (value.message !== '') {
         params.message = value.message;
       }
+      if (value.amount !== '') {
+        params.amount = value.amount;
+        console.log(params.amount);
+      }
     } if (!this.coupon_id) {
       if (value.couponId !== '') {
         params.couponId = value.couponId;
@@ -86,6 +93,8 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
       this.orderService.put(`coupon/${this.coupon_id}`, params).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
+          this.checkLoadAmount = true;
+          this.checkEdit.emit(this.checkLoadAmount);
         } else {
           this.popup.error(res.message);
         }
@@ -97,6 +106,8 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
       this.orderService.put(`order/${this.id}`, put).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
+          this.checkLoadAmount = true;
+          this.checkEdit.emit(this.checkLoadAmount);
         } else {
           this.popup.error(res.message);
         }

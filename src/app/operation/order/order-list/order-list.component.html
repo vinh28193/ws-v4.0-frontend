@@ -16,7 +16,7 @@
             </select>
           </div>
           <div class="col-md-6 col-sm-12 form-group m-b-10">
-            <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
+            <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
                       id="searchKeyword" formControlName="searchKeyword">
@@ -238,8 +238,8 @@
 
                               <div class=" mt-1  infor_seller">
                                 <ul>
-                                  <li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>
-                                  <li class="sty-font"><i class="fa fa-user mr-1" i18n></i> Seller Name : {{order.seller_name}}</li>
+                                  <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
+                                  <li class="sty-font"><i class="fa fa-user mr-1" i18n></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
                                 </ul>
                               </div>
 
@@ -497,7 +497,7 @@
                               <hr>
                               <div class="row total_amount_local">
                                 <div class="col-md-6 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Total money</span>
+                                  <span class="Ws-bold-font" i18n>Total Amout Local</span>
                                 </div>
                                 <div class="col-md-6 text-right style-padding-left total_final_amount_local">
                                   <span>
@@ -790,7 +790,7 @@
                   Order-{{logIdOrder}}
                 </strong>
                 </h2>
-                <button class="btn btn-skype" i18n>Refresh</button>
+                <button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button>
               </div>
               <div>
                 <div class="modal-body">
@@ -893,7 +893,7 @@
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon *ngIf="checkOpenPromotion" [id] = "orderID" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
     </div>
   </div>
 </div>

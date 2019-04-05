@@ -11,6 +11,9 @@ declare var jQuery: any;
     styleUrls: ['./operation-routing.component.css']
 })
 export class OperationRoutingComponent extends ModuleComponent implements OnInit {
+  loging: any;
+  role: any;
+  user: any;
 
     constructor(public activatedRoute: ActivatedRoute) {
         super(activatedRoute);
@@ -20,6 +23,9 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     public address: any;
 
     ngOnInit() {
+      this.loging = localStorage.getItem('userLogin');
+      this.role = localStorage.getItem('scope');
+      this.user = (JSON.parse(this.loging).username);
     }
 
     closeSidebar() {
