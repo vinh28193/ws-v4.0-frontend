@@ -227,7 +227,7 @@
 
                               <div class="row m-0 p-0 mt-1">
                                 <ul class="col-md-11">
-                                  <app-assign-sale [orderId]="order.id" [saleSupport] = "order.saleSupport"></app-assign-sale>
+                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" [saleSupport] = "order.saleSupport"></app-assign-sale>
                                 </ul>
                                 <div class="col-md-1 p-0">
                                   <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
