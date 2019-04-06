@@ -227,7 +227,7 @@
 
                               <div class="row m-0 p-0 mt-1">
                                 <ul class="col-md-11">
-                                  <app-assign-sale [orderId]="order.id" [saleSupport] = "order.saleSupport"></app-assign-sale>
+                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" [saleSupport] = "order.saleSupport"></app-assign-sale>
                                 </ul>
                                 <div class="col-md-1 p-0">
                                   <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
@@ -653,9 +653,12 @@
                           <div class="row pb-1 pt-1" style="margin-left: 1px; margin-top: 0.5em;">
                             <div class="col-md-12 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
-                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)="viewMode = 'pro' + order.id">
+                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)=" order.id = !(order.id)">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>
                                 </li>
+                                <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
+                                  <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
+                                <!--</li>-->
                                 <li class="tab-slider--trigger" [class.active]="viewMode == 'package' + order.id" rel="tab2" (click)="viewMode ='package' + order.id">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
@@ -665,6 +668,9 @@
                               </ul>
                             </div>
                             <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
+                              <div id="tab" class="tab-slider--body">
+                                <app-order-detail *ngIf="!(order.id)" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                              </div>
                               <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
                                 <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>

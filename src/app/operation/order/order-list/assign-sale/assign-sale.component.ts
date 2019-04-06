@@ -13,6 +13,7 @@ import {PopoverDirective} from 'ngx-bootstrap';
 export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     @Input() orderId: any;
     @Input() saleSupport: any;
+    @Input() saleAll: any;
 
     @ViewChild('pop') pop: PopoverDirective;
 

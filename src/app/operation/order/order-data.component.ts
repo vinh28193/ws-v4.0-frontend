@@ -23,7 +23,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     }
 
     ngOnInit() {
-
+      this.loadAllSales();
     }
 
     // ngAfterViewChecked() {
@@ -121,7 +121,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
         return this.districts;
     }
 
-    loadAllSales(refresh = false): any | [] {
+    loadAllSales(refresh = false): any {
         this.sales = this.http.decrypt('systemSale');
         this.sales = JSON.parse(this.sales);
         const wait = this.http.decrypt('loading-sale');
@@ -129,6 +129,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
             this.http.encrypt('loading-sale', 'wait');
             this.http.get('sale-support', undefined).subscribe(res => {
                 this.sales = res;
+                console.log(this.sales);
                 this.http.encrypt('systemSale', JSON.stringify(this.sales));
                 this.http.encrypt('loading-sale', 'done');
             });
