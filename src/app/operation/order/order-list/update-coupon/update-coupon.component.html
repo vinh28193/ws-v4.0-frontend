@@ -8,7 +8,10 @@
               <label for="" i18n>Select Coupon Code</label>
               <select class="form-control form-control-sm" name="couponId" id="couponId" formControlName="couponId">
                 <option [value]="0" i18n>--All Coupon--</option>
-                <option value="{{coupon.id}}" *ngFor="let coupon of listCoupon">{{coupon.name}}</option>
+                <option value="{{coupon.id}}" *ngFor="let coupon of listCoupon">{{coupon.name}}({{coupon.code}}-
+                  <span *ngIf="store_id === 1">{{coupon.amount | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{coupon.amount | number}}{{store_id | currencyStore}}</span>)
+                </option>
               </select>
             </div>
           </div>

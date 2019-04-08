@@ -13,6 +13,7 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
   @Input() id: any;
   @Input() coupon_id: any;
   @Input() ordercode: any;
+  @Input() store_id: any;
   @Output() checkEdit = new EventEmitter();
   formEditCoupon: FormGroup;
   public coupon: any;

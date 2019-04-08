@@ -58,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public filter: any = {};
     public status: any;
     public checkF = false;
+    public store_id: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -135,7 +136,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
-            seller: this.allKey,
+            paymentStatus: this.allKey,
             bsRangeValue: {start: '', end: ''}
         });
     }
@@ -187,8 +188,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.sale !== '' && value.sale !== 'ALL') {
             params.sale = value.sale;
         }
+        if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
+            params.paymentStatus = value.paymentStatus;
+        }
         if (value.seller !== '' && value.seller !== 'ALL') {
-            params.seller = value.seller;
+          params.seller = value.seller;
         }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
@@ -400,10 +404,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return totalOrderFee;
     }
 
-    updateAdjustPayment(id, code, total_paid_amount_local) {
-        this.AdjustPaymentOderId = id;
-        this.total_paid_amount_local = total_paid_amount_local;
-        this.code = code;
+    updateAdjustPayment(order) {
+        this.AdjustPaymentOderId = order.id;
+        this.total_paid_amount_local = order.total_paid_amount_local;
+        this.code = order.code;
+        this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
             total_paid_amount_local: this.total_paid_amount_local
@@ -430,6 +435,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         console.log(this.coupon_id);
         this.orderID = order.id;
         this.code = order.ordercode;
+        this.store_id = order.store_id;
         this.checkOpenPromotion = true;
     }
 
@@ -480,10 +486,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    openUpdatePayBack(id, code, total_refund_amount_local) {
-        this.AdjustPaymentOderId = id;
-        this.total_refund_amount_local = total_refund_amount_local;
+    openUpdatePayBack(order) {
+        this.AdjustPaymentOderId = order.id;
+        this.total_refund_amount_local = order.total_refund_amount_local;
         this.checkOpenPayBack = true;
+        this.store_id = order.store_id;
         this.editForm = this.fb.group({
             total_refund_amount_local: this.total_refund_amount_local
         });
@@ -510,6 +517,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.purchase_amount_buck = order.purchase_amount_buck;
         this.purchase_amount_refund = order.purchase_amount_refund;
         this.checkSellerRefund = true;
+        this.store_id = order.store_id;
         this.editForm = this.fb.group({
             purchase_amount_buck: this.purchase_amount_buck,
             purchase_amount_refund: this.purchase_amount_refund,
