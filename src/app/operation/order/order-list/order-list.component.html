@@ -81,11 +81,11 @@
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Product Type</label>
             <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
-              <option [value]="allKey" i18n>--All Product Type--</option>
-              <option value="AMAZON_US" i18n>AMAZON US</option>
-              <option value="AMAZON_JAPAN" i18n>AMAZON JAPAN</option>
-              <option value="OTHER" i18n>OTHER</option>
-              <option value="EBAY" i18n>EBAY</option>
+              <option [value]="allKey" >--All Product Type--</option>
+              <option value="AMAZON_US" >AMAZON US</option>
+              <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
+              <option value="OTHER" >OTHER</option>
+              <option value="EBAY" >EBAY</option>
             </select>
           </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
@@ -100,7 +100,7 @@
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
-              <option [value]="allKey" i18n>--All Sale--</option>
+              <option [value]="allKey">--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>

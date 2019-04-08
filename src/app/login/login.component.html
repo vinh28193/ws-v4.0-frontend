@@ -5,20 +5,20 @@
         <div class="card-body">
           <h5 class="card-title text-center">Sign In</h5>
           <form class="form-signin">
-            <label>Email address</label>
+            <label i18n>Email address</label>
             <div class="form-label-group">
               <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control"  required autofocus>
             </div>
-            <label>Password</label>
+            <label i18n>Password</label>
             <div class="form-label-group">
               <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control"  required>
             </div>
 
             <div class="custom-control custom-checkbox mb-3">
               <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">Remember password</label>
+              <label class="custom-control-label" for="customCheck1" i18n>Remember password</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="login()" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="login()" type="submit" i18n>Sign in</button>
             <hr class="my-4">
           </form>
         </div>
