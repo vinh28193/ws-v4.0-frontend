@@ -72,6 +72,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
       receiver_name: this.name,
       receiver_phone: this.phone,
       receiver_address: this.address,
+      receiver_post_code: this.postCode,
       receiver_country_id: this.country,
       receiver_country_name: this.countryName,
       receiver_province_id: this.province,
