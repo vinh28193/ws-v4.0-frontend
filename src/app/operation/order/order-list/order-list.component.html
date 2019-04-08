@@ -557,13 +557,13 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}"  class="btn btn-secondary btn-sm mr-2 mb-2" target="_blank" (click)="buyNow(order)" >Buy Now</a>
+                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}"  class="btn btn-secondary btn-sm mr-2 mb-2" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
-                                    <i class="fa fa-shopping-cart"></i> Purchase BuyNow
+                                    <i class="fa fa-shopping-cart"></i> Purchase Buy Now
                                   </button>
 
                                 </div>

@@ -1597,11 +1597,31 @@
       </trans-unit>
       <trans-unit id="1bd5e17c9582661e20763a7634ef07881e33bbd7" datatype="html">
         <source>Action</source>
-        <target>Hành động</target>
+        <target>Chức năng</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
           <context context-type="linenumber">67</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="eb1a9c810ba6f86579f83159114f39e574d5a0db" datatype="html">
+          <source>Buy Now</source>
+          <target>Add-On Mua Hàng</target>
+          <context-group purpose="location">
+                <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+                <context context-type="linenumber">560</context>
+          </context-group>
+      </trans-unit>
+      <trans-unit id="7536fbe6b144e5a4a5f6b7129b17528fe947e6e1" datatype="html">
+              <source>
+                                          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Purchase Buy Now
+                                        </source>
+             <target>
+                <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Mua Hàng
+             </target>
+              <context-group purpose="location">
+                <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+                <context context-type="linenumber">565</context>
+              </context-group>
       </trans-unit>
     </body>
   </file>
