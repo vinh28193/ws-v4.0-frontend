@@ -48,6 +48,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         if ((this.current_id !== this.updateProductId || this.clickBtn) && this.updateProductId !== undefined) {
             this.clickBtn = false;
             console.log('chhange');
+            this.orders = null;
             this.current_id = this.updateProductId;
             this.getaccount();
             this.getCardPayment();
