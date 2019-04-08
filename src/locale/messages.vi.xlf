@@ -160,7 +160,7 @@
       </trans-unit>
       <trans-unit id="a1e52a20f61252c0278ef5204837f0fb6b111d88" datatype="html">
         <source>All Weshop</source>
-        <target>Tất cả các nước</target>
+        <target>Weshop Toàn cầu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -184,7 +184,7 @@
       </trans-unit>
       <trans-unit id="856d4f9f808e2d113350ef83739857221c63adaf" datatype="html">
         <source>Keyword</source>
-        <target>Từ khoá</target>
+        <target>TÌM THEO ĐIỀU KIỆN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -192,7 +192,7 @@
       </trans-unit>
       <trans-unit id="97d3f42fddecba85f8ff19250929e50df861517e" datatype="html">
         <source>ALL Keyword</source>
-        <target>Tất cả từ khoá</target>
+        <target>-- Paste bất kì điều kiện --</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -200,7 +200,7 @@
       </trans-unit>
       <trans-unit id="badb249273f8ea968e9f6df1320005cde5588b6d" datatype="html">
         <source>Time Search</source>
-        <target>Tìm kiếm thời gian</target>
+        <target>TÌM THEO HÀNH TRÌNH</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -216,7 +216,7 @@
       </trans-unit>
       <trans-unit id="6ac60ef3f4f1249bf26dd9c541aae3b50bcbf6e8" datatype="html">
         <source>Time Key</source>
-        <target>Từ khoá</target>
+        <target>-- Paste bất kì thời gian --</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -224,7 +224,7 @@
       </trans-unit>
       <trans-unit id="3d5071d81e8c0c5012c92912b90717b032699454" datatype="html">
         <source>Order Type</source>
-        <target>Loại đơn hàng</target>
+        <target>Loại hàng</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -324,7 +324,7 @@
       </trans-unit>
       <trans-unit id="ed31c09fd77c36238c13d83635f3fe5294c733d2" datatype="html">
         <source>Location</source>
-        <target>Vị trí</target>
+        <target>Hàng đang đến đâu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">90</context>
