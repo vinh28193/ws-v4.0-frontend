@@ -121,7 +121,7 @@
           <div class="col-md-12 mt-1">
             <div class="button-group">
                 <button class="btn btn-sm btn-success" (click)="listOrders()" i18n><i class="fa fa-search"> Search</i></button>
-                <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()" i18n><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
+                <button class="btn btn-sm btn-danger ml-2 " (click)="buildSearchForm()" i18n><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
                 <button class="btn btn-info btn-sm text-white ml-1" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
@@ -204,7 +204,7 @@
                                     <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
-                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType" i18n><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
+                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal | uppercase }} / Version : {{order.version}} </span></div>
                                   </li>
                                 </ul>
                               </div>
@@ -796,7 +796,7 @@
                   Order-{{logIdOrder}}
                 </strong>
                 </h2>
-                <button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button>
+                <!--button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button-->
               </div>
               <div>
                 <div class="modal-body">
