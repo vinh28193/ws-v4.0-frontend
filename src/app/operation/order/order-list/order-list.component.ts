@@ -10,6 +10,8 @@ import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum'
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
     selector: 'app-order-list',
@@ -17,7 +19,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
-    @ViewChild(ModalDirective) showChat: ModalDirective;
+    @ViewChild('showPromotion') showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     public orders: any = [];
     public total: any;
@@ -56,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public filter: any = {};
     public status: any;
     public checkF = false;
+    public store_id: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -65,8 +68,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public logIdOrder: any;
     public coupon_id: any;
     public activeOrder: any = [];
-    public checkUpdateCustomer: boolean = false;
-    public CheeckLoadPromotions: boolean = false;
+    public checkUpdateCustomer = false;
+    public CheeckLoadPromotions = false;
 
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
@@ -133,7 +136,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
-            seller: this.allKey,
+            paymentStatus: this.allKey,
             bsRangeValue: {start: '', end: ''}
         });
     }
@@ -185,8 +188,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.sale !== '' && value.sale !== 'ALL') {
             params.sale = value.sale;
         }
+        if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
+            params.paymentStatus = value.paymentStatus;
+        }
         if (value.seller !== '' && value.seller !== 'ALL') {
-            params.seller = value.seller;
+          params.seller = value.seller;
         }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
@@ -398,10 +404,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return totalOrderFee;
     }
 
-    updateAdjustPayment(id, code, total_paid_amount_local) {
-        this.AdjustPaymentOderId = id;
-        this.total_paid_amount_local = total_paid_amount_local;
-        this.code = code;
+    updateAdjustPayment(order) {
+        this.AdjustPaymentOderId = order.id;
+        this.total_paid_amount_local = order.total_paid_amount_local;
+        this.code = order.code;
+        this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
             total_paid_amount_local: this.total_paid_amount_local
@@ -415,7 +422,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
               this.listOrders();
-                this.popup.success(res.message);
+              this.popup.success(res.message);
+              $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -427,6 +435,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         console.log(this.coupon_id);
         this.orderID = order.id;
         this.code = order.ordercode;
+        this.store_id = order.store_id;
         this.checkOpenPromotion = true;
     }
 
@@ -477,10 +486,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    openUpdatePayBack(id, code, total_refund_amount_local) {
-        this.AdjustPaymentOderId = id;
-        this.total_refund_amount_local = total_refund_amount_local;
+    openUpdatePayBack(order) {
+        this.AdjustPaymentOderId = order.id;
+        this.total_refund_amount_local = order.total_refund_amount_local;
         this.checkOpenPayBack = true;
+        this.store_id = order.store_id;
         this.editForm = this.fb.group({
             total_refund_amount_local: this.total_refund_amount_local
         });
@@ -494,6 +504,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (res.success) {
                 this.listOrders();
                 this.popup.success(res.message);
+                $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -506,6 +517,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.purchase_amount_buck = order.purchase_amount_buck;
         this.purchase_amount_refund = order.purchase_amount_refund;
         this.checkSellerRefund = true;
+        this.store_id = order.store_id;
         this.editForm = this.fb.group({
             purchase_amount_buck: this.purchase_amount_buck,
             purchase_amount_refund: this.purchase_amount_refund,
@@ -520,7 +532,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
               this.listOrders();
-                this.popup.success(res.message);
+              this.popup.success(res.message);
+              $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -529,6 +542,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     handleChangeAmount(event) {
         if (event) {
+          $('.modal').modal('hide');
           this.listOrders();
         }
     }

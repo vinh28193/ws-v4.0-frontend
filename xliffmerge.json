@@ -19,7 +19,7 @@
     "targetSuffix": "",
     "beautifyOutput": false,
     "allowIdChange": false,
-    "autotranslate": true,
+    "autotranslate": ["vi"],
     "apikey": "AIzaSyDf5Oadsge9OmuQqvYhsm25z1Al-1dMdJ4",
     "apikeyfile": "",
     "verbose": false,
