@@ -67,6 +67,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public activeOrder: any = [];
     public checkUpdateCustomer: boolean = false;
     public CheeckLoadPromotions: boolean = false;
+
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
     }
@@ -136,10 +137,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             bsRangeValue: {start: '', end: ''}
         });
     }
-  updateCustomer(order) {
-      this.checkUpdateCustomer = true;
-      this.activeOrder = order;
-  }
+
+    updateCustomer(order) {
+        this.checkUpdateCustomer = true;
+        this.activeOrder = order;
+    }
 
     convertDateTime(value) {
         const date = new Date(value);
@@ -165,7 +167,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.keyWord !== '' && value.keyWord !== 'ALL') {
             params.keyWord = value.keyWord;
         }
-        if (value.searchKeyword !== '' && value.searchKeyword !== 'ALL') {
+        if (value.searchKeyword !== '') {
             params.searchKeyword = value.searchKeyword;
         }
         if (value.type !== '' && value.type !== 'ALL') {
@@ -186,7 +188,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.seller !== '' && value.seller !== 'ALL') {
             params.seller = value.seller;
         }
-        if (value.timeKey !== '' && value.timeKey !== 'ALL') {
+        if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
         }
         if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
@@ -216,7 +218,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     load() {
         this.getSale();
-        this.getSeller();
+        // this.getSeller();
     }
 
     followOrder() {
@@ -249,45 +251,46 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     viewMoreLog(status, code, type = 'item') {
         this.moreLog.status = status;
         this.logIdOrder = code;
-      if (this.typeViewLogs === 'actionlog') {
-        this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-          const rs = res;
-          this.listLog = rs.data;
-        });
-      }
+        if (this.typeViewLogs === 'actionlog') {
+            this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+                const rs = res;
+                this.listLog = rs.data;
+            });
+        }
     }
-  freshMoreLog(code) {
-    this.orderService.get(`actionlog/${code}`, undefined).subscribe(res => {
-      const rs = res;
-      this.listLog = rs.data;
-    });
-  }
+
+    freshMoreLog(code) {
+        this.orderService.get(`actionlog/${code}`, undefined).subscribe(res => {
+            const rs = res;
+            this.listLog = rs.data;
+        });
+    }
 
     confirmAll(id) {
-      const messagePop = 'Do you want Confirm order ' + id;
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          current_status: 'SUPPORTED',
-        }, 'confirmPurchase');
-        this.orderService.put(`order/${id}`, put).subscribe(res => {
-          if (res.success) {
-            this.listOrders();
-            this.popup.success(res.message);
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        const messagePop = 'Do you want Confirm order ' + id;
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                current_status: 'SUPPORTED',
+            }, 'confirmPurchase');
+            this.orderService.put(`order/${id}`, put).subscribe(res => {
+                if (res.success) {
+                    this.listOrders();
+                    this.popup.success(res.message);
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
     }
 
     markAsJunk(productsId) {
     }
 
-    getSeller() {
-        this.orderService.get('seller', undefined).subscribe(rs => {
-            this.listSeller = rs.data;
-        });
-    }
+    // getSeller() {
+    //     this.orderService.get('seller', undefined).subscribe(rs => {
+    //         this.listSeller = rs.data;
+    //     });
+    // }
 
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
@@ -314,10 +317,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     loadData(tab, id) {
         if (tab !== this.typeViewLogs) {
-          this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
-            const rs = res;
-            this.listLog = rs.data;
-          });
+            this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
+                const rs = res;
+                this.listLog = rs.data;
+            });
         }
     }
 
@@ -334,19 +337,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     cancelOrder(id) {
-      const messagePop = 'Do you want Cancel order ' + id;
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          current_status: 'CANCEL',
-        }, 'updateStatus');
-        this.orderService.put(`order/${id}`, put).subscribe(res => {
-          if (res.success) {
-            this.popup.success(res.message);
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        const messagePop = 'Do you want Cancel order ' + id;
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                current_status: 'CANCEL',
+            }, 'updateStatus');
+            this.orderService.put(`order/${id}`, put).subscribe(res => {
+                if (res.success) {
+                    this.popup.success(res.message);
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
     }
 
     getTotalOrderFee(f, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11) {
@@ -395,41 +398,43 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return totalOrderFee;
     }
 
-  updateAdjustPayment(id, code, total_paid_amount_local) {
-      this.AdjustPaymentOderId = id;
-      this.total_paid_amount_local = total_paid_amount_local;
-      this.code = code;
-      this.checkOpenAdJustPayment = true;
-      this.editForm = this.fb.group({
-        total_paid_amount_local: this.total_paid_amount_local
-      });
-  }
-  confirmAdjustPayment() {
-    const put = this.orderService.createPostParams({
-      total_paid_amount_local: this.editForm.value.total_paid_amount_local
-    }, 'editAdjustPayment');
-    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-      if (res.success) {
-        this.popup.success(res.message);
-      } else {
-        this.popup.error(res.message);
-      }
-    });
-  }
-  updatePromotion(order) {
-      this.coupon_id = order.coupon_id;
-      console.log(this.coupon_id);
-      this.orderID = order.id;
-      this.code = order.ordercode;
-      this.checkOpenPromotion = true;
-  }
+    updateAdjustPayment(id, code, total_paid_amount_local) {
+        this.AdjustPaymentOderId = id;
+        this.total_paid_amount_local = total_paid_amount_local;
+        this.code = code;
+        this.checkOpenAdJustPayment = true;
+        this.editForm = this.fb.group({
+            total_paid_amount_local: this.total_paid_amount_local
+        });
+    }
 
-  offOption() {
-      this.checkOpenPromotion = false;
-      this.checkOpenAdJustPayment = false;
-      this.checkOpenPayBack = false;
-      this.checkSellerRefund = false;
-  }
+    confirmAdjustPayment() {
+        const put = this.orderService.createPostParams({
+            total_paid_amount_local: this.editForm.value.total_paid_amount_local
+        }, 'editAdjustPayment');
+        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+            if (res.success) {
+                this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
+            }
+        });
+    }
+
+    updatePromotion(order) {
+        this.coupon_id = order.coupon_id;
+        console.log(this.coupon_id);
+        this.orderID = order.id;
+        this.code = order.ordercode;
+        this.checkOpenPromotion = true;
+    }
+
+    offOption() {
+        this.checkOpenPromotion = false;
+        this.checkOpenAdJustPayment = false;
+        this.checkOpenPayBack = false;
+        this.checkSellerRefund = false;
+    }
 
     getChangeAmount(price1, price2) {
         return price1 - price2;
@@ -456,70 +461,90 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     || this.checkAdminAccess()))
         );
     }
+
     checkCancel(item) {
-      if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-        if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale')) {
-          return true;
+        if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+            if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale')) {
+                return true;
+            }
         }
-      }
     }
-  getCheckAction() {
-      if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
-        return true;
-      }
-  }
-  openUpdatePayBack(id, code, total_refund_amount_local) {
-      this.AdjustPaymentOderId = id;
-      this.total_refund_amount_local = total_refund_amount_local;
-      this.checkOpenPayBack = true;
-      this.editForm = this.fb.group({
-        total_refund_amount_local: this.total_refund_amount_local
-      });
-  }
-  updatePayBack() {
-    const put = this.orderService.createPostParams({
-      total_refund_amount_local: this.editForm.value.total_refund_amount_local
-    }, 'updatePayBack');
-    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-      if (res.success) {
-        this.listOrders();
-        this.popup.success(res.message);
-      } else {
-        this.popup.error(res.message);
-      }
-    });
-  }
-  openSellerRefund(order) {
-      this.AdjustPaymentOderId = order.id;
-      this.code = order.ordercode;
-      this.purchase_amount_buck = order.purchase_amount_buck;
-      this.purchase_amount_refund = order.purchase_amount_refund;
-      this.checkSellerRefund = true;
-    this.editForm = this.fb.group({
-      purchase_amount_buck: this.purchase_amount_buck,
-      purchase_amount_refund: this.purchase_amount_refund,
-    });
-  }
-  updateSellerRefund() {
-    const put = this.orderService.createPostParams({
-      purchase_amount_buck: this.editForm.value.purchase_amount_buck,
-      purchase_amount_refund: this.editForm.value.purchase_amount_refund
-    }, 'updateSellerRefund');
-    this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-      if (res.success) {
-        this.popup.success(res.message);
-      } else {
-        this.popup.error(res.message);
-      }
-    });
-  }
-  handleChangeAmount(event) {
-    if (event) {
-      this.listOrders();
+
+    getCheckAction() {
+        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
+            return true;
+        }
     }
-  }
-  buyNow(item) {}
-  getOpen(id, tab) {
-  }
+
+    openUpdatePayBack(id, code, total_refund_amount_local) {
+        this.AdjustPaymentOderId = id;
+        this.total_refund_amount_local = total_refund_amount_local;
+        this.checkOpenPayBack = true;
+        this.editForm = this.fb.group({
+            total_refund_amount_local: this.total_refund_amount_local
+        });
+    }
+
+    updatePayBack() {
+        const put = this.orderService.createPostParams({
+            total_refund_amount_local: this.editForm.value.total_refund_amount_local
+        }, 'updatePayBack');
+        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+            if (res.success) {
+                this.listOrders();
+                this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
+            }
+        });
+    }
+
+    openSellerRefund(order) {
+        this.AdjustPaymentOderId = order.id;
+        this.code = order.ordercode;
+        this.purchase_amount_buck = order.purchase_amount_buck;
+        this.purchase_amount_refund = order.purchase_amount_refund;
+        this.checkSellerRefund = true;
+        this.editForm = this.fb.group({
+            purchase_amount_buck: this.purchase_amount_buck,
+            purchase_amount_refund: this.purchase_amount_refund,
+        });
+    }
+
+    updateSellerRefund() {
+        const put = this.orderService.createPostParams({
+            purchase_amount_buck: this.editForm.value.purchase_amount_buck,
+            purchase_amount_refund: this.editForm.value.purchase_amount_refund
+        }, 'updateSellerRefund');
+        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+            if (res.success) {
+                this.popup.success(res.message);
+            } else {
+                this.popup.error(res.message);
+            }
+        });
+    }
+
+    handleChangeAmount(event) {
+        if (event) {
+            this.listOrders();
+        }
+    }
+
+    buyNow(item) {
+    }
+
+    getOpen(id, tab) {
+    }
+
+    getLinkBuynow(pro) {
+        let link = pro.link_origin;
+        if (link.indexOf('?')) {
+            link = link + '&order_id=' + pro.order_id;
+        } else {
+            link = link + '?order_id=' + pro.order_id;
+        }
+        return link;
+    }
 }
 
