@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
 import {EventEmitter} from '@angular/core';
+declare var $: any;
 
 @Component({
   selector: 'app-chat-group',
@@ -38,10 +39,13 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
 
   createChatG() {
     const params = this.prepare();
-    this.orderService.postChat(params).subscribe(res => {
-      this.chatGroupAll();
-      this.buildChat();
-    });
+    const messagePop = params.message;
+    this.popup.warningChat(() => {
+      this.orderService.postChat(params).subscribe(res => {
+        this.chatGroupAll();
+        this.buildChat();
+      });
+    }, messagePop);
   }
   prepare() {
     const value = this.chatGroup.value;
