@@ -16,7 +16,7 @@
           <label [for]="getInputUnique('phone')" class="form-control-label">Phone</label>
           <input type="text" [(ngModel)]="phone"
                  class="form-control form-control-sm"
-                 [id]="getInputUnique('phone')" [name]="getInputUnique('phone')">
+                 [id]="getInputUnique('phone')" [name]="getInputUnique('phone')" [minlength]="9" [maxlength]="11">
         </div>
       </div>
       <div class="col-md-6">
