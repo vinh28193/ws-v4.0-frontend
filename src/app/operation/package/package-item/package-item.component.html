@@ -12,28 +12,28 @@
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
                       id="keyCategory" formControlName="keyCategory">
-                <option value="ALL">ALL</option>
+                <option value="ALL" i18n>ALL</option>
               </select>
               <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
                      type="text" (keyup.enter)="search()">
             </div>
           </div>
           <div class="col-md-3 form-group m-b-10">
-            <label for="currentStatus" class="form-control-label">Current Status</label>
+            <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
             <select class="form-control form-control-sm" name="currentStatus" id="currentStatus"
                     formControlName="currentStatus">
-              <option value="ALL">--All Status--</option>
-              <option value="STOCK_IN_US">STOCK_IN_US</option>
-              <option value="SELLER_SHIPPED">SELLER_SHIPPED</option>
+              <option value="ALL" i18n>--All Status--</option>
+              <option value="STOCK_IN_US" i18n>STOCK_IN_US</option>
+              <option value="SELLER_SHIPPED" i18n>SELLER_SHIPPED</option>
             </select>
           </div>
           <div class="col-md-5 form-group m-b-10">
-            <label for="dateTimePicker" class="form-control-label">Time Search</label>
+            <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
                       id="timeKey" formControlName="timeKey">
-                <option value="create_at">Create Time</option>
-                <option value="SELLER_SHIPPED">Seller ship Time</option>
+                <option value="create_at" i18n>Create Time</option>
+                <option value="SELLER_SHIPPED" i18n>Seller ship Time</option>
               </select>
               <input #drp="bsDaterangepicker" bsDaterangepicker
                      class="col-sm-7 form-control form-control-sm ">
@@ -51,7 +51,7 @@
           <div class="col-md-12">
             <div class="form-inline pull-right">
                             <span class="button-group">
-                                <a class="btn btn-info btn-sm text-white">
+                                <a class="btn btn-info btn-sm text-white" i18n>
                                     <i class="fa fa-file-excel-o"></i> Export Excel
                                 </a>
                             </span>
@@ -66,7 +66,7 @@
                 <div class="grid-view grid-view-custom">
                   <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
                     <div class="col-md-6 grid-view-col-padding-rl-0">
-                      Showing
+                      <span i18n>Showing</span>
                       <select class="form-control-sm select-custom"
                               (change)="handlePerPage($event)">
                         <option value="20">20</option>
@@ -75,7 +75,7 @@
                         <option value="200">200</option>
                         <option value="all">All</option>
                       </select>
-                      of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                      <span i18n>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
                     </div>
                     <div class="col-md-6 grid-view-col-margin-rl-0">
                       <pagination [boundaryLinks]="true"
