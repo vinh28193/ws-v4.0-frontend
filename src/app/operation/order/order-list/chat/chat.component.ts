@@ -39,11 +39,17 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     }
 
     createChat() {
+      const messagePop = 'Do you want  ';
+      this.popup.warning(() => {
+        const put = this.orderService.createPostParams({
+          current_status: 'CANCEL',
+        }, 'updateStatus');
         const params = this.prepare();
         this.orderService.postChat(params).subscribe(res => {
-            this.buildChat();
-            this.chatCustomerAll();
+          this.buildChat();
+          this.chatCustomerAll();
         });
+      }, messagePop);
     }
 
     prepare() {

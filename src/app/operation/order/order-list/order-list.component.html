@@ -6,15 +6,6 @@
           <h3>LISTS ORDERS</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
-          <div class="col-md-3 col-sm-12  form-group m-b-10">
-            <label for="store" class="form-control-label">Store</label>
-            <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
-                    formControlName="store">
-              <option [value]="allKey" i18n>All Weshop</option>
-              <option [value]="1" i18n>Weshop VN</option>
-              <option [value]="7" i18n>Weshop ID</option>
-            </select>
-          </div>
           <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
@@ -23,11 +14,11 @@
                 <option value="ALL" i18n>ALL Keyword</option>
                 <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
               </select>
-              <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
-                     type="text" (keyup.enter)="listOrders()">
+              <input class="form-control form-control-sm" id="keyWord" (keyup.enter)="listOrders()" formControlName="keyWord"
+                     type="text">
             </div>
           </div>
-          <div class="col-md-3 col-sm-12 form-group m-b-10">
+          <div class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
@@ -36,6 +27,7 @@
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
               <input #drp="bsDaterangepicker"
+                     (keyup.enter)="listOrders()"
                      bsDaterangepicker
                      [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
                      (bsValueChange)="bsRangeValue"
@@ -49,6 +41,15 @@
                                         </button>
                                     </span>
             </div>
+          </div>
+          <div class="col-md-3 col-sm-12  form-group m-b-10">
+            <label for="store" class="form-control-label">Store</label>
+            <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
+                    formControlName="store">
+              <option [value]="allKey" i18n>All Weshop</option>
+              <option [value]="1" i18n>Weshop VN</option>
+              <option [value]="7" i18n>Weshop ID</option>
+            </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="type" class="form-control-label" i18n>Order Type</label>
@@ -65,6 +66,16 @@
                     formControlName="orderStatus">
               <option [value]="allKey" i18n>--All Status--</option>
               <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label" i18n>Location</label>
+            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
+              <option [value]="allKey" i18n>--All Location--</option>
+              <option value="SELLER_SHIPPED" i18n>DELIVERING US</option>
+              <option value="SELLER_SHIPPED" i18n>US RECEIVER</option>
+              <option value="SELLER_SHIPPED" i18n>LOCAL RECEIVER</option>
+              <option value="SELLER_SHIPPED" i18n>AT CUSTOMER</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -87,29 +98,19 @@
             <!--</select>-->
           <!--</div>-->
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label class="form-control-label" i18n>Location</label>
-            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
-              <option [value]="allKey" i18n>--All Location--</option>
-              <option value="SELLER_SHIPPED" i18n>DELIVERING US</option>
-              <option value="SELLER_SHIPPED" i18n>US RECEIVER</option>
-              <option value="SELLER_SHIPPED" i18n>LOCAL RECEIVER</option>
-              <option value="SELLER_SHIPPED" i18n>AT CUSTOMER</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
               <option [value]="allKey" i18n>--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label class="form-control-label" i18n>Seller</label>
-            <select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">
-              <option [value]="allKey" i18n>--All Seller--</option>
-              <option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>
-            </select>
-          </div>
+          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
+            <!--<label class="form-control-label" i18n>Seller</label>-->
+            <!--<select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">-->
+              <!--<option [value]="allKey" i18n>&#45;&#45;All Seller&#45;&#45;</option>-->
+              <!--<option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>-->
+            <!--</select>-->
+          <!--</div>-->
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Policy</label>
             <select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">

@@ -165,7 +165,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.keyWord !== '' && value.keyWord !== 'ALL') {
             params.keyWord = value.keyWord;
         }
-        if (value.searchKeyword !== '' && value.searchKeyword !== 'ALL') {
+        if (value.searchKeyword !== '') {
             params.searchKeyword = value.searchKeyword;
         }
         if (value.type !== '' && value.type !== 'ALL') {
@@ -186,7 +186,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.seller !== '' && value.seller !== 'ALL') {
             params.seller = value.seller;
         }
-        if (value.timeKey !== '' && value.timeKey !== 'ALL') {
+        if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
         }
         if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
@@ -216,7 +216,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     load() {
         this.getSale();
-        this.getSeller();
+        // this.getSeller();
     }
 
     followOrder() {
@@ -283,11 +283,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     markAsJunk(productsId) {
     }
 
-    getSeller() {
-        this.orderService.get('seller', undefined).subscribe(rs => {
-            this.listSeller = rs.data;
-        });
-    }
+    // getSeller() {
+    //     this.orderService.get('seller', undefined).subscribe(rs => {
+    //         this.listSeller = rs.data;
+    //     });
+    // }
 
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
