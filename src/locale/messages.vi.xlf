@@ -192,7 +192,7 @@
       </trans-unit>
       <trans-unit id="97d3f42fddecba85f8ff19250929e50df861517e" datatype="html">
         <source>ALL Keyword</source>
-        <target>-- Paste bất kì điều kiện --</target>
+        <target>-- Nhập bất kì điều kiện --</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -200,7 +200,7 @@
       </trans-unit>
       <trans-unit id="badb249273f8ea968e9f6df1320005cde5588b6d" datatype="html">
         <source>Time Search</source>
-        <target>TÌM THEO HÀNH TRÌNH</target>
+        <target>THỜI GIAN HÀNH TRÌNH</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -216,7 +216,7 @@
       </trans-unit>
       <trans-unit id="6ac60ef3f4f1249bf26dd9c541aae3b50bcbf6e8" datatype="html">
         <source>Time Key</source>
-        <target>-- Paste bất kì thời gian --</target>
+        <target>-- Nhập thời gian --</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -232,7 +232,7 @@
       </trans-unit>
       <trans-unit id="8dc8a40187e4e796e1d320ce01ab0797ff23be52" datatype="html">
         <source>--All Type--</source>
-        <target>--Tất cả các loại--</target>
+        <target>--Tất cả loại--</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -290,14 +290,7 @@
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c98603df2fa432003d7df4da05861eeded180ac3" datatype="html">
-        <source>AMAZON US</source>
-        <target>AMAZON US</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">74</context>
-        </context-group>
-      </trans-unit>
+
       <trans-unit id="c1ae640800b1238b7ac58ea3fe336edb00ecf14c" datatype="html">
         <source>AMAZON JAPAN</source>
         <target>AMAZON JAPAN</target>
@@ -324,7 +317,7 @@
       </trans-unit>
       <trans-unit id="ed31c09fd77c36238c13d83635f3fe5294c733d2" datatype="html">
         <source>Location</source>
-        <target>Hàng đang đến đâu</target>
+        <target>Lọc đơn</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">90</context>

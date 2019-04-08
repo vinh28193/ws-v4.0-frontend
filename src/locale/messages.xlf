@@ -257,13 +257,6 @@
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c98603df2fa432003d7df4da05861eeded180ac3" datatype="html">
-        <source>AMAZON US</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">74</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="c1ae640800b1238b7ac58ea3fe336edb00ecf14c" datatype="html">
         <source>AMAZON JAPAN</source>
         <context-group purpose="location">
@@ -1115,7 +1108,7 @@
       </trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
         <source>Total value Product
-                
+
               </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
