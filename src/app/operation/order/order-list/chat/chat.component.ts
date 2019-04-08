@@ -7,7 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.css']
+    styleUrls: ['./chat.component.css'],
 })
 export class ChatComponent extends OrderDataComponent implements OnInit {
     @Input() code: any = null;
@@ -39,12 +39,12 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     }
 
     createChat() {
-      const messagePop = 'Do you want  ';
-      this.popup.warning(() => {
+      const params = this.prepare();
+      const messagePop = params.message;
+      this.popup.warningChat(() => {
         const put = this.orderService.createPostParams({
           current_status: 'CANCEL',
         }, 'updateStatus');
-        const params = this.prepare();
         this.orderService.postChat(params).subscribe(res => {
           this.buildChat();
           this.chatCustomerAll();
