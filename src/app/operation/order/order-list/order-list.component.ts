@@ -414,6 +414,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }, 'editAdjustPayment');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
+              this.listOrders();
                 this.popup.success(res.message);
             } else {
                 this.popup.error(res.message);
@@ -518,6 +519,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }, 'updateSellerRefund');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
+              this.listOrders();
                 this.popup.success(res.message);
             } else {
                 this.popup.error(res.message);
@@ -527,7 +529,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     handleChangeAmount(event) {
         if (event) {
-            this.listOrders();
+          this.listOrders();
         }
     }
 
