@@ -8,12 +8,16 @@ export const searchKeys = [
     {key: 'product.product_name', name: 'Product Name'},
     {key: 'email', name: 'Email'},
     {key: 'phone', name: 'Phone'},
-    {key: 'order.payment_type', name: 'Payment Type'},
+    {key: 'order.customer_id', name: 'Customer ID'},
+    {key: 'product.category_id', name: 'Category ID'},
+    {key: '', name: 'Payment Token'},
+    {key: '', name: 'Payment Monthod'},
+    {key: 'order.purchase_order_id', name: 'PO'},
+    {key: 'order.purchase_transaction_id', name: 'PO Transaction'},
 ];
 export const timeKeys = [
     {key: 'order.created_at', name: 'Time Create Order'},
     {key: 'order.updated_at', name: 'Time Update Order'},
-    {key: 'order.new', name: 'Time New'},
     {key: 'order.purchased', name: 'Time Purchased'},
     {key: 'order.seller_shipped', name: 'Time Seller Shipped'},
     {key: 'order.stockin_us', name: 'Time StockIn US'},

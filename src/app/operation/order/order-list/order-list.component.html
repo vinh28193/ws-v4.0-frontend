@@ -88,15 +88,17 @@
               <option value="EBAY" >EBAY</option>
             </select>
           </div>
-          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label for="paymentStatus" class="form-control-label">Payment Status</label>-->
-            <!--<select class="form-control form-control-sm" name="store" id="paymentStatus"-->
-                    <!--formControlName="paymentStatus">-->
-              <!--<option [value]="allKey">&#45;&#45;All Status&#45;&#45;</option>-->
-              <!--<option value="STOCK_IN_US">STOCK_IN_US</option>-->
-              <!--<option value="SELLER_SHIPPED">SELLER_SHIPPED</option>-->
-            <!--</select>-->
-          <!--</div>-->
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="paymentStatus" class="form-control-label">Payment Status</label>
+            <select class="form-control form-control-sm" name="store" id="paymentStatus"
+                    formControlName="paymentStatus">
+              <option [value]="allKey">--All Payment Status--</option>
+              <option value="STOCK_IN_US">PAID</option>
+              <option value="SELLER_SHIPPED">UNPAID</option>
+              <option value="SELLER_SHIPPED">REFUND PRTIAL</option>
+              <option value="SELLER_SHIPPED">REFUND FULL</option>
+            </select>
+          </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
@@ -638,8 +640,8 @@
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order.id, order.ordercode, order.total_paid_amount_local)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order.id, order.ordercode, order.total_refund_amount_local)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true" ></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
@@ -899,7 +901,7 @@
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
     </div>
   </div>
 </div>
@@ -922,7 +924,10 @@
            <div class="col-md-6">
              <label i18n >Total Paid Amount Local</label>
              <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <label style="font-size: 2em; color: red">Price :{{this.editForm.get('total_paid_amount_local').value | number}}</label>
+             <label style="font-size: 2em; color: red">Price :
+               <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+               <span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+             </label>
            </div>
           </div>
         </div>
@@ -951,7 +956,10 @@
             <div class="col-md-6">
               <label i18n >Total refund Amount Local</label>
               <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
-              <label style="font-size: 2em; color: red" i18n>Price :{{this.editForm.get('total_refund_amount_local').value | number}}</label>
+              <label style="font-size: 2em; color: red" i18n>Price :
+                <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+              </label>
             </div>
           </div>
         </div>
@@ -980,7 +988,10 @@
             <div class="col-md-6">
               <label i18n>Purchase Amount Buck</label>
               <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
-              <label style="font-size: 2em; color: red" i18n>Price :{{this.editForm.get('purchase_amount_buck').value | number}}</label>
+              <label style="font-size: 2em; color: red" i18n>Price :
+                <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
+                <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
+              </label>
             </div>
             <div class="col-md-6">
               <label i18n>Purchase Amount Refund</label>
