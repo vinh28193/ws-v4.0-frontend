@@ -10,6 +10,8 @@ import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum'
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
     selector: 'app-order-list',
@@ -17,7 +19,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
-    @ViewChild(ModalDirective) showChat: ModalDirective;
+    @ViewChild('showPromotion') showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     public orders: any = [];
     public total: any;
@@ -65,8 +67,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public logIdOrder: any;
     public coupon_id: any;
     public activeOrder: any = [];
-    public checkUpdateCustomer: boolean = false;
-    public CheeckLoadPromotions: boolean = false;
+    public checkUpdateCustomer = false;
+    public CheeckLoadPromotions = false;
 
     constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
         super(orderService);
@@ -415,7 +417,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
               this.listOrders();
-                this.popup.success(res.message);
+              this.popup.success(res.message);
+              $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -494,6 +497,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (res.success) {
                 this.listOrders();
                 this.popup.success(res.message);
+                $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -520,7 +524,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
               this.listOrders();
-                this.popup.success(res.message);
+              this.popup.success(res.message);
+              $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -529,6 +534,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     handleChangeAmount(event) {
         if (event) {
+          $('.modal').modal('hide');
           this.listOrders();
         }
     }
