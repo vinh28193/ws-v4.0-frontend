@@ -557,9 +557,8 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                  <button class="btn btn-success btn-sm" (click)="buyNow(order)">
-                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}" target="_blank">Buy Now</a>
-                                  </button>
+                                    <a *ngFor="let pro of order.products" href="{{pro.link_origin}}?order_id={{order.id}}"  class="btn btn-secondary btn-sm mr-2 mb-2" target="_blank" (click)="buyNow(order)" >Buy Now</a>
+
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
