@@ -757,6 +757,13 @@
           <context context-type="linenumber">642</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="97611e61e47375bd1a7f956b61b11f986677c12f" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>Adjust payment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">643</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1ee6a21be4e89b64d9b70d721f423c0b3f3288fe" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>Pay back the Complaint</source>
         <context-group purpose="location">
