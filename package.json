@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "e2e": "ng e2e",
-    "extract": "ng xi18n --output-path=locale"
+    "extract": "ng xi18n --output-path=locale",
+    "extract-i18n": "ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "ng2-toastr": "^4.1.2",
     "ngx-bootstrap": "^2.0.5",
     "ngx-daterangepicker-material": "^2.0.2",
+    "ngx-i18nsupport": "^0.17.1",
     "ngx-loading": "^2.0.1",
     "nprogress": "^0.2.0",
     "popper.js": "^1.14.7",

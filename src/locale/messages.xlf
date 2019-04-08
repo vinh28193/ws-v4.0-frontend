@@ -2,6 +2,34 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="69b6ac577a19acc39fc0c22342092f327fff2529" datatype="html">
+        <source>Email address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fe2732ed27e12ca69dbe41cedb1eb5eb8fdc91be" datatype="html">
+        <source>Remember password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="287d3301a32a65a1b31116bda5d3a6463158c42a" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="c2748a7b4802b4f06103965d233754913527b76a" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{role}}"/></source>
         <context-group purpose="location">
@@ -186,6 +214,10 @@
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
@@ -209,10 +241,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">56</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="72f34b3ac267bb423e47c3bed43123f99239d1da" datatype="html">
@@ -243,6 +271,25 @@
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="9219d55fa650bd4a1eed3463a6ba3369719baf45" datatype="html">
+        <source>--All Status--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8f0aa19acb7130bf4dcfda3f2b65ddaf3b070bd9" datatype="html">
         <source>Product Type</source>
         <context-group purpose="location">
@@ -250,8 +297,8 @@
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2c7e719f6e10d2c17c0a2b4c62d4fe4cf06330a3" datatype="html">
-        <source>--All Atatus--</source>
+      <trans-unit id="3460c8ef59db27e55b3ffaf14e2e19568e2450a8" datatype="html">
+        <source>--All Product Type--</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -298,14 +345,6 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">92</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">102</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="5e65f4aafe8bb5e71a8dc58c573ef5b5a90419cb" datatype="html">
         <source>DELIVERING US</source>
@@ -342,11 +381,25 @@
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1e7742fb5a149cd49d7f13cab164ad9b97f47a17" datatype="html">
+        <source>--All Sale--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="328c759c9dd77f41866119252dca13c72c980344" datatype="html">
         <source>Seller</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8a203700b090c39155bfbb04b2f0faa7423fec7" datatype="html">
+        <source>--All Seller--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="81984035ddcbc0c4cf205b103c9e0a100be3765b" datatype="html">
@@ -1229,6 +1282,10 @@
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
@@ -1240,19 +1297,12 @@
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="9219d55fa650bd4a1eed3463a6ba3369719baf45" datatype="html">
-        <source>--All Status--</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fc7aa0ba05281b227d1774597513414f907e20f7" datatype="html">
@@ -1260,6 +1310,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
@@ -1273,6 +1327,10 @@
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
@@ -1282,6 +1340,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
@@ -1304,6 +1366,10 @@
           <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">67</context>
         </context-group>
@@ -1317,6 +1383,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">70</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">78</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
@@ -1345,18 +1415,31 @@
           <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="432dc84cfff9e05e8039af315e1bd32b32d09a7a" datatype="html">
+        <source>Seller ship Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="af2adfb9eafa97dfdf440b1af62a1aba2e42298e" datatype="html">
+        <source>
+                                    <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Export Excel
+                                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="798e74b216b66d2e2bf69e1010058823c823a008" datatype="html">
         <source>LIST ALL ITEMS OF SHIPMENTS</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="432dc84cfff9e05e8039af315e1bd32b32d09a7a" datatype="html">
-        <source>Seller ship Time</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
-          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="63337dc7c542f6882171db5e66e417d5eb5d10a3" datatype="html">

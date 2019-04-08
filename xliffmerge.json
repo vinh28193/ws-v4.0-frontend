@@ -1,0 +1,28 @@
+{
+  "xliffmergeOptions": {
+    "srcDir": "src/locale",
+    "genDir": "src/locale",
+    "i18nFile": "messages.xlf",
+    "i18nBaseFile": "messages",
+    "i18nFormat": "xlf",
+    "encoding": "UTF-8",
+    "defaultLanguage": "en",
+    "languages": [
+      "en",
+      "vi"
+    ],
+    "removeUnusedIds": true,
+    "supportNgxTranslate": false,
+    "ngxTranslateExtractionPattern": "@@|ngx-translate",
+    "useSourceAsTarget": true,
+    "targetPraefix": "",
+    "targetSuffix": "",
+    "beautifyOutput": false,
+    "allowIdChange": false,
+    "autotranslate": true,
+    "apikey": "AIzaSyDf5Oadsge9OmuQqvYhsm25z1Al-1dMdJ4",
+    "apikeyfile": "",
+    "verbose": false,
+    "quiet": false
+  }
+}
