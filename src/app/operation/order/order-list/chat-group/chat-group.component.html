@@ -50,7 +50,7 @@
       </div>
       <div class="card-footer">
         <div class="input-group">
-          <textarea name="" class="form-control type_msg" (keydown.enter)="createChatG()" formControlName="message"
+          <textarea name="" class="form-control type_msg" ng-keyup="$event.keyCode == 13 && !$event.shiftKey && myFunc()" (keydown.enter)="createChatG()" formControlName="message"
                     placeholder="Type your message..."></textarea>
         </div>
       </div>
