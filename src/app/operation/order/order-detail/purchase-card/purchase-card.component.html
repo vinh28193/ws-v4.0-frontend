@@ -96,6 +96,28 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="row pl-2 col-md-12" *ngIf="totalChanging && !checkChangePrice()">
+                            <div class="checkbox checkbox-success" style="color: red">
+                                <strong for="checkSendEmailPrice" i18n>
+                                    Have changing price :
+                                </strong>
+                                <input id="checkSendEmailPrice" class="custom-control-input"
+                                       name="checkSendEmailPrice"
+                                       [(ngModel)]="data.emailPrice"
+                                       type="checkbox">
+                                <label for="checkSendEmailPrice" style="font-size: 12px" i18n>
+                                    Send mail to customer |
+                                </label> <button class="btn btn-danger btn-sm btn-rounded" (click)="sendNotifyChanging()" ><i class="fa fa-send"></i> Send notify</button>
+                            </div>
+                        </div>
+                        <div class="row pl-2 col-md-12" *ngIf="checkChangePrice()">
+                            <div class="checkbox checkbox-success" style="color: red">
+                                <button class="btn btn-danger btn-sm btn-rounded" (click)="customerConfirmPrice()" >
+                                    <i class="fa fa-check"></i>
+                                    Customer confirm changing price.
+                                </button>
+                            </div>
+                        </div>
                         <div class="row pl-2">
                             <div class="col-md-3">
                                 <strong i18n>Total amount can use:</strong>
@@ -119,17 +141,17 @@
                             <div class="col-md-2">
                                 <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
                             </div>
-                            <div class="col-md-3">
-                                <div class="checkbox checkbox-success" style="float: left">
-                                    <input id="checkSendEmailPrice" class="custom-control-input"
-                                           name="checkSendEmailPrice"
-                                           [(ngModel)]="data.emailPrice"
-                                           type="checkbox">
-                                    <label for="checkSendEmailPrice" i18n>
-                                        Send email to customer for changing price
-                                    </label>
-                                </div>
-                            </div>
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="checkbox checkbox-success" style="float: left">-->
+<!--                                    <input id="checkSendEmailPrice" class="custom-control-input"-->
+<!--                                           name="checkSendEmailPrice"-->
+<!--                                           [(ngModel)]="data.emailPrice"-->
+<!--                                           type="checkbox">-->
+<!--                                    <label for="checkSendEmailPrice" i18n>-->
+<!--                                        Send email to customer for changing price-->
+<!--                                    </label>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
 
                         <div class="row pl-2 mt-2">
@@ -231,6 +253,6 @@
 <div class="modal-footer" style="text-align: center;">
     <div class="btn-group">
         <button class="btn btn-danger" (click)="closePop()" i18n>Cancel</button>
-        <button class="btn btn-success" (click)="updatePurchase()" i18n>Save</button>
+        <button class="btn btn-success" *ngIf="totalChanging == 0 && !checkChangePrice()" (click)="updatePurchase()" i18n>Save</button>
     </div>
 </div>

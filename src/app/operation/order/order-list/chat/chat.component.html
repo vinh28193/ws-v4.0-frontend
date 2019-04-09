@@ -23,7 +23,7 @@
                        class="rounded-circle user_img_msg">
                 </div>
                 <div>
-                  <span class="msg_cotainer_send float-left">{{chat.message}}</span><br>
+                  <span class="msg_cotainer_send float-left" [innerHTML]="chat.message"></span><br>
                   <div class="float-left text-gray">
                     <span class="mr-2">{{chat.user_name}}</span>
                     <span class="text-darkgray">{{chat.date}}</span>
@@ -34,7 +34,7 @@
             <ng-container *ngIf="chat.user_name === username" >
               <div class="d-flex justify-content-end mb-4">
                 <div>
-                  <span class="msg_cotainer_send float-right bg-info text-white">{{chat.message}}</span><br>
+                  <span class="msg_cotainer_send float-right bg-info text-white"  [innerHTML]="chat.message"></span><br>
                   <div class="float-right text-gray">
                     <span class="mr-2">{{chat.user_name}}</span>
                     <span class="text-darkgray">{{chat.date}}</span>

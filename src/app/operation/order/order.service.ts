@@ -80,4 +80,8 @@ export class OrderService extends OperationService {
     removeCartPurchase(id) {
         return this.delete('purchase/delete/' + id);
     }
+
+    postPurchaseService(url, item: any | undefined) {
+        return this.post('purchase-account/' + url, item);
+    }
 }

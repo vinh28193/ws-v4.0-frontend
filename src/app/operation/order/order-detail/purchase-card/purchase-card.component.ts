@@ -44,10 +44,10 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         cart: {},
     };
     public identity: any;
+
     ngDoCheck(): void {
         if ((this.current_id !== this.updateProductId || this.clickBtn) && this.updateProductId !== undefined) {
             this.clickBtn = false;
-            console.log('chhange');
             this.orders = null;
             this.current_id = this.updateProductId;
             this.getaccount();
@@ -99,7 +99,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             const res: any = rs;
             if (res.success) {
                 this.orders = res.data;
-                console.log(this.orders);
                 this.setTotal();
                 this.pop.success(res.message);
             } else {
@@ -121,6 +120,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         product.paidToSeller = this.totalAmount(product);
         this.setTotal();
     }
+
     setTotal() {
         this.totalPaid = 0;
         this.totalChanging = 0;
@@ -187,5 +187,57 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 }
             });
         }, 'Do you want remove order ' + order_code + ' to cart?');
+    }
+
+    sendNotifyChanging() {
+        this.data.cart = this.orders;
+        this.orderService.postPurchaseService('send-notify-changing', this.data).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                console.log(rs);
+                this.pop.success(rs.message);
+                this.orders = null;
+                this.data = null;
+                this.current_id = 0;
+                this.closePop();
+            } else {
+                this.pop.error(rs.message);
+            }
+        });
+    }
+
+    checkChangePrice() {
+        let rs = false;
+        if (this.orders) {
+            for (let ind = 0; ind < this.orders.length; ind++) {
+                if (this.orders[ind].products) {
+                    for (let indP = 0; indP < this.orders[ind].products.length; indP++) {
+                        if (this.orders[ind].products[indP].isChange) {
+                            rs = true;
+                            break;
+                        }
+                    }
+                }
+                if (rs) {
+                    break;
+                }
+            }
+        }
+        return rs;
+    }
+
+    customerConfirmPrice() {
+        this.pop.warning(() => {
+            this.data.cart = this.orders;
+            this.orderService.postPurchaseService('confirm-changing-price', this.data).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.pop.success(res.message);
+                    this.addcart();
+                } else {
+                    this.pop.error(res.message);
+                }
+            });
+        }, 'Customer confirm changing price ?');
     }
 }
