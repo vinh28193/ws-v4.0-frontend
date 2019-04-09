@@ -16,6 +16,6 @@
         </div>
     </ng-template>
 </li>
-<li><span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+<li *ngIf="getCheckAction()"><span class="sty-font" i18n><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
     {{saleSupport ? saleSupport.email : ""}}
 </li>
