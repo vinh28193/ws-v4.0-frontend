@@ -642,7 +642,7 @@
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
-                                      <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button *ngIf="getCheckAction()" type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
