@@ -69,13 +69,10 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label class="form-control-label" i18n>Location</label>
-            <select class="form-control form-control-sm" name="status" id="location" formControlName="location">
-              <option [value]="allKey" i18n>--All Location--</option>
-              <option value="SELLER_SHIPPED" i18n>DELIVERING US</option>
-              <option value="SELLER_SHIPPED" i18n>US RECEIVER</option>
-              <option value="SELLER_SHIPPED" i18n>LOCAL RECEIVER</option>
-              <option value="SELLER_SHIPPED" i18n>AT CUSTOMER</option>
+            <label class="form-control-label" i18n>Payment Request</label>
+            <select class="form-control form-control-sm" name="status" id="location" formControlName="paymentRequest">
+              <option [value]="allKey" i18n>--All Paymnet Request--</option>
+              <option [value]="payment.key" *ngFor="let payment of paymentRequests">{{payment.name}}
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -86,6 +83,7 @@
               <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
               <option value="OTHER" >OTHER</option>
               <option value="EBAY" >EBAY</option>
+              <option value="AMAZON_JP" >AMAZON JP</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -786,24 +784,24 @@
 <div bsModal #ModalviewMoreLog="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog width-max" style="max-width: 95%;">
-    <div class="modal-content">
+    <div class="modal-content" >
       <div class="modal-body">
-        <div class="card-body">
+        <div class="card-body p-0">
           <div class="row">
             <div class="col-lg-12">
 
-              <div class="modal-header">
+              <div class="modal-header p-0 pl-2 pr-2">
 
                 <h2 class="modal-title" i18n>View Log - <strong class="text-uppercase text-danger">
                   Order-{{logIdOrder}}
                 </strong>
                 </h2>
-                <button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button>
+                <!--<button class="btn btn-skype" i18n (click)="freshMoreLog(logIdOrder)">Refresh</button>-->
               </div>
               <div>
                 <div class="modal-body">
 
-                  <div class="container-fluid ng-star-inserted">
+                  <div class="container-fluid p-0 pl-2 pr-2 ng-star-inserted">
                     <div class="row btn-group">
                       <button class="active btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
                       <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet</button>
@@ -814,7 +812,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted" *ngIf="listLog.length > 0">
+                      <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
                         <thead>
                         <tr>
                           <th i18n>Create time</th>
@@ -823,10 +821,9 @@
                           <th i18n>Role</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngIf="listLog.length > 0">
                         <tr *ngFor="let log of listLog">
-                          <td>{{log.date}}</td>
-                          <td>
+                          <td>{{log.date}}td>{{log.dat                    <td>
                             <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
                             <ng-template #logDetail style="max-width: 500px">
                               <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>
@@ -837,6 +834,13 @@
                           <td>{{log.user_name}}</td>
                           <td>{{log.Role}}</td>
                         </tr>
+                        </tbody>
+                        <tbody *ngIf="listLog.length == 0">
+                          <tr>
+                            <td colspan="4" class="text-center">
+                              <h3 class="text-danger">Not Found!</h3>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -956,7 +960,7 @@
             <div class="col-md-6">
               <label i18n >Total refund Amount Local</label>
               <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
-              <label style="font-size: 2em; color: red" i18n>Price :
+              <label style="font-size: 2em; color: red" ><p>Price : </p>
                 <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
                 <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
               </label>
@@ -988,7 +992,7 @@
             <div class="col-md-6">
               <label i18n>Purchase Amount Buck</label>
               <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
-              <label style="font-size: 2em; color: red" i18n>Price :
+              <label style="font-size: 2em; color: red">Price :
                 <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
                 <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
               </label>
