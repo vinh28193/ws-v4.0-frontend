@@ -487,7 +487,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     getCheckAction() {
-        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'tester') {
+        if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale') {
             return true;
         }
     }
