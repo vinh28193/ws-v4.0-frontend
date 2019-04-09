@@ -119,7 +119,6 @@ export class AuthService extends GlobalService {
     }
 
     handleRedirectURL() {
-        console.log(this.redirectURL);
         if (this.isValidValue(this.redirectURL)) {
             setTimeout(() => {
                 // location.reload();
