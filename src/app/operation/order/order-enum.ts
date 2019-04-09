@@ -12,12 +12,15 @@ export const searchKeys = [
     {key: 'product.category_id', name: 'Category ID'},
     {key: '', name: 'Payment Token'},
     {key: '', name: 'Payment Monthod'},
+    {key: '', name: 'Tracking Code'},
     {key: 'order.purchase_order_id', name: 'PO'},
     {key: 'order.purchase_transaction_id', name: 'PO Transaction'},
 ];
 export const timeKeys = [
     {key: 'order.created_at', name: 'Time Create Order'},
     {key: 'order.updated_at', name: 'Time Update Order'},
+    {key: '', name: 'Time Support Time'},
+    {key: '', name: 'Time Payment time'},
     {key: 'order.purchased', name: 'Time Purchased'},
     {key: 'order.seller_shipped', name: 'Time Seller Shipped'},
     {key: 'order.stockin_us', name: 'Time StockIn US'},
@@ -27,7 +30,9 @@ export const timeKeys = [
     {key: 'order.at_customer', name: 'Time At Customer'},
     {key: 'order.returned', name: 'Time Return'},
     {key: 'order.cancelled', name: 'Time Cancelled'},
-    {key: 'order.lost', name: 'Time Lost'}
+    {key: 'order.lost', name: 'Time Lost'},
+    {key: '', name: 'Time Confirm Purchase'},
+    {key: '', name: 'At Customer'},
 ];
 export const paymentRequests = [
     {key: 'order.createTime', name: 'New Add fee'},
@@ -37,8 +42,10 @@ export const paymentRequests = [
     {key: 'order.createTime', name: 'New Refund'},
     {key: 'order.createTime', name: 'Aproved Refund'},
     {key: 'order.createTime', name: 'Refund Requested'},
-    {key: 'order.createTime', name: 'Refund/Addfee success'},
-    {key: 'order.createTime', name: 'Refund/Addfee Fail'},
+    {key: 'order.createTime', name: 'Refund Success'},
+    {key: 'order.createTime', name: 'Addfee Success'},
+    {key: 'order.createTime', name: 'Approve'},
+    {key: 'order.createTime', name: 'Decline'},
 ];
 export const orderStatus = [
     {key: 'NEW', name: 'New order'},
@@ -49,6 +56,7 @@ export const orderStatus = [
     {key: 'PURCHASE_PENDING', name: 'Purchase pending'},
     {key: 'PURCHASED', name: 'Purchased'},
     {key: 'EXPWH_STOCKOUT', name: 'US warehouse'},
+    {key: '', name: 'Delivering US'},
     {key: 'IMPWH_STOCKIN', name: 'Local warehouse'},
     {key: 'CUSTOMER_RECEIVED', name: 'Success order'},
     {key: 'REFUNDED', name: 'Refunded order'},

@@ -132,7 +132,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             type: this.allKey,
             orderStatus: this.allKey,
             portal: this.allKey,
-            location: this.allKey,
+            paymentRequest: this.allKey,
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
@@ -182,8 +182,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.portal !== '' && value.portal !== 'ALL') {
             params.portal = value.portal;
         }
-        if (value.location !== '' && value.location !== 'ALL') {
-            params.location = value.location;
+        if (value.paymentRequest !== '' && value.paymentRequest !== 'ALL') {
+            params.paymentRequest = value.paymentRequest;
         }
         if (value.sale !== '' && value.sale !== 'ALL') {
             params.sale = value.sale;
@@ -265,13 +265,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    freshMoreLog(code) {
-        this.orderService.get(`actionlog/${code}`, undefined).subscribe(res => {
-            const rs = res;
-            this.listLog = rs.data;
-        });
-    }
-
     confirmAll(id) {
         const messagePop = 'Do you want Confirm order ' + id;
         this.popup.warning(() => {
@@ -326,6 +319,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
                 const rs = res;
                 this.listLog = rs.data;
+                console.log(this.listLog.length);
             });
         }
     }
@@ -481,7 +475,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     getCheckAction() {
-        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin') {
+        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'tester') {
             return true;
         }
     }

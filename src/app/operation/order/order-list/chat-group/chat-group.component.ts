@@ -16,11 +16,15 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   @Input() code: any = null;
   @Input() id: any = null;
   public listChatG: any = [];
+  public username: any;
+  public loging: any;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
 
   ngOnInit() {
+    this.loging = localStorage.getItem('userLogin');
+    this.username = (JSON.parse(this.loging).username);
     this.buildChat();
     this.chatGroupAll();
   }
