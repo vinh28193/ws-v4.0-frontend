@@ -70,7 +70,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 const res: any = rs;
                 if (res.success) {
                     this.listAccount = res.data;
-                    console.log(res);
                     this.storegate.set('list_account_for_' + type, JSON.stringify(this.listAccount));
                 } else {
                     this.storegate.set('list_account_for_' + type, null);
@@ -86,7 +85,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 const res: any = rs;
                 if (res.success) {
                     this.listCard = res.data;
-                    console.log(res);
                     this.storegate.set('list_payment_card', JSON.stringify(this.listCard));
                 }
             });
@@ -94,13 +92,12 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     }
 
     addcart() {
-        console.log(this.current_id);
         this.orderService.putPurchase('update/' + this.current_id, '').subscribe(rs => {
             const res: any = rs;
             if (res.success) {
                 this.orders = res.data;
                 this.setTotal();
-                this.pop.success(res.message);
+                // this.pop.success(res.message);
             } else {
                 this.pop.error(res.message);
             }
@@ -164,7 +161,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 const res: any = rs;
                 if (res.success) {
                     this.warehouse = res.data;
-                    console.log(res);
                     this.storegate.set('list_warehouse', JSON.stringify(this.warehouse));
                 } else {
                     this.storegate.set('list_warehouse', null);
@@ -179,7 +175,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
                 const res: any = rs;
                 if (res.success) {
                     this.orders = res.data;
-                    console.log(this.orders);
                     this.setTotal();
                     this.pop.success(res.message);
                 } else {
@@ -194,7 +189,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         this.orderService.postPurchaseService('send-notify-changing', this.data).subscribe(res => {
             const rs: any = res;
             if (rs.success) {
-                console.log(rs);
                 this.pop.success(rs.message);
                 this.orders = null;
                 this.data = null;

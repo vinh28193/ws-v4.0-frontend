@@ -29,7 +29,6 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
   }
 
   ngOnInit() {
-    console.log(this.orderId);
     this.getCountries();
     if (!this.isValidValue(this.country)) {
       this.provinces = [];  // clear old provinces
@@ -37,7 +36,6 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
       const firstC = this.countries[0];
       this.country = firstC.id;
       this.countryName = firstC.name;
-      console.log(112);
     }
     this.getProvinces();
     this.province = '';
