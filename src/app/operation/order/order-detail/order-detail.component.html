@@ -1,15 +1,13 @@
 <div class="row style-row" *ngFor="let product of products">
   <div class="col-md-6 border-col">
-    <div class="row pl-0">
-      <div class="col-md-12">
-        <h5>
+    <div class="row">
+      <div class="col-md-1 m-0 p-0">
+        <h5 class="text-center">
           <a href="">SOI-{{product.id}}</a>
           <!--<span class="badge badge-primary badge-info mr-2 mb-2 ng-star-inserted m-l-5 p-2 font-style">NEW</span>-->
         </h5>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 p-0 text-center">
+      <div class="col-md-2 p-0 text-center">
         <div class="images">
           <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
         </div>
@@ -18,7 +16,7 @@
         </div>
         <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
           <span class="sr-only ng-star-inserted">( )</span>
-          <span class="ng-star-inserted">
+          <span class="ng-star-inserted text-center">
                           <span class="star ng-star-inserted text-warning">★</span>
                            <span class="star ng-star-inserted text-warning">★</span>
                            <span class="star ng-star-inserted text-warning">★</span>
@@ -26,7 +24,6 @@
                            <span class="star ng-star-inserted text-warning">★</span>
                            <span class="star ng-star-inserted text-warning">★</span>
                            <span class="star ng-star-inserted text-warning">★</span>
-                           <span class="star ng-star-inserted text-dark">★</span>
                            <span class="star ng-star-inserted text-dark">★</span>
                            <span class="star ng-star-inserted text-dark">★</span>
                         </span>

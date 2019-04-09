@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <div class="card-title">
-          <h3>LISTS ORDERS</h3>
+          <h3 i18n>LISTS ORDERS</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-6 col-sm-12 form-group m-b-10">
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-12  form-group m-b-10">
-            <label for="store" class="form-control-label">Store</label>
+            <label for="store" class="form-control-label" i18n>Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey" i18n>All Weshop</option>
@@ -78,7 +78,7 @@
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Product Type</label>
             <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
-              <option [value]="allKey" >--All Product Type--</option>
+              <option [value]="allKey" i18n >--All Product Type--</option>
               <option value="AMAZON_US" >AMAZON US</option>
               <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
               <option value="OTHER" >OTHER</option>
@@ -87,20 +87,20 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="paymentStatus" class="form-control-label">Payment Status</label>
+            <label for="paymentStatus" class="form-control-label" i18n>Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
                     formControlName="paymentStatus">
-              <option [value]="allKey">--All Payment Status--</option>
+              <option [value]="allKey" i18n >--All Payment Status--</option>
               <option value="STOCK_IN_US">PAID</option>
               <option value="SELLER_SHIPPED">UNPAID</option>
-              <option value="SELLER_SHIPPED">REFUND PRTIAL</option>
+              <!--option value="SELLER_SHIPPED">REFUND PRTIAL</option-->
               <option value="SELLER_SHIPPED">REFUND FULL</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
-              <option [value]="allKey">--All Sale--</option>
+              <option [value]="allKey" i18n >--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
@@ -167,7 +167,7 @@
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <div class="card style-card" *ngFor="let order of orders">
+                        <div class="style-card" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
                             <div class="col-md-3 border-col">
@@ -220,7 +220,7 @@
                                     {{order.purchase_order_id}}
                                   </li>
                                   <li class="purchase_transaction">
-                                    <div class="sty-font purchase_transaction_id"> <span>Transaction </span> {{order.portal | uppercase }} : </div>
+                                    <div class="sty-font purchase_transaction_id"> <span i18n>Transaction </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_transaction_id}}
                                   </li>
                                 </ul>
@@ -254,7 +254,7 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
-                                  <div *ngIf="getCheckAction()"> <span > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
+                                  <div *ngIf="getCheckAction()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
                                   <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
@@ -282,11 +282,11 @@
                                 </div>
                               </div>
                               <div class="row mt-3">
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú của customer hoặc ghi chú cho người nhận.">
-                                  <i class="fa fa-comments" i18n ></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú của customer hoặc ghi chú cho người nhận." i18n>
+                                  <i class="fa fa-comments"  ></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú cho đơn hàng !">
-                                  <i class="fa fa-comments" i18n ></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú cho đơn hàng !" i18n>
+                                  <i class="fa fa-comments"  ></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
                                 </div>
                               </div>
 
@@ -337,8 +337,8 @@
                                   </div>
                                 </div>
                               <div>
-                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
-                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Show Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Hide Free</button>
                               </div>
                               <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
@@ -658,11 +658,11 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true" ></i>Seller Refund</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
@@ -675,33 +675,33 @@
                           <div class="row pb-1 pt-1" style="margin-left: 1px; margin-top: 0.5em;">
                             <div class="col-md-12 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
-                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)=" order.id = !(order.id)">
+                                <li class="tab-slider--trigger" rel="tab1" (click)=" pro[order.id] = !pro[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" [class.active]="viewMode == 'package' + order.id" rel="tab2" (click)="viewMode ='package' + order.id">
+                                <li class="tab-slider--trigger" rel="tab2" (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
-                                <li class="tab-slider--trigger" [class.active]="viewMode == 'payment' + order.id" rel="tab2" (click)="viewMode ='payment' + order.id">
+                                <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
                               </ul>
                             </div>
-                            <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
+                            <div class="col-md-12 pl-0 mt-2 tab-slider--container">
+                              <div id="tab2" class="tab-slider--body">
+                                <app-package-item [hidden]="!pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
+                              </div>
+                              <div id="tab3" class="tab-slider--body">
+                                <app-wallet-transactions [hidden]="!pay[order.id]" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                              </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail *ngIf="!(order.id)" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
-                              <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
-                              </div>
-                              <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
-                                <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
-                              </div>
-                              <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
-                                <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
-                              </div>
+                              <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
+                                <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
+                              <!--</div>-->
                             </div>
                           </div>
                         </div>
