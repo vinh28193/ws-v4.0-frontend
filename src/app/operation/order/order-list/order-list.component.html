@@ -675,33 +675,33 @@
                           <div class="row pb-1 pt-1" style="margin-left: 1px; margin-top: 0.5em;">
                             <div class="col-md-12 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
-                                <li class="tab-slider--trigger" [class.active]="viewMode =='pro' + order.id" rel="tab1" (click)=" order.id = !(order.id)">
+                                <li class="tab-slider--trigger" rel="tab1" (click)=" pro[order.id] = !pro[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" [class.active]="viewMode == 'package' + order.id" rel="tab2" (click)="viewMode ='package' + order.id">
+                                <li class="tab-slider--trigger" rel="tab2" (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
-                                <li class="tab-slider--trigger" [class.active]="viewMode == 'payment' + order.id" rel="tab2" (click)="viewMode ='payment' + order.id">
+                                <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
                               </ul>
                             </div>
-                            <div class="col-md-12 mt-2 tab-slider--container" [ngSwitch]="viewMode">
+                            <div class="col-md-12 mt-2 tab-slider--container">
+                              <div id="tab2" class="tab-slider--body">
+                                <app-package-item [hidden]="!pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
+                              </div>
+                              <div id="tab3" class="tab-slider--body">
+                                <app-wallet-transactions [hidden]="!pay[order.id]" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                              </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail *ngIf="!(order.id)" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
-                              <div id="tab1" class="tab-slider--body" *ngSwitchCase="'pro' + order.id">
-                                <app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
-                              </div>
-                              <div id="tab2" class="tab-slider--body" *ngSwitchCase="'package' + order.id">
-                                <app-package-item [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
-                              </div>
-                              <div id="tab3" class="tab-slider--body" *ngSwitchCase="'payment' + order.id">
-                                <app-wallet-transactions [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
-                              </div>
+                              <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
+                                <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
+                              <!--</div>-->
                             </div>
                           </div>
                         </div>
