@@ -178,11 +178,13 @@
                                        href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
-                                  </strong>/
+                                  </strong> /
                                   <span
                                     class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
                                     {{order.current_status}}
-                                  </span>
+                                  </span> /
+                                  <span title="OrderItem-paid" class="Paid badge badge-pill badge-success badge-Paid text-uppercase mr-2 mb-2 ng-star-inserted">Paid</span>
+                                  <!--span title="Order-Unpaid" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase mr-2 mb-2 ng-star-inserted">Unpaid</span-->
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -251,7 +253,8 @@
                               <h5 class="customer-type-{{order.customer_type}}"   i18n>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
-                                  <h5 class="text-bold mb-0" i18n>BUYER</h5>
+                                  <h5 class="text-bold mb-0" i18n>BUYER </h5>
+                                  <div *ngIf="getCheckAction()"> <span > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
                                   <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
