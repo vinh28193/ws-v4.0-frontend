@@ -134,8 +134,8 @@
           <hr>
           <div>
             <div>
-              <button class="btn btn-sm btn-default" *ngIf="!hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]">Show Product Free</button>
-              <button class="btn btn-sm btn-default" *ngIf="hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]">Hide Product Free</button>
+              <button class="btn btn-sm btn-default" *ngIf="!hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]" i18n>Show Free</button>
+              <button class="btn btn-sm btn-default" *ngIf="hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]" i18n>Hide Free</button>
             </div>
           </div>
             <div [hidden]="!hidem[product.id]">
