@@ -43,7 +43,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         note: '',
         cart: {},
     };
-
+    public identity: any;
     ngDoCheck(): void {
         if ((this.current_id !== this.updateProductId || this.clickBtn) && this.updateProductId !== undefined) {
             this.clickBtn = false;
@@ -59,6 +59,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         // this.addcart();
+        this.identity = this.orderService.identity;
     }
 
     getaccount(nocache = false) {
@@ -120,7 +121,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         product.paidToSeller = this.totalAmount(product);
         this.setTotal();
     }
-
     setTotal() {
         this.totalPaid = 0;
         this.totalChanging = 0;

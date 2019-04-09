@@ -582,6 +582,10 @@
                                   <div class="col-md-7 text-right" *ngIf="order.new" >{{order.new*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
+                                  <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                </div>
+                                <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchased:</div>
                                   <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
