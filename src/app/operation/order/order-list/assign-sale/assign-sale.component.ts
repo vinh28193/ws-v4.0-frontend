@@ -51,4 +51,10 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         this.oldSaleSupport = this.saleSupport;
     }
 
+    getCheckAction() {
+        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'tester') {
+            return true;
+        }
+    }
+
 }

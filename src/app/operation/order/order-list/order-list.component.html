@@ -141,7 +141,7 @@
               <option value="200">200</option>
               <option value="all" i18n>All</option>
             </select>
-            <span i18n>of page {{perPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+            <!--span><p i18n>of page</p>{{perPage ? perPage : 0  }}<p i18n>in</p>{{pageCount ? pageCount : 0 }}<p i18n>page in total</p>{{totalCount ? totalCount : 0 }} <p i18n>items</p></span-->
           </div>
           <div class="col-md-6">
             <pagination [boundaryLinks]="true"
@@ -214,11 +214,11 @@
                               <div class="mt-1">
                                 <ul>
                                   <li class="purchase_order_id">
-                                    <span class="sty-font purchase_order_id" i18n>{{order.portal}} Order code: </span>
+                                    <div class="sty-font purchase_order_id" > <span i18n>Order code </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_order_id}}
                                   </li>
                                   <li class="purchase_transaction">
-                                    <span class="sty-font purchase_transaction_id" i18n >{{order.portal}} Transaction: </span>
+                                    <div class="sty-font purchase_transaction_id"> <span>Transaction </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_transaction_id}}
                                   </li>
                                 </ul>
@@ -240,7 +240,7 @@
                               <div class=" mt-1  infor_seller">
                                 <ul>
                                   <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
-                                  <li class="sty-font"><i class="fa fa-user mr-1" i18n></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
+                                  <li class="sty-font" i18n><i class="fa fa-user mr-1" ></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
                                 </ul>
                               </div>
 
@@ -642,7 +642,7 @@
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
-                                      <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button *ngIf="getCheckAction()" type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
