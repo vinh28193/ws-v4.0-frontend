@@ -214,11 +214,11 @@
                               <div class="mt-1">
                                 <ul>
                                   <li class="purchase_order_id">
-                                    <span class="sty-font purchase_order_id" i18n>{{order.portal}} Order code: </span>
+                                    <div class="sty-font purchase_order_id" > <span i18n>Order code </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_order_id}}
                                   </li>
                                   <li class="purchase_transaction">
-                                    <span class="sty-font purchase_transaction_id" i18n >{{order.portal}} Transaction: </span>
+                                    <div class="sty-font purchase_transaction_id"> <span>Transaction </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_transaction_id}}
                                   </li>
                                 </ul>

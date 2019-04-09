@@ -357,46 +357,11 @@
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="63ce324577034654f1737b2a516f56d5e231768b" datatype="html">
-        <source>of page</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="cb0f69bdd4dea41d7d45c74b6e07f98de8a2ab26" datatype="html">
-        <source>in</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3774be1499756b35e9ad9b9dad34b401ece251e7" datatype="html">
-        <source>page in total</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="064ce5140698af55532d5c8c6355e4605d2bcc1b" datatype="html">
-        <source>items</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="57b91e8fac1d88122c875ef9c13f91f44cfb6899" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{order.portal}}"/> Order code: </source>
+      <trans-unit id="74de46425f750b802a7868161aa0fbb86ae28066" datatype="html">
+        <source>Order code </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">217</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="177bafa92ba40d0315fd38fe5b3760cf6e94be08" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{order.portal}}"/> Transaction: </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">221</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ed5e735e9f92c7847e457d0072c41df23315af46" datatype="html">
