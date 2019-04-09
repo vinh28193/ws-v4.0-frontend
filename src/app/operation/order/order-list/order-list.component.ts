@@ -37,6 +37,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public email: any;
     public sale_support_id: any;
     public productUpdateFee: any;
+    public hideme: any = {};
     public total_paid_amount_local: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;

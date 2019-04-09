@@ -317,148 +317,153 @@
 
 
                             <div class="col-md-3 hover-row style-col border-col">
-                              <div class="row">
-                                <div class="col-md-7">
-                                  <h5 i18n >FINANCE</h5>
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <h5 i18n >FINANCE</h5>
+                                  </div>
+                                  <div class="col-md-5" style="text-align: right">
+                                    <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+                                  </div>
                                 </div>
-                                <div class="col-md-5" style="text-align: right">
-                                  <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
-                                </div>
+                              <div>
+                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
                               </div>
+                              <div [hidden]="!hideme[order.id]">
+                                <div class="row Quantity">
+                                  <div class="col-md-7 style-padding-right  dong">
+                                    <span i18n >Quantity</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
+                                    <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
+                                  </div>
+                                </div>
 
-                              <div class="row Quantity">
-                                <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n >Quantity</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
-                                  <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
-                                </div>
-                              </div>
-
-                              <div class="row total_fee_amount_local">
-                                <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n >Total origin tax fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left total_fee_amount_local dong">
+                                <div class="row total_fee_amount_local">
+                                  <div class="col-md-7 style-padding-right  dong">
+                                    <span i18n >Total origin tax fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left total_fee_amount_local dong">
                                   <span>
                                     {{order.total_fee_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div class="row total_origin_tax_fee_local">
-                                <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-                                  <span i18n >Total origin tax fee local </span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
+                                <div class="row total_origin_tax_fee_local">
+                                  <div class="col-md-7 style-padding-right total_fee_amount_local dong">
+                                    <span i18n >Total origin tax fee local </span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
                                     {{order.total_origin_tax_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div class="row Total_origin_shiping_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total origin shiping fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_origin_shiping_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total origin shiping fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_origin_shipping_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div class="row Total_weshop_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total weshop fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_weshop_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total weshop fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_weshop_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div class="row Total_shiping_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total shiping fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_shiping_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total shiping fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_intl_shipping_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total custom fee </span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total custom fee </span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_custom_fee_amount_local  | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row Total_delivery_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total delivery fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_delivery_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total delivery fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_delivery_fee_local  | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row Total_packing_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total packing fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_packing_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total packing fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_packing_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row Total_insection_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total inspection fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_insection_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total inspection fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_inspection_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row Total_insurance_fee">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total insurance fee</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_insurance_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total insurance fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_insurance_fee_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div class="row Total_VAT_amount">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total VAT amount</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
+                                <div class="row Total_VAT_amount">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total VAT amount</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{order.total_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
                                 </div>
                               </div>
 
