@@ -204,7 +204,7 @@
                                     <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
-                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType" i18n><span class="badge badge-info">{{order.portal}} / Version : {{order.version}} </span></div>
+                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal | uppercase }} / Version : {{order.version}} </span></div>
                                   </li>
                                 </ul>
                               </div>
@@ -784,7 +784,7 @@
 <div bsModal #ModalviewMoreLog="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog width-max" style="max-width: 95%;">
-    <div class="modal-content" >
+    <div class="modal-content">
       <div class="modal-body">
         <div class="card-body p-0">
           <div class="row">

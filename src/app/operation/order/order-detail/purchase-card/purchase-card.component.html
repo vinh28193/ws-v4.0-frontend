@@ -1,5 +1,5 @@
 <div class="modal-header" style="background: #00000052;">
-    <h3 style="color: #fff">Purchase Card</h3>
+    <h3 style="color: #fff" i18n>Purchase cart</h3>
 </div>
 <div class="modal-body">
     <div *ngIf="orders" class="row">
@@ -9,65 +9,87 @@
                     <div class="main_content_right" style="max-width: 95%; margin: auto">
                         <div class="row">
                             <div class="col-md-12">
-                                <strong>NGƯỜI MUA:</strong>
+                                <strong i18n>Purchaser:</strong>
                                 <span></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <H4>
+                                    <b style="font-family: auto">{{1  | serialNumer}}. </b>
+                                    <i i18n>Order: <strong>{{orders[0].ordercode}}</strong></i>
+                                    <i i18n> - Portal: <b>{{orders[0].portal}}</b></i>
+                                    <i i18n> - Seller: <b>{{orders[0].seller}}</b></i>
+                                    <i i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></i>
+                                </H4>
                                 <table class="table table-striped"
                                        style="border-radius: 2em;overflow: hidden;font-size: 10px">
                                     <thead>
                                     <tr class="bg-info" style="color: #fff">
                                         <th scope="col">#</th>
-                                        <th scope="col">Image</th>
-                                        <th scope="col" style="max-width: 40%">Info Product</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Quantity Purchase</th>
-                                        <th scope="col">Info Payment</th>
-                                        <th scope="col">Total Price</th>
+                                        <th scope="col" i18n>Order Code</th>
+                                        <th scope="col" i18n>Image</th>
+                                        <th scope="col" style="max-width: 25%" i18n>Info Product</th>
+                                        <th scope="col" i18n>Variation</th>
+                                        <th scope="col" i18n>Quantity</th>
+                                        <th scope="col" i18n>Quantity Purchase</th>
+                                        <th scope="col" i18n>Info Payment</th>
+                                        <th scope="col" i18n>Total Price</th>
                                     </tr>
                                     </thead>
                                     <tbody *ngFor="let order of orders;let indOrder=index;">
-                                    <tr style="background: #8fc0ff;">
-                                        <td colspan="6">
-                                            <H4>
-                                                <b style="font-family: auto">{{indOrder+1  | serialNumer}}. </b>
-                                                <i>Order: <strong>{{order.ordercode}}</strong></i>
-                                                <i> - Portal: <b>{{order.portal}}</b></i>
-                                                <i> - Seller: <b>{{order.seller}}</b></i>
-                                                <i> - Final Total Amount: <b>{{order.total_amount}}</b></i>
-                                            </H4>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger" (click)="removeCart(order.order_id,order.ordercode)">Remove <i class="fa fa-remove"></i></button>
-                                        </td>
-                                    </tr>
                                     <tr *ngFor="let product of order.products;let indProd = index;">
                                         <td>&emsp; {{indProd + 1}}</td>
                                         <td>
-                                            <img class="img-thumbnail" [src]="product.image" alt="" width="100px"><br>
-                                        </td>
-                                        <td style="max-width: 40%">
-                                            <a>{{product.Name}}</a><br>
-                                            <br>
-                                            <span><b>Sku:</b> {{product.sku}}</span><br>
-                                            <span><b>ParentSku:</b> {{product.ParentSku}}</span><br>
-                                            <span><b>Seller:</b> {{order.seller_name}}</span>
+                                            <p>{{order.ordercode}}</p>
                                             <span><b>Portal:</b> {{product.ItemType}}</span>
                                         </td>
+                                        <td>
+                                            <img class="img-thumbnail" [src]="product.image" alt="" width="50px"><br>
+                                        </td>
+                                        <td class="col-md-12 row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-12"><a href="javascript:void (0);">{{product.Name}}</a></div>
+                                                <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span></div>
+                                                <div class="col-md-12"><span><b i18n>ParentSku:</b> {{product.ParentSku}}</span></div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <span><b i18n>Seller:</b> {{order.seller_name}}</span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><b i18n>Condition:</b> {{product.condition}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{product.variation}}</td>
                                         <td>{{product.quantity}}</td>
                                         <td>
-                                            <input class="input-sm" style="width: 50%" type="number" (change)="changeAmount(product)" [(ngModel)]="product.quantityPurchase">
+                                            <input class="input-sm" style="width: 50%" type="number"
+                                                   (change)="changeAmount(product)"
+                                                   [(ngModel)]="product.quantityPurchase">
                                         </td>
                                         <td>
-                                            <span><b>Price:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.price_purchase"></span><br>
-                                            <span><b>Us ship purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_ship_purchase"></span><br>
-                                            <span><b>Us tax purchase:</b><br> <input (change)="changeAmount(product)" class="input-sm" style="width: 50%" type="number" [(ngModel)]="product.us_tax_purchase"></span><br>
+                                            <span><b>Price:</b><br> <input (change)="changeAmount(product)"
+                                                                           class="input-sm" style="width: 50%"
+                                                                           type="number"
+                                                                           [(ngModel)]="product.price_purchase"></span><br>
+                                            <span><b i18n>Us ship purchase:</b><br> <input (change)="changeAmount(product)"
+                                                                                      class="input-sm"
+                                                                                      style="width: 50%" type="number"
+                                                                                      [(ngModel)]="product.us_ship_purchase"></span><br>
+                                            <span><b i18n>Us tax purchase:</b><br> <input (change)="changeAmount(product)"
+                                                                                     class="input-sm" style="width: 50%"
+                                                                                     type="number"
+                                                                                     [(ngModel)]="product.us_tax_purchase"></span><br>
                                         </td>
                                         <td>
-                                            <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}" class="{{edit_id != product.id ? '' : 'hidden-md-up'}}" >{{ product.paidToSeller | currency : 'USD'}}</span>
-                                            <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller" id="paidToSeller_{{product.id}}" type="{{edit_id == product.id ? 'number' : 'hidden'}}" style="width: 50%">
+                                            <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
+                                                  class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD'}}</span>
+                                            <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
+                                                   id="paidToSeller_{{product.id}}"
+                                                   type="{{edit_id == product.id ? 'number' : 'hidden'}}"
+                                                   style="width: 50%">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -76,7 +98,7 @@
                         </div>
                         <div class="row pl-2">
                             <div class="col-md-3">
-                                <strong>Total amount can use:</strong>
+                                <strong i18n>Total amount can use:</strong>
                             </div>
                             <div class="col-md-4">
                                 <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
@@ -84,7 +106,7 @@
                         </div>
                         <div class="row pl-2">
                             <div class="col-md-3">
-                                <strong>Total amount use:</strong>
+                                <strong i18n>Total amount use:</strong>
                             </div>
                             <div class="col-md-4">
                                 <strong>{{totalPaid | currency : 'USD'}}</strong>
@@ -92,7 +114,7 @@
                         </div>
                         <div class="row pl-2 mt-2">
                             <div class="col-md-3">
-                                <strong>Changing Price:</strong>
+                                <strong i18n>Changing Price:</strong>
                             </div>
                             <div class="col-md-2">
                                 <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
@@ -103,7 +125,7 @@
                                            name="checkSendEmailPrice"
                                            [(ngModel)]="data.emailPrice"
                                            type="checkbox">
-                                    <label for="checkSendEmailPrice">
+                                    <label for="checkSendEmailPrice" i18n>
                                         Send email to customer for changing price
                                     </label>
                                 </div>
@@ -112,10 +134,10 @@
 
                         <div class="row pl-2 mt-2">
                             <div class="col-md-3">
-                                <strong>Total paid to seller:</strong>
+                                <strong i18n>Total paid to seller:</strong>
                             </div>
                             <div class="col-md-2">
-                                <strong style="color: red"></strong>
+                                <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
                             </div>
                             <div class="col-md-3">
                                 <div class="checkbox checkbox-success" style="float: left">
@@ -123,7 +145,7 @@
                                            name="checkSendEmailFragile"
                                            [(ngModel)]="data.emailFragile"
                                            type="checkbox">
-                                    <label for="checkSendEmailFragile">
+                                    <label for="checkSendEmailFragile" i18n>
                                         Send email to customer for fragile
                                     </label>
                                 </div>
@@ -131,68 +153,73 @@
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Export Warehouse</strong>
+                                <strong i18n>Export Warehouse</strong>
                             </div>
                             <div class="col-md-3">
                                 <select class="form-control-sm" name="warehouse" [(ngModel)]="data.warehouse"
                                 >
-                                    <option value="0">--- Select WareHouse ---</option>
+                                    <option value="0" i18n>--- Select WareHouse ---</option>
                                     <option *ngFor="let wh of warehouse" value="{{wh.id}}">{{wh.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Purchase Account</strong>
+                                <strong i18n>Purchase Account</strong>
                             </div>
                             <div class="col-md-3">
                                 <input list="listAccounts" type="text"
                                        [(ngModel)]="data.accountPurchase"
-                                       class="form-control-sm" placeholder="Chose an account">
+                                       class="form-control-sm" placeholder="Chose an account"  i18n>
                                 <datalist id="listAccounts" *ngIf="listAccount">
-                                    <option *ngFor="let account of listAccount" value="{{account.email}}" label=" skdjskjdksj"></option>
+                                    <option *ngFor="let account of listAccount" value="{{account.email}}"
+                                            label=" skdjskjdksj"></option>
                                 </datalist>
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Card</strong>
+                                <strong i18n>Card</strong>
                             </div>
                             <div class="col-md-3">
                                 <select class="form-control-sm" name="cart" [(ngModel)]="data.card_payment">
-                                    <option value="">--- Select Card ---</option>
+                                    <option value="" i18n>--- Select Card ---</option>
                                     <optgroup label="List card" *ngIf="listCard">
-                                        <option *ngFor="let cart_payment of listCard" value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
+                                        <option *ngFor="let cart_payment of listCard"
+                                                value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
                                     </optgroup>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point" [(ngModel)]="data.buckAmount">
+                                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point"
+                                       [(ngModel)]="data.buckAmount" i18n>
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Order ID</strong>
+                                <strong i18n>Order ID</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Type order ID" [(ngModel)]="data.orderIdPurchase">
+                                <input type="text" class="form-control-sm" placeholder="Type order ID"
+                                       [(ngModel)]="data.orderIdPurchase" i18n>
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Paypal Transaction</strong>
+                                <strong i18n>Paypal Transaction</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm"
-                                       placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId">
+                                 <input type="text" class="form-control-sm"
+                                       placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId" i18n>
                             </div>
                         </div>
                         <div class="row mt-2 pl-2">
                             <div class="col-md-2">
-                                <strong>Note</strong>
+                                <strong i18n>Note</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm input-control-ws" placeholder="Note" [(ngModel)]="data.note">
+                                <input type="text" class="form-control-sm input-control-ws" placeholder="Note"
+                                       [(ngModel)]="data.note" i18n>
                             </div>
                         </div>
                     </div>
@@ -201,9 +228,9 @@
         </div>
     </div>
 </div>
-<div class="modal-footer"  style="text-align: center;">
+<div class="modal-footer" style="text-align: center;">
     <div class="btn-group">
-        <button class="btn btn-danger" (click)="closePop()">Cancel</button>
-        <button class="btn btn-success" (click)="updatePurchase()">Save</button>
+        <button class="btn btn-danger" (click)="closePop()" i18n>Cancel</button>
+        <button class="btn btn-success" (click)="updatePurchase()" i18n>Save</button>
     </div>
 </div>

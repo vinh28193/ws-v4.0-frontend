@@ -38,3 +38,4 @@ ng serve --configuration=vi
 
 ###------Build Prod VI------------
  ng build --prod --i18n-file src/locale/messages.vi.xlf --i18n-format xlf --i18n-locale vi
+ ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
