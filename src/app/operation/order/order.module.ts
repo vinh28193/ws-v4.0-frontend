@@ -23,6 +23,7 @@ import { PurchaseCardComponent } from './order-detail/purchase-card/purchase-car
 import {CustomerInformationComponent} from '../customer-information/customer-information.component';
 import { EditPackageItemComponent } from './order-list/package-item/edit-package-item/edit-package-item.component';
 import { UpdateCouponComponent } from './order-list/update-coupon/update-coupon.component';
+import { UpdatePromotionComponent } from './order-list/update-promotion/update-promotion.component';
 
 @NgModule({
     imports: [
@@ -56,6 +57,7 @@ import { UpdateCouponComponent } from './order-list/update-coupon/update-coupon.
         CustomerInformationComponent,
         EditPackageItemComponent,
         UpdateCouponComponent,
+        UpdatePromotionComponent,
     ],
     providers: [
       OrderService,
