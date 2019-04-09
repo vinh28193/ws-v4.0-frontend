@@ -16,6 +16,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     idEdit = 0;
     fee = 0;
     oldfee = 0;
+    public hidem: any = {};
     @Input() products: any;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
