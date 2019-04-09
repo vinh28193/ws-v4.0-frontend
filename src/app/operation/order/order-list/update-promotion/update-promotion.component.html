@@ -1,0 +1,84 @@
+<form [formGroup] = "formEditPromotion">
+  <div class="modal-body ng-scope">
+    <div class="container">
+      <div class="row">
+        <div id="tab1" *ngIf="!promotion_id" class="tab-slider--body">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="" i18n>Select Promotion Code</label>
+              <select class="form-control form-control-sm" name="promotionId" id="promotionId" formControlName="promotionId">
+                <option [value]="0" i18n>--All Coupon--</option>
+                <option value="{{promotion.id}}" *ngFor="let promotion of listPromotion">{{promotion.name}}({{promotion.code}}-
+                  <span *ngIf="store_id === 1">{{promotion.discountAmount | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{promotion.discountAmount | number}}{{store_id | currencyStore}}</span>-
+                  <span>{{promotion.discountOverWeight}}g</span>)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="tab2" *ngIf="promotion_id" class="tab-slider--body">
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Start Time</label>
+              <input type="text" formControlName="conditionStartTime" [value]="promotion?.conditionStartTime *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-6">
+              <label for="" i18n>End Time</label>
+              <input type="text" formControlName="conditionEndTime" [value]="promotion?.conditionEndTime *1000 | date:'dd/MM/yyyy HH:mm'" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Name</label>
+              <input type="text" formControlName="name" [value]="promotion?.name" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-6">
+              <label for="" i18n>Code</label>
+              <input type="text" formControlName="code" [value]="promotion?.code" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Discount Amount</label>
+              <input type="text" formControlName="discountAmount" [value]="promotion?.discountAmount" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-6">
+              <label for="" i18n>Discount Over Weight</label>
+              <input type="text" formControlName="discountOverWeight" [value]="promotion?.discountOverWeight" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Condition Limit Usage Count</label>
+              <input type="text" formControlName="conditionLimitUsageCount" [value]="promotion?.conditionLimitUsageCount" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-6">
+              <label for="" i18n>Condition Limit Usage Amount</label>
+              <input type="text" formControlName="conditionLimitUsageAmount" [value]="promotion?.conditionLimitUsageAmount" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label for="" i18n>Condition Limit By Customer Usage Count</label>
+              <input type="text" formControlName="conditionLimitByCustomerUsageCount" [value]="promotion?.conditionLimitByCustomerUsageCount" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-6">
+              <label for="" i18n>Condition Limit By Customer Usage Amount</label>
+              <input type="text" formControlName="conditionLimitByCustomerUsageAmount" [value]="promotion?.conditionLimitByCustomerUsageAmount" class="form-control form-control-sm">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <label for="" i18n >Message</label>
+              <textarea class="form-control form-control-sm" formControlName="message" [value]="promotion?.message" rows="4" id="comment"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer ng-scope">
+    <button class="btn btn-success" type="button" (click)="updatePromotionOrder()" i18n>Update</button>
+  </div>
+</form>
