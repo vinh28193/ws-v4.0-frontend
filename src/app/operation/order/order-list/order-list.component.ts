@@ -10,6 +10,7 @@ import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum'
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
+
 declare var jQuery: any;
 declare var $: any;
 
@@ -193,7 +194,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.paymentStatus = value.paymentStatus;
         }
         if (value.seller !== '' && value.seller !== 'ALL') {
-          params.seller = value.seller;
+            params.seller = value.seller;
         }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
@@ -416,9 +417,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }, 'editAdjustPayment');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
-              this.listOrders();
-              this.popup.success(res.message);
-              $('.modal').modal('hide');
+                this.listOrders();
+                this.popup.success(res.message);
+                $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -481,6 +482,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
+
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
@@ -526,9 +528,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }, 'updateSellerRefund');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
             if (res.success) {
-              this.listOrders();
-              this.popup.success(res.message);
-              $('.modal').modal('hide');
+                this.listOrders();
+                this.popup.success(res.message);
+                $('.modal').modal('hide');
             } else {
                 this.popup.error(res.message);
             }
@@ -537,8 +539,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     handleChangeAmount(event) {
         if (event) {
-          $('.modal').modal('hide');
-          this.listOrders();
+            $('.modal').modal('hide');
+            this.listOrders();
         }
     }
 

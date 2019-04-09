@@ -642,16 +642,16 @@
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
-                                      <button *ngIf="getCheckAction()" type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button   type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập khuyến mại" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true" ></i>Seller Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
                                   </div>
