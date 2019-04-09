@@ -337,6 +337,18 @@
                                 </div>
                               </div>
 
+                              <div class="row total_price_amount_origin">
+                                <div class="col-md-6 style-padding-right  dong">
+                                  <span i18n >Total origin price</span>
+                                </div>
+                                <div class="col-md-6 text-right style-padding-left total_fee_amount_local dong">
+                                  <span>
+                                    {{order.total_price_amount_origin | number}}
+                                  </span>
+                                  <span>{{0 | currencyStore}}</span>
+                                </div>
+                              </div>
+
                               <div class="row total_fee_amount_local">
                                 <div class="col-md-6 style-padding-right  dong">
                                   <span i18n >Total origin tax fee</span>

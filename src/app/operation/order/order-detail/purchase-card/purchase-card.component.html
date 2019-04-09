@@ -137,7 +137,7 @@
                                 <strong i18n>Total paid to seller:</strong>
                             </div>
                             <div class="col-md-2">
-                                <strong style="color: red"></strong>
+                                <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
                             </div>
                             <div class="col-md-3">
                                 <div class="checkbox checkbox-success" style="float: left">
@@ -209,7 +209,7 @@
                                 <strong i18n>Paypal Transaction</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm"
+                                 <input type="text" class="form-control-sm"
                                        placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId" i18n>
                             </div>
                         </div>
