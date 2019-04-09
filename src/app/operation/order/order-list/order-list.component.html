@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <div class="card-title">
-          <h3>LISTS ORDERS</h3>
+          <h3 i18n>LISTS ORDERS</h3>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-6 col-sm-12 form-group m-b-10">
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-12  form-group m-b-10">
-            <label for="store" class="form-control-label">Store</label>
+            <label for="store" class="form-control-label" i18n>Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey" i18n>All Weshop</option>
@@ -78,7 +78,7 @@
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Product Type</label>
             <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
-              <option [value]="allKey" >--All Product Type--</option>
+              <option [value]="allKey" i18n >--All Product Type--</option>
               <option value="AMAZON_US" >AMAZON US</option>
               <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
               <option value="OTHER" >OTHER</option>
@@ -87,20 +87,20 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label for="paymentStatus" class="form-control-label">Payment Status</label>
+            <label for="paymentStatus" class="form-control-label" i18n>Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
                     formControlName="paymentStatus">
-              <option [value]="allKey">--All Payment Status--</option>
+              <option [value]="allKey" i18n >--All Payment Status--</option>
               <option value="STOCK_IN_US">PAID</option>
               <option value="SELLER_SHIPPED">UNPAID</option>
-              <option value="SELLER_SHIPPED">REFUND PRTIAL</option>
+              <!--option value="SELLER_SHIPPED">REFUND PRTIAL</option-->
               <option value="SELLER_SHIPPED">REFUND FULL</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
-              <option [value]="allKey">--All Sale--</option>
+              <option [value]="allKey" i18n >--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
