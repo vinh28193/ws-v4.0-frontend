@@ -50,6 +50,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
     public checkSellerRefund = false;
+    public checkOpenCoupon = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -69,6 +70,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public promotion_id: any;
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
@@ -426,16 +428,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
 
-    updatePromotion(order) {
+    updateCoupon(order) {
         this.coupon_id = order.coupon_id;
-        console.log(this.coupon_id);
         this.orderID = order.id;
         this.code = order.ordercode;
         this.store_id = order.store_id;
-        this.checkOpenPromotion = true;
+        this.checkOpenCoupon = true;
+    }
+
+    updatePromotion(order) {
+      this.promotion_id = order.promotion_id;
+      this.orderID = order.id;
+      this.code = order.ordercode;
+      this.store_id = order.store_id;
+      this.checkOpenPromotion = true;
     }
 
     offOption() {
+      this.checkOpenCoupon = false;
         this.checkOpenPromotion = false;
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;

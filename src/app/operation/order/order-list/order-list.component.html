@@ -646,6 +646,7 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Update Coupon</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
@@ -903,6 +904,21 @@
   </div>
 </div>
 
+<div id="showCoupon" class="modal fade" data-target="#myModal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header ng-scope">
+        <h3 class="modal-title " i18n >Update Coupon: <span class="ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only" i18n >close</span>
+        </button>
+      </div>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
+    </div>
+  </div>
+</div>
 <div id="showPromotion" class="modal fade" data-target="#myModal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
@@ -914,7 +930,7 @@
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [coupon_id] = "coupon_id" [ordercode] = "code"></app-update-coupon>
+      <app-update-promotion (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
     </div>
   </div>
 </div>
