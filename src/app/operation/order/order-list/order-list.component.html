@@ -167,7 +167,7 @@
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <div class="card style-card" *ngFor="let order of orders">
+                        <div class="style-card" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
                             <div class="col-md-3 border-col">
@@ -689,7 +689,7 @@
                                 </li>
                               </ul>
                             </div>
-                            <div class="col-md-12 mt-2 tab-slider--container">
+                            <div class="col-md-12 pl-0 mt-2 tab-slider--container">
                               <div id="tab2" class="tab-slider--body">
                                 <app-package-item [hidden]="!pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
