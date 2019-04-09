@@ -220,7 +220,7 @@
                                     {{order.purchase_order_id}}
                                   </li>
                                   <li class="purchase_transaction">
-                                    <div class="sty-font purchase_transaction_id"> <span>Transaction </span> {{order.portal | uppercase }} : </div>
+                                    <div class="sty-font purchase_transaction_id"> <span i18n>Transaction </span> {{order.portal | uppercase }} : </div>
                                     {{order.purchase_transaction_id}}
                                   </li>
                                 </ul>
@@ -254,7 +254,7 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
-                                  <div *ngIf="getCheckAction()"> <span > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
+                                  <div *ngIf="getCheckAction()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
                                   <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
@@ -337,8 +337,8 @@
                                   </div>
                                 </div>
                               <div>
-                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
-                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Show Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Hide Free</button>
                               </div>
                               <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
