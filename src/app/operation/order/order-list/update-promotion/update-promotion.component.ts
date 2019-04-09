@@ -47,7 +47,6 @@ export class UpdatePromotionComponent extends OrderDataComponent implements OnIn
     } else if (!this.promotion_id) {
       this.orderService.get('promotion', undefined).subscribe(res => {
         this.listPromotion = res.data;
-        console.log(this.listPromotion);
       });
       this.formEditPromotion = this.fb.group({
         promotionId: ''

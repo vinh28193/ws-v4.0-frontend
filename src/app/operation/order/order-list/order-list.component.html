@@ -325,11 +325,6 @@
                                     <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
                                   </div>
                                 </div>
-                              <div>
-                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
-                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
-                              </div>
-                              <div [hidden]="!hideme[order.id]">
                                 <div class="row Quantity">
                                   <div class="col-md-7 style-padding-right  dong">
                                     <span i18n >Quantity</span>
@@ -338,7 +333,11 @@
                                     <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                   </div>
                                 </div>
-
+                              <div>
+                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
+                              </div>
+                              <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
                                   <div class="col-md-7 style-padding-right  dong">
                                     <span i18n >Total origin tax fee</span>
