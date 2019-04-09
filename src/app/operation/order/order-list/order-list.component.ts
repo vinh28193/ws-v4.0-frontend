@@ -414,18 +414,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAdjustPayment() {
+      const messagePop = 'Do you want Confirm Adjust Payment';
+      this.popup.warning(() => {
         const put = this.orderService.createPostParams({
-            total_paid_amount_local: this.editForm.value.total_paid_amount_local
+          total_paid_amount_local: this.editForm.value.total_paid_amount_local
         }, 'editAdjustPayment');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-            if (res.success) {
-                this.listOrders();
-                this.popup.success(res.message);
-                $('.modal').modal('hide');
-            } else {
-                this.popup.error(res.message);
-            }
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+            $('.modal').modal('hide');
+          } else {
+            this.popup.error(res.message);
+          }
         });
+      }, messagePop);
     }
 
     updateCoupon(order) {
@@ -504,18 +507,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updatePayBack() {
+      const messagePop = 'Do you want Update Pay Back ' + (this.total_refund_amount_local + ' ' + 'to' + ' ' + this.editForm.value.total_refund_amount_local) ;
+      this.popup.warning(() => {
         const put = this.orderService.createPostParams({
-            total_refund_amount_local: this.editForm.value.total_refund_amount_local
+          total_refund_amount_local: this.editForm.value.total_refund_amount_local
         }, 'updatePayBack');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-            if (res.success) {
-                this.listOrders();
-                this.popup.success(res.message);
-                $('.modal').modal('hide');
-            } else {
-                this.popup.error(res.message);
-            }
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+            $('.modal').modal('hide');
+          } else {
+            this.popup.error(res.message);
+          }
         });
+      }, messagePop);
     }
 
     openSellerRefund(order) {
@@ -532,19 +538,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updateSellerRefund() {
+      const messagePop = 'Do you want Update Seller Refund';
+      this.popup.warning(() => {
         const put = this.orderService.createPostParams({
-            purchase_amount_buck: this.editForm.value.purchase_amount_buck,
-            purchase_amount_refund: this.editForm.value.purchase_amount_refund
+          purchase_amount_buck: this.editForm.value.purchase_amount_buck,
+          purchase_amount_refund: this.editForm.value.purchase_amount_refund
         }, 'updateSellerRefund');
         this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-            if (res.success) {
-                this.listOrders();
-                this.popup.success(res.message);
-                $('.modal').modal('hide');
-            } else {
-                this.popup.error(res.message);
-            }
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+            $('.modal').modal('hide');
+          } else {
+            this.popup.error(res.message);
+          }
         });
+      }, messagePop);
     }
 
     handleChangeAmount(event) {
