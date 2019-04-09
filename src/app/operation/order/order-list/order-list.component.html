@@ -282,11 +282,11 @@
                                 </div>
                               </div>
                               <div class="row mt-3">
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú của customer hoặc ghi chú cho người nhận." i18n>
-                                  <i class="fa fa-comments"></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú của customer hoặc ghi chú cho người nhận.">
+                                  <i class="fa fa-comments" i18n ></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú cho đơn hàng !" i18n>
-                                  <i class="fa fa-comments"></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú cho đơn hàng !">
+                                  <i class="fa fa-comments" i18n ></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
                                 </div>
                               </div>
 
@@ -328,11 +328,6 @@
                                     <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
                                   </div>
                                 </div>
-                              <div>
-                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Show Free</button>
-                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Hide Free</button>
-                              </div>
-                              <div [hidden]="!hideme[order.id]">
                                 <div class="row Quantity">
                                   <div class="col-md-7 style-padding-right  dong">
                                     <span i18n >Quantity</span>
@@ -341,7 +336,11 @@
                                     <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                   </div>
                                 </div>
-
+                              <div>
+                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Show Product Free</button>
+                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]">Hide Product Free</button>
+                              </div>
+                              <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
                                   <div class="col-md-7 style-padding-right  dong">
                                     <span i18n >Total origin tax fee</span>
@@ -470,7 +469,7 @@
                                 </div>
                               </div>
 
-                              <hr>
+                              <hr style="margin-top: 5px">
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
@@ -517,13 +516,23 @@
                               </div>
 
                               <hr>
-                              <div class="row Coupon">
+                              <div class="row Coupon" *ngIf="order.coupon_id">
                                 <div class="col-md-7 style-padding-right dong">
                                   <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
                                   <span>
                                       <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="row Promotion" *ngIf="order.promotion_id">
+                                <div class="col-md-7 style-padding-right dong">
+                                  <span class="Ws-bold-font" i18n>Promotion Code / Discount Amount/ Discount Over Weight : </span>
+                                </div>
+                                <div class="col-md-5 text-right style-padding-left ">
+                                  <span>
+                                      <app-span-label [value]="order.promotion?.code"></app-span-label> / {{order.promotion?.discountAmount | number}} <span>{{order.store_id | currencyStore}}</span>/{{order.promotion?.discountOverWeight}}g
                                   </span>
                                 </div>
                               </div>
@@ -648,10 +657,10 @@
                                       <button   type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
-                                      <div class="dropdown-menu style-d" style="font-size: 11px" *ngIf="getCheckAction()">
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true" ></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                      <div class="dropdown-menu style-d" style="font-size: 11px" >
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false"><i class="fa fa-gift mr-2" aria-hidden="true" i18n ></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit mr-2" aria-hidden="true" i18n></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true" ></i>Seller Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
@@ -954,18 +963,18 @@
         <div class="modal-body ng-scope">
           <div class="row">
            <div class="col-md-6">
-             <label i18n > Paid Amount Local</label>
+             <label i18n >Total Paid Amount Local</label>
              <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <p></p>
-             <label style="font-size: 2em; color: red">
+             <label style="font-size: 2em; color: red">Price :
                <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
-               <span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+               <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
              </label>
            </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()" i18n>Confirm</button>
+          <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()">Confirm</button>
+          <button class="btn btn-danger" type="button" data-dismiss="modal" >Cancel</button>
         </div>
       </form>
     </div>

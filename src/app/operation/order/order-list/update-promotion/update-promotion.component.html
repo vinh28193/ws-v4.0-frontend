@@ -5,7 +5,7 @@
         <div id="tab1" *ngIf="!promotion_id" class="tab-slider--body">
           <div class="row">
             <div class="col-md-12">
-              <label for="" i18n>Select Coupon Code</label>
+              <label for="" i18n>Select Promotion Code</label>
               <select class="form-control form-control-sm" name="promotionId" id="promotionId" formControlName="promotionId">
                 <option [value]="0" i18n>--All Coupon--</option>
                 <option value="{{promotion.id}}" *ngFor="let promotion of listPromotion">{{promotion.name}}({{promotion.code}}-
