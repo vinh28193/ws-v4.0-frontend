@@ -581,5 +581,25 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return link;
     }
+    checkSale() {
+      if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale') {
+        return true;
+      }
+    }
+    checkOperation() {
+      if (localStorage.getItem('scope') === 'operation' || localStorage.getItem('scope') === 'master_operation') {
+        return true;
+      }
+    }
+    checkMaketing() {
+      if (localStorage.getItem('scope') === 'marketing' || localStorage.getItem('scope') === 'master_marketing') {
+        return true;
+      }
+    }
+    checkSPAdmin() {
+      if (localStorage.getItem('scope') === 'superAdmin') {
+        return true;
+      }
+    }
 }
 

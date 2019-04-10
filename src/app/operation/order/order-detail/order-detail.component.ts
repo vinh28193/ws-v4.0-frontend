@@ -115,4 +115,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     checkShowEdit(type) {
         return (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee');
     }
+    checkShowFee(name) {
+      if (name === 'tax_fee_origin' || name === 'origin_shipping_fee' || name === 'weshop_fee' || name === 'intl_shipping_fee' || name === 'import_fee' || name === 'custom_fee' || name === 'product_price_origin') {
+        return true;
+      }
+    }
 }

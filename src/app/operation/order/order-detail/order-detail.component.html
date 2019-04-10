@@ -127,8 +127,19 @@
             <div class="col-md-7"><strong i18n>Price Amount Local:</strong></div>
             <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_local | currency: 'VND'}}</div>
           </div>
+          <div *ngFor="let ProFee of product.productFees">
+            <div class="row" *ngIf="checkShowFee(ProFee.type)">
+              <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency: 'USD'}}):</strong></div>
+              <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
+                <span>{{ProFee.local_amount | currency: 'VND'}}</span>
+              </div>
+              <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
+                Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
+              </div>
+            </div>
+          </div>
 
-          <hr>
+          <hr style="margin: 5px">
           <div>
             <div>
               <button class="btn btn-sm btn-default" *ngIf="!hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]" i18n>Show Free</button>
@@ -137,27 +148,29 @@
           </div>
             <div [hidden]="!hidem[product.id]">
               <div *ngIf="product.productFees && product.productFees.length" >
-                <div class="row ProductFees " *ngFor="let ProFee of product.productFees">
-                  <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency : 'USD' : '$'}}):</strong></div>
-                  <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding "
-                       (dblclick)="checkShowEdit(ProFee.type) ? showEditFee(ProFee) : null">
-                    {{ProFee.local_amount | currency: 'VND'}} <i *ngIf="checkShowEdit(ProFee.type)" class="fa fa-edit" ></i>
-                  </div>
-                  <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-4 text-right style-padding ">
-                    đ <input type="number" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
-                  </div>
-                  <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                    Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
+                <div *ngFor="let ProFee of product.productFees">
+                  <div class="row ProductFees"  *ngIf="!checkShowFee(ProFee.type)">
+                    <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency : 'USD' : '$'}}):</strong></div>
+                    <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding "
+                         (dblclick)="checkShowEdit(ProFee.type) ? showEditFee(ProFee) : null">
+                      {{ProFee.local_amount | currency: 'VND'}} <i *ngIf="checkShowEdit(ProFee.type)" class="fa fa-edit" ></i>
+                    </div>
+                    <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-4 text-right style-padding ">
+                      đ <input type="number" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
+                    </div>
+                    <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
+                      Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          <hr>
+          <hr style="margin: 5px">
           <div class="row total_fee_product">
             <div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>
             <div class="col-md-5 text-right style-padding ">{{ product.total_fee_product_local | currency: 'VND'}}</div>
           </div>
-          <hr>
+          <hr style="margin: 5px">
 
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value text-bold">
