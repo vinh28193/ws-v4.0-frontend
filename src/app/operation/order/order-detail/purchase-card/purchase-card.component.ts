@@ -190,10 +190,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             const rs: any = res;
             if (rs.success) {
                 this.pop.success(rs.message);
-                this.orders = null;
-                this.data = null;
-                this.current_id = 0;
-                this.closePop();
+                this.addcart();
             } else {
                 this.pop.error(rs.message);
             }

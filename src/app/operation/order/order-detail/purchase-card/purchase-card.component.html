@@ -23,18 +23,18 @@
                                     <i i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></i>
                                 </H4>
                                 <table class="table table-striped"
-                                       style="border-radius: 2em;overflow: hidden;font-size: 10px">
+                                       style="border: 1px solid;overflow: hidden;font-size: 10px">
                                     <thead>
-                                    <tr class="bg-info" style="color: #fff">
-                                        <th scope="col">#</th>
-                                        <th scope="col" i18n>Order Code</th>
-                                        <th scope="col" i18n>Image</th>
-                                        <th scope="col" style="max-width: 20%" i18n>Info Product</th>
-                                        <th scope="col" i18n>Variation</th>
-                                        <th scope="col" i18n>Quantity</th>
-                                        <th scope="col" i18n>Quantity Purchase</th>
-                                        <th scope="col" i18n>Info Payment</th>
-                                        <th scope="col" i18n>Total Price</th>
+                                    <tr style="color: #000">
+                                        <th scope="col" style="width: 5%;">#</th>
+                                        <th scope="col" style="width: 10%;" i18n>Order Code</th>
+                                        <th scope="col" style="width: 10%;" i18n>Image</th>
+                                        <th scope="col" style="width: 25%" i18n>Info Product</th>
+                                        <th scope="col" style="width: 10%;" i18n>Variation</th>
+                                        <th scope="col" style="width: 10%;" i18n>Quantity</th>
+                                        <th scope="col" style="width: 10%;" i18n>Quantity Purchase</th>
+                                        <th scope="col" style="width: 10%;" i18n>Info Payment</th>
+                                        <th scope="col" style="width: 10%;" i18n>Total Price</th>
                                     </tr>
                                     </thead>
                                     <tbody *ngFor="let order of orders;let indOrder=index;">
@@ -47,13 +47,13 @@
                                         <td>
                                             <img class="img-thumbnail" [src]="product.image" alt="" width="50px"><br>
                                         </td>
-                                        <td class="col-md-12 row">
+                                        <td>
                                             <div class="col-md-12">
                                                 <div class="col-md-12"><a href="javascript:void (0);">{{product.Name}}</a></div>
                                                 <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span></div>
                                                 <div class="col-md-12"><span><b i18n>ParentSku:</b> {{product.ParentSku}}</span></div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="row col-md-12">
                                                 <div class="col-md-6">
                                                     <span><b i18n>Seller:</b> {{order.seller_name}}</span>
                                                 </div>
@@ -163,11 +163,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="checkbox checkbox-success" style="float: left">
-                                    <input id="checkSendEmailFragile" class="custom-control-input"
+                                    <input id="checkSendEmailFragile" class="input-sm input-full"
                                            name="checkSendEmailFragile"
                                            [(ngModel)]="data.emailFragile"
                                            type="checkbox">
-                                    <label for="checkSendEmailFragile" i18n>
+                                    <label for="checkSendEmailFragile" style="font-size: 12px" i18n>
                                         Send email to customer for fragile
                                     </label>
                                 </div>
@@ -178,7 +178,7 @@
                                 <strong i18n>Export Warehouse</strong>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control-sm" name="warehouse" [(ngModel)]="data.warehouse"
+                                <select class="input-sm input-full" name="warehouse" [(ngModel)]="data.warehouse"
                                 >
                                     <option value="0" i18n>--- Select WareHouse ---</option>
                                     <option *ngFor="let wh of warehouse" value="{{wh.id}}">{{wh.name}}</option>
@@ -192,7 +192,7 @@
                             <div class="col-md-3">
                                 <input list="listAccounts" type="text"
                                        [(ngModel)]="data.accountPurchase"
-                                       class="form-control-sm" placeholder="Chose an account"  i18n>
+                                       class="input-sm input-full" placeholder="Chose an account"  i18n>
                                 <datalist id="listAccounts" *ngIf="listAccount">
                                     <option *ngFor="let account of listAccount" value="{{account.email}}"
                                             label=" skdjskjdksj"></option>
@@ -204,7 +204,7 @@
                                 <strong i18n>Card</strong>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control-sm" name="cart" [(ngModel)]="data.card_payment">
+                                <select class="input-sm input-full" name="cart" [(ngModel)]="data.card_payment">
                                     <option value="" i18n>--- Select Card ---</option>
                                     <optgroup label="List card" *ngIf="listCard">
                                         <option *ngFor="let cart_payment of listCard"
@@ -213,7 +213,7 @@
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Buck/Giftcard/Point"
+                                <input type="text" class="input-sm input-full" placeholder="Buck/Giftcard/Point"
                                        [(ngModel)]="data.buckAmount" i18n>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                                 <strong i18n>Order ID</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm" placeholder="Type order ID"
+                                <input type="text" class="input-sm input-full" placeholder="Type order ID"
                                        [(ngModel)]="data.orderIdPurchase" i18n>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                                 <strong i18n>Paypal Transaction</strong>
                             </div>
                             <div class="col-md-3">
-                                 <input type="text" class="form-control-sm"
+                                 <input type="text" class="input-sm input-full"
                                        placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId" i18n>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                 <strong i18n>Note</strong>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control-sm input-control-ws" placeholder="Note"
+                                <input type="text" class="input-sm input-full" placeholder="Note"
                                        [(ngModel)]="data.note" i18n>
                             </div>
                         </div>

@@ -2,3 +2,10 @@
     padding-right: 5px;
     padding-left: 5px;
 }
+td, th{
+    border: 1px solid;
+}
+
+.input-full {
+    width: 100%;
+}
