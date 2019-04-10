@@ -78,7 +78,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
 
-    constructor(private orderService: OrderService, private router: Router, private popup: PopupService, private fb: FormBuilder, private _authService: AuthService) {
+    constructor(private orderService: OrderService,
+                private router: Router,
+                private popup: PopupService,
+                private fb: FormBuilder,
+                private _authService: AuthService) {
         super(orderService);
     }
 
@@ -510,7 +514,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updatePayBack() {
-      const messagePop = 'Do you want Update Pay Back ' + (this.total_refund_amount_local + ' ' + 'to' + ' ' + this.editForm.value.total_refund_amount_local) ;
+      const messagePop = 'Do you want Update Pay Back ' +
+          '' + (this.total_refund_amount_local + ' ' +
+              'to' + ' ' + this.editForm.value.total_refund_amount_local) ;
       this.popup.warning(() => {
         const put = this.orderService.createPostParams({
           total_refund_amount_local: this.editForm.value.total_refund_amount_local
@@ -582,12 +588,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return link;
     }
     checkSale() {
-      if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale' || localStorage.getItem('scope') === 'superAdmin') {
+      if (localStorage.getItem('scope') === 'sale' ||
+          localStorage.getItem('scope') === 'master_sale' ||
+          localStorage.getItem('scope') === 'superAdmin') {
         return true;
       }
     }
     checkOperation() {
-      if (localStorage.getItem('scope') === 'operation' || localStorage.getItem('scope') === 'master_operation' || localStorage.getItem('scope') === 'superAdmin') {
+      if (localStorage.getItem('scope') === 'operation' ||
+          localStorage.getItem('scope') === 'master_operation' ||
+          localStorage.getItem('scope') === 'superAdmin') {
         return true;
       }
     }

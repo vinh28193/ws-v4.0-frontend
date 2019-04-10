@@ -471,6 +471,18 @@
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
+                                  <span i18n >Total Price Origin Order :</span>
+                                </div>
+                                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{ order.total_price_amount_origin | number}}
+                                  </span>
+                                  <span>{{order.store_id | currencyStore}}</span>
+                                </div>
+                              </div>
+
+                              <div class="Ws-bold-font row Total_fee_order">
+                                <div class="col-md-7 style-padding-right dong">
                                   <span i18n >Total Fee Order :</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
