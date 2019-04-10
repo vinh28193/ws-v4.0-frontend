@@ -3,6 +3,7 @@ import {OrderDataComponent} from '../order/order-data.component';
 import {OrderService} from '../order/order.service';
 import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ScopeService} from '../../core/service/scope.service';
 
 @Component({
   selector: 'app-customer-information',
@@ -24,7 +25,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
   @Input() postCode: any = '';
   @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public _scope: ScopeService) {
     super(orderService);
   }
 
@@ -148,11 +149,5 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     const selectedOptions = target.options;
     const selectedIndex = selectedOptions.selectedIndex;
     this.districtName = selectedOptions[selectedIndex].text;
-  }
-
-  checkRole() {
-    if (localStorage.getItem('scope') === ('master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing')) {
-      return true;
-    }
   }
 }

@@ -33,7 +33,7 @@
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('address')" class="form-control-label">Address</label>
           <input type="text" [(ngModel)]="address"
-                 class="form-control form-control-sm" [disabled]="checkRole()" [id]="getInputUnique('address')"
+                 class="form-control form-control-sm" [disabled]="!_scope.checkMarketingAccount()" [id]="getInputUnique('address')"
                  [name]="getInputUnique('address')" required>
         </div>
       </div>
@@ -50,15 +50,14 @@
       <div class="col-md-4">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('country')" class="form-control-label">Country</label>
-          <select [(ngModel)]="country" [disabled]="checkRole()"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)" required>
+          <select [(ngModel)]="country" [disabled]="!_scope.checkMarketingAccount()"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)" required>
             <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
           </select>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group form-group-sm">
-          <label [for]="getInputUnique('province')" class="form-control-label">Province</label>
-          <select [(ngModel)]="province"  [disabled]="checkRole()" class="form-control form-control-sm" [name]="getInputUnique('province')" [id]="getInputUnique('province')" (change)="onProvince($event)" required>
+          <label [for]="getInputUnique('province')" [disabled]="!_scope.checkMarketingAccount()" class="form-control-label">Province</label>
             <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
           </select>
         </div>
@@ -66,7 +65,7 @@
       <div class="col-md-4">
         <div class="form-group form-group-sm">
           <label [for]="getInputUnique('district')" class="form-control-label">District</label>
-          <select [(ngModel)]="district" [disabled]="checkRole()" class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)" required>
+          <select [(ngModel)]="district" [disabled]="!_scope.checkMarketingAccount()" class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)" required>
             <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
           </select>
         </div>
