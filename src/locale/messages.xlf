@@ -540,7 +540,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a3e15458297b995e5edbe46663821e73634e1271" datatype="html">
@@ -551,7 +551,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9a3bd82a58e5681679345ac7612227d7275f4387" datatype="html">
@@ -666,8 +666,8 @@
           <context context-type="linenumber">520</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="091d3e6ce2f16b689685d868431ee5b3f94cea8b" datatype="html">
-        <source>Promotion Code / Discount Amount/ Discount Over Weight : </source>
+      <trans-unit id="4e713cc515332528e80b33c9d49583b6ae6515ef" datatype="html">
+        <source>Promotion Code/Discount Amount/Discount Over Weight: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">530</context>
@@ -1202,7 +1202,7 @@
         <source>Total Fee Product : </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
@@ -1211,7 +1211,7 @@
               </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="linenumber">177</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6ece46c60f1467b49f270f7f0c1bbc9db862dbf8" datatype="html">
