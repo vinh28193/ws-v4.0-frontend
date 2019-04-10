@@ -3,7 +3,7 @@ import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder} from '@angular/forms';
-
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-order-detail',
@@ -21,7 +21,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() products: any;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , private global: ScopeService) {
         super(orderService);
     }
 

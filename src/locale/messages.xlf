@@ -1217,7 +1217,7 @@
         <source>Total Fee Product : </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
@@ -1226,7 +1226,7 @@
               </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">180</context>
+          <context context-type="linenumber">179</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6ece46c60f1467b49f270f7f0c1bbc9db862dbf8" datatype="html">
