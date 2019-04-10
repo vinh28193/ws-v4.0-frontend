@@ -69,6 +69,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     const post = this.orderService.createPostParams({
       receiver_name: this.name,
       receiver_phone: this.phone,
+      receiver_email: this.email,
       receiver_address: this.address,
       receiver_post_code: this.postCode,
       receiver_country_id: this.country,
