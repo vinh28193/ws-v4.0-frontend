@@ -144,15 +144,4 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
         return this.getPolicy;
       }
     }
-
-  checkMaketing() {
-    if (localStorage.getItem('scope') === 'marketing' || localStorage.getItem('scope') === 'master_marketing') {
-      return true;
-    }
-  }
-  checkRoleMKT() {
-    if (localStorage.getItem('scope') === ('master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing')) {
-      return true;
-    }
-  }
 }
