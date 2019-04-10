@@ -581,5 +581,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return link;
     }
+    checkSale() {
+      if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale') {
+        return true;
+      }
+    }
+    checkOperation() {
+      if (localStorage.getItem('scope') === 'operation') {
+        return true;
+      }
+    }
 }
 

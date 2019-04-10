@@ -183,8 +183,8 @@
                                     class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
                                     {{order.current_status}}
                                   </span> /
-                                  <span title="OrderItem-paid" class="Paid badge badge-pill badge-success badge-Paid text-uppercase mr-2 mb-2 ng-star-inserted">Paid</span>
-                                  <!--span title="Order-Unpaid" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase mr-2 mb-2 ng-star-inserted">Unpaid</span-->
+                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase mr-2 mb-2 ng-star-inserted">Paid</span> <!--check payment transaction-->
+                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase mr-2 mb-2 ng-star-inserted">Unpaid</span>
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -308,9 +308,9 @@
                               </div>
                               <p></p>
 
-                              <div class="row col-md-12">
-                                <button class="btn btn-sm btn-info mt-2 " (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
-                                <button class="btn btn-sm btn-info mt-2 " (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
+                              <div class="row col-md-12 pb-1">
+                                <button class="btn btn-sm btn-info" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
+                                <button class="btn btn-sm btn-info" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
 
                                 <!--<button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>-->
                               </div>
@@ -658,13 +658,13 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "  id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkSale()" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkSale()" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkSale()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkOperation()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
                                   </div>
