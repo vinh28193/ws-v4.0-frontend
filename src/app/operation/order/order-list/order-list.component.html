@@ -254,7 +254,7 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
-                                  <div *ngIf="getCheckAction()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
+                                  <div *ngIf="_scope.checkSuperAdmin()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
                                   <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
