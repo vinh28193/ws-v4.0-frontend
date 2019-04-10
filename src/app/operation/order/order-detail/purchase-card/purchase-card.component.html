@@ -26,15 +26,20 @@
                                        style="border: 1px solid;overflow: hidden;font-size: 10px">
                                     <thead>
                                     <tr style="color: #000">
-                                        <th scope="col" style="width: 5%;">#</th>
-                                        <th scope="col" style="width: 10%;" i18n>Order Code</th>
-                                        <th scope="col" style="width: 10%;" i18n>Image</th>
-                                        <th scope="col" style="width: 25%" i18n>Info Product</th>
-                                        <th scope="col" style="width: 10%;" i18n>Variation</th>
-                                        <th scope="col" style="width: 10%;" i18n>Quantity</th>
-                                        <th scope="col" style="width: 10%;" i18n>Quantity Purchase</th>
-                                        <th scope="col" style="width: 10%;" i18n>Info Payment</th>
-                                        <th scope="col" style="width: 10%;" i18n>Total Price</th>
+                                        <th scope="col" style="width: 5%;border: 1px solid #000;">#</th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Order Code</th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Image</th>
+                                        <th scope="col" style="width: 25%;border: 1px solid #000;" i18n>Info Product
+                                        </th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Variation</th>
+                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Quantity</th>
+                                        <th scope="col" style="width: 5%;border: 1px solid #000;" i18n>Quantity
+                                            Purchase
+                                        </th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Price</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Shipping Fee</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Tax Fee</th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Total Price</th>
                                     </tr>
                                     </thead>
                                     <tbody *ngFor="let order of orders;let indOrder=index;">
@@ -49,9 +54,12 @@
                                         </td>
                                         <td>
                                             <div class="col-md-12">
-                                                <div class="col-md-12"><a href="javascript:void (0);">{{product.Name}}</a></div>
-                                                <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span></div>
-                                                <div class="col-md-12"><span><b i18n>ParentSku:</b> {{product.ParentSku}}</span></div>
+                                                <div class="col-md-12"><a
+                                                        href="javascript:void (0);">{{product.Name}}</a></div>
+                                                <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span>
+                                                </div>
+                                                <div class="col-md-12"><span><b
+                                                        i18n>ParentSku:</b> {{product.ParentSku}}</span></div>
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-6">
@@ -69,179 +77,185 @@
                                                    (change)="changeAmount(product)"
                                                    [(ngModel)]="product.quantityPurchase">
                                         </td>
+                                        <td><input (change)="changeAmount(product)"
+                                                   class="input-sm input-full"
+                                                   type="number"
+                                                   [(ngModel)]="product.price_purchase"></td>
+                                        <td><input
+                                                (change)="changeAmount(product)"
+                                                class="input-sm input-full" type="number"
+                                                [(ngModel)]="product.us_ship_purchase"></td>
+                                        <td><input
+                                                (change)="changeAmount(product)"
+                                                class="input-sm input-full"
+                                                type="number"
+                                                [(ngModel)]="product.us_tax_purchase"></td>
                                         <td>
-                                            <span><b>Price:</b><br> <input (change)="changeAmount(product)"
-                                                                           class="input-sm" style="width: 50%"
-                                                                           type="number"
-                                                                           [(ngModel)]="product.price_purchase"></span><br>
-                                            <span><b i18n>Us ship purchase:</b><br> <input (change)="changeAmount(product)"
-                                                                                      class="input-sm"
-                                                                                      style="width: 50%" type="number"
-                                                                                      [(ngModel)]="product.us_ship_purchase"></span><br>
-                                            <span><b i18n>Us tax purchase:</b><br> <input (change)="changeAmount(product)"
-                                                                                     class="input-sm" style="width: 50%"
-                                                                                     type="number"
-                                                                                     [(ngModel)]="product.us_tax_purchase"></span><br>
-                                        </td>
-                                        <td>
-                                            <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
-                                                  class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD'}}</span>
-                                            <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
-                                                   id="paidToSeller_{{product.id}}"
-                                                   type="{{edit_id == product.id ? 'number' : 'hidden'}}"
-                                                   style="width: 50%">
+                                            <div class="row col-md-12">
+                                                <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
+                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD'}}</span>
+                                                <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
+                                                       id="paidToSeller_{{product.id}}"
+                                                       type="{{edit_id == product.id ? 'number' : 'hidden'}}"
+                                                       style="width: 50%">
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="row pl-2 col-md-12" *ngIf="totalChanging && !checkChangePrice()">
-                            <div class="checkbox checkbox-success" style="color: red">
-                                <strong for="checkSendEmailPrice" i18n>
-                                    Have changing price :
-                                </strong>
-                                <input id="checkSendEmailPrice" class="custom-control-input"
-                                       name="checkSendEmailPrice"
-                                       [(ngModel)]="data.emailPrice"
-                                       type="checkbox">
-                                <label for="checkSendEmailPrice" style="font-size: 12px" i18n>
-                                    Send mail to customer |
-                                </label> <button class="btn btn-danger btn-sm btn-rounded" (click)="sendNotifyChanging()" ><i class="fa fa-send"></i> Send notify</button>
-                            </div>
-                        </div>
-                        <div class="row pl-2 col-md-12" *ngIf="checkChangePrice()">
-                            <div class="checkbox checkbox-success" style="color: red">
-                                <button class="btn btn-danger btn-sm btn-rounded" (click)="customerConfirmPrice()" >
-                                    <i class="fa fa-check"></i>
-                                    Customer confirm changing price.
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row pl-2">
-                            <div class="col-md-3">
-                                <strong i18n>Total amount can use:</strong>
-                            </div>
-                            <div class="col-md-4">
-                                <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
-                            </div>
-                        </div>
-                        <div class="row pl-2">
-                            <div class="col-md-3">
-                                <strong i18n>Total amount use:</strong>
-                            </div>
-                            <div class="col-md-4">
-                                <strong>{{totalPaid | currency : 'USD'}}</strong>
-                            </div>
-                        </div>
-                        <div class="row pl-2 mt-2">
-                            <div class="col-md-3">
-                                <strong i18n>Changing Price:</strong>
-                            </div>
-                            <div class="col-md-2">
-                                <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
-                            </div>
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="checkbox checkbox-success" style="float: left">-->
-<!--                                    <input id="checkSendEmailPrice" class="custom-control-input"-->
-<!--                                           name="checkSendEmailPrice"-->
-<!--                                           [(ngModel)]="data.emailPrice"-->
-<!--                                           type="checkbox">-->
-<!--                                    <label for="checkSendEmailPrice" i18n>-->
-<!--                                        Send email to customer for changing price-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                        </div>
-
-                        <div class="row pl-2 mt-2">
-                            <div class="col-md-3">
-                                <strong i18n>Total paid to seller:</strong>
-                            </div>
-                            <div class="col-md-2">
-                                <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="checkbox checkbox-success" style="float: left">
-                                    <input id="checkSendEmailFragile" class="input-sm input-full"
-                                           name="checkSendEmailFragile"
-                                           [(ngModel)]="data.emailFragile"
-                                           type="checkbox">
-                                    <label for="checkSendEmailFragile" style="font-size: 12px" i18n>
-                                        Send email to customer for fragile
-                                    </label>
+                        <div class="row pl-2 col-md-12">
+                            <div class="col-md-6">
+                                <div class="row pl-2">
+                                    <div class="col-md-8">
+                                        <strong i18n>Total amount can use:</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row pl-2">
+                                    <div class="col-md-8">
+                                        <strong i18n>Total amount use:</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>{{totalPaid | currency : 'USD'}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row pl-2 mt-2">
+                                    <div class="col-md-8">
+                                        <strong i18n>Changing Price:</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row pl-2 mt-2">
+                                    <div class="col-md-8">
+                                        <strong i18n>Total paid to seller:</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row pl-2 col-md-12" *ngIf="totalChanging && !checkChangePrice()">
+                                    <div class="checkbox checkbox-success" style="color: red">
+                                        <strong for="checkSendEmailPrice" i18n>
+                                            Have changing price :
+                                        </strong>
+                                        <input id="checkSendEmailPrice" class="custom-control-input"
+                                               name="checkSendEmailPrice"
+                                               [(ngModel)]="data.emailPrice"
+                                               type="checkbox">
+                                        <label for="checkSendEmailPrice" style="font-size: 12px" i18n>
+                                            Send mail to customer |
+                                        </label>
+                                        <button class="btn btn-danger btn-sm btn-rounded"
+                                                (click)="sendNotifyChanging()"><i class="fa fa-send"></i> Send notify
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row pl-2 col-md-12" *ngIf="checkChangePrice()">
+                                    <div class="checkbox checkbox-success" style="color: red">
+                                        <button class="btn btn-info btn-sm btn-rounded"
+                                                (click)="customerConfirmPrice()">
+                                            <i class="fa fa-check"></i>
+                                            Customer confirm changing price.
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row pl-2 col-md-12">
+                                    <div class="checkbox checkbox-success" style="color: green">
+                                        <strong for="checkSendEmailPrice" i18n>
+                                            If it is fragile :
+                                        </strong>
+                                        <input id="checkSendEmailFragile" class="custom-control-input"
+                                               name="checkSendEmailFragile"
+                                               [(ngModel)]="data.emailFragile"
+                                               type="checkbox">
+                                        <label for="checkSendEmailPrice" style="font-size: 12px" i18n>
+                                            Send mail to customer |
+                                        </label>
+                                        <button class="btn btn-success btn-sm btn-rounded"
+                                                (click)="sendNotifyFragile()"><i class="fa fa-send"></i> Send notify
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Export Warehouse</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="input-sm input-full" name="warehouse" [(ngModel)]="data.warehouse"
-                                >
-                                    <option value="0" i18n>--- Select WareHouse ---</option>
-                                    <option *ngFor="let wh of warehouse" value="{{wh.id}}">{{wh.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Purchase Account</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <input list="listAccounts" type="text"
-                                       [(ngModel)]="data.accountPurchase"
-                                       class="input-sm input-full" placeholder="Chose an account"  i18n>
-                                <datalist id="listAccounts" *ngIf="listAccount">
-                                    <option *ngFor="let account of listAccount" value="{{account.email}}"
-                                            label=" skdjskjdksj"></option>
-                                </datalist>
-                            </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Card</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="input-sm input-full" name="cart" [(ngModel)]="data.card_payment">
-                                    <option value="" i18n>--- Select Card ---</option>
-                                    <optgroup label="List card" *ngIf="listCard">
-                                        <option *ngFor="let cart_payment of listCard"
-                                                value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="input-sm input-full" placeholder="Buck/Giftcard/Point"
-                                       [(ngModel)]="data.buckAmount" i18n>
-                            </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Order ID</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="input-sm input-full" placeholder="Type order ID"
-                                       [(ngModel)]="data.orderIdPurchase" i18n>
-                            </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Paypal Transaction</strong>
-                            </div>
-                            <div class="col-md-3">
-                                 <input type="text" class="input-sm input-full"
-                                       placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId" i18n>
-                            </div>
-                        </div>
-                        <div class="row mt-2 pl-2">
-                            <div class="col-md-2">
-                                <strong i18n>Note</strong>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="input-sm input-full" placeholder="Note"
-                                       [(ngModel)]="data.note" i18n>
+                            <div class="col-md-6">
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Export Warehouse</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="input-sm input-full" name="warehouse"
+                                                [(ngModel)]="data.warehouse"
+                                        >
+                                            <option value="0" i18n>--- Select WareHouse ---</option>
+                                            <option *ngFor="let wh of warehouse" value="{{wh.id}}">{{wh.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Purchase Account</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input list="listAccounts" type="text"
+                                               [(ngModel)]="data.accountPurchase"
+                                               class="input-sm input-full" placeholder="Chose an account" i18n>
+                                        <datalist id="listAccounts" *ngIf="listAccount">
+                                            <option *ngFor="let account of listAccount" value="{{account.email}}"
+                                                    label=" skdjskjdksj"></option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Card</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="input-sm input-full" name="cart" [(ngModel)]="data.card_payment">
+                                            <option value="" i18n>--- Select Card ---</option>
+                                            <optgroup label="List card" *ngIf="listCard">
+                                                <option *ngFor="let cart_payment of listCard"
+                                                        value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
+                                            </optgroup>
+                                        </select>
+                                        <p></p>
+                                        <input type="text" class="input-sm input-full" placeholder="Buck/Giftcard/Point"
+                                               [(ngModel)]="data.buckAmount" i18n>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Order ID</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="input-sm input-full" placeholder="Type order ID"
+                                               [(ngModel)]="data.orderIdPurchase" i18n>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Paypal Transaction</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="input-sm input-full"
+                                               placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId"
+                                               i18n>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-6">
+                                        <strong i18n>Note</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="input-sm input-full" placeholder="Note"
+                                               [(ngModel)]="data.note" i18n>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -253,6 +267,8 @@
 <div class="modal-footer" style="text-align: center;">
     <div class="btn-group">
         <button class="btn btn-danger" (click)="closePop()" i18n>Cancel</button>
-        <button class="btn btn-success" *ngIf="totalChanging == 0 && !checkChangePrice()" (click)="updatePurchase()" i18n>Save</button>
+        <button class="btn btn-success" *ngIf="totalChanging == 0 && !checkChangePrice()" (click)="updatePurchase()"
+                i18n>Save
+        </button>
     </div>
 </div>

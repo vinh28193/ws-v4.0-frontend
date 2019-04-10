@@ -150,7 +150,7 @@
               <div *ngIf="product.productFees && product.productFees.length" >
                 <div *ngFor="let ProFee of product.productFees">
                   <div class="row ProductFees"  *ngIf="!checkShowFee(ProFee.type)">
-                    <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency: 'USD'}}):</strong></div>
+                    <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency : 'USD' : '$'}}):</strong></div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding "
                          (dblclick)="checkShowEdit(ProFee.type) ? showEditFee(ProFee) : null">
                       {{ProFee.local_amount | currency: 'VND'}} <i *ngIf="checkShowEdit(ProFee.type)" class="fa fa-edit" ></i>
