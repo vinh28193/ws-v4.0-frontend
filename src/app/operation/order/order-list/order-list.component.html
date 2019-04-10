@@ -310,7 +310,7 @@
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="markAsJunk(item.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && _scope.CheckSale()" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
 

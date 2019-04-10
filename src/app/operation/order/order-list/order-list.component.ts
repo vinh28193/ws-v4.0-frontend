@@ -295,8 +295,26 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
-    markAsJunk(productsId) {
+    checkMarkAsJunk(status) {
+      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' ) {
+        return true;
+      }
+    }
+    markAsJunk(id) {
+      const messagePop = 'Do you want Mark As Junk order ' + id;
+      this.popup.warning(() => {
+        const put = this.orderService.createPostParams({
+          current_status: 'JUNK',
+        }, 'updateStatus');
+        this.orderService.put(`order/${id}`, put).subscribe(res => {
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+          } else {
+            this.popup.error(res.message);
+          }
+        });
+      }, messagePop);
     }
 
     // getSeller() {

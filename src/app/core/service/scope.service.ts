@@ -8,7 +8,7 @@ import {isArray, isString} from 'util';
     providedIn: 'root'
 })
 export class ScopeService {
-    public _scope:any;
+    public _scope: any;
     public checkSale() {
         if (localStorage.getItem('scope') === ('sale')) {
             return true;
@@ -94,12 +94,12 @@ export class ScopeService {
         }
     }
 
-  CheckSale() {
-    if (this.checkSale() || this.checkMasterSale() || this.checkSuperAdmin() || this.checkTester()) {
+  public CheckSale() {
+    if (this.checkSale() || this.checkMasterSale() || this.checkSuperAdmin()) {
       return true;
     }
   }
-  checkMarketingAccount() {
+  public checkMarketingAccount() {
       if (this.checkMarketing() || this.checkAccountant() || this.checkMasterMarketing() || this.checkMasterAccountant()) {
         return true;
       }
