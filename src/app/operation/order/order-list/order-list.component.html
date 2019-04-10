@@ -293,7 +293,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                  <button type="button" *ngIf="!checkMaketing()" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
@@ -306,7 +306,6 @@
                                     Quit tracking Order
                                   </button>
                               </div>
-                              <p></p>
 
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
@@ -685,8 +684,8 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row pb-1 pt-1" style="margin-left: 1px; margin-top: 0.5em;">
-                            <div class="col-md-12 tab-slider--nav">
+                          <div class="row pb-1 pt-1" style="margin-left: 1px">
+                            <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
                                 <li class="tab-slider--trigger" rel="tab1" (click)=" pro[order.id] = !pro[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>

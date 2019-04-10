@@ -69,6 +69,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     const post = this.orderService.createPostParams({
       receiver_name: this.name,
       receiver_phone: this.phone,
+      receiver_email: this.email,
       receiver_address: this.address,
       receiver_post_code: this.postCode,
       receiver_country_id: this.country,
@@ -147,5 +148,11 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     const selectedOptions = target.options;
     const selectedIndex = selectedOptions.selectedIndex;
     this.districtName = selectedOptions[selectedIndex].text;
+  }
+
+  checkRole() {
+    if (localStorage.getItem('scope') === ('master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing')) {
+      return true;
+    }
   }
 }
