@@ -309,10 +309,9 @@
                               <p></p>
 
                               <div class="row col-md-12 pb-1">
-                                <button class="btn btn-sm btn-info" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
-                                <button class="btn btn-sm btn-info" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-
-                                <!--<button class="btn btn-sm btn-info mb-2 mr-2" (click)="markAsJunk(item.id)">Mark as Junk</button>-->
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="markAsJunk(item.id)" i18n>Mark as Junk</button>
                               </div>
 
 
