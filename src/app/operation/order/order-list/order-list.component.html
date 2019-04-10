@@ -585,7 +585,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                    <button type="button" *ngIf="!_scope.checkMarketingAccount()" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
