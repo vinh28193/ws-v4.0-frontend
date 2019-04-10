@@ -25,7 +25,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
   @Input() postCode: any = '';
   @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public _scope: ScopeService) {
+  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public _scopes: ScopeService) {
     super(orderService);
   }
 

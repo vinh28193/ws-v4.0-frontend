@@ -95,7 +95,7 @@ export class ScopeService {
     }
 
   public CheckSale() {
-    if (this.checkSale() || this.checkMasterSale() || this.checkSuperAdmin()) {
+    if (this.checkMasterSale() || this.checkSuperAdmin() || this.checkTester()) {
       return true;
     }
   }
@@ -103,5 +103,11 @@ export class ScopeService {
       if (this.checkMarketing() || this.checkAccountant() || this.checkMasterMarketing() || this.checkMasterAccountant()) {
         return true;
       }
+  }
+
+  checkRoleOption() {
+    if (this.checkMasterOperation() || this.checkOperatione() || this.checkSuperAdmin() || this.checkTester()) {
+      return true;
+    }
   }
 }
