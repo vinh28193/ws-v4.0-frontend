@@ -56,5 +56,10 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
             return true;
         }
     }
+    checkSale() {
+      if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale' || localStorage.getItem('scope') === 'superAdmin') {
+        return true;
+      }
+    }
 
 }

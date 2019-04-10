@@ -515,7 +515,7 @@
                               </div>
 
                               <hr>
-                              <div class="row Coupon" *ngIf="order.coupon_id">
+                              <div class="row Coupon" *ngIf="order.coupon_id && order.coupon?.amount !== ''">
                                 <div class="col-md-7 style-padding-right dong">
                                   <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
                                 </div>
@@ -525,7 +525,7 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row Promotion" *ngIf="order.promotion_id">
+                              <div class="row Promotion" *ngIf="order.promotion_id && order.promotion?.discountAmount !== null">
                                 <div class="col-md-7 style-padding-right dong">
                                   <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
                                 </div>
