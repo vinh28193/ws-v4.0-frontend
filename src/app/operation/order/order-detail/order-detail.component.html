@@ -102,8 +102,16 @@
     <div class="row">
       <div class="col-md-12 style-border-finance">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-10">
             <h5 i18n>FINANCE</h5>
+          </div>
+          <div class="col-md-2 text-right">
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]" tooltip="Show Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]" tooltip="Hide Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
         <div class="hover-row">
@@ -142,13 +150,7 @@
             </div>
           </div>
 
-          <hr style="margin: 5px">
-          <div>
-            <div>
-              <button class="btn btn-sm btn-default" *ngIf="!hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]" i18n>Show Free</button>
-              <button class="btn btn-sm btn-default" *ngIf="hidem[product.id]" (click)="hidem[product.id] = !hidem[product.id]" i18n>Hide Free</button>
-            </div>
-          </div>
+          <hr style="margin: 5px" [hidden]="!hidem[product.id]">
             <div [hidden]="!hidem[product.id]">
               <div *ngIf="product.productFees && product.productFees.length" >
                 <div *ngFor="let ProFee of product.productFees">
