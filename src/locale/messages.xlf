@@ -1202,6 +1202,20 @@
           <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="72e22326ef8fd3d6c2daebd0088f4c0099e92091" datatype="html">
+        <source>Discount : </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9f7a0190533fd8d2a717b4514e11957fb1ec0114" datatype="html">
+        <source>Discount :</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
+          <context context-type="linenumber">162</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="9aafe44cf151de376ab70e047d2015c257e006f1" datatype="html">
         <source>Total Fee Product : </source>
         <context-group purpose="location">

@@ -134,7 +134,7 @@
                 <span>{{ProFee.local_amount | currency: 'VND'}}</span>
               </div>
               <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
+                <span i18n>Discount : </span> {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@
                       đ <input type="number" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
                     </div>
                     <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                      Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
+                      <span i18n>Discount :</span> {{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}
                     </div>
                   </div>
                 </div>

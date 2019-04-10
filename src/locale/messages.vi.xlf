@@ -855,7 +855,19 @@
         <source>Price Amount Local:</source>
         <target state="translated">Giá tiền quy đổi:</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">127</context></context-group></trans-unit><trans-unit id="936c81d8e90fc5246ea6f87cc92e2a6c26425842" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">127</context></context-group></trans-unit><trans-unit id="72e22326ef8fd3d6c2daebd0088f4c0099e92091" datatype="html">
+        <source>Discount : </source><target state="translated">Giảm giá :</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit><trans-unit id="9f7a0190533fd8d2a717b4514e11957fb1ec0114" datatype="html">
+        <source>Discount :</source><target state="translated">Giảm giá :</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
+          <context context-type="linenumber">162</context>
+        </context-group>
+      </trans-unit><trans-unit id="936c81d8e90fc5246ea6f87cc92e2a6c26425842" datatype="html">
         <source>Show Free</source><target state="translated">hiện phí</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">339</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">145</context></context-group></trans-unit><trans-unit id="a3e15458297b995e5edbe46663821e73634e1271" datatype="html">
