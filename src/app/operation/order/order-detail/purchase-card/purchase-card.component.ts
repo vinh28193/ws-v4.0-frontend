@@ -231,4 +231,17 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             });
         }, 'Customer confirm changing price ?');
     }
+
+    sendNotifyFragile() {
+        this.data.cart = this.orders;
+        this.orderService.postPurchaseService('send-notify-changing', this.data).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.pop.success(rs.message);
+                this.addcart();
+            } else {
+                this.pop.error(rs.message);
+            }
+        });
+    }
 }
