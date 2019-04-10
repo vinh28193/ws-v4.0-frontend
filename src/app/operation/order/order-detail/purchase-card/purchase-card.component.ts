@@ -244,4 +244,27 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             }
         });
     }
+
+    checkShowNotify() {
+        let rs = false;
+        if (this.orders) {
+            for (let ind = 0; ind < this.orders.length; ind++) {
+                if (this.orders[ind].products) {
+                    for (let indP = 0; indP < this.orders[ind].products.length; indP++) {
+                        if (this.orders[ind].products[indP].price_purchase !== this.orders[ind].products[indP].price
+                            || this.orders[ind].products[indP].us_ship_purchase !== this.orders[ind].products[indP].us_ship
+                            || this.orders[ind].products[indP].us_tax_purchase !== this.orders[ind].products[indP].us_tax
+                        ) {
+                            rs = true;
+                            break;
+                        }
+                    }
+                }
+                if (rs) {
+                    break;
+                }
+            }
+        }
+        return this.totalChanging && !this.checkChangePrice() && rs;
+    }
 }
