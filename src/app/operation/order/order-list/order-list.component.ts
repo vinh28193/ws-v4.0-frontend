@@ -506,7 +506,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     CheckSale() {
-        if (this._scope.checkSale() || this._scope.checkMasterSale()) {
+        if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
             return true;
         }
     }

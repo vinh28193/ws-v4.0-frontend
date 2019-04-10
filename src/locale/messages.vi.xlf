@@ -349,7 +349,7 @@
         <source>BUYER </source><target state="translated">NGƯỜI MUA</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">256</context></context-group></trans-unit><trans-unit id="870091ffde2dac6c220564fc469091bad9a51e13" datatype="html">
-        <source> CUSTOMER TYPE : </source><target state="translated">LOẠI KHÁCH HÀNG :</target>
+        <source> CUSTOMER TYPE : </source><target state="translated"> KIỂU KHÁCH :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">257</context>
@@ -875,8 +875,8 @@
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">138</context></context-group></trans-unit><trans-unit id="15c1db526f108061b826c2fd27e25aa683c0c68f" datatype="html">
         <source>Discount : <x id="INTERPOLATION" equiv-text="{{ProFee.discount_amount ? ProFee.discount_amount : 0 | currency: 'VND'}}"/></source><target state="translated">Giảm giá: <x id="INTERPOLATION"/></target>
-        
-        
+
+
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">145</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">160</context></context-group></trans-unit>
       <trans-unit id="9aafe44cf151de376ab70e047d2015c257e006f1" datatype="html">
         <source>Total Fee Product : </source>
