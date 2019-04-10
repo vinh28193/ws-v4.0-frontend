@@ -84,7 +84,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private popup: PopupService,
                 private fb: FormBuilder,
                 private _authService: AuthService,
-                private _scope: ScopeService,
+                public _scope: ScopeService,
                 ) {
         super(orderService);
     }

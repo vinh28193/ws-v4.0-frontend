@@ -21,7 +21,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() products: any;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , private scope: ScopeService) {
+    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
         super(orderService);
     }
 
