@@ -310,7 +310,7 @@
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && _scope.CheckSale()" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
 
@@ -585,7 +585,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" *ngIf="!_scope.checkMarketingAccount()" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                    <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
