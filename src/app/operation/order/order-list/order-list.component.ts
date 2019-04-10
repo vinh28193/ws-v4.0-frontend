@@ -486,7 +486,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkCancel(item) {
         if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-            if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale')) {
+            if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale' || 'tester')) {
                 return true;
             }
         }
@@ -588,11 +588,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkOperation() {
       if (localStorage.getItem('scope') === 'operation' || localStorage.getItem('scope') === 'master_operation' || localStorage.getItem('scope') === 'superAdmin') {
-        return true;
-      }
-    }
-    checkMaketing() {
-      if (localStorage.getItem('scope') === 'marketing' || localStorage.getItem('scope') === 'master_marketing' || localStorage.getItem('scope') === 'superAdmin') {
         return true;
       }
     }

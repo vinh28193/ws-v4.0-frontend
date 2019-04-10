@@ -153,9 +153,9 @@
                     <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency : 'USD' : '$'}}):</strong></div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding "
                          (dblclick)="checkShowEdit(ProFee.type) ? showEditFee(ProFee) : null">
-                      {{ProFee.local_amount | currency: 'VND'}} <i *ngIf="checkShowEdit(ProFee.type)" class="fa fa-edit" ></i>
+                      {{ProFee.local_amount | currency: 'VND'}} <i *ngIf="checkShowEdit(ProFee.type) && checkRoleMKT()" class="fa fa-edit" ></i>
                     </div>
-                    <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-4 text-right style-padding ">
+                    <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id && checkRoleMKT()" class="origin-amount col-md-4 text-right style-padding ">
                       đ <input type="number" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
                     </div>
                     <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
