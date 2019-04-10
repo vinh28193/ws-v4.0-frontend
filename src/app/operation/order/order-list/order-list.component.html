@@ -293,7 +293,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                  <button type="button" *ngIf="!checkMaketing()" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>

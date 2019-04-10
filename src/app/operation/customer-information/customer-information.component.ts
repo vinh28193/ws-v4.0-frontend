@@ -148,8 +148,9 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     const selectedIndex = selectedOptions.selectedIndex;
     this.districtName = selectedOptions[selectedIndex].text;
   }
+
   checkRole() {
-    if (localStorage.getItem('scope') === 'marketing' || localStorage.getItem('scope') === 'master_marketing') {
+    if (localStorage.getItem('scope') === ('master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing')) {
       return true;
     }
   }
