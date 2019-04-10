@@ -58,13 +58,13 @@ export class ScopeService {
     }
 
     public checkMasterMarketing() {
-        if (localStorage.getItem('scope') === ('master.marketing')) {
+        if (localStorage.getItem('scope') === ('master_marketing')) {
             return true;
         }
     }
 
     public checkMasterAccountant() {
-        if (localStorage.getItem('scope') === ('master.accountant')) {
+        if (localStorage.getItem('scope') === ('master_accountant')) {
             return true;
         }
     }
