@@ -93,7 +93,7 @@
                                         <td>
                                             <div class="row col-md-12">
                                                 <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
-                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD'}}</span>
+                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD' : '$'}}</span>
                                                 <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
                                                        id="paidToSeller_{{product.id}}"
                                                        type="{{edit_id == product.id ? 'number' : 'hidden'}}"
@@ -112,7 +112,7 @@
                                         <strong i18n>Total amount can use:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
+                                        <strong>{{totalAmountCanBuy | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2">
@@ -120,7 +120,7 @@
                                         <strong i18n>Total amount use:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong>{{totalPaid | currency : 'USD'}}</strong>
+                                        <strong>{{totalPaid | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2 mt-2">
@@ -128,7 +128,7 @@
                                         <strong i18n>Changing Price:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
+                                        <strong style="color: red">{{totalChanging | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2 mt-2">
@@ -136,7 +136,7 @@
                                         <strong i18n>Total paid to seller:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
+                                        <strong style="color: red">{{totalPaid | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2 col-md-12" *ngIf="checkShowNotify()">
