@@ -120,7 +120,7 @@
           </div>
           <div class="row price_amount_origin">
             <div class="col-md-7"><strong i18n>Price Amount Origin:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_origin | currency}}</div>
+            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_origin | currency: 'USD' : '$'}}</div>
           </div>
 
           <div class="row price_amount_local">
@@ -129,7 +129,7 @@
           </div>
           <div *ngFor="let ProFee of product.productFees">
             <div class="row" *ngIf="checkShowFee(ProFee.type)">
-              <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency: 'USD'}}):</strong></div>
+              <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | currency: 'USD' : '$'}}):</strong></div>
               <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
                 <span>{{ProFee.local_amount | currency: 'VND'}}</span>
               </div>

@@ -33,7 +33,7 @@
                                         </th>
                                         <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Variation</th>
                                         <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Quantity</th>
-                                        <th scope="col" style="width: 5%;border: 1px solid #000;" i18n>Quantity
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Quantity
                                             Purchase
                                         </th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Price</th>
@@ -93,7 +93,7 @@
                                         <td>
                                             <div class="row col-md-12">
                                                 <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
-                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD'}}</span>
+                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD' : '$'}}</span>
                                                 <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
                                                        id="paidToSeller_{{product.id}}"
                                                        type="{{edit_id == product.id ? 'number' : 'hidden'}}"
@@ -112,7 +112,7 @@
                                         <strong i18n>Total amount can use:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong>{{totalAmountCanBuy | currency : 'USD'}}</strong>
+                                        <strong>{{totalAmountCanBuy | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2">
@@ -120,7 +120,7 @@
                                         <strong i18n>Total amount use:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong>{{totalPaid | currency : 'USD'}}</strong>
+                                        <strong>{{totalPaid | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2 mt-2">
@@ -128,7 +128,7 @@
                                         <strong i18n>Changing Price:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong style="color: red">{{totalChanging | currency : 'USD'}}</strong>
+                                        <strong style="color: red">{{totalChanging | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
                                 <div class="row pl-2 mt-2">
@@ -136,10 +136,10 @@
                                         <strong i18n>Total paid to seller:</strong>
                                     </div>
                                     <div class="col-md-4">
-                                        <strong style="color: red">{{totalPaid | currency : 'USD'}}</strong>
+                                        <strong style="color: red">{{totalPaid | currency : 'USD' : '$'}}</strong>
                                     </div>
                                 </div>
-                                <div class="row pl-2 col-md-12" *ngIf="totalChanging && !checkChangePrice()">
+                                <div class="row pl-2 col-md-12" *ngIf="checkShowNotify()">
                                     <div class="checkbox checkbox-success" style="color: red">
                                         <strong for="checkSendEmailPrice" i18n>
                                             Have changing price :
@@ -167,14 +167,14 @@
                                 </div>
                                 <div class="row pl-2 col-md-12">
                                     <div class="checkbox checkbox-success" style="color: green">
-                                        <strong for="checkSendEmailPrice" i18n>
+                                        <strong for="checkSendEmailFragile" i18n>
                                             If it is fragile :
                                         </strong>
                                         <input id="checkSendEmailFragile" class="custom-control-input"
                                                name="checkSendEmailFragile"
                                                [(ngModel)]="data.emailFragile"
                                                type="checkbox">
-                                        <label for="checkSendEmailPrice" style="font-size: 12px" i18n>
+                                        <label for="checkSendEmailFragile" style="font-size: 12px" i18n>
                                             Send mail to customer |
                                         </label>
                                         <button class="btn btn-success btn-sm btn-rounded"
@@ -267,7 +267,7 @@
 <div class="modal-footer" style="text-align: center;">
     <div class="btn-group">
         <button class="btn btn-danger" (click)="closePop()" i18n>Cancel</button>
-        <button class="btn btn-success" *ngIf="totalChanging == 0 && !checkChangePrice()" (click)="updatePurchase()"
+        <button class="btn btn-success" *ngIf="!checkShowNotify() && !checkChangePrice()" (click)="updatePurchase()"
                 i18n>Save
         </button>
     </div>
