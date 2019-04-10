@@ -182,4 +182,11 @@ export class GlobalService {
         }
         return (Number(time) * 1000) < Date.now();
     }
+
+    // 'master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing'
+    checkSuperAdmin() {
+        if (localStorage.getItem('scope') === ('superAdmin')) {
+            return true;
+        }
+    }
 }
