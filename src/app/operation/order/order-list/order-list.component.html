@@ -203,7 +203,7 @@
                                     <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                                   </li>
                                   <li class="created_at_timeAgo">
-                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date}}</span>
+                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | amTimeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
                                     <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
@@ -230,7 +230,7 @@
 
                               <div class="row m-0 p-0 mt-1">
                                 <ul class="col-md-11">
-                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" [saleSupport] = "order.saleSupport"></app-assign-sale>
+                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" (checkSale)="loadViewSale($event)" [saleSupport] = "order.saleSupport"></app-assign-sale>
                                 </ul>
                                 <div class="col-md-1 p-0">
                                   <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
@@ -346,8 +346,11 @@
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ order.total_price_amount_origin | currency: order.currency_purchase}}
+                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                  </span>
+                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' || order.portal !== 'JAPAN'">
+                                    {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
                                 </div>
                               </div>
