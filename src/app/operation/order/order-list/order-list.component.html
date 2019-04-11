@@ -206,7 +206,7 @@
                                     <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
-                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal | uppercase }} / Version : {{order.version}} </span></div>
+                                    <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
                                   </li>
                                 </ul>
                               </div>
