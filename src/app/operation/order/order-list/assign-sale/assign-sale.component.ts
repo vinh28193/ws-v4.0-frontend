@@ -15,6 +15,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     @Input() orderId: any;
     @Input() saleSupport: any;
     @Input() saleAll: any;
+    @Input() saleId: any;
 
     @ViewChild('pop') pop: PopoverDirective;
 
@@ -39,7 +40,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         }
         const messagePop = 'Do you want assign order ' + this.orderId + ' to new sale ' + this.saleSupport.username;
         this.popup.warning(() => {
-            this.orderService.put(`sale-support/${this.orderId}`, {sale_support_id: this.saleSupport.id}).subscribe(res => {
+            this.orderService.put(`sale-support/${this.orderId}`, {sale_support_id: this.saleId}).subscribe(res => {
                 if (res.success) {
                     this.popup.success(res.message);
                 } else {
