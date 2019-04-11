@@ -21,10 +21,10 @@ export class ProductFeePipe implements PipeTransform {
                 return 'Weshop Fee';
             case 'intl_shipping_fee':
             case 'intl_shipping_fee ':
-                return 'Inter nationnal Shipping Fee';
+                return 'International Shipping Fee';
             case 'custom_fee' :
             case 'custom_fee ' :
-                return 'Customer Fee';
+                return 'Custom Fee';
             case 'packing_fee' :
             case 'packing_fee ':
                 return 'Fee for packing packages';
