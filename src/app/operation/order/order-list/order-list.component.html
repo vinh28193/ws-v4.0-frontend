@@ -346,10 +346,12 @@
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ order.total_price_amount_origin | number}}
+                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN'">
+                                    {{ order.total_price_amount_origin | currency: 'USD'}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN'">
+                                    {{ order.total_price_amount_origin | currency: 'JPY'}}
+                                  </span>
                                 </div>
                               </div>
 
