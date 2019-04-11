@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {OrderDataComponent} from '../../order-data.component';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
@@ -16,6 +16,8 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     @Input() saleSupport: any;
     @Input() saleAll: any;
     @Input() saleId: any;
+    @Output() checkSale = new EventEmitter();
+    public loadSale: boolean = false;
 
     @ViewChild('pop') pop: PopoverDirective;
 
@@ -34,6 +36,8 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             this.orderService.put(`sale-support/${this.orderId}`, {sale_support_id: this.saleId}).subscribe(res => {
                 if (res.success) {
+                  this.loadSale = true;
+                  this.checkSale.emit(this.loadSale);
                     this.popup.success(res.message);
                 } else {
                     this.popup.error(res.message);

@@ -230,7 +230,7 @@
 
                               <div class="row m-0 p-0 mt-1">
                                 <ul class="col-md-11">
-                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" [saleSupport] = "order.saleSupport"></app-assign-sale>
+                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" (checkSale)="loadViewSale($event)" [saleSupport] = "order.saleSupport"></app-assign-sale>
                                 </ul>
                                 <div class="col-md-1 p-0">
                                   <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
@@ -347,10 +347,10 @@
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN'">
-                                    {{ order.total_price_amount_origin | currency: 'JPY'}}
+                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
                                   <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN'">
-                                    {{ order.total_price_amount_origin | currency}}
+                                    {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
                                 </div>
                               </div>
