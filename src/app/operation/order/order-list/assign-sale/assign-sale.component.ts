@@ -49,7 +49,6 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     }
 
     ngOnInit() {
-      console.log(this.saleSupport);
         this.oldSaleSupport = this.saleSupport;
     }
 }
