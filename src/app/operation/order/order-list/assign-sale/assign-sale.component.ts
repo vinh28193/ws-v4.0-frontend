@@ -26,19 +26,11 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
         super(orderService);
     }
 
-    onChangeSale(event) {
-        const target = event.target;
-        this.saleSupport.id = target.value;
-        const selectedOptions = target.options;
-        const selectedIndex = selectedOptions.selectedIndex;
-        this.saleSupport.username = selectedOptions[selectedIndex].text;
-    }
-
     assignSale() {
         if (this.oldSaleSupport.id === this.saleSupport.id || this.oldSaleSupport.id === this.allKey) {
             this.popup.error('pls select other sale');
         }
-        const messagePop = 'Do you want assign order ' + this.orderId + ' to new sale ' + this.saleSupport.username;
+        const messagePop = 'Do you want assign order ' + this.orderId + ' to new sale ';
         this.popup.warning(() => {
             this.orderService.put(`sale-support/${this.orderId}`, {sale_support_id: this.saleId}).subscribe(res => {
                 if (res.success) {
