@@ -342,7 +342,7 @@
                                 </div>
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
-                                <div class="col-md-7 style-padding-right dong">
+                                <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
@@ -490,9 +490,8 @@
                                   <span i18n >Total Fee Order :</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}
-                                  </span>
+                                  <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
+                                  <span>{{order.total_price_amount_local ? order.total_price_amount_local : 0 }}</span>
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
