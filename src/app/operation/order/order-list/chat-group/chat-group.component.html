@@ -26,7 +26,8 @@
                   <span class="msg_cotainer_send float-left">{{chat.message}}</span><br>
                   <div class="float-left text-gray">
                     <span class="mr-2">{{chat.user_name}}</span>
-                    <span class="text-darkgray">{{chat.date}}</span>
+                    <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
+                    <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
                   </div>
                 </div>
               </div>
@@ -37,7 +38,8 @@
                   <span class="msg_cotainer_send float-right bg-info text-white">{{chat.message}}</span><br>
                   <div class="float-right text-gray">
                     <span class="mr-2">{{chat.user_name}}</span>
-                    <span class="text-darkgray">{{chat.date}}</span>
+                    <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
+                    <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
                   </div>
                 </div>
                 <div class="img_cont_msg">

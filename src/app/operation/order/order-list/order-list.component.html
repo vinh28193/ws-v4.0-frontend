@@ -245,6 +245,11 @@
                                   <li class="sty-font" i18n><i class="fa fa-user mr-1" ></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
                                 </ul>
                               </div>
+                              <hr style="margin: 5px;">
+
+                              <div class=" mt-1">
+                                <i class="fa fa-truck"></i> Warehouse:
+                              </div>
 
                               <br>
                             </div>
@@ -308,7 +313,7 @@
                               </div>
 
                               <div class="row col-md-12 pb-1">
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>

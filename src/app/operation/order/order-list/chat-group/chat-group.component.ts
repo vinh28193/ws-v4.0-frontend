@@ -65,4 +65,12 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     return params;
   }
 
+  checkTime(time) {
+    const date = new Date();
+    const date1 = new Date(time);
+    if (date.getDate() === date1.getDate()) {
+      return true;
+    }
+  }
+
 }
