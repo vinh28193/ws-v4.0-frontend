@@ -170,7 +170,16 @@
               <div *ngIf="product.productFees && product.productFees.length" >
                 <div *ngFor="let ProFee of product.productFees">
                   <div class="row ProductFees"  *ngIf="!checkShowFee(ProFee.type)">
-                    <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0"><strong>{{ProFee.type | ProductFee }} ({{ProFee.amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span>):</strong></div>
+                    <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0">
+                      <strong>{{ProFee.type | ProductFee }}
+                        (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN'">
+                                    {{ ProFee.amount | currency: 'JPY' : '￥'}}
+                                  </span>
+                        <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN'">
+                                    {{ ProFee.amount | currency : 'USD' : '$'}}
+                                  </span>):
+                      </strong>
+                    </div>
                     <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
                       <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" i18n>Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | number}}</span><span class="m-l1">{{storeID | currencyStore}}</span>
                     </div>
