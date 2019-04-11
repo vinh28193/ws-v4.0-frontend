@@ -520,10 +520,10 @@
                                   <span class="Ws-bold-font" i18n>Total Amout Local</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                     {{order.total_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                  <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -533,7 +533,7 @@
                                   <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                       <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
@@ -543,7 +543,7 @@
                                   <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                       <app-span-label [value]="order.promotion?.code"></app-span-label> / {{order.promotion?.discountAmount | number}} <span>{{order.store_id | currencyStore}}</span>/{{order.promotion?.discountOverWeight}}g
                                   </span>
                                 </div>
@@ -556,10 +556,10 @@
                                   <span class="Ws-bold-font" i18n >Total value of orders (-discount)</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                     {{order.total_final_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                  <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -714,7 +714,7 @@
                                 <app-package-item [hidden]="!pack[order.id]" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail [hidden]="!pro[order.id]" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->

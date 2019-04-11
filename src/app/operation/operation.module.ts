@@ -20,7 +20,6 @@ import {ProductFeePipe} from './pipes/ProductFee.pipe';
 import { SerialNumerPipe } from './pipes/serial-numer.pipe';
 import { SerialCharPipe } from './pipes/serial-char.pipe';
 import { CurrencyStorePipe } from './pipes/currency-store.pipe';
-import { CurrentcyyPipe } from './pipes/currentcyy.pipe';
 
 @NgModule({
     imports: [
@@ -45,7 +44,6 @@ import { CurrentcyyPipe } from './pipes/currentcyy.pipe';
         SerialCharPipe,
         QuotationStatusPipe,
         CurrencyStorePipe,
-        CurrentcyyPipe,
     ],
     providers: [
         OperationService
