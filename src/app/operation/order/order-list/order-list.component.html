@@ -180,11 +180,11 @@
                                     </a>
                                   </strong> /
                                   <span
-                                    class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
+                                    class="Paid badge badge-pill badge-{{order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
                                     {{order.current_status}}
                                   </span> /
-                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase mr-2 mb-2 ng-star-inserted">Paid</span> <!--check payment transaction-->
-                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase mr-2 mb-2 ng-star-inserted">Unpaid</span>
+                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span> <!--check payment transaction-->
+                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -192,7 +192,7 @@
                                 <span><i [class]="order.store_id | iconFlag"></i> </span>
                                 <span class="m-l-5 mt-1">{{order.store_id | store}}</span>
                                 <span
-                                  class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
+                                  class="Paid badge badge-pill badge-{{order.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{order.type_order}}</span>
                               </div>
 
                               <hr style="margin: 5px;">
