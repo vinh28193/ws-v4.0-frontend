@@ -203,7 +203,7 @@
                                     <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                                   </li>
                                   <li class="created_at_timeAgo">
-                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date}}</span>
+                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | amTimeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
                                     <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
@@ -244,6 +244,11 @@
                                   <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
                                   <li class="sty-font" i18n><i class="fa fa-user mr-1" ></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
                                 </ul>
+                              </div>
+                              <hr style="margin: 5px;">
+
+                              <div class=" mt-1">
+                                <i class="fa fa-truck"></i> Warehouse:
                               </div>
 
                               <br>
@@ -308,7 +313,7 @@
                               </div>
 
                               <div class="row col-md-12 pb-1">
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
@@ -346,10 +351,10 @@
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN'">
+                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
-                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN'">
+                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' || order.portal !== 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
                                 </div>
@@ -804,8 +809,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
       <app-purchase-card (closePopup)="purchaseCard.hide()" [clickBtn]="true" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
@@ -870,7 +874,7 @@
                         <tbody *ngIf="listLog.length == 0">
                           <tr>
                             <td colspan="4" class="text-center">
-                              <h3 class="text-danger">Not Found!</h3>
+                              <h3 class="text-danger" i18n>Not Found!</h3>
                             </td>
                           </tr>
                         </tbody>

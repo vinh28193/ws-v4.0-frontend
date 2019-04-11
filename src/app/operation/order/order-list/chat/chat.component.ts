@@ -3,6 +3,7 @@ import {OrderDataComponent} from '../../order-data.component';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {getDate} from 'ngx-bootstrap/chronos/utils/date-getters';
 
 @Component({
     selector: 'app-chat',
@@ -72,5 +73,13 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
         params.type_chat = 'WS_CUSTOMER';
         params.suorce = 'BACK_END';
         return params;
+    }
+
+    checkTime(time) {
+      const date = new Date();
+      const date1 = new Date(time);
+      if (date.getDate() === date1.getDate()) {
+        return true;
+      }
     }
 }
