@@ -1,12 +1,12 @@
 <li><span class="sty-font" i18n ><i class="fa fa-user mr-1 support_email"></i> Sale Suport:  </span>
     {{saleSupport ? saleSupport.username : ""}}
-    <a href="javascript:void(0)" #pop="bs-popover" *ngIf="checkSale()" [popover]="popSaleAssign"><i class="fa fa-edit"></i></a>
+    <a href="javascript:void(0)" #pop="bs-popover" *ngIf="scopeS.CheckSale()" [popover]="popSaleAssign"><i class="fa fa-edit"></i></a>
     <ng-template #popSaleAssign>
         <div class="row" style="min-width: 250px">
             <div class="col-md-12 col-sm-12 form-group input-group input-group-sm m-b-5">
                 <select class="form-control form-control-sm" (change)="onChangeSale($event)">
                     <option [value]="allKey">--No Sale--</option>
-                    <option *ngFor="let s of saleAll" [selected]="s.id == saleSupport.id" [value]="s.id">{{s.username}}</option>
+                    <option *ngFor="let s of sales" [selected]="s.id == saleSupport.id" [value]="s.id">{{s.username}}</option>
                 </select>
                 <span class="input-group-btn">
                     <button class="btn btn-sm btn-info" type="button" (click)="assignSale();pop.hide()"><i class="fa fa-check"></i></button>
@@ -16,6 +16,6 @@
         </div>
     </ng-template>
 </li>
-<li *ngIf="getCheckAction()"><span class="sty-font" i18n><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+<li *ngIf="scopeS.CheckSale()"><span class="sty-font" i18n><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
     {{saleSupport ? saleSupport.email : ""}}
 </li>

@@ -10,6 +10,7 @@ import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum'
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
+import {ScopeService} from '../../../core/service/scope.service';
 
 declare var jQuery: any;
 declare var $: any;
@@ -82,7 +83,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private router: Router,
                 private popup: PopupService,
                 private fb: FormBuilder,
-                private _authService: AuthService) {
+                private _authService: AuthService,
+                public _scope: ScopeService,
+                ) {
         super(orderService);
     }
 
@@ -292,8 +295,26 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
-    markAsJunk(productsId) {
+    checkMarkAsJunk(status) {
+      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' ) {
+        return true;
+      }
+    }
+    markAsJunk(id) {
+      const messagePop = 'Do you want Mark As Junk order ' + id;
+      this.popup.warning(() => {
+        const put = this.orderService.createPostParams({
+          current_status: 'JUNK',
+        }, 'updateStatus');
+        this.orderService.put(`order/${id}`, put).subscribe(res => {
+          if (res.success) {
+            this.listOrders();
+            this.popup.success(res.message);
+          } else {
+            this.popup.error(res.message);
+          }
+        });
+      }, messagePop);
     }
 
     // getSeller() {
@@ -421,21 +442,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAdjustPayment() {
-      const messagePop = 'Do you want Confirm Adjust Payment';
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          total_paid_amount_local: this.editForm.value.total_paid_amount_local
-        }, 'editAdjustPayment');
-        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-          if (res.success) {
-            this.listOrders();
-            this.popup.success(res.message);
-            $('.modal').modal('hide');
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        const messagePop = 'Do you want Confirm Adjust Payment';
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                total_paid_amount_local: this.editForm.value.total_paid_amount_local
+            }, 'editAdjustPayment');
+            this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+                if (res.success) {
+                    this.listOrders();
+                    this.popup.success(res.message);
+                    $('.modal').modal('hide');
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
     }
 
     updateCoupon(order) {
@@ -447,15 +468,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updatePromotion(order) {
-      this.promotion_id = order.promotion_id;
-      this.orderID = order.id;
-      this.code = order.ordercode;
-      this.store_id = order.store_id;
-      this.checkOpenPromotion = true;
+        this.promotion_id = order.promotion_id;
+        this.orderID = order.id;
+        this.code = order.ordercode;
+        this.store_id = order.store_id;
+        this.checkOpenPromotion = true;
     }
 
     offOption() {
-      this.checkOpenCoupon = false;
+        this.checkOpenCoupon = false;
         this.checkOpenPromotion = false;
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;
@@ -497,11 +518,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     getCheckAction() {
-        if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale') {
-            return true;
+        if ( this._scope.checkSale() || this._scope.checkMasterSale()) {
+           return true;
         }
     }
 
+    CheckSale() {
+        if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
+            return true;
+        }
+    }
 
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
@@ -514,23 +540,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updatePayBack() {
-      const messagePop = 'Do you want Update Pay Back ' +
-          '' + (this.total_refund_amount_local + ' ' +
-              'to' + ' ' + this.editForm.value.total_refund_amount_local) ;
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          total_refund_amount_local: this.editForm.value.total_refund_amount_local
-        }, 'updatePayBack');
-        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-          if (res.success) {
-            this.listOrders();
-            this.popup.success(res.message);
-            $('.modal').modal('hide');
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        const messagePop = 'Do you want Update Pay Back ' +
+            '' + (this.total_refund_amount_local + ' ' +
+                'to' + ' ' + this.editForm.value.total_refund_amount_local);
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                total_refund_amount_local: this.editForm.value.total_refund_amount_local
+            }, 'updatePayBack');
+            this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+                if (res.success) {
+                    this.listOrders();
+                    this.popup.success(res.message);
+                    $('.modal').modal('hide');
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
     }
 
     openSellerRefund(order) {
@@ -547,22 +573,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updateSellerRefund() {
-      const messagePop = 'Do you want Update Seller Refund';
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          purchase_amount_buck: this.editForm.value.purchase_amount_buck,
-          purchase_amount_refund: this.editForm.value.purchase_amount_refund
-        }, 'updateSellerRefund');
-        this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
-          if (res.success) {
-            this.listOrders();
-            this.popup.success(res.message);
-            $('.modal').modal('hide');
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        const messagePop = 'Do you want Update Seller Refund';
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                purchase_amount_buck: this.editForm.value.purchase_amount_buck,
+                purchase_amount_refund: this.editForm.value.purchase_amount_refund
+            }, 'updateSellerRefund');
+            this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
+                if (res.success) {
+                    this.listOrders();
+                    this.popup.success(res.message);
+                    $('.modal').modal('hide');
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
     }
 
     handleChangeAmount(event) {
@@ -587,24 +613,27 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return link;
     }
+
     checkSale() {
-      if (localStorage.getItem('scope') === 'sale' ||
-          localStorage.getItem('scope') === 'master_sale' ||
-          localStorage.getItem('scope') === 'superAdmin') {
-        return true;
-      }
+        if (localStorage.getItem('scope') === 'sale' ||
+            localStorage.getItem('scope') === 'master_sale' ||
+            localStorage.getItem('scope') === 'superAdmin') {
+            return true;
+        }
     }
+
     checkOperation() {
-      if (localStorage.getItem('scope') === 'operation' ||
-          localStorage.getItem('scope') === 'master_operation' ||
-          localStorage.getItem('scope') === 'superAdmin') {
-        return true;
-      }
+        if (localStorage.getItem('scope') === 'operation' ||
+            localStorage.getItem('scope') === 'master_operation' ||
+            localStorage.getItem('scope') === 'superAdmin') {
+            return true;
+        }
     }
+
     checkSPAdmin() {
-      if (localStorage.getItem('scope') === 'superAdmin') {
-        return true;
-      }
+        if (localStorage.getItem('scope') === 'superAdmin') {
+            return true;
+        }
     }
 }
 

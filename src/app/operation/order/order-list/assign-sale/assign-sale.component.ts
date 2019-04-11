@@ -4,6 +4,7 @@ import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder} from '@angular/forms';
 import {PopoverDirective} from 'ngx-bootstrap';
+import {ScopeService} from '../../../../core/service/scope.service';
 
 @Component({
     selector: 'app-assign-sale',
@@ -18,8 +19,9 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     @ViewChild('pop') pop: PopoverDirective;
 
     public oldSaleSupport;
+    public sales: any = [];
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public scopeS: ScopeService) {
         super(orderService);
     }
 
@@ -48,18 +50,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.sales = JSON.parse(localStorage.getItem('systemSale'));
         this.oldSaleSupport = this.saleSupport;
     }
-
-    getCheckAction() {
-        if (localStorage.getItem('scope') === 'superAdmin' || localStorage.getItem('scope') === 'admin' || localStorage.getItem('scope') === 'tester') {
-            return true;
-        }
-    }
-    checkSale() {
-      if (localStorage.getItem('scope') === 'sale' || localStorage.getItem('scope') === 'master_sale' || localStorage.getItem('scope') === 'superAdmin') {
-        return true;
-      }
-    }
-
 }

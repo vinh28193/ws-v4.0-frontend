@@ -184,7 +184,7 @@ export class GlobalService {
     }
 
     // 'master_marketing' || 'accountant' || 'master_accountant' || 'marketing_intent' || 'marketing_ads' || 'marketing'
-    checkSuperAdmin() {
+    public checkSuperAdmin() {
         if (localStorage.getItem('scope') === ('superAdmin')) {
             return true;
         }

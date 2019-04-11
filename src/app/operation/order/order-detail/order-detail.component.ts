@@ -3,7 +3,7 @@ import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder} from '@angular/forms';
-
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-order-detail',
@@ -19,9 +19,10 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     oldfee = 0;
     public hidem: any = {};
     @Input() products: any;
+    @Input() storeID: any;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
         super(orderService);
     }
 
@@ -115,6 +116,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
 
     checkShowEdit(type) {
         return (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee');
+    }
+    checkClass(type) {
+      if (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee') {
+        return 2;
+      }
     }
     checkShowFee(name) {
       if (name === 'tax_fee_origin' || name === 'origin_shipping_fee' || name === 'weshop_fee' || name === 'intl_shipping_fee' || name === 'import_fee' || name === 'custom_fee' || name === 'product_price_origin') {

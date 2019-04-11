@@ -167,7 +167,7 @@
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <div class="style-card" *ngFor="let order of orders">
+                        <div class="style-card mb-4" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
 
                             <div class="col-md-3 border-col">
@@ -180,11 +180,11 @@
                                     </a>
                                   </strong> /
                                   <span
-                                    class="badge badge-{{order.current_status | currentStatus}} m-l-5 p-2 font-style">
+                                    class="Paid badge badge-pill badge-{{order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
                                     {{order.current_status}}
                                   </span> /
-                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase mr-2 mb-2 ng-star-inserted">Paid</span> <!--check payment transaction-->
-                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase mr-2 mb-2 ng-star-inserted">Unpaid</span>
+                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span> <!--check payment transaction-->
+                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -192,7 +192,7 @@
                                 <span><i [class]="order.store_id | iconFlag"></i> </span>
                                 <span class="m-l-5 mt-1">{{order.store_id | store}}</span>
                                 <span
-                                  class="badge badge-{{order.type_order | orderTypeClass}} m-l-5 mt-1 p-2 font-style">{{order.type_order}}</span>
+                                  class="Paid badge badge-pill badge-{{order.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{order.type_order}}</span>
                               </div>
 
                               <hr style="margin: 5px;">
@@ -206,7 +206,7 @@
                                     <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date | timeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
-                                    <div class="btn btn-sm btn-warning mr-2 mr_list OrderType"><span class="badge badge-info">{{order.portal | uppercase }} / Version : {{order.version}} </span></div>
+                                    <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
                                   </li>
                                 </ul>
                               </div>
@@ -254,7 +254,7 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
-                                  <div *ngIf="getCheckAction()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
+                                  <div *ngIf="CheckSale()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
                                   <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
@@ -267,7 +267,7 @@
                                       <div>
                                         <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px" i18n >RECEIVER
                                           <a href="javascript:void(0)"
-                                             (click)="updateCustomer(order);updateReceiverModal.show()">
+                                             (click)="updateCustomer(order);updateReceiverModal.show()" *ngIf = "!_scope.checkMarketingAccount()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
                                           </a>
                                         </h5>
@@ -293,7 +293,7 @@
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" *ngIf="!checkMaketing()" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                  <button type="button" *ngIf="!_scope.checkMarketingAccount()" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
@@ -310,7 +310,7 @@
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="markAsJunk(item.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
 
@@ -323,6 +323,12 @@
                                     <h5 i18n >FINANCE</h5>
                                   </div>
                                   <div class="col-md-5" style="text-align: right">
+                                    <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>
+                                      <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>
+                                      <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                    </button>
                                     <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
                                   </div>
                                 </div>
@@ -334,10 +340,18 @@
                                     <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                   </div>
                                 </div>
-                              <div>
-                                <button class="btn btn-sm btn-default" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Show Free</button>
-                                <button class="btn btn-sm btn-default" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>Hide Free</button>
+                              <hr>
+                              <div class="Ws-bold-font row Total_Unit_price_product">
+                                <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
+                                  <span i18n >Units Price:</span>
+                                </div>
+                                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{ order.total_price_amount_origin | currency: order.currency_purchase}}
+                                  </span>
+                                </div>
                               </div>
+
                               <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
                                   <div class="col-md-7 style-padding-right  dong">
@@ -375,6 +389,7 @@
                                   </div>
                                 </div>
 
+                                <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n >Total weshop fee</span>
@@ -471,24 +486,11 @@
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total Price Origin Order :</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ order.total_price_amount_origin | number}}
-                                  </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
-                                </div>
-                              </div>
-
-                              <div class="Ws-bold-font row Total_fee_order">
-                                <div class="col-md-7 style-padding-right dong">
                                   <span i18n >Total Fee Order :</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}
-                                  </span>
+                                  <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
+                                  <span>{{order.total_fee_amount_local ? order.total_fee_amount_local : 0 }}</span>
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
@@ -518,10 +520,10 @@
                                   <span class="Ws-bold-font" i18n>Total Amout Local</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                     {{order.total_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                  <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -531,7 +533,7 @@
                                   <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                       <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
@@ -541,7 +543,7 @@
                                   <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                       <app-span-label [value]="order.promotion?.code"></app-span-label> / {{order.promotion?.discountAmount | number}} <span>{{order.store_id | currencyStore}}</span>/{{order.promotion?.discountOverWeight}}g
                                   </span>
                                 </div>
@@ -554,10 +556,10 @@
                                   <span class="Ws-bold-font" i18n >Total value of orders (-discount)</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span>
+                                  <span class="Ws-bold-font">
                                     {{order.total_final_amount_local | number}}
                                   </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                  <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -583,11 +585,14 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                    <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"  class="btn btn-secondary btn-sm mr-2 mb-2" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
+
+                                  <div *ngIf="checkBuynow(order)" >
+                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"  class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
+                                  </div>
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
@@ -608,15 +613,15 @@
                               <div class="hover-row">
                                 <div class="row">
                                   <div class="col-md-5 pr-0" i18n >New:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.new" >{{order.new*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
@@ -666,17 +671,17 @@
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
                                     <div class="btn-group">
-                                      <button   type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button   type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkSPAdmin()" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkSPAdmin()" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkSPAdmin()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkOperation()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkOperation()" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
                                   </div>
@@ -702,14 +707,14 @@
                               </ul>
                             </div>
                             <div class="col-md-12 pl-0 mt-2 tab-slider--container">
-                              <div id="tab2" class="tab-slider--body">
-                                <app-package-item [hidden]="!pack[order.id]" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
-                              </div>
                               <div id="tab3" class="tab-slider--body">
                                 <app-wallet-transactions [hidden]="!pay[order.id]" [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
+                              <div id="tab2" class="tab-slider--body">
+                                <app-package-item [hidden]="!pack[order.id]" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
+                              </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail [hidden]="!pro[order.id]" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
