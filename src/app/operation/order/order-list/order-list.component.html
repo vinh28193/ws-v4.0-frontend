@@ -589,7 +589,10 @@
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
-                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"  class="btn btn-secondary btn-sm mr-2 mb-2" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
+
+                                  <div *ngIf="checkBuynow(order)" >
+                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"  class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
+                                  </div>
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
@@ -610,15 +613,15 @@
                               <div class="hover-row">
                                 <div class="row">
                                   <div class="col-md-5 pr-0" i18n >New:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.new" >{{order.new*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased*1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
