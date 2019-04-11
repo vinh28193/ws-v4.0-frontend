@@ -19,6 +19,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     @ViewChild('pop') pop: PopoverDirective;
 
     public oldSaleSupport;
+    public sales: any = [];
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public scopeS: ScopeService) {
         super(orderService);
@@ -49,6 +50,7 @@ export class AssignSaleComponent extends OrderDataComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.sales = JSON.parse(localStorage.getItem('systemSale'));
         this.oldSaleSupport = this.saleSupport;
     }
 }
