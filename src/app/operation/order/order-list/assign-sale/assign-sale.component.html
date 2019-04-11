@@ -6,7 +6,7 @@
             <div class="col-md-12 col-sm-12 form-group input-group input-group-sm m-b-5">
                 <select class="form-control form-control-sm" (change)="onChangeSale($event)">
                     <option [value]="allKey">--No Sale--</option>
-                    <option *ngFor="let s of saleAll" [selected]="s.id == saleSupport.id" [value]="s.id">{{s.username}}</option>
+                    <option *ngFor="let s of saleAll" [value]="s.id">{{s.username}}</option>
                 </select>
                 <span class="input-group-btn">
                     <button class="btn btn-sm btn-info" type="button" (click)="assignSale();pop.hide()"><i class="fa fa-check"></i></button>
