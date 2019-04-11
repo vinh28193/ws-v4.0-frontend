@@ -346,27 +346,22 @@
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
+<<<<<<< HEAD
                                   <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
                                   <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN'">
                                     {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
+=======
+                                  <span>
+                                    {{ order.total_price_amount_origin | currency: order.currency_purchase}}
+>>>>>>> 0fd8ecc0f6281e7f1519426f01dc6cdec7936cce
                                   </span>
                                 </div>
                               </div>
 
+
                               <div [hidden]="!hideme[order.id]">
-                                <div class="row total_fee_amount_local">
-                                  <div class="col-md-7 style-padding-right  dong">
-                                    <span i18n >Total origin tax fee</span>
-                                  </div>
-                                  <div class="col-md-5 text-right style-padding-left total_fee_amount_local dong">
-                                  <span>
-                                    {{order.total_fee_amount_local | number}}
-                                  </span>
-                                    <span>{{order.store_id | currencyStore}}</span>
-                                  </div>
-                                </div>
 
                                 <div class="row total_origin_tax_fee_local">
                                   <div class="col-md-7 style-padding-right total_fee_amount_local dong">
