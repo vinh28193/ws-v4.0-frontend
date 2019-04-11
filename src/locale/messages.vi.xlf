@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="a852eb992243449bca0e143cd37e6d937bec3a74" datatype="html">
         <source>Statistics all </source>
-        <target state="translated">Thống kê tất cả </target>
+        <target state="translated">Thống kê Chung </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -867,31 +867,25 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">127</context></context-group></trans-unit><trans-unit id="8181485c93cffa480dad506ff9f8d06d4b00e0d9" datatype="html">
         <source>Discount : <x id="INTERPOLATION" equiv-text="{{ProFee.discount_amount ? ProFee.discount_amount : 0 | number}}"/></source><target state="translated">Giảm giá: <x id="INTERPOLATION"/></target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">146</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>
-          <context context-type="linenumber">164</context>
-        </context-group>
-      </trans-unit>
 
-      
+
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">147</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">166</context></context-group></trans-unit>
+
+
       <trans-unit id="9aafe44cf151de376ab70e047d2015c257e006f1" datatype="html">
         <source>Total Fee Product : </source>
         <target state="translated">Tổng phí của sản phẩm : </target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">178</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">180</context></context-group></trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
         <source>Total value Product
-                
+
               </source>
         <target state="translated">Tổng giá trị sản phẩm
 
               </target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">185</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">187</context></context-group></trans-unit>
       <trans-unit id="dedb86e845bb7c4ee59af9d7ab8d763661b612c4" datatype="html">
         <source>Select Coupon Code</source>
         <target state="translated">Chọn mã giảm giá</target>
