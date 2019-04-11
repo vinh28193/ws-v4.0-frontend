@@ -20,6 +20,7 @@ import {ProductFeePipe} from './pipes/ProductFee.pipe';
 import { SerialNumerPipe } from './pipes/serial-numer.pipe';
 import { SerialCharPipe } from './pipes/serial-char.pipe';
 import { CurrencyStorePipe } from './pipes/currency-store.pipe';
+import {TimeMessagePipe} from './pipes/time-message.pipe';
 
 @NgModule({
     imports: [
@@ -37,7 +38,7 @@ import { CurrencyStorePipe } from './pipes/currency-store.pipe';
         QuotationStatusClassPipe,
         StorePipe,
         SpanLabelComponent,
-        // TimeAgoPipe,
+        TimeMessagePipe,
         CurrentStatusPipe,
         ProductFeePipe,
         SerialNumerPipe,
@@ -57,13 +58,13 @@ import { CurrencyStorePipe } from './pipes/currency-store.pipe';
         QuotationStatusClassPipe,
         StorePipe,
         SpanLabelComponent,
-        // TimeAgoPipe,
+        TimeMessagePipe,
         CurrentStatusPipe,
         ProductFeePipe,
         SerialNumerPipe,
         SerialCharPipe,
         QuotationStatusPipe,
-        CurrencyStorePipe
+        CurrencyStorePipe,
     ]
 })
 export class OperationModule {

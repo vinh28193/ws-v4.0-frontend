@@ -203,7 +203,7 @@
                                     <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                                   </li>
                                   <li class="created_at_timeAgo">
-                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | date}}</span>
+                                    <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | amTimeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
                                     <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
@@ -346,10 +346,10 @@
                                   <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN'">
+                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
-                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN'">
+                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' || order.portal !== 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
                                 </div>
