@@ -340,19 +340,19 @@
                                     <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
                                   </div>
                                 </div>
-
-                              <div class="row Total_origin_shiping_fee">
+                              <hr>
+                              <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total origin shiping fee</span>
+                                  <span i18n >Units Price:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_origin_shipping_fee_local | number}}
+                                    {{ order.total_price_amount_origin | number}}
                                   </span>
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
-                              <hr>
+
                               <div [hidden]="!hideme[order.id]">
                                 <div class="row total_fee_amount_local">
                                   <div class="col-md-7 style-padding-right  dong">
@@ -377,6 +377,19 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
+
+                                <div class="row Total_origin_shiping_fee">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n >Total origin shiping fee</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{order.total_origin_shipping_fee_local | number}}
+                                  </span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
+                                </div>
+
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
@@ -471,18 +484,6 @@
                               </div>
 
                               <hr style="margin-top: 5px">
-
-                              <div class="Ws-bold-font row Total_fee_order">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total Price Origin Order :</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{ order.total_price_amount_origin | number}}
-                                  </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
-                                </div>
-                              </div>
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
