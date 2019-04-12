@@ -54,7 +54,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
         this.popup.success(rs.message);
         this.buildCreate();
         this.listPackageItem();
-        $('.modal').moda('hide');
+        $('.modal').modal('hide');
       } else {
         this.popup.error(rs.message);
       }
