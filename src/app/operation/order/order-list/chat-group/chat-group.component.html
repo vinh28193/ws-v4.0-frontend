@@ -13,40 +13,42 @@
           </div>
         </div>
       </div>
-      <div class="card-body msg_card_body">
-        <div *ngFor="let chat of listChatG">
-          <div *ngIf="chat.type_chat == 'GROUP_WS'">
-            <ng-container *ngIf="chat.user_name !== username">
-              <div class="d-flex justify-content-start mb-4">
-                <div class="img_cont_msg">
-                  <img src="../../../../../assets/images/users/4.jpg"
-                       class="rounded-circle user_img_msg">
-                </div>
-                <div>
-                  <span class="msg_cotainer_send float-left">{{chat.message}}</span><br>
-                  <div class="float-left text-gray">
-                    <span class="mr-2">{{chat.user_name}}</span>
-                    <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
-                    <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
+      <div class="card-body msg_card_body {{check ? 'view' : ''}}" (click)="clickChat()">
+        <div class="{{check ? 'plane main' : ''}}">
+          <div *ngFor="let chat of listChatG" class="{{check ? 'circle' : ''}}">
+            <div *ngIf="chat.type_chat == 'GROUP_WS'">
+              <ng-container *ngIf="chat.user_name !== username">
+                <div class="d-flex justify-content-start mb-4">
+                  <div class="img_cont_msg">
+                    <img src="../../../../../assets/images/users/4.jpg"
+                         class="rounded-circle user_img_msg">
+                  </div>
+                  <div>
+                    <span class="msg_cotainer_send float-left">{{chat.message}}</span><br>
+                    <div class="float-left text-gray">
+                      <span class="mr-2">{{chat.user_name}}</span>
+                      <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
+                      <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="chat.user_name === username" >
-              <div class="d-flex justify-content-end mb-4">
-                <div>
-                  <span class="msg_cotainer_send float-right bg-info text-white">{{chat.message}}</span><br>
-                  <div class="float-right text-gray">
-                    <span class="mr-2">{{chat.user_name}}</span>
-                    <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
-                    <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
+              </ng-container>
+              <ng-container *ngIf="chat.user_name === username" >
+                <div class="d-flex justify-content-end mb-4">
+                  <div>
+                    <span class="msg_cotainer_send float-right bg-info text-white">{{chat.message}}</span><br>
+                    <div class="float-right text-gray">
+                      <span class="mr-2">{{chat.user_name}}</span>
+                      <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
+                      <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
+                    </div>
+                  </div>
+                  <div class="img_cont_msg">
+                    <img src="../../../../../assets/images/users/1.jpg" class="rounded-circle user_img_msg">
                   </div>
                 </div>
-                <div class="img_cont_msg">
-                  <img src="../../../../../assets/images/users/1.jpg" class="rounded-circle user_img_msg">
-                </div>
-              </div>
-            </ng-container>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>

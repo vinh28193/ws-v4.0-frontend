@@ -18,6 +18,8 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public listChatG: any = [];
   public username: any;
   public loging: any;
+  public countC = 0;
+  public check = false;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -72,5 +74,13 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
       return true;
     }
   }
-
+  clickChat() {
+    this.countC ++;
+    if (this.countC > 8) {
+      this.check = !this.check;
+      this.countC = 0;
+    } else {
+      this.check = false;
+    }
+  }
 }

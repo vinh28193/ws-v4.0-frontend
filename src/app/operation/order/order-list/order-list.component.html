@@ -247,8 +247,10 @@
                               </div>
                               <hr style="margin: 5px;">
 
-                              <div class=" mt-1">
-                                <i class="fa fa-truck"></i> Warehouse:
+                              <div class=" mt-1" *ngIf="order.purchaseProducts && order.purchaseProducts.length > 0">
+                                <div *ngFor="let purchase of order.purchaseProducts">
+                                  <i class="fa fa-truck"></i> Warehouse: <b>{{purchase.receive_warehouse_name}}</b>
+                                </div>
                               </div>
 
                               <br>
@@ -712,7 +714,7 @@
                                 <app-package-item [hidden]="!pack[order.id]" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
