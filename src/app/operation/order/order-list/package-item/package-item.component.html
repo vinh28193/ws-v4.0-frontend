@@ -2,7 +2,7 @@
   <table border="1 solid #DFDFDF" cellpadding="1" class="table">
     <thead>
     <tr>
-      <th class="text-center" i18n>No</th>
+      <th class="text-center">#</th>
       <th class="text-center" i18n>Package Code/Tag Code</th>
       <th class="text-center" i18n>Quantity</th>
       <th class="text-center" i18n>Weight</th>
@@ -56,10 +56,10 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width: 1000px">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title" i18n>Update Package item</h3>
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>Update Package item</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offEditPackage()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>close</span>
         </button>
       </div>
@@ -72,7 +72,7 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="max-width: 1000px">
     <div class="modal-content" style="width: 1000px">
-      <div class="modal-header ng-scope bg-info">
+      <div class="modal-header ng-scope bg-success">
         <h3 class="modal-title text-white" i18n>Create Package Item</h3>
         <button type="button text-white" class="close" data-dismiss="modal" (click)="offCreatePackage()">
           <span class="text-white" aria-hidden="true">×</span>
