@@ -1,6 +1,5 @@
 import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
-import {EventHandlerVars} from '@angular/compiler/src/compiler_util/expression_converter';
 import {StorageService} from '../../../../core/service/storage.service';
 import {PopupService} from '../../../../core/service/popup.service';
 
@@ -78,6 +77,20 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         }
     }
 
+    ClearForm() {
+        this.data = {
+            PPTranId: '',
+            emailFragile: '',
+            warehouse: '',
+            emailPrice: '',
+            accountPurchase: '',
+            card_payment: '',
+            buckAmount: '',
+            orderIdPurchase: '',
+            note: '',
+            cart: {},
+        };
+    }
     getCardPayment(nocache = false) {
         this.listCard = nocache ? null : JSON.parse(this.storegate.get('list_payment_card'));
         if (!this.listCard) {

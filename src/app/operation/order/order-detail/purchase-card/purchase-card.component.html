@@ -18,7 +18,7 @@
                                 <H4>
                                     <b style="font-family: auto">{{1  | serialNumer}}. </b>
                                     <i i18n>Order: <strong>{{orders[0].ordercode}}</strong></i>
-                                    <i i18n> - Portal: <b>{{orders[0].portal}}</b></i>
+                                    <i i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></i>
                                     <i i18n> - Seller: <b>{{orders[0].seller}}</b></i>
                                     <i i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></i>
                                 </H4>
@@ -32,9 +32,8 @@
                                         <th scope="col" style="width: 25%;border: 1px solid #000;" i18n>Info Product
                                         </th>
                                         <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Variation</th>
-                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Quantity</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Quantity
-                                            Purchase
+                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Quantity Customer</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Quantity  Purchase
                                         </th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Price</th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Shipping Fee</th>
@@ -58,8 +57,7 @@
                                                         href="javascript:void (0);">{{product.Name}}</a></div>
                                                 <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span>
                                                 </div>
-                                                <div class="col-md-12"><span><b
-                                                        i18n>ParentSku:</b> {{product.ParentSku}}</span></div>
+                                                <div class="col-md-12"><span><b >ParentSku:</b> {{product.ParentSku}}</span></div>
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-6">
@@ -230,7 +228,7 @@
                                 </div>
                                 <div class="row mt-2 pl-2">
                                     <div class="col-md-6">
-                                        <strong i18n>Order ID</strong>
+                                        <strong i18n>Order {{orders[0].portal | uppercase }}  ID</strong>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="input-sm input-full" placeholder="Type order ID"

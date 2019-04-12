@@ -317,11 +317,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }, messagePop);
     }
 
-    // getSeller() {
-    //     this.orderService.get('seller', undefined).subscribe(rs => {
-    //         this.listSeller = rs.data;
-    //     });
-    // }
+  loadViewSale(event) {
+      if (event) {
+        this.listOrders();
+      }
+  }
 
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {

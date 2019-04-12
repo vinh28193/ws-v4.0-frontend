@@ -41,67 +41,168 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
-                                        <th width="7%"></th>
-                                        <th width="34%">Package</th>
-                                        <th width="44%">Order</th>
-                                        <th>Action</th>
+                                        <th width="15%" >Tracking Info</th>
+                                        <th width="25%">Merge Extension</th>
+                                        <th width="25%">Box Me Received</th>
+                                        <th width="25%">Box Me Inspected</th>
+                                        <th width="10%">Action</th>
                                         </thead>
                                         <tbody>
                                         <ng-container *ngFor="let item of items">
                                             <tr>
-                                                <td></td>
                                                 <td>
-                                                    <p class="mb-1">Tracking: <strong>{{item.tracking_code}}</strong></p>
-                                                    <p class="mb-1">Manifest: <a href="javascript:void(0)">{{item.manifest_code}}</a></p>
-                                                    <p class="mb-1">Quantity: <strong>{{item.quantity}}</strong></p>
-                                                    <p class="mb-1">Weight: <strong>{{item.quantity}} gram</strong></p>
-                                                    <p class="mb-1">Dimension Weight: <strong>{{item.dimension}} gram</strong></p>
-                                                    <p class="mb-1">Volume ({{item.volume_label}}): <strong>{{item.volume}} (cm)</strong></p>
-                                                    <p class="mb-1">Create At: <strong>{{item.created_at}}</strong></p>
-                                                    <p class="mb-1">Product Name: <strong>{{item.item_name}}</strong></p>
-                                                    <div class="mb-1">
-                                                        <strong>List Image</strong>
-                                                        <div class="col-md-12 row">
-                                                            <div class="col-md-3" *ngFor="let img of getListImage(item.image)" >
-                                                                <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                    <div class="mb-1">Tracking: <strong>{{item.tracking_code}}</strong></div>
+                                                    <div class="mb-1">Manifest: <a href="javascript:void(0)">{{item.manifest_code}}-{{item.manifest_id}}</a></div>
+                                                    <div class="mb-1">Quantity: <strong>{{item.quantity}}</strong></div>
+<!--                                                    <div class="mb-1">Weight: <strong>{{item.quantity}} gram</strong></div>-->
+<!--                                                    <div class="mb-1">Dimension Weight: <strong>{{item.dimension}} gram</strong></div>-->
+<!--                                                    <div class="mb-1">Volume ({{item.volume_label}}): <strong>{{item.volume}} (cm)</strong></div>-->
+                                                    <div class="mb-1">Create At: <strong>{{item.created_at | date}}</strong></div>
+<!--                                                    <div class="mb-1">Product Name: <strong>{{item.item_name}}</strong></div>-->
+                                                </td>
+                                                <td>
+                                                    <span class="label label-warning" *ngIf="item.draftExtensionTrackingMap && !item.trackingCode" >Get From Extension</span><br>
+                                                    <span class="label label-warning" *ngIf="!item.draftExtensionTrackingMap && item.trackingCode" >Get From Us Sending</span><br>
+                                                    <span class="label label-success" *ngIf="item.draftExtensionTrackingMap && item.trackingCode" >Merge Success</span><br>
+                                                    <span class="label label-danger" *ngIf="!item.draftExtensionTrackingMap && !item.trackingCode" >Unknown</span><br>
+                                                    <div>Order id : <b>{{item.order_id}}</b></div>
+                                                    <div>Product id : <b>{{item.product_id}}</b></div>
+                                                    <div>Purchase invoice : <b>{{item.purchase_invoice_number}}</b></div>
+                                                    <div>Update at : <b>{{item.updated_at | date}}</b></div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="item.draftBoxmeTracking">
+                                                        <span class="label label-success">Box Me Received</span><br>
+                                                        <div>Order id : <b>{{item.draftBoxmeTracking.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftBoxmeTracking.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftBoxmeTracking.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftBoxmeTracking.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftBoxmeTracking.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftBoxmeTracking.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftBoxmeTracking.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftBoxmeTracking.dimension_h}}x{{item.draftBoxmeTracking.dimension_l}}x{{item.draftBoxmeTracking.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftBoxmeTracking.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftBoxmeTracking.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftBoxmeTracking.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div *ngIf="!item.draftBoxmeTracking && item.draftWastingTracking" >
+                                                        <span class="label label-warning">Wasting Tracking</span><br>
+                                                        <div>Order id : <b>{{item.draftWastingTracking.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftWastingTracking.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftWastingTracking.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftWastingTracking.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftWastingTracking.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftWastingTracking.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftWastingTracking.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftWastingTracking.dimension_h}}x{{item.draftWastingTracking.dimension_l}}x{{item.draftWastingTracking.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftWastingTracking.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftWastingTracking.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftWastingTracking.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="!item.draftBoxmeTracking && item.draftMissingTracking" >
+                                                        <span class="label label-warning">Missing Tracking</span><br>
+                                                        <div>Order id : <b>{{item.draftMissingTracking.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftMissingTracking.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftMissingTracking.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftMissingTracking.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftMissingTracking.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftMissingTracking.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftMissingTracking.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftMissingTracking.dimension_h}}x{{item.draftMissingTracking.dimension_l}}x{{item.draftMissingTracking.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftMissingTracking.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftMissingTracking.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftMissingTracking.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 </td>
                                                 <td>
-                                                    <ng-container  [ngTemplateOutlet]="!isUndefined(item) ? definedItem : unDefinedItem" [ngTemplateOutletContext]="{order:item.order,product:item.product}"></ng-container>
-                                                    <ng-template #definedItem let-order="order" let-product="product">
-                                                        <h5>Order: <span class="text-danger">{{order.id}}</span>/{{order.type_order}}/{{order.portal}}</h5>
-                                                        <p class="mb-1">Customer: <span class="text-danger">{{order.customer_id}}</span></p>
-                                                        <p class="mb-1">Receiver Name: <span class="text-danger">{{order.receiver_name}}</span></p>
-                                                        <p class="mb-1">Receiver Contact: <strong>{{order.receiver_email }}-{{order.receiver_phone}}</strong></p>
-                                                        <p class="mb-1">Receiver Address: <strong>{{order.receiver_address }}</strong></p>
-                                                        <p class="mb-1">Receiver Location:
-                                                            <strong>
-                                                                {{order.receiver_post_code }} -
-                                                                {{order.receiver_country_name}} -
-                                                                {{order.receiver_province_name}}-
-                                                                {{order.receiver_district_name }}
-                                                            </strong>
-                                                        </p>
-                                                        <h5>Product: <span class="text-danger">{{product.id}}</span>/SDFSDFSDF/ADASDAD</h5>
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <img src="https://lorempixel.com/640/480/?55964" alt="" width="100%">
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <p class="mb-1">{{product.product_name}}</p>
-                                                                <p class="mb-1">{{product.created_at}}</p>
+                                                    <div *ngIf="item.draftPackageItem">
+                                                        <span class="label label-success">Box Me Inspected</span><br>
+                                                        <div>Order id : <b>{{item.draftPackageItem.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftPackageItem.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftPackageItem.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftPackageItem.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftPackageItem.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftPackageItem.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftPackageItem.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftPackageItem.dimension_h}}x{{item.draftPackageItem.dimension_l}}x{{item.draftPackageItem.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftPackageItem.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftPackageItem.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftPackageItem.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </ng-template>
-                                                    <ng-template #unDefinedItem let-order="order">
-                                                        <h4>Undefined</h4>
-                                                        <div class="form-group">
-                                                            <input type="text" placeholder="enter Product ID">
+                                                    </div>
+                                                    <div *ngIf="!item.draftPackageItem && item.draftWastingTracking" >
+                                                        <span class="label label-warning">Wasting Tracking</span><br>
+                                                        <div>Order id : <b>{{item.draftWastingTracking.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftWastingTracking.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftWastingTracking.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftWastingTracking.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftWastingTracking.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftWastingTracking.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftWastingTracking.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftWastingTracking.dimension_h}}x{{item.draftWastingTracking.dimension_l}}x{{item.draftWastingTracking.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftWastingTracking.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftWastingTracking.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftWastingTracking.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <button class="btn btn-sm btn-success">Map Product</button>
-                                                    </ng-template>
+                                                    </div>
+                                                    <div *ngIf="!item.draftPackageItem && item.draftMissingTracking" >
+                                                        <span class="label label-warning">Missing Tracking</span><br>
+                                                        <div>Order id : <b>{{item.draftMissingTracking.order_id}}</b></div>
+                                                        <div>Product id : <b>{{item.draftMissingTracking.product_id}}</b></div>
+                                                        <div>Product name : <b>{{item.draftMissingTracking.item_name}}</b></div>
+                                                        <div>Purchase invoice : <b>{{item.draftMissingTracking.purchase_invoice_number}}</b></div>
+                                                        <div>Warehouse Tag : <b>{{item.draftMissingTracking.warehouse_tag_boxme}}</b></div>
+                                                        <div>Quantity : <b>{{item.draftMissingTracking.quantity}}</b></div>
+                                                        <div>Weight : <b>{{item.draftMissingTracking.weight}} (gram)</b></div>
+                                                        <div>Dimension : <b>{{item.draftMissingTracking.dimension_h}}x{{item.draftMissingTracking.dimension_l}}x{{item.draftMissingTracking.dimension_w}} (cm)</b></div>
+                                                        <div>Note by boxme : <b>{{item.draftMissingTracking.note_boxme}}</b></div>
+                                                        <div>Update at : <b>{{item.draftMissingTracking.updated_at | date}}</b></div>
+                                                        <div class="mb-1">
+                                                            <strong>List Image</strong>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftMissingTracking.image)" >
+                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 </td>
                                                 <td>
                                                     <div class="button-group">
