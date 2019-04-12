@@ -4,12 +4,12 @@
       <thead>
       <tr>
         <th width="2%">#</th>
-        <th  class="text-center" title="Mã kiện hàng">Package Code</th>
-        <th  class="text-center">Quantity</th>
-        <th  title="Cân nặng tạm tính">Weight (Kg)</th>
-        <th title="Dài">Dimension Length(cm)</th>
-        <th title="Rộng">Dimension Width(cm)</th>
-        <th title="Cao">Dimension Height(cm)</th>
+        <th  class="text-center" title="Mã kiện hàng" i18n>Package Code</th>
+        <th  class="text-center" i18n>Quantity</th>
+        <th  title="Cân nặng tạm tính" i18n>Weight (Kg)</th>
+        <th title="Dài" i18n>Dimension Length(cm)</th>
+        <th title="Rộng" i18n>Dimension Width(cm)</th>
+        <th title="Cao" i18n>Dimension Height(cm)</th>
       </tr>
       </thead>
       <tbody>
@@ -33,17 +33,17 @@
       <div class="col-md-6 text-left">
       </div>
       <div class="col-md-6 text-right">
-        <h5 class="padding">Total Weight:  <strong class="text-danger ng-binding">{{ this.editForm.get('weight').value }}</strong></h5>
-        <h5 class="padding">Total Change Weight:  <strong class="text-danger ng-binding">{{(this.editForm.get('quantity').value * (this.editForm.get('dimension_l').value * this.editForm.get('dimension_w').value * this.editForm.get('dimension_h').value))/5000}}kg</strong></h5>
+        <h5 class="padding"><span i18n>Total Weight:</span>  <strong class="text-danger ng-binding">{{ this.editForm.get('weight').value }}</strong></h5>
+        <h5 class="padding"><span i18n></span>  <strong class="text-danger ng-binding">{{(this.editForm.get('quantity').value * (this.editForm.get('dimension_l').value * this.editForm.get('dimension_w').value * this.editForm.get('dimension_h').value))/5000}}kg</strong></h5>
         <!--<h5 class="padding">Cân nặng tính phí:  <strong class="text-danger ng-binding">1.5kg</strong></h5>-->
       </div>
     </div>
 
     <div class="alert alert-warning" role="alert">
-      <p><strong>Note:</strong></p>
+      <p><strong i18n>Note:</strong></p>
     </div>
   </form>
 </div>
 <div class="modal-footer ng-scope">
-  <button class="btn btn-success" (click)="updatePackage()" type="button">Update</button>
+  <button class="btn btn-success" (click)="updatePackage()" type="button" i18n>Update</button>
 </div>

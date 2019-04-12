@@ -936,14 +936,14 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title " i18n >Update Coupon: <span class="ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Update Coupon: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" (checkOffC)="handCheckPromotion($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
     </div>
   </div>
 </div>
@@ -951,14 +951,14 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title " i18n >Update Promotion: <span class="ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Update Promotion: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-promotion (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
+      <app-update-promotion (checkEdit)="handleChangeAmount($event)" (checkOff)="handCheckPromotion($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
     </div>
   </div>
 </div>
@@ -968,29 +968,41 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n>Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkOpenAdJustPayment == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-           <div class="col-md-6">
-             <label i18n >Total Paid Amount Local</label>
-             <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <label style="font-size: 2em; color: red">Price :
-               <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
-               <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
-             </label>
-           </div>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền thanh toán</span>
+              </div>
+            </div>
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n >Total Paid Amount Local</label>
+                <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
+                <label style="font-size: 2em; color: red">Price :
+                  <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                  <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
+                </label>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()">Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" >Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="confirmAdjustPayment()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>
@@ -1001,29 +1013,41 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkOpenPayBack == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-            <div class="col-md-6">
-              <label i18n >Total refund Amount Local</label>
-              <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
-              <label style="font-size: 2em; color: red" ><p>Price : </p>
-                <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
-                <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
-              </label>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền trả lại khách hàng</span>
+              </div>
+            </div>
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n >Total refund Amount Local</label>
+                <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
+                <label style="font-size: 2em; color: red" ><span>Price : </span>
+                  <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                </label>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="updatePayBack()" i18n>Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="updatePayBack()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>
@@ -1034,33 +1058,45 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkSellerRefund == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-            <div class="col-md-6">
-              <label i18n>Purchase Amount Buck</label>
-              <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
-              <label style="font-size: 2em; color: red">Price :
-                <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
-                <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
-              </label>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền người bán hoàn</span>
+              </div>
             </div>
-            <div class="col-md-6">
-              <label i18n>Purchase Amount Refund</label>
-              <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n>Purchase Amount Refund</label>
+                <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
+                <label style="font-size: 2em; color: red">Price :
+                  <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label i18n>Purchase Amount Buck</label>
+                <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="updateSellerRefund()" i18n>Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="updateSellerRefund()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>

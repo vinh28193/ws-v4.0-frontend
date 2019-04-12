@@ -481,6 +481,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
+        $('.modal').modal('hide');
     }
 
     getChangeAmount(price1, price2) {
@@ -517,12 +518,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    getCheckAction() {
-        if ( this._scope.checkSale() || this._scope.checkMasterSale()) {
-           return true;
-        }
-    }
-
     CheckSale() {
         if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
             return true;
@@ -533,6 +528,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
         this.checkOpenPayBack = true;
+        this.code = order.ordercode;
         this.store_id = order.store_id;
         this.editForm = this.fb.group({
             total_refund_amount_local: this.total_refund_amount_local
@@ -590,50 +586,29 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
     handleChangeAmount(event) {
         if (event) {
             $('.modal').modal('hide');
             this.listOrders();
         }
     }
-
-    buyNow(item) {
-    }
-
-    getOpen(id, tab) {
-    }
-
-    getLinkBuynow(pro) {
-        let link = pro.link_origin;
-        if (link.indexOf('?')) {
-            link = link + '&order_id=' + pro.order_id;
-        } else {
-            link = link + '?order_id=' + pro.order_id;
-        }
-        return link;
-    }
-
-    checkSale() {
-        if (localStorage.getItem('scope') === 'sale' ||
-            localStorage.getItem('scope') === 'master_sale' ||
-            localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
-
-    checkOperation() {
-        if (localStorage.getItem('scope') === 'operation' ||
-            localStorage.getItem('scope') === 'master_operation' ||
-            localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
-
-    checkSPAdmin() {
-        if (localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
+  handCheckPromotion(event) {
+      if (event) {
+        this.checkOpenPromotion = false;
+        this.checkOpenCoupon = false;
+        $('.modal').modal('hide');
+      }
+  }
+  buyNow(item) {
+  }
+  getLinkBuynow(pro) {
+      let link = pro.link_origin;
+      if (link.indexOf('?')) {
+          link = link + '&order_id=' + pro.order_id;
+      } else {
+          link = link + '?order_id=' + pro.order_id;
+      }
+      return link;
+  }
 }
 
