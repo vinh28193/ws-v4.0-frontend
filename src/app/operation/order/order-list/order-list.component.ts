@@ -21,7 +21,7 @@ declare var $: any;
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
-    @ViewChild('showPromotion') showPromotion: ModalDirective;
+    @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     public pro: any = {};
     public pack: any = {};
