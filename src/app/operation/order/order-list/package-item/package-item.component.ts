@@ -4,7 +4,7 @@ import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
 import {ModalDirective} from 'ngx-bootstrap';
-
+declare var $: any;
 @Component({
   selector: 'app-package-item',
   templateUrl: './package-item.component.html',
@@ -54,7 +54,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
         this.popup.success(rs.message);
         this.buildCreate();
         this.listPackageItem();
-        // $('.modal').modal('hide');
+        $('.modal').moda('hide');
       } else {
         this.popup.error(rs.message);
       }
