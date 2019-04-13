@@ -348,15 +348,19 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <span i18n >Units Price:</span>
+                                  <strong><span i18n>Units Price:</span>
+                                    ( <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    </span>
+                                    <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                      {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
+                                    </span>)
+                                  </strong>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    <span>{{order.total_origin_fee_local | number}}
                                   </span>
-                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                    {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
-                                  </span>
+                                  <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
