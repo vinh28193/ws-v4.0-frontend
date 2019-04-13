@@ -104,13 +104,9 @@
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label class="form-control-label" i18n>Seller</label>-->
-            <!--<select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">-->
-              <!--<option [value]="allKey" i18n>&#45;&#45;All Seller&#45;&#45;</option>-->
-              <!--<option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>-->
-            <!--</select>-->
-          <!--</div>-->
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">No Tracking</label><br>
+          </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
             <!--<label class="form-control-label" i18n>Policy</label>-->
             <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
@@ -120,6 +116,7 @@
           <!--</div>-->
           <div class="col-md-12 mt-1">
             <div class="button-group">
+                <!--<button class="btn btn-sm btn-default" (click)="listOrders()">No Tracking</button>-->
                 <button class="btn btn-sm btn-success" (click)="listOrders()" i18n><i class="fa fa-search"> Search</i></button>
                 <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()" i18n><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
                 <button class="btn btn-info btn-sm text-white ml-1" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
@@ -153,8 +150,9 @@
           </div>
         </form>
 
-        <section class="row item-operation mb-3">
+        <section class="row item-operation mt-2">
           <div class="col-md-12">
+              <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item</strong>
           </div>
         </section>
 
@@ -356,7 +354,7 @@
                                   <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
-                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' || order.portal !== 'JAPAN'">
+                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
                                 </div>

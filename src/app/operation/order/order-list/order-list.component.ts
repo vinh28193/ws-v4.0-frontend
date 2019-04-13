@@ -31,6 +31,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
+    public totalOrder: any;
     public codeG: any;
     public checkLoad = false;
     public checkLoadG = false;
@@ -113,6 +114,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 // this.popup.success(result.message);
                 const data: any = result.data;
                 this.orders = data._items;
+                this.totalOrder = data.total;
                 // console.log(' data Order : ' + JSON.stringify(this.orders));
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
@@ -609,6 +611,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
           link = link + '?order_id=' + pro.order_id;
       }
       return link;
+  }
+
+  noTracking() {
   }
 }
 

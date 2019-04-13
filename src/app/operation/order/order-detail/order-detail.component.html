@@ -145,7 +145,7 @@
                   (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
                                     {{ ProFee.amount | currency: 'JPY' : '￥'}}
                                   </span>
-                  <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' || product.portal !== 'JAPAN'">
+                  <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
                                     {{ ProFee.amount | currency : 'USD' : '$'}}
                                   </span>):
                 </strong>
@@ -174,7 +174,7 @@
                         (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
                                     {{ ProFee.amount | currency: 'JPY' : '￥'}}
                                   </span>
-                        <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' || product.portal !== 'JAPAN'">
+                        <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
                                     {{ ProFee.amount | currency : 'USD' : '$'}}
                                   </span>):
                       </strong>
