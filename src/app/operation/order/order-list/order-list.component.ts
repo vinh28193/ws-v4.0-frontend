@@ -433,7 +433,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateAdjustPayment(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_paid_amount_local = order.total_paid_amount_local;
-        this.code = order.code;
+        this.code = order.ordercode;
         this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
