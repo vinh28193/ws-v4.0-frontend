@@ -28,6 +28,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pay: any = {};
     public orders: any = [];
     public total: any;
+    public statusO: any;
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -251,13 +252,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkF = !this.checkF;
     }
 
-    chat(id, code) {
+    chat(id, code, status) {
         this.checkLoad = true;
+        this.statusO = status;
         this.orderIdChat = id;
         this.code = code;
     }
 
-    chatG(id, code) {
+    chatG(id, code, status) {
+      this.statusO = status
         this.checkLoadG = true;
         this.orderIdChat = id;
         this.codeG = code;

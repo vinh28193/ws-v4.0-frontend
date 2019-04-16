@@ -15,6 +15,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public chatGroup: FormGroup;
   @Input() code: any = null;
   @Input() id: any = null;
+  @Input() status: any = null;
   public listChatG: any = [];
   public username: any;
   public loging: any;
@@ -61,6 +62,9 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     }
     if (this.code !== '') {
       params.Order_path = this.code;
+    }
+    if (this.status === 'NEW') {
+      params.isNew = 'yes';
     }
     params.type_chat = 'GROUP_WS';
     params.suorce = 'BACK_END';
