@@ -94,7 +94,7 @@
               <option value="PAID">PAID</option>
               <option value="UNPAID">UNPAID</option>
               <!--option value="SELLER_SHIPPED">REFUND PRTIAL</option-->
-              <option value="REFUND_FULL">REFUND FULL</option>
+              <!--<option value="REFUND_FULL">REFUND FULL</option>-->
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -112,10 +112,13 @@
             </select>
           </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label class="form-control-label" i18n>Policy</label>-->
+            <!--<label class="form-control-label" i18n>Service</label>-->
             <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
-              <!--<option [value]="allKey" i18n>&#45;&#45;All Policy&#45;&#45;</option>-->
-              <!--<option value="{{policy.id}}" *ngFor="let policy of getPolicy">{{policy.name}}</option>-->
+              <!--<option [value]="allKey" i18n>&#45;&#45;All Service&#45;&#45;</option>-->
+              <!--<option value=""></option>-->
+              <!--<option value=""></option>-->
+              <!--<option value=""></option>-->
+              <!--<option value=""></option>-->
             <!--</select>-->
           <!--</div>-->
           <div class="col-md-12 mt-1">
@@ -318,7 +321,7 @@
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status, order.total_paid_amount_local, order.walletTransactions?.transaction_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
 
@@ -685,6 +688,7 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Đánh dấu chờ phản hồi</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
@@ -1104,6 +1108,56 @@
           <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div id="orderChatRefund" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content" uib-modal-transclude="">
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white">Đánh dấu chờ phản hồi từ Shop, Khách hàng tại đơn : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>Close</span>
+        </button>
+      </div>
+      <div class="modal-body ng-scope">
+        <form class="form-horizontal confirmPaidOrder ng-pristine ng-valid">
+          <div class="row m-0">
+            <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+              <span>Vui lòng xác nhận thông tin dưới đây:</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_BARGAIN" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ mặc cả</label>
+            </div>
+            <div class="col-md-8">
+              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_CUSTOMER_REPLY" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ khách hàng phản hồi</label>
+            </div>
+            <div class="col-md-8">
+              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_SHOP_REPLY" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ Shop Trung Quốc phản hồi</label>
+              <div class="form-group" style="margin-left: 3px;">
+                <div class="col-md-12">
+                  <label class="text-danger">Link ảnh chụp trao đổi với Shop</label>
+                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="dataOrder.screenshot_chat_shop" name="screenshot_chat_shop" placeholder="Link ảnh chụp trao đổi với Shop">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-warning row" role="alert">
+            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_order" ng-model="dataOrder.messageReplyToCustomer" rows="4" placeholder="Gửi trao đổi đến khách hàng ..."></textarea>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer ng-scope">
+        <button class="btn btn-success btn-sm" type="button" ng-click="ok()">Approve</button>
+        <button class="btn btn-warning btn-sm" type="button" ng-click="cancel()">Close</button>
+      </div>
     </div>
   </div>
 </div>
