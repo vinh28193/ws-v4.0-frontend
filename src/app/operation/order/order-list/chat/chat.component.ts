@@ -63,8 +63,6 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
         if (this.code !== '') {
             params.Order_path = this.code;
         }
-        console.log('current:' + this.status);
-        console.log(this.status);
         if (this.status === 'NEW') {
             params.isNew = 'yes';
         }
