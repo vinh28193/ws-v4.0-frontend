@@ -147,6 +147,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             timeRange: '',
             type: this.allKey,
             orderStatus: this.allKey,
+            noTracking: this.allKey,
             portal: this.allKey,
             paymentRequest: this.allKey,
             page: this.currentPage,
@@ -209,6 +210,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         if (value.seller !== '' && value.seller !== 'ALL') {
             params.seller = value.seller;
+        }
+        if (value.noTracking !== '' && value.noTracking !== 'ALL') {
+          params.noTracking = value.noTracking;
         }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
@@ -613,28 +617,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       return link;
   }
 
-  noTracking() {
-    const params = 'tracking';
-    this.orderService.search(params).subscribe(response => {
-      const result: any = response;
-      if (result.message === 'Success') {
-        // this.popup.success(result.message);
-        const data: any = result.data;
-        this.orders = data._items;
-        this.totalOrder = data.total;
-        // console.log(' data Order : ' + JSON.stringify(this.orders));
-        this.orders = Object.entries(data._items).map(e => {
-          return e[1];
-        });
-        this.totalCount = data.totalCount;
-        this.pageCount = data.pageCount;
-        this.currentPage = data.page;
-        this.perPage = data.size;
-      } else {
-        this.popup.error(result.message);
-      }
-    });
-  }
   paid(totalpaid, price) {
       if (totalpaid > 0 && price.length > 0 && price.transaction_amount_local !== 0) {
         return true;

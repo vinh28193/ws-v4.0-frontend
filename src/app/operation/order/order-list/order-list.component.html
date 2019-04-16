@@ -104,9 +104,13 @@
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label class="form-control-label">No Tracking</label><br>-->
-          <!--</div>-->
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">No Tracking</label>
+            <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
+            <option [value]="allKey" i18n>--TracKing--</option>
+            <option value="1">No Tracking</option>
+            </select>
+          </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
             <!--<label class="form-control-label" i18n>Policy</label>-->
             <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
@@ -116,7 +120,6 @@
           <!--</div>-->
           <div class="col-md-12 mt-1">
             <div class="button-group">
-                <button class="btn btn-sm btn-default" (click)="noTracking()">No Tracking</button>
                 <button class="btn btn-sm btn-success" (click)="listOrders()" i18n><i class="fa fa-search"> Search</i></button>
                 <button class="btn btn-sm btn-danger ml-2" (click)="buildSearchForm()" i18n><i class="fa fa-refresh" aria-hidden="true"> Refresh</i></button>
                 <button class="btn btn-info btn-sm text-white ml-1" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
