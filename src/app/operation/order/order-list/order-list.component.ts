@@ -306,7 +306,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkMarkAsJunk(status, price, TransactionStatus) {
       if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' || status === 'CANCEL') {
-        if (price = 0 && TransactionStatus !== 'DONE') {
+        if (price = 0) {
           return true;
         }
       }
@@ -623,7 +623,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   paid(totalpaid, price) {
-      if (totalpaid > 0 && price.length > 0 && price.transaction_amount_local !== 0) {
+      if (totalpaid > 0) {
         return true;
       }
   }
