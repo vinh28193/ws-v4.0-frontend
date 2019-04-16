@@ -4,6 +4,12 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
 import {EventEmitter} from '@angular/core';
+
+export const listChats = [
+    {name: 'kh gọi sao không nghe máy'},
+    {name: 'người mua không uy tín'},
+];
+
 declare var $: any;
 
 @Component({
@@ -11,9 +17,10 @@ declare var $: any;
   templateUrl: './chat-group.component.html',
   styleUrls: ['./chat-group.component.css']
 })
+
 export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public chatGroup: FormGroup;
-  @Input() code: any = null;
+  @Input() code: any = 'null';
   @Input() id: any = null;
   public listChatG: any = [];
   public username: any;
@@ -44,6 +51,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   createChatG() {
     const params = this.prepare();
     const messagePop = params.message;
+
     this.popup.warningChat(() => {
       this.orderService.postChat(params).subscribe(res => {
         this.chatGroupAll();
@@ -51,17 +59,35 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
       });
     }, messagePop);
   }
+
   prepare() {
     const value = this.chatGroup.value;
+    var  is_supporting = 0;
     const params: any = {};
     if (value.message !== '') {
+
       params.message = value.message;
+      console.log(params.message.toLowerCase());
+      //code vandinh - check string mes chat group
+      
+      for(var i=0;i < listChats.length ; i++)
+      {
+        if(listChats[i].name == params.message.toLowerCase())
+        {
+          is_supporting = 1;
+          break;
+        }
+      }
+      
+      //end code vandinh
     }
     if (this.code !== '') {
       params.Order_path = this.code;
     }
     params.type_chat = 'GROUP_WS';
     params.suorce = 'BACK_END';
+    params.is_supporting = is_supporting;
+    console.log(params);
     return params;
   }
 

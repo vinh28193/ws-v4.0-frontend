@@ -78,9 +78,11 @@ export class PopupService {
       cancelButtonText: 'Back',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-    }).then(function () {
+    }).then(function (response) {
       funcAction();
+  
       return true;
+     
     }, function (dismiss) {
       // dismiss can be 'cancel', 'overlay',
       // 'close', and 'timer'
@@ -94,8 +96,9 @@ export class PopupService {
           funcDismiss();
         }
       }
-      return false;
+      return dismiss;
     });
+   
   }
 
     confirm(funcAction, message, action = 'remove') {

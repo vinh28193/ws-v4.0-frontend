@@ -28,6 +28,7 @@ export class OrderService extends OperationService {
     }
 
     postChat(item: any | undefined) {
+        console.log(item);
         return this.post(`chat`, item);
     }
 
