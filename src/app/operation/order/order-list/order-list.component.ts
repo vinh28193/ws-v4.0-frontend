@@ -304,9 +304,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-    checkMarkAsJunk(status) {
-      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' ) {
-        return true;
+    checkMarkAsJunk(status, price, TransactionStatus) {
+      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' || status === 'CANCEL') {
+        if (price = 0 && TransactionStatus !== 'DONE') {
+          return true;
+        }
       }
     }
     markAsJunk(id) {
