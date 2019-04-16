@@ -2,7 +2,7 @@
   <div class="modal-body ng-scope">
     <div class="container">
       <div class="row">
-        <div id="tab1" *ngIf="!promotion_id" class="tab-slider--body">
+        <div id="tab1" *ngIf="!promotion_id" class="tab-slider--body" style="width: 100%">
           <div class="row">
             <div class="col-md-12">
               <label for="" i18n>Select Promotion Code</label>
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div id="tab2" *ngIf="promotion_id" class="tab-slider--body">
+        <div id="tab2" *ngIf="promotion_id" class="tab-slider--body" style="width: 100%">
           <div class="row mt-2">
             <div class="col-md-6">
               <label for="" i18n>Start Time</label>
@@ -79,6 +79,7 @@
     </div>
   </div>
   <div class="modal-footer ng-scope">
-    <button class="btn btn-success" type="button" (click)="updatePromotionOrder()" i18n>Update</button>
+    <button class="btn btn-success btn-sm" type="button" (click)="updatePromotionOrder()" i18n>Update</button>
+    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" (click)="clickOff()" i18n>Cancel</button>
   </div>
 </form>

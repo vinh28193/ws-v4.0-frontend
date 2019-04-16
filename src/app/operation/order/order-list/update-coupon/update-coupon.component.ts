@@ -15,10 +15,12 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
   @Input() ordercode: any;
   @Input() store_id: any;
   @Output() checkEdit = new EventEmitter();
+  @Output() checkOffC = new EventEmitter();
   formEditCoupon: FormGroup;
   public coupon: any;
   public listCoupon: any = [];
   public checkDisabled: boolean = false;
+  public checkOffCoupon: boolean = false;
   public checkLoadAmount: boolean = false;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -86,6 +88,11 @@ export class UpdateCouponComponent extends OrderDataComponent implements OnInit 
     }
     params.ordercode = this.ordercode;
     return params;
+  }
+
+  clickOffCoupon() {
+    this.checkOffCoupon = true;
+    this.checkOffC.emit(this.checkOffCoupon);
   }
 
   updatePromotionOrder() {

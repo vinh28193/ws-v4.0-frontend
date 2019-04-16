@@ -104,13 +104,13 @@
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label class="form-control-label" i18n>Seller</label>-->
-            <!--<select class="form-control form-control-sm" name="seller" id="seller" formControlName="seller">-->
-              <!--<option [value]="allKey" i18n>&#45;&#45;All Seller&#45;&#45;</option>-->
-              <!--<option value="{{seller.id}}" *ngFor="let seller of listSeller">{{seller.seller_name}}</option>-->
-            <!--</select>-->
-          <!--</div>-->
+          <div class="col-md-3 col-sm-6 form-group m-b-10">
+            <label class="form-control-label">No Tracking</label>
+            <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
+            <option [value]="allKey" i18n>--TracKing--</option>
+            <option value="1">No Tracking</option>
+            </select>
+          </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
             <!--<label class="form-control-label" i18n>Policy</label>-->
             <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
@@ -153,8 +153,9 @@
           </div>
         </form>
 
-        <section class="row item-operation mb-3">
+        <section class="row item-operation mt-2">
           <div class="col-md-12">
+              <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item</strong>
           </div>
         </section>
 
@@ -183,8 +184,8 @@
                                     class="Paid badge badge-pill badge-{{order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
                                     {{order.current_status}}
                                   </span> /
-                                  <span title="OrderItem-paid" *ngIf="order.total_paid_amount_local > 0" class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span> <!--check payment transaction-->
-                                  <span title="Order-Unpaid" *ngIf="order.total_paid_amount_local == 0" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
+                                  <span title="OrderItem-paid" *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)" class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span> <!--check payment transaction-->
+                                  <span title="Order-Unpaid" *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -247,8 +248,10 @@
                               </div>
                               <hr style="margin: 5px;">
 
-                              <div class=" mt-1">
-                                <i class="fa fa-truck"></i> Warehouse:
+                              <div class=" mt-1" *ngIf="order.purchaseProducts && order.purchaseProducts.length > 0">
+                                <div *ngFor="let purchase of order.purchaseProducts">
+                                  <i class="fa fa-truck"></i> Warehouse: <b>{{purchase.receive_warehouse_name}}</b>
+                                </div>
                               </div>
 
                               <br>
@@ -315,7 +318,7 @@
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="checkMarkAsJunk(order.current_status, order.total_paid_amount_local, order.walletTransactions?.transaction_status) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
 
@@ -348,15 +351,19 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <span i18n >Units Price:</span>
+                                  <strong><span i18n>Units Price:</span>
+                                    ( <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    </span>
+                                    <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                      {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
+                                    </span>)
+                                  </strong>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
-                                  <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    <span>{{order.total_origin_fee_local | number}}
                                   </span>
-                                  <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' || order.portal !== 'JAPAN'">
-                                    {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
-                                  </span>
+                                  <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -583,7 +590,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                    <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
                                     </button>
@@ -712,7 +719,7 @@
                                 <app-package-item [hidden]="!pack[order.id]" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab" class="tab-slider--body">
-                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
@@ -766,7 +773,7 @@
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat"  [status]="orderChatStatus" [code]="code"></app-chat>
+                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat"  [status]="statusO" [code]="code"></app-chat>
                     </div>
                   </div>
                 </div>
@@ -794,7 +801,7 @@
                 <div class="col-md-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [code]="codeG"></app-chat-group>
+                      <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [status]="statusO" [code]="codeG"></app-chat-group>
                     </div>
                   </div>
                 </div>
@@ -934,14 +941,14 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title " i18n >Update Coupon: <span class="ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Update Coupon: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-coupon (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" (checkOffC)="handCheckPromotion($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
     </div>
   </div>
 </div>
@@ -949,14 +956,14 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title " i18n >Update Promotion: <span class="ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Update Promotion: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >close</span>
         </button>
       </div>
-      <app-update-promotion (checkEdit)="handleChangeAmount($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
+      <app-update-promotion (checkEdit)="handleChangeAmount($event)" (checkOff)="handCheckPromotion($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
     </div>
   </div>
 </div>
@@ -966,29 +973,41 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n>Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkOpenAdJustPayment == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-           <div class="col-md-6">
-             <label i18n >Total Paid Amount Local</label>
-             <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
-             <label style="font-size: 2em; color: red">Price :
-               <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
-               <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
-             </label>
-           </div>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền thanh toán</span>
+              </div>
+            </div>
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n >Total Paid Amount Local</label>
+                <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
+                <label style="font-size: 2em; color: red">Price :
+                  <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                  <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
+                </label>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="confirmAdjustPayment()">Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" >Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="confirmAdjustPayment()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>
@@ -999,29 +1018,41 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n >Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkOpenPayBack == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-            <div class="col-md-6">
-              <label i18n >Total refund Amount Local</label>
-              <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
-              <label style="font-size: 2em; color: red" ><p>Price : </p>
-                <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
-                <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
-              </label>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền trả lại khách hàng</span>
+              </div>
+            </div>
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n >Total refund Amount Local</label>
+                <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
+                <label style="font-size: 2em; color: red" ><span>Price : </span>
+                  <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                </label>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="updatePayBack()" i18n>Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="updatePayBack()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>
@@ -1032,33 +1063,45 @@
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
-      <div class="modal-header ng-scope">
-        <h3 class="modal-title text-primary" i18n>Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
-          <span aria-hidden="true">×</span>
+          <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <form [formGroup] = "editForm" *ngIf="checkSellerRefund == true">
         <div class="modal-body ng-scope">
-          <div class="row">
-            <div class="col-md-6">
-              <label i18n>Purchase Amount Buck</label>
-              <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
-              <label style="font-size: 2em; color: red">Price :
-                <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
-                <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_buck').value | number}}{{store_id | currencyStore}}</span>
-              </label>
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span>Vui lòng nhập số tiền người bán hoàn</span>
+              </div>
             </div>
-            <div class="col-md-6">
-              <label i18n>Purchase Amount Refund</label>
-              <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n>Purchase Amount Refund</label>
+                <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
+                <label style="font-size: 2em; color: red">Price :
+                  <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
+                  <span *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label i18n>Purchase Amount Buck</label>
+                <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
+                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
-          <button class="btn btn-success" type="button" (click)="updateSellerRefund()" i18n>Confirm</button>
-          <button class="btn btn-danger" type="button" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-success btn-sm" type="button" (click)="updateSellerRefund()" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
         </div>
       </form>
     </div>

@@ -3,7 +3,8 @@ import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
-
+import {ModalDirective} from 'ngx-bootstrap';
+declare var $: any;
 @Component({
   selector: 'app-package-item',
   templateUrl: './package-item.component.html',
@@ -47,13 +48,13 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   addPackageItem() {
     const params = this.preparPackagesss();
-    console.log(params);
     this.orderService.post('package-item', params).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
         this.popup.success(rs.message);
         this.buildCreate();
         this.listPackageItem();
+        $('.modal').modal('hide');
       } else {
         this.popup.error(rs.message);
       }

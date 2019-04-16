@@ -28,9 +28,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pay: any = {};
     public orders: any = [];
     public total: any;
+    public statusO: any;
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
+    public totalOrder: any;
     public codeG: any;
     public checkLoad = false;
     public checkLoadG = false;
@@ -113,6 +115,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 // this.popup.success(result.message);
                 const data: any = result.data;
                 this.orders = data._items;
+                this.totalOrder = data.total;
                 // console.log(' data Order : ' + JSON.stringify(this.orders));
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
@@ -145,6 +148,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             timeRange: '',
             type: this.allKey,
             orderStatus: this.allKey,
+            noTracking: this.allKey,
             portal: this.allKey,
             paymentRequest: this.allKey,
             page: this.currentPage,
@@ -208,6 +212,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.seller !== '' && value.seller !== 'ALL') {
             params.seller = value.seller;
         }
+        if (value.noTracking !== '' && value.noTracking !== 'ALL') {
+          params.noTracking = value.noTracking;
+        }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
         }
@@ -245,13 +252,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkF = !this.checkF;
     }
 
-    chat(id, code) {
+    chat(id, code, status) {
         this.checkLoad = true;
+        this.statusO = status;
         this.orderIdChat = id;
         this.code = code;
     }
 
-    chatG(id, code) {
+    chatG(id, code, status) {
+      this.statusO = status
         this.checkLoadG = true;
         this.orderIdChat = id;
         this.codeG = code;
@@ -295,9 +304,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-    checkMarkAsJunk(status) {
-      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' ) {
-        return true;
+    checkMarkAsJunk(status, price, TransactionStatus) {
+      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' || status === 'CANCEL') {
+        if (price = 0) {
+          return true;
+        }
       }
     }
     markAsJunk(id) {
@@ -433,7 +444,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateAdjustPayment(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_paid_amount_local = order.total_paid_amount_local;
-        this.code = order.code;
+        this.code = order.ordercode;
         this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
@@ -481,6 +492,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
+        $('.modal').modal('hide');
     }
 
     getChangeAmount(price1, price2) {
@@ -517,12 +529,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    getCheckAction() {
-        if ( this._scope.checkSale() || this._scope.checkMasterSale()) {
-           return true;
-        }
-    }
-
     CheckSale() {
         if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
             return true;
@@ -533,6 +539,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
         this.checkOpenPayBack = true;
+        this.code = order.ordercode;
         this.store_id = order.store_id;
         this.editForm = this.fb.group({
             total_refund_amount_local: this.total_refund_amount_local
@@ -590,50 +597,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
     handleChangeAmount(event) {
         if (event) {
             $('.modal').modal('hide');
             this.listOrders();
         }
     }
+  handCheckPromotion(event) {
+      if (event) {
+        this.checkOpenPromotion = false;
+        this.checkOpenCoupon = false;
+        $('.modal').modal('hide');
+      }
+  }
+  buyNow(item) {
+  }
+  getLinkBuynow(pro) {
+      let link = pro.link_origin;
+      if (link.indexOf('?')) {
+          link = link + '&order_id=' + pro.order_id;
+      } else {
+          link = link + '?order_id=' + pro.order_id;
+      }
+      return link;
+  }
 
-    buyNow(item) {
-    }
-
-    getOpen(id, tab) {
-    }
-
-    getLinkBuynow(pro) {
-        let link = pro.link_origin;
-        if (link.indexOf('?')) {
-            link = link + '&order_id=' + pro.order_id;
-        } else {
-            link = link + '?order_id=' + pro.order_id;
-        }
-        return link;
-    }
-
-    checkSale() {
-        if (localStorage.getItem('scope') === 'sale' ||
-            localStorage.getItem('scope') === 'master_sale' ||
-            localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
-
-    checkOperation() {
-        if (localStorage.getItem('scope') === 'operation' ||
-            localStorage.getItem('scope') === 'master_operation' ||
-            localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
-
-    checkSPAdmin() {
-        if (localStorage.getItem('scope') === 'superAdmin') {
-            return true;
-        }
-    }
+  paid(totalpaid, price) {
+      if (totalpaid > 0) {
+        return true;
+      }
+  }
 }
 

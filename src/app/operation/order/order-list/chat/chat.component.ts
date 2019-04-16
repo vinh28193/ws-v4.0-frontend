@@ -47,9 +47,6 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
       const params = this.prepare();
       const messagePop = params.message;
       this.popup.warningChat(() => {
-        const put = this.orderService.createPostParams({
-          current_status: 'CANCEL',
-        }, 'updateStatus');
         this.orderService.postChat(params).subscribe(res => {
           this.buildChat();
           this.chatCustomerAll();
@@ -66,7 +63,6 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
         if (this.code !== '') {
             params.Order_path = this.code;
         }
-        console.log('current:' + this.status);
         if (this.status === 'NEW') {
             params.isNew = 'yes';
         }
