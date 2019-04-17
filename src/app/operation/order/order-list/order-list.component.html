@@ -674,7 +674,7 @@
                               </div>
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
-                                  <div class="btn-group">
+                                  <div class="btn-group mr-2 mb-2">
                                     <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)" i18n>
                                       <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
                                     </button>
@@ -688,11 +688,14 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Đánh dấu chờ phản hồi</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption && !order.mark_supporting" id="Đánh dấu chờ phản hồi" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)"><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Đánh dấu chờ phản hồi</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id = "Đánh dấu chờ phản hồi OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark orders waiting for feedback</a>
                                       </div>
                                     </div>
+                                  </div>
+                                  <div class="btn-group">
+                                    <button *ngIf="order.mark_supporting" class="btn btn-sm btn-default"><i class="fa fa-check mr-1"></i>{{order.mark_supporting | markSupporting}}</button>
                                   </div>
                                 </div>
                               </div>
@@ -1117,46 +1120,50 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Đánh dấu chờ phản hồi từ Shop, Khách hàng tại đơn : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white">Mark waiting for feedback from the seller : <span class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <div class="modal-body ng-scope">
-        <form class="form-horizontal confirmPaidOrder ng-pristine ng-valid">
+      <div class="modal-body ng-scope" *ngIf="checkOrderChatRefund">
+        <form [formGroup] = "editForm">
           <div class="row m-0">
             <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
               <span>Vui lòng xác nhận thông tin dưới đây:</span>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-8">
-              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_BARGAIN" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ mặc cả</label>
+          <div class="row row mt-2 pl-3">
+            <div class="col-md-8 mt-1">
+              <label>
+                <input type="radio"  name="wait" formControlName="wait1" value="1"> Chờ mặc cả</label>
             </div>
-            <div class="col-md-8">
-              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_CUSTOMER_REPLY" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ khách hàng phản hồi</label>
+            <div class="col-md-8 mt-1">
+              <label>
+                <input type="radio" name="wait" formControlName="wait2" value="2"> Chờ khách hàng phản hồi
+              </label>
             </div>
-            <div class="col-md-8">
-              <label style="cursor: pointer"><input type="radio" ng-model="dataOrder.markPendingReply" name="processStatus" value="WAIT_SHOP_REPLY" class="ng-pristine ng-untouched ng-valid ng-not-empty"> Chờ Shop Trung Quốc phản hồi</label>
-              <div class="form-group" style="margin-left: 3px;">
+            <div class="col-md-8 mt-1">
+              <label>
+                <input type="radio"  name="wait" formControlName="wait3" value="3"> Chờ người bán phản hồi
+              </label>
+              <div class="form-group mt-1" style="margin-left: 3px;">
                 <div class="col-md-12">
                   <label class="text-danger">Link ảnh chụp trao đổi với Shop</label>
-                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="dataOrder.screenshot_chat_shop" name="screenshot_chat_shop" placeholder="Link ảnh chụp trao đổi với Shop">
+                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty mt-1" formControlName="link_image"  name="screenshot_chat_shop" placeholder="Link ảnh chụp trao đổi với Shop">
                 </div>
               </div>
             </div>
           </div>
           <div class="alert alert-warning row" role="alert">
-            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_order" ng-model="dataOrder.messageReplyToCustomer" rows="4" placeholder="Gửi trao đổi đến khách hàng ..."></textarea>
-
+            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_order" rows="4" formControlName="messageCustomer" placeholder="Gửi trao đổi đến khách hàng ..."></textarea>
           </div>
         </form>
 
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-success btn-sm" type="button" ng-click="ok()">Approve</button>
-        <button class="btn btn-warning btn-sm" type="button" ng-click="cancel()">Close</button>
+        <button class="btn btn-success btn-sm" type="button" (click)="updateMarkWaiting()">Approve</button>
+        <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
   </div>
