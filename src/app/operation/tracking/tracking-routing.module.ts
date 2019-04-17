@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {TrackingRoutingComponent} from './tracking-routing.component';
 import {TrackingListComponent} from './tracking-list/tracking-list.component';
+import {TrackingExtensionComponent} from './tracking-extension/tracking-extension.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
             {
                 path: 'list',
                 component: TrackingListComponent
+            },
+            {
+                path: 'tracking-extension',
+                component: TrackingExtensionComponent
             }
         ]
     }
