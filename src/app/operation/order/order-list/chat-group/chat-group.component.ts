@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
 import {EventEmitter} from '@angular/core';
+
+
 declare var $: any;
 
 @Component({
@@ -11,10 +13,12 @@ declare var $: any;
   templateUrl: './chat-group.component.html',
   styleUrls: ['./chat-group.component.css']
 })
+
 export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public chatGroup: FormGroup;
-  @Input() code: any = null;
+  @Input() code: any = 'null';
   @Input() id: any = null;
+  @Input() status: any = null;
   public listChatG: any = [];
   public username: any;
   public loging: any;
@@ -46,6 +50,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   createChatG() {
     const params = this.prepare();
     const messagePop = params.message;
+
     this.popup.warningChat(() => {
       this.orderService.postChat(params).subscribe(res => {
         this.chatGroupAll();
@@ -53,17 +58,25 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
       });
     }, messagePop);
   }
+
   prepare() {
     const value = this.chatGroup.value;
     const params: any = {};
     if (value.message !== '') {
+
       params.message = value.message;
+      console.log(params.message.toLowerCase());
+    
     }
     if (this.code !== '') {
       params.Order_path = this.code;
     }
+    if (this.status === 'NEW') {
+      params.isNew = 'yes';
+    }
     params.type_chat = 'GROUP_WS';
     params.suorce = 'BACK_END';
+    console.log(params);
     return params;
   }
 
