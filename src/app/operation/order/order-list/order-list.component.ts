@@ -31,6 +31,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
+    public countLC: any;
     public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
@@ -127,6 +128,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 });
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
+                this.countLC = data._summary.countLC;
                 this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
