@@ -52,6 +52,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
+    public chatSupporting: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -68,6 +69,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public status: any;
     public checkF = false;
     public store_id: any;
+    public message1: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -80,7 +82,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
-
+    public chatlists : any = [];
     constructor(private orderService: OrderService,
                 private router: Router,
                 private popup: PopupService,
@@ -95,18 +97,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        this.chatSupporting = this.fb.group({
+          message1: '',
+        });
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildSearchForm();
         this.listOrders();
+        this.listChatsSupporting();
         this.searchKeys = searchKeys;
         this.timeKeys = timeKeys;
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
     }
+    createChatSupporting()
+    {
+        console.log(this.message1);
+     const contentChats = this.chatSupporting.value;
+     console.log(this.chatSupporting.value) ;
+    }
+    listChatsSupporting()
+    {
+      this.orderService.get(`chatlists`, 1).subscribe(res => {
+      const result1: any = res;
+      this.chatlists = result1.data;
+      console.log(this.chatlists) ;
 
+    });
+    }
     listOrders() {
         const params = this.prepareSearch();
         this.orderService.search(params).subscribe(response => {

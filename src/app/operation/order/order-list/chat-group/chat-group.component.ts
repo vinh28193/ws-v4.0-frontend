@@ -5,10 +5,6 @@ import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
 import {EventEmitter} from '@angular/core';
 
-export const listChats = [
-    {name: 'kh gọi sao không nghe máy'},
-    {name: 'người mua không uy tín'},
-];
 
 declare var $: any;
 
@@ -65,24 +61,12 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
 
   prepare() {
     const value = this.chatGroup.value;
-    var  is_supporting = 0;
     const params: any = {};
     if (value.message !== '') {
 
       params.message = value.message;
       console.log(params.message.toLowerCase());
-      //code vandinh - check string mes chat group
-      
-      for(var i=0;i < listChats.length ; i++)
-      {
-        if(listChats[i].name == params.message.toLowerCase())
-        {
-          is_supporting = 1;
-          break;
-        }
-      }
-      
-      //end code vandinh
+    
     }
     if (this.code !== '') {
       params.Order_path = this.code;
@@ -92,7 +76,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     }
     params.type_chat = 'GROUP_WS';
     params.suorce = 'BACK_END';
-    params.is_supporting = is_supporting;
     console.log(params);
     return params;
   }
