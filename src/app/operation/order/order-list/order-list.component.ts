@@ -29,6 +29,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orders: any = [];
     public total: any;
     public statusO: any;
+    public totalUnPaid: any;
+    public countPurchase: any;
+    public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -122,6 +125,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
                 });
+                this.totalUnPaid = data._summary.totalUnPaid;
+                this.countPurchase = data._summary.countPurchase;
+                this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
                 this.currentPage = data.page;
