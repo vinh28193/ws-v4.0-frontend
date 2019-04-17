@@ -29,6 +29,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orders: any = [];
     public total: any;
     public statusO: any;
+    public totalUnPaid: any;
+    public countPurchase: any;
+    public countLC: any;
+    public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -58,6 +62,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOpenPayBack = false;
     public checkSellerRefund = false;
     public checkOpenCoupon = false;
+    public checkOrderChatRefund = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -70,6 +75,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkF = false;
     public store_id: any;
     public message1: any;
+    public markID: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -140,6 +146,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
                 });
+                this.totalUnPaid = data._summary.totalUnPaid;
+                this.countPurchase = data._summary.countPurchase;
+                this.countLC = data._summary.countLC;
+                this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
                 this.currentPage = data.page;
@@ -510,6 +520,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
+        this.checkOrderChatRefund = false;
         $('.modal').modal('hide');
     }
 
@@ -646,6 +657,57 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       } else {
         return false;
       }
+  }
+  openOrderChatRefund(order) {
+      this.code = order.ordercode;
+      this.markID = order.id;
+      this.checkOrderChatRefund = true;
+      this.editForm = this.fb.group({
+        wait1: '',
+        wait2: '',
+        wait3: '',
+        link_image: '',
+        messageCustomer: '',
+      });
+  }
+  updateMarkWaiting() {
+    const params = this.prepareMarkWaiting();
+    const messagePop = 'Do you want mark supporting';
+    this.popup.warning(() => {
+      const put = this.orderService.createPostParams({
+        mark_supporting: params.mark,
+        current_status: 'SUPPORTING',
+      }, 'updateMarkSupporting');
+      this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
+  prepareMarkWaiting() {
+    const value = this.editForm.value;
+    const params: any = {};
+    if (value.messageCustomer !== '') {
+      params.messageCustomer = value.messageCustomer;
+    }
+    if (value.link_image !== '') {
+      params.link_image = value.link_image;
+    }
+    if (value.wait1 !== '') {
+      params.mark = value.wait1;
+    }
+    if (value.wait2 !== '') {
+      params.mark = value.wait2;
+    }
+    if (value.wait3 !== '') {
+      params.mark = value.wait3;
+    }
+    // params.type_chat = 'GROUP_WS';
+    // params.suorce = 'BACK_END';
+    return params;
   }
 }
 
