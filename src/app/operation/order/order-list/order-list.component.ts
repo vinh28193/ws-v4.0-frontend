@@ -209,9 +209,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
             params.paymentStatus = value.paymentStatus;
         }
-        if (value.seller !== '' && value.seller !== 'ALL') {
-            params.seller = value.seller;
-        }
+        // if (value.seller !== '' && value.seller !== 'ALL') {
+        //     params.seller = value.seller;
+        // }
         if (value.noTracking !== '' && value.noTracking !== 'ALL') {
           params.noTracking = value.noTracking;
         }
@@ -304,11 +304,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-    checkMarkAsJunk(status, price, TransactionStatus) {
-      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' || status === 'CANCEL') {
-        if (price = 0) {
+    checkMarkAsJunk(status, priceCheck) {
+      if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
           return true;
-        }
       }
     }
     markAsJunk(id) {
@@ -625,6 +623,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   paid(totalpaid, price) {
       if (totalpaid > 0) {
         return true;
+      } else {
+        return false;
       }
   }
 }
