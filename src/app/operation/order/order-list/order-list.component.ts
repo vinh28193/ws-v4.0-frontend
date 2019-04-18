@@ -26,6 +26,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
+    public pur: any = {};
+    public click_pur: any = {};
     public orders: any = [];
     public total: any;
     public statusO: any;

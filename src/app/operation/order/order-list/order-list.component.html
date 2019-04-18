@@ -724,6 +724,9 @@
                                 <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
+                                </li>
                               </ul>
                             </div>
                             <div class="col-md-12 pl-0 mt-2 tab-slider--container">
@@ -735,6 +738,9 @@
                               </div>
                               <div id="tab" class="tab-slider--body">
                                 <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                              </div>
+                              <div id="tab4" class="tab-slider--body">
+                                <app-purchase-info [hidden]="!pur[order.id]" [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
@@ -1189,17 +1195,11 @@
         </button>
       </div>
       <div class="modal-body ng-scope">
-
-      <form class="form-horizontal confirmPaidOrder ng-pristine ng-valid"  [formGroup]="chatSupporting">
-
           <!-- Tab panes -->
- 
                <div class="alert alert-warning row" role="alert">
                 <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" [(ngModel)] = "message1" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Nhập tin nhắn hỗ trợ nội bộ..."></textarea>
 
               </div>
-          
-        </form>
         <table class="table">
           <thead>
             <tr>

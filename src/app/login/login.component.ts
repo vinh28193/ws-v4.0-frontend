@@ -15,7 +15,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     public username = '';
     public password = '';
-    public loading: boolean = false;
+    public loading = false;
 
     constructor(
         private authService: AuthService,
