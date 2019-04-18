@@ -1,5 +1,5 @@
 <div class="col-md-12 p-o m-0 col-xl-12 chat">
-  <form action="" [formGroup]="chatGroup">
+  <form action="" [formGroup]="chatGroup" id="chatGroup">
     <div class="card m-0 p-0">
       <div class="card-header msg_head">
         <div class="d-flex bd-highlight">
@@ -57,9 +57,9 @@
           <div class="card-body">
             <div class="input-group">
               <textarea name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChatG()" formControlName="message"
-                        placeholder="Nhập nội dung trao đổi.
-Nhấn Shift + Enter để xuống dòng.
-Enter để gửi">
+                        placeholder="Enter the exchange content.
+                        Press Shift + Enter to get down the line.
+                        Enter to send" i18n-placeholder>
               </textarea>
               <div class="input-group-btn">
                 <button style="height: 80px;" class="btn btn-default" (click)="createChatG()" i18n>Sent</button>
@@ -71,11 +71,3 @@ Enter để gửi">
     </div>
   </form>
 </div>
-<script>
-  $("textarea").keypress(function(event) {
-    if (event.keyCode == 13 && !event.shiftKey) {
-      submitForm(); //Submit your form here
-      return false;
-    }
-  });
-</script>
