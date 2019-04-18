@@ -1249,8 +1249,8 @@
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
           <context context-type="linenumber">142</context>
         </context-group>
-      </trans-unit><trans-unit id="25712b899c1ca486da25dd98062d828906620db6" datatype="html">
-        <source>(Download File excel ,Example : 18042019-LOWS-VN-HN003)</source><target state="translated">(Tải xuống tệp excel, Ví dụ: 18042019-LOWS-VN-HN003)</target>
+      </trans-unit><trans-unit id="f1aa21e3e450e6a95b1ad6df7b64db4c0b0954c0" datatype="html">
+        <source>(Download File excel ,Example : TrackingCode.xlsx)</source><target state="translated">(Tải xuống tệp excel, Ví dụ: TrackCode.xlsx)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
           <context context-type="linenumber">143</context>
