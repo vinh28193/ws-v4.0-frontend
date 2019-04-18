@@ -746,12 +746,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         paymentStatus: item,
       });
     }
-    if (item === '10STOCKOUT_US') {
-      this.searchForm.patchValue({
-        noTracking: item,
-      });
-    }
-    if (item === 'SHIPPED5') {
+    if (item === '10STOCKOUT_US' || item === 'SHIPPED5' || item === 'PURCHASED2DAY') {
       this.searchForm.patchValue({
         noTracking: item,
       });
