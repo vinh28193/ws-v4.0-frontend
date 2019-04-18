@@ -1,0 +1,279 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-block">
+            <div class="header-content">
+                <h3>
+                    List tracking extension
+                    <a href="javascript:void (0);" class="text-danger"
+                       (click)="filter.trackingCode = 'none'; getList()">No tracking <i
+                            class="fa fa-filter"></i> |&nbsp;</a>
+                    <a href="javascript:void (0);" class="text-info">2 day not received <i class="fa fa-filter"></i> |&nbsp;</a>
+                    <a href="javascript:void (0);" class="text-warning">3 day not Us Sending <i
+                            class="fa fa-filter"></i></a>
+                </h3>
+            </div>
+            <div class="body-content bg-white">
+                <div class="row col-md-12">
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.orderCode" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Order Code">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.orderId" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Order id">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.trackingCode" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Tracking code">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.sku" class="form-control form-control-sm" (keydown.enter)="getList()"
+                               type="text"
+                               placeholder="Sku">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.purchaseInvoice" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Purchase invoice">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.manifestCode" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Manifest Code">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input [(ngModel)]="filter.packageCode" class="form-control form-control-sm"
+                               (keydown.enter)="getList()" type="text"
+                               placeholder="Package Code">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <select class="form-control form-control-sm" [(ngModel)]="filter.status" (change)="getList()">
+                            <option value=""> --- Status tracking ---</option>
+                            <option value="Deviling">Deviling</option>
+                            <option value="UsReceived">Us Received</option>
+                            <option value="UsSending">Us Sending</option>
+                            <option value="LocalReceived">Local Received</option>
+                            <option value="LocalShipping">Local Shipping</option>
+                            <option value="AtCustomer">At Customer</option>
+                            <option value="Lost">Lost</option>
+                            <option value="Refund">Refund</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 btn-group">
+                        <button class="btn btn-sm btn-outline-dark" (click)="getList()"><i class="fa fa-search"></i>
+                            Search
+                        </button>
+                        <button class="btn btn-sm btn-outline-dark" (click)="clearForm()"><i class="fa fa-refresh"></i>
+                            Clear
+                        </button>
+                        <button class="btn btn-sm btn-outline-dark"><i class="fa fa-download"></i> Export</button>
+                        <button class="btn btn-sm btn-outline-dark"><i class="fa fa-upload"></i> Update</button>
+                        <button class="btn btn-sm btn-outline-dark" (click)="usReveicedModal.show()"><i class="fa fa-vote-yea"></i> Mark Us Received
+                        </button>
+                        <button class="btn btn-sm btn-outline-dark"><i class="fa fa-walking"></i> Mark Us Send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="body-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row list-summary">
+                            <div class="col-md-6">
+                                <span i18n>Showing</span>
+                                <select class="form-control-sm select-custom"
+                                        [(ngModel)]="perPage" (change)="getList()">
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="all">All</option>
+                                </select>
+                                <span>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+                            </div>
+                            <div class="col-md-6">
+                                <pagination [boundaryLinks]="true"
+                                            [totalItems]="totalCount"
+                                            (pageChanged)="handlePagination($event)"
+                                            [maxSize]="10"
+                                            [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                                            [rotate]="true">
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="15%">Tracking info</th>
+                                <th width="35%">Order info</th>
+                                <th width="35%">Purchase info</th>
+                                <th width="10%">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let datum of data;let ind = index;">
+                                <td>{{ind + 1}}</td>
+                                <td>
+                                    <div>
+                                        Tracking code: <b>{{datum.tracking_code}}</b>
+                                    </div>
+                                    <div>
+                                        Order id: <b>{{datum.order_id}}</b>
+                                    </div>
+                                    <div>
+                                        Product id: <b>{{datum.product_id}}</b>
+                                    </div>
+                                    <div>
+                                        Status: <b>{{datum.status}}</b>
+                                    </div>
+                                    <div>
+                                        Create at: <b>{{datum.created_at | date : 'dd-MM-yyyy h:mm'}}</b>
+                                    </div>
+                                    <div>
+                                        Updated at: <b>{{datum.updated_at | date : 'dd-MM-yyyy h:mm'}}</b>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row col-md-12">
+                                        <div *ngIf="datum.order" class="col-md-6">
+                                            <div>
+                                                Order code: <b>{{datum.order.ordercode}}</b>
+                                            </div>
+                                            <div>
+                                                Order id: <b>{{datum.order_id}}</b>
+                                            </div>
+                                            <div>
+                                                Portal: <b>{{datum.order.portal}}</b>
+                                            </div>
+                                            <div>
+                                                Seller name: <b>{{datum.order.seller_name}}</b>
+                                            </div>
+                                            <div>
+                                                Status: <b>{{datum.order.current_status}}</b>
+                                            </div>
+                                            <div>
+                                                Info receiver: <br>
+                                                <b>({{datum.order.customer_id}}-{{datum.order.customer_type}})</b>,<br>
+                                                <b>{{datum.order.receiver_name}}</b>,<br>
+                                                <b>{{datum.order.receiver_phone}}</b>,<br>
+                                                <b>{{datum.order.receiver_email}}</b>,<br>
+                                                <b>{{datum.order.receiver_address}}</b>,
+                                                <b>{{datum.order.receiver_district_name}}</b>,
+                                                <b>{{datum.order.receiver_province_name}}</b>,
+                                                <b>{{datum.order.receiver_country_name}}</b>,
+                                                <b>{{datum.order.receiver_post_code ? datum.order.receiver_post_code : "" }}</b>
+                                            </div>
+                                            <div>
+                                                Note by customer: <b>{{datum.order.note_by_customer}}</b>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div *ngIf="datum.product" class="col-md-6">
+                                            <div>
+                                                Product id: <b>{{datum.product_id}}</b>
+                                            </div>
+                                            <div>
+                                                Product sku: <b>{{datum.product.sku}}
+                                                &nbsp;/&nbsp;{{datum.product.parent_sku}}</b>
+                                            </div>
+                                            <div>
+                                                Product name: <a
+                                                    href="{{datum.product.product_link}}">{{datum.product.product_name}}</a>&nbsp;(<a
+                                                    href="{{datum.product.link_origin}}">Origin link</a>)
+                                            </div>
+                                            <div>
+                                                <img src="{{datum.product.link_img}}" style="width: 10em"
+                                                     class="img-responsive img-thumbnail">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="datum.purchase">
+                                        <div>
+                                            Purchase id: <b>{{datum.purchase_invoice_number}}</b>
+                                        </div>
+                                        <div>
+                                            Invoice: <b>{{datum.purchase.purchase_order_number}}</b>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Action</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #usReveicedModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3>Mark Us Reveiced</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="tracking_code" class="form-control-label">Tracking code</label>
+                                            <textarea class="form-control form-control-sm" id="tracking_code"
+                                                    [(ngModel)]="markUsReveicedModel.trackingCode"
+                                                rows="6" cols="20" placeholder="tracking_code_1-product_1,tracking_code_2-product_2 ... or tracking_code_1,tracking_code_2...">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="purchase-invoice" class="form-control-label">Purchase invoice</label>
+                                            <input type="text" id="purchase-invoice" class="form-control form-control-sm" placeholder="purchase invoice"
+                                                   [(ngModel)]="markUsReveicedModel.purchaseInvoice"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group m-b-10">
+                                            <label for="warehouse" class="form-control-label">Warehouse</label>
+                                            <select class="form-control form-control-sm" name="warehouse" id="warehouse"
+                                                    [(ngModel)]="markUsReveicedModel.warehouse">
+                                                <option value="">-- Select warehouse --</option>
+                                                <option *ngFor="let wh of warehouse"
+                                                        [value]="wh.id">{{wh.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 form-group m-b-10">
+                                            <label for="time" class="form-control-label">Time</label>
+                                            <input type="text" id="time" class="form-control form-control-sm" placeholder="Datepicker"
+                                                   bsDatepicker [(ngModel)]="markUsReveicedModel.time"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" (click)="markUsReveiced()">Create
+                                                </button>
+                                                <button class="btn btn-sm btn-success" (click)="usReveicedModal.hide()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

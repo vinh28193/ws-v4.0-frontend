@@ -32,7 +32,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
         if (queryParams.hasOwnProperty('r')) {
             this.authService.redirectURL = queryParams.r;
         }
-        console.log(this.authService.redirectURL);
+        // console.log(this.authService.redirectURL);
+        localStorage.clear();  // Clear Token khi set role moi
     }
 
     login() {
