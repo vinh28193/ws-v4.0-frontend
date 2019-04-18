@@ -621,7 +621,7 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">724</context></context-group></trans-unit><trans-unit id="f3aa4b738c91b1b1930906a920af83d9242d62f5" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/>Mark orders waiting for feedbacki</source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i"/> Đánh dấu đơn đặt hàng đang chờ phản hồi</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">725</context></context-group></trans-unit>
       <trans-unit id="b253a7b8578b1117747ce008e111b6f7ec1aa1fd" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/>Mark the order waiting for Refund</source>
@@ -924,7 +924,7 @@
       </trans-unit><trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
         <source>Create</source><target state="translated">Tạo nên</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context><context context-type="linenumber">124</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/wallet-transactions/wallet-transactions.component.ts</context><context context-type="linenumber">10</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context><context context-type="linenumber">124</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/wallet-transactions/wallet-transactions.component.ts</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">156</context></context-group></trans-unit>
       <trans-unit id="dedb86e845bb7c4ee59af9d7ab8d763661b612c4" datatype="html">
         <source>Select Coupon Code</source>
         <target state="translated">Chọn mã giảm giá</target>
@@ -1219,6 +1219,55 @@
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
           <context context-type="linenumber">67</context>
         </context-group>
+      </trans-unit><trans-unit id="5338c1d108c660047a01fc035c935d2cf24fa4e0" datatype="html">
+        <source>Create Manifest From List Warehouse Us Send List Tracking</source><target state="translated">Tạo Manifest </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit><trans-unit id="579160f96bd0aed1a92bc363239dff239b467531" datatype="html">
+        <source>--Select Store--</source><target state="translated">--Chọn Weshop--</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+      </trans-unit><trans-unit id="c16e4ffd78c66ba2b85d53579e9563d61a2f0ce0" datatype="html">
+        <source> Pickup Warehouse</source><target state="translated">Kho hàng </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit><trans-unit id="7eb838e686e8cbe621af2fa5aadc9b38909841ef" datatype="html">
+        <source> Name Manifest</source><target state="translated">Tên Manifest </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit><trans-unit id="4b3972c3e9485218508a95f7a4ce7758e3f09ced" datatype="html">
+        <source>Upload</source><target state="translated">Tải file excel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit><trans-unit id="25712b899c1ca486da25dd98062d828906620db6" datatype="html">
+        <source>(Download File excel ,Example : 18042019-LOWS-VN-HN003)</source><target state="translated">(Tải xuống tệp excel, Ví dụ: 18042019-LOWS-VN-HN003)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+      </trans-unit><trans-unit id="feb5de7ec228c4d4769d4457527f64cc181f22be" datatype="html">
+        <source>SetUp Time In Us WareHosue</source><target state="translated">Nhập thời gian Về đến kho Mỹ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+      </trans-unit><trans-unit id="31dadb362bf7f7c2afa10e5f96474ccd3977f91f" datatype="html">
+        <source>Datepicker</source><target state="translated">Bảng chọn ngày</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+        <note priority="1" from="description">Datepicker</note>
       </trans-unit>
       <trans-unit id="eb1a9c810ba6f86579f83159114f39e574d5a0db" datatype="html">
           <source>Buy Now</source>
@@ -1469,7 +1518,7 @@
       </trans-unit><trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
         <source>Cancel</source><target state="translated">Hủy bỏ</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1054</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1099</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1148</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context><context context-type="linenumber">267</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-coupon/update-coupon.component.ts</context><context context-type="linenumber">68</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-promotion/update-promotion.component.ts</context><context context-type="linenumber">83</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1054</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1099</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1148</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context><context context-type="linenumber">267</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-coupon/update-coupon.component.ts</context><context context-type="linenumber">68</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-promotion/update-promotion.component.ts</context><context context-type="linenumber">83</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">157</context></context-group></trans-unit>
     </body>
   </file>
 </xliff>
