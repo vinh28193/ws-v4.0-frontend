@@ -33,6 +33,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.authService.redirectURL = queryParams.r;
         }
         console.log(this.authService.redirectURL);
+        localStorage.clear();
     }
 
     login() {
