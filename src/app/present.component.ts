@@ -9,10 +9,10 @@ import {ClientService} from './core/service/client.service';
 export class PresentComponent extends BaseComponent implements OnInit {
 
     // meta
-    public totalCount: number;
-    public pageCount: number;
-    public currentPage: number;
-    public perPage: number;
+    public totalCount = 0;
+    public pageCount = 1;
+    public currentPage = 1;
+    public perPage = 20;
 
     public allKey = 'ALL';
     public allLabel = '--All--';

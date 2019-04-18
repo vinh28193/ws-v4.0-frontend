@@ -29,6 +29,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orders: any = [];
     public total: any;
     public statusO: any;
+    public totalUnPaid: any;
+    public countPurchase: any;
+    public countLC: any;
+    public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -52,11 +56,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
+    public chatSupporting: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
     public checkSellerRefund = false;
     public checkOpenCoupon = false;
+    public checkOrderChatRefund = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -68,6 +74,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public status: any;
     public checkF = false;
     public store_id: any;
+    public message1: any;
+    public markID: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
     public ids: any = [];
@@ -80,7 +88,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
-
+    public chatlists : any = [];
     constructor(private orderService: OrderService,
                 private router: Router,
                 private popup: PopupService,
@@ -95,18 +103,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        this.chatSupporting = this.fb.group({
+          message1: '',
+        });
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildSearchForm();
         this.listOrders();
+        this.listChatsSupporting();
         this.searchKeys = searchKeys;
         this.timeKeys = timeKeys;
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
     }
+    createChatSupporting()
+    {
+        console.log(this.message1);
+     const contentChats = this.chatSupporting.value;
+     console.log(this.chatSupporting.value) ;
+    }
+    listChatsSupporting()
+    {
+      this.orderService.get(`chatlists`, 1).subscribe(res => {
+      const result1: any = res;
+      this.chatlists = result1.data;
+      console.log(this.chatlists) ;
 
+    });
+    }
     listOrders() {
         const params = this.prepareSearch();
         this.orderService.search(params).subscribe(response => {
@@ -120,6 +146,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
                 });
+                this.totalUnPaid = data._summary.totalUnPaid;
+                this.countPurchase = data._summary.countPurchase;
+                this.countLC = data._summary.countLC;
+                this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
                 this.currentPage = data.page;
@@ -304,11 +334,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-    checkMarkAsJunk(status, price, TransactionStatus) {
-      if (status === 'NEW' || status === 'SUPPORTING' || status === 'SUPPORTED' || status === 'CANCEL') {
-        if (price = 0) {
+    checkMarkAsJunk(status, priceCheck) {
+      if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
           return true;
-        }
       }
     }
     markAsJunk(id) {
@@ -492,6 +520,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenAdJustPayment = false;
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
+        this.checkOrderChatRefund = false;
         $('.modal').modal('hide');
     }
 
@@ -628,6 +657,57 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       } else {
         return false;
       }
+  }
+  openOrderChatRefund(order) {
+      this.code = order.ordercode;
+      this.markID = order.id;
+      this.checkOrderChatRefund = true;
+      this.editForm = this.fb.group({
+        wait1: '',
+        wait2: '',
+        wait3: '',
+        link_image: '',
+        messageCustomer: '',
+      });
+  }
+  updateMarkWaiting() {
+    const params = this.prepareMarkWaiting();
+    const messagePop = 'Do you want mark supporting';
+    this.popup.warning(() => {
+      const put = this.orderService.createPostParams({
+        mark_supporting: params.mark,
+        current_status: 'SUPPORTING',
+      }, 'updateMarkSupporting');
+      this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
+  prepareMarkWaiting() {
+    const value = this.editForm.value;
+    const params: any = {};
+    if (value.messageCustomer !== '') {
+      params.messageCustomer = value.messageCustomer;
+    }
+    if (value.link_image !== '') {
+      params.link_image = value.link_image;
+    }
+    if (value.wait1 !== '') {
+      params.mark = value.wait1;
+    }
+    if (value.wait2 !== '') {
+      params.mark = value.wait2;
+    }
+    if (value.wait3 !== '') {
+      params.mark = value.wait3;
+    }
+    // params.type_chat = 'GROUP_WS';
+    // params.suorce = 'BACK_END';
+    return params;
   }
 }
 
