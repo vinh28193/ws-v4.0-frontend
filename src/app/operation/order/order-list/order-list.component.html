@@ -694,7 +694,7 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Đánh dấu chờ phản hồi</a>
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Danh sách chát hỗ trợ" id="" href="javascript:void(0);" data-target="#orderChatSupporting" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i>Danh sách chát hỗ trợ</a>        
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Danh sách chát hỗ trợ" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i>Danh sách chát hỗ trợ</a>        
 
 
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
@@ -1194,12 +1194,13 @@
 
           <!-- Tab panes -->
  
-               <div class="alert alert-warning row" role="alert">
-                <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" [(ngModel)] = "message1" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Nhập tin nhắn hỗ trợ nội bộ..."></textarea>
+               <div class="alert row" role="alert">
+                <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Nhập tin nhắn hỗ trợ nội bộ..."></textarea>
 
               </div>
           
         </form>
+      <div class="content-listchat-supporting">
         <table class="table">
           <thead>
             <tr>
@@ -1214,13 +1215,18 @@
               <td>
                 {{chat}}
               </td>
+              <td>
+                <a class="delete-chatsupporting" (click) = "deleteChatSupporting(i)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
             </tr>
             
           </tbody>
         </table>
+      </div>  
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-success btn-sm" type="button" ng-click="ok()">Approve</button>
         <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" ng-click="offOption()">Close</button>
       </div>
     </div>
