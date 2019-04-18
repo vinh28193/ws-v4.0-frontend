@@ -31,9 +31,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
+    public noTrackingCount: any;
     public purchase: any;
     public stockin_us: any;
-    public countLC: any;
     public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
@@ -139,7 +139,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 // this.popup.success(result.message);
                 const data: any = result.data;
                 this.orders = data._items;
-                this.totalOrder = data.total;
+                this.totalOrder = data._meta.totalCount;
                 // console.log(' data Order : ' + JSON.stringify(this.orders));
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
@@ -148,6 +148,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.countPurchase = data._summary.countPurchase;
                 this.purchase = data._summary.countPC;
                 this.stockin_us = data._summary.countStockin;
+                this.noTrackingCount = data._summary.noTracking;
                 this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
@@ -165,6 +166,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             quantityA += quantityC[i]['quantity_customer'];
         }
         return quantityA;
+    }
+    freshOrder() {
+      this.buildSearchForm();
+      this.listOrders();
     }
 
     buildSearchForm() {
@@ -707,6 +712,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // params.type_chat = 'GROUP_WS';
     // params.suorce = 'BACK_END';
     return params;
+  }
+
+  filterClick(item) {
+    if (item === 'UNPAID') {
+      this.searchForm.patchValue({
+        paymentStatus: item,
+      });
+    }
+    if (item === 'NO_TRACKING') {
+      this.searchForm.patchValue({
+        noTracking: item,
+      });
+    }
+    this.listOrders();
   }
 }
 
