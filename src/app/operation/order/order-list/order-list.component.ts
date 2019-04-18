@@ -31,6 +31,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
+    public purchase2Day: any;
     public noTrackingCount: any;
     public purchase: any;
     public stockin_us: any;
@@ -166,7 +167,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 });
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
-                this.purchase = data._summary.countPC;
+                this.purchase2Day = data._summary.countPC;
                 this.stockin_us = data._summary.countStockin;
                 this.noTrackingCount = data._summary.noTracking;
                 this.countUS = data._summary.countUS;
@@ -581,13 +582,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
-
-    CheckSale() {
-        if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
-            return true;
-        }
-    }
-
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
@@ -741,7 +735,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       });
       this.listOrders();
     }
-    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5') {
+    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
       this.searchForm.patchValue({
         noTracking: item,
       });
