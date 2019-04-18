@@ -106,7 +106,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.perPage = 20;
         this.dateTime = new Date();
         this.buildChat();
- 
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
@@ -119,18 +118,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.load();
     }
 
-    buildChat() 
-    {
+    buildChat() {
     this.chatSupporting = this.fb.group({
       messageSupporting: '',
     });
     }
-    createChatSupporting()
-    {
+    createChatSupporting() {
     const value = this.chatSupporting.value;
     const params: any = {};
-    if(value != '')
-    {
+    if (value !== '') {
         params.content = value.messageSupporting;
     }
     // console.log(params);
@@ -138,15 +134,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
          this.buildChat();
          this.listChatsSupporting();
      });
-    } 
-    deleteChatSupporting(position)
-    {
+    }
+    deleteChatSupporting(position) {
          this.orderService.delete('chatlists/'+position).subscribe(res => {
          this.listChatsSupporting();
      });
     }
-    loadChatSupporting()
-    {
+    loadChatSupporting() {
         this.listChatsSupporting();
     }
     listChatsSupporting() {
