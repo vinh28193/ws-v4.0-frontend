@@ -51,9 +51,16 @@
         </div>
       </div>
       <div class="card-footer">
-        <div class="input-group">
-          <textarea name="" class="form-control type_msg" (keydown.enter)="createChat()" formControlName="message"
-                    placeholder="Type your message..."></textarea>
+        <div class="card-body">
+          <div class="input-group">
+            <textarea name="" class="form-control type_msg" (keydown.enter)="createChat()" formControlName="message"
+                      placeholder="Nhập nội dung trao đổi.
+Nhấn Ctrl + Enter để xuống dòng.
+Enter để gửi"></textarea>
+                <div class="input-group-btn">
+                  <button style="height: 80px;" class="btn btn-default" (click)="createChat()" i18n>Sent</button>
+                </div>
+              </div>
         </div>
       </div>
     </div>

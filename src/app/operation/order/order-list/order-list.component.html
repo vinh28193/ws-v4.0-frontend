@@ -623,9 +623,19 @@
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
-                              <div class="row STATUS">
-                                <div class="col-md-12">
-                                  <h5 i18n>STATUS</h5>
+                              <div class="hover-row">
+                                <div class="row STATUS">
+                                  <div class="col-md-7">
+                                    <h5 i18n>STATUS</h5>
+                                  </div>
+                                  <div class="col-md-5" style="text-align: right">
+                                    <button class="btn btn-sm bg-white" tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                      <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm bg-white" tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                      <i class="fa fa-eye-slash"></i>
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                               <div class="hover-row">
@@ -633,9 +643,23 @@
                                   <div class="col-md-5 pr-0" i18n >New:</div>
                                   <div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                <div [hidden]="!statusShow[order.id]">
+                                  <div class="row">
+                                    <div class="col-md-5 pr-0" i18n >Supporting:</div>
+                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5 pr-0" i18n >Supported:</div>
+                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5 pr-0" i18n >Ready Purchase:</div>
+                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchased:</div>
