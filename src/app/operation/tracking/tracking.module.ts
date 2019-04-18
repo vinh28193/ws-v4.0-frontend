@@ -6,9 +6,11 @@ import {TrackingService} from './tracking.service';
 import {TrackingRoutingModule} from './tracking-routing.module';
 import {TrackingRoutingComponent} from './tracking-routing.component';
 import {TrackingListComponent} from './tracking-list/tracking-list.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {BsDatepickerModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
 import {Select2Module} from 'ng2-select2';
+import { TrackingExtensionComponent } from './tracking-extension/tracking-extension.component';
+import {TrackingExtensionService} from './tracking-extension/tracking-extension.service';
 
 @NgModule({
     imports: [
@@ -18,14 +20,18 @@ import {Select2Module} from 'ng2-select2';
         Select2Module,
         ModalModule.forRoot(),
         PaginationModule.forRoot(),
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        TypeaheadModule,
+        FormsModule
     ],
     declarations: [
         TrackingRoutingComponent,
-        TrackingListComponent
+        TrackingListComponent,
+        TrackingExtensionComponent
     ],
     providers: [
-        TrackingService
+        TrackingService,
+        TrackingExtensionService
     ]
 })
 export class TrackingModule {

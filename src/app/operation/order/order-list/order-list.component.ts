@@ -31,6 +31,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
+    public purchase: any;
+    public stockin_us: any;
     public countLC: any;
     public countUS: any;
     public dateTime: Date;
@@ -88,7 +90,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
-    public chatlists : any = [];
+    public chatlists: any = [];
     constructor(private orderService: OrderService,
                 private router: Router,
                 private popup: PopupService,
@@ -116,6 +118,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderStatus = orderStatus;
         this.load();
     }
+
     buildChat() 
     {
     this.chatSupporting = this.fb.group({
@@ -146,8 +149,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     {
         this.listChatsSupporting();
     }
-    listChatsSupporting()
-    {
+    listChatsSupporting() {
       this.orderService.get(`chatlists`, 1).subscribe(res => {
       const result1: any = res;
       this.chatlists = result1.data;
@@ -170,7 +172,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 });
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
-                this.countLC = data._summary.countLC;
+                this.purchase = data._summary.countPC;
+                this.stockin_us = data._summary.countStockin;
                 this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
@@ -312,7 +315,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     chatG(id, code, status) {
-      this.statusO = status
+      this.statusO = status;
         this.checkLoadG = true;
         this.orderIdChat = id;
         this.codeG = code;

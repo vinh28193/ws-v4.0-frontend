@@ -1,0 +1,26 @@
+.content-block{
+    margin: 15px;
+    background: #00000010;
+    border: 1px solid #00000044
+}
+.header-content{
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #00000044
+}
+.body-content{
+
+}
+.body-content .col-md-3.form-group{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.body-content .list-summary {
+    background: #fff;
+    width: 100%;
+    margin: 0px;
+    padding-top: 10px;
+}
+.body-content .btn-outline-dark{
+    border-color: #343a403b;
+}
