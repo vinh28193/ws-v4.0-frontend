@@ -105,23 +105,49 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        this.chatSupporting = this.fb.group({
-          message1: '',
-        });
+        this.buildChat();
+ 
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildSearchForm();
         this.listOrders();
-        this.listChatsSupporting();
         this.searchKeys = searchKeys;
         this.timeKeys = timeKeys;
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
     }
-    createChatSupporting() {
 
+    buildChat() 
+    {
+    this.chatSupporting = this.fb.group({
+      messageSupporting: '',
+    });
+    }
+    createChatSupporting()
+    {
+    const value = this.chatSupporting.value;
+    const params: any = {};
+    if(value != '')
+    {
+        params.content = value.messageSupporting;
+    }
+    // console.log(params);
+     this.orderService.post(`chatlists`, params).subscribe(res => {
+         this.buildChat();
+         this.listChatsSupporting();
+     });
+    } 
+    deleteChatSupporting(position)
+    {
+         this.orderService.delete('chatlists/'+position).subscribe(res => {
+         this.listChatsSupporting();
+     });
+    }
+    loadChatSupporting()
+    {
+        this.listChatsSupporting();
     }
     listChatsSupporting() {
       this.orderService.get(`chatlists`, 1).subscribe(res => {
