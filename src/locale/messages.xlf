@@ -892,6 +892,13 @@
           <context context-type="linenumber">725</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="f55b7791ad98fe209f243cc8fcf1a054990b7d81" datatype="html">
+        <source>Add syntax structure</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">727</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="b253a7b8578b1117747ce008e111b6f7ec1aa1fd" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>Mark the order waiting for Refund</source>
         <context-group purpose="location">
