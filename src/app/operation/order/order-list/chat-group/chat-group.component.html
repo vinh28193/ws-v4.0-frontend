@@ -23,7 +23,7 @@
                   </div>
                   <div>
                     <span class="msg_cotainer_send {{chat.user_name !== username ? 'other-chat' : 'owner-chat'}}" [innerHTML]="chat.message"></span><br>
-                    <div class="float-left text-gray">
+                    <div class="{{chat.user_name !== username ? 'float-left' : 'float-right'}} mr-2 text-gray">
                       <span class="mr-2">{{chat.user_name}}</span>
                       <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
                       <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
