@@ -110,22 +110,22 @@
                         <div class="card m-b-0">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3>Send Tracking</h3>
+                                    <h3 i18n>Create Manifest From List Warehouse Us Send List Tracking</h3>
                                 </div>
                                 <form [formGroup]="usSendingForm" name="form" class="row form-upload">
                                     <div class="col-md-12 form-body">
                                         <div class="row">
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="store" class="form-control-label">Store</label>
+                                                <label for="store" class="form-control-label" >Store</label>
                                                 <select class="form-control form-control-sm" name="store" id="store"
                                                         formControlName="store">
-                                                    <option value="">--Select Store--</option>
+                                                    <option value="" i18n>--Select Store--</option>
                                                     <option value="vn">Việt nam</option>
                                                     <option value="id">Indonesia</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="store" class="form-control-label">Warehouse</label>
+                                                <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
                                                 <select class="form-control form-control-sm" name="warehouse" id="warehouse"
                                                         formControlName="warehouse">
                                                     <option *ngFor="let wh of warehouses" [value]="wh.key">{{wh.value}}</option>
@@ -134,26 +134,27 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="manifest" class="form-control-label">Manifest</label>
+                                                <label for="manifest" class="form-control-label" i18n> Name Manifest</label>
                                                 <input type="text" class="form-control form-control-sm" id="manifest" name="manifest"
                                                        formControlName="manifest">
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="store" class="form-control-label">Upload</label>
+                                                <label for="store" class="form-control-label" i18n>Upload</label>
+                                                <span i18n>(Download File excel ,Example : 18042019-LOWS-VN-HN003)</span>
                                                 <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
                                             </div>
                                         </div>
                                       <div class="row">
                                         <div class="col-md-6 form-group m-b-10">
-                                          <label for="manifest" class="form-control-label">Time</label>
-                                          <input type="text" class="form-control" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                          <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
+                                          <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
                                         </div>
                                       </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="button-group">
-                                                    <button class="btn btn-sm btn-success" (click)="create()">Create</button>
-                                                    <button class="btn btn-sm btn-success">Cancel</button>
+                                                    <button class="btn btn-sm btn-success" (click)="create()" i18n>Create</button>
+                                                    <button class="btn btn-sm btn-success" i18n>Cancel</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -24,6 +24,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public loging: any;
   public countC = 0;
   public check = false;
+  private form: any;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
@@ -95,5 +96,8 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     } else {
       this.check = false;
     }
+  }
+  handleKeyEvent(event) {
+
   }
 }

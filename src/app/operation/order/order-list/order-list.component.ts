@@ -33,7 +33,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
-    public countLC: any;
+    public purchase2Day: any;
+    public noTrackingCount: any;
+    public purchase: any;
+    public stockin_us: any;
     public countUS: any;
     public dateTime: Date;
     public orderIdChat: any;
@@ -51,6 +54,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public sale_support_id: any;
     public productUpdateFee: any;
     public hideme: any = {};
+    public statusShow: any = {};
     public total_paid_amount_local: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
@@ -90,7 +94,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
-    public chatlists : any = [];
+    public chatlists: any = [];
     constructor(private orderService: OrderService,
                 private router: Router,
                 private popup: PopupService,
@@ -105,29 +109,45 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        this.chatSupporting = this.fb.group({
-          message1: '',
-        });
+        this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
         this.buildSearchForm();
         this.listOrders();
-        this.listChatsSupporting();
         this.searchKeys = searchKeys;
         this.timeKeys = timeKeys;
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
     }
-    createChatSupporting()
-    {
-        console.log(this.message1);
-     const contentChats = this.chatSupporting.value;
-     console.log(this.chatSupporting.value) ;
+
+    buildChat() {
+    this.chatSupporting = this.fb.group({
+      messageSupporting: '',
+    });
     }
-    listChatsSupporting()
-    {
+    createChatSupporting() {
+    const value = this.chatSupporting.value;
+    const params: any = {};
+    if (value !== '') {
+        params.content = value.messageSupporting;
+    }
+    // console.log(params);
+     this.orderService.post(`chatlists`, params).subscribe(res => {
+         this.buildChat();
+         this.listChatsSupporting();
+     });
+    }
+    deleteChatSupporting(position) {
+         this.orderService.delete('chatlists/'+position).subscribe(res => {
+         this.listChatsSupporting();
+     });
+    }
+    loadChatSupporting() {
+        this.listChatsSupporting();
+    }
+    listChatsSupporting() {
       this.orderService.get(`chatlists`, 1).subscribe(res => {
       const result1: any = res;
       this.chatlists = result1.data;
@@ -143,14 +163,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 // this.popup.success(result.message);
                 const data: any = result.data;
                 this.orders = data._items;
-                this.totalOrder = data.total;
+                this.totalOrder = data._meta.totalCount;
                 // console.log(' data Order : ' + JSON.stringify(this.orders));
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
                 });
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
-                this.countLC = data._summary.countLC;
+                this.purchase2Day = data._summary.countPC;
+                this.stockin_us = data._summary.countStockin;
+                this.noTrackingCount = data._summary.noTracking;
                 this.countUS = data._summary.countUS;
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
@@ -168,6 +190,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             quantityA += quantityC[i]['quantity_customer'];
         }
         return quantityA;
+    }
+    freshOrder() {
+      this.buildSearchForm();
+      this.listOrders();
     }
 
     buildSearchForm() {
@@ -292,7 +318,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     chatG(id, code, status) {
-      this.statusO = status
+      this.statusO = status;
         this.checkLoadG = true;
         this.orderIdChat = id;
         this.codeG = code;
@@ -559,13 +585,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
-
-    CheckSale() {
-        if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
-            return true;
-        }
-    }
-
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
@@ -710,6 +729,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // params.type_chat = 'GROUP_WS';
     // params.suorce = 'BACK_END';
     return params;
+  }
+
+  filterClick(item) {
+    if (item === 'UNPAID') {
+      this.searchForm.patchValue({
+        paymentStatus: item,
+      });
+      this.listOrders();
+    }
+    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
+      this.searchForm.patchValue({
+        noTracking: item,
+      });
+      this.listOrders();
+    }
   }
 }
 

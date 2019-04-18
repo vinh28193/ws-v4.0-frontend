@@ -53,11 +53,29 @@
         </div>
       </div>
       <div class="card-footer">
-        <div class="input-group">
-          <textarea name="" class="form-control type_msg" ng-keyup="$event.keyCode == 13 && !$event.shiftKey && myFunc()" (keydown.enter)="createChatG()" formControlName="message"
-                    placeholder="Type your message..."></textarea>
+        <div class="card-footer">
+          <div class="card-body">
+            <div class="input-group">
+              <textarea name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChatG()" formControlName="message"
+                        placeholder="Nhập nội dung trao đổi.
+Nhấn Shift + Enter để xuống dòng.
+Enter để gửi">
+              </textarea>
+              <div class="input-group-btn">
+                <button style="height: 80px;" class="btn btn-default" (click)="createChatG()" i18n>Sent</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </form>
 </div>
+<script>
+  $("textarea").keypress(function(event) {
+    if (event.keyCode == 13 && !event.shiftKey) {
+      submitForm(); //Submit your form here
+      return false;
+    }
+  });
+</script>
