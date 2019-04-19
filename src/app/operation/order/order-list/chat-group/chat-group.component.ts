@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {OrderDataComponent} from '../../order-data.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../../core/service/popup.service';
 import {OrderService} from '../../order.service';
-import {EventEmitter} from '@angular/core';
 
 
 declare var $: any;
@@ -23,7 +22,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   public username: any;
   public loging: any;
   public countC = 0;
-  public check = false;
   private form: any;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -51,6 +49,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
   createChatG() {
     const params = this.prepare();
     const messagePop = params.message;
+      params.message = params.message.replace(/\n/g, '<br>');
 
     this.popup.warningChat(() => {
       this.orderService.postChat(params).subscribe(res => {
@@ -67,7 +66,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
 
       params.message = value.message;
       console.log(params.message.toLowerCase());
-    
     }
     if (this.code !== '') {
       params.Order_path = this.code;
@@ -86,15 +84,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
     const date1 = new Date(time);
     if (date.getDate() === date1.getDate()) {
       return true;
-    }
-  }
-  clickChat() {
-    this.countC ++;
-    if (this.countC > 8) {
-      this.check = !this.check;
-      this.countC = 0;
-    } else {
-      this.check = false;
     }
   }
   handleKeyEvent(event) {

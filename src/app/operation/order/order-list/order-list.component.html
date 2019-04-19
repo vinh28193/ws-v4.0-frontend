@@ -709,22 +709,24 @@
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group mr-2 mb-2">
-                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)" i18n>
-                                      <i class="fa fa-trash" aria-hidden="true"> Cancel Order</i>
+                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)" >
+                                      <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
                                     </button>
                                     <div class="btn-group">
                                       <button   type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Danh sách chát hỗ trợ" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
+
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>        
+
 
 
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
@@ -753,6 +755,9 @@
                                 <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
+                                </li>
                               </ul>
                             </div>
                             <div class="col-md-12 pl-0 mt-2 tab-slider--container">
@@ -764,6 +769,9 @@
                               </div>
                               <div id="tab" class="tab-slider--body">
                                 <app-order-detail [hidden]="!pro[order.id]" [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                              </div>
+                              <div id="tab4" class="tab-slider--body">
+                                <app-purchase-info [hidden]="!pur[order.id]" [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
                                 <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
@@ -1029,7 +1037,7 @@
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
-                <span>Vui lòng nhập số tiền thanh toán</span>
+                <span i18n>Please enter the payment amount</span>
               </div>
             </div>
             <div class="row m-0 mt-3">
@@ -1043,8 +1051,8 @@
               </div>
             </div>
             <div class="row m-0">
-              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
-                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
               </div>
             </div>
           </div>
@@ -1074,7 +1082,7 @@
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
-                <span>Vui lòng nhập số tiền trả lại khách hàng</span>
+                <span i18n>Please enter the customer return amount</span>
               </div>
             </div>
             <div class="row m-0 mt-3">
@@ -1088,8 +1096,8 @@
               </div>
             </div>
             <div class="row m-0">
-              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
-                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
               </div>
             </div>
           </div>
@@ -1119,7 +1127,7 @@
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
-                <span>Vui lòng nhập số tiền người bán hoàn</span>
+                <span i18n>Please enter the seller's refund amount</span>
               </div>
             </div>
             <div class="row m-0 mt-3">
@@ -1137,8 +1145,8 @@
               </div>
             </div>
             <div class="row m-0">
-              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5">
-                Lưu ý: Nhân viên kiểm tra cẩn thận <span class="text-danger">đơn hàng</span> và chọn nhập đúng <span class="text-danger">số tiền</span>
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
               </div>
             </div>
           </div>
@@ -1167,33 +1175,44 @@
         <form [formGroup] = "editForm">
           <div class="row m-0">
             <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
-              <span>Vui lòng xác nhận thông tin dưới đây:</span>
+              <span i18n>Please confirm the information below:</span>
             </div>
           </div>
           <div class="row row mt-2 pl-3">
             <div class="col-md-8 mt-1">
               <label>
-                <input type="radio"  name="wait" formControlName="wait1" value="1"> Chờ mặc cả</label>
+                <input type="radio"  name="wait" formControlName="wait1" value="1"><span i18n>Wait to bargain</span></label>
             </div>
             <div class="col-md-8 mt-1">
               <label>
-                <input type="radio" name="wait" formControlName="wait2" value="2"> Chờ khách hàng phản hồi
+                <input type="radio" name="wait" formControlName="wait2" value="2"> <span i18n>Waiting for customers to respond</span>
               </label>
             </div>
             <div class="col-md-8 mt-1">
               <label>
-                <input type="radio"  name="wait" formControlName="wait3" value="3"> Chờ người bán phản hồi
+                <input type="radio"  name="wait" formControlName="wait3" value="3"> <span i18n>Wait for the seller to answer.</span>
               </label>
               <div class="form-group mt-1" style="margin-left: 3px;">
                 <div class="col-md-12">
-                  <label class="text-danger">Link ảnh chụp trao đổi với Shop</label>
-                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty mt-1" formControlName="link_image"  name="screenshot_chat_shop" placeholder="Link ảnh chụp trao đổi với Shop">
+                  <label class="text-danger" i18n>Link to exchange photos with Shop</label>
+                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty mt-1" formControlName="link_image"  name="screenshot_chat_shop" placeholder="link image" i18n-placeholder>
                 </div>
               </div>
             </div>
           </div>
           <div class="alert alert-warning row" role="alert">
-            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_order" rows="4" formControlName="messageCustomer" placeholder="Gửi trao đổi đến khách hàng ..."></textarea>
+            <div class="card-body">
+              <div class="input-group">
+              <textarea name="" class="form-control type_msg" rows="4" formControlName="message"
+                        placeholder="Enter the exchange content.
+                        Press Shift + Enter to get down the line.
+                        Enter to send" i18n-placeholder>
+              </textarea>
+                <div class="input-group-btn">
+                  <button style="height: 80px;" class="btn btn-default" i18n>Sent</button>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
 
@@ -1211,34 +1230,29 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white"><span>Danh sách chat hỗ trợ</span></h3>
+        <h3 class="modal-title text-white"><span i18n>Add syntax structure </span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <div class="modal-body ng-scope">
-
-      <form class="form-horizontal confirmPaidOrder ng-pristine ng-valid"  [formGroup]="chatSupporting">
-
           <!-- Tab panes -->
- 
-               <div class="alert row" role="alert">
-                <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Nhập tin nhắn hỗ trợ nội bộ..."></textarea>
-
-              </div>
-          
+        <form action="" [formGroup] = "chatSupporting">
+          <div class="alert row" role="alert">
+            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Please enter..." i18n-placeholder></textarea>
+          </div>
         </form>
-      <div class="content-listchat-supporting">
-        <table class="table">
-          <thead>
+        <div class="content-listchat-supporting">
+          <table class="table">
+            <thead>
             <tr>
               <th scope="col">STT</th>
-              <th scope="col">Nội dung</th>
+              <th scope="col"><span i18n>Content</span></th>
               <th scope="col">...</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr *ngFor = 'let chat of chatlists;let i = index'>
               <td>{{i+1}}</td>
               <td>
@@ -1250,14 +1264,14 @@
                 </a>
               </td>
             </tr>
-            
-          </tbody>
-        </table>
-      </div>  
+
+            </tbody>
+          </table>
+        </div>
+      </div>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" ng-click="offOption()">Close</button>
+        <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
-  </div>
 </div>
