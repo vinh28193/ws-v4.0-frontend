@@ -105,7 +105,7 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10" *ngIf="_scope.checkRoleOption()">
-            <label class="form-control-label">No Tracking</label>
+            <label class="form-control-label" i18n>Status Order</label>
             <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
             <option [value]="allKey" i18n>--TracKing--</option>
             <option value="NO_TRACKING">No Tracking</option>
@@ -162,13 +162,13 @@
 
         <section class="row item-operation mt-2">
           <div class="col-md-12" *ngIf="_scope.checkRoleOption()">
-            <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item</strong> |
-            <a href="javascript:void(0)" *ngIf="totalUnPaid > 0" (click)="filterClick('UNPAID')">Chưa thanh toán: <span class="text-danger mr-1">{{totalUnPaid}}</span>item </a>|
-            <a href="javascript:void(0)" *ngIf="noTrackingCount > 0" (click)="filterClick('NO_TRACKING')">No Tracking: <span class="text-danger mr-1">{{noTrackingCount}}</span>item </a>|
-            <a href="javascript:void(0)" *ngIf="purchase2Day > 0" (click)="filterClick('PURCHASED2DAY')">2 ngày đã mua người bán chưa gửi hàng: <span class="text-danger mr-1">{{purchase2Day}}</span>item</a> |
-            <a href="javascript:void(0)" *ngIf="stockin_us > 0" (click)="filterClick('STOCKIN_US2DAY')">2 ngày kho nhập nhưng không xuất hàng về: <span class="text-danger mr-1">{{stockin_us}}</span>item</a> |
-            <a href="javascript:void(0)" *ngIf="countPurchase > 0" (click)="filterClick('SHIPPED5')">5 ngày người bán gửi hàng mà chưa thấy nhập kho: <span class="text-danger mr-1">{{countPurchase}}</span>item</a> |
-            <a  href="javascript:void(0)" *ngIf="countUS > 0" (click)="filterClick('10STOCKOUT_US')">10 ngày kho Mỹ nhập nhưng không có danh sách về Viêt Nam: <span class="text-danger mr-1">{{countUS}}</span>item</a>
+            <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item </strong>
+            <a href="javascript:void(0)" *ngIf="totalUnPaid > 0" (click)="filterClick('UNPAID')"> <span class="text-danger">|</span> Chưa thanh toán: <span class="text-danger mr-1">{{totalUnPaid}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="noTrackingCount > 0" (click)="filterClick('NO_TRACKING')"><span class="text-danger">|</span> No Tracking: <span class="text-danger">{{noTrackingCount}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="purchase2Day > 0" (click)="filterClick('PURCHASED2DAY')"><span class="text-danger">|</span> 2 ngày đã mua người bán chưa gửi hàng: <span class="text-danger mr-1">{{purchase2Day}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="stockin_us > 0" (click)="filterClick('STOCKIN_US2DAY')"><span class="text-danger">|</span> 2 ngày kho nhập nhưng không xuất hàng về: <span class="text-danger mr-1">{{stockin_us}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="countPurchase > 0" (click)="filterClick('SHIPPED5')"><span class="text-danger">|</span> 5 ngày người bán gửi hàng mà chưa thấy nhập kho: <span class="text-danger mr-1">{{countPurchase}}</span>item </a>
+            <a  href="javascript:void(0)" *ngIf="countUS > 0" (click)="filterClick('10STOCKOUT_US')"><span class="text-danger">|</span> 10 ngày kho Mỹ nhập nhưng không có danh sách về Viêt Nam: <span class="text-danger mr-1">{{countUS}}</span>item </a>
           </div>
         </section>
 
@@ -182,7 +182,7 @@
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
                         <div class="style-card mb-4" *ngFor="let order of orders">
-                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
+                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.ordercode}}">
 
                             <div class="col-md-3 border-col">
                               <div class="card-title">
@@ -330,7 +330,7 @@
 
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING'" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
@@ -623,19 +623,17 @@
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
-                              <div class="hover-row">
-                                <div class="row STATUS">
-                                  <div class="col-md-7">
-                                    <h5 i18n>STATUS</h5>
-                                  </div>
-                                  <div class="col-md-5" style="text-align: right">
-                                    <button class="btn btn-sm bg-white" tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm bg-white" tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye-slash"></i>
-                                    </button>
-                                  </div>
+                              <div class="row STATUS">
+                                <div class="col-md-7">
+                                  <h5 i18n>STATUS</h5>
+                                </div>
+                                <div class="col-md-5" style="text-align: right">
+                                  <button class="btn btn-default btn-sm"  tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                  <button class="btn btn-default btn-sm"  tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye-slash"></i>
+                                  </button>
                                 </div>
                               </div>
                               <div class="hover-row">
@@ -646,15 +644,15 @@
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Supporting:</div>
-                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                    <div class="col-md-7 text-right" *ngIf="order.supporting" >{{order.supporting | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Supported:</div>
-                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                    <div class="col-md-7 text-right" *ngIf="order.supported" >{{order.supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Ready Purchase:</div>
-                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                    <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.ready_purchase" >{{order.ready_purchase | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
