@@ -623,19 +623,17 @@
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
-                              <div class="hover-row">
-                                <div class="row STATUS">
-                                  <div class="col-md-7">
-                                    <h5 i18n>STATUS</h5>
-                                  </div>
-                                  <div class="col-md-5" style="text-align: right">
-                                    <button class="btn btn-sm bg-white" tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm bg-white" tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye-slash"></i>
-                                    </button>
-                                  </div>
+                              <div class="row STATUS">
+                                <div class="col-md-7">
+                                  <h5 i18n>STATUS</h5>
+                                </div>
+                                <div class="col-md-5" style="text-align: right">
+                                  <button class="btn btn-default btn-sm"  tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                  <button class="btn btn-default btn-sm"  tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye-slash"></i>
+                                  </button>
                                 </div>
                               </div>
                               <div class="hover-row">
