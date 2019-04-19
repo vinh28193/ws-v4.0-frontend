@@ -182,7 +182,7 @@
                     <div class="col-md-12">
                       <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
                         <div class="style-card mb-4" *ngFor="let order of orders">
-                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.Ordercode}}">
+                          <div class="row margin-row or-id-{{order.id}} order-code-{{order.ordercode}}">
 
                             <div class="col-md-3 border-col">
                               <div class="card-title">
@@ -623,19 +623,17 @@
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
-                              <div class="hover-row">
-                                <div class="row STATUS">
-                                  <div class="col-md-7">
-                                    <h5 i18n>STATUS</h5>
-                                  </div>
-                                  <div class="col-md-5" style="text-align: right">
-                                    <button class="btn btn-sm bg-white" tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm bg-white" tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                      <i class="fa fa-eye-slash"></i>
-                                    </button>
-                                  </div>
+                              <div class="row STATUS">
+                                <div class="col-md-7">
+                                  <h5 i18n>STATUS</h5>
+                                </div>
+                                <div class="col-md-5" style="text-align: right">
+                                  <button class="btn btn-default btn-sm"  tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                  <button class="btn btn-default btn-sm"  tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i class="fa fa-eye-slash"></i>
+                                  </button>
                                 </div>
                               </div>
                               <div class="hover-row">
@@ -1259,7 +1257,7 @@
                 {{chat}}
               </td>
               <td>
-                <a class="delete-chatsupporting" (click) = "deleteChatSupporting(i)">
+                <a class="delete-chatsupporting" (click) = "deleteChatSupporting(chat)">
                   <i class="fa fa-trash"></i>
                 </a>
               </td>
