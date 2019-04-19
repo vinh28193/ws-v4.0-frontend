@@ -335,6 +335,13 @@
           <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="96ee4442a5b64f4969fd0fc7eb3f0dcf2b6ada5a" datatype="html">
+        <source>Status Order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="d7323b55bded3b10fa069aef1697ff42a59a6c8a" datatype="html">
         <source>--TracKing--</source>
         <context-group purpose="location">

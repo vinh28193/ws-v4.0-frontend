@@ -105,7 +105,7 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10" *ngIf="_scope.checkRoleOption()">
-            <label class="form-control-label">No Tracking</label>
+            <label class="form-control-label" i18n>Status Order</label>
             <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
             <option [value]="allKey" i18n>--TracKing--</option>
             <option value="NO_TRACKING">No Tracking</option>
@@ -646,11 +646,11 @@
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Supporting:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.mark_supporting" >{{order.mark_supporting | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.supporting" >{{order.supporting | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Supported:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.mark_supported" >{{order.mark_supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.supported" >{{order.supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>

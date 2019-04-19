@@ -269,6 +269,12 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">103</context>
         </context-group>
+      </trans-unit><trans-unit id="96ee4442a5b64f4969fd0fc7eb3f0dcf2b6ada5a" datatype="html">
+        <source>Status Order</source><target state="translated">Trình tự trạng thái</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
       </trans-unit><trans-unit id="d7323b55bded3b10fa069aef1697ff42a59a6c8a" datatype="html">
         <source>--TracKing--</source><target state="translated">--TracKing--</target>
         <context-group purpose="location">
@@ -1182,7 +1188,7 @@
         <source>Datepicker</source><target state="translated">Bảng chọn ngày</target>
 
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">150</context></context-group><note from="description" priority="1">Datepicker</note></trans-unit>
+      </trans-unit>
       <trans-unit id="eb1a9c810ba6f86579f83159114f39e574d5a0db" datatype="html">
           <source>Buy Now</source>
           <target state="translated">Add-On Mua Hàng</target>
