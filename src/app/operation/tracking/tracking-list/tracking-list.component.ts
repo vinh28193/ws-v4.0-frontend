@@ -118,6 +118,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     public create() {
         this.trackingService.create(this.preCreate()).subscribe(res => {
+            console.log(' us sending ' + JSON.stringify(res));
             const rs: any = res;
             if (rs.success) {
                 this.popUp.success(rs.message);
