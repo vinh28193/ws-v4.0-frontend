@@ -351,7 +351,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Confirm order ' + id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                current_status: 'SUPPORTED',
             }, 'confirmPurchase');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
