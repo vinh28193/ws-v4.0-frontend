@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div class="card-body msg_card_body">
+      <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
           <div *ngFor="let chat of listChatG">
             <div *ngIf="chat.type_chat == 'GROUP_WS'">
                 <div class="d-flex justify-content-start {{chat.user_name !== username ? 'justify-content-start' : 'justify-content-end'}} mb-4">
@@ -39,8 +39,8 @@
             <div class="input-group">
               <textarea name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChatG()" formControlName="message"
                         placeholder="Enter the exchange content.
-                        Press Shift + Enter to get down the line.
-                        Enter to send" i18n-placeholder>
+Press Shift + Enter to get down the line.
+Enter to send" i18n-placeholder>
               </textarea>
               <div class="input-group-btn">
                 <button style="height: 80px;" class="btn btn-default" (click)="createChatG()" i18n>Sent</button>
