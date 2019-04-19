@@ -607,6 +607,12 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">701</context>
         </context-group>
+      </trans-unit><trans-unit id="f55b7791ad98fe209f243cc8fcf1a054990b7d81" datatype="html">
+        <source>Add syntax structure</source><target state="translated">Thêm cấu trúc cú pháp</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">703</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="b253a7b8578b1117747ce008e111b6f7ec1aa1fd" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/>Mark the order waiting for Refund</source>
@@ -663,7 +669,7 @@
         <source>Content</source>
         <target state="translated">Nội dung</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">882</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">882</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1213</context></context-group></trans-unit>
       <trans-unit id="174aeff57250511626633d55c14b69b753f4ed42" datatype="html">
         <source>Employee</source>
         <target state="translated">Nhân viên</target>
@@ -738,7 +744,19 @@
         <source>Purchase Amount Buck</source>
         <target state="translated">Điểm thưởng mua hàng</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1111</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1111</context></context-group></trans-unit><trans-unit id="fbc1d535b2f038d96303ce971207eab678d25fed" datatype="html">
+        <source>Add syntax structure </source><target state="translated">Thêm cấu trúc cú pháp</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">1190</context>
+        </context-group>
+      </trans-unit><trans-unit id="e4e1f1d54c7e060db38e7f8c4b972c4112ae4949" datatype="html">
+        <source>Please enter...</source><target state="translated">Vui lòng nhập ...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">1203</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="96dbc8dc9bdd3176e5252a9b5291ec55c768f8c6" datatype="html">
         <source>Purchase Amount Refund</source>
@@ -825,7 +843,7 @@
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">197</context></context-group></trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
         <source>Total value Product
-
+                
               </source>
         <target state="translated">Tổng giá trị sản phẩm
 
