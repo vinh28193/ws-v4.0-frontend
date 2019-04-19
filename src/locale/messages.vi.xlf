@@ -526,8 +526,8 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">652</context>
         </context-group>
-      </trans-unit><trans-unit id="3bc935bfabf3a9679534a508c68da279f0f1e6ea" datatype="html">
-        <source>Ready Purchase:</source><target state="translated">Sẵn sàng mua hàng:</target>
+      </trans-unit><trans-unit id="fc42b6a9c7d9b7bc48778ec5edf7de2299d6f10b" datatype="html">
+        <source>Ready 2 Purchase:</source><target state="translated">Sẵn sàng mua 2:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">656</context>
@@ -1174,18 +1174,15 @@
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">142</context></context-group></trans-unit><trans-unit id="f1aa21e3e450e6a95b1ad6df7b64db4c0b0954c0" datatype="html">
         <source>(Download File excel ,Example : TrackingCode.xlsx)</source><target state="translated">(Tải xuống tệp excel, Ví dụ: TrackCode.xlsx)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
-          <context context-type="linenumber">143</context>
-        </context-group>
-      </trans-unit><trans-unit id="feb5de7ec228c4d4769d4457527f64cc181f22be" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">143</context></context-group></trans-unit><trans-unit id="feb5de7ec228c4d4769d4457527f64cc181f22be" datatype="html">
         <source>SetUp Time In Us WareHosue</source><target state="translated">Thời gian thiết lập tại chúng tôi WareHosue</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">149</context></context-group></trans-unit><trans-unit id="31dadb362bf7f7c2afa10e5f96474ccd3977f91f" datatype="html">
         <source>Datepicker</source><target state="translated">Bảng chọn ngày</target>
 
 
-      </trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">150</context></context-group><note from="description" priority="1">Datepicker</note></trans-unit>
       <trans-unit id="eb1a9c810ba6f86579f83159114f39e574d5a0db" datatype="html">
           <source>Buy Now</source>
           <target state="translated">Add-On Mua Hàng</target>

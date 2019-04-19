@@ -748,8 +748,8 @@
           <context context-type="linenumber">652</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3bc935bfabf3a9679534a508c68da279f0f1e6ea" datatype="html">
-        <source>Ready Purchase:</source>
+      <trans-unit id="fc42b6a9c7d9b7bc48778ec5edf7de2299d6f10b" datatype="html">
+        <source>Ready 2 Purchase:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">656</context>

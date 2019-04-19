@@ -330,7 +330,7 @@
 
                               <div class="row col-md-12 pb-1">
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW'" i18n >Confirm Orders</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING'" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
 
@@ -650,11 +650,11 @@
                                   </div>
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n >Supported:</div>
-                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                    <div class="col-md-7 text-right" *ngIf="order.mark_supported" >{{order.mark_supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Ready Purchase:</div>
-                                    <!--<div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>-->
+                                    <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.ready_purchase" >{{order.ready_purchase | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
