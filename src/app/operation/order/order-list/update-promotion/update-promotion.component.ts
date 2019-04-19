@@ -16,8 +16,10 @@ export class UpdatePromotionComponent extends OrderDataComponent implements OnIn
   @Input() ordercode: any;
   @Input() store_id: any;
   @Output() checkEdit = new EventEmitter();
+  @Output() checkOff = new EventEmitter();
   public checkDisabled: boolean = false;
   public checkLoadAmount: boolean = false;
+  public checkOffModal: boolean = false;
   public listPromotion: any = [];
   public promotion: any = [];
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -99,7 +101,10 @@ export class UpdatePromotionComponent extends OrderDataComponent implements OnIn
     params.ordercode = this.ordercode;
     return params;
   }
-
+  clickOff() {
+    this.checkOffModal = true;
+    this.checkOff.emit(this.checkOffModal);
+  }
   updatePromotionOrder() {
     const params = this.buildValue();
     if (this.promotion_id) {

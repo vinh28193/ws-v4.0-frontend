@@ -5,7 +5,6 @@
 }
 
 [type=checkbox]:checked, [type=checkbox]:not(:checked) {
-    position: relative;
     opacity: 1;
 }
 

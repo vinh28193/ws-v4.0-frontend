@@ -19,8 +19,11 @@ export const searchKeys = [
 export const timeKeys = [
     {key: 'order.created_at', name: 'Time Create Order'},
     {key: 'order.updated_at', name: 'Time Update Order'},
-    {key: '', name: 'Time Support Time'},
+    // {key: '', name: 'Time Support Time'},
     {key: '', name: 'Time Payment time'},
+    {key: 'order.supporting', name: 'Time Supporting'},
+    {key: 'order.supported', name: 'Time Supported'},
+    {key: 'order.ready_purchase', name: 'Time Ready2Purchase'},
     {key: 'order.purchased', name: 'Time Purchased'},
     {key: 'order.seller_shipped', name: 'Time Seller Shipped'},
     {key: 'order.stockin_us', name: 'Time StockIn US'},

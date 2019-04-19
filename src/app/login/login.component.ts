@@ -15,7 +15,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     public username = '';
     public password = '';
-    public loading: boolean = false;
+    public loading = false;
 
     constructor(
         private authService: AuthService,
@@ -32,7 +32,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
         if (queryParams.hasOwnProperty('r')) {
             this.authService.redirectURL = queryParams.r;
         }
-        console.log(this.authService.redirectURL);
+        // console.log(this.authService.redirectURL);
+        localStorage.clear();  // Clear Token khi set role moi
+
+ // ToDo:Chính xác là bắt và so sánh khi User được set role mới , so sánh với role lưu ở local Store thì cần xóa hết key Trong local store
     }
 
     login() {

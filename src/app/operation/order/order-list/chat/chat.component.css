@@ -164,6 +164,7 @@
 .msg_time_send{
   position: absolute;
   right:0;
+  bottom: -15px;
   font-size: 10px;
 }
 .msg_head{
@@ -217,4 +218,14 @@
 .text-gray span {
   color: darkgrey;
   font-size: 11px;
+}
+.owner-chat{
+  background: #00aced;
+  color: #fff;
+  float: right !important;
+  border-bottom-right-radius: 0px;
+}
+.other-chat{
+  float: left !important;
+  border-top-left-radius: 0px;
 }
