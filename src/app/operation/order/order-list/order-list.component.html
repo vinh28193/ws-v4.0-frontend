@@ -1243,15 +1243,16 @@
             <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Please enter..." i18n-placeholder></textarea>
           </div>
         </form>
-        <table class="table">
-          <thead>
+        <div class="content-listchat-supporting">
+          <table class="table">
+            <thead>
             <tr>
               <th scope="col">STT</th>
               <th scope="col"><span i18n>Content</span></th>
               <th scope="col">...</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr *ngFor = 'let chat of chatlists;let i = index'>
               <td>{{i+1}}</td>
               <td>
@@ -1263,9 +1264,10 @@
                 </a>
               </td>
             </tr>
-            
-          </tbody>
-        </table>
+
+            </tbody>
+          </table>
+        </div>
       </div>
       </div>
       <div class="modal-footer ng-scope">
