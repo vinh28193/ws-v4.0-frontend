@@ -26,11 +26,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
+    public pur: any = {};
+    public click_pur: any = {};
     public orders: any = [];
     public total: any;
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
+    public purchase2Day: any;
     public noTrackingCount: any;
     public purchase: any;
     public stockin_us: any;
@@ -51,6 +54,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public sale_support_id: any;
     public productUpdateFee: any;
     public hideme: any = {};
+    public statusShow: any = {};
     public total_paid_amount_local: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
@@ -106,7 +110,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.perPage = 20;
         this.dateTime = new Date();
         this.buildChat();
- 
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
         this.bsRangeValue = [this.dateTime, maxDateTime];
@@ -119,18 +122,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.load();
     }
 
-    buildChat() 
-    {
+    buildChat() {
     this.chatSupporting = this.fb.group({
       messageSupporting: '',
     });
     }
-    createChatSupporting()
-    {
+    createChatSupporting() {
     const value = this.chatSupporting.value;
     const params: any = {};
-    if(value != '')
-    {
+    if (value !== '') {
         params.content = value.messageSupporting;
     }
     // console.log(params);
@@ -138,15 +138,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
          this.buildChat();
          this.listChatsSupporting();
      });
-    } 
-    deleteChatSupporting(position)
-    {
+    }
+    deleteChatSupporting(position) {
          this.orderService.delete('chatlists/'+position).subscribe(res => {
          this.listChatsSupporting();
      });
     }
-    loadChatSupporting()
-    {
+    loadChatSupporting() {
         this.listChatsSupporting();
     }
     listChatsSupporting() {
@@ -172,7 +170,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 });
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
-                this.purchase = data._summary.countPC;
+                this.purchase2Day = data._summary.countPC;
                 this.stockin_us = data._summary.countStockin;
                 this.noTrackingCount = data._summary.noTracking;
                 this.countUS = data._summary.countUS;
@@ -587,13 +585,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
-
-    CheckSale() {
-        if (this._scope.checkSale() || this._scope.checkMasterSale() || this._scope.checkSuperAdmin()) {
-            return true;
-        }
-    }
-
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
@@ -747,7 +738,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       });
       this.listOrders();
     }
-    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5') {
+    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
       this.searchForm.patchValue({
         noTracking: item,
       });

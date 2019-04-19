@@ -46,6 +46,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     createChat() {
       const params = this.prepare();
       const messagePop = params.message;
+      params.message = params.message.replace(/\n/g, '<br>');
       this.popup.warningChat(() => {
         this.orderService.postChat(params).subscribe(res => {
           this.buildChat();
