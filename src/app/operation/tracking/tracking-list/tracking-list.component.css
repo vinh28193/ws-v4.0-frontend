@@ -1,0 +1,31 @@
+.content-block{
+    margin: 0px;
+}
+.custom-list{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    min-height: 250px;
+}
+.custom-list-item{
+    min-width: 250px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+.custom-list::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    background-color: #00000000;
+}
+
+.custom-list::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.custom-list::-webkit-scrollbar-thumb
+{
+    background-color: #0000002b;
+    border-radius: 10px;
+}

@@ -31,65 +31,74 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row list">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="row list-summary">
-                                    <div class="col-md-6">
-                                        <span i18n>Showing</span>
-                                        <select class="form-control-sm select-custom"
-                                                (change)="handlePerPage($event)">
-                                            <option value="20">20</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="200">200</option>
-                                            <option value="all">All</option>
-                                        </select>
-                                        <span >of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+                                <div class="content-block">
+                                    <div class="header-content">
+                                        <h4>List Manifest</h4>
                                     </div>
-                                    <div class="col-md-6">
-                                        <pagination [boundaryLinks]="true"
-                                                    [totalItems]="totalCount"
-                                                    (pageChanged)="handlePagination($event)"
-                                                    [maxSize]="10"
-                                                    [itemsPerPage]="perPage" class="pagination-sm pull-right"
-                                                    [rotate]="true">
-                                        </pagination>
+                                    <div class="body-content">
+                                        <ul class="list-group custom-list">
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                            <li class="list-group-item custom-list-item">
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                                ABC <br>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="row list-content">
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-custom">
-                                                <thead>
-                                                <th width="8%"></th>
-                                                <th width="40%" i18n>Tracking</th>
-                                                <th width="35%" i18n>Warehouse</th>
-                                                <th width="17%" i18n>Action</th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let tracking of tracks">
-                                                        <td></td>
-                                                        <td>
-                                                            <div class="seller-row">
-                                                                <h6 class="text-danger">{{tracking.tracking_code}}</h6>
-                                                                <p class="mb-1">Manifest: <strong>{{tracking.manifest_code}}</strong></p>
-                                                                <p class="mb-1">Package: <strong>{{tracking.package_code}}</strong></p>
-                                                                <p class="mb-1">Warehouse: <a href="#">{{tracking.warehouse_tag}}</a></p>
-                                                                <p class="mb-1">Operation Note: <a href="#">{{tracking.operation_note}}</a></p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mb-1">Warehouse: <strong>{{tracking.warehouse_alias}}</strong></p>
-                                                            <p class="mb-1">Status: <strong>close</strong> 2019/03/20 22:22:22</p>
-                                                            <p class="mb-1">Quantity/Weight: <strong>{{tracking.quantity}}/{{tracking.weight}} gram</strong></p>
-                                                            <p class="mb-1">Volume(w.l.h): <strong>10x10x10</strong></p>
-                                                            <p class="mb-1">Note: <a href="#">{{tracking.warehouse_note}}</a></p>
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="content-block">
+                                    <div class="header-content">
+                                        <h4>Tracking Info</h4>
+                                    </div>
+                                    <div class="body-content">
                                     </div>
                                 </div>
                             </div>
