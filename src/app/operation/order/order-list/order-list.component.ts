@@ -140,8 +140,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
          this.listChatsSupporting();
      });
     }
-    deleteChatSupporting(chat) {
-         this.orderService.delete('chatlists/'+ chat).subscribe(res => {
+    deleteChatSupporting(index) {
+          
+         this.orderService.delete('chatlists/'+ index).subscribe(res => {
          this.listChatsSupporting();
      });
     }
