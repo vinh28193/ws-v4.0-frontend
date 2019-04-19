@@ -717,8 +717,8 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
@@ -1238,23 +1238,21 @@
       </div>
       <div class="modal-body ng-scope">
           <!-- Tab panes -->
-
- 
-               <div class="alert row" role="alert">
-                <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Please enter..." i18n-placeholder></textarea>
-
-
-              </div>
-         <div class="content-listchat-supporting">     
-        <table class="table">
-          <thead>
+        <form action="" [formGroup] = "chatSupporting">
+          <div class="alert row" role="alert">
+            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Please enter..." i18n-placeholder></textarea>
+          </div>
+        </form>
+        <div class="content-listchat-supporting">
+          <table class="table">
+            <thead>
             <tr>
               <th scope="col">STT</th>
               <th scope="col"><span i18n>Content</span></th>
               <th scope="col">...</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr *ngFor = 'let chat of chatlists;let i = index'>
               <td>{{i+1}}</td>
               <td>
@@ -1266,14 +1264,16 @@
                 </a>
               </td>
             </tr>
-            
-          </tbody>
-        </table>
+
+
+            </tbody>
+          </table>
+
         </div>
       </div>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" ng-click="offOption()">Close</button>
+        <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
 </div>

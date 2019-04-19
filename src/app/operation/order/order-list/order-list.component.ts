@@ -132,9 +132,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params: any = {};
     if (value !== '') {
         params.content = value.messageSupporting;
+        params.content = params.content.replace(/\n/g, '</br>');
     }
     // console.log(params);
-     this.orderService.post(`chatlists`, params).subscribe(res => {
+     this.orderService.post('chatlists', params).subscribe(res => {
          this.buildChat();
          this.listChatsSupporting();
      });
