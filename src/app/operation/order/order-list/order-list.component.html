@@ -4,6 +4,7 @@
       <div class="card-body">
         <div class="card-title">
           <h3 i18n>LISTS ORDERS</h3>
+          <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-6 col-sm-12 form-group m-b-10">
@@ -723,7 +724,7 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
 
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>        
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>
 
 
 
