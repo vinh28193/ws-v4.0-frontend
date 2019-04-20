@@ -12,7 +12,14 @@ import {EncryptionService} from './core/service/encryption.service';
 import {StorageService} from './core/service/storage.service';
 import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {ExcelModule} from './excel/excel.module';
-import { LogoutComponent } from './logout/logout.component';
+import {LogoutComponent} from './logout/logout.component';
+import {MessagingService} from './shared/messaging.service';
+import {AsyncPipe} from '../../node_modules/@angular/common';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -23,7 +30,11 @@ import { LogoutComponent } from './logout/logout.component';
         HttpClientModule,
         BrowserModule,
         AppRoutingModule,
-        ExcelModule
+        ExcelModule,
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+        AngularFireMessagingModule,
+        AngularFireModule.initializeApp(environment.firebase),
     ],
     providers:
         [
@@ -34,6 +45,7 @@ import { LogoutComponent } from './logout/logout.component';
             AuthService,
             HttpClient,
             {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+            MessagingService, AsyncPipe
         ],
     bootstrap: [AppRoutingComponent]
 })

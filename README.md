@@ -34,8 +34,16 @@ ng generate service operation
 
 ###------i18n--------
 ng xi18n --output-path=locale
+
+###--------Build Tieng Viet----------
 ng serve --configuration=vi
+
+### -----gen key dich tu dong---------
+ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
 
 ###------Build Prod VI------------
  ng build --prod --i18n-file src/locale/messages.vi.xlf --i18n-format xlf --i18n-locale vi
- ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
+ 
+
+####------------FCM ---------------
+npm install firebase @angular/fire --save

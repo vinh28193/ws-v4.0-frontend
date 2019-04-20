@@ -11,6 +11,7 @@ import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
 import {ScopeService} from '../../../core/service/scope.service';
+import {MessagingService} from '../../../shared/messaging.service';
 
 declare var jQuery: any;
 declare var $: any;
@@ -95,13 +96,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
+    message;
+
     constructor(private orderService: OrderService,
                 private router: Router,
                 private popup: PopupService,
                 private fb: FormBuilder,
                 private _authService: AuthService,
                 public _scope: ScopeService,
-                ) {
+                private messagingService: MessagingService,
+    ) {
         super(orderService);
     }
 
@@ -120,42 +124,53 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
+        /**Notification**/
+        const userId = 'user001';
+        this.messagingService.requestPermission(userId);
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage;
+        console.log('currentMessage : ' + this.messagingService.receiveMessage());
     }
 
     buildChat() {
-    this.chatSupporting = this.fb.group({
-      messageSupporting: '',
-    });
+        this.chatSupporting = this.fb.group({
+            messageSupporting: '',
+        });
     }
+
     createChatSupporting() {
-    const value = this.chatSupporting.value;
-    const params: any = {};
-    if (value !== '') {
-        params.content = value.messageSupporting;
-        params.content = params.content.replace(/\n/g, '</br>');
+        const value = this.chatSupporting.value;
+        const params: any = {};
+        if (value !== '') {
+            params.content = value.messageSupporting;
+            params.content = params.content.replace(/\n/g, '</br>');
+        }
+        // console.log(params);
+        this.orderService.post(`chatlists`, params).subscribe(res => {
+            this.buildChat();
+            this.listChatsSupporting();
+        });
     }
-    // console.log(params);
-     this.orderService.post(`chatlists`, params).subscribe(res => {
-         this.buildChat();
-         this.listChatsSupporting();
-     });
-    }
+
     deleteChatSupporting(position) {
-         this.orderService.delete('chatlists/'+position).subscribe(res => {
-         this.listChatsSupporting();
-     });
+        this.orderService.delete('chatlists/' + position).subscribe(res => {
+            this.listChatsSupporting();
+        });
     }
+
     loadChatSupporting() {
         this.listChatsSupporting();
     }
-    listChatsSupporting() {
-      this.orderService.get(`chatlists`, 1).subscribe(res => {
-      const result1: any = res;
-      this.chatlists = result1.data;
-      console.log(this.chatlists) ;
 
-    });
+    listChatsSupporting() {
+        this.orderService.get(`chatlists`, 1).subscribe(res => {
+            const result1: any = res;
+            this.chatlists = result1.data;
+            console.log(this.chatlists);
+
+        });
     }
+
     listOrders() {
         const params = this.prepareSearch();
         this.orderService.search(params).subscribe(response => {
@@ -192,9 +207,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         return quantityA;
     }
+
     freshOrder() {
-      this.buildSearchForm();
-      this.listOrders();
+        this.buildSearchForm();
+        this.listOrders();
     }
 
     buildSearchForm() {
@@ -272,7 +288,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         //     params.seller = value.seller;
         // }
         if (value.noTracking !== '' && value.noTracking !== 'ALL') {
-          params.noTracking = value.noTracking;
+            params.noTracking = value.noTracking;
         }
         if (value.timeKey !== '') {
             params.timeKey = value.timeKey;
@@ -319,7 +335,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     chatG(id, code, status) {
-      this.statusO = status;
+        this.statusO = status;
         this.checkLoadG = true;
         this.orderIdChat = id;
         this.codeG = code;
@@ -363,33 +379,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
+
     checkMarkAsJunk(status, priceCheck) {
-      if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
-          return true;
-      }
-    }
-    markAsJunk(id) {
-      const messagePop = 'Do you want Mark As Junk order ' + id;
-      this.popup.warning(() => {
-        const put = this.orderService.createPostParams({
-          current_status: 'JUNK',
-        }, 'updateStatus');
-        this.orderService.put(`order/${id}`, put).subscribe(res => {
-          if (res.success) {
-            this.listOrders();
-            this.popup.success(res.message);
-          } else {
-            this.popup.error(res.message);
-          }
-        });
-      }, messagePop);
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
+            return true;
+        }
     }
 
-  loadViewSale(event) {
-      if (event) {
-        this.listOrders();
-      }
-  }
+    markAsJunk(id) {
+        const messagePop = 'Do you want Mark As Junk order ' + id;
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                current_status: 'JUNK',
+            }, 'updateStatus');
+            this.orderService.put(`order/${id}`, put).subscribe(res => {
+                if (res.success) {
+                    this.listOrders();
+                    this.popup.success(res.message);
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
+    }
+
+    loadViewSale(event) {
+        if (event) {
+            this.listOrders();
+        }
+    }
 
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
@@ -586,6 +604,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
+
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_refund_amount_local = order.total_refund_amount_local;
@@ -648,103 +667,110 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
+
     handleChangeAmount(event) {
         if (event) {
             $('.modal').modal('hide');
             this.listOrders();
         }
     }
-  handCheckPromotion(event) {
-      if (event) {
-        this.checkOpenPromotion = false;
-        this.checkOpenCoupon = false;
-        $('.modal').modal('hide');
-      }
-  }
-  buyNow(item) {
-  }
-  getLinkBuynow(pro) {
-      let link = pro.link_origin;
-      if (link.indexOf('?')) {
-          link = link + '&order_id=' + pro.order_id;
-      } else {
-          link = link + '?order_id=' + pro.order_id;
-      }
-      return link;
-  }
 
-  paid(totalpaid, price) {
-      if (totalpaid > 0) {
-        return true;
-      } else {
-        return false;
-      }
-  }
-  openOrderChatRefund(order) {
-      this.code = order.ordercode;
-      this.markID = order.id;
-      this.checkOrderChatRefund = true;
-      this.editForm = this.fb.group({
-        wait1: '',
-        wait2: '',
-        wait3: '',
-        link_image: '',
-        messageCustomer: '',
-      });
-  }
-  updateMarkWaiting() {
-    const params = this.prepareMarkWaiting();
-    const messagePop = 'Do you want mark supporting';
-    this.popup.warning(() => {
-      const put = this.orderService.createPostParams({
-        mark_supporting: params.mark,
-        current_status: 'SUPPORTING',
-      }, 'updateMarkSupporting');
-      this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
-        if (res.success) {
-          this.popup.success(res.message);
-        } else {
-          this.popup.error(res.message);
+    handCheckPromotion(event) {
+        if (event) {
+            this.checkOpenPromotion = false;
+            this.checkOpenCoupon = false;
+            $('.modal').modal('hide');
         }
-      });
-    }, messagePop);
-  }
-  prepareMarkWaiting() {
-    const value = this.editForm.value;
-    const params: any = {};
-    if (value.messageCustomer !== '') {
-      params.messageCustomer = value.messageCustomer;
     }
-    if (value.link_image !== '') {
-      params.link_image = value.link_image;
-    }
-    if (value.wait1 !== '') {
-      params.mark = value.wait1;
-    }
-    if (value.wait2 !== '') {
-      params.mark = value.wait2;
-    }
-    if (value.wait3 !== '') {
-      params.mark = value.wait3;
-    }
-    // params.type_chat = 'GROUP_WS';
-    // params.suorce = 'BACK_END';
-    return params;
-  }
 
-  filterClick(item) {
-    if (item === 'UNPAID') {
-      this.searchForm.patchValue({
-        paymentStatus: item,
-      });
-      this.listOrders();
+    buyNow(item) {
     }
-    if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
-      this.searchForm.patchValue({
-        noTracking: item,
-      });
-      this.listOrders();
+
+    getLinkBuynow(pro) {
+        let link = pro.link_origin;
+        if (link.indexOf('?')) {
+            link = link + '&order_id=' + pro.order_id;
+        } else {
+            link = link + '?order_id=' + pro.order_id;
+        }
+        return link;
     }
-  }
+
+    paid(totalpaid, price) {
+        if (totalpaid > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    openOrderChatRefund(order) {
+        this.code = order.ordercode;
+        this.markID = order.id;
+        this.checkOrderChatRefund = true;
+        this.editForm = this.fb.group({
+            wait1: '',
+            wait2: '',
+            wait3: '',
+            link_image: '',
+            messageCustomer: '',
+        });
+    }
+
+    updateMarkWaiting() {
+        const params = this.prepareMarkWaiting();
+        const messagePop = 'Do you want mark supporting';
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                mark_supporting: params.mark,
+                current_status: 'SUPPORTING',
+            }, 'updateMarkSupporting');
+            this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
+                if (res.success) {
+                    this.popup.success(res.message);
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
+    }
+
+    prepareMarkWaiting() {
+        const value = this.editForm.value;
+        const params: any = {};
+        if (value.messageCustomer !== '') {
+            params.messageCustomer = value.messageCustomer;
+        }
+        if (value.link_image !== '') {
+            params.link_image = value.link_image;
+        }
+        if (value.wait1 !== '') {
+            params.mark = value.wait1;
+        }
+        if (value.wait2 !== '') {
+            params.mark = value.wait2;
+        }
+        if (value.wait3 !== '') {
+            params.mark = value.wait3;
+        }
+        // params.type_chat = 'GROUP_WS';
+        // params.suorce = 'BACK_END';
+        return params;
+    }
+
+    filterClick(item) {
+        if (item === 'UNPAID') {
+            this.searchForm.patchValue({
+                paymentStatus: item,
+            });
+            this.listOrders();
+        }
+        if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
+            this.searchForm.patchValue({
+                noTracking: item,
+            });
+            this.listOrders();
+        }
+    }
 }
 
