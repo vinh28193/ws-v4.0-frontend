@@ -682,6 +682,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openOrderChatRefund(order) {
       this.code = order.ordercode;
       this.markID = order.id;
+      this.status = order.status;
       this.checkOrderChatRefund = true;
       this.editForm = this.fb.group({
         wait1: '',
@@ -694,6 +695,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   updateMarkWaiting() {
     const params = this.prepareMarkWaiting();
     const messagePop = 'Do you want mark supporting';
+    if (params.message !== '') {
+      this.orderService.postChat(params.messageCustomer).subscribe(res => {
+      });
+    }
     this.popup.warning(() => {
       const put = this.orderService.createPostParams({
         mark_supporting: params.mark,
@@ -712,7 +717,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const value = this.editForm.value;
     const params: any = {};
     if (value.messageCustomer !== '') {
-      params.messageCustomer = value.messageCustomer;
+      params.message = value.messageCustomer;
     }
     if (value.link_image !== '') {
       params.link_image = value.link_image;
@@ -726,8 +731,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (value.wait3 !== '') {
       params.mark = value.wait3;
     }
-    // params.type_chat = 'GROUP_WS';
-    // params.suorce = 'BACK_END';
+    if (value.messageCustomer !== '') {
+      params.messageCustomer = value.messageCustomer;
+    }
+    if (this.status === 'NEW') {
+      params.isNew = 'yes';
+    }
+    params.type_chat = 'WS_CUSTOMER';
+    params.suorce = 'BACK_END';
     return params;
   }
 
