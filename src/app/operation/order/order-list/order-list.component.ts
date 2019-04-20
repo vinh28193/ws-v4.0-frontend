@@ -21,7 +21,7 @@ declare var $: any;
     styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent extends OrderDataComponent implements OnInit {
-    @ViewChild('showPromotion') showPromotion: ModalDirective;
+    @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     public pro: any = {};
     public pack: any = {};
@@ -135,13 +135,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.content = params.content.replace(/\n/g, '</br>');
     }
     // console.log(params);
-     this.orderService.post(`chatlists`, params).subscribe(res => {
+     this.orderService.post('chatlists', params).subscribe(res => {
          this.buildChat();
          this.listChatsSupporting();
      });
     }
-    deleteChatSupporting(position) {
-         this.orderService.delete('chatlists/'+position).subscribe(res => {
+    deleteChatSupporting(index) {
+          
+         this.orderService.delete('chatlists/'+ index).subscribe(res => {
          this.listChatsSupporting();
      });
     }
