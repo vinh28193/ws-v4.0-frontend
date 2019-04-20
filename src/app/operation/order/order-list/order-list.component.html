@@ -916,7 +916,7 @@
                         </thead>
                         <tbody *ngIf="listLog.length > 0">
                         <tr *ngFor="let log of listLog">
-                          <td>{{log.date}}td>{{log.dat                    <td>
+                          <td>{{log.date}}<td>
                             <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
                             <ng-template #logDetail style="max-width: 500px">
                               <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>

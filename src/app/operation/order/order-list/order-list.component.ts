@@ -56,6 +56,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public hideme: any = {};
     public statusShow: any = {};
     public total_paid_amount_local: any;
+    public inputs: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
     public total_refund_amount_local: any;
