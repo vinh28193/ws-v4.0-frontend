@@ -15,6 +15,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
 
     @ViewChild('usSendingModal') usSendingModal: ModalDirective;
+    @ViewChild('mergeTracking') mergeTracking: ModalDirective;
 
     public tracks: any = [];
     public manifests: any = [];
@@ -23,6 +24,8 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     public trackingComplete = '';
     public trackingWast = '';
     public trackingMiss = '';
+    public trackingMerge = '';
+    public trackingTarget = '';
 
     // file
     public file: File;
@@ -198,5 +201,13 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             return images.split(',');
         }
         return false;
+    }
+    showMergeTracking(tracking) {
+        this.trackingMerge = tracking;
+        this.trackingTarget = '';
+        this.mergeTracking.show();
+    }
+    merge() {
+        console.log(this.trackingTarget);
     }
 }
