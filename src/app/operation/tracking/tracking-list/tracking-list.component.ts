@@ -15,9 +15,17 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
 
     @ViewChild('usSendingModal') usSendingModal: ModalDirective;
+    @ViewChild('mergeTracking') mergeTracking: ModalDirective;
 
     public tracks: any = [];
+    public manifests: any = [];
     public showImageRow = -1;
+    public trackingUnknown = '';
+    public trackingComplete = '';
+    public trackingWast = '';
+    public trackingMiss = '';
+    public trackingMerge = '';
+    public trackingTarget = '';
 
     // file
     public file: File;
@@ -134,6 +142,10 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         const value = this.searchForm.value;
 
         const params: any = {
+            trackingC: this.trackingComplete,
+            trackingW: this.trackingWast,
+            trackingM: this.trackingMiss,
+            trackingU: this.trackingUnknown,
             ps: value.perPage,
             p: value.page
         };
@@ -143,17 +155,20 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         return params;
     }
 
-    search() {
+    search(type = 'search') {
         const params = this.preSearch();
         this.trackingService.search(params).subscribe(response => {
             const rs: any = response;
             if (rs.success) {
                 const data: any = rs.data;
                 this.tracks = data._items;
-                this.totalCount = data._meta.totalCount;
-                this.pageCount = data._meta.pageCount;
-                this.currentPage = data._meta.currentPage;
-                this.perPage = data._meta.perPage;
+                if (type !== 'tracking') {
+                    this.manifests = data._manifest ? data._manifest : this.manifests;
+                }
+                this.totalCount = data._meta.totalCount ? data._meta.totalCount : this.totalCount;
+                this.pageCount = data._meta.pageCount ? data._meta.pageCount : this.pageCount;
+                this.currentPage = data._meta.currentPage ? data._meta.currentPage : this.currentPage;
+                this.perPage = data._meta.perPage ? data._meta.perPage : this.perPage;
             } else {
                 this.popUp.error(rs.message);
             }
@@ -181,4 +196,18 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.search();
     }
 
+    getListImage(images) {
+        if (images) {
+            return images.split(',');
+        }
+        return false;
+    }
+    showMergeTracking(tracking) {
+        this.trackingMerge = tracking;
+        this.trackingTarget = '';
+        this.mergeTracking.show();
+    }
+    merge() {
+        console.log(this.trackingTarget);
+    }
 }
