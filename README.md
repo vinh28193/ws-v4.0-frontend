@@ -45,5 +45,7 @@ ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
  ng build --prod --i18n-file src/locale/messages.vi.xlf --i18n-format xlf --i18n-locale vi
  
 
-####------------FCM ---------------
+####------------FCM --------------- 
+npm install clientjs
+npm install --save firebase
 npm install firebase @angular/fire --save
