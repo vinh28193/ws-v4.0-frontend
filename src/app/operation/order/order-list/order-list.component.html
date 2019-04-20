@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="card-title">
           <h3 i18n>LISTS ORDERS</h3>
-          <span *ngIf="message">{{ message | async | json }}</span>
+          <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-6 col-sm-12 form-group m-b-10">

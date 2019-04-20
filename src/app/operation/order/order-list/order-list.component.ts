@@ -128,8 +128,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const userId = 'user001';
         this.messagingService.requestPermission(userId);
         this.messagingService.receiveMessage();
-        this.message = this.messagingService.currentMessage;
-        console.log('currentMessage : ' + this.messagingService.receiveMessage());
+        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        if (this.message == null) this.message = '';
     }
 
     buildChat() {
