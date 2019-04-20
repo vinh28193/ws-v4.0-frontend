@@ -4,6 +4,7 @@
       <div class="card-body">
         <div class="card-title">
           <h3 i18n>LISTS ORDERS</h3>
+          <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
           <div class="col-md-6 col-sm-12 form-group m-b-10">
@@ -723,7 +724,7 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
 
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>        
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>
 
 
 
@@ -916,7 +917,7 @@
                         </thead>
                         <tbody *ngIf="listLog.length > 0">
                         <tr *ngFor="let log of listLog">
-                          <td>{{log.date}}td>{{log.dat                    <td>
+                          <td>{{log.date}}<td>
                             <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
                             <ng-template #logDetail style="max-width: 500px">
                               <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>
@@ -1201,10 +1202,10 @@
           <div class="alert alert-warning row" role="alert">
             <div class="card-body">
               <div class="input-group">
-              <textarea name="" class="form-control type_msg" rows="4" formControlName="message"
+              <textarea name="" class="form-control type_msg" rows="3" formControlName="messageCustomer"
                         placeholder="Enter the exchange content.
                         Press Shift + Enter to get down the line.
-                        Enter to send" i18n-placeholder>
+                        Enter to send">
               </textarea>
                 <div class="input-group-btn">
                   <button style="height: 80px;" class="btn btn-default" i18n>Sent</button>
