@@ -23,4 +23,7 @@ export class TrackingService extends OperationService {
     create(formData) {
         return this.post('tracking-code', formData);
     }
+    merge(formData) {
+        return this.post('s-tracking-code', formData);
+    }
 }
