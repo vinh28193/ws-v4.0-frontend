@@ -176,13 +176,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
-        // /**Notification**/
-        // const fingerprint = this.UUID();
-        // const details = this.UUID_Details();
-        // const userLogin = this.storegate.get('userLogin');
-        // const dataUserLoginParse = JSON.parse(userLogin);
-        // const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ; // 'user001';
-        // const currentToken = this.messagingService.requestPermission(userId);
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
     }
