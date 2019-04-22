@@ -719,12 +719,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             messageCustomer: '',
         });
     }
-
+    enterChat() {
+      const params = this.prepareMarkWaiting();
+      if (params.message !== '') {
+        this.orderService.postChat(params).subscribe(res => {
+        });
+      }
+    }
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
         const messagePop = 'Do you want mark supporting';
         if (params.message !== '') {
-            this.orderService.postChat(params.messageCustomer).subscribe(res => {
+            this.orderService.postChat(params).subscribe(res => {
             });
         }
         this.popup.warning(() => {
@@ -767,6 +773,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.isNew = 'yes';
         }
         params.type_chat = 'WS_CUSTOMER';
+        params.Order_path  = this.markID;
         params.suorce = 'BACK_END';
         return params;
     }

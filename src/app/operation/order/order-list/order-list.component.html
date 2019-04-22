@@ -1180,7 +1180,7 @@
           <div class="row row mt-2 pl-3">
             <div class="col-md-8 mt-1">
               <label>
-                <input type="radio"  name="wait" formControlName="wait1" value="1"><span i18n>Wait to bargain</span></label>
+                <input type="radio"  name="wait" formControlName="wait1" value="1" checked><span i18n>Wait to bargain</span></label>
             </div>
             <div class="col-md-8 mt-1">
               <label>
@@ -1202,13 +1202,13 @@
           <div class="alert alert-warning row" role="alert">
             <div class="card-body">
               <div class="input-group">
-              <textarea name="" class="form-control type_msg" rows="3" formControlName="messageCustomer"
+              <textarea name="" class="form-control type_msg" rows="3" (keydown.enter)="enterChat()" formControlName="messageCustomer"
                         placeholder="Enter the exchange content.
                         Press Shift + Enter to get down the line.
                         Enter to send">
               </textarea>
                 <div class="input-group-btn">
-                  <button style="height: 80px;" class="btn btn-default" i18n>Sent</button>
+                  <button style="height: 80px;" class="btn btn-default" (click)="enterChat()" i18n>Sent</button>
                 </div>
               </div>
             </div>
