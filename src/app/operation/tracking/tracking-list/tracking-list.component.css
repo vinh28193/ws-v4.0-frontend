@@ -47,3 +47,6 @@
 #content-tracking-info td{
     padding: 5px;
 }
+.mouse-cell{
+    cursor: cell;
+}
