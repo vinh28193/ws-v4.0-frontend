@@ -26,4 +26,13 @@ export class TrackingService extends OperationService {
     merge(formData) {
         return this.post('s-tracking-code', formData);
     }
+    mapUnknown(id, formData) {
+        return this.post('s-tracking-code/map-unknown/' + id, formData);
+    }
+    sellerRefund(id, formData) {
+        return this.post('s-tracking-code/seller-refund/' + id, formData);
+    }
+    markHold(id, formData) {
+        return this.post('s-tracking-code/mark-hold/' + id, formData);
+    }
 }
