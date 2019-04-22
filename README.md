@@ -46,6 +46,9 @@ ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
  
 
 ####------------FCM --------------- 
-npm install clientjs
+npm install clientjs or bower install clientjs --allow-root
+sudo npm install clientjs --unsafe-perm=true --allow-root
+
+
 npm install --save firebase
 npm install firebase @angular/fire --save
