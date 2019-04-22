@@ -133,6 +133,7 @@
                                                                     <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
                                                                     <div>Order Id: <b>{{packTr.order_id}}</b></div>
                                                                     <div>Product Id: <b>{{packTr.product_id}}</b></div>
+                                                                    <div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
                                                                     <div>Item Name: <b>{{packTr.item_name}}</b></div>
                                                                     <div>Quantity: <b>{{packTr.quantity}}</b></div>
                                                                     <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
@@ -148,8 +149,13 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
-                                                                        <p><a href="javascript:void (0)"><i class="fa fa-chain-broken"></i> Split tracking</a></p>
+                                                                    <div class="padding-btn">
+                                                                        <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fa fa-bank"></i> Seller refund</a></div>
+                                                                        <div *ngIf="!packTr.hold" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fa fa-bookmark-o"></i> Hold</a></div>
+                                                                        <div *ngIf="packTr.hold" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fa fa-bookmark"></i> UnHold</a></div>
+                                                                        <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-eye"></i> View detail merge</a></div>
+                                                                        <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-eye"></i> View Extension</a></div>
+                                                                        <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-chain-broken"></i> Split tracking</a></div>
                                                                     </div>
                                                                 </li>
                                                             </ng-container>
@@ -240,8 +246,8 @@
                                                                     </div>
                                                                     <div>
                                                                         <p class="btn-group" >
-                                                                            <input class="form-control form-control-sm" [(ngModel)]="productId[packTr.id]" type="text" placeholder="Type Product Id">
-                                                                            <button class="btn btn-default">Map <i class="fa fa-map-marker"></i></button>
+                                                                            <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
+                                                                            <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fa fa-map-marker"></i></button>
                                                                         </p>
                                                                     </div>
                                                                 </li>
@@ -323,6 +329,57 @@
                                     </div>
 
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #sellerRefundModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Seller refund tracking {{sellerRefundForm.tracking}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="amountRefund" class="form-control-label" >Amount Refund ($)</label>
+                                            <input type="number" id="amountRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.amount" >
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="typeRefund" class="form-control-label" >Type refund</label>
+                                            <select id="typeRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.type">
+                                                <option value="full">Refund Full</option>
+                                                <option value="partial">Refund Partial</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="timeRefund" class="form-control-label" >Time refund</label>
+                                            <input id="timeRefund" type="text" class="form-control" placeholder="Time Refund" bsDatepicker  [(ngModel)]="sellerRefundForm.time"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="updateSellerRefund()">Update Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="sellerRefundModal.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

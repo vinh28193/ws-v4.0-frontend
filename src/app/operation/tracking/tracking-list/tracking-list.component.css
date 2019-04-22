@@ -50,3 +50,9 @@
 .mouse-cell{
     cursor: cell;
 }
+.padding-btn div{
+    padding-bottom: 5px;
+}
+.fa{
+    font-family: "FontAwesome";
+}
