@@ -12,7 +12,15 @@ import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
 import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
+import {NotificationsService} from '../../../core/service/notifications.service';
+import {StorageService} from '../../../core/service/storage.service';
 
+// custom-typings.d
+declare let ClientJS: any;
+// use in a .ts file
+import 'clientjs';
+
+const client = new ClientJS();
 declare var jQuery: any;
 declare var $: any;
 
@@ -106,8 +114,51 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private _authService: AuthService,
                 public _scope: ScopeService,
                 private messagingService: MessagingService,
+                public  notifi: NotificationsService,
+                public storegate: StorageService,
     ) {
         super(orderService);
+    }
+    UUID() {
+        const ua = client.getBrowserData().ua;
+        const canvasPrint = client.getCanvasPrint();
+        /** UUID Device**/
+        const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
+        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        return fingerprint;
+    }
+    UUID_Details(){
+        const details = {
+            browser: client.getBrowser(),
+            os: client.getOS(),
+            osVersion: client.getOSVersion(),
+            device: client.getDevice(),
+            deviceType: client.getDeviceType(),
+            deviceVendor: client.getDeviceVendor(),
+            cpu: client.getCPU()
+        };
+        return details;
+    }
+    sendSubscriptionToServer(token, fingerprint, details) {
+        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
+        const formData = new FormData();
+        formData.append('token', token);
+        formData.append('fingerprint', fingerprint);
+        formData.append('details', JSON.stringify(details));
+        this.notifi.post(`notifications`, formData).subscribe(ret => {
+            const res: any = ret;
+            console.log('res send token Subscription ' + JSON.stringify(res));
+            if (res.success) {
+                this.loading = false;
+                const rs: any = res.data;
+                console.log('Notifi data : ' + JSON.stringify(rs));
+            } else {
+                this.loading = false;
+                this.popup.error(res.message, 'Error');
+            }
+            this.loading = false;
+            console.log('done');
+        });
     }
 
     ngOnInit() {
@@ -125,14 +176,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
-        /**Notification**/
-        const userId = 'user001';
-        this.messagingService.requestPermission(userId);
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        if (this.message == null) {
-            this.message = '';
-        }
     }
 
     buildChat() {
@@ -329,6 +374,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     followOrder() {
         this.checkF = !this.checkF;
+        // Notification
+
+        /**Notification**/
+        const fingerprint = this.UUID();
+        const details = this.UUID_Details();
+        const userLogin = this.storegate.get('userLogin');
+        const dataUserLoginParse = JSON.parse(userLogin);
+        const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ;
+        const currentToken = this.messagingService.requestPermission(userId);
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        this.sendSubscriptionToServer(currentToken, fingerprint, details);
+
     }
 
     chat(id, code, status) {
