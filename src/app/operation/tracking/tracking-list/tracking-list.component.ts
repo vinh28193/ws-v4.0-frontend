@@ -20,12 +20,19 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     public tracks: any = [];
     public manifests: any = [];
     public showImageRow = -1;
+    public productIds: any = [];
     public trackingUnknown = '';
     public trackingComplete = '';
     public trackingWast = '';
     public trackingMiss = '';
-    public trackingMerge = '';
-    public trackingTarget = '';
+    public trackingMerge: any = {
+        data: {},
+        type: '',
+    };
+    public trackingTarget: any = {
+        data: {},
+        type: '',
+    };
 
     // file
     public file: File;
@@ -207,7 +214,44 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.trackingTarget = '';
         this.mergeTracking.show();
     }
-    merge() {
+
+    merge(packTr, type) {
+        if (!this.trackingMerge.type) {
+            this.trackingMerge.data = packTr;
+            this.trackingMerge.type = type;
+        } else {
+            this.trackingTarget.data = packTr;
+            this.trackingTarget.type = type;
+            const formMerge = {
+                merge: this.trackingMerge,
+                target: this.trackingTarget
+            };
+            this.trackingService.popup.confirm(() => {
+                this.trackingService.merge(formMerge).subscribe(rs => {
+                    const res: any = rs;
+                    if (res.success) {
+                        this.popUp.success(res.message);
+                        this.search('tracking');
+                    }
+                });
+            }, this.trackingMerge.data.tracking_code + ' merge ' + this.trackingTarget.data.tracking_code, 'Merge');
+            this.clearMerge();
+        }
+        console.log(this.trackingMerge);
         console.log(this.trackingTarget);
+    }
+
+    clearMerge() {
+        this.trackingMerge = {
+            data: {},
+            type: '',
+        };
+        this.trackingTarget = {
+            data: {},
+            type: '',
+        };
+    }
+    mapUnknown(id){
+
     }
 }

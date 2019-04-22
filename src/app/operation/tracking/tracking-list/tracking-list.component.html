@@ -179,7 +179,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        <p><a href="javascript:void (0)" (click)="showMergeTracking(packTr.tracking_code)"><i class="fa fa-chain"></i> Merge tracking</a></p>
+                                                                        <p *ngIf="!trackingMerge || trackingMerge.type != 'wast'"><a href="javascript:void (0)" (click)="merge(packTr,'wast')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fa fa-chain"></i> Merge tracking</a></p>
                                                                     </div>
                                                                 </li>
                                                             </ng-container>
@@ -209,7 +209,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        <p><a href="javascript:void (0)" (click)="showMergeTracking(packTr.tracking_code)"><i class="fa fa-chain"></i> Merge tracking</a></p>
+                                                                        <p *ngIf="!trackingMerge || trackingMerge.type != 'miss'" ><a href="javascript:void (0)" (click)="merge(packTr,'miss')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fa fa-chain"></i> Merge tracking</a></p>
                                                                     </div>
                                                                 </li>
                                                             </ng-container>
@@ -239,7 +239,10 @@
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        <p><a href="javascript:void (0)"><i class="fa fa-map-marker"></i> Map Product - Order Id</a></p>
+                                                                        <p class="btn-group" >
+                                                                            <input class="form-control form-control-sm" [(ngModel)]="productId[packTr.id]" type="text" placeholder="Type Product Id">
+                                                                            <button class="btn btn-default">Map <i class="fa fa-map-marker"></i></button>
+                                                                        </p>
                                                                     </div>
                                                                 </li>
                                                             </ng-container>
@@ -342,11 +345,13 @@
                                 </div>
                                 <div class="col-md-12 form-body">
                                     <div class="row">
-                                        <div class="col-md-6 form-group m-b-10">
+                                        <div class="col-md-12 form-group m-b-10">
                                             <label for="store" class="form-control-label" >Tracking merge</label>
                                             <input type="text" disabled class="form-control form-control-sm" value="{{trackingMerge}}" >
                                         </div>
-                                        <div class="col-md-6 form-group m-b-10">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
                                             <label for="store" class="form-control-label" >Tracking target</label>
                                             <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingTarget" placeholder="Enter tracking target" >
                                         </div>
@@ -354,7 +359,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="button-group">
-                                                <button class="btn btn-sm btn-success" (click)="merge()" i18n>Merge</button>
+                                                <button class="btn btn-sm btn-success" i18n>Merge</button>
                                                 <button class="btn btn-sm btn-warning" (click)="mergeTracking.hide()" i18n>Cancel</button>
                                             </div>
                                         </div>
