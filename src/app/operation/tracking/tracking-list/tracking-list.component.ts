@@ -273,8 +273,39 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
     }
 
-    splitTracking(id) {
-        console.log(id);
+    splitTracking(packTr) {
+        if (!packTr.tracking_merge) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        const arr = packTr.tracking_merge.split(',');
+        if (arr.length <= 1) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        let missing = arr[0];
+        const wasting = arr[1];
+
+        if (arr.length > 2) {
+            for (let ind = 0; ind < arr.length; ind++) {
+                if (ind > 1) {
+                    missing = missing + ', ' + arr[ind];
+                }
+            }
+        }
+        this.popUp.confirm(
+            () => {
+                this.trackingService.delete('s-tracking-code/' + packTr.id).subscribe(rs => {
+                    if (rs) {
+                        this.popUp.success(rs.message);
+                        this.search('tracking');
+                    } else {
+                        this.popUp.error(rs.message);
+                    }
+                });
+            },
+            'Do you want split it! And tracking: ' +
+            '' + missing + ' to Missing tracking. And tracking: ' +
+            '' + wasting + ' to Wasting tracking.', 'split'
+        );
     }
 
     showSellerRefundModal(packTr) {

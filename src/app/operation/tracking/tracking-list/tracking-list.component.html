@@ -151,11 +151,11 @@
                                                                     </div>
                                                                     <div class="padding-btn">
                                                                         <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fa fa-bank"></i> Seller refund</a></div>
-                                                                        <div *ngIf="!packTr.hold" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fa fa-bookmark-o"></i> Hold</a></div>
-                                                                        <div *ngIf="packTr.hold" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fa fa-bookmark"></i> UnHold</a></div>
+                                                                        <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fa fa-bookmark-o"></i> Hold</a></div>
+                                                                        <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fa fa-bookmark"></i> UnHold</a></div>
                                                                         <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-eye"></i> View detail merge</a></div>
                                                                         <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-eye"></i> View Extension</a></div>
-                                                                        <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fa fa-chain-broken"></i> Split tracking</a></div>
+                                                                        <div><a href="javascript:void (0)" (click)="splitTracking(packTr)"><i class="fa fa-chain-broken"></i> Split tracking</a></div>
                                                                     </div>
                                                                 </li>
                                                             </ng-container>
