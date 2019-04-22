@@ -10,6 +10,7 @@ import {BehaviorSubject} from 'rxjs';
 export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
+    public _token = '';
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -45,15 +46,18 @@ export class MessagingService {
      * @param userId userId
      */
     requestPermission(userId) {
+        let token_fcm = '';
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
-                console.log(token);
+                token_fcm = token;
+                console.log('Token FCM : ' + token);
                 this.updateToken(userId, token);
             },
             (err) => {
                 console.error('Unable to get permission to notify.', err);
             }
         );
+        return this._token = token_fcm;
     }
 
     /**
