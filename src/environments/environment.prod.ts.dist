@@ -5,4 +5,12 @@ export const environment = {
   IMG_URL_WH: 'http://static.weshop.local',
   API_URL_BACKEND: 'http://weshop-v4.back-end.local.vn:8080/v1',
   OAUTH_URL: 'http://weshop-v4.back-end.local.vn:8080/1',
+  firebase: {
+          apiKey: 'AIzaSyCH5Yl0a5RwnIAGLt1iR3o917HSb5ekJpE',
+          authDomain: 'weshop-push-notification-2019.firebaseapp.com',
+          databaseURL: 'https://weshop-push-notification-2019.firebaseio.com',
+          projectId: 'weshop-push-notification-2019',
+          storageBucket: 'weshop-push-notification-2019.appspot.com',
+          messagingSenderId: '652248674591'
+      }
 };

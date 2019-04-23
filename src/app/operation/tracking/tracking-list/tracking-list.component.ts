@@ -16,17 +16,52 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     @ViewChild('usSendingModal') usSendingModal: ModalDirective;
     @ViewChild('mergeTracking') mergeTracking: ModalDirective;
+    @ViewChild('sellerRefundModal') sellerRefundModal: ModalDirective;
+    @ViewChild('updateModal') updateModal: ModalDirective;
 
     public tracks: any = [];
     public manifests: any = [];
     public showImageRow = -1;
+    public productIds: any = [];
     public trackingUnknown = '';
     public trackingComplete = '';
     public trackingWast = '';
     public trackingMiss = '';
-    public trackingMerge = '';
-    public trackingTarget = '';
-
+    public tabTracking = '';
+    public trackingCodes: any = [];
+    public p_m = 1;
+    public p_u = 1;
+    public p_w = 1;
+    public p_c = 1;
+    public l_m = 20;
+    public l_u = 20;
+    public l_w = 20;
+    public l_c = 20;
+    public limit_page = 9;
+    public manifest_id = '';
+    public trackingMerge: any = {
+        data: {},
+        type: '',
+    };
+    public trackingTarget: any = {
+        data: {},
+        type: '',
+    };
+    public sellerRefundForm: any = {
+        id: '',
+        tracking: '',
+        type: 'full',
+        amount: 0.00,
+        time: '',
+    };
+    public updateForm: any = {
+        id: '',
+        tracking: '',
+        order_id: '',
+        product_id: '',
+        purchase_invoice_number: '',
+        item_name: '',
+    };
     // file
     public file: File;
     // form
@@ -63,6 +98,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             store: [''],
             manifest: [''],
             warehouse: [''],
+            date: '',
             file: ['']
         });
     }
@@ -121,12 +157,12 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         fd.append('warehouse', value.warehouse);
         fd.append('manifest', value.manifest);
         fd.append('file', this.file);
+        fd.append('date', value.date);
         return fd;
     }
 
     public create() {
         this.trackingService.create(this.preCreate()).subscribe(res => {
-            console.log(' us sending ' + JSON.stringify(res));
             const rs: any = res;
             if (rs.success) {
                 this.popUp.success(rs.message);
@@ -146,8 +182,17 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             trackingW: this.trackingWast,
             trackingM: this.trackingMiss,
             trackingU: this.trackingUnknown,
-            ps: value.perPage,
-            p: value.page
+            m: this.manifest_id,
+            ps_ms: this.l_m,
+            ps_u: this.l_u,
+            ps_c: this.l_c,
+            ps_w: this.l_w,
+            p_ms: this.p_m,
+            p_u: this.p_u,
+            p_c: this.p_c,
+            p_w: this.p_w,
+            ps_m: value.perPage,
+            p_m: value.page
         };
         if (value.q !== '') {
             params.q = value.q;
@@ -155,20 +200,50 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         return params;
     }
 
+    getTotalPageArray(total, limit, page) {
+        const count = Math.ceil(total / limit);
+        const arr = [];
+        const tb = Math.ceil(this.limit_page / 2);
+        for (let ind = 0; ind < count; ind++) {
+            if (count > this.limit_page) {
+                if (page <= tb) {
+                    if (this.limit_page >= ind + 1) {
+                        arr.push(ind + 1);
+                    }
+                } else {
+                    if ((ind + 1 > page - tb && page + tb > ind + 1)) {
+                        arr.push(ind + 1);
+                    }
+                }
+            } else {
+                arr.push(ind + 1);
+            }
+        }
+        return arr;
+    }
+
+    getTotalPage(total, limit) {
+        return Math.floor(total / limit);
+    }
     search(type = 'search') {
         const params = this.preSearch();
+        if (type === 'search') {
+            params.m = '';
+            this.manifest_id = '';
+        }
         this.trackingService.search(params).subscribe(response => {
             const rs: any = response;
             if (rs.success) {
                 const data: any = rs.data;
                 this.tracks = data._items;
-                if (type !== 'tracking') {
+                if (type === 'search') {
                     this.manifests = data._manifest ? data._manifest : this.manifests;
                 }
-                this.totalCount = data._meta.totalCount ? data._meta.totalCount : this.totalCount;
-                this.pageCount = data._meta.pageCount ? data._meta.pageCount : this.pageCount;
-                this.currentPage = data._meta.currentPage ? data._meta.currentPage : this.currentPage;
-                this.perPage = data._meta.perPage ? data._meta.perPage : this.perPage;
+                this.totalCount = data._total_manifest ? data._total_manifest : this.totalCount;
+                this.pageCount = Math.floor(this.totalCount / params.ps_m);
+                this.currentPage = params.p_m;
+                this.perPage = params.ps_m;
+                this.setTabTracking('');
             } else {
                 this.popUp.error(rs.message);
             }
@@ -195,19 +270,184 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.searchForm.patchValue({perPage: value});
         this.search();
     }
-
-    getListImage(images) {
-        if (images) {
-            return images.split(',');
-        }
-        return false;
-    }
     showMergeTracking(tracking) {
         this.trackingMerge = tracking;
         this.trackingTarget = '';
         this.mergeTracking.show();
     }
-    merge() {
-        console.log(this.trackingTarget);
+
+    merge(packTr, type) {
+        if (!this.trackingMerge.type) {
+            this.trackingMerge.data = packTr;
+            this.trackingMerge.type = type;
+        } else {
+            this.trackingTarget.data = packTr;
+            this.trackingTarget.type = type;
+            const formMerge = {
+                merge: this.trackingMerge,
+                target: this.trackingTarget
+            };
+            this.trackingService.popup.confirm(() => {
+                this.trackingService.merge(formMerge).subscribe(rs => {
+                    const res: any = rs;
+                    if (res.success) {
+                        this.popUp.success(res.message);
+                        this.search('tracking');
+                    }
+                });
+            }, this.trackingMerge.data.tracking_code + ' merge ' + this.trackingTarget.data.tracking_code, 'Merge');
+            this.clearMerge();
+        }
+    }
+
+    clearMerge() {
+        this.trackingMerge = {
+            data: {},
+            type: '',
+        };
+        this.trackingTarget = {
+            data: {},
+            type: '',
+        };
+    }
+
+    mapUnknown(id, tracking_code) {
+        this.popUp.confirm(() => {
+            this.trackingService.mapUnknown(id, {product_id: this.productIds[id]}).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.popUp.success(res.message);
+                    this.search('tracking');
+                } else {
+                    this.popUp.error(res.message);
+                }
+            });
+        }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
+    }
+
+    splitTracking(packTr) {
+        if (!packTr.tracking_merge) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        const arr = packTr.tracking_merge.split(',');
+        if (arr.length <= 1) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        let missing = arr[0];
+        const wasting = arr[1];
+
+        if (arr.length > 2) {
+            for (let ind = 0; ind < arr.length; ind++) {
+                if (ind > 1) {
+                    missing = missing + ', ' + arr[ind];
+                }
+            }
+        }
+        this.popUp.confirm(
+            () => {
+                this.trackingService.delete('s-tracking-code/' + packTr.id).subscribe(rs => {
+                    if (rs) {
+                        this.popUp.success(rs.message);
+                        this.search('tracking');
+                    } else {
+                        this.popUp.error(rs.message);
+                    }
+                });
+            },
+            'Do you want split it! And tracking: ' +
+            '' + missing + ' to Missing tracking. And tracking: ' +
+            '' + wasting + ' to Wasting tracking.', 'split'
+        );
+    }
+
+    showSellerRefundModal(packTr) {
+        this.sellerRefundForm.id = packTr.id;
+        this.sellerRefundForm.tracking = packTr.tracking_code;
+        this.sellerRefundModal.show();
+    }
+
+    updateSellerRefund() {
+        if (!this.sellerRefundForm.amount || !this.sellerRefundForm.time) {
+            return this.popUp.error('All field cannot null!');
+        }
+        this.trackingService.sellerRefund(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.popUp.success(res.message);
+                this.search('tracking');
+                this.sellerRefundModal.hide();
+            } else {
+                this.popUp.error(res.message);
+            }
+        });
+    }
+
+    markHoldTracking(id, hold) {
+        this.popUp.confirm(
+            () => {
+                this.trackingService.markHold(id, {hold : hold}).subscribe(rs => {
+                    const res: any = rs;
+                    if (res.success) {
+                        this.popUp.success(res.message);
+                        this.search('tracking');
+                    } else {
+                        this.popUp.error(res.message);
+                    }
+                });
+            },
+            hold ? 'Hold tracking?' : 'UnHold tracking?', 'hold'
+        );
+    }
+
+    showUpdateForm(packTr) {
+        this.updateForm.id = packTr.id;
+        this.updateForm.item_name = packTr.item_name;
+        this.updateForm.order_id = packTr.order_id;
+        this.updateForm.product_id = packTr.product_id;
+        this.updateForm.purchase_invoice_number = packTr.purchase_invoice_number;
+        this.updateForm.tracking = packTr.tracking_code;
+        this.updateModal.show();
+    }
+
+    update() {
+        if (!this.updateForm.purchase_invoice_number ||
+            !this.updateForm.product_id || !this.updateForm.order_id || !this.updateForm.item_name) {
+            return this.popUp.error('All field cannot null!');
+        }
+        this.trackingService.update(this.updateForm.id, this.updateForm).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.popUp.success(res.message);
+                this.updateModal.hide();
+                this.search('tracking');
+            } else {
+                this.popUp.error(res.message);
+            }
+        });
+    }
+
+    setTabTracking(tab) {
+        if (this.tabTracking === tab) {
+            this.tabTracking = '';
+        } else {
+            this.tabTracking = tab;
+            switch (tab) {
+                case 'complete':
+                    this.trackingCodes = this.tracks.draftPackageItems;
+                    break;
+                case 'wasting':
+                    this.trackingCodes = this.tracks.draftWastingTrackings;
+                    break;
+                case 'missing':
+                    this.trackingCodes = this.tracks.draftMissingTrackings;
+                    break;
+                case 'unknown':
+                    this.trackingCodes = this.tracks.unknownTrackings;
+                    break;
+                default:
+                    this.trackingCodes = [];
+                    break;
+            }
+        }
     }
 }

@@ -1,0 +1,15 @@
+<div class="btn-group">
+  <button *ngIf="getTotalPageArray()[0] && getTotalPageArray()[0] != 1"
+          class="btn btn-sm btn-outline-dark"
+          (click)="selectPage(1)"> 1 ...
+  </button>
+  <ng-container
+          *ngFor="let num of getTotalPageArray()">
+    <button class="btn btn-sm btn-outline-{{num == page ? 'danger' : 'dark'}}"
+            (click)="selectPage(num)"> {{num}} </button>
+  </ng-container>
+  <button *ngIf="getTotalPageArray()[limit_page -1] && getTotalPageArray()[limit_page -1] != getTotalPage()"
+          class="btn btn-sm btn-outline-dark"
+          (click)="selectPage(getTotalPage())">
+    ... {{getTotalPage()}}</button>
+</div>

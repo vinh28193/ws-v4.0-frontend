@@ -32,10 +32,20 @@
     border-radius: 5px;
     height: 10px;
 }
+.custom-list-item:hover{
+    background: #2e2e2e2e;
+    margin-bottom: 0px;
+    border-bottom: none;
+    border-radius:  0px;
+}
 .active{
     margin-bottom: 0px;
     border-bottom: none;
     background: #2e5cde;
+    border-radius:  0px;
+}
+.active h4{
+    color: #fff;
 }
 .active:hover{
     background: #2e5cde !important;
@@ -46,4 +56,20 @@
 }
 #content-tracking-info td{
     padding: 5px;
+}
+.mouse-cell{
+    cursor: cell;
+}
+.padding-btn div{
+    padding-bottom: 5px;
+}
+i{
+    font-family: "FontAwesome";
+}
+.body-content table th:hover{
+    background: #fff;
+    cursor: pointer;
+}
+.active-tab-track{
+    background: #fff;
 }
