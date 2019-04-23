@@ -16,6 +16,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     @ViewChild('usSendingModal') usSendingModal: ModalDirective;
     @ViewChild('mergeTracking') mergeTracking: ModalDirective;
+    @ViewChild('sellerRefundModal') sellerRefundModal: ModalDirective;
 
     public tracks: any = [];
     public manifests: any = [];
@@ -33,7 +34,13 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         data: {},
         type: '',
     };
-
+    public sellerRefundForm: any = {
+        id: '',
+        tracking: '',
+        type: 'full',
+        amount: 0.00,
+        time: '',
+    };
     // file
     public file: File;
     // form
@@ -251,7 +258,92 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             type: '',
         };
     }
-    mapUnknown(id){
 
+    mapUnknown(id, tracking_code) {
+        this.popUp.confirm(() => {
+            this.trackingService.mapUnknown(id, {product_id: this.productIds[id]}).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.popUp.success(res.message);
+                    this.search('tracking');
+                } else {
+                    this.popUp.error(res.message);
+                }
+            });
+        }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
+    }
+
+    splitTracking(packTr) {
+        if (!packTr.tracking_merge) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        const arr = packTr.tracking_merge.split(',');
+        if (arr.length <= 1) {
+            this.popUp.error('Sorry. Cannot split it!');
+        }
+        let missing = arr[0];
+        const wasting = arr[1];
+
+        if (arr.length > 2) {
+            for (let ind = 0; ind < arr.length; ind++) {
+                if (ind > 1) {
+                    missing = missing + ', ' + arr[ind];
+                }
+            }
+        }
+        this.popUp.confirm(
+            () => {
+                this.trackingService.delete('s-tracking-code/' + packTr.id).subscribe(rs => {
+                    if (rs) {
+                        this.popUp.success(rs.message);
+                        this.search('tracking');
+                    } else {
+                        this.popUp.error(rs.message);
+                    }
+                });
+            },
+            'Do you want split it! And tracking: ' +
+            '' + missing + ' to Missing tracking. And tracking: ' +
+            '' + wasting + ' to Wasting tracking.', 'split'
+        );
+    }
+
+    showSellerRefundModal(packTr) {
+        this.sellerRefundForm.id = packTr.id;
+        this.sellerRefundForm.tracking = packTr.tracking_code;
+        this.sellerRefundModal.show();
+    }
+
+    updateSellerRefund() {
+        if (!this.sellerRefundForm.amount || !this.sellerRefundForm.time) {
+            return this.popUp.error('All field cannot null!');
+        }
+        this.trackingService.sellerRefund(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.popUp.success(res.message);
+                this.search('tracking');
+                this.sellerRefundModal.hide();
+            } else {
+                this.popUp.error(res.message);
+            }
+        });
+    }
+
+    markHoldTracking(id, hold) {
+        this.popUp.confirm(
+            () => {
+                this.trackingService.markHold(id, {hold : hold}).subscribe(rs => {
+                    const res: any = rs;
+                    if (res.success) {
+                        this.popUp.success(res.message);
+                        this.search('tracking');
+                    } else {
+                        this.popUp.error(res.message);
+                    }
+                });
+            },
+            hold ? 'Hold tracking?' : 'UnHold tracking?', 'hold'
+        );
     }
 }
