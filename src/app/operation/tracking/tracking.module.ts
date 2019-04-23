@@ -11,6 +11,8 @@ import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from
 import {Select2Module} from 'ng2-select2';
 import { TrackingExtensionComponent } from './tracking-extension/tracking-extension.component';
 import {TrackingExtensionService} from './tracking-extension/tracking-extension.service';
+import { TrackingViewsComponent } from './tracking-views/tracking-views.component';
+import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
 
 @NgModule({
     imports: [
@@ -27,7 +29,9 @@ import {TrackingExtensionService} from './tracking-extension/tracking-extension.
     declarations: [
         TrackingRoutingComponent,
         TrackingListComponent,
-        TrackingExtensionComponent
+        TrackingExtensionComponent,
+        TrackingViewsComponent,
+        PagingCustomComponent
     ],
     providers: [
         TrackingService,
