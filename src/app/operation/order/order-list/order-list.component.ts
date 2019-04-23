@@ -215,7 +215,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.get(`chatlists`, 1).subscribe(res => {
             const result1: any = res;
             this.chatlists = result1.data;
-            console.log(this.chatlists);
 
         });
     }
@@ -497,7 +496,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
                 const rs = res;
                 this.listLog = rs.data;
-                console.log(this.listLog.length);
             });
         }
     }
@@ -786,18 +784,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
-        const messagePop = 'Do you want mark supporting';
+        const messagePop = 'Do you want mark supported';
         if (params.message !== '') {
             this.orderService.postChat(params).subscribe(res => {
             });
         }
+        if (params.link_image !== '') {
+          this.orderService.post('link-image', params).subscribe(res => {
+          });
+        }
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 mark_supporting: params.mark,
-                current_status: 'SUPPORTING',
-            }, 'updateMarkSupporting');
+                current_status: 'SUPPORTED',
+            }, 'updateMarkSupported');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
+                  this.listOrders();
                     this.popup.success(res.message);
                 } else {
                     this.popup.error(res.message);
@@ -812,7 +815,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.messageCustomer !== '') {
             params.message = value.messageCustomer;
         }
-        if (value.link_image !== '') {
+        if (value.link_image) {
             params.link_image = value.link_image;
         }
         if (value.wait1 !== '') {
@@ -830,8 +833,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (this.status === 'NEW') {
             params.isNew = 'yes';
         }
-        params.type_chat = 'WS_CUSTOMER';
-        params.Order_path  = this.markID;
+        params.type_chat = 'GROUP_WS';
+        params.Order_path  = this.code;
         params.suorce = 'BACK_END';
         return params;
     }
@@ -852,11 +855,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkCouponPromotion(paid) {
       if (this._scope.checkSuperAdmin() || this._scope.checkTester())  {
-        if (paid > 0 || paid === null || paid === '') {
+        if (paid > 0) {
           return false;
         }
         return true;
       }
+    }
+    checkShowPayBack(paid) {
+      if (this._scope.checkRoleOption() || this._scope.checkOperatione()) {
+        if (paid === 0 || paid === null || paid === '') {
+          return false;
+        }
+        return true;
+      }
+    }
+    updateOrder(order) {
+
     }
 
 }
