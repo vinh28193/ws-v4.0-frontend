@@ -13,5 +13,10 @@ export class TrackingDataComponent extends OperationDataComponent implements OnI
 
     ngOnInit() {
     }
-
+    getListImage(images) {
+        if (images) {
+            return images.split(',');
+        }
+        return false;
+    }
 }

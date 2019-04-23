@@ -716,24 +716,24 @@
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="(_scope.checkSuperAdmin() || _scope.checkTester()) && order.total_paid_amount_local > 0" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="_scope.checkRoleOption()" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status)" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedbacki</a>
 
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span> --> SUPPORTING</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
 
 
 
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption()" id="Đánh dấu đơn  chờ Refund OPS" href="javascript:void(0);" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Mark the order waiting for Refund</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="update order" href="javascript:void(0);"  data-target="#updateOrderCode" (click) = "updateOrderCode(order)" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Update Order</a>
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="btn-group">
-                                    <button *ngIf="order.mark_supporting" class="btn btn-sm btn-default"><i class="fa fa-check mr-1"></i>{{order.mark_supporting | markSupporting}}</button>
+                                  <div class="btn-group Ws-buuton">
+                                    <button *ngIf="order.mark_supporting" class="btn btn-sm btn-default Ws-buuton"><i class="fa fa-check mr-1"></i>{{order.mark_supporting | markSupporting}}</button>
                                   </div>
                                 </div>
                               </div>
@@ -1180,7 +1180,7 @@
           <div class="row row mt-2 pl-3">
             <div class="col-md-8 mt-1">
               <label>
-                <input type="radio"  name="wait" formControlName="wait1" value="1"><span i18n>Wait to bargain</span></label>
+                <input type="radio"  name="wait" formControlName="wait1" value="1" checked><span i18n>Wait to bargain</span></label>
             </div>
             <div class="col-md-8 mt-1">
               <label>
@@ -1199,19 +1199,15 @@
               </div>
             </div>
           </div>
-          <div class="alert alert-warning row" role="alert">
-            <div class="card-body">
-              <div class="input-group">
-              <textarea name="" class="form-control type_msg" rows="3" formControlName="messageCustomer"
-                        placeholder="Enter the exchange content.
-                        Press Shift + Enter to get down the line.
-                        Enter to send">
-              </textarea>
-                <div class="input-group-btn">
-                  <button style="height: 80px;" class="btn btn-default" i18n>Sent</button>
-                </div>
-              </div>
-            </div>
+          <div class="alert alert-warning" role="alert">
+           <div class="input-group">
+              <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" formControlName="messageCustomer" rows="3" placeholder="Enter the exchange content.
+Press Shift + Enter to get down the line.
+Enter to send" i18n-placeholder></textarea>
+             <!--<div class="input-group-btn">-->
+               <!--<button style="height: 80px;" class="btn btn-default" (click)="enterChat()" i18n>Sent</button>-->
+             <!--</div>-->
+           </div>
           </div>
         </form>
 
@@ -1275,4 +1271,297 @@
         <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
+</div>
+
+<div id="updateOrderCode" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content" uib-modal-transclude="" *ngIf="checkUpdateOderCode">
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white">Update Order : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>Close</span>
+        </button>
+      </div>
+      <div class="modal-body ng-scope">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12 text-center">Tài Chính</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <h5 i18n >Tài Chính</h5>
+              </div>
+              <div class="col-md-5" style="text-align: right">
+                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]" (click)="hideme[orderList.id] = !hideme[orderList.id]" i18n>
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]" (click)="hideme[orderList.id] = !hideme[orderList.id]" i18n>
+                  <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                </button>
+                <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+              </div>
+            </div>
+            <div class="row Quantity">
+              <div class="col-md-7 style-padding-right  dong">
+                <span i18n >Quantity</span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products">
+                <span>{{quantityOrder(orderList.products ,orderList.products['length'])}}</span>
+              </div>
+            </div>
+            <hr>
+            <div class="Ws-bold-font row Total_Unit_price_product">
+              <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
+                <strong><span i18n>Units Price:</span>
+                  ( <span *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
+                                    {{ orderList.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    </span>
+                  <span *ngIf="orderList.portal !== 'japan' && orderList.portal !== 'AMAZON_JAPAN' && orderList.portal !== 'JAPAN'">
+                                      {{ orderList.total_price_amount_origin | currency : 'USD' : '$'}}
+                                    </span>)
+                </strong>
+              </div>
+              <div class="col-md-5 text-right style-padding-left dong">
+                                    <span>{{orderList.total_origin_fee_local | number}}
+                                  </span>
+                <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+
+
+            <div [hidden]="!orderFee[orderList.id]">
+
+              <div class="row total_origin_tax_fee_local">
+                <div class="col-md-7 style-padding-right total_fee_amount_local dong">
+                  <span i18n >Total origin tax fee local </span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
+                                  <span>
+                                    {{orderList.total_origin_tax_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+
+              <div class="row Total_origin_shiping_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total origin shiping fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_origin_shipping_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+
+              <hr>
+              <div class="row Total_weshop_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total weshop fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_weshop_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+
+              <div class="row Total_shiping_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total shiping fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_intl_shipping_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+              <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(orderList.products)">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total custom fee </span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_custom_fee_amount_local  | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+              <div class="row Total_delivery_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total delivery fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_delivery_fee_local  | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+              <div class="row Total_packing_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total packing fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_packing_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+              <div class="row Total_insection_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total inspection fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_inspection_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+              <div class="row Total_insurance_fee">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total insurance fee</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_insurance_fee_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+
+              <div class="row Total_VAT_amount">
+                <div class="col-md-7 style-padding-right dong">
+                  <span i18n >Total VAT amount</span>
+                </div>
+                <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{orderList.total_amount_local | number}}
+                                  </span>
+                  <span>{{orderList.store_id | currencyStore}}</span>
+                </div>
+              </div>
+            </div>
+
+            <hr style="margin-top: 5px">
+
+            <div class="Ws-bold-font row Total_fee_orderList">
+              <div class="col-md-7 style-padding-right dong">
+                <span i18n >Total Fee order :</span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left dong">
+                <!--span>  {{ getTotalorderListFee(orderList.total_amount_local, orderList.total_insurance_fee_local, orderList.total_inspection_fee_local, orderList.total_packing_fee_local, orderList.total_delivery_fee_local, orderList.total_custom_fee_amount_local, orderList.exchange_rate_fee, orderList.total_origin_shipping_fee_local, orderList.total_weshop_fee_local, orderList.total_origin_tax_fee_local, orderList.total_fee_amount_local ) | number}}</span-->
+                <span>{{orderList.total_fee_amount_local ? orderList.total_fee_amount_local : 0 }}</span>
+                <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row Quantity">
+              <div class="col-md-7 style-padding-right  dong">
+                <span i18n >Exchage rate:</span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products">
+                <span> {{orderList.exchange_rate_fee}} </span>
+              </div>
+            </div>
+            <div class="row exchange_rate_purchase">
+              <div class="col-md-7 style-padding-right  dong">
+                <span i18n >Exchage rate Purchase:  </span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left Exchage_local">
+                {{orderList.exchange_rate_purchase}}
+              </div>
+            </div>
+
+            <hr>
+            <div class="row total_amount_local">
+              <div class="col-md-7 style-padding-right dong">
+                <span class="Ws-bold-font" i18n>Total Amout Local</span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+                                  <span class="Ws-bold-font">
+                                    {{orderList.total_amount_local | number}}
+                                  </span>
+                <span class="Ws-bold-font">{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+
+            <hr>
+            <div class="row Coupon" *ngIf="orderList.coupon_id && orderList.coupon?.amount !== ''">
+              <div class="col-md-7 style-padding-right dong">
+                <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left ">
+                                  <span class="Ws-bold-font">
+                                      <app-span-label [value]="orderList.coupon?.code"></app-span-label> / {{orderList.coupon?.amount | number}} <span>{{orderList.store_id | currencyStore}}</span>
+                                  </span>
+              </div>
+            </div>
+            <div class="row Promotion" *ngIf="orderList.promotion_id && orderList.promotion?.discountAmount !== null">
+              <div class="col-md-7 style-padding-right dong">
+                <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left ">
+                                  <span class="Ws-bold-font">
+                                      <app-span-label [value]="orderList.promotion?.code"></app-span-label> / {{orderList.promotion?.discountAmount | number}} <span>{{orderList.store_id | currencyStore}}</span>/{{orderList.promotion?.discountOverWeight}}g
+                                  </span>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row total_final_amount_local -discount">
+              <div class="col-md-7 style-padding-right dong">
+                <span class="Ws-bold-font" i18n >Total value of order (-discount)</span>
+              </div>
+              <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+                                  <span class="Ws-bold-font">
+                                    {{orderList.total_final_amount_local | number}}
+                                  </span>
+                <span class="Ws-bold-font">{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+            <hr>
+            <div class="row Paid">
+              <div class="col-md-6 text-success Ws-bold-font " i18n >Paid</div>
+              <div class="col-md-6 text-right text-success">
+                {{orderList.total_paid_amount_local | number}} <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+            <div class="row Collect so-tien-thu-them Cod">
+              <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
+              <div class="col-md-6 text-right text-info style-padding-left">
+                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local) : 0 | number}}
+                <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+            <div class="row Refund" *ngIf="orderList.total_refund_amount_local">
+              <div id="Số tiền thừa" class="col-md-6" i18n>Refund</div>
+              <div class="col-md-6 text-right style-padding-left">
+                {{orderList.total_refund_amount_local | number}} <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12 text-center">Trạng Thái</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer ng-scope">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Đóng</button>
+      </div>
+    </div>
+  </div>
 </div>
