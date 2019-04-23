@@ -44,6 +44,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public countPurchase: any;
     public purchase2Day: any;
     public noTrackingCount: any;
+    public orderList: any;
     public purchase: any;
     public stockin_us: any;
     public countUS: any;
@@ -63,6 +64,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public sale_support_id: any;
     public productUpdateFee: any;
     public hideme: any = {};
+    public orderFee: any = {};
     public statusShow: any = {};
     public total_paid_amount_local: any;
     public inputs: any;
@@ -79,6 +81,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkSellerRefund = false;
     public checkOpenCoupon = false;
     public checkOrderChatRefund = false;
+    public checkUpdateOderCode = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -353,6 +356,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadPolicy(params.store);
         return params;
     }
+    checkUpdatePayment(status) {
+      if (this._scope.checkSuperAdmin() || this._scope.checkTester()) {
+        if (status !== 'CANCEL') {
+          return true;
+        }
+      }
+    }
 
     handlePagination(event) {
         const page = event.page;
@@ -626,6 +636,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
+        this.checkUpdateOderCode = false;
         $('.modal').modal('hide');
     }
 
@@ -869,8 +880,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return true;
       }
     }
-    updateOrder(order) {
-
+    updateOrderCode(order) {
+        this.code = order.ordercode;
+        this.orderList = order;
+        console.log(this.orderList);
+        this.checkUpdateOderCode = true;
     }
 
 }
