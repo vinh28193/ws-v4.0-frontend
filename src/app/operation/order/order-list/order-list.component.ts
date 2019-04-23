@@ -139,12 +139,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         };
         return details;
     }
-    sendSubscriptionToServer(token, fingerprint, details) {
+    sendSubscriptionToServer(token, fingerprint, details,user,ordercode) {
         console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
         const formData = new FormData();
+        formData.append('user',user);
         formData.append('token', token);
         formData.append('fingerprint', fingerprint);
         formData.append('details', JSON.stringify(details));
+        formData.append('ordercode',ordercode);
+        console.log(formData);return false;
         this.notifi.post(`notifications`, formData).subscribe(ret => {
             const res: any = ret;
             console.log('res send token Subscription ' + JSON.stringify(res));
@@ -372,20 +375,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
-    followOrder() {
+    followOrder(ordercode) {
         this.checkF = !this.checkF;
         // Notification
 
         /**Notification**/
         const fingerprint = this.UUID();
         const details = this.UUID_Details();
+       
         const userLogin = this.storegate.get('userLogin');
         const dataUserLoginParse = JSON.parse(userLogin);
         const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ;
         const currentToken = this.messagingService.requestPermission(userId);
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.sendSubscriptionToServer(currentToken, fingerprint, details);
+        this.sendSubscriptionToServer(currentToken, fingerprint, details,dataUserLoginParse,ordercode);
 
     }
 
