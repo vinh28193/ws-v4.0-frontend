@@ -84,7 +84,59 @@
                                             </pagination>
                                         </div>
                                     </div>
-                                    <ng-container [ngTemplateOutlet]="toggleShipmentTemplate"></ng-container>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                              <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                              <th style="width: 5%">#</th>
+                                                              <th style="width: 25%">Shipment</th>
+                                                              <th style="width: 30%">Receiver</th>
+                                                              <th style="width: 25%">Courier</th>
+                                                              <th>Action</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <ng-container *ngFor="let shipment of shipments">
+                                                              <tr>
+                                                                  <td>
+                                                                      #{{shipment.id}}
+                                                                  </td>
+                                                                  <td>
+                                                                      <p class="mb-1">Code:{{shipment.shipment_code}}</p>
+                                                                      <p class="mb-1">Status:{{shipment.shipment_status}}</p>
+                                                                  </td>
+                                                                <td>
+                                                                    <p class="mb-1" *ngIf="shipment.customer?.first_name">Customer:{{shipment.customer.first_name}} ({{shipment.customer.id}}) - {{shipment.customer.phone}}</p>
+                                                                    <hr class="mb-1 mt-1">
+                                                                    <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
+                                                                    <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
+                                                                    <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
+                                                                    <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
+                                                                    <hr class="mb-1 mt-1">
+                                                                    <p class="mb-1">Note:{{shipment.note_by_customer}}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="row">
+                                                                      <div class="col-sm-2">
+                                                                        <div class="img-responsive">
+                                                                          <img  width="70px" src="{{shipment.courier_logo}}" alt="">
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                  <div class="button-group">
+                                                                    <button class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create Shipment</button>
+                                                                  </div>
+                                                                </td>
+                                                              </tr>
+                                                            </ng-container>
+                                                        </tbody>
+                                                    </table>
+                                              </div>
+                                        </div>
+                                    </div>
+<!--                                    <ng-container [ngTemplateOutlet]="toggleShipmentTemplate"></ng-container>-->
                                 </div>
                             </div>
                         </div>
@@ -95,213 +147,34 @@
     </div>
 </div>
 
-<ng-template #shipmentListTemplate>
-    <div class="row grid-view-row-margin-rl-0 grid-view-content">
-        <div class="col-md-12 grid-view-col-padding-rl-0">
-            <div class="row grid-view-row-margin-rl-0 grid-header">
-                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-                </div>
-                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <b i18n>Shipment</b>
-                </div>
-                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
-                    <b i18n>Parcel</b>
-                </div>
-            </div>
-            <div *ngFor="let shipment of shipments" class="row grid-view-row-margin-rl-0 div-hover">
-                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-                </div>
-                <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <h5 class="text-danger">{{shipment.shipment_code}}<span class="label label-danger">{{shipment.shipment_status}}</span></h5>
-                    <p class="p-custom m-b-0" *ngIf="shipment.customer?.email">Customer: <strong>{{shipment.customer.email}}</strong></p>
-                    <p class="p-custom m-b-0">Note: <span class="text-muted">{{shipment.note_by_customer}}</span></p>
-                    <hr style="width: 75%" class="mt-2 mb-2">
-                    <h6>Ship Form</h6>
-                    <p class="p-custom m-b-0">Warehouse: <strong>BoxMe Ho Chi Minh</strong></p>
-                    <p class="p-custom m-b-0">Location: <strong>45 Tan Son</strong></p>
-                    <hr style="width: 75%" class="mt-2 mb-2">
-                    <h6>Ship To <a href="javascript:void (0);" (click)="showEditAddress(shipment)" ><i class="fa fa-edit"></i></a></h6>
-                    <p class="p-custom m-b-0">Name: <strong>{{shipment.receiver_name}}</strong></p>
-                    <p class="p-custom m-b-0">Address: <strong>{{shipment.receiver_name}}</strong></p>
-                    <p class="p-custom m-b-0">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
-                </div>
-                <div class="col-md-8 col-sm-12 grid-view-col-border grid-view-col-content">
-                    <div class="row grid-view-row-margin-rl-0 grid-content m-b-10">
-                        <ng-container [ngTemplateOutlet]="toggleParcelTemplate"
-                                      [ngTemplateOutletContext]="{parcel:pullParcelData(shipment)}"></ng-container>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #shipmentParcelListTemplate let-parcel="parcel">
-    <div class="col-md-12 grid-view-col-content">
-        <div class="row grid-view-row-margin-rl-0 grid-content">
-            <h5 class="col-md-11 pt-1 pl-0">Total: <span class="text-danger">{{parcel.totalParcel}}</span> items - Quantity: <span class="text-danger">{{parcel.totalQuantity}}</span> - Weight: <span class="text-danger">{{parcel.totalWeight}}</span> gram</h5>
-            <span class="col-md-1 button-group pr-0 pull-right">
-                <button class="btn btn-sm btn-warning mr-0"><i class="fa fa-eye-slash"></i></button>
-            </span>
-
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row grid-view-row-margin-rl-0 grid-header">
-                    <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                        ID
-                    </div>
-                    <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                        Warehouse Tag
-                    </div>
-                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                        Quantity(*)/Weight(g)
-                    </div>
-                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                       COD/Price (VND)
-                    </div>
-                    <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
-                        Action
-                    </div>
-                </div>
-                <div *ngFor="let item of parcel.parcels" class="row grid-view-row-margin-rl-0 grid-content">
-                    <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                       ##{{item.id}}
-                    </div>
-                    <div class="col-md-3 col-sm-6 grid-view-col-border grid-view-col-content">
-                       {{item.box_me_warehouse_tag}}
-                    </div>
-                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                        {{item.quantity}}/{{item.weight}}
-                    </div>
-                    <div class="col-md-3 col-sm-12 grid-view-col-border grid-view-col-content">
-                        {{item.cod}}/{{item.price}}
-                    </div>
-                    <div class="col-md-2 col-sm-12 grid-view-col-border grid-view-col-content">
+<div class="modal fade" bsModal #shipmentCreateModal="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
+                <button type="button" (click)="shipmentCreateModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-9">
+                          <h6 class="box-title">1. WareHouse</h6>
+                          <h6 class="box-title">2. Receiver</h6>
+                          <h6 class="box-title">3. Parcel</h6>
+                      </div>
+                      <div class="col-md-3">
+                          <h6 class="box-title">4. Courier</h6>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
                             <div class="button-group">
-                                <button class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
-                                <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+                                  <button class`="btn btn-sm btn-warning">5.Create</button>
                             </div>
-                    </div>
-                </div>
-                <div class="row grid-view-row-margin-rl-0 m-t-10">
-                    <div class="col-md-6 pull-left pl-0">
-                        <div class="form-group form-inline m-b-0">
-                            <label class="form-control-label">Hold:</label>
-                            <div class="switch form-control-sm">
-                                <label>No<input type="checkbox" checked=""><span class="lever"></span>Yes</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pull-right pr-0">
-                        <div class="form-group form-inline m-b-0">
-                            <label class="form-control-label">Bảo hiểm:</label>
-                            <div class="switch form-control-sm">
-                                <label>No<input type="checkbox" checked=""><span class="lever"></span>Yes</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-2 mb-2">
-                <div class="row grid-view-row-margin-rl-0">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-2 p-0">
-                                <img src="{{parcel.courier.logo}}" alt="" width="100%">
-                            </div>
-                            <div class="col-md-10 pl-2" style="padding-top: 0.4rem">
-                                <p class="p-custom m-b-0">Name: <a href="javascript:void(0);" class="text-danger">Viettel Post CPN </a><a href="javascript:void(0);" title="Re pick courier" class="label label-info"><i class="fa fa-refresh"></i></a> </p>
-                                <p class="p-custom m-b-0">Estimate: <span class="text-danger">{{parcel.courier.estimate.from}} hrs - {{parcel.courier.estimate.to}} days</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-style-none text-right">
-                            <li>COD: <span class="text-danger">{{parcel.totalCod}} VND</span>  </li>
-                            <li>Shipping Fee: <span class="text-danger">{{parcel.totalPrice}}VND </span> </li>
-                            <li>Item Price: <span class="text-danger">{{parcel.totalPrice}}VND </span>  </li>
-                        </ul>
-                    </div>
-                </div>
-                <hr class="mt-2 mb-2">
-                <div class="row grid-view-row-margin-rl-0">
-                    <div class="col-md-12 text-right">
-                            <strong>Total Price</strong> : <span class="text-danger">{{parcel.totalPrice}}VND </span>
-                    </div>
-                </div>
-                <div class="row grid-view-row-margin-rl-0 m-t-10">
-                    <div class="col-md-12 text-right">
-                       <div class="button-group">
-                           <button class="btn btn-sm btn-success">Create Shipment</button>
-                           <button class="btn btn-sm btn-danger">Cancel Shipment</button>
-                       </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-<ng-template #shipmentParcelCreateTemplate let-parcel="parcel">
-    {{parcel|json}}
-</ng-template>
-<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="editAddress" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editAddressLable">Edit Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-6">
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Full Name</label>
-                        <input name="fullname" type="text" [(ngModel)]="address.receiver_name"  class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Email</label>
-                        <input [(ngModel)]="address.receiver_email" name="email" type="text" class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Phone</label>
-                        <input [(ngModel)]="address.receiver_name" name="phone" type="text" class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Address</label>
-                        <input [(ngModel)]="address.receiver_address" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Country</label>
-                        <input [(ngModel)]="address.receiver_country_id" name="fullname" type="text"
-                               class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Province</label>
-                        <input [(ngModel)]="address.receiver_province_id" name="email" type="text" class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">District</label>
-                        <input [(ngModel)]="address.receiver_district_id" name="phone" type="text" class="form-control">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label class="form-control-label">Zip Code</label>
-                        <input [(ngModel)]="address.receiver_post_code" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
+      </div>
 </div>
