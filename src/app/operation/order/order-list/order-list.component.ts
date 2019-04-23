@@ -850,6 +850,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.listOrders();
         }
     }
+    checkCouponPromotion(paid) {
+      if (this._scope.checkSuperAdmin() || this._scope.checkTester())  {
+        if (paid > 0 || paid === null || paid === '') {
+          return false;
+        }
+        return true;
+      }
+    }
 
 }
 
