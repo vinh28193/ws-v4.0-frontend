@@ -25,6 +25,7 @@ import { EditPackageItemComponent } from './order-list/package-item/edit-package
 import { UpdateCouponComponent } from './order-list/update-coupon/update-coupon.component';
 import { UpdatePromotionComponent } from './order-list/update-promotion/update-promotion.component';
 import { PurchaseInfoComponent } from './order-list/purchase-info/purchase-info.component';
+import { DeliveryComponent } from './order-list/delivery/delivery.component';
 
 @NgModule({
     imports: [
@@ -60,6 +61,7 @@ import { PurchaseInfoComponent } from './order-list/purchase-info/purchase-info.
         UpdateCouponComponent,
         UpdatePromotionComponent,
         PurchaseInfoComponent,
+        DeliveryComponent,
     ],
     providers: [
       OrderService,

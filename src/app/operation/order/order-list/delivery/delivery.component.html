@@ -1,0 +1,29 @@
+<table class="table" width="100%">
+  <thead>
+  <tr>
+    <th>No</th>
+    <th>LC Tracking</th>
+    <th>Weight</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of packageItems; let i = index">
+    <ng-container *ngIf="item.shipment.warehouse_tags != null">
+      <td>
+        <div> {{i + 1}} </div>
+      </td>
+      <td>
+        <div style="padding: 5px 1em;">
+          <a [href]="getBoxmeOmsUrl(item.box_me_warehouse_tag)" target="_blank" class="BM-DeliveryInfo" > {{item.box_me_warehouse_tag}} </a> </div>
+      </td>
+      <td>
+        <div> {{item.shipment.total_weight/1000}} kg </div>
+      </td>
+      <td>
+        <div>{{item.shipment.shipment_status}}</div>
+      </td>
+    </ng-container>
+  </tr>
+  </tbody>
+</table>
