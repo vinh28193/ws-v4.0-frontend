@@ -118,11 +118,9 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       receiver_phone: shipment ? shipment.receiver_phone : '',
       receiver_address: shipment ? shipment.receiver_address : '',
       receiver_post_code: shipment ? shipment.receiver_post_code : '',
-      receiver_post_code: shipment ? shipment.receiver_post_code : '',
-      receiver_country_id: shipment ? shipment.receiver_post_code : '',
-      receiver_province_id: shipment ? shipment.receiver_post_code : '',
-      receiver_district_id: shipment ? shipment.receiver_post_code : '',
-      parcels: {}
+      receiver_country_id: shipment ? shipment.receiver_country_id : '',
+      receiver_province_id: shipment ? shipment.receiver_province_id : '',
+      receiver_district_id: shipment ? shipment.receiver_district_id : '',
     });
   }
 
