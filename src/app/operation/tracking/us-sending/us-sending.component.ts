@@ -21,22 +21,15 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
 
     public tracks: any = [];
     public manifests: any = [];
-    public showImageRow = -1;
     public productIds: any = [];
-    public trackingUnknown = '';
-    public trackingComplete = '';
-    public trackingWast = '';
-    public trackingMiss = '';
+    public trackingT = '';
+    public trackingE = '';
     public tabTracking = 'tracking';
     public trackingCodes: any = [];
-    public p_m = 1;
-    public p_u = 1;
-    public p_w = 1;
-    public p_c = 1;
-    public l_m = 20;
-    public l_u = 20;
-    public l_w = 20;
-    public l_c = 20;
+    public p_e = 1;
+    public p_t = 1;
+    public l_e = 20;
+    public l_t = 20;
     public limit_page = 9;
     public manifest_id = '';
     public trackingMerge: any = {
@@ -178,19 +171,13 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         const value = this.searchForm.value;
 
         const params: any = {
-            trackingC: this.trackingComplete,
-            trackingW: this.trackingWast,
-            trackingM: this.trackingMiss,
-            trackingU: this.trackingUnknown,
+            t_t: this.trackingT,
+            t_e: this.trackingE,
             m: this.manifest_id,
-            ps_ms: this.l_m,
-            ps_u: this.l_u,
-            ps_c: this.l_c,
-            ps_w: this.l_w,
-            p_ms: this.p_m,
-            p_u: this.p_u,
-            p_c: this.p_c,
-            p_w: this.p_w,
+            ps_t: this.l_t,
+            ps_e: this.l_e,
+            p_t: this.p_t,
+            p_e: this.p_e,
             ps_m: value.perPage,
             p_m: value.page
         };
@@ -240,7 +227,8 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
                 if (type === 'search') {
                     this.manifests = data._manifest ? data._manifest : this.manifests;
                 }
-                this.totalCount = data._total_manifest ? data._total_manifest : this.totalCount;
+                this.tracks = data;
+                this.totalCount = data._manifest_total ? data._manifest_total : this.totalCount;
                 this.pageCount = Math.floor(this.totalCount / params.ps_m);
                 this.currentPage = params.p_m;
                 this.perPage = params.ps_m;
@@ -430,10 +418,10 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
 
     setTabTracking(tab) {
         if (tab === 'ext') {
-            this.trackingCodes = this.tracks.draftPackageItems;
+            this.trackingCodes = this.tracks._ext;
             this.tabTracking = tab;
         } else {
-            this.trackingCodes = this.tracks.draftPackageItems;
+            this.trackingCodes = this.tracks._tracking;
             this.tabTracking = 'tracking';
         }
     }
