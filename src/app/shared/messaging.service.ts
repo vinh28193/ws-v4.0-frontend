@@ -37,7 +37,6 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM constructor : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
@@ -70,7 +69,6 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM : ' + this.currentToken);
                 this.updateToken(userId, token);
             },
             (err) => {
@@ -85,7 +83,7 @@ export class MessagingService {
     receiveMessage() {
         this.angularFireMessaging.messages.subscribe(
             (payload) => {
-                console.log('new message received. ', payload);
+                // console.log('new message received. ', payload);
                 this.currentMessage.next(payload);
             });
     }
@@ -109,6 +107,7 @@ export class MessagingService {
                 this.orderNotiCheck(ordercode);
                 return true;
             } else {
+                console.error('Error notify sendSubscription.' + JSON.stringify(res));
                 return false;
             }
         });
@@ -146,7 +145,7 @@ export class MessagingService {
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
-        console.log('currentToken : ' + JSON.stringify(currentToken));
+        // console.log('currentToken : ' + JSON.stringify(currentToken));
         this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
     }
 
@@ -156,7 +155,7 @@ export class MessagingService {
         const canvasPrint = client.getCanvasPrint();
         /** UUID Device **/
         const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        // console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
 
