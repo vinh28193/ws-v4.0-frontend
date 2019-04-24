@@ -78,7 +78,16 @@ export class NotificationsService extends GlobalService {
             );
 
     }
+    deleteParam(url, body): Observable<any> {
+      if (typeof body !== 'undefined') {
+        url += '?ordercode=' + body;
+      }
+        return this.http.delete(`${this.getApiURl(url)}`, this.getAuthHttpOptions())
+            .pipe(
+                catchError(this.handleError)
+            );
 
+    }
     request(method, url, body) {
         const req = new HttpRequest(method, this.getApiURl(url), body, this.getAuthHttpOptions());
         return this.http.request(req).pipe(

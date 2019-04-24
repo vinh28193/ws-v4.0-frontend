@@ -1,3 +1,147 @@
-<p>
-  us-sending-views works!
-</p>
+<div class="content-block" style="margin: 0px">
+  <div class="header-content">
+    <h2>View tracking</h2>
+  </div>
+  <div class="body-content">
+    <div class="row col-md-12" style="margin: 0px;padding: 0px">
+      <div class="col-md-3 form-group">
+        <input class="form-control form-control-sm" type="text" placeholder="Tracking code">
+      </div>
+      <div class="col-md-3 form-group">
+        <input class="form-control form-control-sm" type="text" placeholder="Sku">
+      </div>
+      <div class="col-md-3 form-group">
+        <input class="form-control form-control-sm" type="text" placeholder="Order Code">
+      </div>
+      <div class="col-md-3 form-group">
+        <select class="form-control form-control-sm">
+          <option>-- Select Type Tracking --</option>
+          <option>Normal</option>
+          <option>Split</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+      <div class="col-md-12 btn-group">
+        <button><i class="fal fa-search"></i> Search</button>
+        <button><i class="fal fa-refresh"></i> Reset</button>
+      </div>
+      <div class="col-md-12"  style="margin: 0px;padding: 0px">
+        <div class="row list-summary">
+          <div class="col-md-6">
+            <span i18n>Showing</span>
+            <select class="form-control-sm select-custom"
+                    [(ngModel)]="limit" (change)="search()">
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="all">All</option>
+            </select>
+            <span>of page {{page}} in {{gettotalPage()}} page in total {{total}} items</span>
+          </div>
+          <div class="col-md-6">
+            <pagination [boundaryLinks]="true"
+                        [totalItems]="total"
+                        (pageChanged)="handlePagination($event)"
+                        [maxSize]="10"
+                        [itemsPerPage]="limit" class="pagination-sm pull-right"
+                        [rotate]="false">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body-content">
+    <div class="row ">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th width="40%">Tracking Info</th>
+            <th width="30%">Order Info</th>
+            <th width="30%">Product Info</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let packTr of tracking_codes">
+            <tr>
+              <td>
+                <h6>{{packTr.tracking_code}}</h6>
+                <div>Order Id: <b>{{packTr.order_id}}</b></div>
+                <div>Product Id: <b>{{packTr.product_id}}</b></div>
+                <div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
+                <div>Quantity: <b>{{packTr.quantity}}</b></div>
+                <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
+                <div>Status: <b>{{packTr.status}}</b></div>
+                <div>Type: <b>{{packTr.type_tracking}}</b></div>
+              </td>
+              <td>
+                <ng-container *ngIf="!packTr.order">
+                  <h4 style="color: red">Cannot find order {{packTr.order_id ? 'with order id ' + packTr.order_id: ''}}!</h4>
+                </ng-container>
+                <ng-container *ngIf="packTr.order">
+                  <div>Order Code: <b>{{packTr.order.ordercode}}</b></div>
+                  <div>Order Id: <b>{{packTr.order_id}}</b></div>
+                  <div>Status Order: <b>{{packTr.order.current_status}}</b></div>
+                  <hr>
+                  <h6><b>Receiver Info</b></h6>
+                  <div>Name: <b>{{packTr.order.receiver_name}}</b></div>
+                  <div>Email: <b>{{packTr.order.receiver_email}}</b></div>
+                  <div>Phone: <b>{{packTr.order.receiver_phone}}</b></div>
+                  <div>Address: <b>{{packTr.order.receiver_address}}</b></div>
+                  <div><b>{{packTr.order.receiver_district_name}}, {{packTr.order.receiver_province_name}}</b></div>
+                  <div>Post code: <b>{{packTr.order.receiver_post_code}}</b></div>
+                  <div>Type: <b>{{packTr.order.type_order}}</b></div>
+                  <div>Note: <b>{{packTr.order.note}}</b></div>
+                  <div>Customer note: <b>{{packTr.order.note_by_customer}}</b></div>
+                  <div>Support Email: <b>{{packTr.order.support_email}}</b></div>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="!packTr.order">
+                  <h4 style="color: red">Cannot find product {{packTr.product_id ? 'with product id ' + packTr.product_id : ''}}!</h4>
+                </ng-container>
+                <ng-container *ngIf="packTr.order">
+                  <div>Product Id: <b>{{packTr.product.id}}</b></div>
+                  <div>SKU: <b>{{packTr.product.sku}}</b></div>
+                  <div>Parent SKU: <b>{{packTr.product.parent_sku}}</b></div>
+                  <div>Portal: <b>{{packTr.product.portal}}</b></div>
+                  <div>Name: <b><a href="{{packTr.product.product_link ? packTr.product.product_link : '#'}}">{{packTr.product.product_name}}</a></b></div>
+                  <div><b><a href="{{packTr.product.link_origin ? packTr.product.link_origin : '#'}}">( Origin )</a></b></div>
+                  <div>Quantity: <b>{{packTr.product.quantity_customer}}</b></div>
+                  <div>Seller: <b><a href="#">{{packTr.product.seller_name}}</a></b></div>
+                  <div class="mb-1">
+                    <div class="col-md-12 row">
+                      <div class="col-md-2" style="padding: 0px">
+                        <img *ngIf="packTr.product.link_img" src="{{packTr.product.link_img}}" class="img-thumbnail img-responsive" >
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="padding-btn" *ngIf="packTr.type_tracking == 'NORMAL' || packTr.type_tracking == 'SPLIT'">
+                  <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
+                  <div><a href="javascript:void (0)"
+                          (click)="showUpdateForm(packTr)"><i
+                          class="fal fa-edit"></i> Update tracking</a>
+                  </div>
+                </div>
+                <div class="padding-btn" *ngIf="packTr.type_tracking == 'UNKNOWN'">
+                  <p class="btn-group" >
+                    <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
+                    <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
+                  </p>
+                  <div><a href="javascript:void (0)"
+                          (click)="showUpdateForm(packTr)"><i
+                          class="fal fa-reply-all"></i> Merge tracking</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

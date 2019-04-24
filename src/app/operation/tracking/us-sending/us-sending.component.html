@@ -75,6 +75,10 @@
                           <div>Send Warehouse:
                             <b>{{manifest.sendWarehouse ? manifest.sendWarehouse.name : ''}}</b>
                           </div>
+                          <div>
+                            <span class="badge badge-warning">{{manifest.status}}</span>
+                          </div>
+                          <div><a href="javascript: void (0);" (click)="regetType(manifest.id)"><i class="fal fa-refresh" ></i> ReGet Type Tracking</a></div>
                           <div><a href="javascript: void (0);" (click)="search()"><i class="fal fa-download" ></i>Export Box Me Tracking</a></div>
                         </li>
                       </ng-container>
@@ -88,15 +92,25 @@
                       <table class="table table-primary">
                         <thead>
                         <tr>
-                          <th width="50%" class="{{tabTracking == 'tracking' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking')">List Tracking Code (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
-                          <th width="50%" class="{{tabTracking == 'ext' ? 'active-tab-track' : ''}}" (click)="setTabTracking('ext')">List Tracking Ext Not Map (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
+                          <th width="50%" class="{{tabTracking == 'tracking' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking')">List Tracking Code (<b style="color: red">{{tracks['_tracking_total']}}</b>)</th>
+                          <th width="50%" class="{{tabTracking == 'ext' ? 'active-tab-track' : ''}}" (click)="setTabTracking('ext')">List Tracking Ext Not Map (<b style="color: red">{{tracks['_ext_total']}}</b>)</th>
                         </tr>
                         </thead>
                         <tbody>
                         <ng-container *ngIf="tabTracking != ''">
                           <tr>
                             <td colspan="4" style="padding: 0px">
-                              <app-us-sending-views>
+                              <app-us-sending-views
+                                      [tracking_codes]="trackingCodes"
+                                      [limit]="tabTracking == 'tracking' ? l_t : l_e"
+                                      [page]="tabTracking == 'tracking' ? p_t : p_e"
+                                      [total]="tabTracking == 'tracking' ? tracks['_tracking_total'] : tracks['_ext_total']"
+                                      [tab_tracking]="tabTracking"
+                                      (searchEvent)="searchEvent($event)"
+                                      (sellerRefund)="showSellerRefundModal($event)"
+                                      (updateTracking)="showUpdateForm($event)"
+                                      (mapTrackingU)="mapUnknown($event.id,$event.tracking_code)"
+                              >
                               </app-us-sending-views>
                             </td>
                           </tr>

@@ -5,7 +5,6 @@ import {PopupService} from '../../../core/service/popup.service';
 import {ShipmentService} from '../shipment.service';
 import {ShipmentDataComponent} from '../shipment-data.component';
 
-
 import {response} from '../mock-response';
 
 declare var $: any;
@@ -23,6 +22,8 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   public shipments: any = [];
   public shipment: any = {};
+  public couriers: any = [];
+
   // meta
   public totalCount: number;
   public pageCount: number;
@@ -50,6 +51,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     const maxDateTime: Date = this.dateTime;
     maxDateTime.setDate(this.dateTime.getDate() + 1);
     this.bsRangeValue = [this.dateTime, maxDateTime];
+    this.loadWarehouse();
     this.buildSearchForm();
     this.search();
   }
@@ -109,6 +111,24 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  buildCreateForm(shipment: any | null) {
+    this.createFrom = this.fb.group({
+      warehouse: shipment ? shipment.warehouse_send_id : this.defaultWarehouse(),
+      receiver_name: shipment ? shipment.receiver_name : '',
+      receiver_phone: shipment ? shipment.receiver_phone : '',
+      receiver_address: shipment ? shipment.receiver_address : '',
+      receiver_post_code: shipment ? shipment.receiver_post_code : '',
+      receiver_post_code: shipment ? shipment.receiver_post_code : '',
+      receiver_country_id: shipment ? shipment.receiver_post_code : '',
+      receiver_province_id: shipment ? shipment.receiver_post_code : '',
+      receiver_district_id: shipment ? shipment.receiver_post_code : '',
+      parcels: {}
+    });
+  }
+
+  defaultWarehouse() {
+    return this.allKey;
+  }
 
   handlePagination(event) {
     const page = event.page;
@@ -125,19 +145,19 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   activeCreateShipment(s) {
     this.shipment = s;
+    console.log(this.shipment);
     this.shipmentCreateModal.show();
   }
 
-  // edit(item){
-  //
-  // }
+  createShipment() {
 
-  consoleLog(value) {
-    console.log(value);
   }
 
-  showEditAddress(shipment) {
-    this.address = shipment;
-    $('#editAddress').modal();
+  suggetsCourier() {
+
+  }
+
+  cancelShipment(){
+
   }
 }

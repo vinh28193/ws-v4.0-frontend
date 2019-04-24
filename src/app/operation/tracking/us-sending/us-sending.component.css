@@ -39,13 +39,17 @@
     border-radius:  0px;
 }
 .active{
+    color: #fff !important;
     margin-bottom: 0px;
     border-bottom: none;
     background: #2e5cde;
     border-radius:  0px;
 }
-.active h4{
+.active h4, .active a, .active h1, .active h2,.active h3, .active h5,.active h6{
     color: #fff;
+}
+.active a:hover{
+    font-size: 16px;
 }
 .active:hover{
     background: #2e5cde !important;

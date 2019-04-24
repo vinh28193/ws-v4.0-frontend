@@ -89,11 +89,9 @@
                                               <div class="table-responsive">
                                                     <table class="table table-bordered">
                                                         <thead>
-                                                              <th style="width: 5%">#</th>
-                                                              <th style="width: 25%">Shipment</th>
-                                                              <th style="width: 30%">Receiver</th>
-                                                              <th style="width: 25%">Courier</th>
-                                                              <th>Action</th>
+                                                              <th style="width: 8%">#</th>
+                                                              <th style="width: 20%">Shipment</th>
+                                                              <th>Customer & Receiver</th>
                                                         </thead>
                                                         <tbody>
                                                             <ng-container *ngFor="let shipment of shipments">
@@ -102,32 +100,79 @@
                                                                       #{{shipment.id}}
                                                                   </td>
                                                                   <td>
-                                                                      <p class="mb-1">Code:{{shipment.shipment_code}}</p>
-                                                                      <p class="mb-1">Status:{{shipment.shipment_status}}</p>
+                                                                      <p class="mb-1">Shipment Code:{{shipment.shipment_code}}</p>
+                                                                      <p class="mb-1">Shipment Status:{{shipment.shipment_status}}</p>
+                                                                      <p class="mb-1">Total Parcels: <span class="text-danger">{{shipment.packageItems.length}}</span></p>
+                                                                      <p class="mb-1">Total Weigh:{{shipment.total_weight}}</p>
+                                                                      <hr class="mb-1 mt-1">
+                                                                      <div class="row mb-2">
+                                                                          <div class="col-md-3">
+                                                                            <img style="width: 100%" src="{{shipment.courier_logo}}" alt="">
+                                                                          </div>
+                                                                          <div class="col-md-9 p-l-0">
+                                                                              <p class="mb-1">Courier Code:{{shipment.courier_code}} (1-2 days)</p>
+                                                                              <p class="mb-1">Shipping Fee:{{shipment.courier_code}}</p>
+                                                                          </div>
+                                                                      </div>
+<!--                                                                      <div class="row mb-2">-->
+<!--                                                                          <div class="col-md-12">-->
+<!--                                                                              <div class="btn-group">-->
+<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-comments mr-1"></i> Chat</button>-->
+<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-comments mr-1"></i>Group</button>-->
+<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-bell mr-1"></i></button>-->
+<!--                                                                              </div>-->
+<!--                                                                          </div>-->
+<!--                                                                      </div>-->
+
                                                                   </td>
                                                                 <td>
-                                                                    <p class="mb-1" *ngIf="shipment.customer?.first_name">Customer:{{shipment.customer.first_name}} ({{shipment.customer.id}}) - {{shipment.customer.phone}}</p>
-                                                                    <hr class="mb-1 mt-1">
-                                                                    <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
-                                                                    <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
-                                                                    <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
-                                                                    <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
-                                                                    <hr class="mb-1 mt-1">
-                                                                    <p class="mb-1">Note:{{shipment.note_by_customer}}</p>
-                                                                </td>
-                                                                <td>
                                                                     <div class="row">
-                                                                      <div class="col-sm-2">
-                                                                        <div class="img-responsive">
-                                                                          <img  width="70px" src="{{shipment.courier_logo}}" alt="">
+                                                                        <div class="col-md-6">
+                                                                            <p class="mb-1" *ngIf="shipment.customer?.first_name">Customer:{{shipment.customer.first_name}} ({{shipment.customer.id}}) - {{shipment.customer.phone}}</p>
+                                                                            <hr class="mb-1 mt-1">
+                                                                            <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
+                                                                            <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
+                                                                            <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
+                                                                            <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
+                                                                            <hr class="mb-1 mt-1">
+                                                                            <p class="mb-1">Note:{{shipment.note_by_customer}}</p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                          <div class="table-responsive">
+                                                                            <table class="table table-bordered table-custom">
+                                                                              <thead>
+                                                                              <th>CBTAG</th>
+                                                                              <th style="width: 25%">Product/Order</th>
+                                                                              <th style="width: 8%">Action</th>
+                                                                              </thead>
+                                                                              <tbody style="max-height: 110px">
+                                                                              <ng-container>
+                                                                                <tr *ngFor="let packageItem of shipment.packageItems">
+                                                                                  <td>
+                                                                                    {{packageItem.box_me_warehouse_tag}}
+                                                                                  </td>
+                                                                                  <td>
+                                                                                    {{packageItem.product_id}}/{{packageItem.order_id}}
+                                                                                  </td>
+                                                                                  <td>
+                                                                                    <div class="btn-group">
+                                                                                      <button class="btn btn-sm btn-warning"><i class="fa fa-remove"></i></button>
+                                                                                    </div>
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </ng-container>
+                                                                              </tbody>
+                                                                            </table>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                      <div class="col-md-12 text-right">
+                                                                        <div class="button-group">
+                                                                          <button class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create Shipment</button>
                                                                         </div>
                                                                       </div>
                                                                     </div>
-                                                                </td>
-                                                                <td>
-                                                                  <div class="button-group">
-                                                                    <button class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create Shipment</button>
-                                                                  </div>
                                                                 </td>
                                                               </tr>
                                                             </ng-container>
@@ -155,17 +200,95 @@
                 <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
                 <button type="button" (click)="shipmentCreateModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
               </div>
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-9">
-                          <h6 class="box-title">1. WareHouse</h6>
-                          <h6 class="box-title">2. Receiver</h6>
-                          <h6 class="box-title">3. Parcel</h6>
+              <div class="modal-body" *ngIf="shipment">
+                  <div class="row" >
+                      <div class="col-md-8">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h6 class="box-title">1. Pickup From</h6>
+                                  <p class="mb-1">Warehouse:{{shipment.warehouseSend.name}}</p>
+                                  <p class="mb-1">Address:{{shipment.warehouseSend.address}}</p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h6 class="box-title">2. Ship To</h6>
+                                  <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
+                                  <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
+                                  <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
+                                  <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
+                              </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h6 class="box-title">3. Parcel (<span class="text-danger">{{shipment.packageItems.length}}</span>)</h6>
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-custom table-scrollbar">
+                                <thead>
+                                <th style="width: 25%">Information</th>
+                                <th>Product</th>
+                                <th style="width: 5%">Action</th>
+                                </thead>
+                                <tbody style="max-height: 180px">
+                                <ng-container *ngFor="let packageItem of shipment.packageItems">
+                                  <tr style="height: 180px;">
+                                    <td>
+                                      <p class="mb-1">Package Code:{{packageItem.package_code}}</p>
+                                      <p class="mb-1">Warehouse Tag:{{packageItem.box_me_warehouse_tag}}</p>
+                                      <p class="mb-1">Quantity/Weight:{{packageItem.quantity}}/{{packageItem.quantity}}</p>
+                                      <p class="mb-1">COD:{{packageItem.cod}}</p>
+                                      <p class="mb-1">Price:{{packageItem.price}}</p>
+                                    </td>
+                                    <td>
+                                      <div class="row">
+                                          <span class="col-md-4 pull-left">
+                                              <img style="width: 100%" src="{{packageItem.product.link_img}}" alt="">
+                                          </span>
+                                        <span class="col-md-8 pull-right">
+                                          <p class="mb-1">Name:{{packageItem.product.product_name}}</p>
+                                          <p class="mb-1">Quantity:{{packageItem.quantity}}</p>
+                                          <p class="mb-1">Weight:{{packageItem.weight}} (g)</p>
+                                        </span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+                                    </td>
+                                  </tr>
+                                </ng-container>
+
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-3">
-                          <h6 class="box-title">4. Courier</h6>
+                      <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6 class="box-title">4. Config</h6>
+                                    <div class="form-group m-b-0">
+                                      <div class="checkbox checkbox-success">
+                                        <input id="allowHold" [(ngModel)]="shipment.is_hole"  type="checkbox">
+                                        <label for="allowHold"> Hole </label>
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-b-0">
+                                      <div class="checkbox checkbox-success">
+                                        <input id="allowInsurance" type="checkbox">
+                                        <label for="allowInsurance">Insurance </label>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <h6 class="box-title">6. Courier</h6>
+                              </div>
+                            </div>
                       </div>
                   </div>
+
                   <div class="row">
                       <div class="col-md-12">
                             <div class="button-group">
