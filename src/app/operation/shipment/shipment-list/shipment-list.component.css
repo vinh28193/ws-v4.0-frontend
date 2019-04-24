@@ -13,10 +13,21 @@ p {
   margin-bottom: 0px;
 }
 
-.custom-table td, .custom-table th {
+.table-custom td, .table-custom th {
   padding: .25rem;
   vertical-align: middle;
   border-top: 1px solid #e9ecef;
+}
+.table-scrollbar {
+  display: block;
+}
+.table-scrollbar thead, .table-scrollbar tbody  {
+  display: inline-block;
+}
+
+.table-scrollbar tbody  {
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 
 .custom-blockquote {
