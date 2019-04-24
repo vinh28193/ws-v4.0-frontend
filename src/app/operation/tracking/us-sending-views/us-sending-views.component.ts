@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TrackingService} from '../tracking.service';
 import {TrackingDataComponent} from '../tracking-data.component';
 
@@ -11,6 +11,9 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
   @Input() tab_tracking = '';
   @Input() tracking_codes = '';
+  @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mapTrackingU: EventEmitter<any> = new EventEmitter<any>();
   public productIds: any = [];
   constructor(
       public trackingService: TrackingService,
@@ -21,4 +24,15 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   ngOnInit() {
   }
 
+  showSellerRefundModal(park) {
+    this.sellerRefund.emit(park);
+  }
+
+  showUpdateForm(packTr) {
+    this.updateTracking.emit(packTr);
+  }
+
+  mapUnknown(id, tracking_code) {
+    this.mapTrackingU.emit({id: id, tracking_code: tracking_code});
+  }
 }

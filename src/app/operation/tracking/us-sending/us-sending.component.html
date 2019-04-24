@@ -100,7 +100,11 @@
                         <ng-container *ngIf="tabTracking != ''">
                           <tr>
                             <td colspan="4" style="padding: 0px">
-                              <app-us-sending-views [tracking_codes]="trackingCodes" [tab_tracking]="tabTracking">
+                              <app-us-sending-views
+                                      [tracking_codes]="trackingCodes"
+                                      [tab_tracking]="tabTracking"
+                                      (sellerRefund)="showSellerRefundModal($event)"
+                              >
                               </app-us-sending-views>
                             </td>
                           </tr>
