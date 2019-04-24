@@ -1032,6 +1032,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.orderService.put(`order/${id}`, put).subscribe(res => {
         if (res.success) {
           this.orderDetail();
+          this.listOrders();
         } else {
           this.popup.error(res.message);
         }
