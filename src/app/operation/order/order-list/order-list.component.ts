@@ -36,13 +36,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pack: any = {};
     public pay: any = {};
     public pur: any = {};
+    public quantity: any = {};
+    public create: any = {};
     public click_pur: any = {};
     public orders: any = [];
     public total: any;
+    public quantityP = 0;
+    public quantityC = 0;
+    public quantityI = 0;
     public statusO: any;
     public totalUnPaid: any;
     public countPurchase: any;
     public purchase2Day: any;
+    public currentStatusOrder: any;
     public noTrackingCount: any;
     public orderList: any;
     public purchase: any;
@@ -52,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderIdChat: any;
     public code: any;
     public totalOrder: any;
+    public proId: any;
     public codeG: any;
     public checkLoad = false;
     public checkLoadG = false;
@@ -65,8 +72,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public productUpdateFee: any;
     public hideme: any = {};
     public orderFee: any = {};
+    public statusOrderShow: any = {};
     public statusShow: any = {};
     public total_paid_amount_local: any;
+    public statusOd: any;
     public inputs: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
@@ -74,7 +83,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
+    public formAsignUser: FormGroup;
     public chatSupporting: FormGroup;
+    public formCreate: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -82,6 +93,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOpenCoupon = false;
     public checkOrderChatRefund = false;
     public checkUpdateOderCode = false;
+    public checkUpdateQuantity = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -254,7 +266,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     quantityOrder(quantityC, quantityL) {
         let quantityA = 0;
         for (let i = 0; i < quantityL; i++) {
-            quantityA += quantityC[i]['quantity_customer'];
+            quantityA += toNumber(quantityC[i]['quantity_customer']);
         }
         return quantityA;
     }
@@ -437,7 +449,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     confirmAll(id) {
         const messagePop = 'Do you want Confirm order ' + id;
         this.popup.warning(() => {
-            const put = this.orderService.createPostParams({}, 'confirmPurchase');
+            const put = this.orderService.createPostParams({
+              current_status: 'SUPPORTED',
+            }, 'confirmPurchase');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
                     this.listOrders();
@@ -880,12 +894,168 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return true;
       }
     }
-    updateOrderCode(order) {
-        this.code = order.ordercode;
-        this.orderList = order;
-        console.log(this.orderList);
-        this.checkUpdateOderCode = true;
-    }
+    openUpdateOrderCode(ordercode, id) {
+      this.code = ordercode;
+      this.markID = id;
+      this.checkUpdateOderCode = true;
+      this.getSeller();
+      this.orderDetail();
 
+    }
+    orderDetail() {
+      this.orderService.get(`order/${this.code}`).subscribe(res => {
+        this.orderList = res.data[0];
+        if (this.orderList.current_status === 'READY2PURCHASE') {
+          this.statusOd = 'ready_purchase';
+        } else {
+          this.statusOd = this.orderList.current_status.toLowerCase();
+        }
+        this.formAsignUser = this.fb.group({
+          statusOrder: this.statusOd,
+        });
+        this.buildFormCreate();
+      });
+    }
+    loadForm() {
+      const value = this.formAsignUser.value;
+      const params: any = {};
+      if (value.statusOrder !== '') {
+        params.status = value.statusOrder;
+      }
+        params.ordercode = this.orderList.ordercode;
+      return params;
+    }
+    updateOrderCode() {
+      const params = this.loadForm();
+      if ((params.status) === 'ready_purchase' ) {
+          this.currentStatusOrder = 'ready2purchase';
+      } else {
+        this.currentStatusOrder = params.status;
+      }
+      const put = this.orderService.createPostParams({
+        status: params.status,
+        current_status: this.currentStatusOrder,
+      }, 'updateOrderStatus');
+      this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
+        if (res.success) {
+          this.orderDetail();
+          this.orderList();
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }
+    buildFormCreate() {
+      this.formCreate = this.fb.group({
+        link_image: '',
+        name_pro: '',
+        link_pro: '',
+        link_origin: '',
+        price_amount_origin_pro: '',
+        variations_pro: '',
+        portal_pro: '',
+        sku_pro: '',
+        sku_parent_pro: '',
+        price_amount_local_pro: '',
+        seller_id: this.allKey,
+        total_price_amount_local_pro: '',
+        quantity_purchase: '',
+        quantity_customer: '',
+      });
+    }
+    getSeller() {
+      this.orderService.get('seller').subscribe(res => {
+        this.listSeller = res.data;
+      });
+    }
+    buildValueCreate() {
+      const value = this.formCreate.value;
+      const params: any = {};
+      if (value.link_image !== '') {
+        params.link_image = value.link_image;
+      }
+      if (value.name_pro !== '') {
+        params.name_pro = value.name_pro;
+      }
+      if (value.link_pro !== '') {
+        params.link_pro = value.link_pro;
+      }
+      if (value.link_origin !== '') {
+        params.link_origin = value.link_origin;
+      }
+      if (value.quantity_purchase !== '') {
+        params.quantity_purchase = value.quantity_purchase;
+      }
+      if (value.quantity_customer !== '') {
+        params.quantity_customer = value.quantity_customer;
+      }
+      if (value.price_amount_origin_pro !== '') {
+        params.price_amount_origin_pro = value.price_amount_origin_pro;
+      }
+      if (value.variations_pro !== '') {
+        params.variations_pro = value.variations_pro;
+      }
+      if (value.portal_pro !== '') {
+        params.portal_pro = value.portal_pro;
+      }
+      if (value.sku_pro !== '') {
+        params.sku_pro = value.sku_pro;
+      }
+      if (value.total_price_amount_local_pro !== '') {
+        params.total_price_amount_local_pro = value.total_price_amount_local_pro;
+      }
+      if (value.sku_parent_pro !== '') {
+        params.sku_parent_pro = value.sku_parent_pro;
+      }
+      if (value.price_amount_local_pro !== '') {
+        params.price_amount_local_pro = value.price_amount_local_pro;
+      }
+      if (value.seller_id !== '' || value.seller_id !== 'All Seller') {
+        params.seller_id = value.seller_id;
+      }
+        params.id = this.markID;
+      return params;
+    }
+    createPro() {
+      const params = this.buildValueCreate();
+      this.orderService.post('product', params).subscribe(res => {
+        this.orderDetail();
+      });
+    }
+  updateNull(column, id) {
+      console.log(column);
+    const messagePop = 'Do you want Delete';
+    this.popup.warning(() => {
+      const put = this.orderService.createPostParams({
+        column: column,
+      }, 'updateTimeNull');
+      this.orderService.put(`order/${id}`, put).subscribe(res => {
+        if (res.success) {
+          this.orderDetail();
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
+  clickEdit(qtyP, qtyC, qtyI, id) {
+      this.quantityP = qtyP;
+      this.quantityC = qtyC;
+      this.quantityI = qtyI;
+      this.proId = id;
+      this.checkUpdateQuantity = true;
+  }
+  updateQuantityPr() {
+    const params: any = {};
+    params.quantityP = toNumber(this.quantityP);
+    params.quantityC = toNumber(this.quantityC);
+    params.quantityI = toNumber(this.quantityI);
+    this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
+      if (res.success) {
+        this.checkUpdateQuantity = false;
+        this.orderDetail();
+      }
+    });
+  }
 }
 
