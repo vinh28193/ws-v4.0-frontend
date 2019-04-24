@@ -111,6 +111,22 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  buildCreateForm(shipment: any | null) {
+    this.createFrom = this.fb.group({
+      warehouse: shipment ? shipment.warehouse_send_id : this.defaultWarehouse(),
+      receiver_name: shipment ? shipment.receiver_name : '',
+      receiver_phone: shipment ? shipment.receiver_phone : '',
+      receiver_address: shipment ? shipment.receiver_address : '',
+      receiver_post_code: shipment ? shipment.receiver_post_code : '',
+      receiver_country_id: shipment ? shipment.receiver_country_id : '',
+      receiver_province_id: shipment ? shipment.receiver_province_id : '',
+      receiver_district_id: shipment ? shipment.receiver_district_id : '',
+    });
+  }
+
+  defaultWarehouse() {
+    return this.allKey;
+  }
 
   handlePagination(event) {
     const page = event.page;
@@ -131,16 +147,15 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     this.shipmentCreateModal.show();
   }
 
-  // edit(item){
-  //
-  // }
+  createShipment() {
 
-  consoleLog(value) {
-    console.log(value);
   }
 
-  showEditAddress(shipment) {
-    this.address = shipment;
-    $('#editAddress').modal();
+  suggetsCourier() {
+
+  }
+
+  cancelShipment(){
+
   }
 }

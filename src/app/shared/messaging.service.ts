@@ -20,6 +20,7 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
     private currentToken: any;
+    public orderNotifi:any = [];
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -36,13 +37,15 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM constructor : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
             }
         );
     }
+     ngOnInit() {
+          // this.loadOrderNotifi();
+     }
 
     /**
      * update token in firebase database
@@ -69,7 +72,6 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM : ' + this.currentToken);
                 this.updateToken(userId, token);
             },
             (err) => {
@@ -84,31 +86,23 @@ export class MessagingService {
     receiveMessage() {
         this.angularFireMessaging.messages.subscribe(
             (payload) => {
-                console.log('new message received. ', payload);
+                // console.log('new message received. ', payload);
                 this.currentMessage.next(payload);
             });
     }
 
-    sendSubscriptionToServer(token, fingerprint, details, userId) {
-        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
-        const formData = new FormData();
-        formData.append('userId', userId);
-        formData.append('token', token);
-        formData.append('fingerprint', fingerprint);
-        formData.append('details', JSON.stringify(details));
-        this.notifi.post(`notifications`, formData).subscribe(ret => {
-            const res: any = ret;
-            console.log('res send token Subscription ' + JSON.stringify(res));
-            if (res.success) {
-                const rs: any = res.data;
-                console.log('Notifi data : ' + JSON.stringify(rs));
-                return rs;
-            } else {
-                return false;
-            }
-            console.log('done');
-        });
+    sendSubscriptionToServer(token, fingerprint, details, userId, ordercode) {
+        const params: any = {};
+        params.user = userId;
+        params.token = token;
+        params.fingerprint = fingerprint;
+        params.details = JSON.stringify(details);
+        params.ordercode = ordercode;
+        params.nv = details.os;
+        return params;
+
     }
+
 
     getUser() {
         const userLogin = this.storegate.get('userLogin');
@@ -117,14 +111,15 @@ export class MessagingService {
         return userId;
     }
 
-    sendSubscription() {
+    sendSubscription(ordercode) {
         /**Notification**/
         const fingerprint = this.UUID();
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
-        console.log('currentToken : ' + JSON.stringify(currentToken));
-        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId);
+
+        // console.log('currentToken : ' + JSON.stringify(currentToken));
+        return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
     }
 
 
@@ -133,7 +128,7 @@ export class MessagingService {
         const canvasPrint = client.getCanvasPrint();
         /** UUID Device **/
         const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        // console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
 
