@@ -5,7 +5,6 @@ import {PopupService} from '../../../core/service/popup.service';
 import {ShipmentService} from '../shipment.service';
 import {ShipmentDataComponent} from '../shipment-data.component';
 
-
 import {response} from '../mock-response';
 
 declare var $: any;
@@ -23,6 +22,8 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   public shipments: any = [];
   public shipment: any = {};
+  public couriers: any = [];
+
   // meta
   public totalCount: number;
   public pageCount: number;
@@ -50,6 +51,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     const maxDateTime: Date = this.dateTime;
     maxDateTime.setDate(this.dateTime.getDate() + 1);
     this.bsRangeValue = [this.dateTime, maxDateTime];
+    this.loadWarehouse();
     this.buildSearchForm();
     this.search();
   }
@@ -125,6 +127,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   activeCreateShipment(s) {
     this.shipment = s;
+    console.log(this.shipment);
     this.shipmentCreateModal.show();
   }
 
