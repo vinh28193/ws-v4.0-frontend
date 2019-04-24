@@ -11,9 +11,13 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
   @Input() tab_tracking = '';
   @Input() tracking_codes = '';
+  @Input() page = 1;
+  @Input() limit = 20;
+  @Input() total = 0;
   @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
   @Output() mapTrackingU: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
   public productIds: any = [];
   constructor(
       public trackingService: TrackingService,
@@ -34,5 +38,22 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
   mapUnknown(id, tracking_code) {
     this.mapTrackingU.emit({id: id, tracking_code: tracking_code});
+  }
+
+  search() {
+    this.searchEvent.emit({
+      page: this.page,
+      limit: this.limit,
+      total: this.total,
+    });
+  }
+
+  handlePagination(event) {
+    this.page = event.page;
+    this.search();
+  }
+
+  gettotalPage() {
+    return Math.ceil(this.total / this.limit);
   }
 }

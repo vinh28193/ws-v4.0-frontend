@@ -15,12 +15,6 @@ import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
 
-// custom-typings.d
-declare let ClientJS: any;
-// use in a .ts file
-import 'clientjs';
-
-const client = new ClientJS();
 declare var jQuery: any;
 declare var $: any;
 
@@ -108,6 +102,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
+    public orderNotifi:any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -119,55 +114,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
+
     ) {
         super(orderService);
     }
-    UUID() {
-        const ua = client.getBrowserData().ua;
-        const canvasPrint = client.getCanvasPrint();
-        /** UUID Device**/
-        const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
-        return fingerprint;
-    }
-    UUID_Details(){
-        const details = {
-            browser: client.getBrowser(),
-            os: client.getOS(),
-            osVersion: client.getOSVersion(),
-            device: client.getDevice(),
-            deviceType: client.getDeviceType(),
-            deviceVendor: client.getDeviceVendor(),
-            cpu: client.getCPU()
-        };
-        return details;
-    }
-    sendSubscriptionToServer(token, fingerprint, details) {
-        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
-        const formData = new FormData();
-        formData.append('token', token);
-        formData.append('fingerprint', fingerprint);
-        formData.append('details', JSON.stringify(details));
-        this.notifi.post(`notifications`, formData).subscribe(ret => {
-            const res: any = ret;
-            console.log('res send token Subscription ' + JSON.stringify(res));
-            if (res.success) {
-                this.loading = false;
-                const rs: any = res.data;
-                console.log('Notifi data : ' + JSON.stringify(rs));
-            } else {
-                this.loading = false;
-                this.popup.error(res.message, 'Error');
-            }
-            this.loading = false;
-            console.log('done');
-        });
+
+    followOrder() {
+        this.checkF = !this.checkF;
+        /**Notification**/
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        this.messagingService.sendSubscription();
     }
 
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -381,20 +345,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
-    followOrder() {
-        this.checkF = !this.checkF;
-        // Notification
+    unfollowOrder(ordercode)
+    {
+          // this.checkF = !this.checkF;
 
-        /**Notification**/
-        const fingerprint = this.UUID();
-        const details = this.UUID_Details();
-        const userLogin = this.storegate.get('userLogin');
-        const dataUserLoginParse = JSON.parse(userLogin);
-        const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ;
-        const currentToken = this.messagingService.requestPermission(userId);
-        this.messagingService.receiveMessage();
-        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.sendSubscriptionToServer(currentToken, fingerprint, details);
+          const fingerprint = this.messagingService.UUID();
+          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+              console.log(res);
+              this.loadOrderNotifi();
+              this.orderNotiCheck(ordercode);
+
+         });
+    }
+    loadOrderNotifi()
+    {
+          const fingerprint = this.messagingService.UUID();
+          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+          const order_list = res.data.order_list;
+          // console.log(order_list);
+          this.orderNotifi = order_list;
+         });
+    }
+    orderNotiCheck(ordercode)
+    {
+       const orderNotifi = this.orderNotifi;
+       if(ordercode in orderNotifi)
+       {
+           return true;
+       }else{
+           return false;
+       }
 
     }
 

@@ -436,4 +436,15 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             }
         });
     }
+
+    searchEvent(event) {
+        if (this.tabTracking === 'tracking') {
+            this.p_t = event.page;
+            this.l_t = event.limit;
+        } else {
+            this.p_e = event.page;
+            this.l_e = event.limit;
+        }
+        this.search('tracking');
+    }
 }
