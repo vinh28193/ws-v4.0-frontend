@@ -20,7 +20,6 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
     private currentToken: any;
-    public orderNotifi: any = [];
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -90,49 +89,27 @@ export class MessagingService {
             });
     }
 
-    sendSubscriptionToServer(token, fingerprint, details, userId, ordercode) {
-        const params: any = {};
-        params.user = userId;
-        params.token = token;
-        params.fingerprint = fingerprint;
-        params.details = JSON.stringify(details);
-        params.ordercode = ordercode;
-        params.nv = details.os;
-
-        this.notifi.post(`notifications`, params).subscribe(ret => {
+    sendSubscriptionToServer(token, fingerprint, details, userId,ordercode) {
+        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
+        const formData = new FormData();
+        formData.append('userId', userId);
+        formData.append('token', token);
+        formData.append('fingerprint', fingerprint);
+        formData.append('details', JSON.stringify(details));
+        this.notifi.post(`notifications`, formData).subscribe(ret => {
             const res: any = ret;
-            // console.log('res send token Subscription ' + JSON.stringify(res));
+            console.log('res send token Subscription ' + JSON.stringify(res));
             if (res.success) {
                 const rs: any = res.data;
-                // console.log('Notifi data : ' + JSON.stringify(rs));
-                this.loadOrderNotifi();
-                this.orderNotiCheck(ordercode);
-                return true;
+                console.log('Notifi data : ' + JSON.stringify(rs));
+                return rs;
             } else {
                 return false;
             }
+            console.log('done');
         });
     }
-
-    loadOrderNotifi() {
-        const fingerprint = this.UUID();
-        this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
-            const order_list = res.data.order_list;
-            // console.log(order_list);
-            this.orderNotifi = order_list;
-        });
-    }
-
-    orderNotiCheck(ordercode) {
-        const orderNotifi = this.orderNotifi;
-        if (ordercode in orderNotifi) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
+    
     getUser() {
         const userLogin = this.storegate.get('userLogin');
         const dataUserLoginParse = JSON.parse(userLogin);
@@ -147,7 +124,7 @@ export class MessagingService {
         const userId = this.getUser();
         const currentToken = this.currentToken;
         console.log('currentToken : ' + JSON.stringify(currentToken));
-        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
+        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId,ordercode);
     }
 
 
