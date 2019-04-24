@@ -38,6 +38,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public countPurchase: any;
     public purchase2Day: any;
     public noTrackingCount: any;
+    public orderList: any;
     public purchase: any;
     public stockin_us: any;
     public countUS: any;
@@ -57,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public sale_support_id: any;
     public productUpdateFee: any;
     public hideme: any = {};
+    public orderFee: any = {};
     public statusShow: any = {};
     public total_paid_amount_local: any;
     public inputs: any;
@@ -73,6 +75,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkSellerRefund = false;
     public checkOpenCoupon = false;
     public checkOrderChatRefund = false;
+    public checkUpdateOderCode = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -99,6 +102,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
+    public orderNotifi:any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -110,6 +114,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
+
     ) {
         super(orderService);
     }
@@ -120,13 +125,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.messagingService.sendSubscription();
-
     }
 
     ngOnInit() {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -315,6 +320,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadPolicy(params.store);
         return params;
     }
+    checkUpdatePayment(status) {
+      if (this._scope.checkSuperAdmin() || this._scope.checkTester()) {
+        if (status !== 'CANCEL') {
+          return true;
+        }
+      }
+    }
 
     handlePagination(event) {
         const page = event.page;
@@ -333,7 +345,38 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
+    unfollowOrder(ordercode)
+    {
+          // this.checkF = !this.checkF;
 
+          const fingerprint = this.messagingService.UUID();
+          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+              console.log(res);
+              this.loadOrderNotifi();
+              this.orderNotiCheck(ordercode);
+
+         });
+    }
+    loadOrderNotifi()
+    {
+          const fingerprint = this.messagingService.UUID();
+          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+          const order_list = res.data.order_list;
+          // console.log(order_list);
+          this.orderNotifi = order_list;
+         });
+    }
+    orderNotiCheck(ordercode)
+    {
+       const orderNotifi = this.orderNotifi;
+       if(ordercode in orderNotifi)
+       {
+           return true;
+       }else{
+           return false;
+       }
+
+    }
 
     chat(id, code, status) {
         this.checkLoad = true;
@@ -573,6 +616,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenPayBack = false;
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
+        this.checkUpdateOderCode = false;
         $('.modal').modal('hide');
     }
 
@@ -816,8 +860,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return true;
       }
     }
-    updateOrder(order) {
-
+    updateOrderCode(order) {
+        this.code = order.ordercode;
+        this.orderList = order;
+        console.log(this.orderList);
+        this.checkUpdateOderCode = true;
     }
 
 }

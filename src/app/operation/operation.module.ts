@@ -22,6 +22,7 @@ import { SerialCharPipe } from './pipes/serial-char.pipe';
 import { CurrencyStorePipe } from './pipes/currency-store.pipe';
 import {TimeMessagePipe} from './pipes/time-message.pipe';
 import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
+import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
 
 @NgModule({
     imports: [
@@ -47,6 +48,7 @@ import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
         QuotationStatusPipe,
         CurrencyStorePipe,
         MarkSupportingPipe,
+        TypeTrackingPipe,
     ],
     providers: [
         OperationService

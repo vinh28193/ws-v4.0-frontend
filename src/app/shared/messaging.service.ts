@@ -113,7 +113,7 @@ export class MessagingService {
     getUser() {
         const userLogin = this.storegate.get('userLogin');
         const dataUserLoginParse = JSON.parse(userLogin);
-        const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ;
+        const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id;
         return userId;
     }
 
@@ -123,7 +123,7 @@ export class MessagingService {
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
-        console.log("currentToken : " + JSON.stringify(currentToken));
+        console.log('currentToken : ' + JSON.stringify(currentToken));
         this.sendSubscriptionToServer(currentToken, fingerprint, details, userId);
     }
 
@@ -136,7 +136,8 @@ export class MessagingService {
         console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
-    UUID_Details(){
+
+    UUID_Details() {
         const details = {
             browser: client.getBrowser(),
             os: client.getOS(),
@@ -148,7 +149,6 @@ export class MessagingService {
         };
         return details;
     }
-
 
 
 }

@@ -13,6 +13,8 @@ import { TrackingExtensionComponent } from './tracking-extension/tracking-extens
 import {TrackingExtensionService} from './tracking-extension/tracking-extension.service';
 import { TrackingViewsComponent } from './tracking-views/tracking-views.component';
 import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
+import { UsSendingComponent } from './us-sending/us-sending.component';
+import { UsSendingViewsComponent } from './us-sending-views/us-sending-views.component';
 
 @NgModule({
     imports: [
@@ -31,7 +33,9 @@ import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
         TrackingListComponent,
         TrackingExtensionComponent,
         TrackingViewsComponent,
-        PagingCustomComponent
+        PagingCustomComponent,
+        UsSendingComponent,
+        UsSendingViewsComponent
     ],
     providers: [
         TrackingService,
