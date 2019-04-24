@@ -119,12 +119,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         super(orderService);
     }
 
-    followOrder() {
+    followOrder(ordercode) {
         this.checkF = !this.checkF;
         /**Notification**/
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.messagingService.sendSubscription();
+        this.messagingService.sendSubscription(ordercode);
     }
 
     ngOnInit() {
@@ -350,20 +350,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
           // this.checkF = !this.checkF;
 
           const fingerprint = this.messagingService.UUID();
-          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+          this.notifi.deleteParam('notifications/' + fingerprint, ordercode).subscribe(res => {
               console.log(res);
               this.loadOrderNotifi();
               this.orderNotiCheck(ordercode);
 
          });
     }
+
     loadOrderNotifi()
     {
           const fingerprint = this.messagingService.UUID();
-          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
-          const order_list = res.data.order_list;
-          // console.log(order_list);
-          this.orderNotifi = order_list;
+          this.notifi.get(`notifications/${fingerprint}`, undefined)
+              .subscribe(res => {
+                  let order_list: any = '';
+                  order_list = res.data.order_list;
+                  // console.log(order_list);
+                  this.orderNotifi = order_list;
          });
     }
     orderNotiCheck(ordercode)
