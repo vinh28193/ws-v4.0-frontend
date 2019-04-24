@@ -19,7 +19,9 @@ export class TrackingService extends OperationService {
     search(params) {
         return this.get('tracking-code', params);
     }
-
+    searchUsSending(params) {
+        return this.get('us-sending', params);
+    }
     create(formData) {
         return this.post('tracking-code', formData);
     }
