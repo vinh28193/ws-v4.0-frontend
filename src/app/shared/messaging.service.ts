@@ -20,7 +20,7 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
     private currentToken: any;
-    public orderNotifi: any = [];
+    public orderNotifi:any = [];
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -43,6 +43,9 @@ export class MessagingService {
             }
         );
     }
+     ngOnInit() {
+          this.loadOrderNotifi();
+     }
 
     /**
      * update token in firebase database
@@ -96,42 +99,10 @@ export class MessagingService {
         params.details = JSON.stringify(details);
         params.ordercode = ordercode;
         params.nv = details.os;
-
-        this.notifi.post(`notifications`, params).subscribe(ret => {
-            console.log('JOSN ' + JSON.stringify(ret));
-            const res: any = ret;
-            // console.log('res send token Subscription ' + JSON.stringify(res));
-            if (res.success) {
-                const rs: any = res.data;
-                // console.log('Notifi data : ' + JSON.stringify(rs));
-                this.loadOrderNotifi();
-                this.orderNotiCheck(ordercode);
-                return true;
-            } else {
-                console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                return false;
-            }
-        });
-    }
-
-    loadOrderNotifi() {
-        const fingerprint = this.UUID();
-        this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
-            const order_list = res.data.order_list;
-            // console.log(order_list);
-            this.orderNotifi = order_list;
-        });
-    }
-
-    orderNotiCheck(ordercode) {
-        const orderNotifi = this.orderNotifi;
-        if (ordercode in orderNotifi) {
-            return true;
-        } else {
-            return false;
-        }
+        return params;
 
     }
+
 
     getUser() {
         const userLogin = this.storegate.get('userLogin');
@@ -146,8 +117,9 @@ export class MessagingService {
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
+
         // console.log('currentToken : ' + JSON.stringify(currentToken));
-        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
+        return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
     }
 
 

@@ -103,6 +103,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
     public orderNotifi:any = [];
+    public paramsOrder:any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -121,10 +122,27 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     followOrder(ordercode) {
         this.checkF = !this.checkF;
+        
         /**Notification**/
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.messagingService.sendSubscription(ordercode);
+        this.paramsOrder = this.messagingService.sendSubscription(ordercode);
+        // console.log(this.paramsOrder);
+        this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
+            console.log('JOSN ' + JSON.stringify(ret));
+            const res: any = ret;
+            // console.log('res send token Subscription ' + JSON.stringify(res));
+            if (res.success) {
+                const rs: any = res.data;
+                // console.log('Notifi data : ' + JSON.stringify(rs));
+                this.loadOrderNotifi();
+                this.orderNotiCheck(ordercode);
+                return true;
+            } else {
+                // console.error('Error notify sendSubscription.' + JSON.stringify(res));
+                return false;
+            }
+        });
     }
 
     ngOnInit() {
@@ -351,9 +369,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
           const fingerprint = this.messagingService.UUID();
           this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
-              console.log(res);
-              this.loadOrderNotifi();
-              this.orderNotiCheck(ordercode);
+          this.loadOrderNotifi();
+          this.orderNotiCheck(ordercode);
 
          });
     }
@@ -361,20 +378,26 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     {
           const fingerprint = this.messagingService.UUID();
           this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
-          const order_list = res.data.order_list;
-          // console.log(order_list);
-          this.orderNotifi = order_list;
+              this.orderNotifi = 0;
+              if(res.success)
+              {
+                   const order_list = res.data.order_list; 
+                   this.orderNotifi = order_list;
+
+              }
+        
          });
     }
     orderNotiCheck(ordercode)
     {
+       if(this.orderNotifi == 0) return false;
        const orderNotifi = this.orderNotifi;
+      
        if(ordercode in orderNotifi)
        {
            return true;
-       }else{
-           return false;
        }
+       return false;
 
     }
 
