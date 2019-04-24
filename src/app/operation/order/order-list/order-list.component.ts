@@ -108,6 +108,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
+    public orderNotifi:any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -119,6 +120,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
+
     ) {
         super(orderService);
     }
@@ -142,22 +144,25 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         };
         return details;
     }
-    sendSubscriptionToServer(token, fingerprint, details,user,ordercode) {
-        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
-        const formData = new FormData();
-        formData.append('user',user);
-        formData.append('token', token);
-        formData.append('fingerprint', fingerprint);
-        formData.append('details', JSON.stringify(details));
-        formData.append('ordercode',ordercode);
-        console.log(formData);return false;
-        this.notifi.post(`notifications`, formData).subscribe(ret => {
+    sendSubscriptionToServer(token, fingerprint, details,user,ordercode,nv) {
+
+        const params: any = {};
+        params.user = user;
+        params.token = token;
+        params.fingerprint = fingerprint;
+        params.details = JSON.stringify(details);
+        params.ordercode = ordercode;
+        params.nv = nv;
+
+        this.notifi.post(`notifications`, params).subscribe(ret => {
             const res: any = ret;
-            console.log('res send token Subscription ' + JSON.stringify(res));
+            // console.log('res send token Subscription ' + JSON.stringify(res));
             if (res.success) {
                 this.loading = false;
                 const rs: any = res.data;
-                console.log('Notifi data : ' + JSON.stringify(rs));
+                // console.log('Notifi data : ' + JSON.stringify(rs));
+                this.loadOrderNotifi();
+                this.orderNotiCheck(ordercode);
             } else {
                 this.loading = false;
                 this.popup.error(res.message, 'Error');
@@ -171,6 +176,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -385,20 +391,52 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     followOrder(ordercode) {
-        this.checkF = !this.checkF;
         // Notification
 
         /**Notification**/
         const fingerprint = this.UUID();
         const details = this.UUID_Details();
-       
+        const nv = details.os;
         const userLogin = this.storegate.get('userLogin');
         const dataUserLoginParse = JSON.parse(userLogin);
         const userId = dataUserLoginParse.username + '_' + dataUserLoginParse.id  ;
         const currentToken = this.messagingService.requestPermission(userId);
+     
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.sendSubscriptionToServer(currentToken, fingerprint, details,dataUserLoginParse,ordercode);
+        this.sendSubscriptionToServer(currentToken, fingerprint, details,dataUserLoginParse,ordercode,nv);
+
+    }
+    unfollowOrder(ordercode)
+    {
+          // this.checkF = !this.checkF;
+          
+          const fingerprint = this.UUID();
+          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+              console.log(res);
+              this.loadOrderNotifi();
+              this.orderNotiCheck(ordercode);
+
+         });
+    }
+    loadOrderNotifi()
+    {
+          const fingerprint = this.UUID();
+          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+          const order_list = res.data.order_list;
+          // console.log(order_list);
+          this.orderNotifi = order_list;
+         });
+    }
+    orderNotiCheck(ordercode)
+    {
+       const orderNotifi = this.orderNotifi; 
+       if(ordercode in orderNotifi)
+       {
+           return true;
+       }else{
+           return false;
+       }
 
     }
 

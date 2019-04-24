@@ -319,10 +319,10 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>
                                     Chat With Customer
                                   </button>
-                                  <button (click)="followOrder(order.ordercode)" *ngIf="!checkF" type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
+                                  <button (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) " type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
-                                  <button (click)="followOrder(order.ordercode)" *ngIf="checkF" type="button"
+                                  <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode) " type="button"
                                           class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true" i18n></i>
                                     Quit tracking Order
