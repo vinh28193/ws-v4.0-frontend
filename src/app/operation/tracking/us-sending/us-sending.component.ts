@@ -437,4 +437,15 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             this.tabTracking = 'tracking';
         }
     }
+
+    regetType(id) {
+        this.trackingService.updateUsSending(id, {}).subscribe(rs => {
+            if (rs.success) {
+                this.popUp.success(rs.message);
+                // this.search();
+            } else {
+                this.popUp.error(rs.message);
+            }
+        });
+    }
 }
