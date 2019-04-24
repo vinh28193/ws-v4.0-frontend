@@ -32,7 +32,7 @@ export const timeKeys = [
     {key: 'order.stockout_local', name: 'Time StockOut Local'},
     {key: 'order.at_customer', name: 'Time At Customer'},
     {key: 'order.returned', name: 'Time Return'},
-    {key: 'order.cancelled', name: 'Time Cancelled'},
+    {key: 'order.cancel', name: 'Time Cancelled'},
     {key: 'order.lost', name: 'Time Lost'},
     {key: '', name: 'Time Confirm Purchase'},
     {key: '', name: 'At Customer'},

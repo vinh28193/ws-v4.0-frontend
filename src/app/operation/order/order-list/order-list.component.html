@@ -728,7 +728,7 @@
 
 
 
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="update order" href="javascript:void(0);"  data-target="#updateOrderCode" (click) = "updateOrderCode(order)" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Update Order</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="update order" href="javascript:void(0);"  data-target="#updateOrderCode" *ngIf="_scope.checkSuperAdmin()" (click)="openUpdateOrderCode(order.ordercode, order.id)" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Update Order</a>
                                       </div>
                                     </div>
                                   </div>
@@ -1278,7 +1278,7 @@ Enter to send" i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkUpdateOderCode">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Update Order : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white">Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -1288,17 +1288,17 @@ Enter to send" i18n-placeholder></textarea>
         <div class="row">
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-12 text-center">Tài Chính</div>
+              <div class="col-md-12 text-center" i18n>Finance</div>
             </div>
             <div class="row">
               <div class="col-md-7">
-                <h5 i18n >Tài Chính</h5>
+                <h5 i18n >Finance</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]" (click)="hideme[orderList.id] = !hideme[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]" (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]" (click)="hideme[orderList.id] = !hideme[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]" (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
                   <i class="fa fa-eye-slash" aria-hidden="true"></i>
                 </button>
                 <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
@@ -1308,7 +1308,7 @@ Enter to send" i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n >Quantity</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products">
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
                 <span>{{quantityOrder(orderList.products ,orderList.products['length'])}}</span>
               </div>
             </div>
@@ -1470,7 +1470,7 @@ Enter to send" i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n >Exchage rate:</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products">
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
                 <span> {{orderList.exchange_rate_fee}} </span>
               </div>
             </div>
@@ -1554,13 +1554,325 @@ Enter to send" i18n-placeholder></textarea>
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-12 text-center">Trạng Thái</div>
+              <div class="col-md-12 text-center" i18n>Status</div>
+            </div>
+            <div class="row STATUS">
+              <div class="col-md-7">
+                <h5 i18n>STATUS</h5>
+              </div>
+              <div class="col-md-5" style="text-align: right">
+                <button class="btn btn-default btn-sm"  tooltip="Show status" *ngIf="statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                  <i class="fa fa-eye"></i>
+                </button>
+                <button class="btn bg-white btn-sm"  tooltip="Hide status" *ngIf="!statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                  <i class="fa fa-eye-slash"></i>
+                </button>
+                <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <form action="" [formGroup]="formAsignUser">
+                  <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"  name="statusOrder" id="statusOrder"
+                          formControlName="statusOrder">
+                    <option value="new" i18n>NEW</option>
+                    <option value="supporting" i18n>SUPPORTING</option>
+                    <option value="supported" i18n>SUPPORTED</option>
+                    <option value="ready_purchase" i18n>READY 2 PURCHASE</option>
+                    <option value="purchase_start" i18n>PURCHASE START</option>
+                    <option value="purchased" i18n>PURCHASED</option>
+                    <option value="seller_shipped" i18n>SELLER SHIPPED</option>
+                    <option value="stockin_us" i18n>STOCK IN US</option>
+                    <option value="stockout_us" i18n>STOCK OUT US</option>
+                    <option value="stockin_local" i18n>STOCK IN LOCAL</option>
+                    <option value="stockout_local" i18n>STICK OUT LOCAL</option>
+                    <option value="at_customer" i18n>AT CUSTOMER</option>
+                    <option value="returned" i18n>RETURNED</option>
+                    <option value="cancel" i18n>CANCEL</option>
+                    <option value="lost" i18n>LOST</option>
+                  </select>
+                </form>
+              </div>
+            </div>
+            <div class="style-row-order">
+              <div class="row {{orderList.current_status === 'NEW' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n >New:</div>
+                <div class="col-md-7 text-right {{orderList.new}}" *ngIf="orderList.new" >
+                  <a href="javascript:void(0)" *ngIf="orderList.new" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div [hidden]="!statusOrderShow[orderList.id]">
+                <div class="row {{orderList.current_status === 'SUPPORTING' ? 'text-warning' : ''}}">
+                  <div class="col-md-5 pr-0" i18n >Supporting:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.supporting" >
+                    <a href="javascript:void(0)" *ngIf="orderList.supporting" (click)="updateNull('supporting', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                    {{orderList.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                  </div>
+                </div>
+                <div class="row {{orderList.current_status === 'SUPPORTED' ? 'text-warning' : ''}}">
+                  <div class="col-md-5 pr-0" i18n >Supported:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.supported" >
+                    <a href="javascript:void(0)" *ngIf="orderList.supported" (click)="updateNull('supported', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                    {{orderList.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                  </div>
+                </div>
+                <div class="row {{orderList.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
+                  <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase" >
+                    <a href="javascript:void(0)" *ngIf="orderList.ready_purchase" (click)="updateNull('ready_purchase', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                    {{orderList.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                  </div>
+                </div>
+                <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
+                  <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
+                  <div class="col-md-6 text-right" *ngIf="orderList.purchase_start">
+                    <a href="javascript:void(0)" *ngIf="orderList.purchase_start" (click)="updateNull('purchase_start', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                    {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                  </div>
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Purchased:</div>
+                <div class="col-md-6 text-right" *ngIf="orderList.purchased">
+                  <a href="javascript:void(0)" *ngIf="orderList.purchased" (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'SHIPPED' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
+                <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped" >
+                  <a href="javascript:void(0)" *ngIf="orderList.seller_shipped" (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.seller_shipped * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'STOCKIN_US' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Stock in US:</div>
+                <div class="col-md-6 text-right" *ngIf="orderList.stockin_us" >
+                  <a href="javascript:void(0)" *ngIf="orderList.stockin_us" (click)="updateNull('stockin_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.stockin_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'STOCKOUT_US' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Stock out US:</div>
+                <div class="col-md-6 text-right" *ngIf="orderList.stockout_us">
+                  <a href="javascript:void(0)" *ngIf="orderList.stockout_us" (click)="updateNull('stockout_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.stockout_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'STOCKIN_LOCAL' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Stock in local:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.stockin_local">
+                  <a href="javascript:void(0)" *ngIf="orderList.stockin_local" (click)="updateNull('stockin_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.stockin_local * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'STOCKOUT_LOCAL' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Stock out local:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.stockout_local">
+                  <a href="javascript:void(0)" *ngIf="orderList.stockout_local" (click)="updateNull('stockout_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderList.stockout_local * 1000| date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'AT_CUSTOMER' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>At customer:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.at_customer">
+                  <a href="javascript:void(0)" *ngIf="orderList.at_customer" (click)="updateNull('at_customer', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderList.at_customer * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'RETURN' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Returned:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.returned">
+                  <a href="javascript:void(0)" *ngIf="orderList.returned" (click)="updateNull('returned', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderList.returned * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'CANCEL' ? 'text-warning' : ''}}">
+                <div class="col-md-6  pr-0" i18n>Cancel:</div>
+                <div class="col-md-6 text-right" *ngIf="orderList.cancelled">
+                  <a href="javascript:void(0)" *ngIf="orderList.cancelled" (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.cancelled * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
+              <div class="row {{orderList.current_status === 'LOST' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Lost:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.lost">
+                  <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderList.lost * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Code</th>
+                <th>Mã kiện</th>
+                <th>Cân tinh/ Sau đóng gỗ</th>
+                <th>Cân tính phí</th>
+                <th>thể tích</th>
+                <th>Trạng thái</th>
+                <th>Lịch sử</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="border-top: 1px solid #d9d9d9">
+          <div class="col-md-12 mt-2 mb-2">
+            <button class="btn btn-default btn-sm" (click)="create[orderList.id] = !create[orderList.id]">Create product</button>
+          </div>
+          <div class="col-md-12" [hidden]="!create[orderList.id]">
+            <form [formGroup]="formCreate">
+            <div class="row">
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Link image" formControlName="link_image">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Name product" formControlName="name_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Link Product" formControlName="link_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Link Origin" formControlName="link_origin">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Purchase" formControlName="quantity_purchase">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Customer" formControlName="quantity_customer">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <select class="form-control form-control-sm" name="store" id="seller_id"
+                          formControlName="seller_id">
+                    <option [value]="allKey" i18n >--All Seller--</option>
+                    <option *ngFor="let seller of listSeller" value="{{seller.id}}">{{seller.seller_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Origin" formControlName="price_amount_origin_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Total Price Amount Local" formControlName="total_price_amount_local_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Local" formControlName="price_amount_local_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Variations" formControlName="variations_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="Portal" formControlName="portal_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="SKU" formControlName="sku_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <input type="text" class="form-control form-control-sm" placeholder="SKU Parent" formControlName="sku_parent_pro">
+                </div>
+                <div class="col-md-6 mb-1">
+                  <button class="btn btn-success btn-sm form-control-sm" (click)="createPro()">Create</button>
+                </div>
+            </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="orderList.product != ''" style="border-top: 1px solid #d9d9d9">
+          <div class="row mt-2 mb-1" *ngFor="let product of orderList.products" style="border-bottom: 1px solid #d9d9d9">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-3">
+                  <a href="javascript:void(0)"><img [src]="product.link_img" alt="" width="100%"></a>
+                </div>
+                <div class="col-md-9 pl-0">
+                  <ul>
+                    <li>
+                      <strong class="mr-1" i18n>Name:</strong>
+                      <a href="{{product.product_link}}">{{product.product_name}}</a>
+                    </li>
+                    <li>
+                      <strong class="mr-1">SKU:</strong>
+                      <app-span-label [value]="product.sku"></app-span-label>
+                    </li>
+                    <li>
+                      <strong class="mr-1" i18n>SKU Parent:</strong>
+                      <app-span-label [value]="product.parent_sku"></app-span-label>
+                    </li>
+                    <li>
+                      <span class="mr-1 text-danger" i18n>Variations:</span>
+                      <app-span-label [value]="product.variations"></app-span-label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-md-7">
+                  <span i18n>Quantity</span>
+                </div>
+                <div class="col-md-5 text-right">
+                  <span>{{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}</span>
+                  <i class="fa fa-edit ml-1" (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id)"></i>
+                </div>
+              </div>
+              <div class="row" [hidden]="!quantity[product.id]" *ngIf="checkUpdateQuantity">
+                <div class="origin-amount col-md-3 text-right style-padding ">
+                  <input type="number" width="100%" [(ngModel)]="quantityC" (keydown.enter)="updateQuantityPr()" />
+                </div>
+                <div class="origin-amount col-md-3 text-right style-padding ">
+                  <input type="number" width="100%" [(ngModel)]="quantityP" (keydown.enter)="updateQuantityPr()" />
+                </div>
+                <div class="origin-amount col-md-3 text-right style-padding ">
+                  <input type="number" width="100%" [(ngModel)]="quantityI" (keydown.enter)="updateQuantityPr()" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7">
+                  <strong><span i18n>Units Price:</span>
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ product.price_amount_origin | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.price_amount_origin | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
+                </div>
+                <div class="col-md-5 text-right">
+                  <strong>{{product.price_amount_local}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+                  <strong i18n>Total value Product</strong>
+                </div>
+                <div class="col-md-6 text-right style-padding"><strong>{{product.total_price_amount_local | number}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="orderList.product == ''" style="border-top: 1px solid #d9d9d9">
+          <h3 class="text-center">Not Found Product</h3>
+        </div>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Đóng</button>
+        <button class="btn btn-danger btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
+        <!--<button class="btn btn-success btn-sm" type="button"  data-dismiss="modal" (click)="updateOrderCode()">Update</button>-->
       </div>
     </div>
   </div>

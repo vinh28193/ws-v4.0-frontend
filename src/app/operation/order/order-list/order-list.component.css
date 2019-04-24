@@ -212,4 +212,7 @@ a.delete-chatsupporting i:hover{
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: #555;
 }
+.style-row-order .row{
+  border-bottom: 1px dashed darkgrey;
+}
 
