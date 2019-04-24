@@ -15,6 +15,7 @@ import { TrackingViewsComponent } from './tracking-views/tracking-views.componen
 import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
 import { UsSendingComponent } from './us-sending/us-sending.component';
 import { UsSendingViewsComponent } from './us-sending-views/us-sending-views.component';
+import { TrackingInfoComponent } from './tracking-info/tracking-info.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { UsSendingViewsComponent } from './us-sending-views/us-sending-views.com
         TrackingViewsComponent,
         PagingCustomComponent,
         UsSendingComponent,
-        UsSendingViewsComponent
+        UsSendingViewsComponent,
+        TrackingInfoComponent
     ],
     providers: [
         TrackingService,

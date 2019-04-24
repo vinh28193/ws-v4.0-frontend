@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
@@ -42,7 +42,13 @@ export class ClientService extends GlobalService {
      */
     get(url: string, params?: any | undefined): Observable<any> {
         if (typeof params !== 'undefined' && typeof params === 'object') {
-            params = jQuery.param(params);
+            const data: any = {};
+            $.each(params, function (k, v) {
+                if (v) {
+                    data[k] = v;
+                }
+            });
+            params = jQuery.param(data);
             url += '?' + params;
         }
         return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())

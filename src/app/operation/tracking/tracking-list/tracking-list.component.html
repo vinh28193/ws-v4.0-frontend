@@ -100,7 +100,6 @@
                                                         <td width="25%">
                                                             <input [(ngModel)]="trackingComplete"
                                                                    (change)="search('tracking')"
-                                                                   (keydown.enter)="search('tracking')"
                                                                    class="form-control form-control-sm"
                                                                    placeholder="Tracking complete">
                                                             <app-paging-custom
@@ -114,7 +113,6 @@
                                                         </td>
                                                         <td width="25%">
                                                             <input [(ngModel)]="trackingWast" (change)="search('tracking')"
-                                                                   (keydown.enter)="search('tracking')"
                                                                    class="form-control form-control-sm"
                                                                    placeholder="Tracking wasting">
                                                             <app-paging-custom
@@ -128,7 +126,6 @@
                                                         </td>
                                                         <td width="25%">
                                                             <input [(ngModel)]="trackingMiss" (change)="search('tracking')"
-                                                                   (keydown.enter)="search('tracking')"
                                                                    class="form-control form-control-sm"
                                                                    placeholder="Tracking missing">
                                                             <app-paging-custom
@@ -143,7 +140,6 @@
                                                         <td width="25%">
                                                             <input [(ngModel)]="trackingUnknown"
                                                                    (change)="search('tracking')"
-                                                                   (keydown.enter)="search('tracking')"
                                                                    class="form-control form-control-sm"
                                                                    placeholder="Tracking unknown">
                                                             <app-paging-custom
@@ -161,26 +157,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftPackageItems">
                                                                     <li class="list-group-item">
-                                                                        <h6>{{packTr.tracking_code}}</h6>
-                                                                        <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
-                                                                        <div>Order Id: <b>{{packTr.order_id}}</b></div>
-                                                                        <div>Product Id: <b>{{packTr.product_id}}</b></div>
-                                                                        <div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
-                                                                        <div>Item Name: <b>{{packTr.item_name}}</b></div>
-                                                                        <div>Quantity: <b>{{packTr.quantity}}</b></div>
-                                                                        <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
-                                                                        <div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
-                                                                        <div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{dimension_l}} x {{dimension_w}}</b> (cm)</div>
-                                                                        <div>Note BM: <b>{{packTr.note_boxme}}</b></div>
-                                                                        <div>Status: <b>{{packTr.status}}</b></div>
-                                                                        <div class="mb-1">
-                                                                            <strong>List Image</strong>
-                                                                            <div class="col-md-12 row">
-                                                                                <div class="col-md-6" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
-                                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
                                                                         <div class="padding-btn">
                                                                             <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
                                                                             <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
@@ -201,25 +178,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftWastingTrackings">
                                                                     <li class="list-group-item">
-                                                                        <h6>{{packTr.tracking_code}}</h6>
-                                                                        <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
-                                                                        <div>Order Id: <b>{{packTr.order_id}}</b></div>
-                                                                        <div>Product Id: <b>{{packTr.product_id}}</b></div>
-                                                                        <div>Item Name: <b>{{packTr.item_name}}</b></div>
-                                                                        <div>Quantity: <b>{{packTr.quantity}}</b></div>
-                                                                        <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
-                                                                        <div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
-                                                                        <div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{dimension_l}} x {{dimension_w}}</b> (cm)</div>
-                                                                        <div>Note BM: <b>{{packTr.note_boxme}}</b></div>
-                                                                        <div>Status: <b>{{packTr.status}}</b></div>
-                                                                        <div class="mb-1">
-                                                                            <strong>List Image</strong>
-                                                                            <div class="col-md-12 row">
-                                                                                <div class="col-md-6" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
-                                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
                                                                         <div>
                                                                             <p *ngIf="!trackingMerge || trackingMerge.type != 'wast'"><a href="javascript:void (0)" (click)="merge(packTr,'wast')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
                                                                         </div>
@@ -231,25 +190,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftMissingTrackings">
                                                                     <li class="list-group-item">
-                                                                        <h6>{{packTr.tracking_code}}</h6>
-                                                                        <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
-                                                                        <div>Order Id: <b>{{packTr.order_id}}</b></div>
-                                                                        <div>Product Id: <b>{{packTr.product_id}}</b></div>
-                                                                        <div>Item Name: <b>{{packTr.item_name}}</b></div>
-                                                                        <div>Quantity: <b>{{packTr.quantity}}</b></div>
-                                                                        <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
-                                                                        <div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
-                                                                        <div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{dimension_l}} x {{dimension_w}}</b> (cm)</div>
-                                                                        <div>Note BM: <b>{{packTr.note_boxme}}</b></div>
-                                                                        <div>Status: <b>{{packTr.status}}</b></div>
-                                                                        <div class="mb-1">
-                                                                            <strong>List Image</strong>
-                                                                            <div class="col-md-12 row">
-                                                                                <div class="col-md-6" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
-                                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
                                                                         <div>
                                                                             <p *ngIf="!trackingMerge || trackingMerge.type != 'miss'" ><a href="javascript:void (0)" (click)="merge(packTr,'miss')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
                                                                         </div>
@@ -261,25 +202,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.unknownTrackings">
                                                                     <li class="list-group-item">
-                                                                        <h6>{{packTr.tracking_code}}</h6>
-                                                                        <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
-                                                                        <div>Order Id: <b>{{packTr.order_id}}</b></div>
-                                                                        <div>Product Id: <b>{{packTr.product_id}}</b></div>
-                                                                        <div>Item Name: <b>{{packTr.item_name}}</b></div>
-                                                                        <div>Quantity: <b>{{packTr.quantity}}</b></div>
-                                                                        <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
-                                                                        <div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
-                                                                        <div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{dimension_l}} x {{dimension_w}}</b> (cm)</div>
-                                                                        <div>Note BM: <b>{{packTr.note_boxme}}</b></div>
-                                                                        <div>Status: <b>{{packTr.status}}</b></div>
-                                                                        <div class="mb-1">
-                                                                            <strong>List Image</strong>
-                                                                            <div class="col-md-12 row">
-                                                                                <div class="col-md-6" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
-                                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
                                                                         <div>
                                                                             <p class="btn-group" >
                                                                                 <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
