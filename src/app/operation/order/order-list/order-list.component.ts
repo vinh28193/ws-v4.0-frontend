@@ -134,7 +134,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     followOrder(ordercode) {
         this.checkF = !this.checkF;
-        
+
         /**Notification**/
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
@@ -375,38 +375,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
-    unfollowOrder(ordercode)
-    {
+    unfollowOrder(ordercode) {
           // this.checkF = !this.checkF;
 
           const fingerprint = this.messagingService.UUID();
-          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+          this.orderService.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
           this.loadOrderNotifi();
           this.orderNotiCheck(ordercode);
 
          });
     }
-    loadOrderNotifi()
-    {
+    loadOrderNotifi() {
           const fingerprint = this.messagingService.UUID();
-          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+          this.orderService.get(`notifications/${fingerprint}`, undefined )
+            .subscribe(res => {
               this.orderNotifi = 0;
-              if(res.success)
-              {
-                   const order_list = res.data.order_list; 
+              if (res.success) {
+                   const order_list = res.data.order_list;
                    this.orderNotifi = order_list;
-
               }
-        
          });
+
     }
-    orderNotiCheck(ordercode)
-    {
-       if(this.orderNotifi == 0) return false;
+    orderNotiCheck(ordercode) {
+       if (this.orderNotifi === 0) {
+         return false ;
+       }
        const orderNotifi = this.orderNotifi;
-      
-       if(ordercode in orderNotifi)
-       {
+
+       if (ordercode in orderNotifi) {
            return true;
        }
        return false;
@@ -942,7 +939,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
         if (res.success) {
           this.orderDetail();
-          this.orderList();
+          this.listOrders();
         } else {
           this.popup.error(res.message);
         }
