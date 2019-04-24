@@ -37,6 +37,9 @@ export class TrackingService extends OperationService {
     mapUnknown(id, formData) {
         return this.post('s-tracking-code/map-unknown/' + id, formData);
     }
+    mapUnknownUS(id, formData) {
+        return this.post('s-us-send/map-unknown/' + id, formData);
+    }
     sellerRefund(id, formData) {
         return this.post('s-tracking-code/seller-refund/' + id, formData);
     }

@@ -16,15 +16,19 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   @Input() total = 0;
   @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
-  @Output() mapTrackingU: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
   public productIds: any = [];
+  public filter: any = {
+    tracking_code: '',
+    sku: '',
+    order_code: '',
+    type_tracking: '',
+  };
   constructor(
       public trackingService: TrackingService,
   ) {
     super(trackingService);
   }
-
   ngOnInit() {
   }
 
@@ -35,9 +39,18 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   showUpdateForm(packTr) {
     this.updateTracking.emit(packTr);
   }
-
   mapUnknown(id, tracking_code) {
-    this.mapTrackingU.emit({id: id, tracking_code: tracking_code});
+    this.trackingService.popup.confirm(() => {
+      this.trackingService.mapUnknownUS(id, {product_id: this.productIds[id]}).subscribe(rs => {
+        const res: any = rs;
+        if (res.success) {
+          this.trackingService.popup.success(res.message);
+          this.search();
+        } else {
+          this.trackingService.popup.error(res.message);
+        }
+      });
+    }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
   }
 
   search() {
@@ -45,6 +58,7 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
       page: this.page,
       limit: this.limit,
       total: this.total,
+      filter: this.filter
     });
   }
 
@@ -55,5 +69,16 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
   gettotalPage() {
     return Math.ceil(this.total / this.limit);
+  }
+  refresh() {
+    this.filter = {
+      tracking_code: '',
+      sku: '',
+      order_code: '',
+      type_tracking: '',
+    };
+    this.page = 1;
+    this.limit = 20;
+    this.search();
   }
 }

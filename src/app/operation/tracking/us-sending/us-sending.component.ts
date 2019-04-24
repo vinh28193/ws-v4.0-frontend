@@ -32,6 +32,8 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     public l_t = 20;
     public limit_page = 9;
     public manifest_id = '';
+    public filter_t = '';
+    public filter_e = '';
     public trackingMerge: any = {
         data: {},
         type: '',
@@ -178,6 +180,8 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             ps_e: this.l_e,
             p_t: this.p_t,
             p_e: this.p_e,
+            f_t: this.filter_t,
+            f_e: this.filter_e,
             ps_m: value.perPage,
             p_m: value.page
         };
@@ -185,32 +189,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             params.q = value.q;
         }
         return params;
-    }
-
-    getTotalPageArray(total, limit, page) {
-        const count = Math.ceil(total / limit);
-        const arr = [];
-        const tb = Math.ceil(this.limit_page / 2);
-        for (let ind = 0; ind < count; ind++) {
-            if (count > this.limit_page) {
-                if (page <= tb) {
-                    if (this.limit_page >= ind + 1) {
-                        arr.push(ind + 1);
-                    }
-                } else {
-                    if ((ind + 1 > page - tb && page + tb > ind + 1)) {
-                        arr.push(ind + 1);
-                    }
-                }
-            } else {
-                arr.push(ind + 1);
-            }
-        }
-        return arr;
-    }
-
-    getTotalPage(total, limit) {
-        return Math.floor(total / limit);
     }
 
     search(type = 'search') {
@@ -244,10 +222,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         this.usSendingModal.show();
     }
 
-    handleShowImageRow(row) {
-
-    }
-
     handlePagination(event) {
         const page = event.page;
         this.searchForm.patchValue({page: page});
@@ -258,12 +232,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         const value = event.target.value;
         this.searchForm.patchValue({perPage: value});
         this.search();
-    }
-
-    showMergeTracking(tracking) {
-        this.trackingMerge = tracking;
-        this.trackingTarget = '';
-        this.mergeTracking.show();
     }
 
     merge(packTr, type) {
@@ -301,55 +269,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         };
     }
 
-    mapUnknown(id, tracking_code) {
-        this.popUp.confirm(() => {
-            this.trackingService.mapUnknown(id, {product_id: this.productIds[id]}).subscribe(rs => {
-                const res: any = rs;
-                if (res.success) {
-                    this.popUp.success(res.message);
-                    this.search('tracking');
-                } else {
-                    this.popUp.error(res.message);
-                }
-            });
-        }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
-    }
-
-    splitTracking(packTr) {
-        if (!packTr.tracking_merge) {
-            this.popUp.error('Sorry. Cannot split it!');
-        }
-        const arr = packTr.tracking_merge.split(',');
-        if (arr.length <= 1) {
-            this.popUp.error('Sorry. Cannot split it!');
-        }
-        let missing = arr[0];
-        const wasting = arr[1];
-
-        if (arr.length > 2) {
-            for (let ind = 0; ind < arr.length; ind++) {
-                if (ind > 1) {
-                    missing = missing + ', ' + arr[ind];
-                }
-            }
-        }
-        this.popUp.confirm(
-            () => {
-                this.trackingService.delete('s-tracking-code/' + packTr.id).subscribe(rs => {
-                    if (rs) {
-                        this.popUp.success(rs.message);
-                        this.search('tracking');
-                    } else {
-                        this.popUp.error(rs.message);
-                    }
-                });
-            },
-            'Do you want split it! And tracking: ' +
-            '' + missing + ' to Missing tracking. And tracking: ' +
-            '' + wasting + ' to Wasting tracking.', 'split'
-        );
-    }
-
     showSellerRefundModal(packTr) {
         this.sellerRefundForm.id = packTr.id;
         this.sellerRefundForm.tracking = packTr.tracking_code;
@@ -370,23 +289,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
                 this.popUp.error(res.message);
             }
         });
-    }
-
-    markHoldTracking(id, hold) {
-        this.popUp.confirm(
-            () => {
-                this.trackingService.markHold(id, {hold: hold}).subscribe(rs => {
-                    const res: any = rs;
-                    if (res.success) {
-                        this.popUp.success(res.message);
-                        this.search('tracking');
-                    } else {
-                        this.popUp.error(res.message);
-                    }
-                });
-            },
-            hold ? 'Hold tracking?' : 'UnHold tracking?', 'hold'
-        );
     }
 
     showUpdateForm(packTr) {
@@ -438,12 +340,18 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     }
 
     searchEvent(event) {
+        let fil = '';
+        if (!event.filter.order_code || !event.filter.sku || !event.filter.tracking_code || event.filter.type_tracking) {
+            fil = window.btoa(JSON.stringify(event.filter));
+        }
         if (this.tabTracking === 'tracking') {
             this.p_t = event.page;
             this.l_t = event.limit;
+            this.filter_t = fil;
         } else {
             this.p_e = event.page;
             this.l_e = event.limit;
+            this.filter_e = fil;
         }
         this.search('tracking');
     }
