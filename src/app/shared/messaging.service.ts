@@ -20,6 +20,7 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
     private currentToken: any;
+    public orderNotifi: any = [];
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -36,7 +37,6 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM constructor : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
@@ -69,7 +69,6 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('Token FCM : ' + this.currentToken);
                 this.updateToken(userId, token);
             },
             (err) => {
@@ -84,32 +83,56 @@ export class MessagingService {
     receiveMessage() {
         this.angularFireMessaging.messages.subscribe(
             (payload) => {
-                console.log('new message received. ', payload);
+                // console.log('new message received. ', payload);
                 this.currentMessage.next(payload);
             });
     }
 
-    sendSubscriptionToServer(token, fingerprint, details, userId,ordercode) {
-        console.log('sendSubscriptionToServer : ' + JSON.stringify(token));
-        const formData = new FormData();
-        formData.append('userId', userId);
-        formData.append('token', token);
-        formData.append('fingerprint', fingerprint);
-        formData.append('details', JSON.stringify(details));
-        this.notifi.post(`notifications`, formData).subscribe(ret => {
+    sendSubscriptionToServer(token, fingerprint, details, userId, ordercode) {
+        const params: any = {};
+        params.user = userId;
+        params.token = token;
+        params.fingerprint = fingerprint;
+        params.details = JSON.stringify(details);
+        params.ordercode = ordercode;
+        params.nv = details.os;
+
+        this.notifi.post(`notifications`, params).subscribe(ret => {
+            console.log('JOSN ' + JSON.stringify(ret));
             const res: any = ret;
-            console.log('res send token Subscription ' + JSON.stringify(res));
+            // console.log('res send token Subscription ' + JSON.stringify(res));
             if (res.success) {
                 const rs: any = res.data;
-                console.log('Notifi data : ' + JSON.stringify(rs));
-                return rs;
+                // console.log('Notifi data : ' + JSON.stringify(rs));
+                this.loadOrderNotifi();
+                this.orderNotiCheck(ordercode);
+                return true;
             } else {
+                console.error('Error notify sendSubscription.' + JSON.stringify(res));
                 return false;
             }
-            console.log('done');
         });
     }
-    
+
+    loadOrderNotifi() {
+        const fingerprint = this.UUID();
+        this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+            const order_list = res.data.order_list;
+            // console.log(order_list);
+            this.orderNotifi = order_list;
+        });
+    }
+
+    orderNotiCheck(ordercode) {
+        const orderNotifi = this.orderNotifi;
+        if (ordercode in orderNotifi) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     getUser() {
         const userLogin = this.storegate.get('userLogin');
         const dataUserLoginParse = JSON.parse(userLogin);
@@ -123,8 +146,8 @@ export class MessagingService {
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
-        console.log('currentToken : ' + JSON.stringify(currentToken));
-        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId,ordercode);
+        // console.log('currentToken : ' + JSON.stringify(currentToken));
+        this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
     }
 
 
@@ -133,7 +156,7 @@ export class MessagingService {
         const canvasPrint = client.getCanvasPrint();
         /** UUID Device **/
         const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        // console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
 
