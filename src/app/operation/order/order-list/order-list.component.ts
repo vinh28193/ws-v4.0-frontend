@@ -30,6 +30,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pack: any = {};
     public pay: any = {};
     public pur: any = {};
+    public delivevery: any = {};
     public quantity: any = {};
     public create: any = {};
     public click_pur: any = {};
@@ -1057,6 +1058,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderDetail();
       }
     });
+  }
+  packageItem(event) {
+      console.log(event);
   }
 }
 
