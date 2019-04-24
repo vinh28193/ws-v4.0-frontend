@@ -102,8 +102,14 @@
                             <td colspan="4" style="padding: 0px">
                               <app-us-sending-views
                                       [tracking_codes]="trackingCodes"
+                                      [limit]="tabTracking == 'tracking' ? l_t : l_e"
+                                      [page]="tabTracking == 'tracking' ? p_t : p_e"
+                                      [total]="tabTracking == 'tracking' ? tracks['_tracking_total'] : tracks['_ext_total']"
                                       [tab_tracking]="tabTracking"
+                                      (searchEvent)="searchEvent($event)"
                                       (sellerRefund)="showSellerRefundModal($event)"
+                                      (updateTracking)="showUpdateForm($event)"
+                                      (mapTrackingU)="mapUnknown($event.id,$event.tracking_code)"
                               >
                               </app-us-sending-views>
                             </td>
