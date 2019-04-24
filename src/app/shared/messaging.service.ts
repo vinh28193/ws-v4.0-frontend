@@ -44,7 +44,7 @@ export class MessagingService {
         );
     }
      ngOnInit() {
-          this.loadOrderNotifi();
+          // this.loadOrderNotifi();
      }
 
     /**
