@@ -1,6 +1,9 @@
 <div class="content-block" style="margin: 0px">
   <div class="header-content">
-    <h2>View tracking {{tab_tracking}}</h2>
+    <h2>View tracking</h2>
+  </div>
+  <div class="header-content">
+    <h2>View tracking</h2>
   </div>
   <div class="body-content">
     <div class="row ">
@@ -18,25 +21,13 @@
             <tr>
               <td>
                 <h6>{{packTr.tracking_code}}</h6>
-                <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
                 <div>Order Id: <b>{{packTr.order_id}}</b></div>
                 <div>Product Id: <b>{{packTr.product_id}}</b></div>
                 <div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
-                <div>Item Name: <b>{{packTr.item_name}}</b></div>
                 <div>Quantity: <b>{{packTr.quantity}}</b></div>
                 <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
-                <div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
-                <div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{dimension_l}} x {{dimension_w}}</b> (cm)</div>
-                <div>Note BM: <b>{{packTr.note_boxme}}</b></div>
                 <div>Status: <b>{{packTr.status}}</b></div>
-                <div class="mb-1">
-                  <strong>List Image</strong>
-                  <div class="col-md-12 row">
-                    <div class="col-md-2" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
-                      <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                    </div>
-                  </div>
-                </div>
+                <div>Type: <b>{{packTr.type_tracking}}</b></div>
               </td>
               <td>
                 <ng-container *ngIf="!packTr.order">
@@ -81,17 +72,18 @@
                     </div>
                   </div>
                 </ng-container>
-                <div class="padding-btn">
+                <div class="padding-btn" *ngIf="packTr.type_tracking == 'NORMAL' || packTr.type_tracking == 'SPLIT'">
                   <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
-                  <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
-                  <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View detail merge</a></div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View Extension</a></div>
                   <div><a href="javascript:void (0)"
                           (click)="showUpdateForm(packTr)"><i
                           class="fal fa-edit"></i> Update tracking</a>
                   </div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
+                </div>
+                <div class="padding-btn" *ngIf="packTr.type_tracking == 'UNKNOWN'">
+                  <p class="btn-group" >
+                    <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
+                    <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
+                  </p>
                 </div>
               </td>
             </tr>
