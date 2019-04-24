@@ -98,6 +98,7 @@ export class MessagingService {
         params.nv = details.os;
 
         this.notifi.post(`notifications`, params).subscribe(ret => {
+            console.log('JOSN ' + JSON.stringify(ret));
             const res: any = ret;
             // console.log('res send token Subscription ' + JSON.stringify(res));
             if (res.success) {
