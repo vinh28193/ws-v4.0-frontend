@@ -24,6 +24,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     public productIds: any = [];
     public trackingT = '';
     public trackingE = '';
+    public trackingMergeSearch = '';
     public tabTracking = 'tracking';
     public trackingCodes: any = [];
     public p_e = 1;
@@ -32,12 +33,13 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     public l_t = 20;
     public limit_page = 9;
     public manifest_id = '';
+    public filter_t = '';
+    public filter_e = '';
     public trackingMerge: any = {
-        data: {},
-        type: '',
-    };
-    public trackingTarget: any = {
-        data: {},
+        data_id: '',
+        ext_id: '',
+        data_tracking_code: '',
+        ext_tracking_code: '',
         type: '',
     };
     public sellerRefundForm: any = {
@@ -54,6 +56,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         product_id: '',
         purchase_invoice_number: '',
         item_name: '',
+        type: 'data_draft',
     };
     // file
     public file: File;
@@ -178,6 +181,8 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             ps_e: this.l_e,
             p_t: this.p_t,
             p_e: this.p_e,
+            f_t: this.filter_t,
+            f_e: this.filter_e,
             ps_m: value.perPage,
             p_m: value.page
         };
@@ -185,32 +190,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             params.q = value.q;
         }
         return params;
-    }
-
-    getTotalPageArray(total, limit, page) {
-        const count = Math.ceil(total / limit);
-        const arr = [];
-        const tb = Math.ceil(this.limit_page / 2);
-        for (let ind = 0; ind < count; ind++) {
-            if (count > this.limit_page) {
-                if (page <= tb) {
-                    if (this.limit_page >= ind + 1) {
-                        arr.push(ind + 1);
-                    }
-                } else {
-                    if ((ind + 1 > page - tb && page + tb > ind + 1)) {
-                        arr.push(ind + 1);
-                    }
-                }
-            } else {
-                arr.push(ind + 1);
-            }
-        }
-        return arr;
-    }
-
-    getTotalPage(total, limit) {
-        return Math.floor(total / limit);
     }
 
     search(type = 'search') {
@@ -232,7 +211,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
                 this.pageCount = Math.floor(this.totalCount / params.ps_m);
                 this.currentPage = params.p_m;
                 this.perPage = params.ps_m;
-                this.setTabTracking('');
+                this.setTabTracking(this.tabTracking);
             } else {
                 this.popUp.error(rs.message);
             }
@@ -242,10 +221,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     openUsSendingModal() {
         this.buildUsSendingForm();
         this.usSendingModal.show();
-    }
-
-    handleShowImageRow(row) {
-
     }
 
     handlePagination(event) {
@@ -260,94 +235,34 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         this.search();
     }
 
-    showMergeTracking(tracking) {
-        this.trackingMerge = tracking;
-        this.trackingTarget = '';
-        this.mergeTracking.show();
-    }
-
-    merge(packTr, type) {
-        if (!this.trackingMerge.type) {
-            this.trackingMerge.data = packTr;
-            this.trackingMerge.type = type;
-        } else {
-            this.trackingTarget.data = packTr;
-            this.trackingTarget.type = type;
-            const formMerge = {
-                merge: this.trackingMerge,
-                target: this.trackingTarget
-            };
-            this.trackingService.popup.confirm(() => {
-                this.trackingService.merge(formMerge).subscribe(rs => {
-                    const res: any = rs;
-                    if (res.success) {
-                        this.popUp.success(res.message);
-                        this.search('tracking');
-                    }
-                });
-            }, this.trackingMerge.data.tracking_code + ' merge ' + this.trackingTarget.data.tracking_code, 'Merge');
-            this.clearMerge();
+    merge() {
+        const listCheck = this.getExtTrackings('tracking');
+        if (!listCheck || listCheck === []) {
+            return this.popUp.error('Cannot find tracking code target!');
         }
-    }
-
-    clearMerge() {
-        this.trackingMerge = {
-            data: {},
-            type: '',
-        };
-        this.trackingTarget = {
-            data: {},
-            type: '',
-        };
-    }
-
-    mapUnknown(id, tracking_code) {
-        this.popUp.confirm(() => {
-            this.trackingService.mapUnknown(id, {product_id: this.productIds[id]}).subscribe(rs => {
+        this.trackingService.popup.confirm(() => {
+            this.trackingService.post('s-us-send', this.trackingMerge).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
                     this.popUp.success(res.message);
                     this.search('tracking');
+                    this.clearMerge();
+                    this.mergeTracking.hide();
                 } else {
                     this.popUp.error(res.message);
                 }
             });
-        }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
+        }, this.trackingMerge.data_tracking_code + ' merge ' + this.trackingMerge.ext_tracking_code, 'Merge');
     }
 
-    splitTracking(packTr) {
-        if (!packTr.tracking_merge) {
-            this.popUp.error('Sorry. Cannot split it!');
-        }
-        const arr = packTr.tracking_merge.split(',');
-        if (arr.length <= 1) {
-            this.popUp.error('Sorry. Cannot split it!');
-        }
-        let missing = arr[0];
-        const wasting = arr[1];
-
-        if (arr.length > 2) {
-            for (let ind = 0; ind < arr.length; ind++) {
-                if (ind > 1) {
-                    missing = missing + ', ' + arr[ind];
-                }
-            }
-        }
-        this.popUp.confirm(
-            () => {
-                this.trackingService.delete('s-tracking-code/' + packTr.id).subscribe(rs => {
-                    if (rs) {
-                        this.popUp.success(rs.message);
-                        this.search('tracking');
-                    } else {
-                        this.popUp.error(rs.message);
-                    }
-                });
-            },
-            'Do you want split it! And tracking: ' +
-            '' + missing + ' to Missing tracking. And tracking: ' +
-            '' + wasting + ' to Wasting tracking.', 'split'
-        );
+    clearMerge() {
+        this.trackingMerge = {
+            data_id: '',
+            ext_id: '',
+            data_tracking_code: '',
+            ext_tracking_code: '',
+            type: '',
+        };
     }
 
     showSellerRefundModal(packTr) {
@@ -360,7 +275,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         if (!this.sellerRefundForm.amount || !this.sellerRefundForm.time) {
             return this.popUp.error('All field cannot null!');
         }
-        this.trackingService.sellerRefund(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
+        this.trackingService.sellerRefundUsSending(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
             const res: any = rs;
             if (res.success) {
                 this.popUp.success(res.message);
@@ -370,23 +285,6 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
                 this.popUp.error(res.message);
             }
         });
-    }
-
-    markHoldTracking(id, hold) {
-        this.popUp.confirm(
-            () => {
-                this.trackingService.markHold(id, {hold: hold}).subscribe(rs => {
-                    const res: any = rs;
-                    if (res.success) {
-                        this.popUp.success(res.message);
-                        this.search('tracking');
-                    } else {
-                        this.popUp.error(res.message);
-                    }
-                });
-            },
-            hold ? 'Hold tracking?' : 'UnHold tracking?', 'hold'
-        );
     }
 
     showUpdateForm(packTr) {
@@ -404,7 +302,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             !this.updateForm.product_id || !this.updateForm.order_id || !this.updateForm.item_name) {
             return this.popUp.error('All field cannot null!');
         }
-        this.trackingService.update(this.updateForm.id, this.updateForm).subscribe(rs => {
+        this.trackingService.put('us-sending/' + this.updateForm.id, this.updateForm).subscribe(rs => {
             const res: any = rs;
             if (res.success) {
                 this.popUp.success(res.message);
@@ -427,7 +325,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     }
 
     regetType(id) {
-        this.trackingService.updateUsSending(id, {}).subscribe(rs => {
+        this.trackingService.reGetType(id, {}).subscribe(rs => {
             if (rs.success) {
                 this.popUp.success(rs.message);
                 // this.search();
@@ -438,13 +336,41 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     }
 
     searchEvent(event) {
+        let fil = '';
+        if (!event.filter.order_code || !event.filter.sku || !event.filter.tracking_code || event.filter.type_tracking) {
+            fil = window.btoa(JSON.stringify(event.filter));
+        }
         if (this.tabTracking === 'tracking') {
             this.p_t = event.page;
             this.l_t = event.limit;
+            this.filter_t = fil;
         } else {
             this.p_e = event.page;
             this.l_e = event.limit;
+            this.filter_e = fil;
         }
         this.search('tracking');
+    }
+
+    mergeTrackingEvent(event) {
+        this.trackingMerge.data_tracking_code = event.tracking_code;
+        this.trackingMerge.data_id = event.id;
+        this.mergeTracking.show();
+    }
+
+    getExtTrackings(type = 'search') {
+        let rs = this.tracks._ext;
+        if (this.trackingMerge.ext_tracking_code || this.trackingMergeSearch) {
+            const match = type === 'search' ? this.trackingMergeSearch : this.trackingMerge.ext_tracking_code;
+            rs = this.tracks._ext.filter(
+                c => c.tracking_code.toUpperCase().indexOf(match.toUpperCase()) !== -1);
+            console.log(rs);
+        }
+        return rs;
+    }
+
+    setTrackingTarget(id, tracking) {
+        this.trackingMerge.ext_tracking_code = tracking;
+        this.trackingMerge.ext_id = id;
     }
 }

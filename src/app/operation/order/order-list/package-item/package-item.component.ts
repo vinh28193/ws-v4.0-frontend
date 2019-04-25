@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -14,6 +14,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   public packages: any = [];
   @Input() orderCode: any;
   @Input() orderIDD: any;
+  @Output() packageI = new EventEmitter();
   public package: any;
   public check: boolean = false;
   public checkCreate: boolean = false;
@@ -43,6 +44,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   listPackageItem() {
     this.orderService.get(`package-item/${this.orderIDD}`, undefined).subscribe(res => {
       this.packages = res.data;
+      this.packageI.emit(this.packages);
     });
   }
 

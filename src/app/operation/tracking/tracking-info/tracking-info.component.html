@@ -1,0 +1,21 @@
+<h6>{{packTr.tracking_code}}</h6>
+<div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
+<div>Order Id: <b>{{packTr.order_id}}</b></div>
+<div>Product Id: <b>{{packTr.product_id}}</b></div>
+<div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
+<div>Item Name: <b>{{packTr.item_name}}</b></div>
+<div>Quantity: <b>{{packTr.quantity}}</b></div>
+<div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
+<div>Weight: <b>{{packTr.weight}}</b> (gram)</div>
+<div>Dimension (H x L x W): <b>{{packTr.dimension_h}} x {{packTr.dimension_l}} x {{packTr.dimension_w}}</b> (cm)</div>
+<div>Note BM: <b>{{packTr.note_boxme}}</b></div>
+<div>Status: <b>{{packTr.status}}</b></div>
+<div>Type Tracking: <b>{{packTr.type_tracking}}</b></div>
+<div class="mb-1">
+  <strong>List Image</strong>
+  <div class="col-md-12 row">
+    <div class="col-md-2" style="padding: 0px" *ngFor="let img of getListImage(packTr.image)" >
+      <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {PopupService} from '../../../core/service/popup.service';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
@@ -12,8 +12,10 @@ import {ScopeService} from '../../../core/service/scope.service';
 })
 export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     private tabs: any [];
+    public openEditVariant = {};
     updateProductId: any;
     productQ: any;
+    id: any;
     idEdit = 0;
     fee = 0;
     oldfee = 0;
@@ -21,6 +23,8 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() products: any;
     @Input() Employee_Purchase: any;
     @Input() storeID: any;
+    @Input() order_path: any;
+    public editFormVariant: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
@@ -127,5 +131,20 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       if (name === 'tax_fee_origin' || name === 'origin_shipping_fee' || name === 'weshop_fee' || name === 'intl_shipping_fee' || name === 'import_fee' || name === 'custom_fee' || name === 'product_price_origin') {
         return true;
       }
+    }
+    clickUpdateVarian(variant, id) {
+        this.id = id;
+        this.editFormVariant = this.fb.group({
+          variant: variant,
+          order_path: this.order_path,
+          title: 'Variant'
+        });
+    }
+  editVariantPro() {
+      this.orderService.put(`product/${this.id}`, this.editFormVariant.value).subscribe(res => {
+          if (res.success) {
+            this.editFee.emit(true);
+          }
+      });
     }
 }

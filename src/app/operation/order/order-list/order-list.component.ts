@@ -30,6 +30,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pack: any = {};
     public pay: any = {};
     public pur: any = {};
+    public createC: any = {};
+    public delivevery: any = {};
     public quantity: any = {};
     public create: any = {};
     public click_pur: any = {};
@@ -79,7 +81,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public editForm: FormGroup;
     public formAsignUser: FormGroup;
     public chatSupporting: FormGroup;
+    public createTemplate: FormGroup;
     public formCreate: FormGroup;
+    public messageCustomer: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -95,6 +99,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     provinces: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
+    public listChatTem: any = [];
     public filter: any = {};
     public status: any;
     public checkF = false;
@@ -114,8 +119,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
-    public orderNotifi:any = [];
-    public paramsOrder:any = [];
+    public orderNotifi: any = [];
+    public paramsOrder: any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -134,7 +139,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     followOrder(ordercode) {
         this.checkF = !this.checkF;
-        
+
         /**Notification**/
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
@@ -375,38 +380,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
-    unfollowOrder(ordercode)
-    {
+    unfollowOrder(ordercode) {
           // this.checkF = !this.checkF;
 
           const fingerprint = this.messagingService.UUID();
-          this.notifi.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
+          this.orderService.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
           this.loadOrderNotifi();
           this.orderNotiCheck(ordercode);
 
          });
     }
-    loadOrderNotifi()
-    {
+    loadOrderNotifi() {
           const fingerprint = this.messagingService.UUID();
-          this.notifi.get(`notifications/${fingerprint}`, undefined).subscribe(res => {
+          this.orderService.get(`notifications/${fingerprint}`, undefined )
+            .subscribe(res => {
               this.orderNotifi = 0;
-              if(res.success)
-              {
-                   const order_list = res.data.order_list; 
+              if (res.success) {
+                   const order_list = res.data.order_list;
                    this.orderNotifi = order_list;
-
               }
-        
          });
+
     }
-    orderNotiCheck(ordercode)
-    {
-       if(this.orderNotifi == 0) return false;
+    orderNotiCheck(ordercode) {
+       if (this.orderNotifi === 0) {
+         return false ;
+       }
        const orderNotifi = this.orderNotifi;
-      
-       if(ordercode in orderNotifi)
-       {
+
+       if (ordercode in orderNotifi) {
            return true;
        }
        return false;
@@ -794,13 +796,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.code = order.ordercode;
         this.markID = order.id;
         this.status = order.status;
+        this.loadListTemChat();
         this.checkOrderChatRefund = true;
         this.editForm = this.fb.group({
             wait1: '',
-            wait2: '',
-            wait3: '',
             link_image: '',
-            messageCustomer: '',
+        });
+        this.messageCustomer = this.fb.group({
+          messageCustomer: '',
+        });
+        this.createTemplate = this.fb.group({
+            noteC: '',
+            contentC: '',
+            statusC: '',
         });
     }
     enterChat() {
@@ -848,15 +856,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         if (value.wait1 !== '') {
             params.mark = value.wait1;
-        }
-        if (value.wait2 !== '') {
-            params.mark = value.wait2;
-        }
-        if (value.wait3 !== '') {
-            params.mark = value.wait3;
-        }
-        if (value.messageCustomer !== '') {
-            params.messageCustomer = value.messageCustomer;
         }
         if (this.status === 'NEW') {
             params.isNew = 'yes';
@@ -942,7 +941,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
         if (res.success) {
           this.orderDetail();
-          this.orderList();
+          this.listOrders();
         } else {
           this.popup.error(res.message);
         }
@@ -1035,14 +1034,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.orderService.put(`order/${id}`, put).subscribe(res => {
         if (res.success) {
           this.orderDetail();
+          this.listOrders();
         } else {
           this.popup.error(res.message);
         }
       });
     }, messagePop);
   }
-  clickEdit(qtyP, qtyC, qtyI, id) {
+  clickEdit(qtyP, qtyC, qtyI, id, ordercode) {
       this.quantityP = qtyP;
+      this.code = ordercode;
       this.quantityC = qtyC;
       this.quantityI = qtyI;
       this.proId = id;
@@ -1053,11 +1054,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     params.quantityP = toNumber(this.quantityP);
     params.quantityC = toNumber(this.quantityC);
     params.quantityI = toNumber(this.quantityI);
+    params.title = 'quantity';
+    params.order_path = this.code;
     this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
       if (res.success) {
         this.checkUpdateQuantity = false;
         this.orderDetail();
       }
+    });
+  }
+  packageItem(event) {
+      // console.log(event);
+  }
+  buildChatCreate() {
+    const value = this.createTemplate.value;
+    const params: any = {};
+    params.noteC = value.noteC;
+    params.contentC = value.contentC;
+    params.statusC = value.statusC;
+    return params;
+  }
+  loadListTemChat() {
+      this.orderService.get('list-chat-mongo').subscribe(res => {
+        this.listChatTem = res.data;
+      });
+  }
+  createTemplateChat() {
+      const params = this.buildChatCreate()
+    this.orderService.post('list-chat-mongo', params).subscribe(res => {
+      // if (res.success) {
+      // }
     });
   }
 }

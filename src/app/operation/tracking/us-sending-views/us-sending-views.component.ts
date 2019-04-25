@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {TrackingService} from '../tracking.service';
 import {TrackingDataComponent} from '../tracking-data.component';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-us-sending-views',
@@ -16,15 +17,25 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   @Input() total = 0;
   @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
-  @Output() mapTrackingU: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mergeTracking: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('insertTrackingModal') insertTrackingModal: ModalDirective;
   public productIds: any = [];
+  public filter: any = {
+    tracking_code: '',
+    sku: '',
+    order_code: '',
+    type_tracking: '',
+  };
+  public tracking_Insert: any = {
+    tracking_code: '',
+    info: []
+  };
   constructor(
       public trackingService: TrackingService,
   ) {
     super(trackingService);
   }
-
   ngOnInit() {
   }
 
@@ -35,9 +46,18 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   showUpdateForm(packTr) {
     this.updateTracking.emit(packTr);
   }
-
   mapUnknown(id, tracking_code) {
-    this.mapTrackingU.emit({id: id, tracking_code: tracking_code});
+    this.trackingService.popup.confirm(() => {
+      this.trackingService.mapUnknownUS(id, {product_id: this.productIds[id]}).subscribe(rs => {
+        const res: any = rs;
+        if (res.success) {
+          this.trackingService.popup.success(res.message);
+          this.search();
+        } else {
+          this.trackingService.popup.error(res.message);
+        }
+      });
+    }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
   }
 
   search() {
@@ -45,6 +65,7 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
       page: this.page,
       limit: this.limit,
       total: this.total,
+      filter: this.filter
     });
   }
 
@@ -55,5 +76,64 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
   gettotalPage() {
     return Math.ceil(this.total / this.limit);
+  }
+  refresh() {
+    this.filter = {
+      tracking_code: '',
+      sku: '',
+      order_code: '',
+      type_tracking: '',
+    };
+    this.page = 1;
+    this.limit = 20;
+    this.search();
+  }
+
+    showMergeTracking(id, tracking) {
+      this.mergeTracking.emit({id: id, tracking_code: tracking});
+    }
+
+  insertTrackingShow() {
+    this.tracking_Insert.info = [];
+    this.addInfo();
+    this.insertTrackingModal.show();
+  }
+
+  insertTracking() {
+    if (!this.tracking_Insert.tracking_code) {
+      return this.trackingService.popup.error('Tracking code cannot null!');
+    }
+    if (!this.tracking_Insert.info.length) {
+      return this.trackingService.popup.error('Tracking cannot empty info!');
+    }
+    this.trackingService.post('s-us-send/insert-tracking', this.tracking_Insert).subscribe(rs => {
+      const res: any = rs;
+      if (res.success) {
+        this.trackingService.popup.success(res.message);
+        this.insertTrackingModal.hide();
+        this.search();
+      } else {
+        this.trackingService.popup.error(res.message);
+      }
+    });
+  }
+
+  addInfo() {
+    this.tracking_Insert.info.push({
+      order_id: '',
+      product_id: '',
+      purchase_number_invoice: '',
+    });
+  }
+
+  removeInfo(ind) {
+    const rs = [];
+    $.each(this.tracking_Insert.info, function (k, v) {
+      if (k !== ind) {
+        rs.push(v);
+      }
+    });
+    this.tracking_Insert.info = rs;
+    console.log('remove: ');
   }
 }

@@ -200,94 +200,223 @@
                 <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
                 <button type="button" (click)="shipmentCreateModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
               </div>
-              <div class="modal-body" *ngIf="shipment">
-                  <div class="row" >
-                      <div class="col-md-8">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <h6 class="box-title">1. Pickup From</h6>
-                                  <p class="mb-1">Warehouse:{{shipment.warehouseSend.name}}</p>
-                                  <p class="mb-1">Address:{{shipment.warehouseSend.address}}</p>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <h6 class="box-title">2. Ship To</h6>
-                                  <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
-                                  <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
-                                  <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
-                                  <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
-                              </div>
-                          </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h6 class="box-title">3. Parcel (<span class="text-danger">{{shipment.packageItems.length}}</span>)</h6>
-                            <div class="table-responsive">
-                              <table class="table table-bordered table-custom table-scrollbar">
-                                <thead>
-                                <th style="width: 25%">Information</th>
-                                <th>Product</th>
-                                <th style="width: 5%">Action</th>
-                                </thead>
-                                <tbody style="max-height: 180px">
-                                <ng-container *ngFor="let packageItem of shipment.packageItems">
-                                  <tr style="height: 180px;">
-                                    <td>
-                                      <p class="mb-1">Package Code:{{packageItem.package_code}}</p>
-                                      <p class="mb-1">Warehouse Tag:{{packageItem.box_me_warehouse_tag}}</p>
-                                      <p class="mb-1">Quantity/Weight:{{packageItem.quantity}}/{{packageItem.quantity}}</p>
-                                      <p class="mb-1">COD:{{packageItem.cod}}</p>
-                                      <p class="mb-1">Price:{{packageItem.price}}</p>
-                                    </td>
-                                    <td>
-                                      <div class="row">
-                                          <span class="col-md-4 pull-left">
-                                              <img style="width: 100%" src="{{packageItem.product.link_img}}" alt="">
-                                          </span>
-                                        <span class="col-md-8 pull-right">
-                                          <p class="mb-1">Name:{{packageItem.product.product_name}}</p>
-                                          <p class="mb-1">Quantity:{{packageItem.quantity}}</p>
-                                          <p class="mb-1">Weight:{{packageItem.weight}} (g)</p>
-                                        </span>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                                    </td>
-                                  </tr>
-                                </ng-container>
-
-                                </tbody>
-                              </table>
+              <div class="modal-body">
+                <form [formGroup]="createFrom" class="form-horizontal">
+                    <input type="hidden" formControlName="id">
+                    <div class="row" >
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6>1. Pickup From</h6>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group m-b-5 row">
+                            <label class="control-label text-right col-md-2 pt-2">Pick Up</label>
+                            <div class="col-md-10">
+                              <select formControlName="warehouse_send_id" class="form-control form-control-sm custom-select">
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                              </select>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h6 class="box-title">4. Config</h6>
-                                    <div class="form-group m-b-0">
-                                      <div class="checkbox checkbox-success">
-                                        <input id="allowHold" [(ngModel)]="shipment.is_hole"  type="checkbox">
-                                        <label for="allowHold"> Hole </label>
-                                      </div>
-                                    </div>
-                                    <div class="form-group m-b-0">
-                                      <div class="checkbox checkbox-success">
-                                        <input id="allowInsurance" type="checkbox">
-                                        <label for="allowInsurance">Insurance </label>
-                                      </div>
-                                    </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                            <h6>2. Ship To</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-5 row">
+                                  <label for="receiver_name" class="control-label text-right col-md-4 pt-2">Name</label>
+                                  <div class="col-md-8">
+                                      <input id="receiver_name" type="text" formControlName="receiver_name" class="form-control form-control-sm">
+                                  </div>
+                              </div>
+                            <div class="form-group m-b-5 row">
+                                  <label  for="receiver_phone" class="control-label text-right col-md-4 pt-2">Phone</label>
+                                  <div class="col-md-8">
+                                      <input type="text" id="receiver_phone" formControlName="receiver_phone" class="form-control form-control-sm">
+                                  </div>
+                              </div>
+                            <div class="form-group m-b-5 row">
+                                <label for="receiver_post_code" class="control-label text-right col-md-4 pt-2">Zip</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="receiver_post_code" formControlName="receiver_post_code" class="form-control form-control-sm" (keydown)="changeValueForm('receiver_country_id',null,0,true)">
                                 </div>
                             </div>
-                            <div class="row">
-                              <div class="col-md-12">
-                                  <h6 class="box-title">6. Courier</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-b-5 row">
+                              <label for="receiver_country_id" class="control-label text-right col-md-4 pt-2">Country</label>
+                              <div class="col-md-8">
+                                <select id="receiver_country_id" formControlName="receiver_country_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_country_id',null,0,true)">
+                                  <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+                                </select>
                               </div>
                             </div>
+                            <div class="form-group m-b-5 row">
+                              <label for="receiver_province_id" class="control-label text-right col-md-4 pt-2">Province</label>
+                              <div class="col-md-8">
+                                <select id="receiver_province_id" formControlName="receiver_province_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_province_id',null,0,true)">
+                                    <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group m-b-5 row">
+                                <label for="receiver_district_id" class="control-label text-right col-md-4 pt-2">District</label>
+                                <div class="col-md-8">
+                                  <select id="receiver_district_id" formControlName="receiver_district_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_district_id',null,0,true)">
+                                      <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group m-b-5 row">
+                                <label for="receiver_address" class="control-label text-right col-md-2 pt-2">Address</label>
+                                <div class="col-md-10">
+                                    <textarea id="receiver_address" rows="3" formControlName="receiver_address" class="form-control form-control-sm"></textarea>
+                                </div>
+                            </div>
+                        </div>
                       </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                          <h6 class="box-title">3. Parcel</h6>
+                          <div class="table-responsive" formArrayName="parcels">
+                              <table class="table table-bordered table-custom table-scrollbar">
+                              <tbody style="max-height: 195px">
+                                  <tr style="height: 180px;" *ngFor="let parcel of parcels.controls; let idx=index" [formGroupName]="idx">
+                                      <td style="width: 20%">
+                                          <input type="hidden" formControlName="id">
+                                          <input type="hidden" formControlName="product_id">
+                                          <img [src]="getSafeImage(parcel)"
+                                             alt="" width="100%">
+                                      </td>
+                                      <td style="padding:0;margin: 0;vertical-align: inherit;">
+                                          <div class="table-responsive">
+                                              <table class="table table-bordered" style="margin-bottom: 0px;border-bottom: none;border-top: none">
+                                                  <tbody>
+                                                      <tr>
+                                                          <td><label for="name">Name</label></td>
+                                                          <td colspan="3">
+                                                              <div class="form-group m-b-5">
+                                                                <input type="text" id="name" formControlName="name" class="form-control form-control-sm">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td rowspan="2" style="width:25%;">
+                                                            <label for="dimensionGroup">Dimension</label>
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                            <label for="dimension_w">Dimension W</label>
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                            <label for="dimension_l">Dimension L</label>
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                            <label for="dimension_h">Dimension H</label>
+                                                        </td>
+                                                      </tr>
+                                                      <tr id="dimensionGroup">
+                                                          <td style="width:25%;">
+                                                              <div class="form-group m-b-5">
+                                                                  <input type="text" id="dimension_w" formControlName="dimension_w" class="form-control form-control-sm" (change)="changeValueForm('dimension_w',parcel,idx,false)">
+                                                              </div>
+                                                          </td>
+                                                          <td style="width:25%;">
+                                                              <div class="form-group m-b-5">
+                                                                  <input type="text" id="dimension_l" formControlName="dimension_l" class="form-control form-control-sm" (change)="changeValueForm('dimension_l',parcel,idx,false)">
+                                                              </div>
+                                                          </td>
+                                                          <td style="width:25%;">
+                                                              <div class="form-group m-b-5">
+                                                                  <input type="text" id="dimension_h" formControlName="dimension_h" class="form-control form-control-sm" (change)="changeValueForm('dimension_h',parcel,idx,false)">
+                                                              </div>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td style="width:25%;">
+                                                              <label for="price">Price</label>
+                                                          </td>
+                                                          <td style="width:25%;">
+                                                              <label for="cod">COD</label>
+                                                          </td>
+                                                          <td style="width:25%;">
+                                                              <label for="weight">Weight</label>
+                                                          </td>
+                                                          <td style="width:25%;">
+                                                              <label for="quantity">Quantity</label>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td rowspan="2" style="width:25%;">
+                                                          <input type="text" id="price" formControlName="price" class="form-control form-control-sm" (keyup)="changeValueForm('price',parcel,idx,true)">
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                          <input type="text" id="cod" formControlName="cod" class="form-control form-control-sm" (keyup)="changeValueForm('cod',parcel,idx,true)">
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                          <input type="text" id="weight" formControlName="weight" class="form-control form-control-sm" (keyup)="changeValueForm('weight',parcel,idx,true)">
+                                                        </td>
+                                                        <td style="width:25%;">
+                                                          <input type="text" id="quantity" formControlName="quantity" class="form-control form-control-sm" (keyup)="changeValueForm('quantity',parcel,idx,true)">
+                                                        </td>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6 class="box-title">4. Config</h6>
+                          <div class="form-group m-b-0">
+                            <div class="checkbox checkbox-success">
+                              <input id="allowHold" formControlName="is_hold" type="checkbox">
+                              <label for="allowHold">Hole</label>
+                            </div>
+                          </div>
+                          <div class="form-group m-b-0">
+                            <div class="checkbox checkbox-success">
+                              <input id="allowInsurance" formControlName="is_insurance" type="checkbox" (change)="changeValueForm('is_insurance',null,0,true)">
+                              <label for="allowInsurance">Insurance</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6 class="box-title">6. Courier</h6>
+                          <div *ngIf="!isValidCourier">
+                            <h6 class="text-danger">{{couriers.messages}}</h6>
+                            <button class="btn btn-sm btn warning" (click)="suggestCourier()">Re suggest</button>
+                          </div>
+                          <div *ngIf="isValidCourier">
+                              {{couriers.data?.couriers |json}}
+                              <div class="list-group">
+                                <a *ngFor="let courier of couriers.data?.couriers" class="list-group-item" href="javascript:void(0);">
+
+                                </a>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                </form>
+
 
                   <div class="row">
                       <div class="col-md-12">

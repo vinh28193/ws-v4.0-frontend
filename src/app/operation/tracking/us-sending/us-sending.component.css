@@ -77,3 +77,7 @@ i{
 .active-tab-track{
     background: #fff;
 }
+.div-hover:hover{
+    cursor: pointer;
+    background: #c9f5e57a;
+}
