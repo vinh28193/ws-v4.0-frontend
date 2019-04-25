@@ -23,6 +23,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() products: any;
     @Input() Employee_Purchase: any;
     @Input() storeID: any;
+    @Input() order_path: any;
     public editFormVariant: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
@@ -135,6 +136,8 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
         this.id = id;
         this.editFormVariant = this.fb.group({
           variant: variant,
+          order_path: this.order_path,
+          title: 'Variant'
         });
     }
   editVariantPro() {

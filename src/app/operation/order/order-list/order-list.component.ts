@@ -1041,8 +1041,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       });
     }, messagePop);
   }
-  clickEdit(qtyP, qtyC, qtyI, id) {
+  clickEdit(qtyP, qtyC, qtyI, id, ordercode) {
       this.quantityP = qtyP;
+      this.code = ordercode;
       this.quantityC = qtyC;
       this.quantityI = qtyI;
       this.proId = id;
@@ -1053,6 +1054,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     params.quantityP = toNumber(this.quantityP);
     params.quantityC = toNumber(this.quantityC);
     params.quantityI = toNumber(this.quantityI);
+    params.title = 'quantity';
+    params.order_path = this.code;
     this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
       if (res.success) {
         this.checkUpdateQuantity = false;

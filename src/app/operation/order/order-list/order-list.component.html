@@ -770,7 +770,7 @@
                                 <app-package-item (packageI)="packageItem($event)"  *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [products]="order.products" ></app-order-detail>
+                                <app-order-detail  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
                                 <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
@@ -1848,7 +1848,7 @@ Enter to send" i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right">
                   <span>{{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}</span>
-                  <i class="fa fa-edit ml-1" (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id)"></i>
+                  <i class="fa fa-edit ml-1" (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id, orderList.ordercode)"></i>
                 </div>
               </div>
               <div class="row" [hidden]="!quantity[product.id]" *ngIf="checkUpdateQuantity">
