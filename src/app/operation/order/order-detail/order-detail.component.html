@@ -49,7 +49,12 @@
               </li>
               <li class="text-danger variations">
                 <span class="mr-2" i18n>Item Variant:</span>
-                <app-edit-variant [id]="product.id" [variant]="product.variations"></app-edit-variant>
+                <app-span-label [value]="product.variations"></app-span-label>
+                <a href="javascript:void(0);" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
+                <form action="" [formGroup] = "editFormVariant" *ngIf="openEditVariant[product.id]" [hidden]="!openEditVariant[product.id]">
+                  <input  type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()" formControlName="variant"  name="variant">
+                </form>
+                <!--<app-edit-variant [id]="product.id" [variant]="product.variations"></app-edit-variant>-->
               </li>
               <!--li class="seller_id">
                 <span class="mr-2" i18n>Local Seller:</span>

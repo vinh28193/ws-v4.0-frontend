@@ -109,6 +109,7 @@
                                       (searchEvent)="searchEvent($event)"
                                       (sellerRefund)="showSellerRefundModal($event)"
                                       (updateTracking)="showUpdateForm($event)"
+                                      (mergeTracking)="mergeTrackingEvent($event)"
                               >
                               </app-us-sending-views>
                             </td>
@@ -320,25 +321,36 @@
             <div class="card m-b-0">
               <div class="card-body">
                 <div class="card-title">
-                  <h3 i18n>Merge tracking {{trackingMerge}}</h3>
+                  <h3 i18n>Merge tracking {{trackingMerge.data_tracking_code}}</h3>
                 </div>
                 <div class="col-md-12 form-body">
                   <div class="row">
                     <div class="col-md-12 form-group m-b-10">
-                      <label for="store" class="form-control-label" >Tracking merge</label>
-                      <input type="text" disabled class="form-control form-control-sm" value="{{trackingMerge}}" >
+                      <div class="form-control-label" >Tracking merge</div>
+                      <h4>{{trackingMerge.data_tracking_code}}</h4>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12 form-group m-b-10">
-                      <label for="store" class="form-control-label" >Tracking target</label>
-                      <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingTarget" placeholder="Enter tracking target" >
+                      <div class="form-control-label" >Tracking merge</div>
+                      <h4>{{trackingMerge.ext_tracking_code ? trackingMerge.ext_tracking_code : '---'}}</h4>
+                      <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingMergeSearch" placeholder="Enter tracking target" >
+                        <u class="list-group" style="max-height: 350px;overflow: auto;">
+                          <ng-container *ngFor="let tracking_ext of getExtTrackings()">
+                            <li class="list-group-item div-hover {{tracking_ext.id == trackingMerge.ext_id ? 'active' : ''}}" (click)="setTrackingTarget(tracking_ext.id , tracking_ext.tracking_code)">
+                              <div><b>{{tracking_ext.tracking_code}}</b></div>
+                              <div>Order id: <b>{{tracking_ext.order_id}}</b></div>
+                              <div>Product id: <b>{{tracking_ext.product_id}}</b></div>
+                              <div>Number invoice: <b>{{tracking_ext.purchase_invoice_number}}</b></div>
+                            </li>
+                          </ng-container>
+                        </u>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="button-group">
-                        <button class="btn btn-sm btn-success" i18n>Merge</button>
+                        <button class="btn btn-sm btn-success" (click)="merge()" i18n>Merge</button>
                         <button class="btn btn-sm btn-warning" (click)="mergeTracking.hide()" i18n>Cancel</button>
                       </div>
                     </div>
