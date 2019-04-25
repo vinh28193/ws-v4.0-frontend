@@ -107,34 +107,34 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         return this.usSendingForm.get('store').value;
     }
 
-    get warehouses(): any {
+    get listWarehouses(): any {
         const store = this.store;
-        let warehouses = [
+        let listWarehouses = [
             {key: this.allKey, value: '--select store first--'}
         ];
         if (store === '') {
-            warehouses = [
+            listWarehouses = [
                 {key: this.allKey, value: '--select store first--'}
             ];
         } else if (store === 'vn') {
-            warehouses = [
+            listWarehouses = [
                 {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
                 {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
             ];
         } else if (store === 'id') {
-            warehouses = [
+            listWarehouses = [
                 {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
             ];
         } else {
-            warehouses = [
+            listWarehouses = [
                 {key: this.allKey, value: '--select warehouse--'},
                 {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
                 {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
                 {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
             ];
         }
-        this.usSendingForm.patchValue({warehouse: warehouses[0].key});
-        return warehouses;
+        this.usSendingForm.patchValue({warehouse: listWarehouses[0].key});
+        return listWarehouses;
     }
 
     public handleFileChange(event) {
