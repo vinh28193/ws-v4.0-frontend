@@ -56,6 +56,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         product_id: '',
         purchase_invoice_number: '',
         item_name: '',
+        type: 'data_draft',
     };
     // file
     public file: File;
@@ -279,7 +280,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         if (!this.sellerRefundForm.amount || !this.sellerRefundForm.time) {
             return this.popUp.error('All field cannot null!');
         }
-        this.trackingService.sellerRefund(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
+        this.trackingService.sellerRefundUsSending(this.sellerRefundForm.id, this.sellerRefundForm).subscribe(rs => {
             const res: any = rs;
             if (res.success) {
                 this.popUp.success(res.message);
@@ -306,7 +307,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             !this.updateForm.product_id || !this.updateForm.order_id || !this.updateForm.item_name) {
             return this.popUp.error('All field cannot null!');
         }
-        this.trackingService.update(this.updateForm.id, this.updateForm).subscribe(rs => {
+        this.trackingService.put('us-sending/' + this.updateForm.id, this.updateForm).subscribe(rs => {
             const res: any = rs;
             if (res.success) {
                 this.popUp.success(res.message);
@@ -329,7 +330,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     }
 
     regetType(id) {
-        this.trackingService.updateUsSending(id, {}).subscribe(rs => {
+        this.trackingService.reGetType(id, {}).subscribe(rs => {
             if (rs.success) {
                 this.popUp.success(rs.message);
                 // this.search();
