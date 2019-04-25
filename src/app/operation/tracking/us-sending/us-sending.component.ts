@@ -211,7 +211,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
                 this.pageCount = Math.floor(this.totalCount / params.ps_m);
                 this.currentPage = params.p_m;
                 this.perPage = params.ps_m;
-                this.setTabTracking('');
+                this.setTabTracking(this.tabTracking);
             } else {
                 this.popUp.error(rs.message);
             }
