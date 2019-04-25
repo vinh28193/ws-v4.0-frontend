@@ -1217,18 +1217,6 @@
               <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" formControlName="messageCustomer" rows="3" placeholder="Enter the exchange content.
 Press Shift + Enter to get down the line.
 Enter to send" i18n-placeholder></textarea>
-              <ng-container *ngIf="(listChatTem | filter:messageCustomer.value) as result">
-
-                <div *ngFor="let item of result">
-                  {{item}}
-                </div>
-
-                <p>Count: <b>{{result.length}}</b></p>
-
-              </ng-container>
-              <!--<div class="input-group-btn">-->
-              <!--<button style="height: 80px;" class="btn btn-default" (click)="enterChat()" i18n>Sent</button>-->
-              <!--</div>-->
             </div>
           </div>
         </form>
