@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {TrackingDataComponent} from '../tracking-data.component';
 import {TrackingService} from '../tracking.service';
 import {ModalDirective} from 'ngx-bootstrap';
@@ -12,6 +12,12 @@ export class TrackingViewsComponent extends TrackingDataComponent implements OnI
 
   @Input() tab_tracking = '';
   @Input() tracking_codes = '';
+  @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mergeTracking: EventEmitter<any> = new EventEmitter<any>();
+  @Output() markHold: EventEmitter<any> = new EventEmitter<any>();
+  @Output() splitTracking: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('viewInsertShipment') viewInsertShipment: ModalDirective;
   public checkAll = false;
   public checkAllOld = false;
@@ -108,5 +114,20 @@ export class TrackingViewsComponent extends TrackingDataComponent implements OnI
       weight += parseFloat(v['weight']);
     });
     return weight;
+  }
+
+  sellerRefundEvent(packTr) {
+    this.sellerRefund.emit(packTr);
+  }
+
+  markHoldTracking(id, hold) {
+    this.markHold.emit({id: id, hold: hold});
+  }
+
+  showUpdateForm(item) {
+    this.updateTracking.emit(item);
+  }
+  splitTrackingEvent(item) {
+    this.splitTracking.emit(item);
   }
 }

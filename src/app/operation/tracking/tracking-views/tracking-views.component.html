@@ -107,17 +107,17 @@
                     </div>
                   </div>
                 </ng-container>
-                <div class="padding-btn">
-                  <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
+                <div class="padding-btn" *ngIf="tab_tracking == 'complete'">
+                  <div><a href="javascript:void (0)" (click)="sellerRefundEvent(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
                   <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
                   <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View detail merge</a></div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View Extension</a></div>
+                  <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View detail merge</a></div>
+                  <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View Extension</a></div>
                   <div><a href="javascript:void (0)"
                           (click)="showUpdateForm(packTr)"><i
                           class="fal fa-edit"></i> Update tracking</a>
                   </div>
-                  <div><a href="javascript:void (0)" (click)="splitTracking(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
+                  <div><a href="javascript:void (0)" (click)="splitTrackingEvent(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
                 </div>
               </td>
             </tr>
