@@ -23,7 +23,6 @@ import { CurrencyStorePipe } from './pipes/currency-store.pipe';
 import {TimeMessagePipe} from './pipes/time-message.pipe';
 import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
 import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
     imports: [
@@ -50,7 +49,6 @@ import { FilterPipe } from './pipes/filter.pipe';
         CurrencyStorePipe,
         MarkSupportingPipe,
         TypeTrackingPipe,
-        FilterPipe,
     ],
     providers: [
         OperationService
@@ -72,7 +70,6 @@ import { FilterPipe } from './pipes/filter.pipe';
         QuotationStatusPipe,
         CurrencyStorePipe,
         MarkSupportingPipe,
-        FilterPipe
     ]
 })
 export class OperationModule {
