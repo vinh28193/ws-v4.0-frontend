@@ -1,6 +1,7 @@
 import {OnInit} from '@angular/core';
 import {PresentComponent} from '../present.component';
 import {ClientService} from '../core/service/client.service';
+import {ShipmentService} from './shipment/shipment.service';
 
 export class OperationDataComponent extends PresentComponent implements OnInit {
 
@@ -10,6 +11,7 @@ export class OperationDataComponent extends PresentComponent implements OnInit {
   public countries: any = [];
   public provinces: any = [];
   public districts: any = [];
+  public warehouses: any = [];
 
   constructor(public http: ClientService) {
     super(http);
@@ -110,4 +112,19 @@ export class OperationDataComponent extends PresentComponent implements OnInit {
     return this.districts;
   }
 
+
+  loadWarehouse(refresh = false) {
+    this.warehouses = this.http.decrypt('warehouses');
+    this.warehouses = JSON.parse(this.warehouses);
+    const wait = this.http.decrypt('loading-warehouse');
+    if ((!this.http.isValidValue(this.warehouses) && wait !== 'wait') || refresh) {
+      this.http.encrypt('loading-warehouse', 'wait');
+      this.http.get('wh', undefined).subscribe(res => {
+        this.warehouses = res;
+        this.http.encrypt('warehouses', JSON.stringify(this.warehouses));
+        this.http.encrypt('loading-warehouse', 'done');
+      });
+    }
+    return this.warehouses;
+  }
 }

@@ -25,7 +25,7 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
   }
   buildEdit() {
     this.editForm = this.fb.group({
-      package_code: this.package.package_code,
+      tracking_code: this.package.tracking_code,
       quantity: this.package.quantity,
       weight: this.package.weight,
       dimension_l: this.package.dimension_l,
@@ -37,8 +37,8 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
   preparPackages() {
     const value = this.editForm.value;
     const params: any = {};
-    if (value.package_code !== '') {
-      params.package_code = value.package_code;
+    if (value.tracking_code !== '') {
+      params.tracking_code = value.tracking_code;
     }
     if (value.box_me_warehouse_tag !== '') {
       params.quantity = value.quantity;
@@ -65,7 +65,7 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
   updatePackage() {
     const params = this.preparPackages();
     console.log(params);
-    this.orderService.put(`package-item/${this.package.id}`, params).subscribe(res => {
+    this.orderService.put(`draft-package-item/${this.package.id}`, params).subscribe(res => {
       if (res.success) {
         this.popup.success(res.message);
         this.checkLoadPackage = true;

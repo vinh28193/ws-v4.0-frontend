@@ -4,6 +4,8 @@ import {OrderService} from '../order.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
+import {OperationDataComponent} from '../../operation-data.component';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
     selector: 'app-order-detail',
@@ -13,6 +15,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     private tabs: any [];
     public openEditVariant = {};
+    public openEditCategory = {};
     updateProductId: any;
     productQ: any;
     id: any;
@@ -25,6 +28,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() storeID: any;
     @Input() order_path: any;
     public editFormVariant: FormGroup;
+    public editCategory: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
@@ -147,4 +151,36 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           }
       });
     }
+  clickUpdateCategory(category, id) {
+    this.id = id;
+    this.editCategory = this.fb.group({
+      category_id: category,
+      order_path: this.order_path,
+      title: 'category'
+    });
+    this.loadPolicy(this.storeID);
+  }
+
+  updateCategoryPolicy() {
+      this.orderService.put(`product/${this.id}`, this.editCategory.value).subscribe(res => {
+        if (res.success) {
+          this.editFee.emit(true);
+        }
+      });
+  }
+
+  policyName(id) {
+    const ud = 'undefined';
+    if (id === null || id === '' || typeof id === 'undefined') {
+      return ud;
+    }
+    const category = this.getPolicy.filter(c => c.id === toNumber(id));
+    if (category.length === 0) {
+      return ud;
+    }
+    // console.log(category);
+    return category[0].value;
+
+  }
+
 }
