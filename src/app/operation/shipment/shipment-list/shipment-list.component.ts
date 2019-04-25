@@ -335,7 +335,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       listIds.push(this.selectedList[i].id);
     }
     this.shipmentService.post('s/m', {ids: listIds}).subscribe(res => {
-          console.log(res);
+      console.log(res);
     });
   }
 
@@ -367,7 +367,9 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   createShipment() {
     this.shipmentService.post('courier/create', this.createFrom.getRawValue()).subscribe(response => {
-      console.log(response);
+      const rs: any = response;
+      const type = rs.success ? 'success' : 'error';
+      this.popup.popup(type, rs.message, type);
     });
   }
 
@@ -441,7 +443,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
-  cancelShipment() {
+  cancelShipment(id: any | null) {
 
   }
 }
