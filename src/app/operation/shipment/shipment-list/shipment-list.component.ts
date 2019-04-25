@@ -151,7 +151,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       weight: packageItem.weight,
       quantity: packageItem.quantity,
       cod: packageItem.cod,
-      price: packageItem.price
+      price: packageItem.price,
     })) : [];
     this.createFrom = this.fb.group({
       id: shipment ? shipment.id : '',
@@ -169,6 +169,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       courier_estimate_time: shipment ? shipment.courier_estimate_time : '',
       is_hold: shipment ? shipment.is_hold : 0,
       is_insurance: shipment ? shipment.is_insurance : 0,
+      shipment_status: shipment ? shipment.shipment_status : 'NEW',
       parcels: parcels.length > 0 ? this.fb.array(parcels) : this.fb.array([
         this.fb.group({
           id: '',
@@ -266,6 +267,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     return this.createFrom.get('courier_code').value;
   }
 
+  get formShipmentStatus() {
+    const status = this.createFrom.get('shipment_status').value;
+    return this.isCanCreate(status);
+  }
+
   get getCalculate(): any {
     const shipFee = this.createFrom.get('total_shipping_fee').value;
     let totalCod = 0;
@@ -283,6 +289,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       totalAmount: totalAmount,
       final: final
     };
+  }
+
+  public isCanCreate(status) {
+    const list = ['NEW'];
+    return list.indexOf(status) !== -1;
   }
 
   buildCalculateFrom() {
@@ -319,7 +330,13 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   }
 
   merge() {
-
+    const listIds = [];
+    for (let i = 0; i < this.selectedList.length; i++) {
+      listIds.push(this.selectedList[i].id);
+    }
+    this.shipmentService.post('s/m', {ids: listIds}).subscribe(res => {
+          console.log(res);
+    });
   }
 
   defaultWarehouse() {
@@ -349,7 +366,16 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   }
 
   createShipment() {
+    this.shipmentService.post('courier/create', this.createFrom.getRawValue()).subscribe(response => {
+      console.log(response);
+    });
+  }
 
+  updateShipment() {
+    const formValue = this.createFrom.getRawValue();
+    this.shipmentService.post('s/' + formValue.id, formValue).subscribe(response => {
+      console.log(response);
+    });
   }
 
   getSafeImage(parcel: any | FormGroup) {
@@ -367,7 +393,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       this.couriers = res;
       if (this.couriers.error === false && this.couriers.data.couriers.length > 0) {
         const c = this.couriers.data.couriers[0];
-        if (typeof c !== 'undefined') {
+        if (typeof c !== 'undefined' && this.courierCode === '') {
           this.setActiveCourier(c);
         }
       }
@@ -407,6 +433,12 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   onSelectCourier(c) {
     this.setActiveCourier(c);
+  }
+
+  removePackageItem(id) {
+    this.shipmentService.get('s/r/' + id).subscribe(res => {
+      console.log(res);
+    });
   }
 
   cancelShipment() {

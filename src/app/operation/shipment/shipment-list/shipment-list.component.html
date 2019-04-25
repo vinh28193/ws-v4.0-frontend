@@ -63,7 +63,7 @@
             <div class="row item-action m-b-10">
               <div class="col-md-8">
                 <div class="button-group m-l-5">
-                  <button *ngIf="countSelectedList() >1 && isValidSelectedList(null)"  class="btn btn-sm btn-danger">Merge ({{countSelectedList()}}) items</button>
+                  <button *ngIf="countSelectedList() >1 && isValidSelectedList('NEW')"  class="btn btn-sm btn-danger">Merge ({{countSelectedList()}}) items</button>
                   <button class="btn btn-warning btn-sm style-button">Update COD</button>
                   <a class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o" i18n></i>Export Excel</a>
                 </div>
@@ -192,8 +192,8 @@
                                       {{packageItem.product_id}}/{{packageItem.order_id}}
                                     </td>
                                     <td>
-                                      <div class="btn-group">
-                                        <button class="btn btn-sm btn-warning"><i class="fa fa-remove"></i></button>
+                                      <div class="btn-group" *ngIf="shipment.packageItems.length > 1 && isCanCreate(shipment.shipment_status)">
+                                        <button class="btn btn-sm btn-danger" (click)="removePackageItem(packageItem.id)"><i class="fa fa-remove"></i></button>
                                       </div>
                                     </td>
                                   </tr>
@@ -203,12 +203,10 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-2" *ngIf="isCanCreate(shipment.shipment_status)">
                           <div class="col-md-12 text-right">
                             <div class="button-group">
-                              <button class="btn btn-sm btn-warning"
-                                      (click)="activeCreateShipment(shipment)">Create Shipment
-                              </button>
+                              <button class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create and Update Shipment</button>
                             </div>
                           </div>
                         </div>
@@ -460,7 +458,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <h6 class="box-title">6. Courier <span *ngIf="couriers.data?.couriers"
-                                                         class="text-danger">({{couriers.data?.couriers.length}})</span>
+                         class="text-danger">({{couriers.data?.couriers.length}})</span>
                   </h6>
                   <div *ngIf="couriers?.error">
                     <h6 class="text-danger">{{couriers.messages}}</h6>
@@ -505,8 +503,9 @@
           <div class="row">
             <div class="col-md-12 text-right">
               <div class="button-group">
-                <button class="btn btn-sm btn-warning">Update</button>
-                <button class="btn btn-sm btn-warning" *ngIf="courierCode !== ''">Create Shipment</button>
+                <button class="btn btn-sm btn-secondary" (click)="shipmentCreateModal.hide()">Cancel</button>
+                <button class="btn btn-sm btn-warning" (click)="updateShipment()">Update Only</button>
+                <button class="btn btn-sm btn-danger" *ngIf="courierCode !== ''" (click)="createShipment()">Create Shipment</button>
               </div>
             </div>
           </div>
