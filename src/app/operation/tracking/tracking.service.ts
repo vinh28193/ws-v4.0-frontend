@@ -28,8 +28,8 @@ export class TrackingService extends OperationService {
     update(id, formData) {
         return this.put('tracking-code/' + id, formData);
     }
-    updateUsSending(id, formData) {
-        return this.put('us-sending/' + id, formData);
+    reGetType(id, formData) {
+        return this.put('s-us-send/' + id, formData);
     }
     merge(formData) {
         return this.post('s-tracking-code', formData);
@@ -42,6 +42,9 @@ export class TrackingService extends OperationService {
     }
     sellerRefund(id, formData) {
         return this.post('s-tracking-code/seller-refund/' + id, formData);
+    }
+    sellerRefundUsSending(id, formData) {
+        return this.post('s-us-send/seller-refund/' + id, formData);
     }
     markHold(id, formData) {
         return this.post('s-tracking-code/mark-hold/' + id, formData);

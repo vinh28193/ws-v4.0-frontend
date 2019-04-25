@@ -70,6 +70,7 @@
                 <h6>{{packTr.tracking_code}}</h6>
                 <div>Order Id: <b>{{packTr.order_id}}</b></div>
                 <div>Product Id: <b>{{packTr.product_id}}</b></div>
+                <div>Product Name: <b>{{packTr.item_name}}</b></div>
                 <div *ngIf="packTr.product && packTr.product.seller_refund_amount" style="color: red">Seller Refund: <b>{{packTr.product.seller_refund_amount | currency : 'USD' : '$'}}</b></div>
                 <div>Quantity: <b>{{packTr.quantity}}</b></div>
                 <div>Purchase invoice: <b>{{packTr.purchase_invoice_number}}</b></div>
