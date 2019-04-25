@@ -151,36 +151,44 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           }
       });
     }
-  clickUpdateCategory(category, id) {
-    this.id = id;
-    this.editCategory = this.fb.group({
-      category_id: category,
-      order_path: this.order_path,
-      title: 'category'
-    });
-    this.loadPolicy(this.storeID);
+  handleCheck(event) {
+      if (event) {
+        this.editFee.emit(true);
+      }
   }
-
-  updateCategoryPolicy() {
-      this.orderService.put(`product/${this.id}`, this.editCategory.value).subscribe(res => {
-        if (res.success) {
-          this.editFee.emit(true);
-        }
-      });
-  }
-
-  policyName(id) {
-    const ud = 'undefined';
-    if (id === null || id === '' || typeof id === 'undefined') {
-      return ud;
-    }
-    const category = this.getPolicy.filter(c => c.id === toNumber(id));
-    if (category.length === 0) {
-      return ud;
-    }
-    // console.log(category);
-    return category[0].value;
-
-  }
+  // clickUpdateCategory(category, id) {
+  //   this.id = id;
+  //   this.editCategory = this.fb.group({
+  //     category_id: category,
+  //     order_path: this.order_path,
+  //     title: 'category'
+  //   });
+  //   this.loadPolicy(this.storeID);
+  //   // console.log(this.loadPolicy(this.storeID));
+  // }
+  //
+  // updateCategoryPolicy() {
+  //     this.orderService.put(`product/${this.id}`, this.editCategory.value).subscribe(res => {
+  //       if (res.success) {
+  //         this.editFee.emit(true);
+  //       }
+  //     });
+  // }
+  //
+  // policyName(id) {
+  //   const ud = 'undefined';
+  //   if (id === null || id === '' || typeof id === 'undefined') {
+  //     return ud;
+  //   }
+  //   const category = this.getPolicy.filter(c => c.id === toNumber(id));
+  //   // console.log(this.getPolicy);
+  //   // console.log('da den');
+  //   if (category.length === 0) {
+  //     return ud;
+  //   }
+  //   // console.log(category);
+  //   return category[0].value;
+  //
+  // }
 
 }
