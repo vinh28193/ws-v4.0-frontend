@@ -37,8 +37,8 @@
     <div class="row">
       <div class="col-md-12 btn-group">
         <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-search"></i> Search</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-random"></i> Auto Insert Shipment</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-arrow-right"></i> Insert Shipment</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="insertShippmentAll()"><i class="fal fa-random"></i> Auto Create Shipment</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showInsertShipmentModel()"><i class="fal fa-arrow-right"></i> Create Shipment</button>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th width="5%"><input type="checkbox"  class="icheckbox_minimal-grey"></th>
+            <th width="5%" *ngIf="tab_tracking=='complete'" ><input type="checkbox" [(ngModel)]="checkAll"  (change)="clickCheck()"  class="icheckbox_minimal-grey"></th>
             <th width="35%">Tracking Info</th>
             <th width="30%">Order Info</th>
             <th width="30%">Product Info</th>
@@ -57,8 +57,8 @@
           <tbody>
           <ng-container *ngFor="let packTr of tracking_codes">
             <tr>
-              <td>
-                <input type="checkbox" class="icheckbox_minimal-grey">
+              <td *ngIf="tab_tracking=='complete'" >
+                <input type="checkbox" *ngIf="packTr.hold != 1 && !packTr.shipment_id"  [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]" (change)="clickCheck()" class="icheckbox_minimal-grey">
               </td>
               <td>
                 <app-tracking-info [packTr]="packTr"></app-tracking-info>
@@ -73,6 +73,7 @@
                   <div>Status Order: <b>{{packTr.order.current_status}}</b></div>
                   <hr>
                   <h6><b>Receiver Info</b></h6>
+                  <div>Customer Id: <b>{{packTr.order.customer_id}}</b></div>
                   <div>Name: <b>{{packTr.order.receiver_name}}</b></div>
                   <div>Email: <b>{{packTr.order.receiver_email}}</b></div>
                   <div>Phone: <b>{{packTr.order.receiver_phone}}</b></div>
@@ -123,6 +124,74 @@
           </ng-container>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #viewInsertShipment="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card m-b-0">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3 i18n>Create shipmnet</h3>
+                </div>
+                <div class="col-md-12 form-body">
+                  <div class="row body-content">
+                    <table class="table table-sm table-striped">
+                      <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Package Id</th>
+                        <th>Order code</th>
+                        <th>Product Sku</th>
+                        <th>Price</th>
+                        <th>Fee Cod</th>
+                        <th>Weight</th>
+                        <th>Status</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <ng-container *ngFor="let item of listSelect; let ind = index ">
+                        <tr>
+                          <td>{{ind+1}}</td>
+                          <td>{{item.id}}</td>
+                          <td>{{item.order.ordercode}}</td>
+                          <td>{{item.product.sku}} / {{item.product.parent_sku}}</td>
+                          <td>{{item.price}}</td>
+                          <td>{{item.cod}}</td>
+                          <td>{{item.weight}} (gram)</td>
+                          <td>{{item.status}}</td>
+                        </tr>
+                      </ng-container>
+                      <tr>
+                        <td colspan="6"></td>
+                        <td>{{getTotalWeight()}} (gram)</td>
+                        <td></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="button-group">
+                        <button class="btn btn-sm btn-success" i18n (click)="insertShippment()">Create Shipment
+                        </button>
+                        <button class="btn btn-sm btn-warning" (click)="viewInsertShipment.hide()"
+                                i18n>Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
