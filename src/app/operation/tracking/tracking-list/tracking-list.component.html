@@ -218,7 +218,12 @@
                                                 <ng-container *ngIf="tabTracking != ''">
                                                     <tr>
                                                         <td colspan="4" style="padding: 0px">
-                                                            <app-tracking-views [tab_tracking]="tabTracking" [tracking_codes]="trackingCodes">
+                                                            <app-tracking-views [tab_tracking]="tabTracking"
+                                                                                (sellerRefund)="showSellerRefundModal($event)"
+                                                                                (markHold)="markHoldTracking($event.id,$event.hold)"
+                                                                                (splitTracking)="splitTracking($event)"
+                                                                                (updateTracking)="showUpdateForm($event)"
+                                                                                [tracking_codes]="trackingCodes">
                                                             </app-tracking-views>
                                                         </td>
                                                     </tr>
