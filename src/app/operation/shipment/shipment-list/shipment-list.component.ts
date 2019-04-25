@@ -23,7 +23,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   public shipments: any = [];
   public shipment: any = {};
   public couriers: any = {};
+  public rules: any;
 
+  public selectedList: any = [];
+  public isRemove = false;
+  public currentStatus: string;
   // meta
   public totalCount: number;
   public pageCount: number;
@@ -159,6 +163,10 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       receiver_country_id: shipment ? shipment.receiver_country_id : '',
       receiver_province_id: shipment ? shipment.receiver_province_id : '',
       receiver_district_id: shipment ? shipment.receiver_district_id : '',
+      courier_code: shipment ? shipment.courier_code : '',
+      total_shipping_fee: shipment ? shipment.total_shipping_fee : '',
+      courier_logo: shipment ? shipment.courier_logo : '',
+      courier_estimate_time: shipment ? shipment.courier_estimate_time : '',
       is_hold: shipment ? shipment.is_hold : 0,
       is_insurance: shipment ? shipment.is_insurance : 0,
       parcels: parcels.length > 0 ? this.fb.array(parcels) : this.fb.array([
@@ -179,8 +187,102 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  countSelectedList() {
+    return this.selectedList.length;
+  }
+
+  isInSelectedList(id) {
+    if (this.selectedList.length === 0) {
+      return false;
+    }
+    return this.selectedList.filter(selected => selected.id === id).length > 0;
+  }
+
+  isValidSelectedList(checkStatus: any | null) {
+    if (this.countSelectedList() === 0) {
+      return false;
+    }
+    if (checkStatus !== null) {
+      for (let idx = 0; idx < this.selectedList.length; idx++) {
+        if (this.selectedList[idx].status !== checkStatus) {
+          return false;
+        }
+      }
+    } else {
+      if (this.selectedList.length < 2) {
+        return true;
+      }
+      checkStatus = this.selectedList[0].status;
+      for (let idx = 1; idx < this.selectedList.length; idx++) {
+        if (this.selectedList[idx].status !== checkStatus) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  checkboxName(item) {
+    return 'shipmentCheckbox' + item.id;
+  }
+
+  removeFromList(item) {
+    this.selectedList = this.selectedList.filter(selected => selected.id !== item.id);
+    return this.selectedList;
+  }
+
+  addToList(item) {
+    if (this.selectedList.length === 0) {
+      this.selectedList.push(item);
+    } else if (this.isInSelectedList(item.id)) {
+      this.selectedList = this.removeFromList(item);
+    } else {
+      this.selectedList.push(item);
+    }
+  }
+
+  onSelectAll() {
+    this.isRemove = !this.isRemove;
+    for (let idx = 0; idx < this.shipments.length; idx++) {
+      const raw = this.shipments[idx];
+      const item = {id: raw.id, status: raw.shipment_status};
+      if ((!this.isInSelectedList(item.id) && this.isRemove) || (this.isInSelectedList(item.id) && !this.isRemove)) {
+        this.addToList(item);
+      }
+    }
+  }
+
+  onSelect(item) {
+    const selected = {id: item.id, status: item.shipment_status};
+    this.currentStatus = selected.status;
+    this.addToList(selected);
+  }
+
   get parcels(): FormArray {
     return this.createFrom.get('parcels') as FormArray;
+  }
+
+  get courierCode(): string {
+    return this.createFrom.get('courier_code').value;
+  }
+
+  get getCalculate(): any {
+    const shipFee = this.createFrom.get('total_shipping_fee').value;
+    let totalCod = 0;
+    let totalAmount = 0;
+    let i = 0;
+    for (i; i < this.parcels.controls.length; i++) {
+      const parcel = this.parcels.controls[i];
+      totalCod += Number(parcel.get('cod').value);
+      totalAmount += Number(parcel.get('price').value);
+    }
+    const final = shipFee + totalCod + totalAmount;
+    return {
+      total_shipping_fee: shipFee,
+      totalCod: totalCod,
+      totalAmount: totalAmount,
+      final: final
+    };
   }
 
   buildCalculateFrom() {
@@ -201,8 +303,8 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       warehouseId: this.createFrom.get('warehouse_send_id').value,
       toAddress: this.createFrom.get('receiver_address').value,
       toDistrict: Number(this.createFrom.get('receiver_district_id').value),
-      toProvince:  Number(this.createFrom.get('receiver_province_id').value),
-      toCountry:  Number(this.createFrom.get('receiver_country_id').value),
+      toProvince: Number(this.createFrom.get('receiver_province_id').value),
+      toCountry: Number(this.createFrom.get('receiver_country_id').value),
       toZipCode: this.createFrom.get('receiver_post_code').value,
       toName: this.createFrom.get('receiver_name').value,
       toPhone: this.createFrom.get('receiver_phone').value,
@@ -214,6 +316,10 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       isInsurance: this.createFrom.get('is_insurance').value,
       sortMode: 'best_price'
     });
+  }
+
+  merge() {
+
   }
 
   defaultWarehouse() {
@@ -243,6 +349,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   }
 
   createShipment() {
+
   }
 
   getSafeImage(parcel: any | FormGroup) {
@@ -254,14 +361,29 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   suggestCourier() {
     this.buildCalculateFrom();
+    this.setActiveCourier(null);
     const params = this.calculateFrom.getRawValue();
     this.shipmentService.post('courier/suggest', params).subscribe(res => {
       this.couriers = res;
+      if (this.couriers.error === false && this.couriers.data.couriers.length > 0) {
+        const c = this.couriers.data.couriers[0];
+        if (typeof c !== 'undefined') {
+          this.setActiveCourier(c);
+        }
+      }
+    });
+  }
+
+  setActiveCourier(c: any | null) {
+    this.createFrom.patchValue({
+      courier_code: c ? c.service_code : '',
+      total_shipping_fee: c ? c.total_fee : 0,
+      courier_logo: c ? c.courier_logo : '',
+      courier_estimate_time: c ? (c.min_delivery_time + '-' + c.max_delivery_time) : '',
     });
   }
 
   changeValueForm(control, group: any | null, idx = 0, refreshCourier = false) {
-
     if (control === 'receiver_country_id' || control === 'receiver_province_id') {
       if (control === 'receiver_country_id') {
         this.createFrom.patchValue({
@@ -283,8 +405,8 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     }
   }
 
-  isValidCourier() {
-    return typeof this.couriers === 'object' && this.couriers.error === false && this.couriers.data.length > 0;
+  onSelectCourier(c) {
+    this.setActiveCourier(c);
   }
 
   cancelShipment() {

@@ -1,432 +1,517 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">
-                    <h3 i18n>LIST ALL ITEMS OF SHIPMENTS</h3>
-                </div>
-                <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
-                    <div class="col-md-4 form-group m-b-10">
-                        <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
-                        <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
-                                    id="keyCategory" formControlName="keyCategory">
-                                <option value="ALL" i18n>ALL</option>
-                            </select>
-                            <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
-                                   type="text" (keyup.enter)="search()">
-                        </div>
-                    </div>
-                    <div class="col-md-3 form-group m-b-10">
-                        <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
-                        <select class="form-control form-control-sm" name="currentStatus" id="currentStatus"
-                                formControlName="currentStatus">
-                            <option value="ALL" i18n>--All Status--</option>
-                            <option value="STOCK_IN_US" i18n>STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED" i18n>SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5 form-group m-b-10">
-                        <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
-                        <div class="row input-group input-group-sm" id="dateTimePicker">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
-                                    id="timeKey" formControlName="timeKey">
-                                <option value="create_at" i18n>Create Time</option>
-                                <option value="SELLER_SHIPPED" i18n>Seller ship Time</option>
-                            </select>
-                            <input #drp="bsDaterangepicker" bsDaterangepicker
-                                   class="col-sm-7 form-control form-control-sm ">
-                            <span class="input-group-btn">
-                                <button (click)="drp.toggle()"
-                                        [attr.aria-expanded]="drp.isOpen"
-                                        class="btn btn-sm btn-info" type="button"><i
-                                        class="fa fa-calendar"></i></button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-                <section class="row item-operation">
-                    <div class="col-md-12">
-                        <div class="form-inline pull-right">
-                          <span class="button-group">
-                            <a class="btn btn-info btn-sm text-white">
-                                <i class="fa fa-file-excel-o" i18n>Export Excel</i>
-                            </a>
-                          </span>
-                        </div>
-                    </div>
-                </section>
-                <article class="row item-list">
-                    <div class="col-md-12">
-                        <div class="row pagination"></div>
-                        <div class="row grid">
-                            <div class="col-md-12">
-                                <div class="grid-view grid-view-custom">
-                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
-                                        <div class="col-md-6 grid-view-col-padding-rl-0">
-                                            <span i18n>Showing</span>
-                                            <select class="form-control-sm select-custom"
-                                                    (change)="handlePerPage($event)">
-                                                <option value="20">20</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                                <option value="200">200</option>
-                                                <option value="all">All</option>
-                                            </select>
-                                            <span >of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
-                                        </div>
-                                        <div class="col-md-6 grid-view-col-margin-rl-0">
-                                            <pagination [boundaryLinks]="true"
-                                                        [totalItems]="totalCount"
-                                                        (pageChanged)="handlePagination($event)"
-                                                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
-                                                        [rotate]="true">
-                                            </pagination>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                              <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                              <th style="width: 8%">#</th>
-                                                              <th style="width: 20%">Shipment</th>
-                                                              <th>Customer & Receiver</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <ng-container *ngFor="let shipment of shipments">
-                                                              <tr>
-                                                                  <td>
-                                                                      #{{shipment.id}}
-                                                                  </td>
-                                                                  <td>
-                                                                      <p class="mb-1">Shipment Code:{{shipment.shipment_code}}</p>
-                                                                      <p class="mb-1">Shipment Status:{{shipment.shipment_status}}</p>
-                                                                      <p class="mb-1">Total Parcels: <span class="text-danger">{{shipment.packageItems.length}}</span></p>
-                                                                      <p class="mb-1">Total Weigh:{{shipment.total_weight}}</p>
-                                                                      <hr class="mb-1 mt-1">
-                                                                      <div class="row mb-2">
-                                                                          <div class="col-md-3">
-                                                                            <img style="width: 100%" src="{{shipment.courier_logo}}" alt="">
-                                                                          </div>
-                                                                          <div class="col-md-9 p-l-0">
-                                                                              <p class="mb-1">Courier Code:{{shipment.courier_code}} (1-2 days)</p>
-                                                                              <p class="mb-1">Shipping Fee:{{shipment.courier_code}}</p>
-                                                                          </div>
-                                                                      </div>
-<!--                                                                      <div class="row mb-2">-->
-<!--                                                                          <div class="col-md-12">-->
-<!--                                                                              <div class="btn-group">-->
-<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-comments mr-1"></i> Chat</button>-->
-<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-comments mr-1"></i>Group</button>-->
-<!--                                                                                  <button class="btn btn-sm btn-default"><i class="fa fa-bell mr-1"></i></button>-->
-<!--                                                                              </div>-->
-<!--                                                                          </div>-->
-<!--                                                                      </div>-->
-
-                                                                  </td>
-                                                                <td>
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <p class="mb-1" *ngIf="shipment.customer?.first_name">Customer:{{shipment.customer.first_name}} ({{shipment.customer.id}}) - {{shipment.customer.phone}}</p>
-                                                                            <hr class="mb-1 mt-1">
-                                                                            <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
-                                                                            <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
-                                                                            <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
-                                                                            <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}} - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
-                                                                            <hr class="mb-1 mt-1">
-                                                                            <p class="mb-1">Note:{{shipment.note_by_customer}}</p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                          <div class="table-responsive">
-                                                                            <table class="table table-bordered table-custom">
-                                                                              <thead>
-                                                                              <th>CBTAG</th>
-                                                                              <th style="width: 25%">Product/Order</th>
-                                                                              <th style="width: 8%">Action</th>
-                                                                              </thead>
-                                                                              <tbody style="max-height: 110px">
-                                                                              <ng-container>
-                                                                                <tr *ngFor="let packageItem of shipment.packageItems">
-                                                                                  <td>
-                                                                                    {{packageItem.box_me_warehouse_tag}}
-                                                                                  </td>
-                                                                                  <td>
-                                                                                    {{packageItem.product_id}}/{{packageItem.order_id}}
-                                                                                  </td>
-                                                                                  <td>
-                                                                                    <div class="btn-group">
-                                                                                      <button class="btn btn-sm btn-warning"><i class="fa fa-remove"></i></button>
-                                                                                    </div>
-                                                                                  </td>
-                                                                                </tr>
-                                                                              </ng-container>
-                                                                              </tbody>
-                                                                            </table>
-                                                                          </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mt-2">
-                                                                      <div class="col-md-12 text-right">
-                                                                        <div class="button-group">
-                                                                          <button class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create Shipment</button>
-                                                                        </div>
-                                                                      </div>
-                                                                    </div>
-                                                                </td>
-                                                              </tr>
-                                                            </ng-container>
-                                                        </tbody>
-                                                    </table>
-                                              </div>
-                                        </div>
-                                    </div>
-<!--                                    <ng-container [ngTemplateOutlet]="toggleShipmentTemplate"></ng-container>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <h3 i18n>LIST ALL ITEMS OF SHIPMENTS</h3>
         </div>
+        <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4 form-group m-b-10">
+                    <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
+                    <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
+                      <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
+                              id="keyCategory" formControlName="keyCategory">
+                        <option value="ALL" i18n>ALL</option>
+                      </select>
+                      <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
+                             type="text" (keyup.enter)="search()">
+                    </div>
+                  </div>
+                    <div class="col-md-3 form-group m-b-10">
+                    <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
+                    <select class="form-control form-control-sm" name="currentStatus" id="currentStatus"
+                            formControlName="currentStatus">
+                      <option value="ALL" i18n>--All Status--</option>
+                      <option value="STATUS_NEW" i18n>New</option>
+                      <option value="STATUS_WAITING" i18n>Waiting</option>
+                      <option value="STATUS_CREATED" i18n>Created</option>
+                    </select>
+                  </div>
+                    <div class="col-md-5 form-group m-b-10">
+                    <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
+                    <div class="row input-group input-group-sm" id="dateTimePicker">
+                      <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
+                              id="timeKey" formControlName="timeKey">
+                        <option value="create_at" i18n>Create Time</option>
+                        <option value="SELLER_SHIPPED" i18n>Seller ship Time</option>
+                      </select>
+                      <input #drp="bsDaterangepicker" bsDaterangepicker
+                             class="col-sm-7 form-control form-control-sm ">
+                      <span class="input-group-btn">
+                  <button (click)="drp.toggle()"
+                          [attr.aria-expanded]="drp.isOpen"
+                          class="btn btn-sm btn-info" type="button"><i
+                    class="fa fa-calendar"></i></button>
+              </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                      <div class="button-group">
+                          <button class="btn btn-sm btn-secondary" (click)="buildSearchForm()">Clear</button>
+                          <button class="btn btn-sm btn-success" (click)="search()">Search</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <article class="row item-list">
+          <div class="col-md-12">
+            <div class="row item-action m-b-10">
+              <div class="col-md-8">
+                <div class="button-group m-l-5">
+                  <button *ngIf="countSelectedList() >1 && isValidSelectedList(null)"  class="btn btn-sm btn-danger">Merge ({{countSelectedList()}}) items</button>
+                  <button class="btn btn-warning btn-sm style-button">Update COD</button>
+                  <a class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o" i18n></i>Export Excel</a>
+                </div>
+              </div>
+              <div *ngIf="countSelectedList() > 0 && isValidSelectedList('NEW')" class="col-md-4">
+                <div class="input-group">
+                  <input list="suggestRules" class="form-control form-control-sm" style="width: 80%"
+                         [(ngModel)]="rules" type="text"
+                         placeholder="Enter your rules">
+                  <datalist id="suggestRules">
+                    <option value="price">Cheapest price</option>
+                    <option value="time">Fastest</option>
+                    <option value="GLS_PTK > time">Gold Ship to Fastest</option>
+                    <option value="GLS_PTK > price">Gold Ship to Cheapest price</option>
+                    <option value="BM_DBS > time">Gojek to Fastest</option>
+                    <option value="BM_DBS > price">Gojek to Cheapest price</option>
+                  </datalist>
+                  <a class="btn btn-success btn-sm text-white input-group-addon">SENT
+                    SHIPMENTS</a>
+                </div>
+              </div>
+            </div>
+            <div class="row pagination-summary">
+              <div class="col-md-6">
+                <span i18n>Showing</span>
+                <select class="form-control-sm select-custom"
+                        (change)="handlePerPage($event)">
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="200">200</option>
+                  <option value="all">All</option>
+                </select>
+                <span>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+              </div>
+              <div class="col-md-6">
+                <pagination [boundaryLinks]="true"
+                            [totalItems]="totalCount"
+                            (pageChanged)="handlePagination($event)"
+                            [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                            [rotate]="true">
+                </pagination>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                  <th style="width: 8%">
+                    <div class="form-check m-b-0">
+                      <label class="custom-control custom-checkbox m-b-0">
+                        <input type="checkbox" class="custom-control-input"
+                               name="checkAllItem"
+                               [checked]="isRemove"
+                               (click)="onSelectAll()">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{ isRemove ? 'uncheck all' : 'check all' }}</span>
+                      </label>
+                    </div>
+                  </th>
+                  <th style="width: 20%">Shipment</th>
+                  <th>Customer & Receiver</th>
+                  </thead>
+                  <tbody>
+                  <ng-container *ngFor="let shipment of shipments">
+                    <tr>
+                      <td>
+                        <div class="form-check m-b-0">
+                          <label class="custom-control custom-checkbox m-b-0">
+                            <input type="checkbox" class="custom-control-input"
+                                   [name]="checkboxName(shipment)"
+                                   [checked]="isInSelectedList(shipment.id)"
+                                   (click)="onSelect(shipment)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">#{{shipment.id}}</span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="mb-1">Shipment Code:{{shipment.shipment_code}}</p>
+                        <p class="mb-1">Shipment Status:{{shipment.shipment_status}}</p>
+                        <p class="mb-1">Total Parcels: <span
+                          class="text-danger">{{shipment.packageItems.length}}</span></p>
+                        <p class="mb-1">Total Weigh:{{shipment.total_weight}}</p>
+                        <hr class="mb-1 mt-1">
+                        <div class="row mb-2">
+                          <div class="col-md-3">
+                            <img style="width: 100%" src="{{shipment.courier_logo}}" alt="">
+                          </div>
+                          <div class="col-md-9 p-l-0">
+                            <p class="mb-1">Courier Code:{{shipment.courier_code}} (1-2 days)</p>
+                            <p class="mb-1">Shipping Fee:{{shipment.courier_code}}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p class="mb-1" *ngIf="shipment.customer?.first_name">
+                              Customer:{{shipment.customer.first_name}} ({{shipment.customer.id}})
+                              - {{shipment.customer.phone}}</p>
+                            <hr class="mb-1 mt-1">
+                            <p class="mb-1">Receiver:{{shipment.receiver_name}}</p>
+                            <p class="mb-1">Contact:{{shipment.receiver_phone}} - {{shipment.receiver_email}}</p>
+                            <p class="mb-1">Address: <strong>{{shipment.receiver_address}}</strong></p>
+                            <p class="mb-1">Location: <strong>{{shipment.receiver_post_code}}
+                              - {{shipment.receiver_province_name}} - {{shipment.receiver_district_name}}</strong></p>
+                            <hr class="mb-1 mt-1">
+                            <p class="mb-1">Note:{{shipment.note_by_customer}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-custom">
+                                <thead>
+                                <th>CBTAG</th>
+                                <th style="width: 25%">Product/Order</th>
+                                <th style="width: 8%">Action</th>
+                                </thead>
+                                <tbody style="max-height: 110px">
+                                <ng-container>
+                                  <tr *ngFor="let packageItem of shipment.packageItems">
+                                    <td>
+                                      {{packageItem.box_me_warehouse_tag}}
+                                    </td>
+                                    <td>
+                                      {{packageItem.product_id}}/{{packageItem.order_id}}
+                                    </td>
+                                    <td>
+                                      <div class="btn-group">
+                                        <button class="btn btn-sm btn-warning"><i class="fa fa-remove"></i></button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-12 text-right">
+                            <div class="button-group">
+                              <button class="btn btn-sm btn-warning"
+                                      (click)="activeCreateShipment(shipment)">Create Shipment
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" bsModal #shipmentCreateModal="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
-                <button type="button" (click)="shipmentCreateModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
+        <button type="button" (click)="shipmentCreateModal.hide()" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createFrom" class="form-horizontal">
+          <input type="hidden" formControlName="id">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6>1. Pickup From</h6>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group m-b-5 row">
+                    <label class="control-label text-right col-md-2 pt-2">Pick Up</label>
+                    <div class="col-md-10">
+                      <select formControlName="warehouse_send_id" class="form-control form-control-sm custom-select"
+                              (change)="changeValueForm('warehouse_send_id',null,0,true)">
+                        <option *ngFor="let wh of warehouses" [value]="wh.id">{{wh.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="modal-body">
-                <form [formGroup]="createFrom" class="form-horizontal">
-                    <input type="hidden" formControlName="id">
-                    <div class="row" >
+              <div class="row">
+                <div class="col-md-12">
+                  <h6>2. Ship To</h6>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_name" class="control-label text-right col-md-4 pt-2">Name</label>
                     <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h6>1. Pickup From</h6>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="form-group m-b-5 row">
-                            <label class="control-label text-right col-md-2 pt-2">Pick Up</label>
-                            <div class="col-md-10">
-                              <select formControlName="warehouse_send_id" class="form-control form-control-sm custom-select">
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                            <h6>2. Ship To</h6>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-b-5 row">
-                                  <label for="receiver_name" class="control-label text-right col-md-4 pt-2">Name</label>
-                                  <div class="col-md-8">
-                                      <input id="receiver_name" type="text" formControlName="receiver_name" class="form-control form-control-sm">
+                      <input id="receiver_name" type="text" formControlName="receiver_name"
+                             class="form-control form-control-sm">
+                    </div>
+                  </div>
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_phone" class="control-label text-right col-md-4 pt-2">Phone</label>
+                    <div class="col-md-8">
+                      <input type="text" id="receiver_phone" formControlName="receiver_phone"
+                             class="form-control form-control-sm">
+                    </div>
+                  </div>
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_post_code" class="control-label text-right col-md-4 pt-2">Zip</label>
+                    <div class="col-md-8">
+                      <input type="text" id="receiver_post_code" formControlName="receiver_post_code"
+                             class="form-control form-control-sm"
+                             (keydown)="changeValueForm('receiver_country_id',null,0,true)">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_country_id" class="control-label text-right col-md-4 pt-2">Country</label>
+                    <div class="col-md-8">
+                      <select id="receiver_country_id" formControlName="receiver_country_id"
+                              class="form-control form-control-sm custom-select"
+                              (change)="changeValueForm('receiver_country_id',null,0,true)">
+                        <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_province_id" class="control-label text-right col-md-4 pt-2">Province</label>
+                    <div class="col-md-8">
+                      <select id="receiver_province_id" formControlName="receiver_province_id"
+                              class="form-control form-control-sm custom-select"
+                              (change)="changeValueForm('receiver_province_id',null,0,true)">
+                        <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_district_id" class="control-label text-right col-md-4 pt-2">District</label>
+                    <div class="col-md-8">
+                      <select id="receiver_district_id" formControlName="receiver_district_id"
+                              class="form-control form-control-sm custom-select"
+                              (change)="changeValueForm('receiver_district_id',null,0,true)">
+                        <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group m-b-5 row">
+                    <label for="receiver_address" class="control-label text-right col-md-2 pt-2">Address</label>
+                    <div class="col-md-10">
+                      <textarea id="receiver_address" rows="3" formControlName="receiver_address"
+                                class="form-control form-control-sm"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="box-title">3. Parcel</h6>
+                  <div class="table-responsive" formArrayName="parcels">
+                    <table class="table table-bordered table-custom table-scrollbar">
+                      <tbody style="max-height: 195px">
+                      <tr style="height: 180px;" *ngFor="let parcel of parcels.controls; let idx=index"
+                          [formGroupName]="idx">
+                        <td style="width: 20%">
+                          <input type="hidden" formControlName="id">
+                          <input type="hidden" formControlName="product_id">
+                          <img [src]="getSafeImage(parcel)"
+                               alt="" width="100%">
+                        </td>
+                        <td style="padding:0;margin: 0;vertical-align: inherit;">
+                          <div class="table-responsive">
+                            <table class="table table-bordered"
+                                   style="margin-bottom: 0px;border-bottom: none;border-top: none">
+                              <tbody>
+                              <tr>
+                                <td><label for="name">Name</label></td>
+                                <td colspan="3">
+                                  <div class="form-group m-b-5">
+                                    <input type="text" id="name" formControlName="name"
+                                           class="form-control form-control-sm">
                                   </div>
-                              </div>
-                            <div class="form-group m-b-5 row">
-                                  <label  for="receiver_phone" class="control-label text-right col-md-4 pt-2">Phone</label>
-                                  <div class="col-md-8">
-                                      <input type="text" id="receiver_phone" formControlName="receiver_phone" class="form-control form-control-sm">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td rowspan="2" style="width:25%;">
+                                  <label for="dimensionGroup">Dimension</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="dimension_w">Dimension W</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="dimension_l">Dimension L</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="dimension_h">Dimension H</label>
+                                </td>
+                              </tr>
+                              <tr id="dimensionGroup">
+                                <td style="width:25%;">
+                                  <div class="form-group m-b-5">
+                                    <input type="text" id="dimension_w" formControlName="dimension_w"
+                                           class="form-control form-control-sm"
+                                           (change)="changeValueForm('dimension_w',parcel,idx,false)">
                                   </div>
-                              </div>
-                            <div class="form-group m-b-5 row">
-                                <label for="receiver_post_code" class="control-label text-right col-md-4 pt-2">Zip</label>
-                                <div class="col-md-8">
-                                    <input type="text" id="receiver_post_code" formControlName="receiver_post_code" class="form-control form-control-sm" (keydown)="changeValueForm('receiver_country_id',null,0,true)">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-b-5 row">
-                              <label for="receiver_country_id" class="control-label text-right col-md-4 pt-2">Country</label>
-                              <div class="col-md-8">
-                                <select id="receiver_country_id" formControlName="receiver_country_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_country_id',null,0,true)">
-                                  <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group m-b-5 row">
-                              <label for="receiver_province_id" class="control-label text-right col-md-4 pt-2">Province</label>
-                              <div class="col-md-8">
-                                <select id="receiver_province_id" formControlName="receiver_province_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_province_id',null,0,true)">
-                                    <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group m-b-5 row">
-                                <label for="receiver_district_id" class="control-label text-right col-md-4 pt-2">District</label>
-                                <div class="col-md-8">
-                                  <select id="receiver_district_id" formControlName="receiver_district_id" class="form-control form-control-sm custom-select" (change)="changeValueForm('receiver_district_id',null,0,true)">
-                                      <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group m-b-5 row">
-                                <label for="receiver_address" class="control-label text-right col-md-2 pt-2">Address</label>
-                                <div class="col-md-10">
-                                    <textarea id="receiver_address" rows="3" formControlName="receiver_address" class="form-control form-control-sm"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12">
-                          <h6 class="box-title">3. Parcel</h6>
-                          <div class="table-responsive" formArrayName="parcels">
-                              <table class="table table-bordered table-custom table-scrollbar">
-                              <tbody style="max-height: 195px">
-                                  <tr style="height: 180px;" *ngFor="let parcel of parcels.controls; let idx=index" [formGroupName]="idx">
-                                      <td style="width: 20%">
-                                          <input type="hidden" formControlName="id">
-                                          <input type="hidden" formControlName="product_id">
-                                          <img [src]="getSafeImage(parcel)"
-                                             alt="" width="100%">
-                                      </td>
-                                      <td style="padding:0;margin: 0;vertical-align: inherit;">
-                                          <div class="table-responsive">
-                                              <table class="table table-bordered" style="margin-bottom: 0px;border-bottom: none;border-top: none">
-                                                  <tbody>
-                                                      <tr>
-                                                          <td><label for="name">Name</label></td>
-                                                          <td colspan="3">
-                                                              <div class="form-group m-b-5">
-                                                                <input type="text" id="name" formControlName="name" class="form-control form-control-sm">
-                                                              </div>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td rowspan="2" style="width:25%;">
-                                                            <label for="dimensionGroup">Dimension</label>
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                            <label for="dimension_w">Dimension W</label>
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                            <label for="dimension_l">Dimension L</label>
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                            <label for="dimension_h">Dimension H</label>
-                                                        </td>
-                                                      </tr>
-                                                      <tr id="dimensionGroup">
-                                                          <td style="width:25%;">
-                                                              <div class="form-group m-b-5">
-                                                                  <input type="text" id="dimension_w" formControlName="dimension_w" class="form-control form-control-sm" (change)="changeValueForm('dimension_w',parcel,idx,false)">
-                                                              </div>
-                                                          </td>
-                                                          <td style="width:25%;">
-                                                              <div class="form-group m-b-5">
-                                                                  <input type="text" id="dimension_l" formControlName="dimension_l" class="form-control form-control-sm" (change)="changeValueForm('dimension_l',parcel,idx,false)">
-                                                              </div>
-                                                          </td>
-                                                          <td style="width:25%;">
-                                                              <div class="form-group m-b-5">
-                                                                  <input type="text" id="dimension_h" formControlName="dimension_h" class="form-control form-control-sm" (change)="changeValueForm('dimension_h',parcel,idx,false)">
-                                                              </div>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td style="width:25%;">
-                                                              <label for="price">Price</label>
-                                                          </td>
-                                                          <td style="width:25%;">
-                                                              <label for="cod">COD</label>
-                                                          </td>
-                                                          <td style="width:25%;">
-                                                              <label for="weight">Weight</label>
-                                                          </td>
-                                                          <td style="width:25%;">
-                                                              <label for="quantity">Quantity</label>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td rowspan="2" style="width:25%;">
-                                                          <input type="text" id="price" formControlName="price" class="form-control form-control-sm" (keyup)="changeValueForm('price',parcel,idx,true)">
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                          <input type="text" id="cod" formControlName="cod" class="form-control form-control-sm" (keyup)="changeValueForm('cod',parcel,idx,true)">
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                          <input type="text" id="weight" formControlName="weight" class="form-control form-control-sm" (keyup)="changeValueForm('weight',parcel,idx,true)">
-                                                        </td>
-                                                        <td style="width:25%;">
-                                                          <input type="text" id="quantity" formControlName="quantity" class="form-control form-control-sm" (keyup)="changeValueForm('quantity',parcel,idx,true)">
-                                                        </td>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                                      </td>
-                                  </tr>
+                                </td>
+                                <td style="width:25%;">
+                                  <div class="form-group m-b-5">
+                                    <input type="text" id="dimension_l" formControlName="dimension_l"
+                                           class="form-control form-control-sm"
+                                           (change)="changeValueForm('dimension_l',parcel,idx,false)">
+                                  </div>
+                                </td>
+                                <td style="width:25%;">
+                                  <div class="form-group m-b-5">
+                                    <input type="text" id="dimension_h" formControlName="dimension_h"
+                                           class="form-control form-control-sm"
+                                           (change)="changeValueForm('dimension_h',parcel,idx,false)">
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="width:25%;">
+                                  <label for="price">Price</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="cod">COD</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="weight">Weight</label>
+                                </td>
+                                <td style="width:25%;">
+                                  <label for="quantity">Quantity</label>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td rowspan="2" style="width:25%;">
+                                  <input type="text" id="price" formControlName="price"
+                                         class="form-control form-control-sm"
+                                         (keyup)="changeValueForm('price',parcel,idx,true)">
+                                </td>
+                                <td style="width:25%;">
+                                  <input type="text" id="cod" formControlName="cod" class="form-control form-control-sm"
+                                         (keyup)="changeValueForm('cod',parcel,idx,true)">
+                                </td>
+                                <td style="width:25%;">
+                                  <input type="text" id="weight" formControlName="weight"
+                                         class="form-control form-control-sm"
+                                         (keyup)="changeValueForm('weight',parcel,idx,true)">
+                                </td>
+                                <td style="width:25%;">
+                                  <input type="text" id="quantity" formControlName="quantity"
+                                         class="form-control form-control-sm"
+                                         (keyup)="changeValueForm('quantity',parcel,idx,true)">
+                                </td>
+                              </tr>
                               </tbody>
                             </table>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h6 class="box-title">4. Config</h6>
-                          <div class="form-group m-b-0">
-                            <div class="checkbox checkbox-success">
-                              <input id="allowHold" formControlName="is_hold" type="checkbox">
-                              <label for="allowHold">Hole</label>
-                            </div>
-                          </div>
-                          <div class="form-group m-b-0">
-                            <div class="checkbox checkbox-success">
-                              <input id="allowInsurance" formControlName="is_insurance" type="checkbox" (change)="changeValueForm('is_insurance',null,0,true)">
-                              <label for="allowInsurance">Insurance</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h6 class="box-title">6. Courier</h6>
-                          <div *ngIf="!isValidCourier">
-                            <h6 class="text-danger">{{couriers.messages}}</h6>
-                            <button class="btn btn-sm btn warning" (click)="suggestCourier()">Re suggest</button>
-                          </div>
-                          <div *ngIf="isValidCourier">
-                              {{couriers.data?.couriers |json}}
-                              <div class="list-group">
-                                <a *ngFor="let courier of couriers.data?.couriers" class="list-group-item" href="javascript:void(0);">
-
-                                </a>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
                   </div>
-                </form>
-
-
-                  <div class="row">
-                      <div class="col-md-12">
-                            <div class="button-group">
-                                  <button class="btn btn-sm btn-warning">5.Create</button>
-                            </div>
-                      </div>
-                  </div>
+                </div>
               </div>
-          </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="box-title">4. Config</h6>
+                  <div class="form-group m-b-0">
+                    <div class="checkbox checkbox-success">
+                      <input id="allowHold" formControlName="is_hold" type="checkbox">
+                      <label for="allowHold">Hole</label>
+                    </div>
+                  </div>
+                  <div class="form-group m-b-0">
+                    <div class="checkbox checkbox-success">
+                      <input id="allowInsurance" formControlName="is_insurance" type="checkbox"
+                             (change)="changeValueForm('is_insurance',null,0,true)">
+                      <label for="allowInsurance">Insurance</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="box-title">6. Courier <span *ngIf="couriers.data?.couriers"
+                                                         class="text-danger">({{couriers.data?.couriers.length}})</span>
+                  </h6>
+                  <div *ngIf="couriers?.error">
+                    <h6 class="text-danger">{{couriers.messages}}</h6>
+                    <button class="btn btn-sm btn-block btn warning" (click)="suggestCourier()">Re Suggest</button>
+                  </div>
+                  <div *ngIf="!couriers?.error" class="table-responsive">
+                    <table class="table stylish-table table-custom table-scrollbar ">
+                      <tbody style="height: 385px">
+                      <tr *ngFor="let courier of couriers.data?.couriers"
+                          [class]="courierCode === courier.service_code ? 'active' : ''"
+                          (click)="onSelectCourier(courier)">
+                        <td>
+                          <img [src]="courier.courier_logo" alt="user" width="30">
+                        </td>
+                        <td>
+                          <span>{{courier.courier_name}} - {{courier.service_name}}</span>
+                          <br>
+                          <span>{{courier.total_fee}} {{courier.currency}} ({{courier.min_delivery_time}} -
+                            {{courier.max_delivery_time}} days)</span>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <p class="text-danger m-t-20" *ngIf="!couriers?.isOk">
+                      {{couriers?.message}}</p>
+                  </div>
 
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="mb-1 mt-1">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="mb-1 text-right">Total Shipping Fee: <span
+                class="text-danger">{{getCalculate.total_shipping_fee}}</span></p>
+              <p class="mb-1 text-right">Total Code: <span class="text-danger">{{getCalculate.totalCod}}</span></p>
+              <p class="mb-1 text-right">Total Amount: <span class="text-danger">{{getCalculate.totalAmount}}</span></p>
+              <p class="mb-1 text-right">Final: <span class="text-danger">{{getCalculate.final}}</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <div class="button-group">
+                <button class="btn btn-sm btn-warning">Update</button>
+                <button class="btn btn-sm btn-warning" *ngIf="courierCode !== ''">Create Shipment</button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
 </div>
