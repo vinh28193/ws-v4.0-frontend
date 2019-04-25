@@ -24,6 +24,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     public productIds: any = [];
     public trackingT = '';
     public trackingE = '';
+    public trackingMergeSearch = '';
     public tabTracking = 'tracking';
     public trackingCodes: any = [];
     public p_e = 1;
@@ -35,11 +36,10 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     public filter_t = '';
     public filter_e = '';
     public trackingMerge: any = {
-        data: {},
-        type: '',
-    };
-    public trackingTarget: any = {
-        data: {},
+        data_id: '',
+        ext_id: '',
+        data_tracking_code: '',
+        ext_tracking_code: '',
         type: '',
     };
     public sellerRefundForm: any = {
@@ -235,37 +235,32 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         this.search();
     }
 
-    merge(packTr, type) {
-        if (!this.trackingMerge.type) {
-            this.trackingMerge.data = packTr;
-            this.trackingMerge.type = type;
-        } else {
-            this.trackingTarget.data = packTr;
-            this.trackingTarget.type = type;
-            const formMerge = {
-                merge: this.trackingMerge,
-                target: this.trackingTarget
-            };
-            this.trackingService.popup.confirm(() => {
-                this.trackingService.merge(formMerge).subscribe(rs => {
-                    const res: any = rs;
-                    if (res.success) {
-                        this.popUp.success(res.message);
-                        this.search('tracking');
-                    }
-                });
-            }, this.trackingMerge.data.tracking_code + ' merge ' + this.trackingTarget.data.tracking_code, 'Merge');
-            this.clearMerge();
+    merge() {
+        const listCheck = this.getExtTrackings('tracking');
+        if (!listCheck || listCheck === []) {
+            return this.popUp.error('Cannot find tracking code target!');
         }
+        this.trackingService.popup.confirm(() => {
+            this.trackingService.post('s-us-send', this.trackingMerge).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.popUp.success(res.message);
+                    this.search('tracking');
+                    this.clearMerge();
+                    this.mergeTracking.hide();
+                } else {
+                    this.popUp.error(res.message);
+                }
+            });
+        }, this.trackingMerge.data_tracking_code + ' merge ' + this.trackingMerge.ext_tracking_code, 'Merge');
     }
 
     clearMerge() {
         this.trackingMerge = {
-            data: {},
-            type: '',
-        };
-        this.trackingTarget = {
-            data: {},
+            data_id: '',
+            ext_id: '',
+            data_tracking_code: '',
+            ext_tracking_code: '',
             type: '',
         };
     }
@@ -355,5 +350,27 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             this.filter_e = fil;
         }
         this.search('tracking');
+    }
+
+    mergeTrackingEvent(event) {
+        this.trackingMerge.data_tracking_code = event.tracking_code;
+        this.trackingMerge.data_id = event.id;
+        this.mergeTracking.show();
+    }
+
+    getExtTrackings(type = 'search') {
+        let rs = this.tracks._ext;
+        if (this.trackingMerge.ext_tracking_code || this.trackingMergeSearch) {
+            const match = type === 'search' ? this.trackingMergeSearch : this.trackingMerge.ext_tracking_code;
+            rs = this.tracks._ext.filter(
+                c => c.tracking_code.toUpperCase().indexOf(match.toUpperCase()) !== -1);
+            console.log(rs);
+        }
+        return rs;
+    }
+
+    setTrackingTarget(id, tracking) {
+        this.trackingMerge.ext_tracking_code = tracking;
+        this.trackingMerge.ext_id = id;
     }
 }

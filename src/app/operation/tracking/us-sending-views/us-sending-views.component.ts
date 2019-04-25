@@ -17,6 +17,7 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
   @Output() sellerRefund: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateTracking: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
+    @Output() mergeTracking: EventEmitter<any> = new EventEmitter<any>();
   public productIds: any = [];
   public filter: any = {
     tracking_code: '',
@@ -81,4 +82,8 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
     this.limit = 20;
     this.search();
   }
+
+    showMergeTracking(id, tracking) {
+        this.mergeTracking.emit({id: id, tracking_code: tracking});
+    }
 }
