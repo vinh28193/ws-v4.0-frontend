@@ -84,7 +84,6 @@
               <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
               <option value="OTHER" >OTHER</option>
               <option value="EBAY" >EBAY</option>
-              <option value="AMAZON_JP" >AMAZON JP</option>
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
@@ -231,12 +230,10 @@
                               <div class="mt-1">
                                 <ul>
                                   <li class="purchase_order_id">
-                                    <div class="sty-font purchase_order_id" > <span i18n>Order code </span> {{order.portal | uppercase }} : </div>
-                                    {{order.purchase_order_id}}
+                                    <div class="sty-font purchase_order_id" > <span i18n>Order code </span> {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_order_id}}</span></div>
                                   </li>
                                   <li class="purchase_transaction">
-                                    <div class="sty-font purchase_transaction_id"> <span i18n>Transaction </span> {{order.portal | uppercase }} : </div>
-                                    {{order.purchase_transaction_id}}
+                                    <div class="sty-font purchase_transaction_id"> <span i18n>Transaction </span> {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_transaction_id}}</span></div>
                                   </li>
                                 </ul>
                               </div>
@@ -1177,43 +1174,62 @@
         </button>
       </div>
       <div class="modal-body ng-scope" *ngIf="checkOrderChatRefund">
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn btn-info btn-sm" (click)="createC[markID] = !createC[markID]">Create Template Chat</button>
+          </div>
+        </div>
+        <form action="" [formGroup]="createTemplate" [hidden]="!createC[markID]">
+          <div class="row">
+            <div class="col-md-12 mt-2">
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteC" i18n-placeholder></textarea>
+            </div>
+            <div class="col-md-12 mt-2">
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentC" i18n-placeholder></textarea>
+            </div>
+            <div class="col-md-12 mt-2">
+              <input type="text" class="form-control form-control-sm" placeholder="status" formControlName="statusC" i18n-placeholder>
+            </div>
+            <div class="col-md-12 mt-2">
+              <button class="btn-success btn btn-sm" (click)="createTemplateChat()" i18n>Create</button>
+            </div>
+          </div>
+        </form>
         <form [formGroup] = "editForm">
-          <div class="row m-0">
+          <div class="row m-0 mt-2">
             <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
               <span i18n>Please confirm the information below:</span>
             </div>
           </div>
-          <div class="row row mt-2 pl-3">
-            <div class="col-md-8 mt-1">
-              <label>
-                <input type="radio"  name="wait" formControlName="wait1" value="1" checked><span i18n>Wait to bargain</span></label>
-            </div>
-            <div class="col-md-8 mt-1">
-              <label>
-                <input type="radio" name="wait" formControlName="wait2" value="2"> <span i18n>Waiting for customers to respond</span>
-              </label>
-            </div>
-            <div class="col-md-8 mt-1">
-              <label>
-                <input type="radio"  name="wait" formControlName="wait3" value="3"> <span i18n>Wait for the seller to answer.</span>
-              </label>
-              <div class="form-group mt-1" style="margin-left: 3px;">
-                <div class="col-md-12">
-                  <label class="text-danger" i18n>Link to exchange photos with Shop</label>
-                  <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty mt-1" formControlName="link_image"  name="screenshot_chat_shop" placeholder="link image" i18n-placeholder>
-                </div>
-              </div>
+          <div class="row row mt-2">
+            <div class="col-md-8 mt-1" >
+              <select class="form-control form-control-sm" name="wait1" id="wait1"
+                      formControlName="wait1">
+                <option [value]="allKey" i18n>--All List Note--</option>
+                <option  *ngFor="let ChatT of listChatTem">{{ChatT.note}}</option>
+              </select>
             </div>
           </div>
-          <div class="alert alert-warning" role="alert">
-           <div class="input-group">
+        </form>
+        <form action="" [formGroup]="messageCustomer">
+          <div class="alert alert-warning mt-2" role="alert">
+            <div class="input-group">
               <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" formControlName="messageCustomer" rows="3" placeholder="Enter the exchange content.
 Press Shift + Enter to get down the line.
 Enter to send" i18n-placeholder></textarea>
-             <!--<div class="input-group-btn">-->
-               <!--<button style="height: 80px;" class="btn btn-default" (click)="enterChat()" i18n>Sent</button>-->
-             <!--</div>-->
-           </div>
+              <ng-container *ngIf="(listChatTem | filter:messageCustomer.value) as result">
+
+                <div *ngFor="let item of result">
+                  {{item}}
+                </div>
+
+                <p>Count: <b>{{result.length}}</b></p>
+
+              </ng-container>
+              <!--<div class="input-group-btn">-->
+              <!--<button style="height: 80px;" class="btn btn-default" (click)="enterChat()" i18n>Sent</button>-->
+              <!--</div>-->
+            </div>
           </div>
         </form>
 

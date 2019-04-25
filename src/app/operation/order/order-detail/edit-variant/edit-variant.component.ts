@@ -23,10 +23,10 @@ export class EditVariantComponent extends OrderDataComponent implements OnInit {
     });
   }
 
-  editVariant() {
-    console.log(this.editForm.value);
-    this.orderService.getPut(`edit-variant/${this.id}`, this.editForm.value).subscribe(res => {
-      this.popup.success('update success');
-    });
-  }
+  // editVariant() {
+  //   console.log(this.editForm.value);
+  //   this.orderService.put(`product/${this.id}`, this.editForm.value).subscribe(res => {
+  //     this.popup.success('update success');
+  //   });
+  // }
 }

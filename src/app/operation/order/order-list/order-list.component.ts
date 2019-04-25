@@ -30,6 +30,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pack: any = {};
     public pay: any = {};
     public pur: any = {};
+    public createC: any = {};
     public delivevery: any = {};
     public quantity: any = {};
     public create: any = {};
@@ -80,7 +81,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public editForm: FormGroup;
     public formAsignUser: FormGroup;
     public chatSupporting: FormGroup;
+    public createTemplate: FormGroup;
     public formCreate: FormGroup;
+    public messageCustomer: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -96,6 +99,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     provinces: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
+    public listChatTem: any = [];
     public filter: any = {};
     public status: any;
     public checkF = false;
@@ -115,8 +119,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkUpdateCustomer = false;
     public CheeckLoadPromotions = false;
     public chatlists: any = [];
-    public orderNotifi:any = [];
-    public paramsOrder:any = [];
+    public orderNotifi: any = [];
+    public paramsOrder: any = [];
     message;
 
     constructor(private orderService: OrderService,
@@ -792,13 +796,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.code = order.ordercode;
         this.markID = order.id;
         this.status = order.status;
+        this.loadListTemChat();
         this.checkOrderChatRefund = true;
         this.editForm = this.fb.group({
             wait1: '',
-            wait2: '',
-            wait3: '',
             link_image: '',
-            messageCustomer: '',
+        });
+        this.messageCustomer = this.fb.group({
+          messageCustomer: '',
+        });
+        this.createTemplate = this.fb.group({
+            noteC: '',
+            contentC: '',
+            statusC: '',
         });
     }
     enterChat() {
@@ -846,15 +856,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
         if (value.wait1 !== '') {
             params.mark = value.wait1;
-        }
-        if (value.wait2 !== '') {
-            params.mark = value.wait2;
-        }
-        if (value.wait3 !== '') {
-            params.mark = value.wait3;
-        }
-        if (value.messageCustomer !== '') {
-            params.messageCustomer = value.messageCustomer;
         }
         if (this.status === 'NEW') {
             params.isNew = 'yes';
@@ -1060,7 +1061,27 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
   packageItem(event) {
-      console.log(event);
+      // console.log(event);
+  }
+  buildChatCreate() {
+    const value = this.createTemplate.value;
+    const params: any = {};
+    params.noteC = value.noteC;
+    params.contentC = value.contentC;
+    params.statusC = value.statusC;
+    return params;
+  }
+  loadListTemChat() {
+      this.orderService.get('list-chat-mongo').subscribe(res => {
+        this.listChatTem = res.data;
+      });
+  }
+  createTemplateChat() {
+      const params = this.buildChatCreate()
+    this.orderService.post('list-chat-mongo', params).subscribe(res => {
+      // if (res.success) {
+      // }
+    });
   }
 }
 
