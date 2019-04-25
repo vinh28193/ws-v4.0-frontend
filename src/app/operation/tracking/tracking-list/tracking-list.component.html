@@ -352,8 +352,10 @@
                                                        formControlName="manifest">
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
+                                                <label class="form-control-label" (click)="DowloadFile()" i18n>Download</label>
+                                                <a [href]="linkdownload">testing</a>
                                                 <label for="store" class="form-control-label" i18n>Upload</label>
-                                                <span i18n>(Download File excel ,Example : TrackingCode.xlsx)</span>
+                                            
                                                 <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
                                             </div>
                                         </div>

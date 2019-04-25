@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../core/service/popup.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ModalDirective} from 'ngx-bootstrap';
+import {saveAs} from 'file-saver';
 
 @Component({
     selector: 'app-tracking-list',
@@ -29,6 +30,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     public trackingMiss = '';
     public tabTracking = '';
     public trackingCodes: any = [];
+    public linkdownload = '';
     public p_m = 1;
     public p_u = 1;
     public p_w = 1;
@@ -82,6 +84,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.perPage = 20;
         this.buildSearchForm();
         this.buildUsSendingForm();
+        this.DowloadFile();
         this.search();
     }
 
@@ -141,6 +144,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.file = event.target.files[0];
     }
 
+
     public preCreate() {
         const value = this.usSendingForm.getRawValue();
         if (typeof this.file === 'undefined') {
@@ -199,7 +203,20 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         }
         return params;
     }
+    DowloadFile()
+    {
 
+       this.trackingService.get('downloadexcel').subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+            const dataurl = 'C:/xampp/htdocs/weshop/weshop-v4.0-api/api/web/excel/TrackingCode.xlsx';
+            const filename = 'vandinh.xlxs';
+            const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+            saveAs("C:/xampp/htdocs/weshop/weshop-v4.0-api/api/web/excel/TrackingCode.xlsx", filename);
+            } 
+        });  
+      
+    }
     getTotalPageArray(total, limit, page) {
         const count = Math.ceil(total / limit);
         const arr = [];
