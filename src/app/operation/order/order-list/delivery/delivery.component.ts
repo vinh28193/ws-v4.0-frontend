@@ -20,7 +20,7 @@ export class DeliveryComponent extends OrderDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.orderService.get(`package-item/${this.orderId}`, undefined).subscribe(res => {
+    this.orderService.get(`draft-package-item/${this.orderId}`, undefined).subscribe(res => {
       this.packageItems = res.data;
       console.log(this.packageItems);
     });

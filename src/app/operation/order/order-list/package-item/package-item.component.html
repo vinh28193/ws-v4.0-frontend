@@ -4,11 +4,12 @@
     <thead>
     <tr>
       <th class="text-center">#</th>
-      <th class="text-center" i18n>Package Code/Tag Code</th>
+      <th class="text-center" i18n>Tracking Code</th>
       <th class="text-center" i18n>Quantity</th>
       <th class="text-center" i18n>Weight</th>
       <th class="text-center" ><span i18n>Stock In Local</span>/ <span i18n>Stock Out Local</span></th>
       <th class="text-center" i18n>Status</th>
+      <th class="text-center" i18n>Create at</th>
       <th><button class="btn btn-sm btn-default" (click)="offCreatePackage()" data-target="#showCreatePackage" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>Create Package Item</button></th>
     </tr>
     </thead>
@@ -25,7 +26,7 @@
       </td>
       <td class="text-center">
         <a href="avascript:void(0)" target="_blank" class="tracking">{{package.package_code}}</a>
-        <div class="Tagcode" > {{package.box_me_warehouse_tag}}</div>
+        <div class="Tagcode" > {{package.tracking_code}}</div>
       </td>
       <td class="text-center">
         {{package.quantity}}
@@ -45,8 +46,10 @@
       <td class="text-center">
         <ul>
           <li>{{package.current_status}}</li>
-          <li>{{package.created_at}}</li>
         </ul>
+      </td>
+      <td class="text-center">
+        <span>{{package.created_at}}</span>
       </td>
     </tr>
     </tbody>
@@ -84,12 +87,14 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-4 mt-4">
-              <label for="package_code" class="mb-2" i18n>Package Code</label>
-              <input id="package_code" name="package_code" formControlName="package_code" placeholder="Package Code" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty" style="width: 100%">
+              <label for="" class="mb-2" i18n>Product</label>
+              <select class="form-control form-control-sm" name="product_id" id="product_id" formControlName="product_id">
+                <option value="{{pro.id}}" *ngFor="let pro of products">SOI-{{pro.id}}</option>
+              </select>
             </div>
             <div class="col-md-4 mt-4">
-              <label for="box_me_warehouse_tag" class="mb-2" i18n>Boxme Werehouse Tag</label><br>
-              <input id="box_me_warehouse_tag" name="box_me_warehouse_tag" formControlName="box_me_warehouse_tag"  placeholder="Mã thẻ khoBoxme Werehouse Tag" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty" style="width: 100%">
+              <label for="tracking_code" class="mb-2" i18n>Tracking Code</label><br>
+              <input id="tracking_code" name="tracking_code" formControlName="tracking_code"  placeholder="Mã thẻ khoBoxme Werehouse Tag" type="text" class="form-control-sm ng-pristine ng-untouched ng-valid ng-not-empty" style="width: 100%">
             </div>
             <div class="col-md-4 mt-4">
               <label for="" class="mb-2" i18n>Quantity</label>
@@ -98,10 +103,6 @@
             <div class="col-md-4 mt-4">
               <label for="" class="mb-2" i18n>Weight (g)</label>
               <input name="weight" formControlName="weight"  placeholder="weight" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched" style="width: 100%">
-            </div>
-            <div class="col-md-4 mt-4">
-              <label for="" class="mb-2" i18n>Change Weight (g)</label>
-              <input name="change_weight" formControlName="change_weight"  placeholder="Change Weight" type="text" class="form-control-sm  ng-pristine ng-valid ng-not-empty ng-touched" style="width: 100%">
             </div>
             <div class="col-md-4 mt-4">
               <label for="" class="mb-2" i18n>Dimension Length(cm)</label>

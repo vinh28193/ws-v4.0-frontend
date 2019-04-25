@@ -745,14 +745,14 @@
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" rel="tab2" (click)="pack[order.id] = !pack[order.id]">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
-                                </li>
                                 <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
                                 <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
+                                </li>
+                                <li class="tab-slider--trigger" rel="tab2" (click)="pack[order.id] = !pack[order.id]">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
                                 <li class="tab-slider--trigger" rel="tab2"  (click)="delivevery[order.id] = !delivevery[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Delivery info</button>
@@ -763,11 +763,11 @@
                               <div id="tab5" class="tab-slider--body" [hidden]="!delivevery[order.id]" style="border-bottom: 2px solid red">
                                 <app-delivery *ngIf="delivevery[order.id]" [storeId] = "order.store_id" [orderId] ="order.id"></app-delivery>
                               </div>
+                              <div id="tab2" class="tab-slider--body" [hidden]="!pack[order.id]" style="border-bottom: 2px solid red">
+                                <app-package-item (packageI)="packageItem($event)"  [products] = "order.products" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
+                              </div>
                               <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red" [hidden]="!pay[order.id]">
                                 <app-wallet-transactions  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
-                              </div>
-                              <div id="tab2" class="tab-slider--body" [hidden]="!pack[order.id]" style="border-bottom: 2px solid red">
-                                <app-package-item (packageI)="packageItem($event)"  *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
                                 <app-order-detail  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>

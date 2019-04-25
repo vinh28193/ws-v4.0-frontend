@@ -78,7 +78,14 @@
               </li>
               <li>
                 <span class="mr-2" i18n>Category</span>
-                <app-span-label [value]=""></app-span-label>
+                <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
+                <a href="javascript:void(0);" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickUpdateCategory(product.custom_category_id, product.id)"><i class="ml-1 fa fa-edit"></i></a>
+                <form action="" [formGroup] = "editCategory" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
+                  <select class="form-control form-control-sm" name="category_id" id="category_id"
+                          formControlName="category_id" (change)="updateCategoryPolicy()">
+                    <option [value]="policy.id" *ngFor="let policy of getPolicy" i18n>{{policy.name}}</option>
+                  </select>
+                </form>
               </li>
               <li>
                 <span class="mr-2" i18n>QTT Set</span>
