@@ -118,20 +118,36 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  loadShipmentLocation(s: any | null) {
+    this.provinces = [];
+    this.districts = [];
+    if (s) {
+      this.country = s.receiver_country_id;
+      this.province = s.receiver_country_id;
+      this.district = s.receiver_district_id;
+    } else {
+      this.country = Number(this.createFrom.get('receiver_country_id').value);
+      this.province = Number(this.createFrom.get('receiver_province_id').value);
+      this.district = Number(this.createFrom.get('receiver_district_id').value);
+    }
+    this.getDistricts();
+
+  }
+
   buildCreateForm(shipment: any | null) {
 
     const parcels = shipment ? shipment.packageItems.map(packageItem => this.fb.group({
-        id: packageItem.id,
-        product_id: packageItem.product.id,
-        image: packageItem.product.link_img,
-        name: packageItem.product.product_name,
-        dimension_l: packageItem.dimension_l,
-        dimension_w: packageItem.dimension_w,
-        dimension_h: packageItem.dimension_h,
-        weight: packageItem.weight,
-        quantity: packageItem.quantity,
-        cod: packageItem.cod,
-        price: packageItem.price
+      id: packageItem.id,
+      product_id: packageItem.product.id,
+      image: packageItem.product.link_img,
+      name: packageItem.product.product_name,
+      dimension_l: packageItem.dimension_l,
+      dimension_w: packageItem.dimension_w,
+      dimension_h: packageItem.dimension_h,
+      weight: packageItem.weight,
+      quantity: packageItem.quantity,
+      cod: packageItem.cod,
+      price: packageItem.price
     })) : [];
     this.createFrom = this.fb.group({
       id: shipment ? shipment.id : '',
@@ -146,35 +162,56 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       is_hold: shipment ? shipment.is_hold : 0,
       is_insurance: shipment ? shipment.is_insurance : 0,
       parcels: parcels.length > 0 ? this.fb.array(parcels) : this.fb.array([
-          this.fb.group({id: '', product_id: '', image: '', name: '', dimension_l: '', dimension_w: '', dimension_h: '', weight: '', quantity: '', cod: '', price: ''})
+        this.fb.group({
+          id: '',
+          product_id: '',
+          image: '',
+          name: '',
+          dimension_l: '',
+          dimension_w: '',
+          dimension_h: '',
+          weight: '',
+          quantity: '',
+          cod: '',
+          price: ''
+        })
       ])
     });
   }
 
   get parcels(): FormArray {
-      return this.createFrom.get('parcels') as FormArray;
+    return this.createFrom.get('parcels') as FormArray;
   }
 
-  buildCalculateFrom(shipment: any | null) {
-    if (shipment === null && this.shipment !== null) {
-      shipment = this.shipment;
-    }
+  buildCalculateFrom() {
     this.couriers = [];
+    let totalQuantity = 0;
+    let totalWeight = 0;
+    let totalCod = 0;
+    let totalAmount = 0;
+    let i = 0;
+    for (i; i < this.parcels.controls.length; i++) {
+      const parcel = this.parcels.controls[i];
+      totalQuantity += Number(parcel.get('quantity').value);
+      totalWeight += Number(parcel.get('weight').value);
+      totalCod += Number(parcel.get('cod').value);
+      totalAmount += Number(parcel.get('price').value);
+    }
     this.calculateFrom = this.fb.group({
-      warehouseId: shipment ? shipment.warehouse_send_id : '',
-      toAddress: shipment ? shipment.receiver_address : '',
-      toDistrict: shipment ? shipment.receiver_district_id : '',
-      toProvince: shipment ? shipment.receiver_province_id : '',
-      toCountry: shipment ? shipment.receiver_country_id : '',
-      toZipCode: shipment ? shipment.receiver_post_code : '',
-      toName: shipment ? shipment.receiver_name : '',
-      toPhone: shipment ? shipment.receiver_phone : '',
-      totalParcel: shipment ? shipment.packageItems.length : 0,
-      totalWeight: shipment ? shipment.total_weight : 0,
-      totalQuantity: shipment ? shipment.total_quantity : 0,
-      totalCod: shipment ? shipment.total_cod : 0,
-      totalAmount: shipment ? shipment.total_price : 0,
-      isInsurance: shipment ? (shipment.is_insurance === 1 ? 'Y' : 'N') : 'N',
+      warehouseId: this.createFrom.get('warehouse_send_id').value,
+      toAddress: this.createFrom.get('receiver_address').value,
+      toDistrict: Number(this.createFrom.get('receiver_district_id').value),
+      toProvince:  Number(this.createFrom.get('receiver_province_id').value),
+      toCountry:  Number(this.createFrom.get('receiver_country_id').value),
+      toZipCode: this.createFrom.get('receiver_post_code').value,
+      toName: this.createFrom.get('receiver_name').value,
+      toPhone: this.createFrom.get('receiver_phone').value,
+      totalParcel: i,
+      totalWeight: String(totalWeight),
+      totalQuantity: totalQuantity,
+      totalCod: totalCod,
+      totalAmount: String(totalAmount),
+      isInsurance: this.createFrom.get('is_insurance').value,
       sortMode: 'best_price'
     });
   }
@@ -199,8 +236,8 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   activeCreateShipment(s) {
     this.shipment = s;
     this.buildCreateForm(s);
-    console.log(this.createFrom.getRawValue());
-    this.buildCalculateFrom(s);
+    this.loadShipmentLocation(s);
+    this.buildCalculateFrom();
     this.suggestCourier();
     this.shipmentCreateModal.show();
   }
@@ -211,20 +248,43 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   getSafeImage(parcel: any | FormGroup) {
     if (typeof parcel === 'object') {
       let src = parcel.get('image').value;
-      console.log(parcel.getRawValue());
       return this.sanitizer.bypassSecurityTrustResourceUrl(src);
     }
   }
 
   suggestCourier() {
+    this.buildCalculateFrom();
     const params = this.calculateFrom.getRawValue();
     this.shipmentService.post('courier/suggest', params).subscribe(res => {
       this.couriers = res;
     });
   }
 
+  changeValueForm(control, group: any | null, idx = 0, refreshCourier = false) {
+
+    if (control === 'receiver_country_id' || control === 'receiver_province_id') {
+      if (control === 'receiver_country_id') {
+        this.createFrom.patchValue({
+          'receiver_district_id': '',
+          'receiver_province_id': '',
+        });
+      } else if (control === 'receiver_province_id') {
+        this.createFrom.patchValue({
+          'receiver_district_id': '',
+        });
+      }
+      this.loadShipmentLocation(null);
+      // this.shipment[control] = this.createFrom.get(control).value;
+    } else if (group !== null) {
+      // this.shipment.packageItems[idx][control] = group.get(control).value;
+    }
+    if (refreshCourier) {
+      this.suggestCourier();
+    }
+  }
+
   isValidCourier() {
-    return typeof this.couriers === 'object' && this.couriers.error == false && this.couriers.data.length > 0;
+    return typeof this.couriers === 'object' && this.couriers.error === false && this.couriers.data.length > 0;
   }
 
   cancelShipment() {
