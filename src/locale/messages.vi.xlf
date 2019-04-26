@@ -1834,7 +1834,7 @@ Enter to send</source>
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context><context context-type="linenumber">54</context></context-group></trans-unit>
                 <trans-unit id="30d8cadd328f953f3c2862d1973013dc42e8d076" datatype="html">
-        <source>Create Shipment</source><target state="translated">Tạo lô hàng</target>
+        <source>Create Shipment</source><target state="translated">Tạo Phiếu giao</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context><context context-type="linenumber">265</context></context-group></trans-unit>
 
