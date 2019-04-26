@@ -63,8 +63,8 @@
             <div class="row item-action m-b-10">
               <div class="col-md-8">
                 <div class="button-group m-l-5">
-                  <button *ngIf="countSelectedList() >1 && isValidSelectedList('NEW')"  class="btn btn-sm btn-danger">Merge ({{countSelectedList()}}) items</button>
-                  <button *ngIf="countSelectedList() >0 && isValidSelectedList('CREATED')" class="btn btn-warning btn-sm style-button">Cancel ({{countSelectedList()}}) items</button>
+                  <button *ngIf="countSelectedList() >1 && isValidSelectedList('NEW')"  class="btn btn-sm btn-danger" (click)="merge()">Merge ({{countSelectedList()}}) items</button>
+                  <button *ngIf="countSelectedList() >0 && isValidSelectedList('CREATED')" class="btn btn-warning btn-sm style-button" (click)="cancelShipment(null)">Cancel ({{countSelectedList()}}) items</button>
                   <a class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o" i18n></i>Export Excel</a>
                 </div>
               </div>
@@ -81,7 +81,7 @@
                     <option value="BM_DBS > time">Gojek to Fastest</option>
                     <option value="BM_DBS > price">Gojek to Cheapest price</option>
                   </datalist>
-                  <a class="btn btn-success btn-sm text-white input-group-addon">SENT
+                  <a class="btn btn-success btn-sm text-white input-group-addon" (click)="createShipmentBulk()">SENT
                     SHIPMENTS</a>
                 </div>
               </div>

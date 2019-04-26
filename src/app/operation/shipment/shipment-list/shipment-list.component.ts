@@ -334,9 +334,21 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     for (let i = 0; i < this.selectedList.length; i++) {
       listIds.push(this.selectedList[i].id);
     }
-    this.shipmentService.post('s/m', {ids: listIds}).subscribe(res => {
-      console.log(res);
-    });
+    if (listIds.length === 0) {
+      this.popup.error('Can not merge from null');
+    } else {
+      this.popup.warning(() => {
+        this.shipmentService.post('s/m', {ids: listIds}).subscribe(res => {
+          const rs: any = response;
+          if (rs.success) {
+            this.popup.success(rs.message);
+          } else {
+            this.popup.error(rs.message);
+          }
+        });
+      }, 'Are you sure to merge ' + listIds.length + 'shipment ?');
+    }
+
   }
 
   defaultWarehouse() {
@@ -355,7 +367,6 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     this.search();
   }
 
-
   activeCreateShipment(s) {
     this.shipment = s;
     this.buildCreateForm(s);
@@ -368,15 +379,50 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   createShipment() {
     this.shipmentService.post('courier/create', this.createFrom.getRawValue()).subscribe(response => {
       const rs: any = response;
-      const type = rs.success ? 'success' : 'error';
-      this.popup.popup(type, rs.message, type);
+      if (rs.success) {
+        this.popup.success(rs.message);
+        this.shipmentCreateModal.hide();
+      } else {
+        this.popup.error(rs.message);
+      }
     });
+  }
+
+  createShipmentBulk() {
+    if (this.selectedList.length === 0) {
+      this.popup.error('can not create shipment from null');
+    } else {
+      const ids = [];
+      for (let i = 0; i < this.selectedList.length; i++) {
+        ids.push(this.selectedList[i].id);
+      }
+      let rules = this.rules;
+      if (typeof rules === 'undefined' || rules === null || rules === '') {
+        rules = 'price';
+      }
+      this.popup.warning(() => {
+        this.shipmentService.post('courier/bulk', {ids: ids, rules: rules}).subscribe(res => {
+          const rs: any = response;
+          if (rs.success) {
+            this.popup.success(rs.message);
+          } else {
+            this.popup.error(rs.message);
+          }
+        });
+      }, 'Are you sure to create ' + ids.length + ' item with rules ' + rules);
+    }
   }
 
   updateShipment() {
     const formValue = this.createFrom.getRawValue();
     this.shipmentService.post('s/' + formValue.id, formValue).subscribe(response => {
-      console.log(response);
+      const rs: any = response;
+      if (rs.success) {
+        this.popup.success(rs.message);
+        this.shipmentCreateModal.hide();
+      } else {
+        this.popup.error(rs.message);
+      }
     });
   }
 
@@ -439,11 +485,38 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   removePackageItem(id) {
     this.shipmentService.get('s/r/' + id).subscribe(res => {
-      console.log(res);
+      const rs: any = response;
+      if (rs.success) {
+        this.popup.success(rs.message);
+      } else {
+        this.popup.error(rs.message);
+      }
     });
   }
 
   cancelShipment(id: any | null) {
+    const ids = [];
+    if (id !== null) {
+      ids.push(id);
+    } else if (this.selectedList.length > 0) {
+      for (let i = 0; i < this.selectedList.length; i++) {
+        ids.push(this.selectedList[i].id);
+      }
+    }
+    if (ids.length === 0) {
+      this.popup.error('can not cancel shipment form null');
+    } else {
+      this.popup.warning(() => {
+        this.shipmentService.post('courier/cancel', {ids: ids}).subscribe(res => {
+          const rs: any = response;
+          if (rs.success) {
+            this.popup.success(rs.message);
+          } else {
+            this.popup.error(rs.message);
+          }
+        });
+      }, 'Are you sure to cancel ' + ids.join(','));
+    }
 
   }
 }
