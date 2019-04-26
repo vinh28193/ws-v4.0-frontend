@@ -159,18 +159,20 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     const params = this.buildform();
     this.orderService.put(`product/${this.id}`, params).subscribe(res => {
       if (res.success) {
+        this.checkOpen = false;
         this.editFee.emit(true);
         $('.modal').modal('hide');
       }
     });
   }
   clickOpen(pro, code) {
+    this.checkOpen = true;
     this.code = code;
     this.id = pro.id
-    this.checkOpen = true;
     this.updateForm = this.fb.group({
       policy_id: pro.custom_category_id,
     });
+    this.loadPolicy(this.storeID);
   }
   buildform() {
     const value = this.updateForm.value;
@@ -184,16 +186,19 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
   offModal() {
     this.checkOpen = false;
+    $('.modal').modal('hide');
   }
 
   policyName(id) {
-      const policyN = this.policy.filter(selected => selected.id !== id);
-      if (policyN.length > 0) {
-        return policyN[0]['name'];
-      } else {
-        return policyN === undefined;
+      const ud = undefined;
+      if (id === null || id === '' || typeof id === undefined) {
+        return ud;
+      }
+      const policyName = this.policy.filter(c => Number(c.id) === Number(id));
+      if (policyName.length > 0) {
+        return policyName[0].name;
       }
 
-  }
-
+      return ud;
+    }
 }
