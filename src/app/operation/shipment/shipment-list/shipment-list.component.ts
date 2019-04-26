@@ -37,6 +37,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   public searchForm: FormGroup;
   public createFrom: FormGroup;
   public calculateFrom: FormGroup;
+  public tabPackage: any = [];
 
   public dateTime: Date;
   public bsRangeValue: Date[];

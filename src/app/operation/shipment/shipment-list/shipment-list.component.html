@@ -178,23 +178,46 @@
                             <div class="table-responsive">
                               <table class="table table-bordered table-custom">
                                 <thead>
-                                <th>CBTAG</th>
-                                <th style="width: 25%">Product/Order</th>
+                                <th>Package Code</th>
+                                <th style="width: 25%">Manifest Code</th>
                                 <th style="width: 8%">Action</th>
                                 </thead>
                                 <tbody style="max-height: 110px">
-                                <ng-container>
-                                  <tr *ngFor="let packageItem of shipment.packageItems">
+                                <ng-container  *ngFor="let package of shipment.packages">
+                                  <tr>
                                     <td>
-                                      {{packageItem.box_me_warehouse_tag}}
+                                      <b style="cursor: pointer" (click)="tabPackage[package.package_code] = !tabPackage[package.package_code]" >
+                                        {{package.package_code}}
+                                      </b>
                                     </td>
                                     <td>
-                                      {{packageItem.product_id}}/{{packageItem.order_id}}
+                                      {{package.manifest_code}}
                                     </td>
                                     <td>
                                       <div class="btn-group" *ngIf="shipment.packageItems.length > 1 && isCanCreate(shipment.shipment_status)">
                                         <button class="btn btn-sm btn-danger" (click)="removePackageItem(packageItem.id)"><i class="fa fa-remove"></i></button>
                                       </div>
+                                    </td>
+                                  </tr>
+                                  <tr *ngIf="tabPackage[package.package_code]">
+                                    <td colspan="3">
+                                      <table class="table table-secondary" style="margin-left: 20px">
+                                        <thead>
+                                          <th>#</th>
+                                          <th>CB Tag</th>
+                                          <th>SKU/Order</th>
+                                        </thead>
+                                        <tbody>
+                                         <ng-container *ngFor="let packageItem of shipment.packageItems; let ind = index;">
+                                           <tr *ngIf="packageItem.package_id == package.id" >
+                                             <td>{{ind + 1}}</td>
+                                             <td>{{packageItem.warehouse_tag_boxme}}</td>
+                                             <td>{{packageItem.product.portal == 'ebay' ? packageItem.product.parent_sku : packageItem.product.sku}}
+                                               /{{packageItem.order.ordercode}}</td>
+                                           </tr>
+                                         </ng-container>
+                                        </tbody>
+                                      </table>
                                     </td>
                                   </tr>
                                 </ng-container>
