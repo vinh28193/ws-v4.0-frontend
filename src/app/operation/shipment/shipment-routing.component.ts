@@ -9,7 +9,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ShipmentRoutingComponent extends OperationRoutingComponent implements OnInit {
 
     constructor(public activatedRoute: ActivatedRoute) {
-        super(activatedRoute);
+        super(activatedRoute , );
     }
 
     ngOnInit() {

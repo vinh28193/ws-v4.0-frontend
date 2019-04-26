@@ -8,7 +8,9 @@ import {OperationRoutingComponent} from '../operation-routing.component';
 })
 export class OrderRoutingComponent extends OperationRoutingComponent implements OnInit {
 
-    constructor(public activatedRoute: ActivatedRoute) {
+    constructor(
+        public activatedRoute: ActivatedRoute
+    ) {
         super(activatedRoute);
     }
 
