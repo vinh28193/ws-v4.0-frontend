@@ -8,50 +8,59 @@
         <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4 form-group m-b-10">
+                    <div class="col-md-6 form-group m-b-10">
                     <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
-                    <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-                      <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
-                              id="keyCategory" formControlName="keyCategory">
-                        <option value="ALL" i18n>ALL</option>
-                      </select>
-                      <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord"
-                             type="text" (keyup.enter)="search()">
+                      <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
+                        <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyCategory"
+                                id="keyCategory" formControlName="keyCategory">
+                                <option value="shipmentCode" i18n>Shipment Code</option>
+                                <option value="packageCode" i18n>Package Code</option>
+  <!--                              <option value="warehouseTag" i18n>Warehouse Tag</option>-->
+  <!--                              <option value="trackingCode" i18n>Tracking Code</option>-->
+  <!--                              <option value="orderCode" i18n>Order Code</option>-->
+                        </select>
+                        <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord" type="text">
+                      </div>
                     </div>
-                  </div>
                     <div class="col-md-3 form-group m-b-10">
-                    <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
-                    <select class="form-control form-control-sm" name="currentStatus" id="currentStatus"
-                            formControlName="currentStatus">
-                      <option value="ALL" i18n>--All Status--</option>
-                      <option value="STATUS_NEW" i18n>New</option>
-                      <option value="STATUS_WAITING" i18n>Waiting</option>
-                      <option value="STATUS_CREATED" i18n>Created</option>
-                    </select>
-                  </div>
-                    <div class="col-md-5 form-group m-b-10">
-                    <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
-                    <div class="row input-group input-group-sm" id="dateTimePicker">
-                      <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"
-                              id="timeKey" formControlName="timeKey">
-                        <option value="create_at" i18n>Create Time</option>
-                        <option value="SELLER_SHIPPED" i18n>Seller ship Time</option>
-                      </select>
-                      <input #drp="bsDaterangepicker" bsDaterangepicker
-                             class="col-sm-7 form-control form-control-sm ">
-                      <span class="input-group-btn">
-                  <button (click)="drp.toggle()"
-                          [attr.aria-expanded]="drp.isOpen"
-                          class="btn btn-sm btn-info" type="button"><i
-                    class="fa fa-calendar"></i></button>
-              </span>
+                        <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
+                        <select class="form-control form-control-sm" name="currentStatus" id="currentStatus" formControlName="currentStatus">
+                            <option value="ALL" i18n>--All Status--</option>
+                            <option value="NEW" i18n>New</option>
+                            <option value="WAITING" i18n>Waiting</option>
+                            <option value="CREATED" i18n>Created</option>
+                        </select>
                     </div>
-                  </div>
+                    <div class="col-md-3 form-group m-b-10">
+                      <label for="currentStatus" class="form-control-label" i18n>Warehouse</label>
+                      <select class="form-control form-control-sm" name="warehouse" id="warehouse" formControlName="warehouse">
+                        <option value="ALL" i18n>--All Warehouse--</option>
+                        <option *ngFor="let wh of warehouses" [value]="wh.id">{{wh.name}}</option>
+                      </select>
+                    </div>
+<!--                    <div class="col-md-5 form-group m-b-10">-->
+<!--                    <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>-->
+<!--                    <div class="row input-group input-group-sm" id="dateTimePicker">-->
+<!--                      <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus"-->
+<!--                              id="timeKey" formControlName="timeKey">-->
+<!--                        <option value="create_at" i18n>Create Time</option>-->
+<!--                        <option value="SELLER_SHIPPED" i18n>Seller ship Time</option>-->
+<!--                      </select>-->
+<!--                      <input #drp="bsDaterangepicker" bsDaterangepicker-->
+<!--                             class="col-sm-7 form-control form-control-sm ">-->
+<!--                      <span class="input-group-btn">-->
+<!--                          <button (click)="drp.toggle()"-->
+<!--                                  [attr.aria-expanded]="drp.isOpen"-->
+<!--                                  class="btn btn-sm btn-info" type="button"><i-->
+<!--                            class="fa fa-calendar"></i></button>-->
+<!--                      </span>-->
+<!--                    </div>-->
+<!--                  </div>-->
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
                       <div class="button-group">
-                          <button class="btn btn-sm btn-secondary" (click)="buildSearchForm()">Clear</button>
+                          <button class="btn btn-sm btn-secondary" (click)="clearSearch()">Clear</button>
                           <button class="btn btn-sm btn-success" (click)="search()">Search</button>
                       </div>
                     </div>
@@ -178,23 +187,46 @@
                             <div class="table-responsive">
                               <table class="table table-bordered table-custom">
                                 <thead>
-                                <th>CBTAG</th>
-                                <th style="width: 25%">Product/Order</th>
+                                <th>Package Code</th>
+                                <th style="width: 25%">Manifest Code</th>
                                 <th style="width: 8%">Action</th>
                                 </thead>
                                 <tbody style="max-height: 110px">
-                                <ng-container>
-                                  <tr *ngFor="let packageItem of shipment.packageItems">
+                                <ng-container  *ngFor="let package of shipment.packages">
+                                  <tr>
                                     <td>
-                                      {{packageItem.box_me_warehouse_tag}}
+                                      <b style="cursor: pointer" (click)="tabPackage[package.package_code] = !tabPackage[package.package_code]" >
+                                        {{package.package_code}}
+                                      </b>
                                     </td>
                                     <td>
-                                      {{packageItem.product_id}}/{{packageItem.order_id}}
+                                      {{package.manifest_code}}
                                     </td>
                                     <td>
                                       <div class="btn-group" *ngIf="shipment.packageItems.length > 1 && isCanCreate(shipment.shipment_status)">
                                         <button class="btn btn-sm btn-danger" (click)="removePackageItem(packageItem.id)"><i class="fa fa-remove"></i></button>
                                       </div>
+                                    </td>
+                                  </tr>
+                                  <tr *ngIf="tabPackage[package.package_code]">
+                                    <td colspan="3">
+                                      <table class="table table-secondary" style="margin-left: 20px">
+                                        <thead>
+                                          <th>#</th>
+                                          <th>CB Tag</th>
+                                          <th>SKU/Order</th>
+                                        </thead>
+                                        <tbody>
+                                         <ng-container *ngFor="let packageItem of shipment.packageItems; let ind = index;">
+                                           <tr *ngIf="packageItem.package_id == package.id" >
+                                             <td>{{ind + 1}}</td>
+                                             <td>{{packageItem.warehouse_tag_boxme}}</td>
+                                             <td>{{packageItem.product.portal == 'ebay' ? packageItem.product.parent_sku : packageItem.product.sku}}
+                                               /{{packageItem.order.ordercode}}</td>
+                                           </tr>
+                                         </ng-container>
+                                        </tbody>
+                                      </table>
                                     </td>
                                   </tr>
                                 </ng-container>
@@ -206,7 +238,7 @@
                         <div class="row mt-2">
                           <div class="col-md-12 text-right">
                             <div class="button-group">
-                              <button *ngIf="shipment.shipment_status === 'CREATED'" class="btn btn-sm btn-warning" (click)="cancelShipment(shipment.id)">Create and Update Shipment</button>
+                              <button *ngIf="shipment.shipment_status === 'CREATED'" class="btn btn-sm btn-danger" (click)="cancelShipment(shipment.id)">Cancel {{shipment.shipment_code}}</button>
                               <button *ngIf="isCanCreate(shipment.shipment_status)" class="btn btn-sm btn-warning" (click)="activeCreateShipment(shipment)">Create and Update Shipment</button>
                             </div>
                           </div>
