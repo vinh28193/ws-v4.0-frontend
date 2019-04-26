@@ -2,11 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
-import {BsDaterangepickerConfig, ModalOptions} from 'ngx-bootstrap';
-import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
-import {EventEmitter} from '@angular/core';
-import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum';
+import {PopupService} from '../../../core/service/popup.service';
+import {orderStatus, paymentRequests, searchKeys, timeKeys} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
@@ -181,6 +179,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.load();
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        this.loadAllPolicy();
     }
 
     buildChat() {
@@ -1091,10 +1090,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   createTemplateChat() {
       const params = this.buildChatCreate();
       this.orderService.post('list-chat-mongo', params).subscribe(res => {
-      if (res.success) {
-        this.popup.success('success');
-      }
+      // if (res.success) {
+      //   this.popup.success('success');
+      // }
     });
+  }
+  loadPro(storeId) {
+    this.loadPolicy(storeId);
   }
 }
 

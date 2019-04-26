@@ -7,6 +7,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
 
 
     public getPolicy: any = [];
+    public getAllPolicy: any = [];
     public sales: any = [];
 
     constructor(public http: OrderService) {
@@ -37,13 +38,20 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
         }
         return this.sales;
     }
-    loadPolicy(id: number) {
+    loadPolicy(id: number | undefined) {
       if (id) {
         this.http.get(`policy/${id}`).subscribe(res => {
           this.getPolicy = res.data;
         });
         return this.getPolicy;
       }
+    }
+
+    loadAllPolicy() {
+      this.http.get(`policy`).subscribe(res => {
+        this.getAllPolicy = res.data;
+      });
+      return this.getAllPolicy;
     }
 
 }

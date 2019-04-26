@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
 import {OperationDataComponent} from '../../operation-data.component';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+declare var $: any;
 
 @Component({
     selector: 'app-order-detail',
@@ -18,17 +19,20 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     public openEditCategory = {};
     updateProductId: any;
     productQ: any;
+    public code: any;
+    public checkOpen = false;
     id: any;
     idEdit = 0;
     fee = 0;
     oldfee = 0;
     public hidem: any = {};
     @Input() products: any;
+    @Input() policy: any;
     @Input() Employee_Purchase: any;
     @Input() storeID: any;
     @Input() order_path: any;
     public editFormVariant: FormGroup;
-    public editCategory: FormGroup;
+    public updateForm: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
@@ -151,44 +155,50 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           }
       });
     }
-  handleCheck(event) {
-      if (event) {
+  updateCategory() {
+    const params = this.buildform();
+    this.orderService.put(`product/${this.id}`, params).subscribe(res => {
+      if (res.success) {
+        this.checkOpen = false;
         this.editFee.emit(true);
+        $('.modal').modal('hide');
       }
+    });
   }
-  // clickUpdateCategory(category, id) {
-  //   this.id = id;
-  //   this.editCategory = this.fb.group({
-  //     category_id: category,
-  //     order_path: this.order_path,
-  //     title: 'category'
-  //   });
-  //   this.loadPolicy(this.storeID);
-  //   // console.log(this.loadPolicy(this.storeID));
-  // }
-  //
-  // updateCategoryPolicy() {
-  //     this.orderService.put(`product/${this.id}`, this.editCategory.value).subscribe(res => {
-  //       if (res.success) {
-  //         this.editFee.emit(true);
-  //       }
-  //     });
-  // }
-  //
-  // policyName(id) {
-  //   const ud = 'undefined';
-  //   if (id === null || id === '' || typeof id === 'undefined') {
-  //     return ud;
-  //   }
-  //   const category = this.getPolicy.filter(c => c.id === toNumber(id));
-  //   // console.log(this.getPolicy);
-  //   // console.log('da den');
-  //   if (category.length === 0) {
-  //     return ud;
-  //   }
-  //   // console.log(category);
-  //   return category[0].value;
-  //
-  // }
+  clickOpen(pro, code) {
+    this.checkOpen = true;
+    this.code = code;
+    this.id = pro.id
+    this.updateForm = this.fb.group({
+      policy_id: pro.custom_category_id,
+    });
+    this.loadPolicy(this.storeID);
+  }
+  buildform() {
+    const value = this.updateForm.value;
+    const params: any = {};
+    if (value.policy_id !== '') {
+      params.policy_id = value.policy_id;
+    }
+    params.order_path = this.code;
+    params.title = 'category policy';
+    return params;
+  }
+  offModal() {
+    this.checkOpen = false;
+    $('.modal').modal('hide');
+  }
 
+  policyName(id) {
+      const ud = undefined;
+      if (id === null || id === '' || typeof id === undefined) {
+        return ud;
+      }
+      const policyName = this.policy.filter(c => Number(c.id) === Number(id));
+      if (policyName.length > 0) {
+        return policyName[0].name;
+      }
+
+      return ud;
+    }
 }
