@@ -79,6 +79,9 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     if (value.currentStatus !== 'ALL') {
       params.s = value.currentStatus;
     }
+    if (value.warehouse !== 'ALL') {
+      params.wh = value.warehouse;
+    }
     if (value.timeRange.length > 0 && (value.timeRange[0] !== '' || value.timeRange[1] !== '')) {
 
     }
@@ -110,13 +113,18 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  clearSearch(){
+    this.buildSearchForm();
+    this.search();
+  }
   buildSearchForm() {
     this.searchForm = this.fb.group({
-      keyCategory: 'ALL',
+      keyCategory: 'shipmentCode',
       keyWord: '',
       timeKey: 'create_at',
       timeRange: this.bsRangeValue,
       currentStatus: 'ALL',
+      warehouse: 'ALL',
       page: this.currentPage,
       perPage: this.perPage,
     });
@@ -339,7 +347,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     } else {
       this.popup.warning(() => {
         this.shipmentService.post('s/m', {ids: listIds}).subscribe(res => {
-          const rs: any = response;
+          const rs: any = res;
           if (rs.success) {
             this.popup.success(rs.message);
           } else {
@@ -415,7 +423,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   updateShipment() {
     const formValue = this.createFrom.getRawValue();
-    this.shipmentService.post('s/' + formValue.id, formValue).subscribe(response => {
+    this.shipmentService.put('s/' + formValue.id, formValue).subscribe(response => {
       const rs: any = response;
       if (rs.success) {
         this.popup.success(rs.message);
