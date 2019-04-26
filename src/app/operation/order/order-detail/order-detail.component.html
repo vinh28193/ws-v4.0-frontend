@@ -70,7 +70,35 @@
             </ul>
           </div>
           <div class="col-md-6 pl-1">
-            <app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>
+            <ul>
+              <li>
+                <span class="mr-2" i18n>Local Name:</span>
+                <app-span-label [value]=""></app-span-label>
+                <a href="javascript:void(0)" data-target="#showEditLocalName" data-toggle="modal" data-backdrop="static" (click)="clickOpen(product, order_path)" data-keyboard="false" >
+                  <i class="fa fa-edit text-info"></i>
+                </a>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Category:</span>
+                <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>QTT Set:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Fragile:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Packing Wood</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
+                <i class="fa fa-comments"  > {{product.note_by_customer}}</i>
+              </li>
+            </ul>
+            <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
           </div>
         </div>
       </div>
@@ -185,5 +213,88 @@
       <p></p>
 
     </div>
+  </div>
+</div>
+<div bsModal id="showEditLocalName" class="modal fade" tabindex="-1" role="dialog"
+     data-target="#myModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Update </h4>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="updateForm" *ngIf="checkOpen">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Local Name:</label>
+                </div>
+                <div class="col-md-12">
+                  <input  type="text" class="form-control form-control-sm">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Category:</label>
+                </div>
+                <div class="col-md-12">
+                  <select class="form-control form-control-sm" formControlName="policy_id">
+                    <option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>QTT set:</label>
+                </div>
+                <div class="col-md-12">
+                  <input  type="text" class="form-control form-control-sm"  name="qttSet">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Fragile:</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <div class="col-md-4 radio">
+                    <label><input type="radio" name="optradio"> Yes</label>
+                  </div>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> No</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Packing Wood:</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> Yes</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> No</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <hr>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-right">
+                  <div class="button-group text-right">
+                    <button class="btn btn-sm btn-success pull-right" (click)="updateCategory()">Update</button>
+                    <button class="btn btn-sm btn-secondary pull-right" (click)="offModal()" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
   </div>
 </div>

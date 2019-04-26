@@ -1095,5 +1095,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
           }
     });
   }
+  loadPro(storeId) {
+    this.loadPolicy(storeId);
+  }
 }
 
