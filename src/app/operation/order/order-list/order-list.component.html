@@ -1271,7 +1271,7 @@ Enter to send" i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkUpdateOderCode">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -1568,21 +1568,21 @@ Enter to send" i18n-placeholder></textarea>
                 <form action="" [formGroup]="formAsignUser">
                   <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"  name="statusOrder" id="statusOrder"
                           formControlName="statusOrder">
-                    <option value="new" i18n>NEW</option>
-                    <option value="supporting" i18n>SUPPORTING</option>
-                    <option value="supported" i18n>SUPPORTED</option>
-                    <option value="ready_purchase" i18n>READY 2 PURCHASE</option>
-                    <option value="purchase_start" i18n>PURCHASE START</option>
-                    <option value="purchased" i18n>PURCHASED</option>
-                    <option value="seller_shipped" i18n>SELLER SHIPPED</option>
-                    <option value="stockin_us" i18n>STOCK IN US</option>
-                    <option value="stockout_us" i18n>STOCK OUT US</option>
-                    <option value="stockin_local" i18n>STOCK IN LOCAL</option>
-                    <option value="stockout_local" i18n>STICK OUT LOCAL</option>
-                    <option value="at_customer" i18n>AT CUSTOMER</option>
-                    <option value="returned" i18n>RETURNED</option>
-                    <option value="cancel" i18n>CANCEL</option>
-                    <option value="lost" i18n>LOST</option>
+                    <option value="new" >NEW</option>
+                    <option value="supporting" >SUPPORTING</option>
+                    <option value="supported" >SUPPORTED</option>
+                    <option value="ready_purchase" >READY 2 PURCHASE</option>
+                    <option value="purchase_start" >PURCHASE START</option>
+                    <option value="purchased" >PURCHASED</option>
+                    <option value="seller_shipped" >SELLER SHIPPED</option>
+                    <option value="stockin_us" >STOCK IN US</option>
+                    <option value="stockout_us" >STOCK OUT US</option>
+                    <option value="stockin_local" >STOCK IN LOCAL</option>
+                    <option value="stockout_local" >STICK OUT LOCAL</option>
+                    <option value="at_customer" >AT CUSTOMER</option>
+                    <option value="returned" >RETURNED</option>
+                    <option value="cancel" >CANCEL</option>
+                    <option value="lost" >LOST</option>
                   </select>
                 </form>
               </div>
