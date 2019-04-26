@@ -5,6 +5,7 @@ import {TrackingService} from '../tracking.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TrackingDataComponent} from '../tracking-data.component';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-us-sending',
@@ -68,9 +69,10 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         public trackingService: TrackingService,
         public popUp: PopupService,
         public fb: FormBuilder,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        public _scope: ScopeService
     ) {
-        super(trackingService);
+        super(trackingService, _scope);
     }
 
     ngOnInit() {

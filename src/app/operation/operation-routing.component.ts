@@ -17,10 +17,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     role: any;
     user: any;
 
-    constructor(
-        public activatedRoute: ActivatedRoute,
-        public _scope: ScopeService
-
+    constructor(public activatedRoute: ActivatedRoute
     ) {
         super(activatedRoute);
     }
