@@ -59,6 +59,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkLoad = false;
     public checkLoadG = false;
     public AdjustPaymentOderId = false;
+    public checkCreateOrderChatRefund = false;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -656,6 +657,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
+        this.checkCreateOrderChatRefund = false;
         $('.modal').modal('hide');
     }
 
@@ -792,6 +794,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
+  openCreateOrderChatRefund(order) {
+    this.code = order.ordercode;
+    this.checkCreateOrderChatRefund = true;
+    this.createTemplate = this.fb.group({
+      noteC: '',
+      contentC: '',
+      statusC: '',
+    });
+  }
+
     openOrderChatRefund(order) {
         this.code = order.ordercode;
         this.markID = order.id;
@@ -799,16 +811,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadListTemChat();
         this.checkOrderChatRefund = true;
         this.editForm = this.fb.group({
-            wait1: '',
+            note_chat: '',
             link_image: '',
         });
         this.messageCustomer = this.fb.group({
           messageCustomer: '',
-        });
-        this.createTemplate = this.fb.group({
-            noteC: '',
-            contentC: '',
-            statusC: '',
         });
     }
     enterChat() {
@@ -821,11 +828,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
         const messagePop = 'Do you want mark supported';
-        if (params.message !== '') {
+        if (params.message) {
             this.orderService.postChat(params).subscribe(res => {
             });
         }
-        if (params.link_image !== '') {
+        if (params.link_image) {
+          console.log(params.link_image);
           this.orderService.post('link-image', params).subscribe(res => {
           });
         }
@@ -847,15 +855,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     prepareMarkWaiting() {
         const value = this.editForm.value;
+        const valueChat = this.messageCustomer.value;
         const params: any = {};
-        if (value.messageCustomer !== '') {
-            params.message = value.messageCustomer;
+        if (valueChat.messageCustomer !== '') {
+            params.message = valueChat.messageCustomer;
         }
         if (value.link_image) {
             params.link_image = value.link_image;
         }
-        if (value.wait1 !== '') {
-            params.mark = value.wait1;
+        if (value.note_chat !== '') {
+            params.mark = value.note_chat;
         }
         if (this.status === 'NEW') {
             params.isNew = 'yes';
@@ -1080,10 +1089,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       });
   }
   createTemplateChat() {
-      const params = this.buildChatCreate()
-    this.orderService.post('list-chat-mongo', params).subscribe(res => {
-      // if (res.success) {
-      // }
+      const params = this.buildChatCreate();
+      this.orderService.post('list-chat-mongo', params).subscribe(res => {
+      if (res.success) {
+        this.popup.success('success');
+      }
     });
   }
 }
