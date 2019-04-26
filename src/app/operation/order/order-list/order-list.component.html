@@ -761,7 +761,7 @@
                               </ul>
                             </div>
                             <div class="col-md-12 pl-0 mt-2 tab-slider--container">
-                              <div id="tab5" class="tab-slider--body" [hidden]="!delivevery[order.id]" style="border-bottom: 2px solid red">
+                              <div id="tab5" class="tab-slider--body" [hidden]="!delivevery[order.id]" *ngIf="checkPro" style="border-bottom: 2px solid red">
                                 <app-delivery *ngIf="delivevery[order.id]" [storeId] = "order.store_id" [orderId] ="order.id"></app-delivery>
                               </div>
                               <div id="tab2" class="tab-slider--body" [hidden]="!pack[order.id]" style="border-bottom: 2px solid red">
@@ -771,7 +771,7 @@
                                 <app-wallet-transactions  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail [policy] = "getPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
                                 <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
