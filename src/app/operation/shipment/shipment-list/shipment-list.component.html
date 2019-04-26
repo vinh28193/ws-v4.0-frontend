@@ -164,7 +164,7 @@
                           </div>
                           <div class="col-md-9 p-l-0">
                             <p class="mb-1">Courier Code:{{shipment.courier_code}} (1-2 days)</p>
-                            <p class="mb-1">Shipping Fee:{{shipment.courier_code}}</p>
+                            <p class="mb-1">Shipping Fee:{{shipment.total_shipping_fee}}</p>
                           </div>
                         </div>
                       </td>
@@ -188,6 +188,7 @@
                               <table class="table table-bordered table-custom">
                                 <thead>
                                 <th>Package Code</th>
+                                <th style="width: 25%">Tracking Code</th>
                                 <th style="width: 25%">Manifest Code</th>
                                 <th style="width: 8%">Action</th>
                                 </thead>
@@ -198,6 +199,9 @@
                                       <b style="cursor: pointer" (click)="tabPackage[package.package_code] = !tabPackage[package.package_code]" >
                                         {{package.package_code}}
                                       </b>
+                                    </td>
+                                    <td>
+                                      {{package.tracking_seller}}
                                     </td>
                                     <td>
                                       {{package.manifest_code}}
