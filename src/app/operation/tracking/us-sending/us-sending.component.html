@@ -156,7 +156,7 @@
                         <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
                         <select class="form-control form-control-sm" name="warehouse" id="warehouse"
                                 formControlName="warehouse">
-                          <option *ngFor="let wh of warehouses" [value]="wh.key">{{wh.value}}</option>
+                          <option *ngFor="let wh of listWarehouses" [value]="wh.key">{{wh.value}}</option>
                         </select>
                       </div>
                     </div>
