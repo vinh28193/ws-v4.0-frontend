@@ -66,7 +66,7 @@
                                         <ul class="list-group custom-list">
                                             <ng-container *ngFor="let manifest of manifests;let ind = index">
                                                 <li class="list-group-item custom-list-item {{manifest.id == manifest_id ? 'active' : !manifest_id && ind == 0 ? 'active' : '' }}"
-                                                    (click)="manifest_id = manifest.id; search('tracking');">
+                                                    (click)="search('tracking', manifest.id);">
                                                     <h4>{{manifest.manifest_code}}</h4>
                                                     <div>Id: <b>{{manifest.id}}</b></div>
                                                     <div>Receive Warehouse:
@@ -75,6 +75,11 @@
                                                     <div>Send Warehouse:
                                                         <b>{{manifest.sendWarehouse ? manifest.sendWarehouse.name : ''}}</b>
                                                     </div>
+                                                    <div>
+                                                        <span class="badge badge-warning">{{manifest.status}}</span>
+                                                    </div>
+                                                    <div><a href="javascript: void (0);" (click)="regetType(manifest.id)"><i class="fal fa-refresh" ></i> ReGet Type Tracking</a></div>
+                                                    <div><a href="javascript: void (0);" (click)="exportExcel(manifest.id)"><i class="fal fa-download" ></i>Export Box Me Tracking</a></div>
                                                 </li>
                                             </ng-container>
                                         </ul>
@@ -87,144 +92,26 @@
                                             <table class="table table-primary">
                                                 <thead>
                                                 <tr>
-                                                    <th width="25%" class="{{tabTracking == 'complete' ? 'active-tab-track' : ''}}" (click)="setTabTracking('complete')">Tracking Complete (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('unknown')">Tracking Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
+                                                    <th width="50%" class="{{tabTracking == 'tracking' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking')">List Tracking Code (<b style="color: red">{{tracks['_tracking_total']}}</b>)</th>
+                                                    <th width="50%" class="{{tabTracking == 'ext' ? 'active-tab-track' : ''}}" (click)="setTabTracking('ext')">List Tracking Ext Not Map (<b style="color: red">{{tracks['_ext_total']}}</b>)</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <ng-container *ngIf="tabTracking == ''">
-                                                    <tr>
-
-                                                        <td width="25%">
-                                                            <input [(ngModel)]="trackingComplete"
-                                                                   (change)="search('tracking')"
-                                                                   class="form-control form-control-sm"
-                                                                   placeholder="Tracking complete">
-                                                            <app-paging-custom
-                                                                    (clickFn)="p_c = $event.page; search('tracking')"
-                                                                    [limit]="l_c"
-                                                                    [limit_page]="limit_page"
-                                                                    [page]="p_c"
-                                                                    [total]="tracks['draftPackageItems_total']"
-                                                            >
-                                                            </app-paging-custom>
-                                                        </td>
-                                                        <td width="25%">
-                                                            <input [(ngModel)]="trackingWast" (change)="search('tracking')"
-                                                                   class="form-control form-control-sm"
-                                                                   placeholder="Tracking wasting">
-                                                            <app-paging-custom
-                                                                    (clickFn)="p_w = $event.page; search('tracking')"
-                                                                    [limit]="l_w"
-                                                                    [limit_page]="limit_page"
-                                                                    [page]="p_w"
-                                                                    [total]="tracks['draftWastingTrackings_total']"
-                                                            >
-                                                            </app-paging-custom>
-                                                        </td>
-                                                        <td width="25%">
-                                                            <input [(ngModel)]="trackingMiss" (change)="search('tracking')"
-                                                                   class="form-control form-control-sm"
-                                                                   placeholder="Tracking missing">
-                                                            <app-paging-custom
-                                                                    (clickFn)="p_m = $event.page; search('tracking')"
-                                                                    [limit]="l_m"
-                                                                    [limit_page]="limit_page"
-                                                                    [page]="p_m"
-                                                                    [total]="tracks['draftMissingTrackings_total']"
-                                                            >
-                                                            </app-paging-custom>
-                                                        </td>
-                                                        <td width="25%">
-                                                            <input [(ngModel)]="trackingUnknown"
-                                                                   (change)="search('tracking')"
-                                                                   class="form-control form-control-sm"
-                                                                   placeholder="Tracking unknown">
-                                                            <app-paging-custom
-                                                                    (clickFn)="p_u = $event.page; search('tracking')"
-                                                                    [limit]="l_u"
-                                                                    [limit_page]="limit_page"
-                                                                    [page]="p_u"
-                                                                    [total]="tracks['unknownTrackings_total']"
-                                                            >
-                                                            </app-paging-custom>
-                                                        </td>
-                                                    </tr>
-                                                    <tr id="content-tracking-info" >
-                                                        <td>
-                                                            <ul class="list-group">
-                                                                <ng-container *ngFor="let packTr of tracks.draftPackageItems">
-                                                                    <li class="list-group-item">
-                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
-                                                                        <div class="padding-btn">
-                                                                            <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
-                                                                            <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
-                                                                            <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
-                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View detail merge</a></div>
-                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View Extension</a></div>
-                                                                            <div><a href="javascript:void (0)"
-                                                                                    (click)="showUpdateForm(packTr)"><i
-                                                                                    class="fal fa-edit"></i> Update tracking</a>
-                                                                            </div>
-                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
-                                                                        </div>
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul class="list-group">
-                                                                <ng-container *ngFor="let packTr of tracks.draftWastingTrackings">
-                                                                    <li class="list-group-item">
-                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
-                                                                        <div>
-                                                                            <p *ngIf="!trackingMerge || trackingMerge.type != 'wast'"><a href="javascript:void (0)" (click)="merge(packTr,'wast')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
-                                                                        </div>
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul class="list-group">
-                                                                <ng-container *ngFor="let packTr of tracks.draftMissingTrackings">
-                                                                    <li class="list-group-item">
-                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
-                                                                        <div>
-                                                                            <p *ngIf="!trackingMerge || trackingMerge.type != 'miss'" ><a href="javascript:void (0)" (click)="merge(packTr,'miss')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
-                                                                        </div>
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul class="list-group">
-                                                                <ng-container *ngFor="let packTr of tracks.unknownTrackings">
-                                                                    <li class="list-group-item">
-                                                                        <app-tracking-info [packTr]="packTr"></app-tracking-info>
-                                                                        <div>
-                                                                            <p class="btn-group" >
-                                                                                <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
-                                                                                <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
-                                                                            </p>
-                                                                        </div>
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-                                                </ng-container>
                                                 <ng-container *ngIf="tabTracking != ''">
                                                     <tr>
                                                         <td colspan="4" style="padding: 0px">
-                                                            <app-tracking-views [tab_tracking]="tabTracking"
-                                                                                (sellerRefund)="showSellerRefundModal($event)"
-                                                                                (markHold)="markHoldTracking($event.id,$event.hold)"
-                                                                                (splitTracking)="splitTracking($event)"
-                                                                                (updateTracking)="showUpdateForm($event)"
-                                                                                [tracking_codes]="trackingCodes">
-                                                            </app-tracking-views>
+                                                            <app-us-sending-views
+                                                                    [tracking_codes]="trackingCodes"
+                                                                    [limit]="tabTracking == 'tracking' ? l_t : l_e"
+                                                                    [page]="tabTracking == 'tracking' ? p_t : p_e"
+                                                                    [total]="tabTracking == 'tracking' ? tracks['_tracking_total'] : tracks['_ext_total']"
+                                                                    [tab_tracking]="tabTracking"
+                                                                    (searchEvent)="searchEvent($event)"
+                                                                    (sellerRefund)="showSellerRefundModal($event)"
+                                                                    (updateTracking)="showUpdateForm($event)"
+                                                                    (mergeTracking)="mergeTrackingEvent($event)"
+                                                            >
+                                                            </app-us-sending-views>
                                                         </td>
                                                     </tr>
                                                 </ng-container>
@@ -280,32 +167,17 @@
                                                        formControlName="manifest">
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <p>
-                                                   <a class="a-download" (click) ='DowloadFile()'>
-                                                    <span i18n>Download sample data</span>
-                                                    <i class="fa fa-download"></i>
-                                                   </a> 
-                                                </p>
-                                                
-                                               
                                                 <label for="store" class="form-control-label" i18n>Upload</label>
-                                            
+                                                <span i18n>(Download File excel ,Example : TrackingCode.xlsx)</span>
                                                 <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
                                             </div>
                                         </div>
-                                      <div class="row">
-                                        <div class="col-md-6 form-group m-b-10">
-                                          <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
-                                          <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
+                                                <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 form-group m-b-10">
-                                          <label for="listtrackingcode"  class="form-control-label" i18n>
-                                              List tracking code
-                                          </label>  
-                                            <textarea class="form-control text-tracking-code" placeholder="VD:TB17,TB18,..
-                                            " formControlName="listTrackingCode"></textarea>
-                                        </div>
-                                      </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="button-group">
@@ -449,25 +321,36 @@
                         <div class="card m-b-0">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3 i18n>Merge tracking {{trackingMerge}}</h3>
+                                    <h3 i18n>Merge tracking {{trackingMerge.data_tracking_code}}</h3>
                                 </div>
                                 <div class="col-md-12 form-body">
                                     <div class="row">
                                         <div class="col-md-12 form-group m-b-10">
-                                            <label for="store" class="form-control-label" >Tracking merge</label>
-                                            <input type="text" disabled class="form-control form-control-sm" value="{{trackingMerge}}" >
+                                            <div class="form-control-label" >Tracking merge</div>
+                                            <h4>{{trackingMerge.data_tracking_code}}</h4>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 form-group m-b-10">
-                                            <label for="store" class="form-control-label" >Tracking target</label>
-                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingTarget" placeholder="Enter tracking target" >
+                                            <div class="form-control-label" >Tracking merge</div>
+                                            <h4>{{trackingMerge.ext_tracking_code ? trackingMerge.ext_tracking_code : '---'}}</h4>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingMergeSearch" placeholder="Enter tracking target" >
+                                            <u class="list-group" style="max-height: 350px;overflow: auto;">
+                                                <ng-container *ngFor="let tracking_ext of getExtTrackings()">
+                                                    <li class="list-group-item div-hover {{tracking_ext.id == trackingMerge.ext_id ? 'active' : ''}}" (click)="setTrackingTarget(tracking_ext.id , tracking_ext.tracking_code)">
+                                                        <div><b>{{tracking_ext.tracking_code}}</b></div>
+                                                        <div>Order id: <b>{{tracking_ext.order_id}}</b></div>
+                                                        <div>Product id: <b>{{tracking_ext.product_id}}</b></div>
+                                                        <div>Number invoice: <b>{{tracking_ext.purchase_invoice_number}}</b></div>
+                                                    </li>
+                                                </ng-container>
+                                            </u>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="button-group">
-                                                <button class="btn btn-sm btn-success" i18n>Merge</button>
+                                                <button class="btn btn-sm btn-success" (click)="merge()" i18n>Merge</button>
                                                 <button class="btn btn-sm btn-warning" (click)="mergeTracking.hide()" i18n>Cancel</button>
                                             </div>
                                         </div>

@@ -39,13 +39,17 @@
     border-radius:  0px;
 }
 .active{
+    color: #fff !important;
     margin-bottom: 0px;
     border-bottom: none;
     background: #2e5cde;
     border-radius:  0px;
 }
-.active h4{
+.active h4, .active a, .active h1, .active h2,.active h3, .active h5,.active h6{
     color: #fff;
+}
+.active a:hover{
+    font-size: 16px;
 }
 .active:hover{
     background: #2e5cde !important;
@@ -73,17 +77,7 @@ i{
 .active-tab-track{
     background: #fff;
 }
-.a-download{
+.div-hover:hover{
     cursor: pointer;
-}
-.a-download i{
-        font-size: 20px;
-        padding-left:10px;
-}
-.a-download i:hover{
-    color: orange;
-}
-.text-tracking-code{
-    font-size: 12px;
-    height: 80px
+    background: #c9f5e57a;
 }

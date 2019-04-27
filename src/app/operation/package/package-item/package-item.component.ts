@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsDaterangepickerConfig} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RESPONSE} from './mock-response';
 import {PackageItemService} from './package-item.service';
 import {PackageDataComponent} from '../package-data.component';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
   selector: 'app-package-item',
@@ -21,8 +22,12 @@ export class PackageItemComponent extends PackageDataComponent implements OnInit
     public bsRangeValue: Date[];
     public bsConfig: BsDaterangepickerConfig;
 
-    constructor(public packageItemService: PackageItemService, private popup: PopupService, private fb: FormBuilder) {
-        super(packageItemService);
+    constructor(public packageItemService: PackageItemService,
+                private popup: PopupService,
+                private fb: FormBuilder,
+                public _scope: ScopeService
+    ) {
+        super(packageItemService, _scope);
     }
 
     ngOnInit() {
