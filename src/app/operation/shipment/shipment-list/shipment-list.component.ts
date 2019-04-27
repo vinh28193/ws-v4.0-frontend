@@ -150,18 +150,14 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   buildCreateForm(shipment: any | null) {
 
-    const parcels = shipment ? shipment.packageItems.map(packageItem => this.fb.group({
-      id: packageItem.id,
-      product_id: packageItem.product.id,
-      image: packageItem.product.link_img,
-      name: packageItem.product.product_name,
-      dimension_l: packageItem.dimension_l,
-      dimension_w: packageItem.dimension_w,
-      dimension_h: packageItem.dimension_h,
-      weight: packageItem.weight,
-      quantity: packageItem.quantity,
-      cod: packageItem.cod,
-      price: packageItem.price,
+    const parcels = shipment ? shipment.packages.map(pk => this.fb.group({
+      code: pk.warehouse_tag_boxme,
+      image: pk.image,
+      name: pk.item_name,
+      volume: (pk.dimension_w + '.' + pk.dimension_l + '.' + pk.dimension_h),
+      weight: pk.weight,
+      quantity: pk.quantity,
+      price: pk.price + ((pk.cod !== null || pk.cod > 0) ? pk.cod : 0),
     })) : [];
     this.createFrom = this.fb.group({
       id: shipment ? shipment.id : '',
@@ -173,29 +169,25 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       receiver_country_id: shipment ? shipment.receiver_country_id : '',
       receiver_province_id: shipment ? shipment.receiver_province_id : '',
       receiver_district_id: shipment ? shipment.receiver_district_id : '',
+      total_shipping_fee: shipment ? shipment.total_shipping_fee : 0,
+      total_price: shipment ? shipment.total_price : 0,
+      total_cod: shipment ? shipment.total_cod : 0,
+      payment_method: 'receiver',
+      description: 'N',
+      note_for_courier: '',
       courier_code: shipment ? shipment.courier_code : '',
-      total_shipping_fee: shipment ? shipment.total_shipping_fee : '',
       courier_logo: shipment ? shipment.courier_logo : '',
       courier_estimate_time: shipment ? shipment.courier_estimate_time : '',
-      is_hold: shipment ? shipment.is_hold : 0,
       is_insurance: shipment ? shipment.is_insurance : 0,
       shipment_status: shipment ? shipment.shipment_status : 'NEW',
       parcels: parcels.length > 0 ? this.fb.array(parcels) : this.fb.array([
-        this.fb.group({
-          id: '',
-          product_id: '',
-          image: '',
-          name: '',
-          dimension_l: '',
-          dimension_w: '',
-          dimension_h: '',
-          weight: '',
-          quantity: '',
-          cod: '',
-          price: ''
-        })
+        this.fb.group({ code: '', image: '', name: '', volume: '', weight: 0, quantity: 0, price: 0})
       ])
     });
+  }
+
+  getFullNameParcel(parcel: FormGroup) {
+    return parcel.get('code').value + '-' + parcel.get('name').value;
   }
 
   countSelectedList() {
@@ -276,7 +268,12 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   get courierCode(): string {
     return this.createFrom.get('courier_code').value;
   }
-
+  get totalPrice() {
+    return this.createFrom.get('courier_code').value;
+  }
+  get totalCod() {
+    return this.createFrom.get('courier_code').value;
+  }
   get formShipmentStatus() {
     const status = this.createFrom.get('shipment_status').value;
     return this.isCanCreate(status);
@@ -284,20 +281,14 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
 
   get getCalculate(): any {
     const shipFee = this.createFrom.get('total_shipping_fee').value;
-    let totalCod = 0;
-    let totalAmount = 0;
-    let i = 0;
-    for (i; i < this.parcels.controls.length; i++) {
-      const parcel = this.parcels.controls[i];
-      totalCod += Number(parcel.get('cod').value);
-      totalAmount += Number(parcel.get('price').value);
-    }
-    const final = shipFee + totalCod + totalAmount;
+    const codAmount = this.createFrom.get('total_cod').value;
+    const totalAmount = this.createFrom.get('total_price').value;
+    const finalAmount = shipFee + totalAmount;
     return {
-      total_shipping_fee: shipFee,
-      totalCod: totalCod,
+      shipFee: shipFee,
+      codAmount: codAmount,
       totalAmount: totalAmount,
-      final: final
+      finalAmount: finalAmount
     };
   }
 
@@ -310,15 +301,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     this.couriers = [];
     let totalQuantity = 0;
     let totalWeight = 0;
-    let totalCod = 0;
-    let totalAmount = 0;
     let i = 0;
     for (i; i < this.parcels.controls.length; i++) {
       const parcel = this.parcels.controls[i];
       totalQuantity += Number(parcel.get('quantity').value);
       totalWeight += Number(parcel.get('weight').value);
-      totalCod += Number(parcel.get('cod').value);
-      totalAmount += Number(parcel.get('price').value);
     }
     this.calculateFrom = this.fb.group({
       warehouseId: this.createFrom.get('warehouse_send_id').value,
@@ -329,11 +316,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       toZipCode: this.createFrom.get('receiver_post_code').value,
       toName: this.createFrom.get('receiver_name').value,
       toPhone: this.createFrom.get('receiver_phone').value,
-      totalParcel: i,
+      totalParcel: this.parcels.controls.length,
       totalWeight: String(totalWeight),
       totalQuantity: totalQuantity,
-      totalCod: totalCod,
-      totalAmount: String(totalAmount),
+      totalCod: this.createFrom.get('total_cod').value,
+      totalAmount: this.createFrom.get('total_price').value,
       isInsurance: this.createFrom.get('is_insurance').value,
       sortMode: 'best_price'
     });
