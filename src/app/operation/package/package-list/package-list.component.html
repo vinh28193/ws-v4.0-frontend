@@ -1,262 +1,241 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-header">
+                <h3 class="card-title m-b-0" i18n>Tracking Code</h3>
+            </div>
             <div class="card-body">
-                <div class="card-title">
-                    <h3 i18n>LIST ALL ITEMS OF PACKAGES</h3>
-                </div>
-                <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
-                    <div class="col-md-4 form-group m-b-10">
-                        <label for="keyWordGroup" class="form-control-label" i18n>Keyword...</label>
-                        <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="keyCategory" formControlName="keyCategory">
-                                <option value="ALL" i18n>ALL</option>
-                            </select>
-                            <input class="form-control form-control-sm" id="keyWord" formControlName="keyWord" type="text" (keyup.enter)="search()">
-                        </div>
-                    </div>
-                    <div class="col-md-3 form-group m-b-10">
-                        <label for="currentStatus" class="form-control-label" i18n>Current Status</label>
-                        <select class="form-control form-control-sm" name="currentStatus" id="currentStatus" formControlName="currentStatus">
-                            <option value="ALL" i18n>--All Status--</option>
-                            <option value="STOCK_IN_US" i18n>STOCK_IN_US</option>
-                            <option value="SELLER_SHIPPED" i18n>SELLER_SHIPPED</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5 form-group m-b-10">
-                        <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
-                        <div class="row input-group input-group-sm" id="dateTimePicker">
-                            <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey" formControlName="timeKey">
-                                <option value="create_at" i18n>Create Time</option>
-                                <option value="SELLER_SHIPPED">Seller ship Time</option>
-                            </select>
-                            <input #drp="bsDaterangepicker" bsDaterangepicker class="col-sm-7 form-control form-control-sm ">
-                            <span class="input-group-btn">
-                                <button (click)="drp.toggle()"
-                                        [attr.aria-expanded]="drp.isOpen"
-                                        class="btn btn-sm btn-info" type="button"><i
-                                        class="fa fa-calendar"></i></button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-                <section class="row item-operation">
+                <div class="row">
                     <div class="col-md-12">
-                        <div class="form-inline pull-right">
-                          <span class="button-group">
-                            <a class="btn btn-info btn-sm text-white" i18n>
-                                <i class="fa fa-file-excel-o"></i> Export Excel
-                            </a>
-                          </span>
-                        </div>
-                    </div>
-                </section>
-                <article class="row item-list">
-                    <div class="col-md-12">
-                        <div class="row pagination"></div>
-                        <div class="row grid">
+                        <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
+                            <div class="col-md-4 form-group m-b-10">
+                                <label for="q" class="form-control-label" i18n>Keyword...</label>
+                                <input class="form-control form-control-sm" id="q" formControlName="q"
+                                       type="text" (keyup.enter)="search()">
+                            </div>
+                            <div class="col-md-4 form-group m-b-10">
+                                <div class="button-group" style="margin-top: 1.7rem;">
+                                    <button class="btn btn-sm btn-success" (click)="search()" i18n>Search</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="grid-view grid-view-custom">
-                                    <div class="row grid-view-row-margin-rl-0 grid-view-summary m-b-10">
-                                        <div class="col-md-6 grid-view-col-padding-rl-0">
-                                            <span i18n>Showing</span>
-                                            <select class="form-control-sm select-custom" (change)="handlePerPage($event)">
-                                                <option value="20">20</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                                <option value="200">200</option>
-                                                <option value="all" i18n>All</option>
-                                            </select>
-                                            <span >of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
-                                        </div>
-                                        <div class="col-md-6 grid-view-col-margin-rl-0">
-                                            <pagination [boundaryLinks]="true"
-                                                        [totalItems]="totalCount"
-                                                        (pageChanged)="handlePagination($event)"
-                                                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
-                                                        [rotate]="true">
-                                            </pagination>
+                                <hr class="mt-2 mb-2">
+                            </div>
+                        </div>
+                        <div class="row mb-2 toolbar">
+                            <div class="col-md-12">
+                                <div class="button-group">
+                                    <button class="btn btn-sm btn-success" (click)="openUsSendingModal()" i18n>Us Sending</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="content-block" style="border-bottom: none">
+                                    <div class="header-content">
+                                        <h4>List Manifest</h4>
+                                        <div class="col-md-12">
+                                            <div class="row list-summary">
+                                                <div class="col-md-6">
+                                                    <span i18n>Showing</span>
+                                                    <select class="form-control-sm select-custom"
+                                                            [(ngModel)]="perPage" (change)="search()">
+                                                        <option value="20">20</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="all">All</option>
+                                                    </select>
+                                                    <span>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <pagination [boundaryLinks]="true"
+                                                                [totalItems]="totalCount"
+                                                                (pageChanged)="handlePagination($event)"
+                                                                [maxSize]="10"
+                                                                [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                                                                [rotate]="true">
+                                                    </pagination>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <ng-container [ngTemplateOutlet]="togglePackageTemplate"></ng-container>
+                                    <div class="body-content">
+                                        <ul class="list-group custom-list">
+                                            <ng-container *ngFor="let manifest of manifests;let ind = index">
+                                                <li class="list-group-item custom-list-item {{manifest.id == manifest_id ? 'active' : !manifest_id && ind == 0 ? 'active' : '' }}"
+                                                    (click)="search('tracking', manifest.id);">
+                                                    <h4>{{manifest.manifest_code}}</h4>
+                                                    <div>Id: <b>{{manifest.id}}</b></div>
+                                                    <div>Receive Warehouse:
+                                                        <b>{{manifest.receiveWarehouse ? manifest.receiveWarehouse.name : ''}}</b>
+                                                    </div>
+                                                    <div>Send Warehouse:
+                                                        <b>{{manifest.sendWarehouse ? manifest.sendWarehouse.name : ''}}</b>
+                                                    </div>
+                                                    <div>
+                                                        <span class="badge badge-warning">{{manifest.status}}</span>
+                                                    </div>
+                                                    <div><a href="javascript: void (0);" (click)="regetType(manifest.id)"><i class="fal fa-refresh" ></i> ReGet Type Tracking</a></div>
+                                                    <div><a href="javascript: void (0);" (click)="exportExcel(manifest.id)"><i class="fal fa-download" ></i>Export Box Me Tracking</a></div>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </div>
+                                    <div class="content-block" style="border: 2px solid #2e5cde">
+                                        <div class="header-content" style="background: #2e5cde;">
+                                            <h4 style="color: #fff">Tracking Info</h4>
+                                        </div>
+                                        <div class="body-content">
+                                            <table class="table table-primary">
+                                                <thead>
+                                                <tr>
+                                                    <th width="50%" class="{{tabTracking == 'tracking' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking')">List Tracking Code (<b style="color: red">{{tracks['_tracking_total']}}</b>)</th>
+                                                    <th width="50%" class="{{tabTracking == 'ext' ? 'active-tab-track' : ''}}" (click)="setTabTracking('ext')">List Tracking Ext Not Map (<b style="color: red">{{tracks['_ext_total']}}</b>)</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <ng-container *ngIf="tabTracking != ''">
+                                                    <tr>
+                                                        <td colspan="4" style="padding: 0px">
+                                                            <app-us-sending-views
+                                                                    [tracking_codes]="trackingCodes"
+                                                                    [limit]="tabTracking == 'tracking' ? l_t : l_e"
+                                                                    [page]="tabTracking == 'tracking' ? p_t : p_e"
+                                                                    [total]="tabTracking == 'tracking' ? tracks['_tracking_total'] : tracks['_ext_total']"
+                                                                    [tab_tracking]="tabTracking"
+                                                                    (searchEvent)="searchEvent($event)"
+                                                                    (sellerRefund)="showSellerRefundModal($event)"
+                                                                    (updateTracking)="showUpdateForm($event)"
+                                                                    (mergeTracking)="mergeTrackingEvent($event)"
+                                                            >
+                                                            </app-us-sending-views>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </article>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
+<div bsModal #usSendingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Create Manifest From List Warehouse Us Send List Tracking</h3>
+                                </div>
+                                <form [formGroup]="usSendingForm" name="form" class="row form-upload">
+                                    <div class="col-md-12 form-body">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" >Store</label>
+                                                <select class="form-control form-control-sm" name="store" id="store"
+                                                        formControlName="store">
+                                                    <option value="" i18n>--Select Store--</option>
+                                                    <option value="vn">Việt nam</option>
+                                                    <option value="id">Indonesia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
+                                                <select class="form-control form-control-sm" name="warehouse" id="warehouse"
+                                                        formControlName="warehouse">
+                                                    <option *ngFor="let wh of listWarehouses" [value]="wh.key">{{wh.value}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label"  i18n> Name Manifest</label>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="18042019-LOWS-VN-HN003" id="manifest" name="manifest"
+                                                       formControlName="manifest">
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" i18n>Upload</label>
+                                                <span i18n>(Download File excel ,Example : TrackingCode.xlsx)</span>
+                                                <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
+                                                <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="button-group">
+                                                    <button class="btn btn-sm btn-success" (click)="create()" i18n>Create</button>
+                                                    <button class="btn btn-sm btn-warning" i18n>Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
-<ng-template #packageListTemplate>
-    <div class="row grid-view-row-margin-rl-0 grid-view-content">
-        <div class="col-md-12 grid-view-col-padding-rl-0">
-            <div class="row grid-view-row-margin-rl-0 grid-header">
-                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-                </div>
-                <div class="col-md-4 col-sm-6 grid-view-col-border grid-view-col-content" i18n>
-                    Tracking
-                </div>
-                <div class="col-md-7 col-sm-12 grid-view-col-border grid-view-col-content" i18n>
-                    Detail
-                </div>
-            </div>
-            <div *ngFor="let package of packages" class="row grid-view-row-margin-rl-0 grid-content">
-                <div class="col-md-1 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <input type="checkbox" class="checkbox custom-checkbox" style="z-index: 9999">
-                </div>
-                <div class="col-md-4 col-sm-6 grid-view-col-border grid-view-col-content">
-                    <h5 class="text-danger">{{package.package_code}}</h5>
-                    <p class="p-custom m-b-0">Current Status: <span class="label label-danger">{{package.current_status}}</span></p>
-                    <p class="p-custom m-b-0">Seller Tracking: <strong>{{package.tracking_seller}}</strong></p>
-                    <p class="p-custom m-b-0">Reference 1: <strong>{{package.tracking_reference_1}}</strong></p>
-                    <p class="p-custom m-b-0">Reference 2: <strong>{{package.tracking_reference_2}}</strong></p>
-                    <p class="p-custom m-b-0">Manifest Code: <a href="#">{{package.manifest_code}}</a></p>
-                    <p class="p-custom m-b-0">Package Weight: <strong>{{package.package_weight}} gram</strong></p>
-                    <p class="p-custom m-b-0">ChangeWeight: <strong>{{package.change_weight}} gram</strong></p>
-                    <p class="p-custom m-b-0">Volume (w.l.h): <span class="text-danger">{{package.package_dimension_w}}x{{package.package_dimension_l}}x{{package.package_dimension_h}}</span><strong>(cm)</strong></p>
-                    <p class="p-custom m-b-0">Receiver Warehouse: <strong>Boxme HCM (45 Tan son)</strong> <a
-                            href="#"><i class="fa fa-edit"></i></a></p>
-                    <hr class="mt-2 mb-2">
-                    <p class="p-custom m-b-0">Seller Ship: <strong>2018/02/12 23:09:33</strong></p>
-                    <p class="p-custom m-b-0">StockIn US: <strong>2018/02/12 23:09:33</strong></p>
-                    <p class="p-custom m-b-0">StockOut US: <strong>2018/02/12 23:09:33</strong></p>
-                    <p class="p-custom m-b-0">Local StockIn: <strong>2018/02/12 23:09:33</strong></p>
-                    <hr class="mt-2 mb-2">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="button-group">
-                                <button class="btn btn-sm btn-warning">Add Tracking</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 col-sm-12 grid-view-col-border grid-view-col-padding-rl-0">
-                    <div class="row grid-view-row-margin-rl-0 grid-content m-b-10">
-                        <div class="col-md-12 grid-view-col-content">
-                            <div class="row grid-view-row-margin-rl-0 grid-content">
-                                <h5 class="col-md-11 pt-1 pl-0">Total: <span class="text-danger">123</span> items</h5>
-                                <span class="col-md-1 button-group pr-0 pull-right">
-                                    <button class="btn btn-sm btn-success mr-0"><i class="fa fa-plus"></i></button>
-                                </span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div *ngFor="let packageItem of package.packageItems" class="row grid-view-row-margin-rl-0 grid-content m-b-10">
-                                        <div class="col-md-12 grid-view-col-border grid-view-col-padding-rl-0 grid-view-col-content">
-                                            <div class="row grid-view-row-margin-rl-0">
-                                                <div class="col-md-12 grid-view-col-content">
-                                                    <div class="row grid-view-row-margin-rl-0">
-                                                        <div class="col-md-6 grid-view-col-padding-rl-0 grid-view-col-content">
-                                                            <p class="p-custom m-b-0">Packing Code: <strong>{{packageItem.package_code}}</strong></p>
-                                                            <p class="p-custom m-b-5">Create:<i class="fa fa-location-arrow"></i> 2018/02/12 23:09:33</p>
-                                                            <p class="p-custom m-b-0">Warehouse Tag: <strong>{{packageItem. box_me_warehouse_tag}}</strong></p>
-                                                        </div>
-                                                        <div class="col-md-6 grid-view-col-padding-rl-0 grid-view-col-content">
-                                                           <div class="row">
-                                                               <div class="col-md-12">
-                                                                   <h6 class="pull-left m-b-0 pt-3">Ảnh Kiểm:</h6>
-                                                                   <div class="button-group pull-right">
-                                                                       <button class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
-                                                                       <button class="btn btn-sm btn-secondary"><i class="fa fa-eye"></i></button>
-                                                                       <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                                                                   </div>
-                                                               </div>
-                                                               <div class="col-md-12">
-                                                                   <div class="row grid-view-row-margin-rl-0">
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                       <div class="col-md-2 grid-view-col-padding-rl-0 grid-view-col-content m-r-5">
-                                                                           <img class="img-responsive" src="https://lorempixel.com/640/480/?55964" alt="">
-                                                                       </div>
-                                                                   </div>
-                                                               </div>
-
-                                                           </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <hr class="mt-2 mb-2">
-                                            <div class="row grid-view-row-margin-rl-0">
-                                                <div class="col-md-12 grid-view-col-content">
-                                                    <p class="p-custom m-b-0">PO ID: <strong>{{packageItem.order.purchase_order_id}}</strong></p>
-                                                    <p class="p-custom m-b-0">Purchase Transaction: <strong>{{packageItem.order.purchase_transaction_id}}</strong></p>
-                                                    <p class="p-custom m-b-0">Purchase Account: <strong>{{packageItem.order.purchase_account_email}}</strong></p>
-                                                </div>
-                                            </div>
-                                            <hr class="mt-2 mb-2">
-                                            <div class="row grid-view-row-margin-rl-0">
-                                                <div class="col-md-6 grid-view-col-content">
-                                                    <p class="p-custom">Order ID: <a href="#"> #{{packageItem.order.id}}</a></p>
-                                                    <p class="p-custom">Type: {{packageItem.order.type_order}}</p>
-                                                    <p class="p-custom">Portal: {{packageItem.order.portal}}</p>
-                                                    <p class="p-custom">Customer: <a href="#">#{{packageItem.order.customer_id}}</a> </p>
-                                                    <p class="p-custom">Note: <span class="text-muted">{{packageItem.order.note_by_customer}}</span></p>
-                                                </div>
-                                                <div class="col-md-6 grid-view-col-content">
-                                                    <p class="p-custom">Receiver: <strong>{{packageItem.order.receiver_name}}</strong></p>
-                                                    <p class="p-custom">Receiver Contact: <strong>{{packageItem.order.receiver_email}} - {{packageItem.order.receiver_phone}}</strong></p>
-                                                    <p class="p-custom">Receiver Address:  <strong>{{packageItem.order.receiver_address}}</strong></p>
-                                                    <p class="p-custom">Receiver Location: <strong>{{packageItem.order.receiver_post_code}} - {{packageItem.order.receiver_district_name}} - {{packageItem.order.receiver_province_name}}</strong></p>
-                                                </div>
-                                            </div>
-                                            <div class="row grid-view-row-margin-rl-0">
-                                                <div class="col-md-12 grid-view-col-content">
-                                                    <div class="row grid-view-row-margin-rl-0 grid-header">
-                                                        <div class="col-md-2 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                            PID
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            WT
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            Qty/W
-                                                        </div>
-                                                        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            Action
-                                                        </div>
-                                                    </div>
-                                                    <div *ngFor="let product of packageItem.order.products;"
-                                                         class="row grid-view-row-margin-rl-0 grid-content">
-                                                        <div class="col-md-2 col-sm-6 grid-view-col-border grid-view-col-content">
-                                                            # {{product.id}}
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            {{product.warehouse_tag}}
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            {{product.quantity}}/{{product.weight}}(g)
-                                                        </div>
-                                                        <div class="col-md-2 col-sm-3 grid-view-col-border grid-view-col-content">
-                                                            <span class="label label-danger"><i class="fa fa-remove"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #sellerRefundModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Seller refund tracking {{sellerRefundForm.tracking}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="amountRefund" class="form-control-label" >Amount Refund ($)</label>
+                                            <input type="number" id="amountRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.amount" >
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="typeRefund" class="form-control-label" >Type refund</label>
+                                            <select id="typeRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.type">
+                                                <option value="full">Refund Full</option>
+                                                <option value="partial">Refund Partial</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="timeRefund" class="form-control-label" >Time refund</label>
+                                            <input id="timeRefund" type="text" class="form-control" placeholder="Time Refund" bsDatepicker  [(ngModel)]="sellerRefundForm.time"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="updateSellerRefund()">Update Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="sellerRefundModal.hide()" i18n>Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -268,17 +247,120 @@
             </div>
         </div>
     </div>
-</ng-template>
-
-<ng-template #orderListTemplate>
-
-</ng-template>
-
-<ng-template #productListTemplate>
-
-</ng-template>
-
-<!--<ng-container [ngTemplateOutlet]="testTemplate" [ngTemplateOutletContext]="{clue:'IamTester'}"></ng-container>-->
-<!--<ng-template #testTemplate let-clue='clue'> -->
-<!--<h3>{{clue}}</h3>-->
-<!--</ng-template>-->
+</div>
+<div bsModal #updateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Update tracking {{updateForm.tracking}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="order_id" class="form-control-label">Order Id</label>
+                                            <input type="number" id="order_id" class="form-control form-control-sm"
+                                                   [(ngModel)]="updateForm.order_id">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="product_id" class="form-control-label">Product Id</label>
+                                            <input type="number" id="product_id" class="form-control form-control-sm"
+                                                   [(ngModel)]="updateForm.product_id">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="purchase_invoice_number" class="form-control-label">Purchase
+                                                invoice number</label>
+                                            <input id="purchase_invoice_number" type="text" class="form-control"
+                                                   [(ngModel)]="updateForm.purchase_invoice_number"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="item_name" class="form-control-label">Item Name</label>
+                                            <input id="item_name" type="text" class="form-control"
+                                                   [(ngModel)]="updateForm.item_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="update()">Update
+                                                    Tracking
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" (click)="updateModal.hide()"
+                                                        i18n>Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #mergeTracking="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Merge tracking {{trackingMerge.data_tracking_code}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <div class="form-control-label" >Tracking merge</div>
+                                            <h4>{{trackingMerge.data_tracking_code}}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <div class="form-control-label" >Tracking merge</div>
+                                            <h4>{{trackingMerge.ext_tracking_code ? trackingMerge.ext_tracking_code : '---'}}</h4>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingMergeSearch" placeholder="Enter tracking target" >
+                                            <u class="list-group" style="max-height: 350px;overflow: auto;">
+                                                <ng-container *ngFor="let tracking_ext of getExtTrackings()">
+                                                    <li class="list-group-item div-hover {{tracking_ext.id == trackingMerge.ext_id ? 'active' : ''}}" (click)="setTrackingTarget(tracking_ext.id , tracking_ext.tracking_code)">
+                                                        <div><b>{{tracking_ext.tracking_code}}</b></div>
+                                                        <div>Order id: <b>{{tracking_ext.order_id}}</b></div>
+                                                        <div>Product id: <b>{{tracking_ext.product_id}}</b></div>
+                                                        <div>Number invoice: <b>{{tracking_ext.purchase_invoice_number}}</b></div>
+                                                    </li>
+                                                </ng-container>
+                                            </u>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" (click)="merge()" i18n>Merge</button>
+                                                <button class="btn btn-sm btn-warning" (click)="mergeTracking.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
