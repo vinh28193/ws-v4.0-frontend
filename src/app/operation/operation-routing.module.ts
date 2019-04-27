@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {OperationRoutingComponent} from './operation-routing.component';
+import {TrackingLogComponent} from './tracking-log/tracking-log.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,10 @@ const routes: Routes = [
             {
                 path: 'tracking',
                 loadChildren: './tracking/tracking.module#TrackingModule',
+            },
+            {
+                path: 'tracking-log',
+                 component: TrackingLogComponent
             },
         ]
     }

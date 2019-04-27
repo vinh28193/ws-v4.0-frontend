@@ -84,7 +84,6 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.perPage = 20;
         this.buildSearchForm();
         this.buildUsSendingForm();
-        this.DowloadFile();
         this.search();
     }
 
@@ -142,6 +141,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     public handleFileChange(event) {
         this.file = event.target.files[0];
+        console.log(this.file);
     }
 
 
@@ -209,10 +209,11 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
        this.trackingService.get('downloadexcel').subscribe(res => {
             const rs: any = res;
             if (rs.success) {
-            const dataurl = 'C:/xampp/htdocs/weshop/weshop-v4.0-api/api/web/excel/TrackingCode.xlsx';
-            const filename = 'vandinh.xlxs';
-            const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-            saveAs("C:/xampp/htdocs/weshop/weshop-v4.0-api/api/web/excel/TrackingCode.xlsx", filename);
+
+            const dataurl = res.data;
+            const filename = 'TrackingCode.xlxs';
+           
+            saveAs(new File([dataurl], filename));
             } 
         });  
       

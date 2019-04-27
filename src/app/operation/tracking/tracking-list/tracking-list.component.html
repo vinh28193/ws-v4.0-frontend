@@ -275,8 +275,14 @@
                                                        formControlName="manifest">
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label class="form-control-label" (click)="DowloadFile()" i18n>Download</label>
-                                                <a [href]="linkdownload">testing</a>
+                                                <p>
+                                                   <a class="a-download" (click) ='DowloadFile()'>
+                                                    <span i18n>Download sample data</span>
+                                                    <i class="fa fa-download"></i>
+                                                   </a> 
+                                                </p>
+                                                
+                                               
                                                 <label for="store" class="form-control-label" i18n>Upload</label>
                                             
                                                 <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
@@ -286,6 +292,13 @@
                                         <div class="col-md-6 form-group m-b-10">
                                           <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
                                           <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                        </div>
+                                        <div class="col-md-6 form-group m-b-10">
+                                          <label for="listtrackingcode"  class="form-control-label" i18n>
+                                              List tracking code
+                                          </label>  
+                                            <textarea class="form-control text-tracking-code" placeholder="VD:TB17,TB18,..
+                                            " formControlName="listTrackingCode"></textarea>
                                         </div>
                                       </div>
                                         <div class="row">

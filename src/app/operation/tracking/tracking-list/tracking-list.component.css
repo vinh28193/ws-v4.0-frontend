@@ -73,3 +73,17 @@ i{
 .active-tab-track{
     background: #fff;
 }
+.a-download{
+    cursor: pointer;
+}
+.a-download i{
+        font-size: 20px;
+        padding-left:10px;
+}
+.a-download i:hover{
+    color: orange;
+}
+.text-tracking-code{
+    font-size: 12px;
+    height: 80px
+}
