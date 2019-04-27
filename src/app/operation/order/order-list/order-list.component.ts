@@ -15,7 +15,6 @@ import {StorageService} from '../../../core/service/storage.service';
 
 declare var jQuery: any;
 declare var $: any;
-declare var var: any;
 
 @Component({
     selector: 'app-order-list',
@@ -667,11 +666,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
+        this.checkCreateOrderChatRefund = false;
         this.checkListOrderChatRefund = false;
         $('.modal').modal('hide');
-    }
-    offOption2() {
-      this.checkCreateOrderChatRefund = false;
     }
 
     getChangeAmount(price1, price2) {
@@ -830,7 +827,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return params;
   }
 
-  openCreateOrderChatRefund() {
+  openCreateOrderChatRefund(order) {
+    this.code = order.ordercode;
     this.checkCreateOrderChatRefund = true;
     this.createTemplate = this.fb.group({
       noteC: '',
