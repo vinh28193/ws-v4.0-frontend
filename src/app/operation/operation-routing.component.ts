@@ -42,4 +42,88 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         this.statusSidebar = 'show';
         localStorage.setItem('status-sidebar', this.statusSidebar);
     }
+   checkSale() {
+    if (localStorage.getItem('scope') === ('sale')) {
+      return true;
+    }
+  }
+
+   checkMasterSale() {
+    if (localStorage.getItem('scope') === ('master_sale')) {
+      return true;
+    }
+  }
+
+   checkOperatione() {
+    if (localStorage.getItem('scope') === ('operation')) {
+      return true;
+    }
+  }
+
+   checkMasterOperation() {
+    if (localStorage.getItem('scope') === ('master_operation')) {
+      return true;
+    }
+  }
+
+   checkPurchase() {
+    if (localStorage.getItem('scope') === ('purchase')) {
+      return true;
+    }
+  }
+
+   checkMarketingIntent() {
+    if (localStorage.getItem('scope') === ('marketing_intent')) {
+      return true;
+    }
+  }
+
+   checkMarketingAds() {
+    if (localStorage.getItem('scope') === ('marketing_ads')) {
+      return true;
+    }
+  }
+
+   checkMarketing() {
+    if (localStorage.getItem('scope') === ('marketing')) {
+      return true;
+    }
+  }
+
+   checkMasterMarketing() {
+    if (localStorage.getItem('scope') === ('master_marketing')) {
+      return true;
+    }
+  }
+
+   checkMasterAccountant() {
+    if (localStorage.getItem('scope') === ('master_accountant')) {
+      return true;
+    }
+  }
+
+   checkAccountant() {
+    if (localStorage.getItem('scope') === ('accountant')) {
+      return true;
+    }
+  }
+
+
+   checkWarehouse() {
+    if (localStorage.getItem('scope') === ('warehouse')) {
+      return true;
+    }
+  }
+
+   checkSuperAdmin() {
+    if (localStorage.getItem('scope') === ('superAdmin')) {
+      return true;
+    }
+  }
+
+   checkTester() {
+    if (localStorage.getItem('scope') === ('tester')) {
+      return true;
+    }
+  }
 }

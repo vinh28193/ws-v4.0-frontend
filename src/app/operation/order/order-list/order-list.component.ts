@@ -58,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkLoadG = false;
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
+    public checkListOrderChatRefund = false;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -83,6 +84,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public createTemplate: FormGroup;
     public formCreate: FormGroup;
     public messageCustomer: FormGroup;
+    public checkFormShow: FormGroup;
+    public formSearchList: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -180,6 +183,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.loadAllPolicy();
+        $(document).on('show.bs.modal', '.modal', function () {
+          var zIndex = 1040 + (10 * $('.modal:visible').length);
+          $(this).css('z-index', zIndex);
+          setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+          }, 0);
+        });
     }
 
     buildChat() {
@@ -657,6 +667,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
         this.checkCreateOrderChatRefund = false;
+        this.checkListOrderChatRefund = false;
         $('.modal').modal('hide');
     }
 
@@ -792,6 +803,29 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return false;
         }
     }
+  openListOrderChatRefund(order) {
+    this.checkListOrderChatRefund = true;
+    this.checkFormShow = this.fb.group({
+      checkStatusShow: ''
+    });
+    this.formSearchList = this.fb.group({
+        noteL: '',
+        contentL: '',
+    });
+    this.loadListTemChat();
+  }
+
+  buildListChat() {
+      const value = this.formSearchList.value;
+      const params: any = {};
+      if (value.noteL !== '') {
+        params.noteL = value.noteL;
+      }
+    if (value.contentL !== '') {
+      params.contentL = value.contentL;
+    }
+    return params;
+  }
 
   openCreateOrderChatRefund(order) {
     this.code = order.ordercode;
@@ -807,7 +841,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.code = order.ordercode;
         this.markID = order.id;
         this.status = order.status;
-        this.loadListTemChat();
         this.checkOrderChatRefund = true;
         this.editForm = this.fb.group({
             note_chat: '',
@@ -1083,7 +1116,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return params;
   }
   loadListTemChat() {
-      this.orderService.get('list-chat-mongo').subscribe(res => {
+      const params = this.buildListChat();
+      this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
       });
   }
@@ -1097,6 +1131,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadPro(storeId) {
     this.loadPolicy(storeId);
+  }
+  editListTemplate(id) {
+      this.orderService.put(`list-chat-mongo/${id}`, undefined).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+        }
+      });
+  }
+  removeListTemplate(id) {
+      this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+        }
+      });
   }
 }
 

@@ -58,8 +58,7 @@
                         </a>
                     </li-->
 
-                    <li>
-                        <!--span >*ngIf="_scope.checkOperatione()"</span-->
+                    <li *ngIf="checkOperatione()">
                         <a [routerLink]="['tracking/us-sending']">
                             <i class="fa fa-truck"></i>
                             <span i18n>Tracking</span>
@@ -82,18 +81,18 @@
                         </a>
                     </li>
 
-                    <!--li *ngIf="_scope.checkSuperAdmin()">
+                    <li *ngIf="checkSuperAdmin()">
                         <a [routerLink]="['package']">
                             <i class="fa fa-truck"></i>
                             <span i18n>Package</span>
                         </a>
                     </li>
-                    <li *ngIf="_scope.checkSuperAdmin()">
+                    <li *ngIf="checkSuperAdmin()">
                         <a [routerLink]="['package/item']">
                             <i class="fa fa-truck"></i>
                             <span i18n>Package Item</span>
                         </a>
-                    </li-->
+                    </li>
 
                     <li class="sidebar-dropdown">
                         <a href="javascript:void(0)">
