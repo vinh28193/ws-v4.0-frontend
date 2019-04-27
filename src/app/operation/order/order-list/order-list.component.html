@@ -1928,7 +1928,7 @@ Enter to send" i18n-placeholder></textarea>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <button class="btn btn-info btn-sm mr-2" type="submit" i18n>
+                <button class="btn btn-info btn-sm mr-2" (click)="loadListTemChat()" type="submit" i18n>
                   <i class="fa fa-search mr-1"></i> Search
                 </button>
                 <button type="button" class="btn btn-default btn-sm" i18n>
@@ -1939,11 +1939,24 @@ Enter to send" i18n-placeholder></textarea>
           </div>
         </form>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template Order Chat</button>
           </div>
+          <div class="col-md-6">
+            <pagination [boundaryLinks]="true"
+                        [totalItems]="totalCount"
+                        (pageChanged)="handlePagination($event)"
+                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                        [rotate]="true">
+            </pagination>
+          </div>
         </div>
-        <table class="table">
+        <div class="row">
+          <div class="col-md-12">
+            <strong>Total: <span class="ml-1 text-danger">{{totalChat}}</span></strong>
+          </div>
+        </div>
+        <table class="table" style="height: 400px;">
           <thead>
           <tr>
             <th>Note</th>
@@ -1957,14 +1970,17 @@ Enter to send" i18n-placeholder></textarea>
           <tr *ngFor="let cn of listChatTem">
             <td>{{cn.note}}</td>
             <td>{{cn.content}}</td>
-            <td>
+            <td class="text-center">
               <form action="" [formGroup] = "checkFormShow">
-                <input type="checkbox" formControlName="checkStatusShow">
+                <!--<input type="checkbox" formControlName="checkStatusShow">-->
+                <input [id]="checkboxAttribute(cn.code,'id')"
+                       type="checkbox" (click)="checkBox(cn.code)"
+                       [name]="checkboxAttribute(cn.code,'name')">
               </form>
             </td>
             <td>{{cn.time_start}}</td>
             <td class="text-center">
-              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
+              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#editChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
               <a href="javascript:void(0)" class="text-danger ml-2" (click)="removeListTemplate(cn.code)"><i class="fa fa-remove"></i></a>
             </td>
           </tr>
@@ -1972,6 +1988,7 @@ Enter to send" i18n-placeholder></textarea>
         </table>
       </div>
       <div class="modal-footer ng-scope">
+        <button class="btn btn-info btn-sm" (click)="updateOrderCode()">update</button>
         <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
@@ -1989,7 +2006,7 @@ Enter to send" i18n-placeholder></textarea>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <div class="modal-body ng-scope" *ngIf="checkCreateOrderChatRefund">
+      <div class="modal-body ng-scope" *ngIf="checkUpdateOrderChatRefund">
         <form action="" [formGroup]="updateTemplate">
           <div class="row">
             <div class="col-md-12 mt-2">
@@ -1997,9 +2014,6 @@ Enter to send" i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
               <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentU" i18n-placeholder></textarea>
-            </div>
-            <div class="col-md-12 mt-2">
-              <input type="text" class="form-control form-control-sm" placeholder="status" formControlName="statusU" i18n-placeholder>
             </div>
           </div>
         </form>
