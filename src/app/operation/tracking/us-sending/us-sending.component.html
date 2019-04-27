@@ -66,7 +66,7 @@
                     <ul class="list-group custom-list">
                       <ng-container *ngFor="let manifest of manifests;let ind = index">
                         <li class="list-group-item custom-list-item {{manifest.id == manifest_id ? 'active' : !manifest_id && ind == 0 ? 'active' : '' }}"
-                            (click)="manifest_id = manifest.id; search('tracking');">
+                            (click)="search('tracking', manifest.id);">
                           <h4>{{manifest.manifest_code}}</h4>
                           <div>Id: <b>{{manifest.id}}</b></div>
                           <div>Receive Warehouse:
@@ -79,7 +79,7 @@
                             <span class="badge badge-warning">{{manifest.status}}</span>
                           </div>
                           <div><a href="javascript: void (0);" (click)="regetType(manifest.id)"><i class="fal fa-refresh" ></i> ReGet Type Tracking</a></div>
-                          <div><a href="javascript: void (0);" (click)="search()"><i class="fal fa-download" ></i>Export Box Me Tracking</a></div>
+                          <div><a href="javascript: void (0);" (click)="exportExcel(manifest.id)"><i class="fal fa-download" ></i>Export Box Me Tracking</a></div>
                         </li>
                       </ng-container>
                     </ul>

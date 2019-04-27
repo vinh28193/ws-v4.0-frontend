@@ -43,42 +43,58 @@
                             <span i18n  data-toggle="tooltip" data-placement="top" title="Thống kê chung" >Statistics all </span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['shipment2']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Shipment</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['tracking']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Tracking</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['package']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Package</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['package/item']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Package Item</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['package/draft']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Package Draft</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a [routerLink]="['order']">
                             <i class="fa fa-shopping-cart"></i>
                             <span i18n>Order</span>
                         </a>
                     </li>
+
+                    <!--li>
+                        <a [routerLink]="['tracking']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Tracking</span>
+                        </a>
+                    </li-->
+
+                    <li>
+                        <!--span >*ngIf="_scope.checkOperatione()"</span-->
+                        <a [routerLink]="['tracking/us-sending']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Tracking</span>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a [routerLink]="['package/draft']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Package Draft</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['shipment2']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Shipment</span>
+                        </a>
+                    </li>
+
+                    <!--li *ngIf="_scope.checkSuperAdmin()">
+                        <a [routerLink]="['package']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Package</span>
+                        </a>
+                    </li>
+                    <li *ngIf="_scope.checkSuperAdmin()">
+                        <a [routerLink]="['package/item']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Package Item</span>
+                        </a>
+                    </li-->
+
                     <li class="sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bell"></i>

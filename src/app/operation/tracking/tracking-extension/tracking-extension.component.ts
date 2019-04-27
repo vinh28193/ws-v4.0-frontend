@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TrackingExtensionService} from './tracking-extension.service';
 import {TrackingDataComponent} from '../tracking-data.component';
 import {ModalDirective} from 'ngx-bootstrap';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-tracking-extension',
@@ -12,8 +13,9 @@ export class TrackingExtensionComponent extends TrackingDataComponent implements
 
     @ViewChild('usReveicedModal') usReveicedModal: ModalDirective;
 
-    constructor(public service: TrackingExtensionService) {
-        super(service);
+    constructor(public service: TrackingExtensionService,
+                public _scope: ScopeService) {
+        super(service, _scope);
     }
 
     public filter: any = {

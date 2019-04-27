@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
+import {ScopeService} from '../core/service/scope.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -10,12 +11,14 @@ declare var jQuery: any;
     templateUrl: './operation-routing.component.html',
     styleUrls: ['./operation-routing.component.css']
 })
-export class OperationRoutingComponent extends ModuleComponent implements OnInit {
-  loging: any;
-  role: any;
-  user: any;
 
-    constructor(public activatedRoute: ActivatedRoute) {
+export class OperationRoutingComponent extends ModuleComponent implements OnInit {
+    loging: any;
+    role: any;
+    user: any;
+
+    constructor(public activatedRoute: ActivatedRoute
+    ) {
         super(activatedRoute);
     }
 
@@ -23,9 +26,9 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     public address: any;
 
     ngOnInit() {
-      this.loging = localStorage.getItem('userLogin');
-      this.role = localStorage.getItem('scope');
-      this.user = (JSON.parse(this.loging).username);
+        this.loging = localStorage.getItem('userLogin');
+        this.role = localStorage.getItem('scope');
+        this.user = (JSON.parse(this.loging).username);
     }
 
     closeSidebar() {

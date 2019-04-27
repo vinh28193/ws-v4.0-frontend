@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PopupService} from '../../../core/service/popup.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ModalDirective} from 'ngx-bootstrap';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-tracking-list',
@@ -72,9 +73,10 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         public trackingService: TrackingService,
         public popUp: PopupService,
         public fb: FormBuilder,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        public _scope: ScopeService
     ) {
-        super(trackingService);
+        super(trackingService, _scope);
     }
 
     ngOnInit() {
