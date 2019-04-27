@@ -5,6 +5,7 @@ import {TrackingService} from '../tracking.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TrackingDataComponent} from '../tracking-data.component';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
     selector: 'app-us-sending',
@@ -68,9 +69,10 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         public trackingService: TrackingService,
         public popUp: PopupService,
         public fb: FormBuilder,
-        public sanitizer: DomSanitizer
+        public sanitizer: DomSanitizer,
+        public _scope: ScopeService
     ) {
-        super(trackingService);
+        super(trackingService, _scope);
     }
 
     ngOnInit() {
@@ -103,34 +105,34 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         return this.usSendingForm.get('store').value;
     }
 
-    get warehouses(): any {
+    get listWarehouses(): any {
         const store = this.store;
-        let warehouses = [
+        let listWarehouses = [
             {key: this.allKey, value: '--select store first--'}
         ];
         if (store === '') {
-            warehouses = [
+            listWarehouses = [
                 {key: this.allKey, value: '--select store first--'}
             ];
         } else if (store === 'vn') {
-            warehouses = [
+            listWarehouses = [
                 {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
                 {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
             ];
         } else if (store === 'id') {
-            warehouses = [
+            listWarehouses = [
                 {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
             ];
         } else {
-            warehouses = [
+            listWarehouses = [
                 {key: this.allKey, value: '--select warehouse--'},
                 {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
                 {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
                 {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
             ];
         }
-        this.usSendingForm.patchValue({warehouse: warehouses[0].key});
-        return warehouses;
+        this.usSendingForm.patchValue({warehouse: listWarehouses[0].key});
+        return listWarehouses;
     }
 
     public handleFileChange(event) {
@@ -192,30 +194,33 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
         return params;
     }
 
-    search(type = 'search') {
-        const params = this.preSearch();
-        if (type === 'search') {
-            params.m = '';
-            this.manifest_id = '';
-        }
-        this.trackingService.searchUsSending(params).subscribe(response => {
-            const rs: any = response;
-            if (rs.success) {
-                const data: any = rs.data;
-                this.tracks = data._items;
-                if (type === 'search') {
-                    this.manifests = data._manifest ? data._manifest : this.manifests;
-                }
-                this.tracks = data;
-                this.totalCount = data._manifest_total ? data._manifest_total : this.totalCount;
-                this.pageCount = Math.floor(this.totalCount / params.ps_m);
-                this.currentPage = params.p_m;
-                this.perPage = params.ps_m;
-                this.setTabTracking(this.tabTracking);
-            } else {
-                this.popUp.error(rs.message);
+    search(type = 'search', id = null) {
+        if (id !== this.manifest_id) {
+            this.manifest_id = id;
+            const params = this.preSearch();
+            if (type === 'search') {
+                params.m = '';
+                this.manifest_id = '';
             }
-        });
+            this.trackingService.searchUsSending(params).subscribe(response => {
+                const rs: any = response;
+                if (rs.success) {
+                    const data: any = rs.data;
+                    this.tracks = data._items;
+                    if (type === 'search') {
+                        this.manifests = data._manifest ? data._manifest : this.manifests;
+                    }
+                    this.tracks = data;
+                    this.totalCount = data._manifest_total ? data._manifest_total : this.totalCount;
+                    this.pageCount = Math.floor(this.totalCount / params.ps_m);
+                    this.currentPage = params.p_m;
+                    this.perPage = params.ps_m;
+                    this.setTabTracking(this.tabTracking);
+                } else {
+                    this.popUp.error(rs.message);
+                }
+            });
+        }
     }
 
     openUsSendingModal() {
@@ -372,5 +377,18 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
     setTrackingTarget(id, tracking) {
         this.trackingMerge.ext_tracking_code = tracking;
         this.trackingMerge.ext_id = id;
+    }
+
+    exportExcel(id) {
+        this.trackingService.get('us-sending/' + id).subscribe(
+            rs => {
+                if (rs.success) {
+                    this.popUp.success(rs.message);
+                    location.assign(rs.data.link);
+                } else {
+                    this.popUp.error(rs.message);
+                }
+            }
+        );
     }
 }

@@ -15,16 +15,37 @@ export class PackageDraftService extends PackageService {
         public popup: PopupService) {
         super(http, encryption, popup);
     }
-
-    search($queryParams: any | undefined) {
-        return this.get('draft-package-item', $queryParams);
+    search(params) {
+        return this.get('tracking-code', params);
     }
-
-    handlePerPage($perPage) {
-
+    searchUsSending(params) {
+        return this.get('us-sending', params);
     }
-
-    handlePagination($page) {
-
+    create(formData) {
+        return this.post('tracking-code', formData);
+    }
+    update(id, formData) {
+        return this.put('tracking-code/' + id, formData);
+    }
+    reGetType(id, formData) {
+        return this.put('s-us-send/' + id, formData);
+    }
+    merge(formData) {
+        return this.post('s-tracking-code', formData);
+    }
+    mapUnknown(id, formData) {
+        return this.post('s-tracking-code/map-unknown/' + id, formData);
+    }
+    mapUnknownUS(id, formData) {
+        return this.post('s-us-send/map-unknown/' + id, formData);
+    }
+    sellerRefund(id, formData) {
+        return this.post('s-tracking-code/seller-refund/' + id, formData);
+    }
+    sellerRefundUsSending(id, formData) {
+        return this.post('s-us-send/seller-refund/' + id, formData);
+    }
+    markHold(id, formData) {
+        return this.post('s-tracking-code/mark-hold/' + id, formData);
     }
 }

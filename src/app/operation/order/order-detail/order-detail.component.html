@@ -54,7 +54,6 @@
                 <form action="" [formGroup] = "editFormVariant" *ngIf="openEditVariant[product.id]" [hidden]="!openEditVariant[product.id]">
                   <input  type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()" formControlName="variant"  name="variant">
                 </form>
-                <!--<app-edit-variant [id]="product.id" [variant]="product.variations"></app-edit-variant>-->
               </li>
               <!--li class="seller_id">
                 <span class="mr-2" i18n>Local Seller:</span>
@@ -73,19 +72,22 @@
           <div class="col-md-6 pl-1">
             <ul>
               <li>
-                <span class="mr-2" i18n>Local Name</span>
+                <span class="mr-2" i18n>Local Name:</span>
+                <app-span-label [value]=""></app-span-label>
+                <a href="javascript:void(0)" data-target="#showEditLocalName" data-toggle="modal" data-backdrop="static" (click)="clickOpen(product, order_path)" data-keyboard="false" >
+                  <i class="fa fa-edit text-info"></i>
+                </a>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Category:</span>
+                <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>QTT Set:</span>
                 <app-span-label [value]=""></app-span-label>
               </li>
               <li>
-                <span class="mr-2" i18n>Category</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
-              <li>
-                <span class="mr-2" i18n>QTT Set</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
-              <li>
-                <span class="mr-2" i18n>Fragile</span>
+                <span class="mr-2" i18n>Fragile:</span>
                 <app-span-label [value]=""></app-span-label>
               </li>
               <li>
@@ -96,6 +98,7 @@
                 <i class="fa fa-comments"  > {{product.note_by_customer}}</i>
               </li>
             </ul>
+            <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
           </div>
         </div>
       </div>
@@ -133,16 +136,6 @@
               {{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}
             </div>
           </div>
-          <!--div class="row price_amount_origin">
-            <div class="col-md-7"><strong i18n>Price Amount Origin:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_origin | currency: 'USD' : '$'}}</div>
-          </div-->
-
-          <!--div class="row price_amount_local">
-            <div class="col-md-7"><strong i18n>Price Amount Local:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">{{product.price_amount_local | currency: 'VND'}}</div>
-          </div-->
-
           <div *ngFor="let ProFee of product.productFees">
             <div class="row" *ngIf="checkShowFee(ProFee.type)">
               <div *ngIf="product.id == ProFee.product_id" class="name-{{ProFee.name}} type-{{ProFee.type}} text-bold col-md-5 pr-0">
@@ -212,11 +205,6 @@
             </div>
             <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
-          <!--<div class="row">-->
-            <!--<div class="col-md-12 exchangeRate">-->
-              <!--<i class="style-font-size">Exchage rate: {{product.exchange_rate | number}} </i>-->
-            <!--</div>-->
-          <!--</div>-->
         </div>
 
 
@@ -225,5 +213,87 @@
       <p></p>
 
     </div>
+  </div>
+</div>
+<div bsModal id="showEditLocalName" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Update </h4>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="updateForm" *ngIf="checkOpen">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Local Name:</label>
+                </div>
+                <div class="col-md-12">
+                  <input  type="text" class="form-control form-control-sm">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Category:</label>
+                </div>
+                <div class="col-md-12">
+                  <select class="form-control form-control-sm" formControlName="policy_id">
+                    <option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>QTT set:</label>
+                </div>
+                <div class="col-md-12">
+                  <input  type="text" class="form-control form-control-sm"  name="qttSet">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Fragile:</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <div class="col-md-4 radio">
+                    <label><input type="radio" name="optradio"> Yes</label>
+                  </div>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> No</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Packing Wood:</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> Yes</label>
+                </div>
+                <div class="col-md-4 radio">
+                  <label><input type="radio" name="optradio"> No</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <hr>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-right">
+                  <div class="button-group text-right">
+                    <button class="btn btn-sm btn-success pull-right" (click)="updateCategory()">Update</button>
+                    <button class="btn btn-sm btn-secondary pull-right" (click)="offModal()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
   </div>
 </div>

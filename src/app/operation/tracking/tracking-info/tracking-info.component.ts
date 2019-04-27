@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TrackingDataComponent} from '../tracking-data.component';
 import {TrackingService} from '../tracking.service';
+import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
   selector: 'app-tracking-info',
@@ -9,8 +10,11 @@ import {TrackingService} from '../tracking.service';
 })
 export class TrackingInfoComponent extends TrackingDataComponent implements OnInit {
   @Input() packTr: any = [];
-  constructor(http: TrackingService) {
-    super(http);
+  constructor(
+      http: TrackingService,
+      public _scope: ScopeService
+      ) {
+    super(http,_scope);
   }
 
   ngOnInit() {

@@ -61,7 +61,7 @@
                 <input type="checkbox" *ngIf="packTr.hold != 1 && !packTr.shipment_id"  [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]" (change)="clickCheck()" class="icheckbox_minimal-grey">
               </td>
               <td>
-                <app-tracking-info [packTr]="packTr"></app-tracking-info>
+                <app-package-info [packTr]="packTr"></app-package-info>
               </td>
               <td>
                 <ng-container *ngIf="!packTr.order">

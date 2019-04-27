@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
 import {ModalDirective} from 'ngx-bootstrap';
 declare var $: any;
@@ -14,6 +14,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   public packages: any = [];
   @Input() orderCode: any;
   @Input() orderIDD: any;
+  @Input() products: any;
   @Output() packageI = new EventEmitter();
   public package: any;
   public check: boolean = false;
@@ -28,6 +29,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   ngOnInit() {
     this.buildCreate();
     this.listPackageItem();
+    console.log(this.products);
   }
 
   packageEdit(item) {
@@ -42,7 +44,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   }
 
   listPackageItem() {
-    this.orderService.get(`package-item/${this.orderIDD}`, undefined).subscribe(res => {
+    this.orderService.get(`draft-package-item/${this.orderIDD}`, undefined).subscribe(res => {
       this.packages = res.data;
       this.packageI.emit(this.packages);
     });
@@ -50,7 +52,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   addPackageItem() {
     const params = this.preparPackagesss();
-    this.orderService.post('package-item', params).subscribe(res => {
+    this.orderService.post('draft-package-item', params).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
         this.popup.success(rs.message);
@@ -65,26 +67,25 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   buildCreate() {
     this.createForm = this.fb.group({
-      package_code: '',
+      product_id: [this.products[0]['id'], Validators.required],
       quantity: '',
       price: '',
       weight: '',
-      change_weight: '',
       dimension_l: '',
       dimension_w: '',
       dimension_h: '',
-      box_me_warehouse_tag: ''
+      tracking_code: ''
     });
   }
 
   preparPackagesss() {
     const value = this.createForm.value;
     const params: any = {};
-    if (value.package_code !== '') {
-      params.package_code = value.package_code;
+    if (value.product_id !== '') {
+      params.product_id = value.product_id;
     }
-    if (value.box_me_warehouse_tag !== '') {
-      params.quantity = value.quantity;
+    if (value.tracking_code !== '') {
+      params.tracking_code = value.tracking_code;
     }
     if (value.weight !== '') {
       params.weight = value.weight;
@@ -125,7 +126,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   RemovePackage(id) {
     const messagePop = 'delete pakage item ' + id ;
     this.popup.warning(() =>  {
-      this.orderService.delete(`package-item/${id}`).subscribe(res => {
+      this.orderService.delete(`draft-package-item/${id}`).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
           this.listPackageItem();

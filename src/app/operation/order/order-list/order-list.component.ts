@@ -2,11 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
-import {BsDaterangepickerConfig, ModalOptions} from 'ngx-bootstrap';
-import {PopupService} from '../../../core/service/popup.service';
 import {ModalDirective} from 'ngx-bootstrap';
-import {EventEmitter} from '@angular/core';
-import {searchKeys, orderStatus, paymentRequests, timeKeys} from '../order-enum';
+import {PopupService} from '../../../core/service/popup.service';
+import {orderStatus, paymentRequests, searchKeys, timeKeys} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
@@ -36,7 +34,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public create: any = {};
     public click_pur: any = {};
     public orders: any = [];
+    public listChatCheck: any = [];
     public total: any;
+    public chatId: any;
+    public totalChat: any;
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
@@ -59,6 +60,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkLoad = false;
     public checkLoadG = false;
     public AdjustPaymentOderId = false;
+    public checkCreateOrderChatRefund = false;
+    public checkListOrderChatRefund = false;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -84,6 +87,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public createTemplate: FormGroup;
     public formCreate: FormGroup;
     public messageCustomer: FormGroup;
+    public updateTemplate: FormGroup;
+    public checkFormShow: FormGroup;
+    public formSearchList: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -117,7 +123,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public promotion_id: any;
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
-    public CheeckLoadPromotions = false;
+    public checkUpdateOrderChatRefund = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -180,6 +186,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.load();
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        this.loadAllPolicy();
+        $(document).on('show.bs.modal', '.modal', function () {
+          var zIndex = 1040 + (10 * $('.modal:visible').length);
+          $(this).css('z-index', zIndex);
+          setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+          }, 0);
+        });
     }
 
     buildChat() {
@@ -656,7 +670,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
+        this.checkListOrderChatRefund = false;
         $('.modal').modal('hide');
+    }
+    offOption2() {
+      this.checkCreateOrderChatRefund = false;
+      this.checkUpdateOrderChatRefund = false;
     }
 
     getChangeAmount(price1, price2) {
@@ -791,25 +810,53 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return false;
         }
     }
+  openListOrderChatRefund(order) {
+      this.code = order.ordercode;
+    this.checkListOrderChatRefund = true;
+    this.checkFormShow = this.fb.group({
+      checkStatusShow: ''
+    });
+    this.formSearchList = this.fb.group({
+        noteL: '',
+        contentL: '',
+    });
+    this.loadListTemChat();
+  }
+
+  buildListChat() {
+      const value = this.formSearchList.value;
+      const params: any = {};
+      if (value.noteL !== '') {
+        params.noteL = value.noteL;
+      }
+    if (value.contentL !== '') {
+      params.contentL = value.contentL;
+    }
+    return params;
+  }
+
+  openCreateOrderChatRefund() {
+    this.checkCreateOrderChatRefund = true;
+    this.createTemplate = this.fb.group({
+      noteC: '',
+      contentC: '',
+      statusC: '',
+    });
+  }
 
     openOrderChatRefund(order) {
         this.code = order.ordercode;
         this.markID = order.id;
         this.status = order.status;
-        this.loadListTemChat();
         this.checkOrderChatRefund = true;
         this.editForm = this.fb.group({
-            wait1: '',
+            note_chat: '',
             link_image: '',
         });
         this.messageCustomer = this.fb.group({
           messageCustomer: '',
         });
-        this.createTemplate = this.fb.group({
-            noteC: '',
-            contentC: '',
-            statusC: '',
-        });
+        this.loadListTemChatRefund();
     }
     enterChat() {
       const params = this.prepareMarkWaiting();
@@ -821,11 +868,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
         const messagePop = 'Do you want mark supported';
-        if (params.message !== '') {
+        if (params.message) {
             this.orderService.postChat(params).subscribe(res => {
             });
         }
-        if (params.link_image !== '') {
+        if (params.link_image) {
+          console.log(params.link_image);
           this.orderService.post('link-image', params).subscribe(res => {
           });
         }
@@ -847,15 +895,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     prepareMarkWaiting() {
         const value = this.editForm.value;
+        const valueChat = this.messageCustomer.value;
         const params: any = {};
-        if (value.messageCustomer !== '') {
-            params.message = value.messageCustomer;
+        if (valueChat.messageCustomer !== '') {
+            params.message = valueChat.messageCustomer;
         }
         if (value.link_image) {
             params.link_image = value.link_image;
         }
-        if (value.wait1 !== '') {
-            params.mark = value.wait1;
+        if (value.note_chat !== '') {
+            params.mark = value.note_chat;
         }
         if (this.status === 'NEW') {
             params.isNew = 'yes';
@@ -929,6 +978,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateOrderCode() {
       const params = this.loadForm();
+      params.codeAll = this.listChatCheck;
       if ((params.status) === 'ready_purchase' ) {
           this.currentStatusOrder = 'ready2purchase';
       } else {
@@ -1075,16 +1125,82 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return params;
   }
   loadListTemChat() {
-      this.orderService.get('list-chat-mongo').subscribe(res => {
+      const params = this.buildListChat();
+      this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
+        this.totalChat = res.total;
       });
   }
-  createTemplateChat() {
-      const params = this.buildChatCreate()
-    this.orderService.post('list-chat-mongo', params).subscribe(res => {
-      // if (res.success) {
-      // }
+  loadListTemChatRefund() {
+    const params: any = {};
+    params.statusTT = 1
+    this.orderService.getListTem(params).subscribe(res => {
+      this.listChatTem = res.data;
+      this.totalChat = res.total;
     });
+  }
+  createTemplateChat() {
+      const params = this.buildChatCreate();
+      this.orderService.post('list-chat-mongo', params).subscribe(res => {
+        const rs: any = res;
+      if (rs.success) {
+        this.loadListTemChat();
+        this.popup.success(rs.message);
+      }
+    });
+  }
+  loadPro(storeId) {
+    this.loadPolicy(storeId);
+  }
+  buildChatUpdate() {
+    const value = this.updateTemplate.value;
+    const params: any = {};
+    params.noteU = value.noteU;
+    params.contentU = value.contentU;
+    return params;
+  }
+  editListTemplate() {
+      const params = this.buildChatUpdate();
+      this.orderService.put(`list-chat-mongo/${this.chatId}`, params).subscribe(res => {
+        if (res.success) {
+          this.loadListTemChat();
+          this.popup.success(res.message);
+        }
+      });
+  }
+  removeListTemplate(id) {
+    const messagePop = 'Do you want Delete';
+    this.popup.warning(() => {
+      this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
+        if (res.success) {
+          this.loadListTemChat();
+          this.popup.success(res.message);
+        }
+      });
+    }, messagePop);
+  }
+  openUpdateOrderChatRefund(cn) {
+    this.checkUpdateOrderChatRefund = true;
+    this.chatId = cn.code;
+    this.updateTemplate = this.fb.group({
+      noteU: cn.note,
+      contentU: cn.content,
+    });
+  }
+
+  checkboxAttribute(reference, type = 'id') {
+    return 'checkbox' + type.charAt(0).toUpperCase() + type.slice(1) + reference;
+  }
+  checkBox(id) {
+    const e = $('input[name=' + this.checkboxAttribute(id, 'name') + ']');
+    if ($(e).is(':checked')) {
+      this.listChatCheck.push(id);
+    } else {
+      if (this.listChatCheck.indexOf(id) !== -1) {
+        this.listChatCheck.splice(this.listChatCheck.indexOf(id), 1);
+      }
+    }
+    console.log(this.listChatCheck);
   }
 }
 

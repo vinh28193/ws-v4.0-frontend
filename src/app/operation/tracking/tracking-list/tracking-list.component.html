@@ -218,7 +218,12 @@
                                                 <ng-container *ngIf="tabTracking != ''">
                                                     <tr>
                                                         <td colspan="4" style="padding: 0px">
-                                                            <app-tracking-views [tab_tracking]="tabTracking" [tracking_codes]="trackingCodes">
+                                                            <app-tracking-views [tab_tracking]="tabTracking"
+                                                                                (sellerRefund)="showSellerRefundModal($event)"
+                                                                                (markHold)="markHoldTracking($event.id,$event.hold)"
+                                                                                (splitTracking)="splitTracking($event)"
+                                                                                (updateTracking)="showUpdateForm($event)"
+                                                                                [tracking_codes]="trackingCodes">
                                                             </app-tracking-views>
                                                         </td>
                                                     </tr>
@@ -264,7 +269,7 @@
                                                 <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
                                                 <select class="form-control form-control-sm" name="warehouse" id="warehouse"
                                                         formControlName="warehouse">
-                                                    <option *ngFor="let wh of warehouses" [value]="wh.key">{{wh.value}}</option>
+                                                    <option *ngFor="let wh of listWarehouses" [value]="wh.key">{{wh.value}}</option>
                                                 </select>
                                             </div>
                                         </div>
