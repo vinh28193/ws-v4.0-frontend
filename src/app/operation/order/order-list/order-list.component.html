@@ -719,7 +719,8 @@
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Add template mark order</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="" href="javascript:void(0);" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Add template mark order</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>List template mark order</a>
 
 
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
@@ -1874,18 +1875,13 @@ Enter to send" i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Mark waiting for feedback from the seller : <span class="label label-primary ng-binding">{{code}}</span></h3>
-        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+        <h3 class="modal-title text-white">Create Template Mart Order</h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption2()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <div class="modal-body ng-scope" *ngIf="checkCreateOrderChatRefund">
-        <div class="row">
-          <div class="col-md-12 text-right">
-            <button class="btn btn-info btn-sm">Create Template Mark Order</button>
-          </div>
-        </div>
         <form action="" [formGroup]="createTemplate">
           <div class="row">
             <div class="col-md-12 mt-2">
@@ -1902,6 +1898,81 @@ Enter to send" i18n-placeholder></textarea>
       </div>
       <div class="modal-footer ng-scope">
         <button class="btn-success btn btn-sm" (click)="createTemplateChat()" i18n>Create</button>
+        <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption2()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ListChatRefund" class="modal fade" tabindex="-2" role="dialog">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5; max-width: 80%">
+    <div class="modal-content" uib-modal-transclude="">
+      <div class="modal-header ng-scope bg-success">
+        <h3 class="modal-title text-white" i18n>List template mark order</h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>Close</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="checkListOrderChatRefund">
+        <form class="ng-pristine ng-valid" [formGroup] = "formSearchList">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input name="noteL" placeholder="Thẻ ghi chú" formControlName="noteL" type="text" class="form-control form-control-sm">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input name="contentL" formControlName="contentL" id="contentComment" placeholder="Nội dung" type="text" class="form-control form-control-sm" >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <button class="btn btn-info btn-sm mr-2" type="submit" i18n>
+                  <i class="fa fa-search mr-1"></i> Search
+                </button>
+                <button type="button" class="btn btn-default btn-sm" i18n>
+                  <i class="fa fa-refresh mr-1"></i> Refresh
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template Order Chat</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Note</th>
+            <th>Content</th>
+            <th>Status</th>
+            <th>Create</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let cn of listChatTem">
+            <td>{{cn.note}}</td>
+            <td>{{cn.content}}</td>
+            <td>
+              <form action="" [formGroup] = "checkFormShow">
+                <input type="checkbox" formControlName="checkStatusShow">
+              </form>
+            </td>
+            <td>{{cn.time_start}}</td>
+            <td class="text-center">
+              <a href="javascript:void(0)" (click)="editListTemplate(cn._id)"><i class="fa fa-edit"></i></a>
+              <a href="javascript:void(0)" class="text-danger ml-2" (click)="removeListTemplate(cn.code)"><i class="fa fa-remove"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer ng-scope">
         <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>

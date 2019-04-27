@@ -61,9 +61,11 @@ export class OrderService extends OperationService {
     createCart(url, item: any | undefined) {
         return this.post('purchase/' + url, item);
     }
-
     getForPurchase(url, item: any | undefined) {
         return this.get('purchase-account' + url, item);
+    }
+    getListTem(filter: any | undefined) {
+      return this.get('list-chat-mongo', filter);
     }
 
     getListCardPayment(url, item: any | undefined) {
