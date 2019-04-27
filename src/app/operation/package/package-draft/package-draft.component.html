@@ -1,227 +1,467 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-header">
+                <h3 class="card-title m-b-0" i18n>Package Draft</h3>
+            </div>
             <div class="card-body">
-                <!--<form action="" name="formSearch" class="row search-form"></form>-->
-                <section class="row item-operation">
+                <div class="row">
                     <div class="col-md-12">
-                        <div class="form-inline pull-right">
-                            <div class="button-group">
-                                <a class="btn btn-info btn-sm text-white"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                        <form [formGroup]="searchForm" name="formSearch" class="row item-filter-option">
+                            <div class="col-md-4 form-group m-b-10">
+                                <label for="q" class="form-control-label" i18n>Keyword...</label>
+                                <input class="form-control form-control-sm" id="q" formControlName="q"
+                                       type="text" (keyup.enter)="search()">
                             </div>
-                        </div>
-                    </div>
-                </section>
-                <article class="row item-list">
-                    <div class="col-md-12">
-                        <div class="row pagination">
-                            <div class="col-md-6">
-                                Showing
-                                <select class="form-control-sm select-custom" (change)="handlePerPage($event)">
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                    <option value="all">All</option>
-                                </select>
-                                of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items
+                            <div class="col-md-4 form-group m-b-10">
+                                <div class="button-group" style="margin-top: 1.7rem;">
+                                    <button class="btn btn-sm btn-success" (click)="search()" i18n>Search</button>
+                                </div>
                             </div>
-                            <div class="col-md-6 ">
-                                <pagination [boundaryLinks]="true"
-                                            [totalItems]="totalCount"
-                                            (pageChanged)="handlePagination($event)"
-                                            [maxSize]="10"
-                                            [itemsPerPage]="perPage" class="pagination-sm pull-right"
-                                            [rotate]="true">
-                                </pagination>
-                            </div>
-                        </div>
-                        <div class="row grid-view">
+                        </form>
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <th width="15%" >Tracking Info</th>
-                                        <th width="25%">Merge Extension</th>
-                                        <th width="25%">Box Me Received</th>
-                                        <th width="25%">Box Me Inspected</th>
-                                        <th width="10%">Action</th>
-                                        </thead>
-                                        <tbody>
-                                        <ng-container *ngFor="let item of items">
-                                            <tr>
-                                                <td>
-                                                    <div class="mb-1">Tracking: <strong>{{item.tracking_code}}</strong></div>
-                                                    <div class="mb-1">Manifest: <a href="javascript:void(0)">{{item.manifest_code}}-{{item.manifest_id}}</a></div>
-                                                    <div class="mb-1">Quantity: <strong>{{item.quantity}}</strong></div>
-<!--                                                    <div class="mb-1">Weight: <strong>{{item.quantity}} gram</strong></div>-->
-<!--                                                    <div class="mb-1">Dimension Weight: <strong>{{item.dimension}} gram</strong></div>-->
-<!--                                                    <div class="mb-1">Volume ({{item.volume_label}}): <strong>{{item.volume}} (cm)</strong></div>-->
-                                                    <div class="mb-1">Create At: <strong>{{item.created_at | date}}</strong></div>
-<!--                                                    <div class="mb-1">Product Name: <strong>{{item.item_name}}</strong></div>-->
-                                                </td>
-                                                <td>
-                                                    <span class="label label-warning" *ngIf="item.draftExtensionTrackingMap && !item.trackingCode" >Get From Extension</span><br>
-                                                    <span class="label label-warning" *ngIf="!item.draftExtensionTrackingMap && item.trackingCode" >Get From Us Sending</span><br>
-                                                    <span class="label label-success" *ngIf="item.draftExtensionTrackingMap && item.trackingCode" >Merge Success</span><br>
-                                                    <span class="label label-danger" *ngIf="!item.draftExtensionTrackingMap && !item.trackingCode" >Unknown</span><br>
-                                                    <div>Order id : <b>{{item.order_id}}</b></div>
-                                                    <div>Product id : <b>{{item.product_id}}</b></div>
-                                                    <div>Purchase invoice : <b>{{item.purchase_invoice_number}}</b></div>
-                                                    <div>Update at : <b>{{item.updated_at | date}}</b></div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="item.draftBoxmeTracking">
-                                                        <span class="label label-success">Box Me Received</span><br>
-                                                        <div>Order id : <b>{{item.draftBoxmeTracking.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftBoxmeTracking.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftBoxmeTracking.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftBoxmeTracking.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftBoxmeTracking.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftBoxmeTracking.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftBoxmeTracking.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftBoxmeTracking.dimension_h}}x{{item.draftBoxmeTracking.dimension_l}}x{{item.draftBoxmeTracking.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftBoxmeTracking.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftBoxmeTracking.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftBoxmeTracking.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                <hr class="mt-2 mb-2">
+                            </div>
+                        </div>
+                        <div class="row mb-2 toolbar">
+                            <div class="col-md-12">
+                                <div class="button-group">
+                                    <button class="btn btn-sm btn-success" (click)="openUsSendingModal()" i18n>Us Sending</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="content-block" style="border-bottom: none">
+                                    <div class="header-content">
+                                        <h4>List Manifest</h4>
+                                        <div class="col-md-12">
+                                            <div class="row list-summary">
+                                                <div class="col-md-6">
+                                                    <span i18n>Showing</span>
+                                                    <select class="form-control-sm select-custom"
+                                                            [(ngModel)]="perPage" (change)="search()">
+                                                        <option value="20">20</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="all">All</option>
+                                                    </select>
+                                                    <span>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <pagination [boundaryLinks]="true"
+                                                                [totalItems]="totalCount"
+                                                                (pageChanged)="handlePagination($event)"
+                                                                [maxSize]="10"
+                                                                [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                                                                [rotate]="true">
+                                                    </pagination>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="body-content">
+                                        <ul class="list-group custom-list">
+                                            <ng-container *ngFor="let manifest of manifests;let ind = index">
+                                                <li class="list-group-item custom-list-item {{manifest.id == manifest_id ? 'active' : !manifest_id && ind == 0 ? 'active' : '' }}"
+                                                    (click)="manifest_id = manifest.id; search('tracking');">
+                                                    <h4>{{manifest.manifest_code}}</h4>
+                                                    <div>Id: <b>{{manifest.id}}</b></div>
+                                                    <div>Receive Warehouse:
+                                                        <b>{{manifest.receiveWarehouse ? manifest.receiveWarehouse.name : ''}}</b>
                                                     </div>
-                                                    <div *ngIf="!item.draftBoxmeTracking && item.draftWastingTracking" >
-                                                        <span class="label label-warning">Wasting Tracking</span><br>
-                                                        <div>Order id : <b>{{item.draftWastingTracking.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftWastingTracking.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftWastingTracking.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftWastingTracking.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftWastingTracking.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftWastingTracking.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftWastingTracking.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftWastingTracking.dimension_h}}x{{item.draftWastingTracking.dimension_l}}x{{item.draftWastingTracking.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftWastingTracking.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftWastingTracking.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftWastingTracking.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div>Send Warehouse:
+                                                        <b>{{manifest.sendWarehouse ? manifest.sendWarehouse.name : ''}}</b>
                                                     </div>
-                                                    <div *ngIf="!item.draftBoxmeTracking && item.draftMissingTracking" >
-                                                        <span class="label label-warning">Missing Tracking</span><br>
-                                                        <div>Order id : <b>{{item.draftMissingTracking.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftMissingTracking.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftMissingTracking.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftMissingTracking.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftMissingTracking.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftMissingTracking.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftMissingTracking.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftMissingTracking.dimension_h}}x{{item.draftMissingTracking.dimension_l}}x{{item.draftMissingTracking.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftMissingTracking.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftMissingTracking.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftMissingTracking.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </div>
+                                    <div class="content-block" style="border: 2px solid #2e5cde">
+                                        <div class="header-content" style="background: #2e5cde;">
+                                            <h4 style="color: #fff">Tracking Info</h4>
+                                        </div>
+                                        <div class="body-content">
+                                            <table class="table table-primary">
+                                                <thead>
+                                                <tr>
+                                                    <th width="25%" class="{{tabTracking == 'complete' ? 'active-tab-track' : ''}}" (click)="setTabTracking('complete')">Tracking Complete (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('unknown')">Tracking Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <ng-container *ngIf="tabTracking == ''">
+                                                    <tr>
 
-
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="item.draftPackageItem">
-                                                        <span class="label label-success">Box Me Inspected</span><br>
-                                                        <div>Order id : <b>{{item.draftPackageItem.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftPackageItem.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftPackageItem.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftPackageItem.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftPackageItem.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftPackageItem.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftPackageItem.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftPackageItem.dimension_h}}x{{item.draftPackageItem.dimension_l}}x{{item.draftPackageItem.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftPackageItem.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftPackageItem.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftPackageItem.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div *ngIf="!item.draftPackageItem && item.draftWastingTracking" >
-                                                        <span class="label label-warning">Wasting Tracking</span><br>
-                                                        <div>Order id : <b>{{item.draftWastingTracking.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftWastingTracking.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftWastingTracking.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftWastingTracking.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftWastingTracking.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftWastingTracking.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftWastingTracking.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftWastingTracking.dimension_h}}x{{item.draftWastingTracking.dimension_l}}x{{item.draftWastingTracking.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftWastingTracking.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftWastingTracking.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftWastingTracking.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div *ngIf="!item.draftPackageItem && item.draftMissingTracking" >
-                                                        <span class="label label-warning">Missing Tracking</span><br>
-                                                        <div>Order id : <b>{{item.draftMissingTracking.order_id}}</b></div>
-                                                        <div>Product id : <b>{{item.draftMissingTracking.product_id}}</b></div>
-                                                        <div>Product name : <b>{{item.draftMissingTracking.item_name}}</b></div>
-                                                        <div>Purchase invoice : <b>{{item.draftMissingTracking.purchase_invoice_number}}</b></div>
-                                                        <div>Warehouse Tag : <b>{{item.draftMissingTracking.warehouse_tag_boxme}}</b></div>
-                                                        <div>Quantity : <b>{{item.draftMissingTracking.quantity}}</b></div>
-                                                        <div>Weight : <b>{{item.draftMissingTracking.weight}} (gram)</b></div>
-                                                        <div>Dimension : <b>{{item.draftMissingTracking.dimension_h}}x{{item.draftMissingTracking.dimension_l}}x{{item.draftMissingTracking.dimension_w}} (cm)</b></div>
-                                                        <div>Note by boxme : <b>{{item.draftMissingTracking.note_boxme}}</b></div>
-                                                        <div>Update at : <b>{{item.draftMissingTracking.updated_at | date}}</b></div>
-                                                        <div class="mb-1">
-                                                            <strong>List Image</strong>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-6" *ngFor="let img of getListImage(item.draftMissingTracking.image)" >
-                                                                    <img *ngIf="img && img !== 'None'" src="{{img}}" class="img-thumbnail img-responsive" >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </td>
-                                                <td>
-                                                    <div class="button-group">
-                                                        <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
-                                                        <button class="btn btn-sm btn-success"><i class="fa fa-image"></i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!--todo show image list-->
-                                        </ng-container>
-
-                                        </tbody>
-                                    </table>
+                                                        <td width="25%">
+                                                            <input [(ngModel)]="trackingComplete"
+                                                                   (change)="search('tracking')"
+                                                                   class="form-control form-control-sm"
+                                                                   placeholder="Tracking complete">
+                                                            <app-paging-custom
+                                                                    (clickFn)="p_c = $event.page; search('tracking')"
+                                                                    [limit]="l_c"
+                                                                    [limit_page]="limit_page"
+                                                                    [page]="p_c"
+                                                                    [total]="tracks['draftPackageItems_total']"
+                                                            >
+                                                            </app-paging-custom>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <input [(ngModel)]="trackingWast" (change)="search('tracking')"
+                                                                   class="form-control form-control-sm"
+                                                                   placeholder="Tracking wasting">
+                                                            <app-paging-custom
+                                                                    (clickFn)="p_w = $event.page; search('tracking')"
+                                                                    [limit]="l_w"
+                                                                    [limit_page]="limit_page"
+                                                                    [page]="p_w"
+                                                                    [total]="tracks['draftWastingTrackings_total']"
+                                                            >
+                                                            </app-paging-custom>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <input [(ngModel)]="trackingMiss" (change)="search('tracking')"
+                                                                   class="form-control form-control-sm"
+                                                                   placeholder="Tracking missing">
+                                                            <app-paging-custom
+                                                                    (clickFn)="p_m = $event.page; search('tracking')"
+                                                                    [limit]="l_m"
+                                                                    [limit_page]="limit_page"
+                                                                    [page]="p_m"
+                                                                    [total]="tracks['draftMissingTrackings_total']"
+                                                            >
+                                                            </app-paging-custom>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <input [(ngModel)]="trackingUnknown"
+                                                                   (change)="search('tracking')"
+                                                                   class="form-control form-control-sm"
+                                                                   placeholder="Tracking unknown">
+                                                            <app-paging-custom
+                                                                    (clickFn)="p_u = $event.page; search('tracking')"
+                                                                    [limit]="l_u"
+                                                                    [limit_page]="limit_page"
+                                                                    [page]="p_u"
+                                                                    [total]="tracks['unknownTrackings_total']"
+                                                            >
+                                                            </app-paging-custom>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="content-tracking-info" >
+                                                        <td>
+                                                            <ul class="list-group">
+                                                                <ng-container *ngFor="let packTr of tracks.draftPackageItems">
+                                                                    <li class="list-group-item">
+                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <div class="padding-btn">
+                                                                            <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
+                                                                            <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
+                                                                            <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
+                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View detail merge</a></div>
+                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr.id)"><i class="fal fa-eye"></i> View Extension</a></div>
+                                                                            <div><a href="javascript:void (0)"
+                                                                                    (click)="showUpdateForm(packTr)"><i
+                                                                                    class="fal fa-edit"></i> Update tracking</a>
+                                                                            </div>
+                                                                            <div><a href="javascript:void (0)" (click)="splitTracking(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-group">
+                                                                <ng-container *ngFor="let packTr of tracks.draftWastingTrackings">
+                                                                    <li class="list-group-item">
+                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <div>
+                                                                            <p *ngIf="!trackingMerge || trackingMerge.type != 'wast'"><a href="javascript:void (0)" (click)="merge(packTr,'wast')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-group">
+                                                                <ng-container *ngFor="let packTr of tracks.draftMissingTrackings">
+                                                                    <li class="list-group-item">
+                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <div>
+                                                                            <p *ngIf="!trackingMerge || trackingMerge.type != 'miss'" ><a href="javascript:void (0)" (click)="merge(packTr,'miss')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-group">
+                                                                <ng-container *ngFor="let packTr of tracks.unknownTrackings">
+                                                                    <li class="list-group-item">
+                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <div>
+                                                                            <p class="btn-group" >
+                                                                                <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
+                                                                                <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
+                                                                            </p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                                <ng-container *ngIf="tabTracking != ''">
+                                                    <tr>
+                                                        <td colspan="4" style="padding: 0px">
+                                                            <app-package-view [tab_tracking]="tabTracking"
+                                                                                (sellerRefund)="showSellerRefundModal($event)"
+                                                                                (markHold)="markHoldTracking($event.id,$event.hold)"
+                                                                                (splitTracking)="splitTracking($event)"
+                                                                                (updateTracking)="showUpdateForm($event)"
+                                                                                [tracking_codes]="trackingCodes">
+                                                            </app-package-view>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #usSendingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Create Manifest From List Warehouse Us Send List Tracking</h3>
+                                </div>
+                                <form [formGroup]="usSendingForm" name="form" class="row form-upload">
+                                    <div class="col-md-12 form-body">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" >Store</label>
+                                                <select class="form-control form-control-sm" name="store" id="store"
+                                                        formControlName="store">
+                                                    <option value="" i18n>--Select Store--</option>
+                                                    <option value="vn">Việt nam</option>
+                                                    <option value="id">Indonesia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
+                                                <select class="form-control form-control-sm" name="warehouse" id="warehouse"
+                                                        formControlName="warehouse">
+                                                    <option *ngFor="let wh of listWarehouses" [value]="wh.key">{{wh.value}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label"  i18n> Name Manifest</label>
+                                                <input type="text" class="form-control form-control-sm"  placeholder="18042019-LOWS-VN-HN003" id="manifest" name="manifest"
+                                                       formControlName="manifest">
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="store" class="form-control-label" i18n>Upload</label>
+                                                <span i18n>(Download File excel ,Example : TrackingCode.xlsx)</span>
+                                                <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
+                                                <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="button-group">
+                                                    <button class="btn btn-sm btn-success" (click)="create()" i18n>Create</button>
+                                                    <button class="btn btn-sm btn-warning" i18n>Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #sellerRefundModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Seller refund tracking {{sellerRefundForm.tracking}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="amountRefund" class="form-control-label" >Amount Refund ($)</label>
+                                            <input type="number" id="amountRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.amount" >
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="typeRefund" class="form-control-label" >Type refund</label>
+                                            <select id="typeRefund" class="form-control form-control-sm" [(ngModel)]="sellerRefundForm.type">
+                                                <option value="full">Refund Full</option>
+                                                <option value="partial">Refund Partial</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="timeRefund" class="form-control-label" >Time refund</label>
+                                            <input id="timeRefund" type="text" class="form-control" placeholder="Time Refund" bsDatepicker  [(ngModel)]="sellerRefundForm.time"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="updateSellerRefund()">Update Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="sellerRefundModal.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #updateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Update tracking {{updateForm.tracking}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="order_id" class="form-control-label">Order Id</label>
+                                            <input type="number" id="order_id" class="form-control form-control-sm"
+                                                   [(ngModel)]="updateForm.order_id">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="product_id" class="form-control-label">Product Id</label>
+                                            <input type="number" id="product_id" class="form-control form-control-sm"
+                                                   [(ngModel)]="updateForm.product_id">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="purchase_invoice_number" class="form-control-label">Purchase
+                                                invoice number</label>
+                                            <input id="purchase_invoice_number" type="text" class="form-control"
+                                                   [(ngModel)]="updateForm.purchase_invoice_number"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="item_name" class="form-control-label">Item Name</label>
+                                            <input id="item_name" type="text" class="form-control"
+                                                   [(ngModel)]="updateForm.item_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="update()">Update
+                                                    Tracking
+                                                </button>
+                                                <button class="btn btn-sm btn-warning" (click)="updateModal.hide()"
+                                                        i18n>Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #mergeTracking="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Merge tracking {{trackingMerge}}</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="store" class="form-control-label" >Tracking merge</label>
+                                            <input type="text" disabled class="form-control form-control-sm" value="{{trackingMerge}}" >
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="store" class="form-control-label" >Tracking target</label>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="trackingTarget" placeholder="Enter tracking target" >
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n>Merge</button>
+                                                <button class="btn btn-sm btn-warning" (click)="mergeTracking.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
