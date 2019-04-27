@@ -379,6 +379,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       if (rs.success) {
         this.popup.success(rs.message);
         this.shipmentCreateModal.hide();
+        this.search();
       } else {
         this.popup.error(rs.message);
       }
@@ -402,6 +403,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
           const rs: any = response;
           if (rs.success) {
             this.popup.success(rs.message);
+            this.search();
           } else {
             this.popup.error(rs.message);
           }
@@ -417,6 +419,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       if (rs.success) {
         this.popup.success(rs.message);
         this.shipmentCreateModal.hide();
+        this.search();
       } else {
         this.popup.error(rs.message);
       }
@@ -519,6 +522,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
           const rs: any = res;
           if (rs.success) {
             this.popup.success(rs.message);
+            this.search();
           } else {
             this.popup.error(rs.message);
           }
