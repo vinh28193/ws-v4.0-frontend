@@ -529,7 +529,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     } else {
       this.popup.warning(() => {
         this.shipmentService.post('courier/cancel', {ids: ids}).subscribe(res => {
-          const rs: any = response;
+          const rs: any = res;
           if (rs.success) {
             this.popup.success(rs.message);
           } else {
