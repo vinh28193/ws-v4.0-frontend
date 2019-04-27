@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
+import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {OperationRoutingModule} from './operation-routing.module';
 import {OperationRoutingComponent} from './operation-routing.component';
 import {OperationService} from './operation.service';
@@ -24,12 +25,19 @@ import {TimeMessagePipe} from './pipes/time-message.pipe';
 import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
 import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
 import {PagingCustomComponent} from './paging-custom/paging-custom.component';
+import { TrackingLogComponent } from './tracking-log/tracking-log.component';
+import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
+
 
 @NgModule({
     imports: [
         CommonModule,
         OperationRoutingModule,
-        LoadingModule
+        LoadingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot(),
+        PaginationModule.forRoot(),
     ],
     declarations: [
         OperationRoutingComponent,
@@ -50,6 +58,7 @@ import {PagingCustomComponent} from './paging-custom/paging-custom.component';
         CurrencyStorePipe,
         MarkSupportingPipe,
         TypeTrackingPipe,
+        TrackingLogComponent,
         PagingCustomComponent
     ],
     providers: [

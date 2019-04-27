@@ -1,0 +1,178 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+                <h3 class="panel-title">Danh sách tracking log </h3>
+     </div>
+     <form [formGroup]="searchForm"  class="search-form">
+     <div class="panel-body">
+     	 <div class="row">
+     	        <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control " name="trackingcode" id="trackingcode" formControlName="trackingcode" placeholder="Tracking code">
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" name="ip" id="ip" formControlName="ip" placeholder="Địa chỉ IP">
+                        </div>
+                </div>
+                 <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" name="note" id="note" formControlName="note" placeholder="Nội dung ghi chú" number-only="">
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" name="user" id="user" formControlName="user" placeholder="Mã nhân viên" number-only="">
+                        </div>
+                </div>
+                <div class="form-group col-md-4 " style="padding-left: 10px; padding-right: 10px;">
+                        <select id="active" name="sortField" class="form-control ng-pristine ng-valid ng-empty ng-touched" name="sortField" id="sortField" formControlName="sortField">
+                            <option value="" selected="selected"> --Sắp xếp theo-- </option>
+                            <option value="1">Thời gian tạo gần đây</option>
+                            <option value="2">Thời gian tạo cũ nhất</option>
+                        </select>
+                </div>
+
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <select name="logtype" id="logtype" formControlName="logtype" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                          	<option value="" selected> --Loại log-- </option>
+                          	<option value="Us Sending">Us Sendding</option>
+                          </select>
+                        </div>
+                </div>   
+                <div class="col-md-4">
+                        <div class="form-group">
+                            <button (click)="getListTrackingLog()" class="btn btn-info" >
+                                <span class="glyphicon glyphicon-search"></span> Lọc
+                            </button>
+                            <button type="button" class="btn btn-warning" ng-click="defaultSearch()">
+                                <i class="glyphicon glyphicon-refresh"></i> Làm lại
+                            </button>
+                        </div>
+                 </div>  
+         </div>                
+        
+     </div>
+ </form>
+</div>
+<div>
+
+        <h5 class="pull-left" style="padding: 10px; width: 33%;">
+                Tìm thấy <strong class="ng-binding">{{TotalCountTrackingLog}}</strong> kết quả trong <strong class="ng-binding">{{PerPageTrackingLog}}</strong> trang.
+        </h5>
+
+      <div class="pagination pull-right">
+        <pagination     [boundaryLinks]="true"
+                        [totalItems]="TotalCountTrackingLog"
+                        (pageChanged)="handlePagination($event)"
+                        [itemsPerPage]="PerPageTrackingLog" class="pagination-sm pull-right"
+                        [maxSize]="5"
+                        [rotate]="true">
+        </pagination>
+      </div>
+
+</div>
+
+<div class="tbl-tracking-log">
+	<table class="table table-bordered table-striped table-actions">
+		<thead>
+	        <tr>
+	            <th width="10%">Mã Tracking</th>
+	            <th width="15%">Loại Log</th>
+	            <th width="40%">Ghi chú</th>
+	            <th width="20%">Nhân viên</th>
+	            <th width="8%">Địa chỉ IP</th>
+	            <th width="8%">Thời gian tạo</th>
+	            <th width="7%">Thao tác</th>
+	        </tr>
+         </thead>
+         <tbody>
+         	<tr *ngFor="let trackinglog of ListTrackingLog">
+                    <td class="text-left text-bold ng-binding">
+                     {{trackinglog.tracking}}
+                    </td>
+                     <td>
+                          <span class="label label-primary ng-binding">
+                           {{trackinglog.log_type}}
+                          </span>
+                     </td>
+                     <td>
+                          <p>
+                          	 <span class="label label-primary ng-binding">
+                           {{trackinglog.note.text}}
+
+                          </span> 
+                         </p>
+                         <p>
+                          <span>
+                          	{{trackinglog.note.manifest}}
+                          </span>
+                        </p>
+                     </td>
+                    <td class="ng-binding">
+                    	<strong class="text-default ng-binding">   {{trackinglog.user}}
+                    	</strong>	
+                    </td>
+                    <td class="ng-binding">
+                    	{{trackinglog.request_ip}}
+                    </td>
+                     <td class="ng-binding">
+                     {{trackinglog.created_at}}
+                    </td>
+                    <td>
+                        <button type="button"  data-toggle="modal" data-target ='#modalTrackingLog' class="btn btn-success btn-rounded btn-sm"(click)="openShowTrackingLog(trackinglog.tracking)">Xem thêm
+                        </button>
+
+                    </td>
+               </tr>
+               
+         </tbody>
+	</table>
+</div>
+<div  id="modalTrackingLog" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="modalTrackingLog">
+
+    <div class="modal-dialog" >
+        <div  *ngFor="let trackinglogedit of ListTrackingLogEdit">
+             <div class="modal-header ng-scope">
+                <h3 class="modal-title ng-binding">Thông tin log mã: {{trackinglogedit.tracking}}</h3>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body ng-scope">
+            <div class="form-group">
+                <label>Mã log</label>
+                <span class="form-control ng-binding">{{trackinglogedit.tracking}}</span>
+            </div>
+            <div class="form-group">
+                <label>User</label>
+                <span class="form-control ng-binding">{{trackinglogedit.user}}</span>
+            </div>
+            <div class="form-group">
+                <label>Ghi chú</label>
+                <textarea rows="10" class="form-control ng-binding">{{trackinglogedit.note | json}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ IP</label>
+                <span class="form-control ng-binding">{{trackinglogedit.request_ip}}</span>
+            </div>
+            <div class="form-group">
+                <label>Ngày tạo</label>
+                <span class="form-control ng-binding">{{trackinglogedit.created_at | amTimeAgo}}</span>
+            </div>
+            <div class="form-group">
+                <label>Loại log</label>
+                <span class="form-control ng-binding">{{trackinglogedit.log_type}}</span>
+            </div>
+            <div class="form-group">
+                <label>Đối tượng</label>
+                <textarea rows="10" class="form-control ng-binding">{{trackinglogedit.object | json}}</textarea>
+            </div>
+        </div>
+        </div>
+            <div class="modal-footer ng-scope">
+            <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
+          </div>
+   </div>
+</div>
+</div>     
