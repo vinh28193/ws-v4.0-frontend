@@ -34,7 +34,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public create: any = {};
     public click_pur: any = {};
     public orders: any = [];
+    public listChatCheck: any = [];
     public total: any;
+    public chatId: any;
+    public totalChat: any;
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
@@ -84,6 +87,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public createTemplate: FormGroup;
     public formCreate: FormGroup;
     public messageCustomer: FormGroup;
+    public updateTemplate: FormGroup;
     public checkFormShow: FormGroup;
     public formSearchList: FormGroup;
     public checkOpenAdJustPayment = false;
@@ -119,7 +123,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public promotion_id: any;
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
-    public CheeckLoadPromotions = false;
+    public checkUpdateOrderChatRefund = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -666,9 +670,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
-        this.checkCreateOrderChatRefund = false;
         this.checkListOrderChatRefund = false;
         $('.modal').modal('hide');
+    }
+    offOption2() {
+      this.checkCreateOrderChatRefund = false;
+      this.checkUpdateOrderChatRefund = false;
     }
 
     getChangeAmount(price1, price2) {
@@ -804,6 +811,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
   openListOrderChatRefund(order) {
+      this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
     this.checkFormShow = this.fb.group({
       checkStatusShow: ''
@@ -827,8 +835,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return params;
   }
 
-  openCreateOrderChatRefund(order) {
-    this.code = order.ordercode;
+  openCreateOrderChatRefund() {
     this.checkCreateOrderChatRefund = true;
     this.createTemplate = this.fb.group({
       noteC: '',
@@ -849,6 +856,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messageCustomer = this.fb.group({
           messageCustomer: '',
         });
+        this.loadListTemChatRefund();
     }
     enterChat() {
       const params = this.prepareMarkWaiting();
@@ -970,6 +978,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateOrderCode() {
       const params = this.loadForm();
+      params.codeAll = this.listChatCheck;
       if ((params.status) === 'ready_purchase' ) {
           this.currentStatusOrder = 'ready2purchase';
       } else {
@@ -1119,32 +1128,79 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       const params = this.buildListChat();
       this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
+        this.totalChat = res.total;
       });
+  }
+  loadListTemChatRefund() {
+    const params: any = {};
+    params.statusTT = 1
+    this.orderService.getListTem(params).subscribe(res => {
+      this.listChatTem = res.data;
+      this.totalChat = res.total;
+    });
   }
   createTemplateChat() {
       const params = this.buildChatCreate();
       this.orderService.post('list-chat-mongo', params).subscribe(res => {
-      // if (res.success) {
-      //   this.popup.success('success');
-      // }
+        const rs: any = res;
+      if (rs.success) {
+        this.loadListTemChat();
+        this.popup.success(rs.message);
+      }
     });
   }
   loadPro(storeId) {
     this.loadPolicy(storeId);
   }
-  editListTemplate(id) {
-      this.orderService.put(`list-chat-mongo/${id}`, undefined).subscribe(res => {
+  buildChatUpdate() {
+    const value = this.updateTemplate.value;
+    const params: any = {};
+    params.noteU = value.noteU;
+    params.contentU = value.contentU;
+    return params;
+  }
+  editListTemplate() {
+      const params = this.buildChatUpdate();
+      this.orderService.put(`list-chat-mongo/${this.chatId}`, params).subscribe(res => {
         if (res.success) {
+          this.loadListTemChat();
           this.popup.success(res.message);
         }
       });
   }
   removeListTemplate(id) {
+    const messagePop = 'Do you want Delete';
+    this.popup.warning(() => {
       this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
         if (res.success) {
+          this.loadListTemChat();
           this.popup.success(res.message);
         }
       });
+    }, messagePop);
+  }
+  openUpdateOrderChatRefund(cn) {
+    this.checkUpdateOrderChatRefund = true;
+    this.chatId = cn.code;
+    this.updateTemplate = this.fb.group({
+      noteU: cn.note,
+      contentU: cn.content,
+    });
+  }
+
+  checkboxAttribute(reference, type = 'id') {
+    return 'checkbox' + type.charAt(0).toUpperCase() + type.slice(1) + reference;
+  }
+  checkBox(id) {
+    const e = $('input[name=' + this.checkboxAttribute(id, 'name') + ']');
+    if ($(e).is(':checked')) {
+      this.listChatCheck.push(id);
+    } else {
+      if (this.listChatCheck.indexOf(id) !== -1) {
+        this.listChatCheck.splice(this.listChatCheck.indexOf(id), 1);
+      }
+    }
+    console.log(this.listChatCheck);
   }
 }
 

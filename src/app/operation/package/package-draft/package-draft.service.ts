@@ -15,16 +15,4 @@ export class PackageDraftService extends PackageService {
         public popup: PopupService) {
         super(http, encryption, popup);
     }
-
-    search($queryParams: any | undefined) {
-        return this.get('draft-package-item', $queryParams);
-    }
-
-    handlePerPage($perPage) {
-
-    }
-
-    handlePagination($page) {
-
-    }
 }
