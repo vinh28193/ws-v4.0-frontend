@@ -51,12 +51,23 @@
                         </a>
                     </li>
 
-                    <!--li>
+                    <li>
                         <a [routerLink]="['tracking']">
                             <i class="fa fa-truck"></i>
                             <span i18n>Tracking</span>
                         </a>
-                    </li-->
+
+                    </li>
+                    <li>
+                        <a [routerLink]="['tracking-log']">
+                            <i class="fa fa-truck"></i>
+                            <span>Tracking Log</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['package']">
+                        </a>
+                    </li>
 
                     <li *ngIf="checkOperatione()">
                         <a [routerLink]="['tracking/us-sending']">

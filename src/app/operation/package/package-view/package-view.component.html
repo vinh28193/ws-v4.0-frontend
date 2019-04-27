@@ -1,0 +1,198 @@
+<div class="content-block" style="margin: 0px">
+  <div class="header-content">
+    <h2>View tracking {{tab_tracking}}</h2>
+  </div>
+  <div class="body-content">
+    <div class="col-md-12 row">
+      <div class="col-md-3">
+        <input type="text" placeholder="Tracking code" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Order Code" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Sku" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Purchase number Invoice" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Name" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Phone" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Email" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <select class="form-control form-control-sm">
+          <option>-- Select Type Tracking --</option>
+          <option>Normal</option>
+          <option>Split</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 btn-group">
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-search"></i> Search</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="insertShippmentAll()"><i class="fal fa-random"></i> Auto Create Shipment</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showInsertShipmentModel()"><i class="fal fa-arrow-right"></i> Create Shipment</button>
+      </div>
+    </div>
+  </div>
+  <div class="body-content">
+    <div class="row ">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th width="5%" *ngIf="tab_tracking=='complete'" ><input type="checkbox" [(ngModel)]="checkAll"  (change)="clickCheck()"  class="icheckbox_minimal-grey"></th>
+            <th width="35%">Tracking Info</th>
+            <th width="30%">Order Info</th>
+            <th width="30%">Product Info</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let packTr of tracking_codes">
+            <tr>
+              <td *ngIf="tab_tracking=='complete'" >
+                <input type="checkbox" *ngIf="packTr.hold != 1 && !packTr.shipment_id"  [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]" (change)="clickCheck()" class="icheckbox_minimal-grey">
+              </td>
+              <td>
+                <app-package-info [packTr]="packTr"></app-package-info>
+              </td>
+              <td>
+                <ng-container *ngIf="!packTr.order">
+                  <h4 style="color: red">Cannot find order {{packTr.order_id ? 'with order id ' + packTr.order_id: ''}}!</h4>
+                </ng-container>
+                <ng-container *ngIf="packTr.order">
+                  <div>Order Code: <b>{{packTr.order.ordercode}}</b></div>
+                  <div>Order Id: <b>{{packTr.order_id}}</b></div>
+                  <div>Status Order: <b>{{packTr.order.current_status}}</b></div>
+                  <hr>
+                  <h6><b>Receiver Info</b></h6>
+                  <div>Customer Id: <b>{{packTr.order.customer_id}}</b></div>
+                  <div>Name: <b>{{packTr.order.receiver_name}}</b></div>
+                  <div>Email: <b>{{packTr.order.receiver_email}}</b></div>
+                  <div>Phone: <b>{{packTr.order.receiver_phone}}</b></div>
+                  <div>Address: <b>{{packTr.order.receiver_address}}</b></div>
+                  <div><b>{{packTr.order.receiver_district_name}}, {{packTr.order.receiver_province_name}}</b></div>
+                  <div>Post code: <b>{{packTr.order.receiver_post_code}}</b></div>
+                  <div>Type: <b>{{packTr.order.type_order}}</b></div>
+                  <div>Note: <b>{{packTr.order.note}}</b></div>
+                  <div>Customer note: <b>{{packTr.order.note_by_customer}}</b></div>
+                  <div>Support Email: <b>{{packTr.order.support_email}}</b></div>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="!packTr.order">
+                  <h4 style="color: red">Cannot find product {{packTr.product_id ? 'with product id ' + packTr.product_id : ''}}!</h4>
+                </ng-container>
+                <ng-container *ngIf="packTr.order">
+                  <div>Product Id: <b>{{packTr.product.id}}</b></div>
+                  <div>SKU: <b>{{packTr.product.sku}}</b></div>
+                  <div>Parent SKU: <b>{{packTr.product.parent_sku}}</b></div>
+                  <div>Portal: <b>{{packTr.product.portal}}</b></div>
+                  <div>Name: <b><a href="{{packTr.product.product_link ? packTr.product.product_link : '#'}}">{{packTr.product.product_name}}</a></b></div>
+                  <div><b><a href="{{packTr.product.link_origin ? packTr.product.link_origin : '#'}}">( Origin )</a></b></div>
+                  <div>Quantity: <b>{{packTr.product.quantity_customer}}</b></div>
+                  <div>Seller: <b><a href="#">{{packTr.product.seller_name}}</a></b></div>
+                  <div class="mb-1">
+                    <div class="col-md-12 row">
+                      <div class="col-md-2" style="padding: 0px">
+                        <img *ngIf="packTr.product.link_img" src="{{packTr.product.link_img}}" class="img-thumbnail img-responsive" >
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="padding-btn" *ngIf="tab_tracking == 'complete'">
+                  <div><a href="javascript:void (0)" (click)="sellerRefundEvent(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
+                  <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
+                  <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
+                  <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View detail merge</a></div>
+                  <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View Extension</a></div>
+                  <div><a href="javascript:void (0)"
+                          (click)="showUpdateForm(packTr)"><i
+                          class="fal fa-edit"></i> Update tracking</a>
+                  </div>
+                  <div><a href="javascript:void (0)" (click)="splitTrackingEvent(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #viewInsertShipment="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card m-b-0">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3 i18n>Create shipmnet</h3>
+                </div>
+                <div class="col-md-12 form-body">
+                  <div class="row body-content">
+                    <table class="table table-sm table-striped">
+                      <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Package Id</th>
+                        <th>Order code</th>
+                        <th>Product Sku</th>
+                        <th>Price</th>
+                        <th>Fee Cod</th>
+                        <th>Weight</th>
+                        <th>Status</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <ng-container *ngFor="let item of listSelect; let ind = index ">
+                        <tr>
+                          <td>{{ind+1}}</td>
+                          <td>{{item.id}}</td>
+                          <td>{{item.order.ordercode}}</td>
+                          <td>{{item.product.sku}} / {{item.product.parent_sku}}</td>
+                          <td>{{item.price}}</td>
+                          <td>{{item.cod}}</td>
+                          <td>{{item.weight}} (gram)</td>
+                          <td>{{item.status}}</td>
+                        </tr>
+                      </ng-container>
+                      <tr>
+                        <td colspan="6"></td>
+                        <td>{{getTotalWeight()}} (gram)</td>
+                        <td></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="button-group">
+                        <button class="btn btn-sm btn-success" i18n (click)="insertShippment()">Create Shipment
+                        </button>
+                        <button class="btn btn-sm btn-warning" (click)="viewInsertShipment.hide()"
+                                i18n>Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
