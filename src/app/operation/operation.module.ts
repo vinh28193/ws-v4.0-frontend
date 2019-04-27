@@ -23,6 +23,7 @@ import { CurrencyStorePipe } from './pipes/currency-store.pipe';
 import {TimeMessagePipe} from './pipes/time-message.pipe';
 import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
 import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
+import {PagingCustomComponent} from './paging-custom/paging-custom.component';
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
         CurrencyStorePipe,
         MarkSupportingPipe,
         TypeTrackingPipe,
+        PagingCustomComponent
     ],
     providers: [
         OperationService
@@ -70,6 +72,7 @@ import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
         QuotationStatusPipe,
         CurrencyStorePipe,
         MarkSupportingPipe,
+        PagingCustomComponent,
     ]
 })
 export class OperationModule {

@@ -16,7 +16,7 @@ import {PackageDraftComponent} from './package-draft/package-draft.component';
 import {PackageDraftService} from './package-draft/package-draft.service';
 import {PackageInfoComponent} from './package-info/package-info.component';
 import {PackageViewComponent} from './package-view/package-view.component';
-import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
+import {OperationModule} from '../operation.module';
 
 @NgModule({
     imports: [
@@ -26,7 +26,8 @@ import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot(),
         FormsModule,
-        ModalModule
+        ModalModule,
+        OperationModule
     ],
     declarations: [
         PackageRoutingComponent,
@@ -34,7 +35,6 @@ import {PagingCustomComponent} from '../paging-custom/paging-custom.component';
         PackageDirective,
         PackageItemComponent,
         PackageDraftComponent,
-        PagingCustomComponent,
         PackageInfoComponent,
         PackageViewComponent
     ],
