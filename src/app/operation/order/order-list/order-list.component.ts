@@ -35,6 +35,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public click_pur: any = {};
     public orders: any = [];
     public total: any;
+    public chatId: any;
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
@@ -84,6 +85,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public createTemplate: FormGroup;
     public formCreate: FormGroup;
     public messageCustomer: FormGroup;
+    public updateTemplate: FormGroup;
     public checkFormShow: FormGroup;
     public formSearchList: FormGroup;
     public checkOpenAdJustPayment = false;
@@ -119,7 +121,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public promotion_id: any;
     public activeOrder: any = [];
     public checkUpdateCustomer = false;
-    public CheeckLoadPromotions = false;
+    public checkUpdateOrderChatRefund = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -666,9 +668,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = false;
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
-        this.checkCreateOrderChatRefund = false;
         this.checkListOrderChatRefund = false;
         $('.modal').modal('hide');
+    }
+    offOption2() {
+      this.checkCreateOrderChatRefund = false;
+      this.checkUpdateOrderChatRefund = false;
     }
 
     getChangeAmount(price1, price2) {
@@ -804,6 +809,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
   openListOrderChatRefund(order) {
+      this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
     this.checkFormShow = this.fb.group({
       checkStatusShow: ''
@@ -827,8 +833,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return params;
   }
 
-  openCreateOrderChatRefund(order) {
-    this.code = order.ordercode;
+  openCreateOrderChatRefund() {
     this.checkCreateOrderChatRefund = true;
     this.createTemplate = this.fb.group({
       noteC: '',
@@ -1124,16 +1129,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   createTemplateChat() {
       const params = this.buildChatCreate();
       this.orderService.post('list-chat-mongo', params).subscribe(res => {
-      // if (res.success) {
-      //   this.popup.success('success');
-      // }
+        const rs: any = res;
+      if (rs.success) {
+        this.loadListTemChat();
+        this.popup.success(rs.message);
+      }
     });
   }
   loadPro(storeId) {
     this.loadPolicy(storeId);
   }
-  editListTemplate(id) {
-      this.orderService.put(`list-chat-mongo/${id}`, undefined).subscribe(res => {
+  editListTemplate() {
+      this.orderService.put(`list-chat-mongo`, undefined).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
         }
@@ -1145,6 +1152,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
           this.popup.success(res.message);
         }
       });
+  }
+  openUpdateOrderChatRefund(cn) {
+      this.chatId = cn.code;
+    this.checkUpdateOrderChatRefund = true;
+    this.createTemplate = this.fb.group({
+      noteU: cn.note,
+      contentU: cn.content,
+      statusU: cn.status,
+    });
   }
 }
 
