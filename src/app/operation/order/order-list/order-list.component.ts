@@ -1139,8 +1139,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   loadPro(storeId) {
     this.loadPolicy(storeId);
   }
-  editListTemplate(id) {
-      this.orderService.put(`list-chat-mongo/${id}`, undefined).subscribe(res => {
+  editListTemplate() {
+      this.orderService.put(`list-chat-mongo`, undefined).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
         }
