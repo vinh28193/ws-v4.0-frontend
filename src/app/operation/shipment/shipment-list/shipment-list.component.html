@@ -263,7 +263,7 @@
 
 <div class="modal fade" bsModal #shipmentCreateModal="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-80">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left" i18n>Create Shipment</h4>
@@ -364,7 +364,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <h6 class="box-title">3. Parcel</h6>
+                  <h6 class="box-title">3. Parcel ({{parcels.controls.length}})</h6>
                   <div class="table-responsive" formArrayName="parcels">
                     <table class="table table-bordered table-custom table-scrollbar">
                       <tbody style="max-height: 195px">

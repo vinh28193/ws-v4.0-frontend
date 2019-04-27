@@ -504,6 +504,17 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     });
   }
 
+  public getTrackingCode(id, items) {
+    const tracking = [];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.package_id = id) {
+        tracking.push(item.tracking_code);
+      }
+    }
+    return tracking.join('/');
+  }
+
   cancelShipment(id: any | null) {
     const ids = [];
     if (id !== null) {
