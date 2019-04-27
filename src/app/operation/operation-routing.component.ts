@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
-import {ScopeService} from '../core/service/scope.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -43,86 +42,86 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         localStorage.setItem('status-sidebar', this.statusSidebar);
     }
    checkSale() {
-    if (localStorage.getItem('scope') === ('sale')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('sale')) {
       return true;
     }
   }
 
    checkMasterSale() {
-    if (localStorage.getItem('scope') === ('master_sale')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_sale')) {
       return true;
     }
   }
 
    checkOperatione() {
-    if (localStorage.getItem('scope') === ('operation')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('operation')) {
       return true;
     }
   }
 
    checkMasterOperation() {
-    if (localStorage.getItem('scope') === ('master_operation')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_operation')) {
       return true;
     }
   }
 
    checkPurchase() {
-    if (localStorage.getItem('scope') === ('purchase')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('purchase')) {
       return true;
     }
   }
 
    checkMarketingIntent() {
-    if (localStorage.getItem('scope') === ('marketing_intent')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('marketing_intent')) {
       return true;
     }
   }
 
    checkMarketingAds() {
-    if (localStorage.getItem('scope') === ('marketing_ads')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('marketing_ads')) {
       return true;
     }
   }
 
    checkMarketing() {
-    if (localStorage.getItem('scope') === ('marketing')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('marketing')) {
       return true;
     }
   }
 
    checkMasterMarketing() {
-    if (localStorage.getItem('scope') === ('master_marketing')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_marketing')) {
       return true;
     }
   }
 
    checkMasterAccountant() {
-    if (localStorage.getItem('scope') === ('master_accountant')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_accountant')) {
       return true;
     }
   }
 
    checkAccountant() {
-    if (localStorage.getItem('scope') === ('accountant')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('accountant')) {
       return true;
     }
   }
 
 
    checkWarehouse() {
-    if (localStorage.getItem('scope') === ('warehouse')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('warehouse')) {
       return true;
     }
   }
 
    checkSuperAdmin() {
-    if (localStorage.getItem('scope') === ('superAdmin')) {
+       if (localStorage.getItem('scope') === ('superAdmin')) {
       return true;
     }
   }
 
    checkTester() {
-    if (localStorage.getItem('scope') === ('tester')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('tester')) {
       return true;
     }
   }

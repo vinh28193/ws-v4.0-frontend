@@ -65,7 +65,12 @@
                         </a>
                     </li>
 
-
+                    <li *ngIf="checkOperatione()">
+                        <a [routerLink]="['tracking']">
+                            <i class="fa fa-truck"></i>
+                            <span i18n>Tracking Code</span>
+                        </a>
+                    </li>
 
                     <li>
                         <a [routerLink]="['package/draft']">
