@@ -1943,7 +1943,7 @@ Enter to send" i18n-placeholder></textarea>
             <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template Order Chat</button>
           </div>
         </div>
-        <table class="table">
+        <table class="table" style="height: 400px;">
           <thead>
           <tr>
             <th>Note</th>
@@ -1964,7 +1964,7 @@ Enter to send" i18n-placeholder></textarea>
             </td>
             <td>{{cn.time_start}}</td>
             <td class="text-center">
-              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
+              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#editChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
               <a href="javascript:void(0)" class="text-danger ml-2" (click)="removeListTemplate(cn.code)"><i class="fa fa-remove"></i></a>
             </td>
           </tr>
@@ -1989,7 +1989,7 @@ Enter to send" i18n-placeholder></textarea>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <div class="modal-body ng-scope" *ngIf="checkCreateOrderChatRefund">
+      <div class="modal-body ng-scope" *ngIf="checkUpdateOrderChatRefund">
         <form action="" [formGroup]="updateTemplate">
           <div class="row">
             <div class="col-md-12 mt-2">
@@ -1997,9 +1997,6 @@ Enter to send" i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
               <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentU" i18n-placeholder></textarea>
-            </div>
-            <div class="col-md-12 mt-2">
-              <input type="text" class="form-control form-control-sm" placeholder="status" formControlName="statusU" i18n-placeholder>
             </div>
           </div>
         </form>

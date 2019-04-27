@@ -1139,27 +1139,39 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   loadPro(storeId) {
     this.loadPolicy(storeId);
   }
+  buildChatUpdate() {
+    const value = this.updateTemplate.value;
+    const params: any = {};
+    params.noteU = value.noteU;
+    params.contentU = value.contentU;
+    return params;
+  }
   editListTemplate() {
-      this.orderService.put(`list-chat-mongo`, undefined).subscribe(res => {
+      const params = this.buildChatUpdate();
+      this.orderService.put(`list-chat-mongo/${this.chatId}`, params).subscribe(res => {
         if (res.success) {
+          this.loadListTemChat();
           this.popup.success(res.message);
         }
       });
   }
   removeListTemplate(id) {
+    const messagePop = 'Do you want Delete';
+    this.popup.warning(() => {
       this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
         if (res.success) {
+          this.loadListTemChat();
           this.popup.success(res.message);
         }
       });
+    }, messagePop);
   }
   openUpdateOrderChatRefund(cn) {
-      this.chatId = cn.code;
     this.checkUpdateOrderChatRefund = true;
-    this.createTemplate = this.fb.group({
+    this.chatId = cn.code;
+    this.updateTemplate = this.fb.group({
       noteU: cn.note,
       contentU: cn.content,
-      statusU: cn.status,
     });
   }
 }
