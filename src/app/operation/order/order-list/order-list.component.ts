@@ -34,8 +34,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public create: any = {};
     public click_pur: any = {};
     public orders: any = [];
+    public listChatCheck: any = [];
     public total: any;
     public chatId: any;
+    public totalChat: any;
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
@@ -854,6 +856,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messageCustomer = this.fb.group({
           messageCustomer: '',
         });
+        this.loadListTemChatRefund();
     }
     enterChat() {
       const params = this.prepareMarkWaiting();
@@ -975,6 +978,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateOrderCode() {
       const params = this.loadForm();
+      params.codeAll = this.listChatCheck;
       if ((params.status) === 'ready_purchase' ) {
           this.currentStatusOrder = 'ready2purchase';
       } else {
@@ -1124,7 +1128,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       const params = this.buildListChat();
       this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
+        this.totalChat = res.total;
       });
+  }
+  loadListTemChatRefund() {
+    const params: any = {};
+    params.statusTT = 1
+    this.orderService.getListTem(params).subscribe(res => {
+      this.listChatTem = res.data;
+      this.totalChat = res.total;
+    });
   }
   createTemplateChat() {
       const params = this.buildChatCreate();
@@ -1173,6 +1186,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       noteU: cn.note,
       contentU: cn.content,
     });
+  }
+
+  checkboxAttribute(reference, type = 'id') {
+    return 'checkbox' + type.charAt(0).toUpperCase() + type.slice(1) + reference;
+  }
+  checkBox(id) {
+    const e = $('input[name=' + this.checkboxAttribute(id, 'name') + ']');
+    if ($(e).is(':checked')) {
+      this.listChatCheck.push(id);
+    } else {
+      if (this.listChatCheck.indexOf(id) !== -1) {
+        this.listChatCheck.splice(this.listChatCheck.indexOf(id), 1);
+      }
+    }
+    console.log(this.listChatCheck);
   }
 }
 
