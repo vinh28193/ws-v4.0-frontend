@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModuleComponent} from '../module.component';
 import {ActivatedRoute} from '@angular/router';
+import {OperationScopeService} from './operation-scope.service';
 import {ScopeService} from '../core/service/scope.service';
 
 declare var $: any;
@@ -17,7 +18,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     role: any;
     user: any;
 
-    constructor(public activatedRoute: ActivatedRoute
+    constructor(public activatedRoute: ActivatedRoute, public _scope: OperationScopeService
     ) {
         super(activatedRoute);
     }
