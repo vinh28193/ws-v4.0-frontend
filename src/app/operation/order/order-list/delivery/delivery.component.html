@@ -9,7 +9,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let item of packageItems; let i = index">
-    <ng-container *ngIf="item.shipment.warehouse_tags != null">
+    <ng-container *ngIf="item.shipment?.warehouse_tags != null">
       <td>
         <div> {{i + 1}} </div>
       </td>

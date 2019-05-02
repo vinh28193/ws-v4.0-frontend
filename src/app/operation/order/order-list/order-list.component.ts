@@ -35,9 +35,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public click_pur: any = {};
     public orders: any = [];
     public listChatCheck: any = [];
+    public listTrackingLog: any = [];
     public total: any;
     public chatId: any;
     public totalChat: any;
+    public tracking_code: any;
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
@@ -122,8 +124,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public coupon_id: any;
     public promotion_id: any;
     public activeOrder: any = [];
+    public prods: any = [];
     public checkUpdateCustomer = false;
     public checkUpdateOrderChatRefund = false;
+    public checkOpenTracking = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -671,6 +675,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOrderChatRefund = false;
         this.checkUpdateOderCode = false;
         this.checkListOrderChatRefund = false;
+        this.checkOpenTracking = false;
         $('.modal').modal('hide');
     }
     offOption2() {
@@ -1201,6 +1206,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     }
     console.log(this.listChatCheck);
+  }
+  openTracking(order) {
+      this.tracking_code = order.package.tracking_code;
+      this.code = order.ordercode;
+      this.prods = order.products;
+      this.checkOpenTracking = true;
+      const params: any = {};
+      params.tracking_code = this.tracking_code;
+      this.orderService.get('trackinglogs', params).subscribe(res => {
+        if (res.success) {
+          this.listTrackingLog = res.data;
+        }
+      });
   }
 }
 

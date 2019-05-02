@@ -44,7 +44,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   }
 
   listPackageItem() {
-    this.orderService.get(`draft-package-item/${this.orderIDD}`, undefined).subscribe(res => {
+    this.orderService.get(`p/${this.orderIDD}`, undefined).subscribe(res => {
       this.packages = res.data;
       this.packageI.emit(this.packages);
     });
@@ -52,7 +52,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
 
   addPackageItem() {
     const params = this.preparPackagesss();
-    this.orderService.post('draft-package-item', params).subscribe(res => {
+    this.orderService.post('p', params).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
         this.popup.success(rs.message);
@@ -124,9 +124,9 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   }
 
   RemovePackage(id) {
-    const messagePop = 'delete pakage item ' + id ;
+    const messagePop = 'delete pakage ' + id ;
     this.popup.warning(() =>  {
-      this.orderService.delete(`draft-package-item/${id}`).subscribe(res => {
+      this.orderService.delete(`p/${id}`).subscribe(res => {
         if (res.success) {
           this.popup.success(res.message);
           this.listPackageItem();
