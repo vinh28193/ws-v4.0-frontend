@@ -20,7 +20,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     updateProductId: any;
     productQ: any;
     public code: any;
-    public checkOpen = false;
+    public checkOpen: boolean = false;
     id: any;
     idEdit = 0;
     fee = 0;
@@ -167,12 +167,12 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
   clickOpen(pro, code) {
     this.checkOpen = true;
+    console.log(code);
     this.code = code;
-    this.id = pro.id
+    this.id = pro.id;
     this.updateForm = this.fb.group({
       policy_id: pro.custom_category_id,
     });
-    this.loadPolicy(this.storeID);
   }
   buildform() {
     const value = this.updateForm.value;
