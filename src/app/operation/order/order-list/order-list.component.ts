@@ -1222,10 +1222,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       console.log(status);
       const params: any = {};
       if (status === 1) {
-        params.status = 0;
+        params.statusChat = 0;
       }
       if (status === 0) {
-        params.status = 1;
+        params.statusChat = 1;
       }
       params.checkStatusValue = 'checkStatusValue'
       this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
