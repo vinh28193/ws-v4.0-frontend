@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {OperationRoutingComponent} from './operation-routing.component';
 import {TrackingLogComponent} from './tracking-log/tracking-log.component';
+import {WarehouseComponent} from './warehouse/warehouse.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
             {
                 path: 'tracking-log',
                  component: TrackingLogComponent
+            },
+            {
+                path: 'warehouse',
+                component: WarehouseComponent
             },
         ]
     }

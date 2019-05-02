@@ -1,0 +1,116 @@
+<div class="content-block">
+    <div class="header-content">
+        <h3>Management Warehouse</h3>
+    </div>
+    <div class="body-content" id="search-block">
+        <div class="row col-md-12" id="input-search">
+            <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" placeholder="Tracking code" [(ngModel)]="searchInput.trackingCode">
+            </div>
+            <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" placeholder="Manifest code" [(ngModel)]="searchInput.manifestCode">
+            </div>
+            <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" placeholder="Shipment Code (BM Code)" [(ngModel)]="searchInput.shipmentCode">
+            </div>
+            <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" placeholder="Package Code" [(ngModel)]="searchInput.packageCode">
+            </div>
+            <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" placeholder="WS Tracking Code" [(ngModel)]="searchInput.WsTrackingCode">
+            </div>
+        </div>
+        <div class="col-md-12 btn-group btn-group-sm" id="btn-search">
+            <button class="btn btn-sm btn-outline-inverse" (click)="search()"><i class="fa fa-search"></i> Search</button>
+            <button class="btn btn-sm btn-outline-inverse" (click)="clearSearch()"><i class="fa fa-refresh"></i> Refresh</button>
+            <button class="btn btn-sm btn-outline-inverse" (click)="createNew()"><i class="fa fa-plus"></i> Create New Tracking</button>
+            <button class="btn btn-sm btn-outline-inverse" (click)="exportReport()"><i class="fa fa-download"></i> Export</button>
+        </div>
+        <div class="col-md-12" id="filter-search" style="padding: 5px 0px;">
+            <ul class="list-inline">
+                <li>
+                    <b>Filter :</b>
+                </li>
+                <li>
+                <span class="pointer badge {{searchInput.tabFilter == 'all' || searchInput.tabFilter == '' ? 'badge-info' : 'badge-not-info' }}"
+                      (click)="getFilterTab('all')">All (12345678)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'us_received'? 'badge-warning' : 'badge-not-warning' }}"
+                      (click)="getFilterTab('us_received')">Us Received (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'us_sending'? 'badge-warning' : 'badge-not-warning' }}"
+                      (click)="getFilterTab('us_sending')">Us Sending (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'local_received'? 'badge-danger' : 'badge-not-danger' }}"
+                      (click)="getFilterTab('local_received')">Local Received (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'local_inspected'? 'badge-danger' : 'badge-not-danger' }}"
+                      (click)="getFilterTab('local_inspected')">Local Inspected (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'created_shipment'? 'badge-info' : 'badge-not-info' }}"
+                      (click)="getFilterTab('created_shipment')">Created Shipment (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'delivering'? 'badge-info' : 'badge-not-info' }}"
+                      (click)="getFilterTab('delivering')">Delivering (5000)</span>
+                </li>
+                <li>
+                <span class="pointer badge {{ searchInput.tabFilter == 'at_customer'? 'badge-success' : 'badge-not-success' }}"
+                      (click)="getFilterTab('at_customer')">At Customer (5000)</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="body-content" id="result-block">
+        <div></div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th width="35%">Tracking Code</th>
+                <th width="35%">Detail</th>
+                <th width="15%">Status</th>
+                <th width="15%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let tracking of data">
+                <tr>
+                    <td>
+                        <div class="row col-md-12">
+                            <div class="col-md-12">
+                                Tracking Code (Us): <b>{{tracking.tracking_code}}</b><br>
+                                Manifest Code: <b>{{tracking.manifest_code}}</b>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <ng-container *ngFor="let draftDataTracking of tracking.draftDataTrackings">
+                                <div>
+                                    Tracking Code (WS): <b>{{draftDataTracking.ws_tracking_code}}</b> - <b>{{draftDataTracking.type_tracking}}</b><br>
+                                    Order : <b>{{draftDataTracking.order_id}}</b><br>
+                                    Product : <b>{{draftDataTracking.product_id}}</b><br>
+                                    Status : <b>{{draftDataTracking.status}}</b><br>
+                                </div>
+                                <hr>
+                            </ng-container>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-info">{{tracking.status}}</span></td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-sm btn-outline-inverse">Local Received</button>
+                            <button class="btn btn-sm btn-outline-inverse">Option <i class="fa fa-caret-down"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
