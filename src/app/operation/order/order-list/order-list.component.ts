@@ -120,6 +120,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public moreLog: any = {};
     public ids: any = [];
     public orderID: any;
+    public checkReady2Purchase: any;
     public typeViewLogs = 'actionlog';
     public listLog: any = [];
     public logIdOrder: any;
@@ -472,13 +473,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    confirmAll(id) {
-        const messagePop = 'Do you want Confirm order ' + id;
+    confirmAll(order) {
+        for (let i = 0; i < order.products.length; i++) {
+          if (order.products[i]['custom_category_id'] === '') {
+            this.checkReady2Purchase = 'yes';
+          }
+        }
+        const messagePop = 'Do you want Confirm order ' + order.id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
               current_status: 'SUPPORTED',
+              checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
-            this.orderService.put(`order/${id}`, put).subscribe(res => {
+            this.orderService.put(`order/${order.id}`, put).subscribe(res => {
                 if (res.success) {
                     this.listOrders();
                     this.popup.success(res.message);
@@ -721,35 +728,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
-
-  checkShowReady2Purchase(order) {
+    checkConfirmOrder(order) {
       if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-          if (this._scope.checkRoleOption()) {
-            for (let i = 0; i < order.products.length; i++) {
-              if (order.products[i]['custom_category_id'] !== '') {
-                return true;
-              }
-            }
-          }
-      }
-  }
-  updateReady2purchase(order) {
-      this.code = order.ordercode;
-      this.idOrder = order.id;
-    const messagePop = 'Do you want Ready2Purchase order ' + this.idOrder;
-    this.popup.warning(() => {
-      const put = this.orderService.createPostParams({
-        current_status: 'READY2PURCHASE',
-      }, 'updateReady2Purchase');
-      this.orderService.put(`order/${this.idOrder}`, put).subscribe(res => {
-        if (res.success) {
-          this.popup.success(res.message);
-        } else {
-          this.popup.error(res.message);
+        if (this._scope.CheckSale()) {
+          return true;
         }
-      });
-    }, messagePop);
-  }
+      }
+    }
 
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
