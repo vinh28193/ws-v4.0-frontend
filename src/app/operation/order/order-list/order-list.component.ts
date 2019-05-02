@@ -1129,6 +1129,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadListTemChat() {
       const params = this.buildListChat();
+      params.limit = 20;
       this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
         this.totalChat = res.total;
@@ -1136,6 +1137,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadListTemChatRefund() {
     const params: any = {};
+    params.limit = 20;
     this.orderService.getListTem(params).subscribe(res => {
       this.listChatTem = res.data;
       this.totalChat = res.total;
@@ -1227,7 +1229,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       if (status === 0) {
         params.statusChat = 1;
       }
-      params.checkStatusValue = 'checkStatusValue'
+      params.checkStatusValue = 'checkStatusValue';
       this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
         this.loadListTemChat();
       });
