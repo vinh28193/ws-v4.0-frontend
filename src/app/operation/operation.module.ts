@@ -27,6 +27,7 @@ import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
 import {PagingCustomComponent} from './paging-custom/paging-custom.component';
 import { TrackingLogComponent } from './tracking-log/tracking-log.component';
 import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
+import { WarehouseComponent } from './warehouse/warehouse.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from
         MarkSupportingPipe,
         TypeTrackingPipe,
         TrackingLogComponent,
-        PagingCustomComponent
+        PagingCustomComponent,
+        WarehouseComponent
     ],
     providers: [
         OperationService
