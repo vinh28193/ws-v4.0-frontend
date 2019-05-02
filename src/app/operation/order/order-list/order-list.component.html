@@ -331,6 +331,9 @@
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order.id)" *ngIf="order.current_status == 'NEW' || order.current_status == 'SUPPORTING'" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && (_scope.CheckSale() || _scope.checkSale())" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
+                                <button *ngIf="checkShowReady2Purchase(order)" class="btn btn-sm btn-secondary" (click)="updateReady2purchase(order)">
+                                  Ready2Purchase
+                                </button>
                               </div>
 
 
@@ -617,7 +620,6 @@
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
                                     <i class="fa fa-shopping-cart"></i> Purchase Buy Now
                                   </button>
-
                                 </div>
                               </div>
                             </div>

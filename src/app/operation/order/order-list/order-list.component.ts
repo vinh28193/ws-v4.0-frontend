@@ -12,6 +12,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 declare var jQuery: any;
 declare var $: any;
@@ -132,6 +133,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
+    public idOrder: any;
     message;
 
     constructor(private orderService: OrderService,
@@ -717,6 +719,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
+
+  checkShowReady2Purchase(order) {
+      if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
+          if (this._scope.checkRoleOption()) {
+            for (let i = 0; i < order.products.length; i++) {
+              if (order.products[i]['custom_category_id'] !== '') {
+                return true;
+              }
+            }
+          }
+      }
+  }
+  updateReady2purchase(order) {
+      this.code = order.ordercode;
+      this.idOrder = order.id;
+    const messagePop = 'Do you want Ready2Purchase order ' + this.idOrder;
+    this.popup.warning(() => {
+      const put = this.orderService.createPostParams({
+        current_status: 'READY2PURCHASE',
+      }, 'updateReady2Purchase');
+      this.orderService.put(`order/${this.idOrder}`, put).subscribe(res => {
+        if (res.success) {
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
 
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
