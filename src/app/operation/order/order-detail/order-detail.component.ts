@@ -155,9 +155,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           }
       });
     }
-  updateCategory() {
+  updateCategory(id) {
     const params = this.buildform();
-    this.orderService.put(`product/${this.id}`, params).subscribe(res => {
+    this.orderService.put(`product/${id}`, params).subscribe(res => {
       if (res.success) {
         this.checkOpen = false;
         this.editFee.emit(true);
