@@ -490,8 +490,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
+          if (priceCheck > 0) {
             return true;
+          }
         }
     }
 
