@@ -149,12 +149,11 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   }
 
   buildCreateForm(shipment: any | null) {
-
     const parcels = shipment ? shipment.packages.map(pk => this.fb.group({
       code: pk.warehouse_tag_boxme,
       image: pk.image,
       name: pk.item_name,
-      volume: (pk.dimension_w + '.' + pk.dimension_l + '.' + pk.dimension_h),
+      volume: (pk.dimension_w + 'x' + pk.dimension_l + 'x' + pk.dimension_h),
       weight: pk.weight,
       quantity: pk.quantity,
       price: pk.price + ((pk.cod !== null || pk.cod > 0) ? pk.cod : 0),
@@ -181,7 +180,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       is_insurance: shipment ? shipment.is_insurance : 0,
       shipment_status: shipment ? shipment.shipment_status : 'NEW',
       parcels: parcels.length > 0 ? this.fb.array(parcels) : this.fb.array([
-        this.fb.group({ code: '', image: '', name: '', volume: '', weight: 0, quantity: 0, price: 0})
+        this.fb.group({code: '', image: '', name: '', volume: '', weight: 0, quantity: 0, price: 0})
       ])
     });
   }
@@ -268,28 +267,9 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
   get courierCode(): string {
     return this.createFrom.get('courier_code').value;
   }
-  get totalPrice() {
-    return this.createFrom.get('courier_code').value;
-  }
-  get totalCod() {
-    return this.createFrom.get('courier_code').value;
-  }
-  get formShipmentStatus() {
-    const status = this.createFrom.get('shipment_status').value;
-    return this.isCanCreate(status);
-  }
 
-  get getCalculate(): any {
-    const shipFee = this.createFrom.get('total_shipping_fee').value;
-    const codAmount = this.createFrom.get('total_cod').value;
-    const totalAmount = this.createFrom.get('total_price').value;
-    const finalAmount = shipFee + totalAmount;
-    return {
-      shipFee: shipFee,
-      codAmount: codAmount,
-      totalAmount: totalAmount,
-      finalAmount: finalAmount
-    };
+  get shippingFee() {
+    return this.createFrom.get('total_shipping_fee').value;
   }
 
   public isCanCreate(status) {
@@ -297,7 +277,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     return list.indexOf(status) !== -1;
   }
 
-  buildCalculateFrom() {
+  buildCalculateFrom(sortMode = 'best_price') {
     this.couriers = [];
     let totalQuantity = 0;
     let totalWeight = 0;
@@ -322,8 +302,14 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       totalCod: this.createFrom.get('total_cod').value,
       totalAmount: this.createFrom.get('total_price').value,
       isInsurance: this.createFrom.get('is_insurance').value,
-      sortMode: 'best_price'
+      sortMode: sortMode
     });
+  }
+
+  onChangeCourierSort(sort) {
+    console.log(sort);
+    this.buildCalculateFrom(sort);
+    this.suggestCourier();
   }
 
   merge() {
@@ -440,9 +426,17 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     this.shipmentService.post('courier/suggest', params).subscribe(res => {
       this.couriers = res;
       if (this.couriers.error === false && this.couriers.data.couriers.length > 0) {
-        const c = this.couriers.data.couriers[0];
-        if (typeof c !== 'undefined' && this.courierCode === '') {
-          this.setActiveCourier(c);
+        const couriers = this.couriers.data.couriers;
+        if (this.courierCode === '') {
+          const c = couriers[0];
+          if (typeof c !== 'undefined') {
+            this.setActiveCourier(c);
+          }
+        } else {
+          const findCourier = couriers.filter(courier => courier.service_code == this.courierCode);
+          if (findCourier.length > 0) {
+            this.setActiveCourier(findCourier[0]);
+          }
         }
       }
     });
