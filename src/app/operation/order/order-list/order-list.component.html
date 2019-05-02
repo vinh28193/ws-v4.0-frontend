@@ -1185,8 +1185,10 @@
           <div class="row row mt-2">
             <div class="col-md-8 mt-1" >
               <div class="mt-2 ml-2" *ngFor="let ChatT of listChatTem">
-                <input type="radio" formControlName="note_chat" value="{{ChatT.note}}" >
-                {{ChatT.note}}
+                <div *ngIf="ChatT.status == 1">
+                  <input type="radio" formControlName="note_chat" value="{{ChatT.note}}" >
+                  {{ChatT.note}}
+                </div>
               </div>
               <div class="mt-2 ml-5 mb-3">
                 <span class="text-danger">Link to the store</span>
@@ -1891,7 +1893,10 @@ Enter to send" i18n-placeholder></textarea>
               <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentC" i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
-              <input type="text" class="form-control form-control-sm" placeholder="status" formControlName="statusC" i18n-placeholder>
+              <select class="form-control form-control-sm" formControlName="statusC" placeholder="status" name="store" i18n-placeholder>
+                <option [value]="1" i18n>Show</option>
+                <option [value]="0" i18n>Hide</option>
+              </select>
             </div>
           </div>
         </form>
@@ -1972,12 +1977,14 @@ Enter to send" i18n-placeholder></textarea>
             <td>{{cn.note}}</td>
             <td>{{cn.content}}</td>
             <td class="text-center">
-              <form action="" [formGroup] = "checkFormShow">
-                <!--<input type="checkbox" formControlName="checkStatusShow">-->
-                <input [id]="checkboxAttribute(cn.code,'id')"
-                       type="checkbox" (click)="checkBox(cn.code)"
-                       [name]="checkboxAttribute(cn.code,'name')">
-              </form>
+              <input type="checkbox" [checked]="true" (change)="checkChatNote(cn.code, cn.status)"  *ngIf="cn.status == 1">
+              <input type="checkbox" [checked]="false" (change)="checkChatNote(cn.code, cn.status)" *ngIf="cn.status == 0">
+              <!--<form action="" [formGroup] = "checkFormShow">-->
+                <!--&lt;!&ndash;<input type="checkbox" formControlName="checkStatusShow">&ndash;&gt;-->
+                <!--<input [id]="checkboxAttribute(cn.code,'id')"-->
+                       <!--type="checkbox" (click)="checkBox(cn.code)"-->
+                       <!--[name]="checkboxAttribute(cn.code,'name')">-->
+              <!--</form>-->
             </td>
             <td>{{cn.time_start}}</td>
             <td class="text-center">

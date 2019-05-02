@@ -45,6 +45,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantityI = 0;
     public statusO: any;
     public totalUnPaid: any;
+    public checkStatusValue: any;
     public countPurchase: any;
     public purchase2Day: any;
     public currentStatusOrder: any;
@@ -818,9 +819,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openListOrderChatRefund(order) {
       this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
-    this.checkFormShow = this.fb.group({
-      checkStatusShow: ''
-    });
     this.formSearchList = this.fb.group({
         noteL: '',
         contentL: '',
@@ -1138,7 +1136,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadListTemChatRefund() {
     const params: any = {};
-    params.statusTT = 1
     this.orderService.getListTem(params).subscribe(res => {
       this.listChatTem = res.data;
       this.totalChat = res.total;
@@ -1218,6 +1215,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (res.success) {
           this.listTrackingLog = res.data;
         }
+      });
+  }
+
+  checkChatNote(code, status) {
+      console.log(status);
+      const params: any = {};
+      if (status === 1) {
+        params.status = 0;
+      }
+      if (status === 0) {
+        params.status = 1;
+      }
+      params.checkStatusValue = 'checkStatusValue'
+      this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
+        this.loadListTemChat();
       });
   }
 }
