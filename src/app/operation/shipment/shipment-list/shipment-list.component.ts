@@ -277,7 +277,7 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
     return list.indexOf(status) !== -1;
   }
 
-  buildCalculateFrom(sortMode = 'best_price') {
+  buildCalculateFrom(sortMode = null) {
     this.couriers = [];
     let totalQuantity = 0;
     let totalWeight = 0;
@@ -302,13 +302,13 @@ export class ShipmentListComponent extends ShipmentDataComponent implements OnIn
       totalCod: this.createFrom.get('total_cod').value,
       totalAmount: this.createFrom.get('total_price').value,
       isInsurance: this.createFrom.get('is_insurance').value,
-      sortMode: sortMode
+      sortMode: sortMode === null ? 'best_price' : sortMode,
     });
   }
 
   onChangeCourierSort(sort) {
-    console.log(sort);
-    this.buildCalculateFrom(sort);
+    const s = sort.target.value;
+    this.buildCalculateFrom(s);
     this.suggestCourier();
   }
 

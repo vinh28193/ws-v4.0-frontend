@@ -469,8 +469,9 @@
                   <div class="col-md-4">
                     <div class="row">
                       <div class="col-md-12">
-                        <select class="custom-select pull-right">
-                          <option>All</option>
+                        <select class="custom-select pull-right" (change)="onChangeCourierSort($event)">
+                          <option value="best_price">best_price</option>
+                          <option value="best_time">best_time</option>
                         </select>
                         <h6 class="card-title">
                           5. Courier <span *ngIf="couriers.data?.couriers"
