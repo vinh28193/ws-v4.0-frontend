@@ -12,6 +12,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 declare var jQuery: any;
 declare var $: any;
@@ -45,6 +46,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantityI = 0;
     public statusO: any;
     public totalUnPaid: any;
+    public checkStatusValue: any;
     public countPurchase: any;
     public purchase2Day: any;
     public currentStatusOrder: any;
@@ -118,6 +120,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public moreLog: any = {};
     public ids: any = [];
     public orderID: any;
+    public checkReady2Purchase: any;
     public typeViewLogs = 'actionlog';
     public listLog: any = [];
     public logIdOrder: any;
@@ -131,6 +134,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
+    public idOrder: any;
     message;
 
     constructor(private orderService: OrderService,
@@ -469,13 +473,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    confirmAll(id) {
-        const messagePop = 'Do you want Confirm order ' + id;
+    confirmAll(order) {
+        for (let i = 0; i < order.products.length; i++) {
+          if (order.products[i]['custom_category_id'] === '') {
+            this.checkReady2Purchase = 'yes';
+          }
+        }
+        const messagePop = 'Do you want Confirm order ' + order.id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
               current_status: 'SUPPORTED',
+              checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
-            this.orderService.put(`order/${id}`, put).subscribe(res => {
+            this.orderService.put(`order/${order.id}`, put).subscribe(res => {
                 if (res.success) {
                     this.listOrders();
                     this.popup.success(res.message);
@@ -487,8 +497,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL') && priceCheck > 0) {
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
+          if (priceCheck > 0) {
             return true;
+          }
         }
     }
 
@@ -716,6 +728,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
     }
+    checkConfirmOrder(order) {
+      if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
+        if (this._scope.CheckSale()) {
+          return true;
+        }
+      }
+    }
 
     openUpdatePayBack(order) {
         this.AdjustPaymentOderId = order.id;
@@ -818,9 +837,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openListOrderChatRefund(order) {
       this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
-    this.checkFormShow = this.fb.group({
-      checkStatusShow: ''
-    });
     this.formSearchList = this.fb.group({
         noteL: '',
         contentL: '',
@@ -1131,6 +1147,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadListTemChat() {
       const params = this.buildListChat();
+      params.limit = 20;
       this.orderService.getListTem(params).subscribe(res => {
         this.listChatTem = res.data;
         this.totalChat = res.total;
@@ -1138,7 +1155,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   loadListTemChatRefund() {
     const params: any = {};
-    params.statusTT = 1
+    params.limit = 20;
     this.orderService.getListTem(params).subscribe(res => {
       this.listChatTem = res.data;
       this.totalChat = res.total;
@@ -1218,6 +1235,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (res.success) {
           this.listTrackingLog = res.data;
         }
+      });
+  }
+
+  checkChatNote(code, status) {
+      console.log(status);
+      const params: any = {};
+      if (status === 1) {
+        params.statusChat = 0;
+      }
+      if (status === 0) {
+        params.statusChat = 1;
+      }
+      params.checkStatusValue = 'checkStatusValue';
+      this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
+        this.loadListTemChat();
       });
   }
 }
