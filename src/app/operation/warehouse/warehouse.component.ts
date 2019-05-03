@@ -79,6 +79,10 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
             const rs: any = res;
             if (rs.success) {
                 // this.data = rs.data.data;
+                this.POP.success(rs.message);
+                this.search();
+            } else {
+                this.POP.error(rs.message);
             }
         });
     }
@@ -89,5 +93,6 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
 
     handlePagination(event) {
         this.currentPage = event.page;
+        this.search();
     }
 }
