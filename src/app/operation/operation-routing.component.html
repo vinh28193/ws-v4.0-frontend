@@ -54,72 +54,42 @@
                             <span i18n>Order</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a [routerLink]="['tracking']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Tracking</span>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a [routerLink]="['tracking-log']">
-                            <i class="fa fa-truck"></i>
-                            <span>Tracking Log</span>
+                    <li *ngIf="checkMasterOperation()">
+                        <a [routerLink]="['warehouse']">
+                            <i class="fa fa-warehouse"></i>
+                            <span i18n>Warehouse Management</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['package']">
-                        </a>
-                    </li>
-
-                    <li *ngIf="checkOperatione()">
-                        <a [routerLink]="['tracking/us-sending']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Tracking</span>
-                        </a>
-                    </li>
-
                     <li *ngIf="checkOperatione()">
                         <a [routerLink]="['tracking']">
-                            <i class="fa fa-truck"></i>
+                            <i class="fa fa-search-location"></i>
                             <span i18n>Tracking Code</span>
                         </a>
                     </li>
-
                     <li>
                         <a [routerLink]="['package/draft']">
-                            <i class="fa fa-truck"></i>
+                            <i class="fa fa-box-open"></i>
                             <span i18n>Package Draft</span>
                         </a>
                     </li>
-
+                    <li *ngIf="checkSuperAdmin()">
+                        <a [routerLink]="['package']">
+                            <i class="fa fa-box"></i>
+                            <span i18n>Package</span>
+                        </a>
+                    </li>
+                    <li *ngIf="checkOperatione()">
+                        <a [routerLink]="['#']">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span i18n>Delivery Note</span>
+                        </a>
+                    </li>
                     <li>
-                        <a [routerLink]="['shipment2']">
+                        <a [routerLink]="['shipment']">
                             <i class="fa fa-truck"></i>
                             <span i18n>Shipment</span>
                         </a>
                     </li>
-
-                    <li *ngIf="checkSuperAdmin()">
-                        <a [routerLink]="['package']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Package</span>
-                        </a>
-                    </li>
-                    <li *ngIf="checkSuperAdmin()">
-                        <a [routerLink]="['package/item']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Package Item</span>
-                        </a>
-                    </li>
-                    <li *ngIf="checkMasterOperation()">
-                        <a [routerLink]="['warehouse']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Warehouse Management</span>
-                        </a>
-                    </li>
-
                     <li class="sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bell"></i>

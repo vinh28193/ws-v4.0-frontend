@@ -12,7 +12,6 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 declare var jQuery: any;
 declare var $: any;
@@ -1252,5 +1251,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadListTemChat();
       });
   }
+
+    checkShowUpdateStatus(status) {
+        if (status === 'PURCHASED') {
+            return 'SELLER SHIPPED';
+        } else if (status === 'SELLER_SHIPPED') {
+            return 'US RECEIVED';
+        } else if (status === 'US_RECEIVED') {
+            return 'US SENDING';
+        } else if (status === 'US_SENDING') {
+            return 'LOCAL RECEIVED';
+        } else if (status === 'LOCAL_RECEIVED') {
+            return 'DELIVERING';
+        } else if (status === 'DELIVERING') {
+            return 'AT CUSTOMER';
+        } else {
+            return false;
+        }
+    }
+
+    updateStatus(id) {
+        this.orderService.put('order-s/' + id, {}).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.listOrders();
+                this.popup.success(rs.message);
+            } else {
+                this.listOrders();
+                this.popup.error(rs.message);
+            }
+        });
+    }
 }
 

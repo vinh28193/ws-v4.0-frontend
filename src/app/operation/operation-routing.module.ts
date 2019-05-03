@@ -18,7 +18,7 @@ const routes: Routes = [
                 loadChildren: './package/package.module#PackageModule',
             },
             {
-                path: 'shipment2',
+                path: 'shipment',
                 loadChildren: './shipment/shipment.module#ShipmentModule',
             },
             {

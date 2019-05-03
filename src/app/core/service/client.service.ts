@@ -16,12 +16,13 @@ declare var jQuery: any;
 @Injectable()
 export class ClientService extends GlobalService {
     public model: any;
-
+    public enableLoading = true;
     constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
         super(encryption);
     }
 
     handleError(error: HttpErrorResponse) {
+        this.StatusLoading('hide');
         if (error.error instanceof ErrorEvent) {
             console.log('An error occurred:', error.error.message);
 
@@ -169,8 +170,7 @@ export class ClientService extends GlobalService {
     }
 
     StatusLoading(status = 'show') {
-        console.log(status);
-        if (status === 'show') {
+        if (status === 'show' && this.enableLoading) {
             $('#loading').css('display', 'block');
         } else {
             $('#loading').css('display', 'none');
