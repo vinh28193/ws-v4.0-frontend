@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpEvent, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs-compat/observable/ErrorObservable';
@@ -41,6 +41,7 @@ export class ClientService extends GlobalService {
      * @param params
      */
     get(url: string, params?: any | undefined): Observable<any> {
+        this.StatusLoading('show');
         if (typeof params !== 'undefined' && typeof params === 'object') {
             const data: any = {};
             $.each(params, function (k, v) {
@@ -54,54 +55,125 @@ export class ClientService extends GlobalService {
         return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
 
     }
 
     post(url, body) {
+        this.StatusLoading('show');
         return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
     }
 
     put(url, body): Observable<any> {
+        this.StatusLoading('show');
         return this.http.put(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
     }
 
     patch(url, body): Observable<any> {
+        this.StatusLoading('show');
         return this.http.patch(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
     }
 
     delete(url): Observable<any> {
+        this.StatusLoading('show');
         return this.http.delete(`${this.getApiURl(url)}`, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
 
     }
     deleteParam(url, body): Observable<any> {
-      if (typeof body !== 'undefined' && typeof body === 'object') {
+        this.StatusLoading('show');
+        if (typeof body !== 'undefined' && typeof body === 'object') {
         body = jQuery.param(body);
         url += '?' + body;
       }
         return this.http.delete(`${this.getApiURl(url)}`, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
+            ).do(
+                (event: HttpEvent<any>) => {
+                    this.StatusLoading('hide');
+                    if (event instanceof HttpResponse) {
+                        return event;
+                        // do stuff with response if you want
+                    }
+                }
             );
 
     }
 
     request(method, url, body) {
+        this.StatusLoading('show');
         const req = new HttpRequest(method, this.getApiURl(url), body, this.getAuthHttpOptions());
         return this.http.request(req).pipe(
             catchError(this.handleError)
+        ).do(
+            (event: HttpEvent<any>) => {
+                this.StatusLoading('hide');
+                if (event instanceof HttpResponse) {
+                    return event;
+                    // do stuff with response if you want
+                }
+            }
         );
+    }
+
+    StatusLoading(status = 'show') {
+        console.log(status);
+        if (status === 'show') {
+            $('#loading').css('display', 'block');
+        } else {
+            $('#loading').css('display', 'none');
+        }
     }
 }
