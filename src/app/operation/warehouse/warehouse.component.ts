@@ -26,7 +26,9 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
         shipmentCode: '',
         packageCode: '',
         WsTrackingCode: '',
-        tabFilter: ''
+        tabFilter: '',
+        limit: 20,
+        page: 1
     };
     public data: any = [];
 
@@ -46,6 +48,7 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
             limit: 20,
             page: 1
         };
+        this.search();
     }
 
     getFilterTab(tab) {
@@ -58,7 +61,6 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
         this.searchInput.limit = this.perPage;
         this.searchInput.page = this.currentPage;
         this.service.get('warehouse-ws', this.searchInput).subscribe(rs => {
-            console.log(rs);
             if (rs.success) {
                 this.data = rs.data.data;
                 this.totalCount = rs.data.total;
@@ -71,7 +73,6 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
     }
 
     MarkUsReceived() {
-        console.log(this.createForm);
         if (!this.createForm.tracking_codes || !this.createForm.time_received) {
             return this.POP.error('Tracking Code and Time Received cannot null!');
         }
