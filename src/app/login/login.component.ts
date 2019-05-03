@@ -39,16 +39,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     login() {
-        this.loading = true;
+        this.startLoading();
         if (!this.username || !this.password) {
-            this.loading = false;
+            this.endLoading();
             this.popup.error('Tài khoản hoặc mật khẩu không được để trống.', 'Lỗi');
         }
         this.authService.getAuthorize(this.username, this.password).subscribe(ret => {
             const res: any = ret;
             // console.log('res' + JSON.stringify(res));
             if (res.success) {
-                this.loading = false;
+                this.endLoading();
                 const rs: any = res.data;
                 // console.log('authorizationCode : ' + rs.code);
                 this.authService.authorizationCode = rs.code;
@@ -57,10 +57,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
                 // console.log('authorizationCodeExpire : ' + this.authService.authorizationCodeExpire);
                 this.selfHandleAccessToken();
             } else {
-                this.loading = false;
+                this.endLoading();
                 this.popup.error(res.message, 'Error');
             }
-            this.loading = false;
+            this.endLoading();
             // console.log('done');
         });
     }

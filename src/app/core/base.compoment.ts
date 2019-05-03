@@ -20,6 +20,7 @@ export class BaseComponent implements NotifyInterface {
      * @type {boolean}
      */
     public loading = false;
+    public enableLoading = true;
 
     /**
      * @inheritDoc
@@ -98,5 +99,13 @@ export class BaseComponent implements NotifyInterface {
 
     checkAdminAccess() {
         return this.scope === 'superAdmin';
+    }
+    startLoading() {
+        if (this.enableLoading) {
+            $('#loading').css('display', 'block');
+        }
+    }
+    endLoading() {
+        $('#loading').css('display', 'none');
     }
 }
