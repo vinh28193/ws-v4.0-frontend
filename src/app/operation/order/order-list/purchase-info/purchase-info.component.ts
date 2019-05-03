@@ -42,7 +42,6 @@ export class PurchaseInfoComponent extends OrderDataComponent implements OnInit,
     getPurchaseInfo() {
         this.service.get('purchase/' + this.order_id).subscribe(rs => {
             if (rs.success) {
-                this.service.popup.success(rs.message);
                 this.data = rs.data;
             }
         });

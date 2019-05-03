@@ -16,13 +16,12 @@ declare var jQuery: any;
 @Injectable()
 export class ClientService extends GlobalService {
     public model: any;
-    public enableLoading = true;
     constructor(public http: HttpClient, public encryption: EncryptionService, public popup: PopupService) {
         super(encryption);
     }
 
     handleError(error: HttpErrorResponse) {
-        this.StatusLoading('hide');
+        this.endLoading();
         if (error.error instanceof ErrorEvent) {
             console.log('An error occurred:', error.error.message);
 
@@ -42,7 +41,7 @@ export class ClientService extends GlobalService {
      * @param params
      */
     get(url: string, params?: any | undefined): Observable<any> {
-        this.StatusLoading('show');
+        this.startLoading();
         if (typeof params !== 'undefined' && typeof params === 'object') {
             const data: any = {};
             $.each(params, function (k, v) {
@@ -58,7 +57,7 @@ export class ClientService extends GlobalService {
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -69,13 +68,13 @@ export class ClientService extends GlobalService {
     }
 
     post(url, body) {
-        this.StatusLoading('show');
+        this.startLoading();
         return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -85,13 +84,13 @@ export class ClientService extends GlobalService {
     }
 
     put(url, body): Observable<any> {
-        this.StatusLoading('show');
+        this.startLoading();
         return this.http.put(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -101,13 +100,13 @@ export class ClientService extends GlobalService {
     }
 
     patch(url, body): Observable<any> {
-        this.StatusLoading('show');
+        this.startLoading();
         return this.http.patch(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -117,13 +116,13 @@ export class ClientService extends GlobalService {
     }
 
     delete(url): Observable<any> {
-        this.StatusLoading('show');
+        this.startLoading();
         return this.http.delete(`${this.getApiURl(url)}`, this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -133,7 +132,7 @@ export class ClientService extends GlobalService {
 
     }
     deleteParam(url, body): Observable<any> {
-        this.StatusLoading('show');
+        this.startLoading();
         if (typeof body !== 'undefined' && typeof body === 'object') {
         body = jQuery.param(body);
         url += '?' + body;
@@ -143,7 +142,7 @@ export class ClientService extends GlobalService {
                 catchError(this.handleError)
             ).do(
                 (event: HttpEvent<any>) => {
-                    this.StatusLoading('hide');
+                    this.endLoading();
                     if (event instanceof HttpResponse) {
                         return event;
                         // do stuff with response if you want
@@ -154,26 +153,18 @@ export class ClientService extends GlobalService {
     }
 
     request(method, url, body) {
-        this.StatusLoading('show');
+        this.startLoading();
         const req = new HttpRequest(method, this.getApiURl(url), body, this.getAuthHttpOptions());
         return this.http.request(req).pipe(
             catchError(this.handleError)
         ).do(
             (event: HttpEvent<any>) => {
-                this.StatusLoading('hide');
+                this.endLoading();
                 if (event instanceof HttpResponse) {
                     return event;
                     // do stuff with response if you want
                 }
             }
         );
-    }
-
-    StatusLoading(status = 'show') {
-        if (status === 'show' && this.enableLoading) {
-            $('#loading').css('display', 'block');
-        } else {
-            $('#loading').css('display', 'none');
-        }
     }
 }
