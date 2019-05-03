@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PopupService} from '../../core/service/popup.service';
 import {OperationDataComponent} from '../operation-data.component';
 import {OperationService} from '../operation.service';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-warehouse',
@@ -14,6 +15,11 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
         super(service);
     }
 
+    @ViewChild('createNewTracking') createNewTracking: ModalDirective;
+    public createForm: any = {
+        tracking_codes: '',
+        time_received: '',
+    };
     public searchInput: any = {
         trackingCode: '',
         manifestCode: '',
@@ -26,6 +32,7 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
 
     ngOnInit() {
         this.clearSearch();
+        this.search();
     }
 
     clearSearch() {
@@ -35,7 +42,9 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
             shipmentCode: '',
             packageCode: '',
             WsTrackingCode: '',
-            tabFilter: ''
+            tabFilter: '',
+            limit: 20,
+            page: 1
         };
     }
 
@@ -45,23 +54,40 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
             this.search();
         }
     }
-
     search() {
-        console.log(this.searchInput);
+        this.searchInput.limit = this.perPage;
+        this.searchInput.page = this.currentPage;
         this.service.get('warehouse-ws', this.searchInput).subscribe(rs => {
             console.log(rs);
             if (rs.success) {
-                this.data = rs.data;
-                this.POP.success('Get success');
+                this.data = rs.data.data;
+                this.totalCount = rs.data.total;
             }
         });
     }
 
     createNew() {
-        this.POP.success('Click create new tracking', 'Success');
+        this.createNewTracking.show();
+    }
+
+    MarkUsReceived() {
+        console.log(this.createForm);
+        if (!this.createForm.tracking_codes || !this.createForm.time_received) {
+            return this.POP.error('Tracking Code and Time Received cannot null!');
+        }
+        this.service.post('warehouse-ws', this.createForm).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                // this.data = rs.data.data;
+            }
+        });
     }
 
     exportReport() {
         this.POP.success('Click export report tracking');
+    }
+
+    handlePagination(event) {
+        this.currentPage = event.page;
     }
 }

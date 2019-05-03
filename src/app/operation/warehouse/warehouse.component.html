@@ -2,7 +2,7 @@
     <div class="header-content">
         <h3>Management Warehouse</h3>
     </div>
-    <div class="body-content" id="search-block">
+    <div class="body-content bg-white" id="search-block">
         <div class="row col-md-12" id="input-search">
             <div class="col-md-3 form-group">
                 <input class="form-control form-control-sm" placeholder="Tracking code" [(ngModel)]="searchInput.trackingCode">
@@ -26,44 +26,69 @@
             <button class="btn btn-sm btn-outline-inverse" (click)="createNew()"><i class="fa fa-plus"></i> Create New Tracking</button>
             <button class="btn btn-sm btn-outline-inverse" (click)="exportReport()"><i class="fa fa-download"></i> Export</button>
         </div>
-        <div class="col-md-12" id="filter-search" style="padding: 5px 0px;">
+        <div class="col-md-12" id="filter-search" style="padding-top: 5px;">
             <ul class="list-inline">
                 <li>
-                    <b>Filter :</b>
+                    <b>Filter ({{totalCount}}):</b>
                 </li>
                 <li>
                 <span class="pointer badge {{searchInput.tabFilter == 'all' || searchInput.tabFilter == '' ? 'badge-info' : 'badge-not-info' }}"
-                      (click)="getFilterTab('all')">All (12345678)</span>
+                      (click)="getFilterTab('all')">All</span>
                 </li>
                 <li>
-                <span class="pointer badge {{ searchInput.tabFilter == 'us_received'? 'badge-warning' : 'badge-not-warning' }}"
-                      (click)="getFilterTab('us_received')">Us Received (5000)</span>
+                <span class="pointer badge {{ searchInput.tabFilter == 'us_received'? 'badge-danger' : 'badge-not-danger' }}"
+                      (click)="getFilterTab('us_received')">Us Received</span>
                 </li>
                 <li>
                 <span class="pointer badge {{ searchInput.tabFilter == 'us_sending'? 'badge-warning' : 'badge-not-warning' }}"
-                      (click)="getFilterTab('us_sending')">Us Sending (5000)</span>
+                      (click)="getFilterTab('us_sending')">Us Sending</span>
                 </li>
                 <li>
-                <span class="pointer badge {{ searchInput.tabFilter == 'local_received'? 'badge-danger' : 'badge-not-danger' }}"
-                      (click)="getFilterTab('local_received')">Local Received (5000)</span>
+                <span class="pointer badge {{ searchInput.tabFilter == 'local_received'? 'badge-red' : 'badge-not-red' }}"
+                      (click)="getFilterTab('local_received')">Local Received</span>
                 </li>
                 <li>
-                <span class="pointer badge {{ searchInput.tabFilter == 'local_inspected'? 'badge-danger' : 'badge-not-danger' }}"
-                      (click)="getFilterTab('local_inspected')">Local Inspected (5000)</span>
+                <span class="pointer badge {{ searchInput.tabFilter == 'local_inspected'? 'badge-red' : 'badge-not-red' }}"
+                      (click)="getFilterTab('local_inspected')">Local Inspected</span>
                 </li>
                 <li>
-                <span class="pointer badge {{ searchInput.tabFilter == 'created_shipment'? 'badge-info' : 'badge-not-info' }}"
-                      (click)="getFilterTab('created_shipment')">Created Shipment (5000)</span>
+                <span class="pointer badge {{ searchInput.tabFilter == 'created_shipment'? 'badge-purple' : 'badge-not-purple' }}"
+                      (click)="getFilterTab('created_shipment')">Created Shipment</span>
                 </li>
                 <li>
                 <span class="pointer badge {{ searchInput.tabFilter == 'delivering'? 'badge-info' : 'badge-not-info' }}"
-                      (click)="getFilterTab('delivering')">Delivering (5000)</span>
+                      (click)="getFilterTab('delivering')">Delivering</span>
                 </li>
                 <li>
                 <span class="pointer badge {{ searchInput.tabFilter == 'at_customer'? 'badge-success' : 'badge-not-success' }}"
                       (click)="getFilterTab('at_customer')">At Customer (5000)</span>
                 </li>
             </ul>
+        </div>
+        <div class="col-md-12">
+            <div class="row list-summary">
+                <div class="col-md-6">
+                    <span i18n>Showing</span>
+                    <select class="form-control-sm select-custom"
+                            [(ngModel)]="perPage" (change)="search()">
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="all">All</option>
+                    </select>
+                    <span>of page {{currentPage}} in {{pageCount}} page in total {{totalCount}} items</span>
+                </div>
+                <div class="col-md-6">
+                    <pagination [boundaryLinks]="true"
+                                [totalItems]="totalCount"
+                                (pageChanged)="handlePagination($event)"
+                                [maxSize]="10"
+                                [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                                [rotate]="true">
+                    </pagination>
+                </div>
+            </div>
         </div>
     </div>
     <div class="body-content" id="result-block">
@@ -101,7 +126,7 @@
                             </ng-container>
                         </div>
                     </td>
-                    <td><span class="badge badge-info">{{tracking.status}}</span></td>
+                    <td><span class="badge {{tracking.status | statusTracking}}">{{tracking.status}}</span></td>
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-sm btn-outline-inverse">Local Received</button>
@@ -112,5 +137,47 @@
             </ng-container>
             </tbody>
         </table>
+    </div>
+</div>
+<div bsModal #createNewTracking="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Add tracking Us Received</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="tracking_code" class="form-control-label">Tracking code <i class="fa fa-question-circle" tooltip="You can enter multiple tracking separated by commas"></i></label>
+                                            <textarea id="tracking_code" [(ngModel)]="createForm.tracking_codes" class="form-control form-control-sm" placeholder="Tracking code ..." style="width: 100%" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="time_received" class="form-control-label">Time Received</label>
+                                            <input type="text" [(ngModel)]="createForm.time_received" class="form-control form-control-sm"  bsDatepicker="placement='top'" id="time_received" placeholder="Time Received">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="MarkUsReceived()">Insert Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="createNewTracking.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
