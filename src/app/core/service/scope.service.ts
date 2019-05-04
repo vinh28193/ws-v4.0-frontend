@@ -99,6 +99,11 @@ export class ScopeService {
       return true;
     }
   }
+  public CheckMasterSale() {
+    if (this.checkMasterSale() || this.checkSuperAdmin() || this.checkTester()) {
+      return true;
+    }
+  }
   public checkMarketingAccount() {
       if (this.checkMarketing() || this.checkAccountant() || this.checkMasterMarketing() || this.checkMasterAccountant()) {
         return true;

@@ -378,7 +378,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return params;
     }
     checkUpdatePayment(status) {
-      if (this._scope.checkSuperAdmin() || this._scope.checkTester()) {
+      if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
         if (status !== 'CANCEL') {
           return true;
         }
@@ -725,11 +725,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkCancel(item) {
-        if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-            if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale' || 'tester')) {
-                return true;
-            }
+      if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+        if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
+          return true;
         }
+      }
     }
     checkConfirmOrder(order) {
       if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
@@ -894,7 +894,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
-        const messagePop = 'Do you want mark supported';
+        const messagePop = 'Do you want mark supporting';
         if (params.message) {
             this.orderService.postChat(params).subscribe(res => {
             });
@@ -907,7 +907,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 mark_supporting: params.mark,
-                current_status: 'SUPPORTED',
+                current_status: 'SUPPORTING',
             }, 'updateMarkSupported');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
