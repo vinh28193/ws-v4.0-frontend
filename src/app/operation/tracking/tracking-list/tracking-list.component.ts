@@ -194,34 +194,37 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
     }
 
     search(type = 'search', id = null) {
-        if (id !== this.manifest_id) {
-            this.manifest_id = id;
-            const params = this.preSearch();
-            if (type === 'search') {
-                params.m = '';
-                this.manifest_id = '';
-            }
-            this.trackingService.searchUsSending(params).subscribe(response => {
-                const rs: any = response;
-                if (rs.success) {
-                    const data: any = rs.data;
-                    this.tracks = data._items;
-                    if (type === 'search') {
-                        this.manifests = data._manifest ? data._manifest : this.manifests;
-                    }
-                    this.tracks = data;
-                    this.totalCount = data._manifest_total ? data._manifest_total : this.totalCount;
-                    this.pageCount = Math.floor(this.totalCount / params.ps_m);
-                    this.currentPage = params.p_m;
-                    this.perPage = params.ps_m;
-                    this.setTabTracking(this.tabTracking);
-                } else {
-                    this.popUp.error(rs.message);
-                }
-            });
+        this.manifest_id = id;
+        const params = this.preSearch();
+        if (type === 'search') {
+            params.m = '';
+            this.manifest_id = '';
         }
+        this.trackingService.searchUsSending(params).subscribe(response => {
+            const rs: any = response;
+            if (rs.success) {
+                const data: any = rs.data;
+                this.tracks = data._items;
+                if (type === 'search') {
+                    this.manifests = data._manifest ? data._manifest : this.manifests;
+                }
+                this.tracks = data;
+                this.totalCount = data._manifest_total ? data._manifest_total : this.totalCount;
+                this.pageCount = Math.floor(this.totalCount / params.ps_m);
+                this.currentPage = params.p_m;
+                this.perPage = params.ps_m;
+                this.setTabTracking(this.tabTracking);
+            } else {
+                this.popUp.error(rs.message);
+            }
+        });
     }
 
+    clickTab(id) {
+        if (id !== this.manifest_id) {
+            this.search('tracking', id);
+        }
+    }
     openUsSendingModal() {
         this.buildUsSendingForm();
         this.usSendingModal.show();
