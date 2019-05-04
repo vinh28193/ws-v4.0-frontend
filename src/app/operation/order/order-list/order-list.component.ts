@@ -732,7 +732,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkConfirmOrder(order) {
       if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-        if (this._scope.CheckSale()) {
+        if (this._scope.CheckSale() && !this._scope.checkRoleOption() && !this._scope.checkMasterOperation()) {
           return true;
         }
       }
@@ -839,11 +839,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openListOrderChatRefund(order) {
       this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
-    this.formSearchList = this.fb.group({
-        noteL: '',
-        contentL: '',
-    });
+    this.newFormSearchList();
     this.loadListTemChat();
+  }
+  newFormSearchList() {
+    this.formSearchList = this.fb.group({
+      noteL: '',
+      contentL: '',
+    });
   }
 
   buildListChat() {
@@ -1285,5 +1288,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
+  refreshListChatTem() {
+    this.newFormSearchList();
+    const params: any = {};
+    params.limit = 20;
+    this.orderService.getListTem(params).subscribe(res => {
+      this.listChatTem = res.data;
+      this.totalChat = res.total;
+    });
+  }
 }
 

@@ -722,8 +722,8 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status)" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>List template mark order</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>List template mark order</a>
 
 
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
@@ -1939,7 +1939,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <button class="btn btn-info btn-sm mr-2" (click)="loadListTemChat()" type="submit" i18n>
                   <i class="fa fa-search mr-1"></i> Search
                 </button>
-                <button type="button" class="btn btn-default btn-sm" i18n>
+                <button type="button" class="btn btn-default btn-sm" (click)="refreshListChatTem()" i18n>
                   <i class="fa fa-refresh mr-1"></i> Refresh
                 </button>
               </div>

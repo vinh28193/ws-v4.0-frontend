@@ -100,7 +100,16 @@
                 <app-span-label [value]=""></app-span-label>
               </li>
               <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
-                <i class="fa fa-comments"  > {{product.note_by_customer}}</i>
+                <i class="fa fa-comments"  ></i>{{product.note_by_customer}}
+                <a href="javascript:void(0)" (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
+                  <i class="fa fa-edit" *ngIf="product.note_by_customer != null"></i>
+                </a>
+                <a href="javascript:void(0)" (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
+                  <i class="fa fa-plus-square" *ngIf="product.note_by_customer == '' || product.note_by_customer == null"></i>
+                </a>
+                <form action="" [formGroup] = "editFormNote" *ngIf="openEditNoteByCustomer[product.id]" [hidden]="!openEditNoteByCustomer[product.id]">
+                  <textarea rows="2" class="form-control form-control-sm" (keydown.enter)="editNotePro(product.id)" formControlName="noteCustomer"  name="noteCustomer"></textarea>
+                </form>
               </li>
             </ul>
             <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
