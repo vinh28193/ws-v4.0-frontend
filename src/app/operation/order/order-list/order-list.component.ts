@@ -473,15 +473,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAll(order) {
-        for (let i = 0; i < order.products.length; i++) {
-          if (order.products[i]['custom_category_id'] === '') {
-            this.checkReady2Purchase = 'yes';
+        if (order.total_paid_amount_local !== '0.00') {
+          console.log(order.total_paid_amount_local);
+          for (let i = 0; i < order.products.length; i++) {
+            if (order.products[i]['custom_category_id'] !== '' || order.products[i]['custom_category_id'] !== null) {
+              this.checkReady2Purchase = 'yes';
+            }
           }
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-              current_status: 'SUPPORTED',
+              // current_status: 'SUPPORTED',
               checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
             this.orderService.put(`order/${order.id}`, put).subscribe(res => {
@@ -1238,7 +1241,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   checkChatNote(code, status) {
-      console.log(status);
       const params: any = {};
       // if (status === 1) {
       //   console.log('da vào');
