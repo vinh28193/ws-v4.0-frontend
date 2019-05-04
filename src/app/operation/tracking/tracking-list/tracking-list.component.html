@@ -66,7 +66,7 @@
                                         <ul class="list-group custom-list">
                                             <ng-container *ngFor="let manifest of manifests;let ind = index">
                                                 <li class="list-group-item custom-list-item {{manifest.id == manifest_id ? 'active' : !manifest_id && ind == 0 ? 'active' : '' }}"
-                                                    (click)="search('tracking', manifest.id);">
+                                                    (click)="clickTab(manifest.id)">
                                                     <h4>{{manifest.manifest_code}}</h4>
                                                     <div>Id: <b>{{manifest.id}}</b></div>
                                                     <div>Receive Warehouse:
