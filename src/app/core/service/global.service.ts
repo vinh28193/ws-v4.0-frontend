@@ -16,6 +16,8 @@ export class GlobalService {
 
     public OAUTH_URL;
 
+    public enableLoading = true;
+
     /**
      * constructor service
      * @param {EncryptionService} cryCode
@@ -188,5 +190,13 @@ export class GlobalService {
         if (localStorage.getItem('scope') === ('superAdmin')) {
             return true;
         }
+    }
+    startLoading() {
+        if (this.enableLoading) {
+            $('#loading').css('display', 'block');
+        }
+    }
+    endLoading() {
+        $('#loading').css('display', 'none');
     }
 }

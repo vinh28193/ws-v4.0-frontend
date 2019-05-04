@@ -592,7 +592,7 @@
                                 <div class="col-md-6 text-right text-info style-padding-left">{{order.total_final_amount_local > order.total_paid_amount_local ? getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) : 0 | number}} <span>{{order.store_id | currencyStore}}</span></div>
                               </div>
                               <div class="row Refund" *ngIf="order.total_refund_amount_local">
-                                <div id="Số tiền thừa" class="col-md-6" i18n>Refund</div>
+                                <div id="refund" class="col-md-6" i18n>Refund</div>
                                 <div class="col-md-6 text-right style-padding-left">
                                   {{order.total_refund_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
@@ -616,6 +616,10 @@
                                   <!--</button>-->
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
                                     <i class="fa fa-shopping-cart"></i> Purchase Buy Now
+                                  </button>
+                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
+                                          (click)="updateStatus(order.id)">
+                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}
                                   </button>
                                 </div>
                               </div>
@@ -874,7 +878,7 @@
 <div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" [clickBtn]="true" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" (searchEvent)="listOrders()" [clickBtn]="true" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
 </div>

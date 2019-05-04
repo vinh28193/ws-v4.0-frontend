@@ -26,8 +26,9 @@ import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
 import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
 import {PagingCustomComponent} from './paging-custom/paging-custom.component';
 import { TrackingLogComponent } from './tracking-log/tracking-log.component';
-import {BsDatepickerModule, ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule, PaginationModule, TooltipModule, TypeaheadModule} from 'ngx-bootstrap';
 import { WarehouseComponent } from './warehouse/warehouse.component';
+import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
 
 
 @NgModule({
@@ -39,6 +40,8 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
         ReactiveFormsModule,
         ModalModule.forRoot(),
         PaginationModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        TooltipModule.forRoot(),
     ],
     declarations: [
         OperationRoutingComponent,
@@ -61,7 +64,8 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
         TypeTrackingPipe,
         TrackingLogComponent,
         PagingCustomComponent,
-        WarehouseComponent
+        WarehouseComponent,
+        StatusTrackingPipe
     ],
     providers: [
         OperationService

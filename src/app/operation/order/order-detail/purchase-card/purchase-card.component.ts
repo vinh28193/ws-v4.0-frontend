@@ -20,6 +20,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     @Input() updateProductId: any;
     @Input() clickBtn: false;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
+    @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
     public current_id = 0;
     public orders: any;
     public form: any;
@@ -158,6 +159,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             const res: any = rs;
             if (res.success) {
                 this.orders = [];
+                this.searchEventClick();
                 this.pop.success(res.message);
                 this.closePop();
             } else {
@@ -167,6 +169,9 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         });
     }
 
+    searchEventClick() {
+        this.searchEvent.emit();
+    }
     getwarehouse(nocache = false) {
         this.warehouse = nocache ? null : JSON.parse(this.storegate.get('list_warehouse'));
         if (!this.warehouse) {
@@ -202,6 +207,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         this.orderService.postPurchaseService('send-notify-changing', this.data).subscribe(res => {
             const rs: any = res;
             if (rs.success) {
+                this.searchEventClick();
                 this.pop.success(rs.message);
                 this.addcart();
             } else {
@@ -236,6 +242,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             this.orderService.postPurchaseService('confirm-changing-price', this.data).subscribe(rs => {
                 const res: any = rs;
                 if (res.success) {
+                    this.searchEventClick();
                     this.pop.success(res.message);
                     this.addcart();
                 } else {
@@ -250,6 +257,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         this.orderService.postPurchaseService('send-notify-changing', this.data).subscribe(res => {
             const rs: any = res;
             if (rs.success) {
+                this.searchEventClick();
                 this.pop.success(rs.message);
                 this.addcart();
             } else {
