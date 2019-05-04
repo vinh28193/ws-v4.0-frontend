@@ -4,7 +4,7 @@ import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
-import {orderStatus, paymentRequests, searchKeys, timeKeys} from '../order-enum';
+import {orderStatus, paymentRequests, searchKeys, timeKeys, StatusOrder} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
@@ -108,6 +108,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     provinces: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
+    statusOds: any = [];
     public listChatTem: any = [];
     public filter: any = {};
     public status: any;
@@ -972,6 +973,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     }
     openUpdateOrderCode(ordercode, id) {
+      this.statusOds = StatusOrder;
       this.code = ordercode;
       this.markID = id;
       this.checkUpdateOderCode = true;
@@ -1005,11 +1007,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateOrderCode() {
       const params = this.loadForm();
       params.codeAll = this.listChatCheck;
-      if ((params.status) === 'ready_purchase' ) {
-          this.currentStatusOrder = 'ready2purchase';
-      } else {
-        this.currentStatusOrder = params.status;
-      }
+      this.currentStatusOrder = params.status;
+      console.log(this.currentStatusOrder);
       const put = this.orderService.createPostParams({
         status: params.status,
         current_status: this.currentStatusOrder,

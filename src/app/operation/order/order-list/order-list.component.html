@@ -1573,21 +1573,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <form action="" [formGroup]="formAsignUser">
                   <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"  name="statusOrder" id="statusOrder"
                           formControlName="statusOrder">
-                    <option value="new" >NEW</option>
-                    <option value="supporting" >SUPPORTING</option>
-                    <option value="supported" >SUPPORTED</option>
-                    <option value="ready_purchase" >READY 2 PURCHASE</option>
-                    <option value="purchase_start" >PURCHASE START</option>
-                    <option value="purchased" >PURCHASED</option>
-                    <option value="seller_shipped" >SELLER SHIPPED</option>
-                    <option value="stockin_us" >STOCK IN US</option>
-                    <option value="stockout_us" >STOCK OUT US</option>
-                    <option value="stockin_local" >STOCK IN LOCAL</option>
-                    <option value="stockout_local" >STICK OUT LOCAL</option>
-                    <option value="at_customer" >AT CUSTOMER</option>
-                    <option value="returned" >RETURNED</option>
-                    <option value="cancel" >CANCEL</option>
-                    <option value="lost" >LOST</option>
+                    <option [value]="statusOdd.id" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
                   </select>
                 </form>
               </div>
