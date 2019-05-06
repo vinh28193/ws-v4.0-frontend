@@ -715,20 +715,20 @@
                                       <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
                                     </button>
                                     <div class="btn-group">
-                                      <button   type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button   type="button" class="btn btn-sm dropdown-toggle" (click)="checkUpdatePaymentShow(order.ordercode, order.current_status)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status)" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status) && checkUpdatePaymentOne()" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale() && order.current_status == 'NEW'" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>List template mark order</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-list mr-2" aria-hidden="true"></i>List template mark order</a>
 
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
 
 
 
@@ -752,13 +752,13 @@
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" rel="tab2" (click)="pay[order.id] = !pay[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
                                 <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" (click)="pack[order.id] = !pack[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()" (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
                                 <li class="tab-slider--trigger" rel="tab2"  (click)="delivevery[order.id] = !delivevery[order.id]">

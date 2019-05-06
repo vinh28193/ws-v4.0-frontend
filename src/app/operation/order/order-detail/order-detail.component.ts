@@ -174,6 +174,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.id = pro.id;
     this.updateForm = this.fb.group({
       policy_id: pro.custom_category_id,
+      note_boxme: pro.note_boxme,
     });
     this.editFormNote = this.fb.group({
       noteCustomer: pro.note_by_customer
@@ -184,6 +185,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     const params: any = {};
     if (value.policy_id !== '') {
       params.policy_id = value.policy_id;
+    }
+    if (value.note_boxme !== '') {
+      params.note_boxme = value.note_boxme;
     }
     params.order_path = this.code;
     params.title = 'category policy';

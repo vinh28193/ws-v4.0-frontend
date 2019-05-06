@@ -379,7 +379,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkUpdatePayment(status) {
       if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-        if (status !== 'CANCEL') {
+        if (status === 'CANCEL') {
+          return false;
+        } else {
           return true;
         }
       }
@@ -474,10 +476,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAll(order) {
-        if (order.total_paid_amount_local !== '0.00') {
-          console.log(order.total_paid_amount_local);
+        if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
+          this.checkReady2Purchase = 'no';
+        } else {
+          const j = 0;
           for (let i = 0; i < order.products.length; i++) {
-            if (order.products[i]['custom_category_id'] !== '' || order.products[i]['custom_category_id'] !== null) {
+            if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
+              this.checkReady2Purchase = 'no';
+              break;
+            } else {
               this.checkReady2Purchase = 'yes';
             }
           }
@@ -965,7 +972,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     }
     checkShowPayBack(paid) {
-      if (this._scope.checkRoleOption() || this._scope.checkOperatione()) {
+      if (this._scope.checkRoleOption()) {
         if (paid === 0 || paid === null || paid === '') {
           return false;
         }
@@ -1295,6 +1302,28 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.listChatTem = res.data;
       this.totalChat = res.total;
     });
+  }
+  checkShowPay() {
+      if (this._scope.checkMasterMarketing() || this._scope.checkMarketing() || this._scope.checkMarketingAds()) {
+        return false;
+      }
+      return true;
+  }
+  checkUpdatePaymentShow(code, status) {
+    if (this.checkUpdatePayment(status)) {
+      this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+        const rs = res;
+        this.listLog = rs.data;
+      });
+    }
+  }
+  checkUpdatePaymentOne() {
+    const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+    if (pay.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 
