@@ -125,4 +125,16 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
       return true;
     }
   }
+  checkLogout() {
+      if (localStorage.getItem('accessToken') !== null) {
+        return true;
+      }
+      return false;
+  }
+  checkLogin() {
+    if (localStorage.getItem('accessToken') === null || localStorage.getItem('accessToken') === '') {
+      return true;
+    }
+    return false;
+  }
 }

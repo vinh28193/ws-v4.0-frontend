@@ -62,7 +62,9 @@
             </select>
           </div>
           <div class="col-md-3 col-sm-6 form-group m-b-10">
-            <label class="form-control-label"><span i18n>Order Status</span></label>
+            <label class="form-control-label">
+              <span i18n>Status</span>
+            </label>
             <select class="form-control form-control-sm" name="orderStatus" id="orderStatus"
                     formControlName="orderStatus">
               <option [value]="allKey" i18n>--All Status--</option>
@@ -615,7 +617,7 @@
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
-                                    <i class="fa fa-shopping-cart"></i> Purchase Buy Now
+                                    <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
                                   <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
                                           (click)="updateStatus(order.id)">
@@ -722,7 +724,7 @@
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status)" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale() && order.current_status == 'NEW'" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>List template mark order</a>
 
 
@@ -1139,7 +1141,7 @@
             </div>
             <div class="row m-0 mt-3">
               <div class="col-md-6">
-                <label i18n>Purchase Amount Refund</label>
+                <label i18n>Seller's refund amount</label>
                 <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
                 <label style="font-size: 2em; color: red">Price :
                   <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
@@ -1147,7 +1149,7 @@
                 </label>
               </div>
               <div class="col-md-6">
-                <label i18n>Purchase Amount Buck</label>
+                <label i18n>The seller's refund code</label>
                 <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
               </div>
             </div>
@@ -1609,7 +1611,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
                   <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
-                  <div class="col-md-6 text-right" *ngIf="orderList.purchase_start">
+                  <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
                     <a href="javascript:void(0)" *ngIf="orderList.purchase_start" (click)="updateNull('purchase_start', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                     {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
@@ -1617,7 +1619,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.purchased">
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchased">
                   <a href="javascript:void(0)" *ngIf="orderList.purchased" (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>

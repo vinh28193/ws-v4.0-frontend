@@ -3,6 +3,7 @@ import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
+import {ScopeService} from '../../../../core/service/scope.service';
 import {ModalDirective} from 'ngx-bootstrap';
 declare var $: any;
 @Component({
@@ -22,7 +23,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   public checkLoadPackage: boolean = false;
   public createForm: FormGroup;
 
-  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public _scope: ScopeService) {
     super(orderService);
   }
 
@@ -119,6 +120,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   handleChange(event) {
     this.checkLoadPackage = event;
     if (this.checkLoadPackage = true) {
+      $('.modal').modal('hide');
       this.listPackageItem();
     }
   }
@@ -135,5 +137,10 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
         }
       });
     }, messagePop);
+  }
+  checkOpenAdd() {
+    if (this._scope.checkOperatione() && this._scope.checkMasterOperation) {
+      return true;
+    }
   }
 }

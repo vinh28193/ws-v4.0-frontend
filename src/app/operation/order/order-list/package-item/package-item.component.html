@@ -10,7 +10,7 @@
       <th class="text-center" ><span i18n>Stock In Local</span>/ <span i18n>Stock Out Local</span></th>
       <th class="text-center" i18n>Status</th>
       <th class="text-center" i18n>Create at</th>
-      <th><button class="btn btn-sm btn-default" (click)="offCreatePackage()" data-target="#showCreatePackage" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>Create Package Item</button></th>
+      <th><button class="btn btn-sm btn-default" *ngIf="!checkOpenAdd()" (click)="offCreatePackage()" data-target="#showCreatePackage" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>Create Package Item</button></th>
     </tr>
     </thead>
     <tbody class="text-center"  *ngIf="packages.length > 0">
