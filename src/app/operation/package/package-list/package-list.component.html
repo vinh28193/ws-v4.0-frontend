@@ -24,10 +24,17 @@
                     <option value="UNKNOWN">Unknown</option>
                 </select>
             </div>
+            <div class="col-md-3 form-group">
+                <select class="form-control form-control-sm"  [(ngModel)]="filter.status" (change)="search()" >
+                    <option value="">-- Select status --</option>
+                    <option value="created">Delivery note created</option>
+                    <option value="not_create">Delivery note not create</option>
+                </select>
+            </div>
             <div class="col-md-12 btn-group">
                 <button id="btn-search" class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fal fa-search"></i> Search</button>
                 <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fal fa-refresh"></i> Reset</button>
-                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="createall()"><i class="fal fa-plus"></i> Create all delivery note</button>
+                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="createall()"><i class="fal fa-plus"></i> Create 1vs1 delivery note</button>
                 <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showDeliveryNoteModal()" tooltip="With items you had chosen"><i class="fal fa-plus"></i> Create delivery note</button>
             </div>
             <div class="col-md-12"  style="margin: 0px;padding: 0px">
@@ -116,7 +123,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-outline-dark" tooltip="Out of delivery note"><i class="fal fa-sign-out"></i></button>
+                                                <button class="btn btn-sm btn-outline-dark" (click)="outOfDeliveryNote(packTr.id)" tooltip="Out of delivery note"><i class="fal fa-sign-out"></i></button>
                                                 <button class="btn btn-sm btn-outline-dark" tooltip="History delivery note"><i class="fal fa-history"></i></button>
                                             </div>
                                         </div>
