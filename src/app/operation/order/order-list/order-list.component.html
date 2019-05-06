@@ -1609,7 +1609,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
                   <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
-                  <div class="col-md-6 text-right" *ngIf="orderList.purchase_start">
+                  <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
                     <a href="javascript:void(0)" *ngIf="orderList.purchase_start" (click)="updateNull('purchase_start', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                     {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
@@ -1617,7 +1617,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.purchased">
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchased">
                   <a href="javascript:void(0)" *ngIf="orderList.purchased" (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
