@@ -617,7 +617,7 @@
                                     <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
-                                    <i class="fa fa-shopping-cart"></i> Purchase Buy Now
+                                    <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
                                   <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
                                           (click)="updateStatus(order.id)">
@@ -1141,7 +1141,7 @@
             </div>
             <div class="row m-0 mt-3">
               <div class="col-md-6">
-                <label i18n>Purchase Amount Refund</label>
+                <label i18n>Seller's refund amount</label>
                 <input type="text" class="form-control form-control-sm" formControlName="purchase_amount_refund">
                 <label style="font-size: 2em; color: red">Price :
                   <span *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
@@ -1149,7 +1149,7 @@
                 </label>
               </div>
               <div class="col-md-6">
-                <label i18n>Purchase Amount Buck</label>
+                <label i18n>The seller's refund code</label>
                 <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_buck">
               </div>
             </div>
