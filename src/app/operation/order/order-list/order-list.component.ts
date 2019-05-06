@@ -379,7 +379,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkUpdatePayment(status) {
       if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-        if (status !== 'CANCEL') {
+        if (status === 'CANCEL') {
+          return false;
+        } else {
           return true;
         }
       }
@@ -474,11 +476,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAll(order) {
-        if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null) {
+        if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
           this.checkReady2Purchase = 'no';
         } else {
+          const j = 0;
           for (let i = 0; i < order.products.length; i++) {
-            if (order.products[i]['custom_category_id'] !== '' || order.products[i]['custom_category_id'] !== null) {
+            if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
+              this.checkReady2Purchase = 'no';
+              break;
+            } else {
               this.checkReady2Purchase = 'yes';
             }
           }
@@ -966,7 +972,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     }
     checkShowPayBack(paid) {
-      if (this._scope.checkRoleOption() || this._scope.checkOperatione()) {
+      if (this._scope.checkRoleOption()) {
         if (paid === 0 || paid === null || paid === '') {
           return false;
         }
