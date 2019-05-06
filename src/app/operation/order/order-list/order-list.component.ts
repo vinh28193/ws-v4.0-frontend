@@ -1309,11 +1309,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
       return true;
   }
-  checkUpdatePaymentShow(code) {
-    this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-      const rs = res;
-      this.listLog = rs.data;
-    });
+  checkUpdatePaymentShow(code, status) {
+    if (this.checkUpdatePayment(status)) {
+      this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+        const rs = res;
+        this.listLog = rs.data;
+      });
+    }
+  }
+  checkUpdatePaymentOne() {
+    const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+    if (pay.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 
