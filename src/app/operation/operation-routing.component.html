@@ -113,13 +113,13 @@
                             <span i18n>Weshop coin</span>
                         </a>
                     </li>
-                    <li >
+                    <li *ngIf="checkLogin()">
                         <a [routerLink]="['login']">
                             <i class="fa fa-user"></i>
                             <span i18n>Login</span>
                         </a>
                     </li>
-                    <li >
+                    <li *ngIf="checkLogout()">
                         <a [routerLink]="['logout']">
                             <i class="fa fa-arrow-circle-left"></i>
                             <span i18n>Logout</span>
