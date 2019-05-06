@@ -1,6 +1,6 @@
-<div class="content-block" style="margin: 0px">
+<div class="content-block">
     <div class="header-content">
-        <h2>View tracking</h2>
+        <h2>Package Management</h2>
     </div>
     <div class="body-content">
         <div class="row col-md-12" style="margin: 0px;padding: 0px">
@@ -58,14 +58,16 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th width="40%">Package Info</th>
-                        <th width="30%">Order Info</th>
+                        <th width="5%"></th>
+                        <th width="30%">Package Info</th>
+                        <th width="35%">Order Info</th>
                         <th width="30%">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <ng-container *ngFor="let packTr of data">
                         <tr>
+                            <td></td>
                             <td>
                                 <div>Status: <b>{{packTr.status}}</b></div>
                                 <div>Package Code: <b>{{packTr.package_code}}</b></div>
