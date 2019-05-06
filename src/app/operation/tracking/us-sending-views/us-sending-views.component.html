@@ -132,7 +132,7 @@
                 </div>
                 <div class="padding-btn" *ngIf="packTr.type_tracking == 'UNKNOWN'">
                   <p class="btn-group" >
-                    <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Type Product Id">
+                    <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Fill Product Id">
                     <button class="btn btn-sm btn-default" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
                   </p>
                   <div><a href="javascript:void (0)"

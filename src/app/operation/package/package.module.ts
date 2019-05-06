@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BsDatepickerModule, ModalModule, PaginationModule} from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule, PaginationModule, TooltipModule} from 'ngx-bootstrap';
 
 import {PackageRoutingModule} from './package-routing.module';
 import {PackageRoutingComponent} from './package-routing.component';
@@ -27,7 +27,8 @@ import {OperationModule} from '../operation.module';
         BsDatepickerModule.forRoot(),
         FormsModule,
         ModalModule,
-        OperationModule
+        OperationModule,
+        TooltipModule
     ],
     declarations: [
         PackageRoutingComponent,
