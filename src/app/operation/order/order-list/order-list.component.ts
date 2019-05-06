@@ -474,8 +474,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAll(order) {
-        if (order.total_paid_amount_local !== '0.00') {
-          console.log(order.total_paid_amount_local);
+        if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null) {
+          this.checkReady2Purchase = 'no';
+        } else {
           for (let i = 0; i < order.products.length; i++) {
             if (order.products[i]['custom_category_id'] !== '' || order.products[i]['custom_category_id'] !== null) {
               this.checkReady2Purchase = 'yes';
