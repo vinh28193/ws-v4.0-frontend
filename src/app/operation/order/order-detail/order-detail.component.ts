@@ -17,6 +17,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     private tabs: any [];
     public openEditVariant = {};
     public openEditCategory = {};
+    public openEditNoteByCustomer = {};
     updateProductId: any;
     productQ: any;
     public code: any;
@@ -33,6 +34,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Input() order_path: any;
     public editFormVariant: FormGroup;
     public updateForm: FormGroup;
+    public editFormNote: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
@@ -173,6 +175,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.updateForm = this.fb.group({
       policy_id: pro.custom_category_id,
     });
+    this.editFormNote = this.fb.group({
+      noteCustomer: pro.note_by_customer
+    });
   }
   buildform() {
     const value = this.updateForm.value;
@@ -201,4 +206,24 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
 
       return ud;
     }
+  buildformNote() {
+    const value = this.editFormNote.value;
+    const params: any = {};
+    if (value.noteCustomer !== '') {
+      params.noteCustomer = value.noteCustomer;
+    }
+    params.order_path = this.code;
+    params.title = 'note by customer';
+    return params;
+  }
+  editNotePro(id) {
+      const params = this.buildformNote();
+      this.orderService.put(`product/${id}`, params).subscribe(res => {
+        if (res.success) {
+          this.checkOpen = false;
+          this.editFee.emit(true);
+          $('.modal').modal('hide');
+        }
+      });
+  }
 }

@@ -68,3 +68,20 @@ export const orderStatus = [
     {key: 'JUNK', name: 'Junk'},
     {key: '', name: 'SanBox'}
 ];
+export const StatusOrder = [
+  {id: 1, key: 'new', name: 'NEW'},
+  {id: 2, key: 'supporting', name: 'SUPPORTING'},
+  {id: 3, key: 'supported', name: 'SUPPORTED'},
+  {id: 4, key: 'ready_purchase', name: 'READY 2 PURCHASE'},
+  {id: 5, key: 'purchase_start', name: 'PURCHASE START'},
+  {id: 6, key: 'purchased', name: 'PURCHASED'},
+  {id: 7, key: 'seller_shipped', name: 'SELLER SHIPPED'},
+  {id: 8, key: 'stockin_us', name: 'STOCK IN US'},
+  {id: 9, key: 'stockout_us', name: 'STOCK OUT US'},
+  {id: 10, key: 'stockin_local', name: 'STOCK IN LOCAL'},
+  {id: 11, key: 'stockout_local', name: 'STICK OUT LOCAL'},
+  {id: 12, key: 'at_customer', name: 'AT CUSTOMER'},
+  {id: 13, key: 'returned', name: 'RETURNED'},
+  {id: 14, key: 'cancel', name: 'CANCEL'},
+  {id: 15, key: 'lost', name: 'LOST'},
+];

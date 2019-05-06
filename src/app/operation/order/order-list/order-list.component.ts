@@ -4,7 +4,7 @@ import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
-import {orderStatus, paymentRequests, searchKeys, timeKeys} from '../order-enum';
+import {orderStatus, paymentRequests, searchKeys, timeKeys, StatusOrder} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
@@ -108,6 +108,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     provinces: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
+    statusOds: any = [];
     public listChatTem: any = [];
     public filter: any = {};
     public status: any;
@@ -377,7 +378,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return params;
     }
     checkUpdatePayment(status) {
-      if (this._scope.checkSuperAdmin() || this._scope.checkTester()) {
+      if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
         if (status !== 'CANCEL') {
           return true;
         }
@@ -473,15 +474,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     confirmAll(order) {
-        for (let i = 0; i < order.products.length; i++) {
-          if (order.products[i]['custom_category_id'] === '') {
-            this.checkReady2Purchase = 'yes';
+        if (order.total_paid_amount_local !== '0.00') {
+          console.log(order.total_paid_amount_local);
+          for (let i = 0; i < order.products.length; i++) {
+            if (order.products[i]['custom_category_id'] !== '' || order.products[i]['custom_category_id'] !== null) {
+              this.checkReady2Purchase = 'yes';
+            }
           }
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-              current_status: 'SUPPORTED',
+              // current_status: 'SUPPORTED',
               checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
             this.orderService.put(`order/${order.id}`, put).subscribe(res => {
@@ -721,15 +725,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkCancel(item) {
-        if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-            if (localStorage.getItem('scope') === ('superAdmin' || 'admin' || 'sale' || 'warehouse' || 'master_sale' || 'tester')) {
-                return true;
-            }
+      if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+        if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
+          return true;
         }
+      }
     }
     checkConfirmOrder(order) {
       if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-        if (this._scope.CheckSale()) {
+        if (this._scope.CheckSale() && !this._scope.checkRoleOption() && !this._scope.checkMasterOperation()) {
           return true;
         }
       }
@@ -836,11 +840,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   openListOrderChatRefund(order) {
       this.code = order.ordercode;
     this.checkListOrderChatRefund = true;
-    this.formSearchList = this.fb.group({
-        noteL: '',
-        contentL: '',
-    });
+    this.newFormSearchList();
     this.loadListTemChat();
+  }
+  newFormSearchList() {
+    this.formSearchList = this.fb.group({
+      noteL: '',
+      contentL: '',
+    });
   }
 
   buildListChat() {
@@ -887,7 +894,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
-        const messagePop = 'Do you want mark supported';
+        const messagePop = 'Do you want mark supporting';
         if (params.message) {
             this.orderService.postChat(params).subscribe(res => {
             });
@@ -900,7 +907,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 mark_supporting: params.mark,
-                current_status: 'SUPPORTED',
+                current_status: 'SUPPORTING',
             }, 'updateMarkSupported');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
@@ -966,6 +973,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     }
     openUpdateOrderCode(ordercode, id) {
+      this.statusOds = StatusOrder;
       this.code = ordercode;
       this.markID = id;
       this.checkUpdateOderCode = true;
@@ -999,11 +1007,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateOrderCode() {
       const params = this.loadForm();
       params.codeAll = this.listChatCheck;
-      if ((params.status) === 'ready_purchase' ) {
-          this.currentStatusOrder = 'ready2purchase';
-      } else {
-        this.currentStatusOrder = params.status;
-      }
+      this.currentStatusOrder = params.status;
+      console.log(this.currentStatusOrder);
       const put = this.orderService.createPostParams({
         status: params.status,
         current_status: this.currentStatusOrder,
@@ -1238,7 +1243,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   checkChatNote(code, status) {
-      console.log(status);
       const params: any = {};
       // if (status === 1) {
       //   console.log('da vào');
@@ -1283,5 +1287,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
+  refreshListChatTem() {
+    this.newFormSearchList();
+    const params: any = {};
+    params.limit = 20;
+    this.orderService.getListTem(params).subscribe(res => {
+      this.listChatTem = res.data;
+      this.totalChat = res.total;
+    });
+  }
 }
 
