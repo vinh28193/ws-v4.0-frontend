@@ -780,13 +780,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openSellerRefund(order) {
         this.AdjustPaymentOderId = order.id;
         this.code = order.ordercode;
-        this.purchase_amount_buck = order.purchase_amount_buck;
-        this.purchase_amount_refund = order.purchase_amount_refund;
         this.checkSellerRefund = true;
         this.store_id = order.store_id;
         this.editForm = this.fb.group({
-            purchase_amount_buck: this.purchase_amount_buck,
-            purchase_amount_refund: this.purchase_amount_refund,
+          purchase_amount_refund: order.purchase_amount_refund,
+          purchase_refund_transaction_id: order.purchase_refund_transaction_id,
         });
     }
 
@@ -794,7 +792,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Update Seller Refund';
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                purchase_amount_buck: this.editForm.value.purchase_amount_buck,
+                purchase_refund_transaction_id: this.editForm.value.purchase_refund_transaction_id,
                 purchase_amount_refund: this.editForm.value.purchase_amount_refund
             }, 'updateSellerRefund');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
