@@ -119,6 +119,7 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   handleChange(event) {
     this.checkLoadPackage = event;
     if (this.checkLoadPackage = true) {
+      $('.modal').modal('hide');
       this.listPackageItem();
     }
   }

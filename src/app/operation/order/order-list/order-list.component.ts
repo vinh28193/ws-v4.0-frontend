@@ -908,7 +908,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             const put = this.orderService.createPostParams({
                 mark_supporting: params.mark,
                 current_status: 'SUPPORTING',
-            }, 'updateMarkSupported');
+            }, 'updateMarkSupporting');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
                   this.listOrders();
