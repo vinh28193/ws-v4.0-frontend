@@ -5,6 +5,9 @@
     <div class="body-content">
         <div class="row col-md-12" style="margin: 0px;padding: 0px">
             <div class="col-md-3 form-group">
+                <input class="form-control form-control-sm" type="text" [(ngModel)]="filter.package_code" (keydown.enter)="search()" placeholder="Package code">
+            </div>
+            <div class="col-md-3 form-group">
                 <input class="form-control form-control-sm" type="text" [(ngModel)]="filter.tracking_code" (keydown.enter)="search()" placeholder="Tracking code">
             </div>
             <div class="col-md-3 form-group">
@@ -22,8 +25,10 @@
                 </select>
             </div>
             <div class="col-md-12 btn-group">
-                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fal fa-search"></i> Search</button>
+                <button id="btn-search" class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fal fa-search"></i> Search</button>
                 <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fal fa-refresh"></i> Reset</button>
+                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="createall()"><i class="fal fa-plus"></i> Create all delivery note</button>
+                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showDeliveryNoteModal()" tooltip="With items you had chosen"><i class="fal fa-plus"></i> Create delivery note</button>
             </div>
             <div class="col-md-12"  style="margin: 0px;padding: 0px">
                 <div class="row list-summary">
@@ -58,19 +63,22 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th width="5%"></th>
+                        <th width="5%" ><input type="checkbox" [(ngModel)]="checkAll"  (change)="clickCheck()"  class="icheckbox_minimal-grey"> &nbsp;</th>
                         <th width="30%">Package Info</th>
-                        <th width="35%">Order Info</th>
+                        <th width="35%">Order Info | Delivery Note Info</th>
                         <th width="30%">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <ng-container *ngFor="let packTr of data">
                         <tr>
-                            <td></td>
+                            <td>
+                                <input type="checkbox" *ngIf="packTr.hold != 1 && !packTr.shipment_id && !packTr.delivery_note_id"  [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]" (change)="clickCheck()" class="icheckbox_minimal-grey">
+                            </td>
                             <td>
                                 <div>Status: <b>{{packTr.status}}</b></div>
                                 <div>Package Code: <b>{{packTr.package_code}}</b></div>
+                                <div>Tracking Code: <b>{{packTr.tracking_code}}</b></div>
                                 <div>Tracking WS: <b>{{packTr.ws_tracking_code}}</b></div>
                                 <div>Manifest Code: <b>{{packTr.manifest_code}}</b></div>
                                 <div>Weight: <b>{{packTr.weight}}</b></div>
@@ -81,6 +89,13 @@
                             <td>
                                 <ng-container *ngIf="!packTr.order">
                                     <h4 style="color: red">Cannot find order {{packTr.order_id ? 'with order id ' + packTr.order_id: ''}}!</h4>
+                                    <div>
+                                        <p class="btn-group" >
+                                            <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Fill Product Id">
+                                            <button class="btn btn-sm btn-outline-dark" (click)="mapUnknown(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
+                                        </p>
+                                    </div>
+                                    <hr>
                                 </ng-container>
                                 <ng-container *ngIf="packTr.order">
                                     <div>Order Code: <b>{{packTr.order.ordercode}}</b></div>
@@ -88,6 +103,29 @@
                                     <div>Receiver: <b>{{packTr.order.receiver_name}} / {{packTr.order.receiver_phone}} / {{packTr.order.receiver_address}}
                                                 ( {{packTr.order.receiver_district_name}}, {{packTr.order.receiver_province_name}}  ){{packTr.order.receiver_post_code ? ' ('+packTr.order.receiver_post_code+')' : ''}}</b></div>
                                     <hr>
+                                </ng-container>
+                                <ng-container>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-12">
+                                            <h5>Delivery Note</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12" *ngIf="packTr.delivery_code">
+                                        <div class="col-md-9">
+                                            <a href="#">{{packTr.delivery_code}}</a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-outline-dark" tooltip="Out of delivery note"><i class="fal fa-sign-out"></i></button>
+                                                <button class="btn btn-sm btn-outline-dark" tooltip="History delivery note"><i class="fal fa-history"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12" *ngIf="!packTr.delivery_code">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-outline-dark"  (click)="checkBoxs[getIdCheckBox(packTr.id)] = true;showDeliveryNoteModal()" tooltip="Join or create delivery note"><i class="fal fa-plus"></i></button>
+                                            </div>
+                                    </div>
                                 </ng-container>
                             </td>
                             <td>
@@ -120,6 +158,106 @@
                     </ng-container>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div  class="action-delivery-note" *ngIf="checkItemCheckBox()">
+    <a  class="btn btn-skype" href="javascript:;" (click)="showDeliveryNoteModal()">
+        <i  class="fa fa-plus"></i> Create or Join ({{checkItemCheckBox()}} packages)
+    </a>
+</div>
+<div bsModal #insertTrackingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Delivery note</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row body-content">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <table class="table table-striped table-sm table-border-all">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="7">Package list</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Package code</th>
+                                                    <th>Length</th>
+                                                    <th>Width</th>
+                                                    <th>Height</th>
+                                                    <th>Weight</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <ng-container *ngFor="let track of listChoose; let ind = index">
+                                                    <tr *ngIf="checkBoxs[getIdCheckBox(track.id)]">
+                                                        <td>{{ind+1}}</td>
+                                                        <td>{{track.package_code}}</td>
+                                                        <td>{{track.dimension_l}} cm</td>
+                                                        <td>{{track.dimension_w}} cm</td>
+                                                        <td>{{track.dimension_h}} cm</td>
+                                                        <td>{{track.weight}} gram</td>
+                                                        <td><button class="btn btn-sm btn-outline-danger" (click)="removeList(track.id)" ><i class="fal fa-trash"></i></button></td>
+                                                    </tr>
+                                                </ng-container>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <b>Total Weight: </b>{{totalWeight}} gram
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm {{chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = true"><i class="fa fa-plus"></i> Create</button>
+                                                <button class="btn btn-sm {{!chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = false"><i class="fa fa-sign-in"></i> Join</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 body-content">
+                                            <ng-container *ngIf="chooseTabCreate">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Length</th>
+                                                        <th>Width</th>
+                                                        <th>Height</th>
+                                                        <th>Weight</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" [(ngModel)]="formCreate['length']" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate['width']" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate['height']" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate['weight']" value="{{totalWeight}}" class="form-control form-control-sm" ></td>
+                                                    </tr>
+                                                </table>
+                                            </ng-container>
+                                            <ng-container *ngIf="!chooseTabCreate">
+
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="insertTracking()">Insert Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
