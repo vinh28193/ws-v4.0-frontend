@@ -82,6 +82,6 @@ export const StatusOrder = [
   {id: 11, key: 'stockout_local', name: 'STICK OUT LOCAL'},
   {id: 12, key: 'at_customer', name: 'AT CUSTOMER'},
   {id: 13, key: 'returned', name: 'RETURNED'},
-  {id: 14, key: 'cancel', name: 'CANCEL'},
+  {id: 14, key: 'cancelled', name: 'CANCEL'},
   {id: 15, key: 'lost', name: 'LOST'},
 ];
