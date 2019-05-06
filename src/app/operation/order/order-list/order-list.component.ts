@@ -733,7 +733,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     checkConfirmOrder(order) {
       if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-        if (this._scope.CheckSale() && !this._scope.checkRoleOption() && !this._scope.checkMasterOperation()) {
+        if (this._scope.CheckSale() && !this._scope.checkOperatione() && !this._scope.checkMasterOperation()) {
           return true;
         }
       }
