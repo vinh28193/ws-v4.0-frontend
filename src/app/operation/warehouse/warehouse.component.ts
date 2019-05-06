@@ -18,6 +18,7 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
     @ViewChild('createNewTracking') createNewTracking: ModalDirective;
     public createForm: any = {
         tracking_codes: '',
+        warehouse_received: '',
         time_received: '',
     };
     public searchInput: any = {
@@ -35,6 +36,7 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
     ngOnInit() {
         this.clearSearch();
         this.search();
+        this.loadWarehouse();
     }
 
     clearSearch() {
@@ -71,7 +73,6 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
     createNew() {
         this.createNewTracking.show();
     }
-
     MarkUsReceived() {
         if (!this.createForm.tracking_codes || !this.createForm.time_received) {
             return this.POP.error('Tracking Code and Time Received cannot null!');
@@ -80,6 +81,7 @@ export class WarehouseComponent extends OperationDataComponent implements OnInit
             const rs: any = res;
             if (rs.success) {
                 // this.data = rs.data.data;
+                this.createNewTracking.hide();
                 this.POP.success(rs.message);
                 this.search();
             } else {

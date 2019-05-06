@@ -80,6 +80,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         this.buildSearchForm();
         this.buildUsSendingForm();
         this.search();
+        this.loadWarehouse();
     }
 
     buildSearchForm() {
@@ -95,6 +96,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
             store: [''],
             manifest: [''],
             warehouse: [''],
+            warehouse_us: [''],
             date: '',
             file: ['']
         });
@@ -102,36 +104,6 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
 
     get store(): string {
         return this.usSendingForm.get('store').value;
-    }
-
-    get listWarehouses(): any {
-        const store = this.store;
-        let listWarehouses = [
-            {key: this.allKey, value: '--select store first--'}
-        ];
-        if (store === '') {
-            listWarehouses = [
-                {key: this.allKey, value: '--select store first--'}
-            ];
-        } else if (store === 'vn') {
-            listWarehouses = [
-                {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
-                {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
-            ];
-        } else if (store === 'id') {
-            listWarehouses = [
-                {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
-            ];
-        } else {
-            listWarehouses = [
-                {key: this.allKey, value: '--select warehouse--'},
-                {key: 'BMVN_HN', value: 'Boxme Ha Noi (Nam tu liem)'},
-                {key: 'BMVN_HCM', value: 'Boxme HCM (45 tan son)'},
-                {key: 'BMID_JKT', value: 'Boxme INDO (Jakata)'},
-            ];
-        }
-        this.usSendingForm.patchValue({warehouse: listWarehouses[0].key});
-        return listWarehouses;
     }
 
     public handleFileChange(event) {
@@ -151,6 +123,7 @@ export class TrackingListComponent extends TrackingDataComponent implements OnIn
         // };
         const fd = new FormData();
         fd.append('store', value.store);
+        fd.append('warehouse_us', value.warehouse_us);
         fd.append('warehouse', value.warehouse);
         fd.append('manifest', value.manifest);
         fd.append('file', this.file);

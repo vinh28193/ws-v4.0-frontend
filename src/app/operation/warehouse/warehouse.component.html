@@ -161,7 +161,16 @@
                                     <div class="row">
                                         <div class="col-md-12 form-group m-b-10">
                                             <label for="time_received" class="form-control-label">Time Received</label>
-                                            <input type="text" [(ngModel)]="createForm.time_received" class="form-control form-control-sm"  bsDatepicker="placement='top'" id="time_received" placeholder="Time Received">
+                                            <input type="datetime-local" [(ngModel)]="createForm.time_received" class="form-control form-control-sm" id="time_received" placeholder="Time Received">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <label for="warehouse_received" class="form-control-label">Warehouse received</label>
+                                            <select id="warehouse_received"  [(ngModel)]="createForm.warehouse_received" class="form-control form-control-sm">
+                                                <option value="">-- Select Warehouse --</option>
+                                                <option *ngFor="let wh of warehouses" value="{{wh.id}}">{{wh.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
