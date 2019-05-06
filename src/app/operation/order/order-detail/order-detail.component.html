@@ -82,6 +82,7 @@
                   <i class="fa fa-edit text-info"></i>
                 </a>
                 <form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
+                  <input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>
                   <select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">
                     <option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>
                   </select>
@@ -98,6 +99,10 @@
               <li>
                 <span class="mr-2" i18n>Packing Wood</span>
                 <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Note Boxme:</span>
+                <app-span-label style="color: red" [value]="product.note_boxme"></app-span-label>
               </li>
               <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
                 <i class="fa fa-comments"  ></i>{{product.note_by_customer}}
