@@ -1,11 +1,8 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {PackageService} from '../package.service';
-import {PopupService} from '../../../core/service/popup.service';
-import {ModalDirective} from 'ngx-bootstrap';
 import {PackageDataComponent} from '../package-data.component';
-import {DomSanitizer} from '@angular/platform-browser';
 import {ScopeService} from '../../../core/service/scope.service';
 
 @Component({
@@ -16,14 +13,54 @@ import {ScopeService} from '../../../core/service/scope.service';
 export class PackageListComponent extends PackageDataComponent implements OnInit {
     constructor(
         public packageService: PackageService,
-        public popUp: PopupService,
         public fb: FormBuilder,
-        public sanitizer: DomSanitizer,
         public _scope: ScopeService
     ) {
         super(packageService, _scope);
     }
+
+    public filter: any = {
+        tracking_code: '',
+        sku: '',
+        order_code: '',
+        type_tracking: '',
+        limit: 20,
+        page: 1,
+    };
+    public total = 0;
+    public data: any = [];
     ngOnInit() {
         super.ngOnInit();
+        this.search();
+    }
+
+    search() {
+        this.packageService.get('p', this.filter).subscribe(res => {
+            if (res.success) {
+                this.data = res.data.data;
+                this.total = res.data.total;
+            }
+        });
+    }
+
+    refresh() {
+        this.filter = {
+            tracking_code: '',
+            sku: '',
+            order_code: '',
+            type_tracking: '',
+            limit: 20,
+            page: 1,
+        };
+        this.search();
+    }
+
+    gettotalPage() {
+        return Math.ceil(this.total / this.filter.limit);
+    }
+
+    handlePagination(event) {
+        this.filter.page = event.page;
+        this.search();
     }
 }
