@@ -110,9 +110,9 @@
                                             <h5>Delivery Note</h5>
                                         </div>
                                     </div>
-                                    <div class="row col-md-12" *ngIf="packTr.delivery_code">
+                                    <div class="row col-md-12" *ngIf="packTr.delivery_note_code">
                                         <div class="col-md-9">
-                                            <a href="#">{{packTr.delivery_code}}</a>
+                                            <a href="#">{{packTr.delivery_note_code}}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="btn-group">
@@ -121,7 +121,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row col-md-12" *ngIf="!packTr.delivery_code">
+                                    <div class="row col-md-12" *ngIf="!packTr.delivery_note_code">
                                             <div class="btn-group">
                                                 <button class="btn btn-sm btn-outline-dark"  (click)="checkBoxs[getIdCheckBox(packTr.id)] = true;showDeliveryNoteModal()" tooltip="Join or create delivery note"><i class="fal fa-plus"></i></button>
                                             </div>
@@ -163,7 +163,7 @@
     </div>
 </div>
 <div  class="action-delivery-note" *ngIf="checkItemCheckBox()">
-    <a  class="btn btn-skype" href="javascript:;" (click)="showDeliveryNoteModal()">
+    <a  class="btn btn-success" href="javascript:;" (click)="showDeliveryNoteModal()">
         <i  class="fa fa-plus"></i> Create or Join ({{checkItemCheckBox()}} packages)
     </a>
 </div>
@@ -235,10 +235,10 @@
                                                         <th>Weight</th>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="text" [(ngModel)]="formCreate['length']" class="form-control form-control-sm" ></td>
-                                                        <td><input type="text" [(ngModel)]="formCreate['width']" class="form-control form-control-sm" ></td>
-                                                        <td><input type="text" [(ngModel)]="formCreate['height']" class="form-control form-control-sm" ></td>
-                                                        <td><input type="text" [(ngModel)]="formCreate['weight']" value="{{totalWeight}}" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.length" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.width" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.height" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm" ></td>
                                                     </tr>
                                                 </table>
                                             </ng-container>
@@ -248,7 +248,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="button-group">
-                                                <button class="btn btn-sm btn-success" i18n (click)="insertTracking()">Insert Tracking</button>
+                                                <button class="btn btn-sm btn-success" i18n (click)="createDeliveryNote()">Insert Tracking</button>
                                                 <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
                                             </div>
                                         </div>

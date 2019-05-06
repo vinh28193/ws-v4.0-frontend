@@ -38,7 +38,12 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     public total = 0;
     public totalWeight = 0;
     public data: any = [];
-    public formCreate: any = [];
+    public formCreate: any = {
+        length: 0,
+        width: 0,
+        height: 0,
+        weight: 0,
+    };
     productIds: any = [];
     ngOnInit() {
         super.ngOnInit();
@@ -135,5 +140,31 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     }
     createall() {
 
+    }
+
+    createDeliveryNote() {
+        this.formCreate.weight = this.formCreate.weight ? this.formCreate.weight : this.totalWeight;
+        const ids = [];
+        let checkHasDN = false;
+        $.each(this.listChoose, function (k, v) {
+            if (v.delivery_code) {
+                checkHasDN = true;
+            } else {
+                ids.push(v.id);
+            }
+        });
+        if (checkHasDN) {
+            return this.packageService.popup.error('Some package has been included in the delivery note!');
+        }
+        this.packageService.post('dn', {listPackage: ids, infoDeliveryNote: this.formCreate}).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.packageService.popup.success(res.message);
+                this.insertTrackingModal.hide();
+                this.search();
+            } else {
+                this.packageService.popup.error(res.message);
+            }
+        });
     }
 }
