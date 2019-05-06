@@ -30,7 +30,6 @@ export class PackageItemComponent extends OrderDataComponent implements OnInit {
   ngOnInit() {
     this.buildCreate();
     this.listPackageItem();
-    console.log(this.products);
   }
 
   packageEdit(item) {

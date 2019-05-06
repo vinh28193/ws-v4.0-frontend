@@ -1297,5 +1297,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.totalChat = res.total;
     });
   }
+  checkShowPay() {
+      if (this._scope.checkMasterMarketing() || this._scope.checkMarketing() || this._scope.checkMarketingAds()) {
+        return false;
+      }
+      return true;
+  }
 }
 
