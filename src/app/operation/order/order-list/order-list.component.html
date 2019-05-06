@@ -715,7 +715,7 @@
                                       <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
                                     </button>
                                     <div class="btn-group">
-                                      <button   type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
+                                      <button   type="button" class="btn btn-sm dropdown-toggle" (click)="checkUpdatePaymentShow(order.ordercode)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
                                          Option
                                       </button>
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
