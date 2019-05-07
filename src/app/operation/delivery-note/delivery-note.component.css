@@ -1,5 +1,5 @@
 i{
-    font-family: "FontAwesome";
+    /*font-family: "FontAwesome";*/
 }
 .show-status{
     padding: 5px 0px;
@@ -26,4 +26,24 @@ i{
     cursor: pointer;
     padding: 15px;
     border-radius: 4px;
+}
+.border-left{
+    border-left: 3px solid #3a3f48;
+    padding-left: 15px;
+}
+.col-ico{
+    width: 20px;
+}
+.input-group{
+    margin-bottom: 5px;
+}
+.input-group-addon{
+    width: 40px;
+}
+select.form-control.form-control-sm {
+    height: 34px !important;
+}
+hr{
+    margin-bottom: 5px;
+    margin-top: 5px;
 }

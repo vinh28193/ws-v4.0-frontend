@@ -61,6 +61,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     productIds: any = [];
     ngOnInit() {
         super.ngOnInit();
+        this.filter.package_code = this.getParameter('packageCode');
         this.search();
     }
 

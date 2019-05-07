@@ -4,7 +4,7 @@ import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
 import {ModalDirective} from 'ngx-bootstrap';
 import {PopupService} from '../../../core/service/popup.service';
-import {orderStatus, paymentRequests, searchKeys, timeKeys, StatusOrder} from '../order-enum';
+import {orderStatus, paymentRequests, searchKeys, StatusOrder, timeKeys} from '../order-enum';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {AuthService} from '../../../core/service/auth.service';
 import {Router} from '@angular/router';
@@ -138,6 +138,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public paramsOrder: any = [];
     public idOrder: any;
     message;
+    typeSearchKeyWord = '';
+    keywordSearch = '';
 
     constructor(private orderService: OrderService,
                 private router: Router,
@@ -178,6 +180,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.getParameter('orderCode')) {
+            this.keywordSearch = this.getParameter('orderCode');
+            this.typeSearchKeyWord = 'order.ordercode';
+        } else {
+            this.keywordSearch = '';
+            this.typeSearchKeyWord = this.allKey;
+        }
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
@@ -290,8 +299,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.searchForm = this.fb.group({
             store: this.allKey,
             policy: this.allKey,
-            keyWord: '',
-            searchKeyword: this.allKey,
+            keyWord: this.keywordSearch,
+            searchKeyword: this.typeSearchKeyWord,
             timeKey: this.allKey,
             timeRange: '',
             type: this.allKey,
