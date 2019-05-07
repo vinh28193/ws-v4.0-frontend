@@ -23,8 +23,12 @@ export class OrderService extends OperationService {
         return this.put(`order/${url}`, item);
     }
 
-    search(filter: any | undefined) {
-        return this.get('order', filter);
+    // async search(filter: any | undefined) {
+    //     return await  this.get('order', filter).toPromise();
+    // }
+
+     search(filter: any | undefined) {
+        return   this.get('order', filter);
     }
 
     postChat(item: any | undefined) {
@@ -87,5 +91,5 @@ export class OrderService extends OperationService {
     postPurchaseService(url, item: any | undefined) {
         return this.post('purchase-account/' + url, item);
     }
-  
-} 
+
+}
