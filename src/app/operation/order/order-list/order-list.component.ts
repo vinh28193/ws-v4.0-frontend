@@ -65,6 +65,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
     public checkListOrderChatRefund = false;
+    public checkOpenAssignSFO = false;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -93,6 +94,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public updateTemplate: FormGroup;
     public checkFormShow: FormGroup;
     public formSearchList: FormGroup;
+    public assignSFO: FormGroup;
     public checkOpenAdJustPayment = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
@@ -540,6 +542,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
             this.listSale = rss;
+            console.log(this.listSale);
         });
     }
 
@@ -658,7 +661,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Confirm Adjust Payment';
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                total_paid_amount_local: this.editForm.value.total_paid_amount_local
+                total_paid_amount_local: this.editForm.value.total_paid_amount_local,
+                check_update_payment: 1,
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
@@ -698,6 +702,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkUpdateOderCode = false;
         this.checkListOrderChatRefund = false;
         this.checkOpenTracking = false;
+        this.checkOpenAssignSFO = false;
         $('.modal').modal('hide');
     }
     offOption2() {
@@ -1307,21 +1312,28 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
       return true;
   }
-  checkUpdatePaymentShow(code, status) {
-    if (this.checkUpdatePayment(status)) {
-      this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-        const rs = res;
-        this.listLog = rs.data;
-      });
-    }
-  }
-  checkUpdatePaymentOne() {
-    const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
-    if (pay.length > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // checkUpdatePaymentShow(code, status) {
+  //   if (this.checkUpdatePayment(status)) {
+  //     this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+  //       const rs = res;
+  //       this.listLog = rs.data;
+  //     });
+  //   }
+  // }
+  // checkUpdatePaymentOne() {
+  //   const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+  //   if (pay.length > 0) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+  // openAssignSaleFollowOrder(order) {
+  //     this.code = order.ordercode;
+  //     this.checkOpenAssignSFO = true;
+  //     this.assignSFO = this.fb.group({
+  //       sale_id: this.allKey,
+  //     });
+  // }
 }
 
