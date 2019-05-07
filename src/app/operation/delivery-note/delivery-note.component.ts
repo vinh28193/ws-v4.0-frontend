@@ -21,6 +21,8 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
     width: 0,
     height: 0,
     weight: 0,
+    price: 0,
+    cod: 0,
     warehouse_pickup: '',
     receiver_name: '',
     receiver_email: '',
@@ -33,12 +35,16 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
     receiver_country_id: '',
     receiver_address: '',
     receiver_post_code: '',
+    insurance: '',
+    pack_wood: '',
+    courier: {},
   };
   private listIds: any = [];
   constructor(public service: OperationService) {
     super(service);
   }
 
+  private listCourier: any = [];
   public filter: any = {
     delivery_note_code: '',
     package_code: '',
@@ -156,16 +162,23 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       this.country = this.formCreate.receiver_country_id;
       this.totalWeight = 0;
       this.listPackages = [];
+      this.formCreate.cod = 0;
+      this.formCreate.price = 0;
       for (let ind = 0; ind < this.listChoose.length; ind++) {
+        this.formCreate.pack_wood = this.listChoose[ind].pack_wood || this.formCreate.pack_wood ? 1 : 0;
         for (let jnd = 0; jnd < this.listChoose[ind].packages.length; jnd++) {
           this.listPackages.push(this.listChoose[ind].packages[jnd]);
           this.totalWeight += parseFloat(this.listChoose[ind].packages[jnd].weight + '');
+          this.formCreate.cod += parseFloat(this.listChoose[ind].packages[jnd].cod + '');
+          this.formCreate.price += parseFloat(this.listChoose[ind].packages[jnd].price + '');
         }
       }
+      this.formCreate.weight = this.totalWeight;
       this.getCountries();
       this.getChangeCountries();
       this.getChangeProvinces();
       this.getChangeDistricts();
+      this.suggestCourier();
       this.insertTrackingModal.show();
     }
   }
@@ -234,5 +247,38 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       this.listIds = ids;
       return true;
     }
+  }
+
+  suggestCourier() {
+    const params = this.getParamSuggetCourier();
+    this.service.post('courier/suggest', params).subscribe(res => {
+      const rs: any = res;
+      if (rs.data && rs.data.couriers) {
+        this.listCourier = rs.data.couriers;
+      } else {
+        this.listCourier = [];
+      }
+    });
+  }
+
+  getParamSuggetCourier() {
+    const param: any = {
+      warehouseId: this.formCreate.warehouse_pickup,
+      toAddress: this.formCreate.receiver_address,
+      toDistrict: this.formCreate.receiver_district_id,
+      toProvince: this.formCreate.receiver_province_id,
+      toCountry: this.formCreate.receiver_country_id,
+      toZipCode: this.formCreate.receiver_post_code,
+      toName: this.formCreate.receiver_name,
+      toPhone: this.formCreate.receiver_phone,
+      totalParcel: this.listPackages.length,
+      totalWeight: this.formCreate.weight,
+      totalQuantity: 1,
+      totalCod: this.formCreate.cod,
+      totalAmount: this.formCreate.price,
+      isInsurance: this.formCreate.price > 5000000,
+      sortMode: 'best_time',
+    };
+    return param;
   }
 }

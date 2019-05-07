@@ -218,20 +218,45 @@
                           <div><hr></div>
                           <h6>3. Config Shipment</h6>
                           <div class="row">
-                            <div class="col-md-1" style="padding-right: 0px">
-                              <input style="width: 20px;height: 20px; right: 0px;" [(ngModel)]="" type="checkbox" >
-                            </div>
-                            <div class="col-md-3" style="border-right: 1px solid #32383e">
-                              Insurance
-                            </div>
+<!--                            <div class="col-md-1" style="padding-right: 0px">-->
+<!--                              <input style="width: 20px;height: 20px; right: 0px;" [(ngModel)]="" type="checkbox" >-->
+<!--                            </div>-->
+<!--                            <div class="col-md-3" style="border-right: 1px solid #32383e">-->
+<!--                              Insurance-->
+<!--                            </div>-->
                             <div class="col-md-1"  style="padding-right: 0px">
-                              <input style="width: 20px;height: 20px; right: 0px;" type="checkbox" >
+                              <input style="width: 20px;height: 20px; right: 0px;" type="checkbox" [(ngModel)]="formCreate.pack_wood" >
                             </div>
                             <div class="col-md-3">
                               Pack Wood
                             </div>
                           </div>
                           <div><hr></div>
+                        </div>
+                        <div class="col-md-12">
+                          <hr>
+                        </div>
+                        <div class="col-md-12">
+                          <h6>Total delivery</h6>
+                          <hr>
+                          <table class="table table-sm">
+                            <tr>
+                              <th>Price</th>
+                              <th>COD</th>
+                              <th>Length (cm)</th>
+                              <th>Width (cm)</th>
+                              <th>Height (cm)</th>
+                              <th>Weight (gram)</th>
+                            </tr>
+                            <tr>
+                              <td><input type="text" [(ngModel)]="formCreate.price" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.cod" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.length" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.width" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.height" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm" ></td>
+                            </tr>
+                          </table>
                         </div>
                         <div class="col-md-12">
                           <hr>
@@ -258,12 +283,12 @@
                               <tr>
                                 <td>{{ind+1}}</td>
                                 <td>{{track.package_code}}</td>
-                                <td><input type="text" [(ngModel)]="track.cod" class="form-control form-control-sm" ></td>
-                                <td><input type="text" [(ngModel)]="track.price" class="form-control form-control-sm" ></td>
-                                <td><input type="text" [(ngModel)]="track.dimension_l" class="form-control form-control-sm" ></td>
-                                <td><input type="text" [(ngModel)]="track.dimension_w" class="form-control form-control-sm" ></td>
-                                <td><input type="text" [(ngModel)]="track.dimension_h" class="form-control form-control-sm" ></td>
-                                <td><input type="text" [(ngModel)]="track.weight"  class="form-control form-control-sm" ></td>
+                                <td>{{track.cod}}</td>
+                                <td>{{track.price}}</td>
+                                <td>{{track.dimension_l}}</td>
+                                <td>{{track.dimension_w}}</td>
+                                <td>{{track.dimension_h}}</td>
+                                <td>{{track.weight}}</td>
                               </tr>
                             </ng-container>
                             <tr>
@@ -276,36 +301,17 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="btn-group">
-                        <button class="btn btn-sm {{chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = true"><i class="fa fa-plus"></i> Create</button>
-                        <button class="btn btn-sm {{!chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = false"><i class="fa fa-sign-in"></i> Join</button>
+                    <div class="col-md-4">
+                      <h6>4. Courier info &nbsp; &nbsp;<a href="javascript: void(0);" (click)="suggestCourier()"><i class="fa fa-refresh" ></i></a></h6>
+                      Has {{listCourier ? listCourier.length : 0}} couriers.
+                      <div>
+                        <ng-container *ngFor="let courier of listCourier">
+
+                        </ng-container>
                       </div>
                     </div>
-                    <div class="col-md-12 body-content">
-                      <ng-container *ngIf="chooseTabCreate">
-                        <table class="table">
-                          <tr>
-                            <th>Length (cm)</th>
-                            <th>Width (cm)</th>
-                            <th>Height (cm)</th>
-                            <th>Weight (gram)</th>
-                          </tr>
-                          <tr>
-                            <td><input type="text" [(ngModel)]="formCreate.length" class="form-control form-control-sm" ></td>
-                            <td><input type="text" [(ngModel)]="formCreate.width" class="form-control form-control-sm" ></td>
-                            <td><input type="text" [(ngModel)]="formCreate.height" class="form-control form-control-sm" ></td>
-                            <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm" ></td>
-                          </tr>
-                        </table>
-                      </ng-container>
-                      <ng-container *ngIf="!chooseTabCreate">
-
-                      </ng-container>
-                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-12">
                       <div class="button-group">
                         <button class="btn btn-sm btn-success" i18n (click)="createDeliveryNote()">Insert Tracking</button>
