@@ -39,12 +39,24 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     public listChoose: any = [];
     public total = 0;
     public totalWeight = 0;
+    showInfoReceiver = false;
     public data: any = [];
     public formCreate: any = {
         length: 0,
         width: 0,
         height: 0,
         weight: 0,
+        receiver_name: '',
+        receiver_email: '',
+        receiver_phone: '',
+        receiver_district_name: '',
+        receiver_district_id: '',
+        receiver_province_id: '',
+        receiver_province_name: '',
+        receiver_country_name: '',
+        receiver_country_id: '',
+        receiver_address: '',
+        receiver_post_code: '',
     };
     productIds: any = [];
     ngOnInit() {
@@ -137,15 +149,68 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
 
     showDeliveryNoteModal() {
         if (this.getListIds()) {
+            this.formCreate.receiver_name = this.listChoose[0].order.receiver_name;
+            this.formCreate.receiver_email = this.listChoose[0].order.receiver_email;
+            this.formCreate.receiver_phone = this.listChoose[0].order.receiver_phone;
+            this.formCreate.receiver_district_name = this.listChoose[0].order.receiver_district_name;
+            this.formCreate.receiver_district_id = this.listChoose[0].order.receiver_district_id;
+            this.formCreate.receiver_province_id = this.listChoose[0].order.receiver_province_id;
+            this.formCreate.receiver_province_name = this.listChoose[0].order.receiver_province_name;
+            this.formCreate.receiver_country_name = this.listChoose[0].order.receiver_country_name;
+            this.formCreate.receiver_country_id = this.listChoose[0].order.receiver_country_id;
+            this.formCreate.receiver_address = this.listChoose[0].order.receiver_address;
+            this.formCreate.receiver_post_code = this.listChoose[0].order.receiver_post_code;
+            console.log(this.listChoose);
+            console.log(this.formCreate);
+            this.country = this.formCreate.receiver_country_id;
+            this.getCountries();
+            this.getChangeCountries();
+            this.getChangeProvinces();
+            this.getChangeDistricts();
             this.insertTrackingModal.show();
         }
     }
 
+    getChangeCountries() {
+        if (this.formCreate.receiver_country_id) {
+            this.provinces = [];  // clear old provinces
+            this.districts = []; // clear old districts
+            this.country = this.formCreate.receiver_country_id;
+            const country_temp = this.getCountry();
+            if (country_temp) {
+                this.formCreate.receiver_country_name = country_temp.name;
+            }
+            this.getProvinces();
+        }
+    }
+
+    getChangeProvinces() {
+        if (this.formCreate.receiver_province_id) {
+            this.districts = []; // clear old districts
+            this.province = this.formCreate.receiver_province_id;
+            const province_temp = this.getProvince();
+            if (province_temp) {
+                this.formCreate.receiver_province_name = province_temp.name;
+            }
+            this.getDistricts();
+        }
+    }
+
+    getChangeDistricts() {
+        if (this.formCreate.receiver_district_id) {
+            this.districts = []; // clear old districts
+            this.district = this.formCreate.receiver_district_id;
+            const district_temp = this.getDistrict();
+            if (district_temp) {
+                this.formCreate.receiver_district_name = district_temp.name;
+            }
+        }
+    }
     removeList(id) {
         this.checkBoxs[this.getIdCheckBox(id)] = false;
         this.clickCheck();
     }
-    createall() {
+    create1vs1() {
         if (this.getListIds()) {
             if (this.listIds.length === 0) {
                 return this.packageService.popup.error('Dont have item chosen!');
@@ -156,6 +221,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
                     if (res.success) {
                         this.packageService.popup.success(res.message);
                         this.insertTrackingModal.hide();
+                        this.listChoose = [];
                         this.search();
                     } else {
                         this.packageService.popup.error(res.message);
@@ -175,6 +241,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
                 if (res.success) {
                     this.packageService.popup.success(res.message);
                     this.insertTrackingModal.hide();
+                    this.listChoose = [];
                     this.search();
                 } else {
                     this.packageService.popup.error(res.message);

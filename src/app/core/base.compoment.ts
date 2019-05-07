@@ -108,4 +108,16 @@ export class BaseComponent implements NotifyInterface {
     endLoading() {
         $('#loading').css('display', 'none');
     }
+
+    getParameter(param, defaultValue = null) {
+        const getValues = location.search.substr(1).split('&');
+        $.each(getValues, function (k, v) {
+            const key = v.substring(v.indexOf('='), 0);
+            const value = v.substring(v.indexOf('=') + 1, v.length);
+            if (key === param) {
+                defaultValue = value;
+            }
+        });
+        return defaultValue;
+    }
 }

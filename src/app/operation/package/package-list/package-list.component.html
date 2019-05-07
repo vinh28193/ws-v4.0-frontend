@@ -34,7 +34,7 @@
             <div class="col-md-12 btn-group">
                 <button id="btn-search" class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fal fa-search"></i> Search</button>
                 <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fal fa-refresh"></i> Reset</button>
-                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="createall()"><i class="fal fa-plus"></i> Create 1vs1 delivery note</button>
+                <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="create1vs1()"><i class="fal fa-plus"></i> Create 1vs1 delivery note</button>
                 <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showDeliveryNoteModal()" tooltip="With items you had chosen"><i class="fal fa-plus"></i> Create delivery note</button>
             </div>
             <div class="col-md-12"  style="margin: 0px;padding: 0px">
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="row col-md-12" *ngIf="packTr.delivery_note_code">
                                         <div class="col-md-9">
-                                            <a href="#">{{packTr.delivery_note_code}}</a>
+                                            <a target="_blank" href="/operation/delivery-note?deliveryNoteCode={{packTr.delivery_note_code}}">{{packTr.delivery_note_code}}</a>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="btn-group">
@@ -187,6 +187,64 @@
                                     <h3 i18n>Delivery note</h3>
                                 </div>
                                 <div class="col-md-12 form-body">
+                                    <div class="row body-content">
+                                        <div class="col-md-12">
+                                            <h5>
+                                                Receiver info &nbsp;
+                                                <a href="javascript: void (0);" (click)="showInfoReceiver = !showInfoReceiver;"><i class="fa fa-toggle-{{showInfoReceiver ? 'on' : 'off'}}"></i></a>
+                                            </h5>
+                                        </div>
+                                        <div class="row col-md-12" *ngIf="showInfoReceiver">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Full Name"  [(ngModel)]="formCreate.receiver_name" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Email" [(ngModel)]="formCreate.receiver_email" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Phone Number" [(ngModel)]="formCreate.receiver_phone" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="PostCode" [(ngModel)]="formCreate.receiver_post_code" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-globe"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_country_id" (change)="getChangeCountries()">
+                                                        <option>--Select Country--</option>
+                                                        <option *ngFor="let c of countries" value="{{c.id}}">{{c.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_province_id" (change)="getChangeProvinces()">
+                                                        <option>--Select Province--</option>
+                                                        <option *ngFor="let p of provinces" value="{{p.id}}">{{p.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_district_id" (change)="getChangeDistricts()">
+                                                        <option>--Select District--</option>
+                                                        <option *ngFor="let d of districts" value="{{d.id}}">{{d.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <input class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_address"  placeholder="Address"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                    </div>
                                     <div class="row body-content">
                                         <div class="col-md-12 form-group m-b-10">
                                             <table class="table table-striped table-sm table-border-all">
