@@ -29,6 +29,7 @@ import { TrackingLogComponent } from './tracking-log/tracking-log.component';
 import {BsDatepickerModule, ModalModule, PaginationModule, TooltipModule, TypeaheadModule} from 'ngx-bootstrap';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
+import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
         TrackingLogComponent,
         PagingCustomComponent,
         WarehouseComponent,
-        StatusTrackingPipe
+        StatusTrackingPipe,
+        DeliveryNoteComponent
     ],
     providers: [
         OperationService

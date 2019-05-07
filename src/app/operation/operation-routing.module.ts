@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OperationRoutingComponent} from './operation-routing.component';
 import {TrackingLogComponent} from './tracking-log/tracking-log.component';
 import {WarehouseComponent} from './warehouse/warehouse.component';
+import {DeliveryNoteComponent} from './delivery-note/delivery-note.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
             {
                 path: 'warehouse',
                 component: WarehouseComponent
+            },
+            {
+                path: 'delivery-note',
+                component: DeliveryNoteComponent
             },
         ]
     }

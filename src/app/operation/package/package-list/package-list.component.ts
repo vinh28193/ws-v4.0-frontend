@@ -23,6 +23,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     public chooseTabCreate = true;
     public checkAll;
     public checkBoxs: any = [];
+    public listIds: any = [];
     public checkAllOld;
     public filter: any = {
         package_code: '',
@@ -30,6 +31,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
         sku: '',
         order_code: '',
         type_tracking: '',
+        status: '',
         limit: 20,
         page: 1,
     };
@@ -38,7 +40,12 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     public total = 0;
     public totalWeight = 0;
     public data: any = [];
-    public formCreate: any = [];
+    public formCreate: any = {
+        length: 0,
+        width: 0,
+        height: 0,
+        weight: 0,
+    };
     productIds: any = [];
     ngOnInit() {
         super.ngOnInit();
@@ -61,6 +68,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
             sku: '',
             order_code: '',
             type_tracking: '',
+            status: '',
             limit: 20,
             page: 1,
         };
@@ -83,7 +91,9 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     clickCheck() {
         if (this.checkAll !== this.checkAllOld) {
             for (let ind = 0; ind < this.data.length; ind++) {
-                this.checkBoxs[this.getIdCheckBox(this.data[ind]['id'])] = this.checkAll;
+                if (this.data[ind]['hold'] !== 1 && !this.data[ind]['shipment_id'] && !this.data[ind]['delivery_note_id']) {
+                    this.checkBoxs[this.getIdCheckBox(this.data[ind]['id'])] = this.checkAll;
+                }
             }
             this.checkAllOld = this.checkAll;
         } else {
@@ -126,7 +136,9 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
     }
 
     showDeliveryNoteModal() {
-        this.insertTrackingModal.show();
+        if (this.getListIds()) {
+            this.insertTrackingModal.show();
+        }
     }
 
     removeList(id) {
@@ -134,6 +146,84 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
         this.clickCheck();
     }
     createall() {
+        if (this.getListIds()) {
+            if (this.listIds.length === 0) {
+                return this.packageService.popup.error('Dont have item chosen!');
+            }
+            this.packageService.popup.confirm(() => {
+                this.packageService.post('dn', {listPackage: this.listIds, create1vs1: true}).subscribe(rs => {
+                    const res: any = rs;
+                    if (res.success) {
+                        this.packageService.popup.success(res.message);
+                        this.insertTrackingModal.hide();
+                        this.search();
+                    } else {
+                        this.packageService.popup.error(res.message);
+                    }
+                });
+            }, 'Do you want create multi delivery not now?', 'Create');
+        }
+    }
+    createDeliveryNote() {
+        this.formCreate.weight = this.formCreate.weight ? this.formCreate.weight : this.totalWeight;
+        if (this.getListIds()) {
+            if (this.listIds.length === 0) {
+                return this.packageService.popup.error('Dont have item chosen!');
+            }
+            this.packageService.post('dn', {listPackage: this.listIds, infoDeliveryNote: this.formCreate}).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.packageService.popup.success(res.message);
+                    this.insertTrackingModal.hide();
+                    this.search();
+                } else {
+                    this.packageService.popup.error(res.message);
+                }
+            });
+        }
+    }
 
+    getListIds() {
+        this.checkItemCheckBox();
+        if (this.listChoose.length > 0) {
+            this.listIds = [];
+            const ids = [];
+            let customer_id = 0;
+            let checkHasDN = false;
+            $.each(this.listChoose, function (k, v) {
+                if (!v.order || (customer_id !== 0 && customer_id !== v.order.customer_id)) {
+                    customer_id = 0;
+                    return false;
+                }
+                customer_id = v.order.customer_id;
+                if (v.delivery_code) {
+                    checkHasDN = true;
+                } else {
+                    ids.push(v.id);
+                }
+            });
+            if (customer_id === 0 || !customer_id) {
+                return this.packageService.popup.error('You must choose the same customer and cannot have unknown!');
+            }
+            if (checkHasDN) {
+                return this.packageService.popup.error('Some package has been included in the delivery note!');
+            }
+            this.listIds = ids;
+            return true;
+        }
+    }
+
+    outOfDeliveryNote(id) {
+        this.packageService.popup.confirm(() => {
+            this.packageService.delete('dn/' + id).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.packageService.popup.success(res.message);
+                    this.search();
+                } else {
+                    this.packageService.popup.error(res.message);
+                }
+            });
+        }, 'Do you want out of delivery not now?', 'Out Of');
     }
 }
