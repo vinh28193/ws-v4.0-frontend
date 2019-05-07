@@ -148,7 +148,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
-
     ) {
         super(orderService);
     }
@@ -162,7 +161,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paramsOrder = this.messagingService.sendSubscription(ordercode);
         // console.log(this.paramsOrder);
         this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-            console.log('JOSN ' + JSON.stringify(ret));
+            // console.log('JOSN ' + JSON.stringify(ret));
             const res: any = ret;
             // console.log('res send token Subscription ' + JSON.stringify(res));
             if (res.success) {
@@ -198,11 +197,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.loadAllPolicy();
         $(document).on('show.bs.modal', '.modal', function () {
-          var zIndex = 1040 + (10 * $('.modal:visible').length);
-          $(this).css('z-index', zIndex);
-          setTimeout(function() {
-            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-          }, 0);
+            const zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
         });
     }
 
@@ -247,8 +246,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     listOrders() {
         const params = this.prepareSearch();
-        this.orderService.search(params).subscribe(response => {
-            const result: any = response;
+        this.orderService.search(params).subscribe( res => {
+            const  result: any = res ;
             if (result.message === 'Success') {
                 // this.popup.success(result.message);
                 const data: any = result.data;
@@ -379,14 +378,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadPolicy(params.store);
         return params;
     }
+
     checkUpdatePayment(status) {
-      if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-        if (status === 'CANCEL') {
-          return false;
-        } else {
-          return true;
+        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
+            if (status === 'CANCEL') {
+                return false;
+            } else {
+                return true;
+            }
         }
-      }
     }
 
     handlePagination(event) {
@@ -407,37 +407,39 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     unfollowOrder(ordercode) {
-          // this.checkF = !this.checkF;
+        // this.checkF = !this.checkF;
 
-          const fingerprint = this.messagingService.UUID();
-          this.orderService.deleteParam('notifications/'+fingerprint,ordercode).subscribe(res => {
-          this.loadOrderNotifi();
-          this.orderNotiCheck(ordercode);
+        const fingerprint = this.messagingService.UUID();
+        this.orderService.deleteParam('notifications/' + fingerprint, ordercode).subscribe(res => {
+            this.loadOrderNotifi();
+            this.orderNotiCheck(ordercode);
 
-         });
+        });
     }
+
     loadOrderNotifi() {
-          const fingerprint = this.messagingService.UUID();
-          this.orderService.get(`notifications/${fingerprint}`, undefined )
+        const fingerprint = this.messagingService.UUID();
+        this.orderService.get(`notifications/${fingerprint}`, undefined)
             .subscribe(res => {
-              this.orderNotifi = 0;
-              if (res.success) {
-                   const order_list = res.data.order_list;
-                   this.orderNotifi = order_list;
-              }
-         });
+                this.orderNotifi = 0;
+                if (res.success) {
+                    const order_list = res.data.order_list;
+                    this.orderNotifi = order_list;
+                }
+            });
 
     }
-    orderNotiCheck(ordercode) {
-       if (this.orderNotifi === 0) {
-         return false ;
-       }
-       const orderNotifi = this.orderNotifi;
 
-       if (ordercode in orderNotifi) {
-           return true;
-       }
-       return false;
+    orderNotiCheck(ordercode) {
+        if (this.orderNotifi === 0) {
+            return false;
+        }
+        const orderNotifi = this.orderNotifi;
+
+        if (ordercode in orderNotifi) {
+            return true;
+        }
+        return false;
 
     }
 
@@ -479,23 +481,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     confirmAll(order) {
         if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
-          this.checkReady2Purchase = 'no';
+            this.checkReady2Purchase = 'no';
         } else {
-          const j = 0;
-          for (let i = 0; i < order.products.length; i++) {
-            if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
-              this.checkReady2Purchase = 'no';
-              break;
-            } else {
-              this.checkReady2Purchase = 'yes';
+            const j = 0;
+            for (let i = 0; i < order.products.length; i++) {
+                if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
+                    this.checkReady2Purchase = 'no';
+                    break;
+                } else {
+                    this.checkReady2Purchase = 'yes';
+                }
             }
-          }
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-              // current_status: 'SUPPORTED',
-              checkR2p: this.checkReady2Purchase,
+                // current_status: 'SUPPORTED',
+                checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
             this.orderService.put(`order/${order.id}`, put).subscribe(res => {
                 if (res.success) {
@@ -510,9 +512,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkMarkAsJunk(status, priceCheck) {
         if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
-          if (priceCheck > 0) {
-            return true;
-          }
+            if (priceCheck > 0) {
+                return true;
+            }
         }
     }
 
@@ -542,7 +544,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
             this.listSale = rss;
-            console.log(this.listSale);
+            // console.log(this.listSale);
         });
     }
 
@@ -705,9 +707,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenAssignSFO = false;
         $('.modal').modal('hide');
     }
+
     offOption2() {
-      this.checkCreateOrderChatRefund = false;
-      this.checkUpdateOrderChatRefund = false;
+        this.checkCreateOrderChatRefund = false;
+        this.checkUpdateOrderChatRefund = false;
     }
 
     getChangeAmount(price1, price2) {
@@ -737,18 +740,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkCancel(item) {
-      if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
-        if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
-          return true;
+        if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+            if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
+                return true;
+            }
         }
-      }
     }
+
     checkConfirmOrder(order) {
-      if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-        if (this._scope.CheckSale() && !this._scope.checkOperatione() && !this._scope.checkMasterOperation()) {
-          return true;
+        if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
+            if (this._scope.CheckSale() && !this._scope.checkOperatione() && !this._scope.checkMasterOperation()) {
+                return true;
+            }
         }
-      }
     }
 
     openUpdatePayBack(order) {
@@ -788,8 +792,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkSellerRefund = true;
         this.store_id = order.store_id;
         this.editForm = this.fb.group({
-          purchase_amount_refund: order.purchase_amount_refund,
-          purchase_refund_transaction_id: order.purchase_refund_transaction_id,
+            purchase_amount_refund: order.purchase_amount_refund,
+            purchase_refund_transaction_id: order.purchase_refund_transaction_id,
         });
     }
 
@@ -847,39 +851,41 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return false;
         }
     }
-  openListOrderChatRefund(order) {
-      this.code = order.ordercode;
-    this.checkListOrderChatRefund = true;
-    this.newFormSearchList();
-    this.loadListTemChat();
-  }
-  newFormSearchList() {
-    this.formSearchList = this.fb.group({
-      noteL: '',
-      contentL: '',
-    });
-  }
 
-  buildListChat() {
-      const value = this.formSearchList.value;
-      const params: any = {};
-      if (value.noteL !== '') {
-        params.noteL = value.noteL;
-      }
-    if (value.contentL !== '') {
-      params.contentL = value.contentL;
+    openListOrderChatRefund(order) {
+        this.code = order.ordercode;
+        this.checkListOrderChatRefund = true;
+        this.newFormSearchList();
+        this.loadListTemChat();
     }
-    return params;
-  }
 
-  openCreateOrderChatRefund() {
-    this.checkCreateOrderChatRefund = true;
-    this.createTemplate = this.fb.group({
-      noteC: '',
-      contentC: '',
-      statusC: 0,
-    });
-  }
+    newFormSearchList() {
+        this.formSearchList = this.fb.group({
+            noteL: '',
+            contentL: '',
+        });
+    }
+
+    buildListChat() {
+        const value = this.formSearchList.value;
+        const params: any = {};
+        if (value.noteL !== '') {
+            params.noteL = value.noteL;
+        }
+        if (value.contentL !== '') {
+            params.contentL = value.contentL;
+        }
+        return params;
+    }
+
+    openCreateOrderChatRefund() {
+        this.checkCreateOrderChatRefund = true;
+        this.createTemplate = this.fb.group({
+            noteC: '',
+            contentC: '',
+            statusC: 0,
+        });
+    }
 
     openOrderChatRefund(order) {
         this.code = order.ordercode;
@@ -891,17 +897,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             link_image: '',
         });
         this.messageCustomer = this.fb.group({
-          messageCustomer: '',
+            messageCustomer: '',
         });
         this.loadListTemChatRefund();
     }
+
     enterChat() {
-      const params = this.prepareMarkWaiting();
-      if (params.message !== '') {
-        this.orderService.postChat(params).subscribe(res => {
-        });
-      }
+        const params = this.prepareMarkWaiting();
+        if (params.message !== '') {
+            this.orderService.postChat(params).subscribe(res => {
+            });
+        }
     }
+
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
         const messagePop = 'Do you want mark supporting';
@@ -910,9 +918,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }
         if (params.link_image) {
-          console.log(params.link_image);
-          this.orderService.post('link-image', params).subscribe(res => {
-          });
+            // console.log(params.link_image);
+            this.orderService.post('link-image', params).subscribe(res => {
+            });
         }
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
@@ -921,7 +929,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }, 'updateMarkSupporting');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
-                  this.listOrders();
+                    this.listOrders();
                     this.popup.success(res.message);
                 } else {
                     this.popup.error(res.message);
@@ -947,7 +955,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.isNew = 'yes';
         }
         params.type_chat = 'GROUP_WS';
-        params.Order_path  = this.code;
+        params.Order_path = this.code;
         params.suorce = 'BACK_END';
         return params;
     }
@@ -959,313 +967,342 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
             this.listOrders();
         }
-        if (item === '10STOCKOUT_US' || item === 'PURCHASED2DAY' || item === 'STOCKIN_US2DAY' || item === 'SHIPPED5' || item === 'NO_TRACKING') {
+        if (item === '10STOCKOUT_US'
+            || item === 'PURCHASED2DAY'
+            || item === 'STOCKIN_US2DAY'
+            || item === 'SHIPPED5'
+            || item === 'NO_TRACKING') {
             this.searchForm.patchValue({
                 noTracking: item,
             });
             this.listOrders();
         }
     }
+
     checkCouponPromotion(paid) {
-      if (this._scope.checkSuperAdmin() || this._scope.checkTester())  {
-        if (paid > 0) {
-          return false;
+        if (this._scope.checkSuperAdmin() || this._scope.checkTester()) {
+            if (paid > 0) {
+                return false;
+            }
+            return true;
         }
-        return true;
-      }
     }
+
     checkShowPayBack(paid) {
-      if (this._scope.checkRoleOption()) {
-        if (paid === 0 || paid === null || paid === '') {
-          return false;
+        if (this._scope.checkRoleOption()) {
+            if (paid === 0 || paid === null || paid === '') {
+                return false;
+            }
+            return true;
         }
-        return true;
-      }
     }
+
     openUpdateOrderCode(ordercode, id) {
-      this.statusOds = StatusOrder;
-      this.code = ordercode;
-      this.markID = id;
-      this.checkUpdateOderCode = true;
-      this.getSeller();
-      this.orderDetail();
+        this.statusOds = StatusOrder;
+        this.code = ordercode;
+        this.markID = id;
+        this.checkUpdateOderCode = true;
+        this.getSeller();
+        this.orderDetail();
 
     }
+
     orderDetail() {
-      this.orderService.get(`order/${this.code}`).subscribe(res => {
-        this.orderList = res.data[0];
-        if (this.orderList.current_status === 'READY2PURCHASE') {
-          this.statusOd = 'ready_purchase';
-        } else {
-          this.statusOd = this.orderList.current_status.toLowerCase();
-        }
-        this.formAsignUser = this.fb.group({
-          statusOrder: this.statusOd,
+        this.orderService.get(`order/${this.code}`).subscribe(res => {
+            this.orderList = res.data[0];
+            if (this.orderList.current_status === 'READY2PURCHASE') {
+                this.statusOd = 'ready_purchase';
+            } else {
+                this.statusOd = this.orderList.current_status.toLowerCase();
+            }
+            this.formAsignUser = this.fb.group({
+                statusOrder: this.statusOd,
+            });
+            this.buildFormCreate();
         });
-        this.buildFormCreate();
-      });
     }
+
     loadForm() {
-      const value = this.formAsignUser.value;
-      const params: any = {};
-      if (value.statusOrder !== '') {
-        params.status = value.statusOrder;
-      }
+        const value = this.formAsignUser.value;
+        const params: any = {};
+        if (value.statusOrder !== '') {
+            params.status = value.statusOrder;
+        }
         params.ordercode = this.orderList.ordercode;
-      return params;
+        return params;
     }
+
     updateOrderCode() {
-      const params = this.loadForm();
-      params.codeAll = this.listChatCheck;
-      this.currentStatusOrder = params.status;
-      console.log(this.currentStatusOrder);
-      const put = this.orderService.createPostParams({
-        status: params.status,
-        current_status: this.currentStatusOrder,
-      }, 'updateOrderStatus');
-      this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
-        if (res.success) {
-          this.orderDetail();
-          this.listOrders();
-        } else {
-          this.popup.error(res.message);
-        }
-      });
+        const params = this.loadForm();
+        params.codeAll = this.listChatCheck;
+        this.currentStatusOrder = params.status;
+        // console.log(this.currentStatusOrder);
+        const put = this.orderService.createPostParams({
+            status: params.status,
+            current_status: this.currentStatusOrder,
+        }, 'updateOrderStatus');
+        this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
+            if (res.success) {
+                this.orderDetail();
+                this.listOrders();
+            } else {
+                this.popup.error(res.message);
+            }
+        });
     }
+
     buildFormCreate() {
-      this.formCreate = this.fb.group({
-        link_image: '',
-        name_pro: '',
-        link_pro: '',
-        link_origin: '',
-        price_amount_origin_pro: '',
-        variations_pro: '',
-        portal_pro: '',
-        sku_pro: '',
-        sku_parent_pro: '',
-        price_amount_local_pro: '',
-        seller_id: this.allKey,
-        total_price_amount_local_pro: '',
-        quantity_purchase: '',
-        quantity_customer: '',
-      });
+        this.formCreate = this.fb.group({
+            link_image: '',
+            name_pro: '',
+            link_pro: '',
+            link_origin: '',
+            price_amount_origin_pro: '',
+            variations_pro: '',
+            portal_pro: '',
+            sku_pro: '',
+            sku_parent_pro: '',
+            price_amount_local_pro: '',
+            seller_id: this.allKey,
+            total_price_amount_local_pro: '',
+            quantity_purchase: '',
+            quantity_customer: '',
+        });
     }
+
     getSeller() {
-      this.orderService.get('seller').subscribe(res => {
-        this.listSeller = res.data;
-      });
+        this.orderService.get('seller').subscribe(res => {
+            this.listSeller = res.data;
+        });
     }
+
     buildValueCreate() {
-      const value = this.formCreate.value;
-      const params: any = {};
-      if (value.link_image !== '') {
-        params.link_image = value.link_image;
-      }
-      if (value.name_pro !== '') {
-        params.name_pro = value.name_pro;
-      }
-      if (value.link_pro !== '') {
-        params.link_pro = value.link_pro;
-      }
-      if (value.link_origin !== '') {
-        params.link_origin = value.link_origin;
-      }
-      if (value.quantity_purchase !== '') {
-        params.quantity_purchase = value.quantity_purchase;
-      }
-      if (value.quantity_customer !== '') {
-        params.quantity_customer = value.quantity_customer;
-      }
-      if (value.price_amount_origin_pro !== '') {
-        params.price_amount_origin_pro = value.price_amount_origin_pro;
-      }
-      if (value.variations_pro !== '') {
-        params.variations_pro = value.variations_pro;
-      }
-      if (value.portal_pro !== '') {
-        params.portal_pro = value.portal_pro;
-      }
-      if (value.sku_pro !== '') {
-        params.sku_pro = value.sku_pro;
-      }
-      if (value.total_price_amount_local_pro !== '') {
-        params.total_price_amount_local_pro = value.total_price_amount_local_pro;
-      }
-      if (value.sku_parent_pro !== '') {
-        params.sku_parent_pro = value.sku_parent_pro;
-      }
-      if (value.price_amount_local_pro !== '') {
-        params.price_amount_local_pro = value.price_amount_local_pro;
-      }
-      if (value.seller_id !== '' || value.seller_id !== 'All Seller') {
-        params.seller_id = value.seller_id;
-      }
+        const value = this.formCreate.value;
+        const params: any = {};
+        if (value.link_image !== '') {
+            params.link_image = value.link_image;
+        }
+        if (value.name_pro !== '') {
+            params.name_pro = value.name_pro;
+        }
+        if (value.link_pro !== '') {
+            params.link_pro = value.link_pro;
+        }
+        if (value.link_origin !== '') {
+            params.link_origin = value.link_origin;
+        }
+        if (value.quantity_purchase !== '') {
+            params.quantity_purchase = value.quantity_purchase;
+        }
+        if (value.quantity_customer !== '') {
+            params.quantity_customer = value.quantity_customer;
+        }
+        if (value.price_amount_origin_pro !== '') {
+            params.price_amount_origin_pro = value.price_amount_origin_pro;
+        }
+        if (value.variations_pro !== '') {
+            params.variations_pro = value.variations_pro;
+        }
+        if (value.portal_pro !== '') {
+            params.portal_pro = value.portal_pro;
+        }
+        if (value.sku_pro !== '') {
+            params.sku_pro = value.sku_pro;
+        }
+        if (value.total_price_amount_local_pro !== '') {
+            params.total_price_amount_local_pro = value.total_price_amount_local_pro;
+        }
+        if (value.sku_parent_pro !== '') {
+            params.sku_parent_pro = value.sku_parent_pro;
+        }
+        if (value.price_amount_local_pro !== '') {
+            params.price_amount_local_pro = value.price_amount_local_pro;
+        }
+        if (value.seller_id !== '' || value.seller_id !== 'All Seller') {
+            params.seller_id = value.seller_id;
+        }
         params.id = this.markID;
-      return params;
+        return params;
     }
+
     createPro() {
-      const params = this.buildValueCreate();
-      this.orderService.post('product', params).subscribe(res => {
-        this.orderDetail();
-      });
+        const params = this.buildValueCreate();
+        this.orderService.post('product', params).subscribe(res => {
+            this.orderDetail();
+        });
     }
-  updateNull(column, id) {
-      console.log(column);
-    const messagePop = 'Do you want Delete';
-    this.popup.warning(() => {
-      const put = this.orderService.createPostParams({
-        column: column,
-      }, 'updateTimeNull');
-      this.orderService.put(`order/${id}`, put).subscribe(res => {
-        if (res.success) {
-          this.orderDetail();
-          this.listOrders();
+
+    updateNull(column, id) {
+        // console.log(column);
+        const messagePop = 'Do you want Delete';
+        this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+                column: column,
+            }, 'updateTimeNull');
+            this.orderService.put(`order/${id}`, put).subscribe(res => {
+                if (res.success) {
+                    this.orderDetail();
+                    this.listOrders();
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, messagePop);
+    }
+
+    clickEdit(qtyP, qtyC, qtyI, id, ordercode) {
+        this.quantityP = qtyP;
+        this.code = ordercode;
+        this.quantityC = qtyC;
+        this.quantityI = qtyI;
+        this.proId = id;
+        this.checkUpdateQuantity = true;
+    }
+
+    updateQuantityPr() {
+        const params: any = {};
+        params.quantityP = toNumber(this.quantityP);
+        params.quantityC = toNumber(this.quantityC);
+        params.quantityI = toNumber(this.quantityI);
+        params.title = 'quantity';
+        params.order_path = this.code;
+        this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
+            if (res.success) {
+                this.checkUpdateQuantity = false;
+                this.orderDetail();
+            }
+        });
+    }
+
+    packageItem(event) {
+        // console.log(event);
+    }
+
+    buildChatCreate() {
+        const value = this.createTemplate.value;
+        const params: any = {};
+        params.noteC = value.noteC;
+        params.contentC = value.contentC;
+        params.statusC = value.statusC;
+        return params;
+    }
+
+    loadListTemChat() {
+        const params = this.buildListChat();
+        params.limit = 20;
+        this.orderService.getListTem(params).subscribe(res => {
+            this.listChatTem = res.data;
+            this.totalChat = res.total;
+        });
+    }
+
+    loadListTemChatRefund() {
+        const params: any = {};
+        params.limit = 20;
+        this.orderService.getListTem(params).subscribe(res => {
+            this.listChatTem = res.data;
+            this.totalChat = res.total;
+        });
+    }
+
+    createTemplateChat() {
+        const params = this.buildChatCreate();
+        this.orderService.post('list-chat-mongo', params).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.loadListTemChat();
+                this.popup.success(rs.message);
+            }
+        });
+    }
+
+    loadPro(storeId) {
+        this.loadPolicy(storeId);
+    }
+
+    buildChatUpdate() {
+        const value = this.updateTemplate.value;
+        const params: any = {};
+        params.noteU = value.noteU;
+        params.contentU = value.contentU;
+        return params;
+    }
+
+    editListTemplate() {
+        const params = this.buildChatUpdate();
+        this.orderService.put(`list-chat-mongo/${this.chatId}`, params).subscribe(res => {
+            if (res.success) {
+                this.loadListTemChat();
+                this.popup.success(res.message);
+            }
+        });
+    }
+
+    removeListTemplate(id) {
+        const messagePop = 'Do you want Delete';
+        this.popup.warning(() => {
+            this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
+                if (res.success) {
+                    this.loadListTemChat();
+                    this.popup.success(res.message);
+                }
+            });
+        }, messagePop);
+    }
+
+    openUpdateOrderChatRefund(cn) {
+        this.checkUpdateOrderChatRefund = true;
+        this.chatId = cn.code;
+        this.updateTemplate = this.fb.group({
+            noteU: cn.note,
+            contentU: cn.content,
+        });
+    }
+
+    checkboxAttribute(reference, type = 'id') {
+        return 'checkbox' + type.charAt(0).toUpperCase() + type.slice(1) + reference;
+    }
+
+    checkBox(id) {
+        const e = $('input[name=' + this.checkboxAttribute(id, 'name') + ']');
+        if ($(e).is(':checked')) {
+            this.listChatCheck.push(id);
         } else {
-          this.popup.error(res.message);
+            if (this.listChatCheck.indexOf(id) !== -1) {
+                this.listChatCheck.splice(this.listChatCheck.indexOf(id), 1);
+            }
         }
-      });
-    }, messagePop);
-  }
-  clickEdit(qtyP, qtyC, qtyI, id, ordercode) {
-      this.quantityP = qtyP;
-      this.code = ordercode;
-      this.quantityC = qtyC;
-      this.quantityI = qtyI;
-      this.proId = id;
-      this.checkUpdateQuantity = true;
-  }
-  updateQuantityPr() {
-    const params: any = {};
-    params.quantityP = toNumber(this.quantityP);
-    params.quantityC = toNumber(this.quantityC);
-    params.quantityI = toNumber(this.quantityI);
-    params.title = 'quantity';
-    params.order_path = this.code;
-    this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
-      if (res.success) {
-        this.checkUpdateQuantity = false;
-        this.orderDetail();
-      }
-    });
-  }
-  packageItem(event) {
-      // console.log(event);
-  }
-  buildChatCreate() {
-    const value = this.createTemplate.value;
-    const params: any = {};
-    params.noteC = value.noteC;
-    params.contentC = value.contentC;
-    params.statusC = value.statusC;
-    return params;
-  }
-  loadListTemChat() {
-      const params = this.buildListChat();
-      params.limit = 20;
-      this.orderService.getListTem(params).subscribe(res => {
-        this.listChatTem = res.data;
-        this.totalChat = res.total;
-      });
-  }
-  loadListTemChatRefund() {
-    const params: any = {};
-    params.limit = 20;
-    this.orderService.getListTem(params).subscribe(res => {
-      this.listChatTem = res.data;
-      this.totalChat = res.total;
-    });
-  }
-  createTemplateChat() {
-      const params = this.buildChatCreate();
-      this.orderService.post('list-chat-mongo', params).subscribe(res => {
-        const rs: any = res;
-      if (rs.success) {
-        this.loadListTemChat();
-        this.popup.success(rs.message);
-      }
-    });
-  }
-  loadPro(storeId) {
-    this.loadPolicy(storeId);
-  }
-  buildChatUpdate() {
-    const value = this.updateTemplate.value;
-    const params: any = {};
-    params.noteU = value.noteU;
-    params.contentU = value.contentU;
-    return params;
-  }
-  editListTemplate() {
-      const params = this.buildChatUpdate();
-      this.orderService.put(`list-chat-mongo/${this.chatId}`, params).subscribe(res => {
-        if (res.success) {
-          this.loadListTemChat();
-          this.popup.success(res.message);
-        }
-      });
-  }
-  removeListTemplate(id) {
-    const messagePop = 'Do you want Delete';
-    this.popup.warning(() => {
-      this.orderService.delete(`list-chat-mongo/${id}`).subscribe(res => {
-        if (res.success) {
-          this.loadListTemChat();
-          this.popup.success(res.message);
-        }
-      });
-    }, messagePop);
-  }
-  openUpdateOrderChatRefund(cn) {
-    this.checkUpdateOrderChatRefund = true;
-    this.chatId = cn.code;
-    this.updateTemplate = this.fb.group({
-      noteU: cn.note,
-      contentU: cn.content,
-    });
-  }
-
-  checkboxAttribute(reference, type = 'id') {
-    return 'checkbox' + type.charAt(0).toUpperCase() + type.slice(1) + reference;
-  }
-  checkBox(id) {
-    const e = $('input[name=' + this.checkboxAttribute(id, 'name') + ']');
-    if ($(e).is(':checked')) {
-      this.listChatCheck.push(id);
-    } else {
-      if (this.listChatCheck.indexOf(id) !== -1) {
-        this.listChatCheck.splice(this.listChatCheck.indexOf(id), 1);
-      }
+        // console.log(this.listChatCheck);
     }
-    console.log(this.listChatCheck);
-  }
-  openTracking(order) {
-      this.tracking_code = order.package.tracking_code;
-      this.code = order.ordercode;
-      this.prods = order.products;
-      this.checkOpenTracking = true;
-      const params: any = {};
-      params.tracking_code = this.tracking_code;
-      this.orderService.get('trackinglogs', params).subscribe(res => {
-        if (res.success) {
-          this.listTrackingLog = res.data;
-        }
-      });
-  }
 
-  checkChatNote(code, status) {
-      const params: any = {};
-      // if (status === 1) {
-      //   console.log('da vào');
-      //   params.statusChat = 0;
-      // }
-      // if (status === 0) {
-      //   params.statusChat = 1;
-      // }
-      params.checkStatusValue = 'checkStatusValue';
-      this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
-        this.loadListTemChat();
-      });
-  }
+    openTracking(order) {
+        this.tracking_code = order.package.tracking_code;
+        this.code = order.ordercode;
+        this.prods = order.products;
+        this.checkOpenTracking = true;
+        const params: any = {};
+        params.tracking_code = this.tracking_code;
+        this.orderService.get('trackinglogs', params).subscribe(res => {
+            if (res.success) {
+                this.listTrackingLog = res.data;
+            }
+        });
+    }
+
+    checkChatNote(code, status) {
+        const params: any = {};
+        // if (status === 1) {
+        //   console.log('da vào');
+        //   params.statusChat = 0;
+        // }
+        // if (status === 0) {
+        //   params.statusChat = 1;
+        // }
+        params.checkStatusValue = 'checkStatusValue';
+        this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
+            this.loadListTemChat();
+        });
+    }
 
     checkShowUpdateStatus(status) {
         if (status === 'PURCHASED') {
@@ -1297,43 +1334,46 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
-  refreshListChatTem() {
-    this.newFormSearchList();
-    const params: any = {};
-    params.limit = 20;
-    this.orderService.getListTem(params).subscribe(res => {
-      this.listChatTem = res.data;
-      this.totalChat = res.total;
-    });
-  }
-  checkShowPay() {
-      if (this._scope.checkMasterMarketing() || this._scope.checkMarketing() || this._scope.checkMarketingAds()) {
-        return false;
-      }
-      return true;
-  }
-  // checkUpdatePaymentShow(code, status) {
-  //   if (this.checkUpdatePayment(status)) {
-  //     this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-  //       const rs = res;
-  //       this.listLog = rs.data;
-  //     });
-  //   }
-  // }
-  // checkUpdatePaymentOne() {
-  //   const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
-  //   if (pay.length > 0) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-  // openAssignSaleFollowOrder(order) {
-  //     this.code = order.ordercode;
-  //     this.checkOpenAssignSFO = true;
-  //     this.assignSFO = this.fb.group({
-  //       sale_id: this.allKey,
-  //     });
-  // }
+
+    refreshListChatTem() {
+        this.newFormSearchList();
+        const params: any = {};
+        params.limit = 20;
+        this.orderService.getListTem(params).subscribe(res => {
+            this.listChatTem = res.data;
+            this.totalChat = res.total;
+        });
+    }
+
+    checkShowPay() {
+        if (this._scope.checkMasterMarketing() || this._scope.checkMarketing() || this._scope.checkMarketingAds()) {
+            return false;
+        }
+        return true;
+    }
+
+    // checkUpdatePaymentShow(code, status) {
+    //   if (this.checkUpdatePayment(status)) {
+    //     this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+    //       const rs = res;
+    //       this.listLog = rs.data;
+    //     });
+    //   }
+    // }
+    // checkUpdatePaymentOne() {
+    //   const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+    //   if (pay.length > 0) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // }
+    // openAssignSaleFollowOrder(order) {
+    //     this.code = order.ordercode;
+    //     this.checkOpenAssignSFO = true;
+    //     this.assignSFO = this.fb.group({
+    //       sale_id: this.allKey,
+    //     });
+    // }
 }
 
