@@ -120,7 +120,7 @@
                       </tr>
                       <tr *ngFor="let package_tmp of packTr.packages; let ind = index">
                         <td>{{ind+1}}</td>
-                        <td><a href="/operation/package?packageCode={{package_tmp.package_code}}" target="_blank">{{package_tmp.package_code}}</a> &nbsp;&nbsp;<i class="fa fa-sign-out" style="cursor: pointer" title="Remove from delivery note" (click)="outOfDeliveryNote(package_tmp.id)"></i></td>
+                        <td><a href="/operation/package?packageCode={{package_tmp.package_code}}" target="_blank">{{package_tmp.package_code}}</a> &nbsp;&nbsp;<i class="fa fa-sign-out-alt" style="cursor: pointer" title="Remove from delivery note" (click)="outOfDeliveryNote(package_tmp.id)"></i></td>
                         <td><a href="/operation/order?orderCode={{package_tmp.order.ordercode}}" target="_blank">{{package_tmp.order.ordercode}}</a></td>
                         <td>{{package_tmp.weight}} gram</td>
                       </tr>
@@ -304,9 +304,18 @@
                     <div class="col-md-4">
                       <h6>4. Courier info &nbsp; &nbsp;<a href="javascript: void(0);" (click)="suggestCourier()"><i class="fa fa-refresh" ></i></a></h6>
                       Has {{listCourier ? listCourier.length : 0}} couriers.
-                      <div>
+                      <div >
                         <ng-container *ngFor="let courier of listCourier">
-
+                            <div class="row col-md-12">
+                                <div class="col-md-3">
+                                    <img src="{{courier.courier_logo}}">
+                                </div>
+                                <div class="row col-md-9">
+                                    <div class="col-md-12"><b>{{courier.courier_name}}</b> ({{courier.service_code}})</div>
+                                    <div  class="col-md-6"><i>{{courier.min_delivery_time}} - {{courier.max_delivery_time}}</i></div>
+                                    <div  class="col-md-6"><i>{{courier.shipping_fee | number}} đ</i></div>
+                                </div>
+                            </div>
                         </ng-container>
                       </div>
                     </div>
