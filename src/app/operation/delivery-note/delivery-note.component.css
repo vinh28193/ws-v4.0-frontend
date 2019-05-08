@@ -47,3 +47,21 @@ hr{
     margin-bottom: 5px;
     margin-top: 5px;
 }
+.item-courier{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border: 1px #3e3e3e3e solid;
+}
+
+.item-courier:hover{
+    background: #00aced;
+    color: #fff;
+    cursor: pointer;
+}
+.item-courier-selected{
+    background: #00aced;
+    color: #fff;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border: 1px #3e3e3e3e solid;
+}

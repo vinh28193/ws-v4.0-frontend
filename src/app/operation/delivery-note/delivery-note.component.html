@@ -91,6 +91,7 @@
                 <div>Weight: <b>{{packTr.delivery_note_weight}}</b></div>
                 <div>Dimention: <b>{{packTr.delivery_note_change_weight}} gram</b> ({{packTr.delivery_note_dimension_l}} x {{packTr.delivery_note_dimension_w}} x {{packTr.delivery_note_dimension_h}} cm)</div>
                 <div>Warehouse Received: <b>{{packTr.warehouse ? packTr.warehouse.name : ''}}</b></div>
+                <div *ngIf="packTr.shipment_id" >Shipment Code: <b>{{packTr.shipment ? packTr.shipment.shipment_code : ''}}</b></div>
               </td>
               <td style="padding-right: 0px">
                 <div class="row col-md-12" style="padding-right: 0px; margin: 0px">
@@ -161,7 +162,7 @@
                           <h6>1. Warehouse Pick Up</h6>
                           <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-warehouse"></i></div>
-                            <select class="form-control form-control-sm" [(ngModel)]="formCreate.warehouse_pickup">
+                            <select class="form-control form-control-sm" [(ngModel)]="formCreate.warehouse_pickup" (change)="suggestCourier()">
                               <option>--Select Pickup--</option>
                               <option *ngFor="let w of warehouses" value="{{w.id}}">{{w.name}}</option>
                             </select>
@@ -184,7 +185,7 @@
                               </div>
                               <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                <input class="form-control form-control-sm" placeholder="PostCode" [(ngModel)]="formCreate.receiver_post_code" >
+                                <input class="form-control form-control-sm" placeholder="PostCode" [(ngModel)]="formCreate.receiver_post_code" (change)="suggestCourier()" >
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -249,12 +250,12 @@
                               <th>Weight (gram)</th>
                             </tr>
                             <tr>
-                              <td><input type="text" [(ngModel)]="formCreate.price" class="form-control form-control-sm" ></td>
-                              <td><input type="text" [(ngModel)]="formCreate.cod" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.price" class="form-control form-control-sm" (change)="suggestCourier()" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.cod" class="form-control form-control-sm"  (change)="suggestCourier()"  ></td>
                               <td><input type="text" [(ngModel)]="formCreate.length" class="form-control form-control-sm" ></td>
                               <td><input type="text" [(ngModel)]="formCreate.width" class="form-control form-control-sm" ></td>
                               <td><input type="text" [(ngModel)]="formCreate.height" class="form-control form-control-sm" ></td>
-                              <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm" ></td>
+                              <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm"  (change)="suggestCourier()"></td>
                             </tr>
                           </table>
                         </div>
@@ -304,24 +305,60 @@
                     <div class="col-md-4">
                       <h6>4. Courier info &nbsp; &nbsp;<a href="javascript: void(0);" (click)="suggestCourier()"><i class="fa fa-refresh" ></i></a></h6>
                       Has {{listCourier ? listCourier.length : 0}} couriers.
-                      <div >
+                      <div class="row" style="max-height: 350px; overflow: auto;" >
                         <ng-container *ngFor="let courier of listCourier">
-                            <div class="row col-md-12">
-                                <div class="col-md-3">
-                                    <img src="{{courier.courier_logo}}" class="img-responsive">
+                            <div class="item-courier{{courier.service_id == formCreate.courier.service_id ? '-selected' : ''}}" (click)="selectCourier(courier)">
+                                <div class="col-md-3" style="float: left">
+                                    <img src="{{courier.courier_logo}}" class="img-responsive" style="margin: 5px; width: 90%">
                                 </div>
-                                <div class="row col-md-9">
+                                <div class="row col-md-9"  style="height: 100%;margin: 0px;float: right; padding-right: 0px; padding-left: 0px;">
                                     <div class="col-md-12"><b>{{courier.courier_name}}</b> ({{courier.service_code}})</div>
-                                    <div  class="col-md-6"><i>{{courier.min_delivery_time}} day - {{courier.max_delivery_time}} day</i></div>
-                                    <div  class="col-md-6"><i>{{courier.shipping_fee | number}} đ</i></div>
+                                    <div  class="col-md-6" style="text-align: left"><i>{{courier.min_delivery_time}} day - {{courier.max_delivery_time}} day</i></div>
+                                    <div  class="col-md-6" style="text-align: right"><i>{{courier.shipping_fee | number}} đ</i></div>
                                 </div>
                             </div>
                         </ng-container>
                       </div>
+                      <div><hr></div>
+                      <div class="row">
+                        <div class="item-courier-selected" *ngIf="formCreate.courier.service_id">
+                          <div class="col-md-3" style="float: left">
+                            <img src="{{formCreate.courier.courier_logo}}" class="img-responsive" style="margin: 5px; width: 90%">
+                          </div>
+                          <div class="row col-md-9"  style="height: 100%;margin: 0px;float: right; padding-right: 0px; padding-left: 0px;">
+                            <div class="col-md-12"><b>{{formCreate.courier.courier_name}}</b> ({{formCreate.courier.service_code}})</div>
+                            <div  class="col-md-6" style="text-align: left"><i>{{formCreate.courier.min_delivery_time}} day - {{formCreate.courier.max_delivery_time}} day</i></div>
+                            <div  class="col-md-6" style="text-align: right"><i>{{formCreate.courier.shipping_fee | number}} đ</i></div>
+                          </div>
+                        </div>
+                        <div *ngIf="!formCreate.courier.service_id">
+                          <h5>Please select courier!</h5>
+                        </div>
+                      </div>
+                      <div class="row" style="border-bottom: 1px dashed #3e3e3e3e">
+                        <div class="col-md-6"><b>COD:</b></div>
+                        <div class="col-md-6 text-right">
+                          <b style="color: red" *ngIf="formCreate.cod || formCreate.cod == 0">{{formCreate.cod | number}} đ</b>
+                          <b style="color: red" *ngIf="!formCreate.cod && formCreate.cod != 0">---</b>
+                        </div>
+                      </div>
+                      <div class="row" style="border-bottom: 1px dashed #3e3e3e3e">
+                        <div class="col-md-6"><b>Shipping Fee:</b></div>
+                        <div class="col-md-6 text-right">
+                          <b style="color: red" *ngIf="formCreate.courier.service_id">{{formCreate.courier.shipping_fee | number}} đ</b>
+                          <b style="color: red" *ngIf="!formCreate.courier.service_id">---</b>
+                        </div>
+                      </div>
+                      <div class="row" style="border-bottom: 1px dashed #3e3e3e3e">
+                        <div class="col-md-6"><b>Total:</b></div>
+                        <div class="col-md-6 text-right"><b style="color: red">{{getTotalFee() | number}} đ</b></div>
+                      </div>
+                      <div><hr></div>
+                      <button class="btn btn-sm btn-info" style="width: 100%" (click)="createShipment()">Create Shipment</button>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-right">
                       <div class="button-group">
                         <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
                       </div>

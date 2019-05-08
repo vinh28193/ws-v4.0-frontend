@@ -17,6 +17,7 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
   public listChoose: any = [];
   public listPackages: any = [];
   public formCreate: any = {
+    customer_id: '',
     length: 0,
     width: 0,
     height: 0,
@@ -38,8 +39,8 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
     insurance: '',
     pack_wood: '',
     courier: {},
+    listIds: [],
   };
-  public listIds: any = [];
   constructor(public service: OperationService) {
     super(service);
   }
@@ -216,13 +217,14 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       if (district_temp) {
         this.formCreate.receiver_district_name = district_temp.name;
       }
+      this.suggestCourier();
     }
   }
 
   getListIds() {
     this.checkItemCheckBox();
     if (this.listChoose.length > 0) {
-      this.listIds = [];
+      this.formCreate.listIds = [];
       const ids = [];
       let customer_id = 0;
       let checkHasDN = false;
@@ -244,7 +246,8 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       if (checkHasDN) {
         return this.service.popup.error('Some package has been included in the delivery note!');
       }
-      this.listIds = ids;
+      this.formCreate.customer_id = customer_id;
+      this.formCreate.listIds = ids;
       return true;
     }
   }
@@ -255,8 +258,10 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       const rs: any = res;
       if (rs.data && rs.data.couriers) {
         this.listCourier = rs.data.couriers;
+        this.formCreate.courier = this.listCourier[0];
       } else {
         this.listCourier = [];
+        this.formCreate.courier = {};
       }
     });
   }
@@ -280,5 +285,38 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
       sortMode: 'best_time',
     };
     return param;
+  }
+
+  getTotalFee() {
+    if (this.formCreate.courier.service_id && this.formCreate.cod) {
+      return this.formCreate.cod + this.formCreate.courier.shipping_fee;
+    } else if (this.formCreate.courier.service_id) {
+      return this.formCreate.courier.shipping_fee;
+    } else if (this.formCreate.cod) {
+      return this.formCreate.cod;
+    } else {
+      return 0;
+    }
+  }
+
+  selectCourier(courier) {
+    if (courier.service_id !== this.formCreate.courier.service_id) {
+      this.formCreate.courier = courier;
+      this.getTotalFee();
+    }
+  }
+
+  createShipment() {
+    this.service.post('s', this.formCreate).subscribe(rs => {
+      const res: any = rs;
+      if (res.success) {
+        this.insertTrackingModal.hide();
+        this.service.popup.success(res.message);
+        this.listChoose = [];
+        this.search();
+      } else {
+        this.service.popup.error(res.message);
+      }
+    });
   }
 }
