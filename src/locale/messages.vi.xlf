@@ -67,7 +67,7 @@
 
             <trans-unit id="ca0d8b5466da734c53492ac12c2db87cfc0e11b2" datatype="html">
                 <source>Package Draft</source>
-                <target state="translated">Kiện hàng nháp</target>
+                <target state="translated">Package Draft</target>
 
             <context-group purpose="location"><context context-type="sourcefile">app/operation/operation-routing.component.ts</context><context context-type="linenumber">67</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">5</context></context-group></trans-unit>
             <trans-unit id="5704ec2049d007c5f5fb495a5d8b607e68d58081" datatype="html">
