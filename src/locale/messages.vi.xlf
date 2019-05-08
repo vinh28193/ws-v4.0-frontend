@@ -58,7 +58,7 @@
                 <target state="translated">Kiện hàng</target>
 
             <context-group purpose="location"><context context-type="sourcefile">app/operation/operation-routing.component.ts</context><context context-type="linenumber">73</context></context-group></trans-unit><trans-unit id="afd558a12953f4c936487a8c5d5db72c23feb358" datatype="html">
-        <source>Delivery Note</source><target state="translated">Lưu ý giao hàng</target>
+        <source>Delivery Note</source><target state="translated">Phiếu giao hàng</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
           <context context-type="linenumber">79</context>
@@ -1229,7 +1229,7 @@
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">214</context></context-group></trans-unit>
                 <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
                     <source>Total value Product
-                
+
               </source>
                     <target state="translated">Tổng giá trị sản phẩm</target>
 
