@@ -47,11 +47,13 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
 
   public listCourier: any = [];
   public filter: any = {
+    manifest_code: '',
     delivery_note_code: '',
     package_code: '',
     tracking_code: '',
     sku: '',
     order_code: '',
+    customer_id: '',
     type_tracking: '',
     status: '',
     limit: 20,

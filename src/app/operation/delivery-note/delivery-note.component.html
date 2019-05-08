@@ -5,6 +5,9 @@
   <div class="body-content">
     <div class="row col-md-12" style="margin: 0px;padding: 0px">
       <div class="col-md-3 form-group">
+        <input class="form-control form-control-sm" type="text" [(ngModel)]="filter.manifest_code" (keydown.enter)="search()" placeholder="Manifest code">
+      </div>
+      <div class="col-md-3 form-group">
         <input class="form-control form-control-sm" type="text" [(ngModel)]="filter.delivery_note_code" (keydown.enter)="search()" placeholder="Delivery Note code">
       </div>
       <div class="col-md-3 form-group">
@@ -18,6 +21,9 @@
       </div>
       <div class="col-md-3 form-group">
         <input class="form-control form-control-sm" type="text"  [(ngModel)]="filter.order_code" (keydown.enter)="search()" placeholder="Order Code">
+      </div>
+      <div class="col-md-3 form-group">
+        <input class="form-control form-control-sm" type="text"  [(ngModel)]="filter.customer_id" (keydown.enter)="search()" placeholder="Customer Id">
       </div>
       <div class="col-md-3 form-group">
         <select class="form-control form-control-sm"  [(ngModel)]="filter.type_tracking" (change)="search()" >
@@ -38,7 +44,7 @@
         <button id="btn-search" class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fa fa-search"></i> Search</button>
         <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-refresh"></i> Reset</button>
         <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-link"></i> Merge Note</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-truck"></i> Stock Out</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-truck"></i> Create Shipment Fast</button>
       </div>
       <div class="col-md-12"  style="margin: 0px;padding: 0px">
         <div class="row list-summary">
@@ -50,6 +56,9 @@
               <option value="50">50</option>
               <option value="100">100</option>
               <option value="200">200</option>
+              <option value="200">300</option>
+              <option value="200">500</option>
+              <option value="200">1000</option>
               <option value="all">All</option>
             </select>
             <span>of page {{filter.page}} in {{gettotalPage()}} page in total {{totalCount}} items</span>
@@ -98,7 +107,7 @@
                   <div class="col-md-6  mr-0">
                     <h6>Customer</h6>
                     <div class="border-left">
-                      <div><i class="fa fa-id-badge col-ico"></i> <b>{{packTr.customer_id}}</b></div>
+                      <div><i class="fa fa-id-badge col-ico"></i> <b>{{packTr.customer_id}}</b> &nbsp;&nbsp;<i style="cursor: pointer" class="fa fa-filter" (click)="filter.customer_id = packTr.customer_id; search()"></i></div>
                       <div>{{packTr.customer ? packTr.customer.email : ''}}/{{packTr.customer ? packTr.customer.phone : ''}}</div>
                     </div>
                     <br>
@@ -138,9 +147,19 @@
   </div>
 </div>
 <div  class="action-delivery-note" *ngIf="checkItemCheckBox()">
-  <a  class="btn btn-success" href="javascript:;" (click)="showDeliveryNoteModal()">
-    <i  class="fa fa-plus"></i> Create or Join ({{checkItemCheckBox()}} packages)
-  </a>
+  <div class="btn-group">
+    <a class="badge badge-danger" href="javascript:void (0)" (click)="showDeliveryNoteModal()">
+      <i  class="fa fa-link"></i> Merge ({{checkItemCheckBox()}} packages)
+    </a>
+    <a class="badge badge-danger" href="javascript:void (0)" (click)="showDeliveryNoteModal()">
+      <i  class="fa fa-plus"></i> Create Shipment ({{checkItemCheckBox()}} packages)
+    </a>
+  </div>
+</div>
+<div  class="action-delivery-note" *ngIf="!checkItemCheckBox()">
+  <div class="btn-group">
+    <a class="badge badge-info" ><i class="fa fa-tools"></i></a>
+  </div>
 </div>
 <div bsModal #insertTrackingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
