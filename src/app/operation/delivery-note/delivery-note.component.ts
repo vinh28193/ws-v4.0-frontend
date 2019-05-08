@@ -10,12 +10,12 @@ import {ModalDirective} from 'ngx-bootstrap';
 })
 export class DeliveryNoteComponent extends OperationDataComponent implements OnInit {
   @ViewChild('insertTrackingModal') insertTrackingModal: ModalDirective;
-  private data: any;
-  private total = 0;
-  private checkAllOld = false;
-  private checkBoxs: any = [];
-  private listChoose: any = [];
-  private listPackages: any = [];
+  public data: any;
+  // private total = 0;
+  public checkAllOld = false;
+  public checkBoxs: any = [];
+  public listChoose: any = [];
+  public listPackages: any = [];
   public formCreate: any = {
     length: 0,
     width: 0,
@@ -39,12 +39,12 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
     pack_wood: '',
     courier: {},
   };
-  private listIds: any = [];
+  public listIds: any = [];
   constructor(public service: OperationService) {
     super(service);
   }
 
-  private listCourier: any = [];
+  public listCourier: any = [];
   public filter: any = {
     delivery_note_code: '',
     package_code: '',
@@ -67,7 +67,7 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
     this.service.get('dn', this.filter).subscribe(res => {
       if (res.success) {
         this.data = res.data.data;
-        this.total = res.data.total;
+        this.totalCount = res.data.total;
       }
     });
   }
@@ -87,7 +87,7 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
   }
 
   gettotalPage() {
-    return Math.ceil(this.total / this.filter.limit);
+    return Math.ceil(this.totalCount / this.filter.limit);
   }
   handlePagination(event) {
     this.filter.page = event.page;

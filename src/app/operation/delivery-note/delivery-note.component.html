@@ -52,11 +52,11 @@
               <option value="200">200</option>
               <option value="all">All</option>
             </select>
-            <span>of page {{filter.page}} in {{gettotalPage()}} page in total {{total}} items</span>
+            <span>of page {{filter.page}} in {{gettotalPage()}} page in total {{totalCount}} items</span>
           </div>
           <div class="col-md-6">
             <pagination [boundaryLinks]="true"
-                        [totalItems]="total"
+                        [totalItems]="totalCount"
                         (pageChanged)="handlePagination($event)"
                         [maxSize]="10"
                         [itemsPerPage]="filter.limit" class="pagination-sm pull-right"
@@ -308,11 +308,11 @@
                         <ng-container *ngFor="let courier of listCourier">
                             <div class="row col-md-12">
                                 <div class="col-md-3">
-                                    <img src="{{courier.courier_logo}}">
+                                    <img src="{{courier.courier_logo}}" class="img-responsive">
                                 </div>
                                 <div class="row col-md-9">
                                     <div class="col-md-12"><b>{{courier.courier_name}}</b> ({{courier.service_code}})</div>
-                                    <div  class="col-md-6"><i>{{courier.min_delivery_time}} - {{courier.max_delivery_time}}</i></div>
+                                    <div  class="col-md-6"><i>{{courier.min_delivery_time}} day - {{courier.max_delivery_time}} day</i></div>
                                     <div  class="col-md-6"><i>{{courier.shipping_fee | number}} đ</i></div>
                                 </div>
                             </div>
@@ -323,7 +323,6 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="button-group">
-                        <button class="btn btn-sm btn-success" i18n (click)="createDeliveryNote()">Insert Tracking</button>
                         <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
                       </div>
                     </div>
