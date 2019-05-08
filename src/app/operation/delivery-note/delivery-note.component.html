@@ -43,7 +43,9 @@
       <div class="col-md-12 btn-group">
         <button id="btn-search" class="btn btn-sm btn-rounded btn-outline-secondary" (click)="search()"><i class="fa fa-search"></i> Search</button>
         <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-refresh"></i> Reset</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-link"></i> Merge Note</button>
+          <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="merge()"><i class="fa fa-link"></i>
+              Merge Note
+          </button>
         <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refresh()"><i class="fa fa-truck"></i> Create Shipment Fast</button>
       </div>
       <div class="col-md-12"  style="margin: 0px;padding: 0px">
@@ -83,8 +85,8 @@
           <thead>
           <tr>
             <th width="5%" ><input type="checkbox" [(ngModel)]="checkAll"  (change)="clickCheck()"  class="icheckbox_minimal-grey"> &nbsp;</th>
-            <th width="30%">Delivery Note Info</th>
-            <th width="65%">Customer | Receiver & Package List</th>
+            <th width="20%">Delivery Note Info</th>
+            <th width="75%">Customer | Receiver & Package List</th>
           </tr>
           </thead>
           <tbody>
@@ -93,18 +95,23 @@
               <td>
                 <input type="checkbox" *ngIf="!packTr.shipment_id"  [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]" (change)="clickCheck()" class="icheckbox_minimal-grey">
               </td>
-              <td>
-                <div>Status: <b>{{packTr.current_status}}</b></div>
-                <div>Delivery Code: <b>{{packTr.delivery_note_code}}</b></div>
-                <div>Total Package: <b>{{packTr.packages.length}}</b></div>
-                <div>Weight: <b>{{packTr.delivery_note_weight}}</b></div>
-                <div>Dimention: <b>{{packTr.delivery_note_change_weight}} gram</b> ({{packTr.delivery_note_dimension_l}} x {{packTr.delivery_note_dimension_w}} x {{packTr.delivery_note_dimension_h}} cm)</div>
-                <div>Warehouse Received: <b>{{packTr.warehouse ? packTr.warehouse.name : ''}}</b></div>
-                <div *ngIf="packTr.shipment_id" >Shipment Code: <b>{{packTr.shipment ? packTr.shipment.shipment_code : ''}}</b></div>
-              </td>
+                <td>
+                    <div>Status: <b>{{packTr.current_status}}</b></div>
+                    <div>Delivery Code: <b>{{packTr.delivery_note_code}}</b></div>
+                    <div>Total Package: <b>{{packTr.packages.length}}</b></div>
+                    <div>Weight: <b>{{packTr.delivery_note_weight}}</b></div>
+                    <div>Dimention: <b>{{packTr.delivery_note_change_weight}} gram</b>
+                        ({{packTr.delivery_note_dimension_l}} x {{packTr.delivery_note_dimension_w}}
+                        x {{packTr.delivery_note_dimension_h}} cm)
+                    </div>
+                    <div>Warehouse Received: <b>{{packTr.warehouse ? packTr.warehouse.name : ''}}</b></div>
+                    <div>Manifest Codes: <b>{{packTr.manifest_code}}</b></div>
+                    <div *ngIf="packTr.shipment_id">Shipment Code:
+                        <b>{{packTr.shipment ? packTr.shipment.shipment_code : ''}}</b></div>
+                </td>
               <td style="padding-right: 0px">
                 <div class="row col-md-12" style="padding-right: 0px; margin: 0px">
-                  <div class="col-md-6  mr-0">
+                    <div class="col-md-5 mr-0">
                     <h6>Customer</h6>
                     <div class="border-left">
                       <div><i class="fa fa-id-badge col-ico"></i> <b>{{packTr.customer_id}}</b> &nbsp;&nbsp;<i style="cursor: pointer" class="fa fa-filter" (click)="filter.customer_id = packTr.customer_id; search()"></i></div>
@@ -120,18 +127,20 @@
                       <div>({{packTr.receiver_district_name}}, {{packTr.receiver_province_name}}, {{packTr.receiver_country_name}}{{packTr.receiver_post_code ? ' - ' + packTr.receiver_post_code : ''}})</div>
                     </div>
                   </div>
-                  <div class="col-md-6  mr-0 p-0">
+                    <div class="col-md-7 p-0">
                     <table class="table table-striped">
                       <tr>
                         <th>[&nbsp;{{packTr.packages.length}}&nbsp;]</th>
                         <th>Package Code</th>
                         <th>Order Code</th>
+                          <th>Warehouse Tag</th>
                         <th>Weight</th>
                       </tr>
                       <tr *ngFor="let package_tmp of packTr.packages; let ind = index">
                         <td>{{ind+1}}</td>
                         <td><a href="/operation/package?packageCode={{package_tmp.package_code}}" target="_blank">{{package_tmp.package_code}}</a> &nbsp;&nbsp;<i class="fa fa-sign-out-alt" style="cursor: pointer" title="Remove from delivery note" (click)="outOfDeliveryNote(package_tmp.id)"></i></td>
                         <td><a href="/operation/order?orderCode={{package_tmp.order.ordercode}}" target="_blank">{{package_tmp.order.ordercode}}</a></td>
+                          <td><i>{{package_tmp.warehouse_tag_boxme}}</i></td>
                         <td>{{package_tmp.weight}} gram</td>
                       </tr>
                     </table>
@@ -148,7 +157,7 @@
 </div>
 <div  class="action-delivery-note" *ngIf="checkItemCheckBox()">
   <div class="btn-group">
-    <a class="badge badge-danger" href="javascript:void (0)" (click)="showDeliveryNoteModal()">
+      <a class="badge badge-danger" href="javascript:void (0)" (click)="merge()">
       <i  class="fa fa-link"></i> Merge ({{checkItemCheckBox()}} packages)
     </a>
     <a class="badge badge-danger" href="javascript:void (0)" (click)="showDeliveryNoteModal()">

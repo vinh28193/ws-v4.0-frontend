@@ -315,10 +315,30 @@ export class DeliveryNoteComponent extends OperationDataComponent implements OnI
         this.insertTrackingModal.hide();
         this.service.popup.success(res.message);
         this.listChoose = [];
+        this.checkBoxs = [];
         this.search();
       } else {
         this.service.popup.error(res.message);
       }
     });
+  }
+
+  merge() {
+    this.getListIds();
+    if (this.formCreate.listIds.length > 1) {
+      this.service.popup.confirm(() => {
+        this.service.post('dns/merge', {ids: this.formCreate.listIds}).subscribe(rs => {
+          const res: any = rs;
+          if (res.success) {
+            this.service.popup.success(res.message);
+            this.listChoose = [];
+            this.checkBoxs = [];
+            this.search();
+          } else {
+            this.service.popup.error(res.message);
+          }
+        });
+      }, 'Do you want merge?');
+    }
   }
 }

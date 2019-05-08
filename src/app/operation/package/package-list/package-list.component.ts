@@ -212,7 +212,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
         this.clickCheck();
     }
     create1vs1() {
-        if (this.getListIds()) {
+        if (this.getListIds(false)) {
             if (this.listIds.length === 0) {
                 return this.packageService.popup.error('Dont have item chosen!');
             }
@@ -223,6 +223,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
                         this.packageService.popup.success(res.message);
                         this.insertTrackingModal.hide();
                         this.listChoose = [];
+                        this.checkBoxs = [];
                         this.search();
                     } else {
                         this.packageService.popup.error(res.message);
@@ -243,6 +244,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
                     this.packageService.popup.success(res.message);
                     this.insertTrackingModal.hide();
                     this.listChoose = [];
+                    this.checkBoxs = [];
                     this.search();
                 } else {
                     this.packageService.popup.error(res.message);
@@ -251,7 +253,7 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
         }
     }
 
-    getListIds() {
+    getListIds(validate = true) {
         this.checkItemCheckBox();
         if (this.listChoose.length > 0) {
             this.listIds = [];
@@ -259,9 +261,11 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
             let customer_id = 0;
             let checkHasDN = false;
             $.each(this.listChoose, function (k, v) {
-                if (!v.order || (customer_id !== 0 && customer_id !== v.order.customer_id)) {
-                    customer_id = 0;
-                    return false;
+                if (validate) {
+                    if (!v.order || (customer_id !== 0 && customer_id !== v.order.customer_id)) {
+                        customer_id = 0;
+                        return false;
+                    }
                 }
                 customer_id = v.order.customer_id;
                 if (v.delivery_code) {
@@ -270,11 +274,13 @@ export class PackageListComponent extends PackageDataComponent implements OnInit
                     ids.push(v.id);
                 }
             });
-            if (customer_id === 0 || !customer_id) {
-                return this.packageService.popup.error('You must choose the same customer and cannot have unknown!');
-            }
-            if (checkHasDN) {
-                return this.packageService.popup.error('Some package has been included in the delivery note!');
+            if (validate) {
+                if (customer_id === 0 || !customer_id) {
+                    return this.packageService.popup.error('You must choose the same customer and cannot have unknown!');
+                }
+                if (checkHasDN) {
+                    return this.packageService.popup.error('Some package has been included in the delivery note!');
+                }
             }
             this.listIds = ids;
             return true;
