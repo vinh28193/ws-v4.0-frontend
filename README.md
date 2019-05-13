@@ -52,3 +52,15 @@ sudo npm install clientjs --unsafe-perm=true --allow-root
 
 npm install --save firebase
 npm install firebase @angular/fire --save
+
+
+###---------Angular4 luôn yêu cầu Trình duyệt Cache Clean-----------
+https://stackoverflow.com/questions/44713037/angular4-always-require-browsers-cache-clean
+
+ng build --prod --output-hashing=all
+
+Như đã lưu ý trong các tài liệu angular-cli , có 2 cách cho phép bộ đệm cache.
+
+--prod hoặc --target = sản xuất sẽ thiết lập một số cờ, bao gồm --output-hashing = tất cả những gì kích hoạt bộ đệm ẩn bộ đệm
+Bạn cũng có thể đặt --output-băm chính nó trên dòng lệnh với một trong các giá trị có thể của nó là [none | all | media | bundles]. Điều này rất hữu ích để thử nghiệm / dàn dựng các bản dựng
+

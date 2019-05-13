@@ -4,12 +4,19 @@ import {EncryptionService} from '../../core/service/encryption.service';
 import {PopupService} from '../../core/service/popup.service';
 import {HttpClient} from '@angular/common/http';
 
+import { Observable } from 'rxjs/Observable';
+import { shareReplay, map } from 'rxjs/operators';
+
 declare var $: any;
+const CACHE_SIZE = 1;
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrderService extends OperationService {
+     // private cache$: Observable<Array<Order>>;
+    // ToDo @Phuchc Cahes https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html  --> Làm review cho Notification
+    // Vi Order Array nhieu doi tuong
 
     constructor(
         public http: HttpClient,
