@@ -161,22 +161,26 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.paramsOrder = this.messagingService.sendSubscription(ordercode);
-        // console.log(this.paramsOrder);
-        this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-            // console.log('JOSN ' + JSON.stringify(ret));
-            const res: any = ret;
-            // console.log('res send token Subscription ' + JSON.stringify(res));
-            if (res.success) {
-                const rs: any = res.data;
-                // console.log('Notifi data : ' + JSON.stringify(rs));
-                this.loadOrderNotifi();
-                this.orderNotiCheck(ordercode);
-                return true;
-            } else {
-                // console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                return false;
-            }
-        });
+        console.log('this.paramsOrder :' + this.paramsOrder);
+        if (!this.paramsOrder) {
+            this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
+                // console.log('JOSN ' + JSON.stringify(ret));
+                const res: any = ret;
+                // console.log('res send token Subscription ' + JSON.stringify(res));
+                if (res.success) {
+                    const rs: any = res.data;
+                    // console.log('Notifi data : ' + JSON.stringify(rs));
+                    this.loadOrderNotifi();
+                    this.orderNotiCheck(ordercode);
+                    return true;
+                } else {
+                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
+                    return false;
+                }
+            });
+        } else {
+            console.log('Browser chưa cho phép gửi Notification');
+        }
     }
 
     ngOnInit() {
@@ -255,8 +259,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     listOrders() {
         const params = this.prepareSearch();
-        this.orderService.search(params).subscribe( res => {
-            const  result: any = res ;
+        this.orderService.search(params).subscribe(res => {
+            const result: any = res;
             if (result.message === 'Success') {
                 // this.popup.success(result.message);
                 const data: any = result.data;

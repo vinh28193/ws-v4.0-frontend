@@ -20,7 +20,7 @@ export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
     private currentToken: any;
-    public orderNotifi:any = [];
+    public orderNotifi: any = [];
 
     constructor(
         private angularFireDB: AngularFireDatabase,
@@ -37,15 +37,14 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
+                console.log('token firebase : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
             }
         );
     }
-     ngOnInit() {
-          // this.loadOrderNotifi();
-     }
+
 
     /**
      * update token in firebase database
@@ -117,9 +116,12 @@ export class MessagingService {
         const details = this.UUID_Details();
         const userId = this.getUser();
         const currentToken = this.currentToken;
-
-        // console.log('currentToken : ' + JSON.stringify(currentToken));
-        return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
+        if (currentToken) {
+            console.log('currentToken : ' + JSON.stringify(currentToken));
+            return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
+        } else {
+            return false;
+        }
     }
 
 
