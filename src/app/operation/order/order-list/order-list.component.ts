@@ -1010,10 +1010,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    openUpdateOrderCode(ordercode, id) {
+    openUpdateOrderCode(order) {
         this.statusOds = StatusOrder;
-        this.code = ordercode;
-        this.markID = id;
+        this.code = order.ordercode;
+        this.markID = order.id;
         this.checkUpdateOderCode = true;
         this.getSeller();
         this.orderDetail();
@@ -1023,10 +1023,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     orderDetail() {
         this.orderService.get(`order/${this.code}`).subscribe(res => {
             this.orderList = res.data[0];
+            console.log(this.orderList.current_status);
             if (this.orderList.current_status === 'READY2PURCHASE') {
-                this.statusOd = 'ready_purchase';
+                this.statusOd = 4;
             } else {
                 this.statusOd = this.orderList.current_status.toLowerCase();
+                console.log(this.statusOd);
             }
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
