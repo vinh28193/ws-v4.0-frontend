@@ -37,6 +37,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
     public total: any;
+    public countOP: any;
     public chatId: any;
     public totalChat: any;
     public tracking_code: any;
@@ -1027,9 +1028,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (this.orderList.current_status === 'READY2PURCHASE') {
                 this.statusOd = 4;
             } else {
-                this.statusOd = this.orderList.current_status.toLowerCase();
-                console.log(this.statusOd);
+              console.log(this.statusOds);
+              for (let i = 1; i < this.statusOds.length ; i++) {
+                const current = this.statusOds[i] || undefined;
+                if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
+                  this.statusOd = current.id;
+                  break;
+                }
+              }
             }
+            console.log(this.countOP);
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
             });

@@ -277,8 +277,8 @@
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
                                   <div *ngIf="_scope.CheckSale()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
-                                  <span>{{order.customer?.first_name}} - {{order.customer?.phone}} - {{order.customer?.email}}
-                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.customer.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
+                                  <span>{{order.user?.last_name}} - {{order.user?.phone}} - {{order.user?.email}}
+                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
                               </div>
                               <hr style="margin: 5px;">
@@ -1625,7 +1625,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'SHIPPED' ? 'text-warning' : ''}}">
+              <div class="row {{orderList.current_status === 'SELLER_SHIPPED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
                 <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped" >
                   <a href="javascript:void(0)" *ngIf="orderList.seller_shipped" (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
