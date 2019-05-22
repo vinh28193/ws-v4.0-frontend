@@ -116,6 +116,10 @@
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
           <context context-type="linenumber">85</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="dfb6e8f1028903902ead54d62afeb71adfa750ff" datatype="html">
         <source>Notification</source>
@@ -173,6 +177,10 @@
           <context context-type="linenumber">71</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
@@ -220,7 +228,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
-          <context context-type="linenumber">258</context>
+          <context context-type="linenumber">320</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/us-sending-views/us-sending-views.component.ts</context>
@@ -232,6 +240,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/warehouse/warehouse.component.ts</context>
           <context context-type="linenumber">180</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">395</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
@@ -259,7 +271,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
-          <context context-type="linenumber">259</context>
+          <context context-type="linenumber">321</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context>
@@ -300,6 +312,546 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/us-sending-views/us-sending-views.component.ts</context>
           <context context-type="linenumber">205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cff427bf56b3886dd0ab7d44dcea2be0faac91c3" datatype="html">
+        <source>Delivery Note Management</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="01dc685bbcc0e6b9365f5f9882607e740ce94f38" datatype="html">
+        <source>Manifest code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9cc560422558ef2fcf29a15a5ecda0929cba77c4" datatype="html">
+        <source>Delivery Note code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c089faa057f61da747c9af6c2b8c023539f95155" datatype="html">
+        <source>Package code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">305</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="382281d719f3730b654d2e02b181ac529163f2f7" datatype="html">
+        <source>Tracking code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ae5d5ba48dae61876e0adf3e8ff6a446a4097067" datatype="html">
+        <source>Sku</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2782f88757c17be1b5907df14de05afe9dd2843c" datatype="html">
+        <source>Order Code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e0ac11ddfb3a2b97c1c136035f4bf044ef573db" datatype="html">
+        <source>Customer Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f96c301dd0fcf592dd750e0e6c6a3acf39222792" datatype="html">
+        <source>-- Select Type Tracking --</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="077e90416bdae39a40441d0b94c5a9e8fcad4514" datatype="html">
+        <source>Normal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c4990c725ae621a7f41048cc543bccd4824a72ee" datatype="html">
+        <source>Split</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e5d8bb389c702588877f039d72178f219453a72d" datatype="html">
+        <source>Unknown</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1f51da272f3bb84453bcb093d3fbc83772e25e9" datatype="html">
+        <source>-- Select status --</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="04e0afa0e4fcd82ca40afacf6be68f9692e139ad" datatype="html">
+        <source>Shipment Created</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="148a6dec22c1a869661a982c23a168d11a67ab6e" datatype="html">
+        <source>Shipment None</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4011306fa1cb29ae8c9a154b4043fbf922d9332d" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fc79af76db4b1cc8a25c077ec5cc8c36c6ed5210" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Reset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9715c89ca18b1881ff349d0d2701df7be698bdf7" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+              Merge Note
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="07fc3a83d0eef088d9f9ab6fdb51f1b0ded9fa62" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Create Shipment Fast</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
+        <source>All</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8354f39536e61139b883f9f2213292d693ef5e3" datatype="html">
+        <source>of page <x id="INTERPOLATION" equiv-text="{{filter.page}}"/> in <x id="INTERPOLATION_1" equiv-text="{{gettotalPage()}}"/> page in total <x id="INTERPOLATION_2" equiv-text="{{totalCount}}"/> items</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e0bf691c906fea1927ec936aec936c0d48423495" datatype="html">
+        <source>Delivery Note Info</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2263f5989a5616a5dbaaf99c380967f2faebf3ce" datatype="html">
+        <source>Customer | Receiver &amp; Package List</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="965f0639a3a3a84af72d4192db92623e09f981f5" datatype="html">
+        <source>Status: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.current_status}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dea133f6f66a0235725261ca0c5bd64fdea853ea" datatype="html">
+        <source>Delivery Code: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.delivery_note_code}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4d0441856763982116a3448aaa1fc2b97cb84be8" datatype="html">
+        <source>Total Package: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.packages.length}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="34cd1d36320f30035ceebef51da38c95e4adfcb8" datatype="html">
+        <source>Weight: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.delivery_note_weight}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d79836aab01327b74c940291fb5ccc56942fa3ba" datatype="html">
+        <source>Dimention: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.delivery_note_change_weight}}"/> gram<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>
+                        (<x id="INTERPOLATION_1" equiv-text="{{packTr.delivery_note_dimension_l}}"/> x <x id="INTERPOLATION_2" equiv-text="{{packTr.delivery_note_dimension_w}}"/>
+                        x <x id="INTERPOLATION_3" equiv-text="{{packTr.delivery_note_dimension_h}}"/> cm)
+                    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8eb14e1b66e02b4c762fc8f9da9593a521fade7" datatype="html">
+        <source>Warehouse Received: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.warehouse ? packTr.warehouse.name : &apos;&apos;}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6603d00e40d38c72f658691e1871ee1f2bfeba2f" datatype="html">
+        <source>Manifest Codes: <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.manifest_code}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ef672db5c385f111349aa7421b3fe089b48f4d1e" datatype="html">
+        <source>Shipment Code:
+                        <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{packTr.shipment ? packTr.shipment.shipment_code : &apos;&apos;}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dff8d13a770e6a5d4fa1923462c6a7b974409592" datatype="html">
+        <source>Customer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5a5d65ca62a35d5292fac9d7a4eb5e3c22c3ef67" datatype="html">
+        <source>Receiver</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c9e6cac1ef0bde76f1c1a5532366048b1a27662e" datatype="html">
+        <source>Package Code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6f4302ef1109e64f412f3758deab0cb01c736f69" datatype="html">
+        <source>Warehouse Tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="919f2fd60a898850c24b1584362bbf18a4628bcb" datatype="html">
+        <source>Weight</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="34951926e13d851d687f98acb1f8273449dd5db3" datatype="html">
+        <source>Remove from delivery note</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5adf1fd1f5fbf01d3217beb14a568bcdf7b848fb" datatype="html">
+        <source>
+      <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Merge (<x id="INTERPOLATION" equiv-text="{{checkItemCheckBox()}}"/> packages)
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">164</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4b9325d4019a86e3d945f4323fce38ddef7ea409" datatype="html">
+        <source>
+      <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Create Shipment (<x id="INTERPOLATION" equiv-text="{{checkItemCheckBox()}}"/> packages)
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="26c4f6862630f89d34d7225f1e7d0f10274efc9a" datatype="html">
+        <source>1. Warehouse Pick Up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8792622f962b1a2f235850b3c1b312946a23c9b0" datatype="html">
+        <source>--Select Pickup--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="655a5a8d930c3d08427ef5a5e2a74d578ef0327a" datatype="html">
+        <source>2. Receiver Info</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="484b0e541230d60ddb5fbd771a34a5c8d90e7a57" datatype="html">
+        <source>Full Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">208</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="244aae9346da82b0922506c2d2581373a15641cc" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="db654f91d847f34e71ffb99268ff3a1807913421" datatype="html">
+        <source>Phone Number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">216</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f20868cbd02c9f2f513191f0a9bbef3d255fa56" datatype="html">
+        <source>PostCode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">220</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ae1aaa78c278ec076eebc337b1446916e6442b66" datatype="html">
+        <source>--Select Country--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cc7772c93b5e5726f45572d9b40471cf11a157d4" datatype="html">
+        <source>--Select Province--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4c206bf71411572de8766e78a074a674c94e9e9a" datatype="html">
+        <source>--Select District--</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">241</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e3c26e5fb459fe56ad18397d9679257215f753cc" datatype="html">
+        <source>3. Config Shipment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">252</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="665ee7043602d0ae0833529959d63e7168e7f57a" datatype="html">
+        <source>
+                              Pack Wood
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2915b276f0d032e623e9a20bdffec4cd5096753e" datatype="html">
+        <source>Total delivery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">273</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4d6ee53858628de558a18623894a03c8673bce9e" datatype="html">
+        <source>Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">277</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">306</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9a7ac852eff3b34a7510781115af512da32c2308" datatype="html">
+        <source>COD</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">278</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="08f1b50d9110fe3ab0cd4b2cce8370be642a2b03" datatype="html">
+        <source>Length (cm)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">279</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e0bbb26c6e5961a14fd5f1e54d21038d63b186c9" datatype="html">
+        <source>Width (cm)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">280</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">309</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8afa807297d3279e2e39929d448458bd0fe2c08c" datatype="html">
+        <source>Height (cm)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">281</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="184ede1d4d488c81008609477b9be4a9e4a8e362" datatype="html">
+        <source>Weight (gram)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">282</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">311</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="72c4fb3319d886c7a838f217f81a9bb3a6346fa5" datatype="html">
+        <source>Package list</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">301</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3846271e64a187d60a27ce3e2ca3319aace699dc" datatype="html">
+        <source>Total Weight: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">329</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="38ca0578005dacc01729c23082edef9320699a4b" datatype="html">
+        <source>4. Courier info    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">338</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="878566d062286c8730b0b6036c09d86a5144293e" datatype="html">
+        <source>Has <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{listCourier ? listCourier.length : 0}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> couriers.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">339</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dce0b1fe3b0f2a53d89492551a09d6faa2ed316a" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="INTERPOLATION" equiv-text="{{courier.min_delivery_time}}"/> day - <x id="INTERPOLATION_1" equiv-text="{{courier.max_delivery_time}}"/> day<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">348</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3d4debfc8e8ab14d6d2a258beca83a02428bdd5b" datatype="html">
+        <source>Please select courier!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">367</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="acd417024135c9822846a256229798124230cf0c" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>COD:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">371</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ce8bbdc6858b195d4e37160d64ae6cc3bb61c259" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Shipping Fee:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">378</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3250757b7051e7b695f80f60a287632c1904ff5c" datatype="html">
+        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Total:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">385</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="30d8cadd328f953f3c2862d1973013dc42e8d076" datatype="html">
+        <source>Create Shipment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/delivery-note/delivery-note.component.ts</context>
+          <context context-type="linenumber">389</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7ec971a7e74a3b547b555b81960ea8d104b03a15" datatype="html">
@@ -550,13 +1102,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="dfc3c34e182ea73c5d784ff7c8135f087992dac1" datatype="html">
-        <source>All</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="74de46425f750b802a7868161aa0fbb86ae28066" datatype="html">
@@ -2087,13 +2632,6 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="linenumber">221</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="919f2fd60a898850c24b1584362bbf18a4628bcb" datatype="html">
-        <source>Weight</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="65cd96235afb2bd60aeca1015d6043dc44717982" datatype="html">
         <source>Stock In Local</source>
         <context-group purpose="location">
@@ -2279,13 +2817,6 @@ Enter to send</source>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2782f88757c17be1b5907df14de05afe9dd2843c" datatype="html">
-        <source>Order Code</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="a5f9ba9bb9faa8284bcadb1cdbc6aaf969e9c4bb" datatype="html">
         <source>Image</source>
         <context-group purpose="location">
@@ -2314,13 +2845,6 @@ Enter to send</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context>
           <context context-type="linenumber">36</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4d6ee53858628de558a18623894a03c8673bce9e" datatype="html">
-        <source>Price</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context>
-          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f84a3606daf751933a4d838adfdeafbd7b3471a5" datatype="html">
@@ -2675,7 +3199,7 @@ Enter to send</source>
         <source>Delivery note</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
-          <context context-type="linenumber">187</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187d35846e0aaa1c352c5d9ccae5bc79d7b1a66b" datatype="html">
@@ -2987,13 +3511,6 @@ Enter to send</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="c9e6cac1ef0bde76f1c1a5532366048b1a27662e" datatype="html">
-        <source>Package Code</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
-          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d81f00c85d3b507f3e3d78bfc617a2c66e028391" datatype="html">
