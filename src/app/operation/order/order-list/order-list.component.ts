@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, NgModule} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
@@ -12,6 +12,9 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
+import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
+import { NotifierModule } from 'angular-notifier';
+import { NotifierService } from 'angular-notifier';
 
 declare var jQuery: any;
 declare var $: any;
@@ -40,6 +43,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public countOP: any;
     public chatId: any;
     public totalChat: any;
+    public totalNotifi: any;
     public tracking_code: any;
     public quantityP = 0;
     public quantityC = 0;
@@ -141,6 +145,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
+    private notifier: NotifierService;
 
     constructor(private orderService: OrderService,
                 private router: Router,
@@ -151,37 +156,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
+                notifier: NotifierService
     ) {
         super(orderService);
-    }
-
-    followOrder(ordercode) {
-        this.checkF = !this.checkF;
-
-        /**Notification**/
-        this.messagingService.receiveMessage();
-        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.paramsOrder = this.messagingService.sendSubscription(ordercode);
-        console.log('this.paramsOrder :' + this.paramsOrder);
-        if (!this.paramsOrder) {
-            this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-                // console.log('JOSN ' + JSON.stringify(ret));
-                const res: any = ret;
-                // console.log('res send token Subscription ' + JSON.stringify(res));
-                if (res.success) {
-                    const rs: any = res.data;
-                    // console.log('Notifi data : ' + JSON.stringify(rs));
-                    this.loadOrderNotifi();
-                    this.orderNotiCheck(ordercode);
-                    return true;
-                } else {
-                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                    return false;
-                }
-            });
-        } else {
-            console.log('Browser chưa cho phép gửi Notification');
-        }
+        this.notifier = notifier;
     }
 
     ngOnInit() {
@@ -195,7 +173,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -436,10 +413,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.get(`notifications/${fingerprint}`, undefined)
             .subscribe(res => {
                 this.orderNotifi = 0;
-                if (res.success) {
-                    const order_list = res.data.order_list;
-                    this.orderNotifi = order_list;
-                }
+              if (res.success) {
+                const order_list = res.data._items;
+                const totalNotifi = res.data._meta;
+                this.orderNotifi = order_list;
+                this.totalNotifi = totalNotifi.totalCount;
+                console.log(this.orderNotifi);
+              }
             });
 
     }
@@ -1398,5 +1378,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     //       sale_id: this.allKey,
     //     });
     // }
+  public showNotification( type: string, message: string ): void {
+    this.notifier.notify( type, message );
+  }
 }
 

@@ -216,3 +216,31 @@ a.delete-chatsupporting i:hover{
   border-bottom: 1px dashed darkgrey;
 }
 
+.navbar-expand .navbar-nav {
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.align-items-center {
+  align-items: center!important;
+}
+.navbar-nav {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+dl, ol, ul {
+  margin-top: 0;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+user agent stylesheet
+ul {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
