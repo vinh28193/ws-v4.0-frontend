@@ -13,6 +13,9 @@ import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
 import { NotifierService } from 'angular-notifier';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/observable/timer';
 
 declare var jQuery: any;
 declare var $: any;
@@ -70,6 +73,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkCreateOrderChatRefund = false;
     public checkListOrderChatRefund = false;
     public checkOpenAssignSFO = false;
+    public alive = true;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -142,6 +146,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public idOrder: any;
+    public msg: any = {};
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
@@ -194,12 +199,29 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
-        this.messageContent = JSON.parse(this.message.notification);
-        if (this.message) {
-          this.showNotification();
-        }
+        this.startCheck();
+        this.checking();
     }
-
+    startCheck() {
+      Observable.timer(0, 5000)
+        .subscribe(() => {
+          if (this.message.value != null && this.message.value.notification.from !== '') {
+            this.alive = true;
+          }
+        });
+    }
+    checking() {
+      Observable.timer(0, 5000)
+        .takeWhile(() => this.alive)
+        .subscribe(() => {
+          if (this.message.value != null) {
+            this.msg = this.message.value;
+            this.showNotification();
+            this.alive = false;
+            this.msg.notification.from = '';
+          }
+        });
+    }
     buildChat() {
         this.chatSupporting = this.fb.group({
             messageSupporting: '',

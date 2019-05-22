@@ -6,21 +6,17 @@
           <div class="row">
             <div class="col-md-7">
               <h3 i18n>LISTS ORDERS</h3>
-              <!--
-              -->
+              <!--<span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>-->
             </div>
             <div class="col-md-5 text-right">
-              <!--<button class="button button&#45;&#45;primary" (click)="showNotification()">-->
-                <!--Default me!-->
-              <!--</button>-->
               <ng-template #customNotification let-notificationData="notification">
-                <div type="notificationData.type" style="width: 300px;">
+                <div type="notificationData.type" style="width: 250px;">
                   <div>
-                  <strong class="mr-auto text-left">{{notification.title}}</strong>
+                  <strong class="mr-auto text-left">{{msg.notification.title}}</strong>
                   </div>
                   <hr class="mt-1 mb-1">
                   <div>
-                    <a href="{{notification.click_action}}" class="text-white text-left" target="_blank">{{notification.body}}</a>
+                    <a href="{{msg.notification.click_action}}"  target="_blank">{{msg.notification.body}}</a>
                   </div>
                 </div>
               </ng-template>
