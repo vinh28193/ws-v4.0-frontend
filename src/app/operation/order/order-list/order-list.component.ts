@@ -29,6 +29,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     @ViewChild('customNotification') customNotificationTmpl;
+    public limit: number = 20;
+    public page: number = 1;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -388,10 +390,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.endTime = this.convertDateTime(value.bsRangeValue['1']);
         }
 
-        params.limit = 20;
-        params.page = 1;
-        // this.country = params.store;
-        // this.getProvinces();
+        params.limit = this.limit;
+        params.page = this.page;
         this.loadPolicy(params.store);
         return params;
     }
@@ -407,14 +407,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handlePagination(event) {
-        const page = event.page;
-        this.searchForm.patchValue({page: page});
+        this.page = event.page
         this.listOrders();
     }
 
     handlePerPage(event) {
-        const value = event.target.value;
-        this.searchForm.patchValue({perPage: value});
+        this.limit = event.target.value;
         this.listOrders();
     }
 
@@ -572,7 +570,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.email = email;
         this.searchForm.patchValue({
             keyWord: this.email,
-            searchKeyword: 'customer.email'
+            searchKeyword: 'user.email'
         });
         this.listOrders();
     }
