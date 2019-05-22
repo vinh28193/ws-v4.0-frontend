@@ -12,8 +12,6 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
-import { NotifierModule } from 'angular-notifier';
 import { NotifierService } from 'angular-notifier';
 
 declare var jQuery: any;
@@ -27,6 +25,7 @@ declare var $: any;
 export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
+    @ViewChild('customNotification') customNotificationTmpl;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -122,6 +121,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkF = false;
     public store_id: any;
     public message1: any;
+    public messageContent: any;
     public markID: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
@@ -194,6 +194,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
+        this.messageContent = JSON.parse(this.message.notification);
+        if (this.message) {
+          this.showNotification();
+        }
     }
 
     buildChat() {
@@ -1378,8 +1382,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     //       sale_id: this.allKey,
     //     });
     // }
-  public showNotification( type: string, message: string ): void {
-    this.notifier.notify( type, message );
+  showNotification() {
+    const msg = {
+      message: 'Hi there!',
+      type: 'success'
+    };
+
+    this.notifier.show({
+      message: msg.message,
+      type: msg.type,
+      template: this.customNotificationTmpl
+    });
   }
 }
 
