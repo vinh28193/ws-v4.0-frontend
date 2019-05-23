@@ -161,8 +161,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.paramsOrder = this.messagingService.sendSubscription(ordercode);
-        console.log('this.paramsOrder :' + this.paramsOrder);
-        if (!this.paramsOrder) {
+        console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
+        if (this.paramsOrder) {
             this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
                 // console.log('JOSN ' + JSON.stringify(ret));
                 const res: any = ret;
