@@ -63,7 +63,7 @@ export const orderStatus = [
     {key: 'IMPWH_STOCKIN', name: 'Local warehouse'},
     {key: 'CUSTOMER_RECEIVED', name: 'Success order'},
     {key: 'REFUNDED', name: 'Refunded order'},
-    {key: 'CANCEL', name: 'Cancel order'},
+    {key: 'CANCELLED', name: 'Cancel order'},
     {key: 'REPLACED', name: 'Replaced order'},
     {key: 'JUNK', name: 'Junk'},
     {key: '', name: 'SanBox'}

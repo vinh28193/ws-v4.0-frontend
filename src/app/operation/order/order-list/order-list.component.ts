@@ -396,9 +396,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return params;
     }
 
-    checkUpdatePayment(status) {
+    checkUpdatePayment(status, total) {
         if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-            if (status === 'CANCEL') {
+            if (status === 'CANCELLED' || total === 0 || total == null) {
                 return false;
             } else {
                 return true;
@@ -529,7 +529,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCELLED')) {
             if (priceCheck > 0) {
                 return true;
             }
@@ -608,7 +608,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Cancel order ' + id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                current_status: 'CANCEL',
             }, 'updateStatus');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
