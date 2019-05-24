@@ -406,7 +406,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkUpdatePayment(status, total) {
         if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-            if (status === 'CANCELLED' || total === 0 || total == null) {
+            if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
                 return true;
