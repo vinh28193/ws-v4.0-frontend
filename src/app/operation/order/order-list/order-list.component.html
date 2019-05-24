@@ -6,21 +6,17 @@
           <div class="row">
             <div class="col-md-7">
               <h3 i18n>LISTS ORDERS</h3>
-              <!--
-              -->
+              <!--<span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>-->
             </div>
             <div class="col-md-5 text-right">
-              <!--<button class="button button&#45;&#45;primary" (click)="showNotification()">-->
-                <!--Default me!-->
-              <!--</button>-->
               <ng-template #customNotification let-notificationData="notification">
-                <div type="notificationData.type" style="width: 300px;">
+                <div type="notificationData.type" style="width: 250px;">
                   <div>
-                  <strong class="mr-auto text-left">{{notification.title}}</strong>
+                  <strong class="mr-auto text-left">{{msg.notification.title}}</strong>
                   </div>
                   <hr class="mt-1 mb-1">
                   <div>
-                    <a href="{{notification.click_action}}" class="text-white text-left" target="_blank">{{notification.body}}</a>
+                    <a href="{{msg.notification.click_action}}"  target="_blank">{{msg.notification.body}}</a>
                   </div>
                 </div>
               </ng-template>
@@ -748,7 +744,7 @@
                                       <div class="dropdown-menu style-d" style="font-size: 11px" >
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status) && order.check_update_payment == null" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale() && order.current_status == 'NEW'" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>

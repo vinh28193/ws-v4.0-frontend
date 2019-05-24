@@ -12,7 +12,10 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import {NotifierService} from 'angular-notifier';
+import { NotifierService } from 'angular-notifier';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/observable/timer';
 
 declare var jQuery: any;
 declare var $: any;
@@ -28,6 +31,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild('customNotification') customNotificationTmpl;
     @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
     @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
+    public limit: number = 20;
+    public page: number = 1;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -72,6 +77,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkCreateOrderChatRefund = false;
     public checkListOrderChatRefund = false;
     public checkOpenAssignSFO = false;
+    public alive = true;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -150,6 +156,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         amount: 0,
         description: ''
     };
+    public msg: any = {};
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
@@ -202,12 +209,29 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
-        this.messageContent = JSON.parse(this.message.notification);
-        if (this.message) {
-          this.showNotification();
-        }
+        this.startCheck();
+        this.checking();
     }
-
+    startCheck() {
+      Observable.timer(0, 5000)
+        .subscribe(() => {
+          if (this.message.value != null && this.message.value.notification.from !== '') {
+            this.alive = true;
+          }
+        });
+    }
+    checking() {
+      Observable.timer(0, 5000)
+        .takeWhile(() => this.alive)
+        .subscribe(() => {
+          if (this.message.value != null) {
+            this.msg = this.message.value;
+            this.showNotification();
+            this.alive = false;
+            this.msg.notification.from = '';
+          }
+        });
+    }
     buildChat() {
         this.chatSupporting = this.fb.group({
             messageSupporting: '',
@@ -374,17 +398,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.endTime = this.convertDateTime(value.bsRangeValue['1']);
         }
 
-        params.limit = 20;
-        params.page = 1;
-        // this.country = params.store;
-        // this.getProvinces();
+        params.limit = this.limit;
+        params.page = this.page;
         this.loadPolicy(params.store);
         return params;
     }
 
-    checkUpdatePayment(status) {
+    checkUpdatePayment(status, total) {
         if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-            if (status === 'CANCEL') {
+            if (status === 'CANCELLED' || total === 0 || total == null) {
                 return false;
             } else {
                 return true;
@@ -393,14 +415,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handlePagination(event) {
-        const page = event.page;
-        this.searchForm.patchValue({page: page});
+        this.page = event.page
         this.listOrders();
     }
 
     handlePerPage(event) {
-        const value = event.target.value;
-        this.searchForm.patchValue({perPage: value});
+        this.limit = event.target.value;
         this.listOrders();
     }
 
@@ -517,7 +537,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCELLED')) {
             if (priceCheck > 0) {
                 return true;
             }
@@ -558,7 +578,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.email = email;
         this.searchForm.patchValue({
             keyWord: this.email,
-            searchKeyword: 'customer.email'
+            searchKeyword: 'user.email'
         });
         this.listOrders();
     }
@@ -596,7 +616,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Cancel order ' + id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                current_status: 'CANCEL',
             }, 'updateStatus');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
