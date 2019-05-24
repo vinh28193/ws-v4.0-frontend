@@ -622,7 +622,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                  <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local)" (click)="showArrearsAddfee(order)"
+                                  <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true)" (click)="showArrearsAddfee(order)"
                                           class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
                                     <i class="fa fa-dollar" aria-hidden="true"></i>
                                     Arrears
@@ -1565,7 +1565,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="row Collect so-tien-thu-them Cod">
               <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
               <div class="col-md-6 text-right text-info style-padding-left">
-                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local) : 0 | number}}
+                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local,true) : 0 | number}}
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
@@ -2164,7 +2164,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
           </tr>
           <tr>
             <td><b>Total amount collect</b></td>
-            <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+            <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           </tbody>
         </table>
