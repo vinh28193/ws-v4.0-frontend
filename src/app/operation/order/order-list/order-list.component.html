@@ -5,7 +5,8 @@
         <div class="card-title">
           <div class="row">
             <div class="col-md-7">
-              <h3 i18n>LISTS ORDERS</h3>
+              <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS</h3>
+              <h3 i18n *ngIf="checkShoppingCart">LISTS SHOPPING CART</h3>
               <!--<span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>-->
             </div>
             <div class="col-md-5 text-right">
@@ -25,7 +26,7 @@
           </div>
         </div>
         <form [formGroup]="searchForm" class="row search-form">
-          <div class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
@@ -37,7 +38,7 @@
                      type="text">
             </div>
           </div>
-          <div class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
@@ -61,7 +62,7 @@
                                     </span>
             </div>
           </div>
-          <div class="col-md-3 col-sm-12  form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label" i18n>Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
@@ -70,7 +71,7 @@
               <option [value]="7" i18n>Weshop ID</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="type" class="form-control-label" i18n>Order Type</label>
             <select class="form-control form-control-sm" name="type" id="type" formControlName="type">
               <option [value]="allKey" i18n>--All Type--</option>
@@ -79,7 +80,7 @@
               <option value="SHIP" i18n>Ship</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label">
               <span i18n>Status</span>
             </label>
@@ -89,14 +90,14 @@
               <option [value]="status.key" *ngFor="let status of orderStatus">{{status.name}}</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Payment Request</label>
             <select class="form-control form-control-sm" name="status" id="location" formControlName="paymentRequest">
               <option [value]="allKey" i18n>--All Paymnet Request--</option>
               <option [value]="payment.key" *ngFor="let payment of paymentRequests">{{payment.name}}
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Product Type</label>
             <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
               <option [value]="allKey" i18n >--All Product Type--</option>
@@ -106,7 +107,7 @@
               <option value="EBAY" >EBAY</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="paymentStatus" class="form-control-label" i18n>Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
                     formControlName="paymentStatus">
@@ -117,14 +118,14 @@
               <option value="REFUND_FULL">REFUND FULL</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
               <option [value]="allKey" i18n >--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <div class="col-md-3 col-sm-6 form-group m-b-10" *ngIf="_scope.checkRoleOption()">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10" *ngIf="_scope.checkRoleOption()">
             <label class="form-control-label" i18n>Status Order</label>
             <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
             <option [value]="allKey" i18n>--TracKing--</option>
@@ -147,9 +148,11 @@
           <!--</div>-->
           <div class="col-md-12 mt-1">
             <div class="button-group">
-                <button class="btn btn-sm btn-success" (click)="listOrders()"><i class="fa fa-search"></i><span i18n>Search</span></button>
-                <button class="btn btn-sm btn-danger ml-2" (click)="freshOrder()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
-                <button class="btn btn-info btn-sm text-white ml-1" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
+                <button class="btn btn-sm btn-success" *ngIf="!checkShoppingCart" (click)="listOrders()"><i class="fa fa-search"></i><span i18n>Search</span></button>
+                <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
+                <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
+                <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart" (click)="listShoppingCart()">Shopping Cart</button>
+                <button class="btn btn-info btn-sm text-white ml-1" i18n (click)="openListOrder()"  *ngIf="checkShoppingCart">List order</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
@@ -181,7 +184,7 @@
         </form>
 
         <section class="row item-operation mt-2">
-          <div class="col-md-12" *ngIf="_scope.checkRoleOption()">
+          <div class="col-md-12" *ngIf="_scope.checkRoleOption() && !checkShoppingCart">
             <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item </strong>
             <a href="javascript:void(0)" *ngIf="totalUnPaid > 0" (click)="filterClick('UNPAID')"> <span class="text-danger">|</span> Chưa thanh toán: <span class="text-danger mr-1">{{totalUnPaid}}</span>item </a>
             <a href="javascript:void(0)" *ngIf="noTrackingCount > 0" (click)="filterClick('NO_TRACKING')"><span class="text-danger">|</span> No Tracking: <span class="text-danger">{{noTrackingCount}}</span>item </a>
@@ -190,9 +193,12 @@
             <a href="javascript:void(0)" *ngIf="countPurchase > 0" (click)="filterClick('SHIPPED5')"><span class="text-danger">|</span> 5 ngày người bán gửi hàng mà chưa thấy nhập kho: <span class="text-danger mr-1">{{countPurchase}}</span>item </a>
             <a  href="javascript:void(0)" *ngIf="countUS > 0" (click)="filterClick('10STOCKOUT_US')"><span class="text-danger">|</span> 10 ngày kho Mỹ nhập nhưng không có danh sách về Viêt Nam: <span class="text-danger mr-1">{{countUS}}</span>item </a>
           </div>
+          <div class="col-md-12" *ngIf="checkShoppingCart">
+            <strong>Total: <span class="text-danger mr-1">{{metaShopping.totalCount}}</span>item </strong>
+          </div>
         </section>
 
-        <article class="row item-list">
+        <article *ngIf="!checkShoppingCart" class="row item-list">
           <div class="col-md-12">
             <div class="row pagination"></div>
             <div class="row grid">
@@ -771,16 +777,16 @@
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()" (click)="pay[order.id] = !pay[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay() && order.current_status != 'NEW'" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased  && order.current_status != 'NEW'" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()" (click)="pack[order.id] = !pack[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()  && order.current_status != 'NEW'" (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2"  (click)="delivevery[order.id] = !delivevery[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.current_status != 'NEW'"  (click)="delivevery[order.id] = !delivevery[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Delivery info</button>
                                 </li>
                               </ul>
@@ -811,6 +817,187 @@
                       <!--<div class="card-body" style="padding-left: 0; padding-right: 0">-->
                       <!--<h4 class="text-danger">Not Found</h4>-->
                       <!--</div>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article *ngIf="checkShoppingCart" class="row item-list">
+          <div class="col-md-12">
+            <div class="row grid">
+              <div class="col-md-12 pl-0 pr-0">
+                <div class="grid-view grid-view-custom">
+                  <div class="row" style="font-size: 0.7em">
+                    <div class="col-md-12">
+                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                        <div class="row style-row" *ngFor="let cart of ShoppingCar">
+                          <div class="col-md-6 border-col">
+                            <div class="row">
+                              <div class="col-md-2 m-0 p-0">
+                                <h5 class="text-center">
+                                  <a href="" class="badge badge-pill badge-primary ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">SOI-{{cart.data.request.id}}</a>
+                                </h5>
+                              </div>
+                              <div class="col-md-2 p-0 text-center">
+                                <div class="images">
+                                  <app-edit-image [image] = "cart.data.request.image" [idImage] = "cart.data.request.id"></app-edit-image>
+                                </div>
+                                <div class="mt-2">
+                                  <a href="{{cart.data.response.item_origin_url}}" target="_blank" class="originalLink" i18n>Original Link</a>
+                                </div>
+                                <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
+                                  <span class="sr-only ng-star-inserted">( )</span>
+                                  <span class="ng-star-inserted text-center">
+                          <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-dark">★</span>
+                           <span class="star ng-star-inserted text-dark">★</span>
+                        </span>
+                                </div>
+                                <!--div class="btn btn-sm btn-info Version mt-2 row">Version: {{product.version}}</div-->
+                                <p></p>
+                              </div>
+                              <div class="col-md-8 pl-1">
+                                <div class="row">
+                                  <div class="col-md-6 pr-0" style="border-right: 1px solid #d9d9d9">
+                                    <ul>
+                                      <li class="product_name">
+                                        <a href="{{cart.data.response.ws_link}}" target="_blank" tooltip="{{cart.data.response.item_name}}">
+                                          {{ (cart.data.response.item_name?.length > 25)? ((cart.data.response.item_name | slice:0:25)+'. . .'):(cart.data.response.item_name)}}
+                                        </a>
+                                      </li>
+                                      <li class="sku">
+                                        <span class="mr-2">Sku:</span>
+                                        <app-span-label [value]="cart.data.request.sku"></app-span-label>
+                                      </li>
+                                      <li class="seller_id">
+                                        <span class="mr-2" i18n>Size:</span>
+                                        <app-span-label [value]=""></app-span-label>
+                                      </li>
+                                      <li class="total_weight_temporary">
+                                        <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
+                                        <app-span-label [value]="cart.data.response.shipping_weight"></app-span-label>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-md-6 pl-1">
+                                    <ul>
+                                      <li>
+                                        <span class="mr-2" i18n>Local Name:</span>
+                                        <app-span-label [value]=""></app-span-label>
+                                      </li>
+                                      <li>
+                                        <span class="mr-2" i18n>Category:</span>
+                                        <app-span-label [value]="cart.data.response.parent_category_name"></app-span-label>
+                                      </li>
+                                      <li>
+                                        <span class="mr-2" i18n>QTT Set:</span>
+                                        <app-span-label [value]=""></app-span-label>
+                                      </li>
+                                      <li>
+                                        <span class="mr-2" i18n>Fragile:</span>
+                                        <app-span-label [value]=""></app-span-label>
+                                      </li>
+                                      <li>
+                                        <span class="mr-2" i18n>Packing Wood</span>
+                                        <app-span-label [value]=""></app-span-label>
+                                      </li>
+                                    </ul>
+                                    <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3 border-col">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  Customer
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 border-col">
+                            <div class="row">
+                              <div class="col-md-12 style-border-finance">
+                                <div class="row">
+                                  <div class="col-md-10">
+                                    <h5 i18n>FINANCE</h5>
+                                  </div>
+                                </div>
+                                <div class="hover-row">
+                                  <div class="row quantity_customer ">
+                                    <div class="col-md-7"><strong i18n>Quantity:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.quantity"></app-span-label>
+                                    </div>
+                                  </div>
+                                  <div class="row quantity_customer ">
+                                    <div class="col-md-7"><strong i18n>Available quantity:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.available_quantity"></app-span-label>
+                                    </div>
+                                  </div>
+                                  <div class="row quantity_customer ">
+                                    <div class="col-md-7"><strong i18n>Quantity sold:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.quantity_sold"></app-span-label>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-7"><strong i18n>Shipping Fee:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.shipping_fee"></app-span-label>{{cart.data.response.currency_api}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-7"><strong i18n>Us Tax Rate:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.us_tax_rate"></app-span-label>{{cart.data.response.currency_api}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-7"><strong i18n>Tax Fee:</strong></div>
+                                    <div class="col-md-5 text-right style-padding Quantity">
+                                      <app-span-label [value]="cart.data.response.tax_fee"></app-span-label>{{cart.data.response.currency_api}}
+                                    </div>
+                                  </div>
+                                  <!--<hr style="margin: 5px">-->
+                                  <!--<div class="row total_fee_product">-->
+                                    <!--<div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>-->
+                                    <!--<div class="col-md-5 text-right style-padding ">{{ product.total_fee_product_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>-->
+                                  <!--</div>-->
+                                  <hr style="margin: 5px">
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+                                      <strong i18n>Retail Price</strong>
+                                    </div>
+                                    <div class="col-md-6 text-right style-padding">{{cart.data.response.retail_price | number}}</div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+                                      <strong i18n>Start Price</strong>
+                                    </div>
+                                    <div class="col-md-6 text-right style-padding">{{cart.data.response.start_price | number}}</div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+                                      <strong i18n>Sell Price</strong>
+                                    </div>
+                                    <div class="col-md-6 text-right style-padding">{{cart.data.response.sell_price | number}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

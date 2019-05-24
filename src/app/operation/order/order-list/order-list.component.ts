@@ -41,6 +41,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public create: any = {};
     public click_pur: any = {};
     public orders: any = [];
+    public ShoppingCar: any = [];
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
     public total: any;
@@ -63,6 +64,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public purchase: any;
     public stockin_us: any;
     public countUS: any;
+    public metaShopping: any = {};
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -71,6 +73,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public codeG: any;
     public checkLoad = false;
     public checkLoadG = false;
+    public checkShoppingCart = false;
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
     public checkListOrderChatRefund = false;
@@ -1411,6 +1414,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       message: msg.message,
       type: msg.type,
       template: this.customNotificationTmpl
+    });
+  }
+  openListOrder() {
+    this.checkShoppingCart = false;
+  }
+  listShoppingCart() {
+    this.checkShoppingCart = true;
+    this.orderService.ListShoppingCart(undefined).subscribe(res => {
+        this.ShoppingCar = res.data._items;
+        this.metaShopping = res.data._meta;
     });
   }
 }
