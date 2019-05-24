@@ -10,20 +10,20 @@
       <th class="text-bold" i18n>Create</th>
       <th class="text-bold" i18n>Update</th>
       <th class="text-bold" i18n>
-        <button class="btn btn-sm btn-default">Add Transaction</button>
+        <button class="btn btn-sm btn-default" (click)="addTransaction()">Add Transaction</button>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let walletTransaction of walletTransactions">
-      <td>{{walletTransaction.transaction_code}}</td>
-      <td>{{walletTransaction.transaction_amount_local}}</td>
-      <td>{{walletTransaction.transaction_type}}</td>
-      <td>{{walletTransaction.transaction_status}}</td>
-      <td>{{walletTransaction.transaction_description}}</td>
-      <td>{{walletTransaction.note}}</td>
-      <td>{{walletTransaction.created_at}}</td>
-      <td>{{walletTransaction.updated_at}}</td>
+      <td [innerHTML]="walletTransaction.transaction_code"></td>
+      <td [innerHTML]="walletTransaction.transaction_amount_local"></td>
+      <td [innerHTML]="walletTransaction.transaction_type"></td>
+      <td [innerHTML]="walletTransaction.transaction_status"></td>
+      <td [innerHTML]="walletTransaction.transaction_description"></td>
+      <td [innerHTML]="walletTransaction.note"></td>
+      <td [innerHTML]="walletTransaction.created_at"></td>
+      <td [innerHTML]="walletTransaction.updated_at"></td>
     </tr>
   </tbody>
 </table>

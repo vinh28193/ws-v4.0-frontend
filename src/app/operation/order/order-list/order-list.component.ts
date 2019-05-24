@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, NgModule} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
@@ -12,7 +12,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import { NotifierService } from 'angular-notifier';
+import {NotifierService} from 'angular-notifier';
 
 declare var jQuery: any;
 declare var $: any;
@@ -26,6 +26,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     @ViewChild('customNotification') customNotificationTmpl;
+    @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
+    @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -142,6 +144,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public idOrder: any;
+    public modelAddTransaction = {
+        order_code: '',
+        type: 'addfee',
+        amount: 0,
+        description: ''
+    };
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
@@ -711,7 +719,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkUpdateOrderChatRefund = false;
     }
 
-    getChangeAmount(price1, price2) {
+    getChangeAmount(price1, price2 , isInt = false) {
+        if (isInt && price1 - price2 < 0) {
+            return 0;
+        }
         return price1 - price2;
     }
 
@@ -1394,5 +1405,30 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       template: this.customNotificationTmpl
     });
   }
+
+    handerShowAdddTransaction(event) {
+        this.modelAddTransaction.order_code = event.code;
+        this.AddTransactionModal.show();
+    }
+
+    showArrearsAddfee(order) {
+        this.activeOrder = order;
+        this.arrearsAddfee.show();
+    }
+
+    confirmArrearsAddfee() {
+        const data = {
+            order_code: this.activeOrder.ordercode};
+        this.orderService.post('order-s/update-arrears', data).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.arrearsAddfee.hide();
+                this.popup.success(res.message);
+                this.listOrders();
+            } else {
+                this.popup.error(res.message);
+            }
+        });
+    }
 }
 
