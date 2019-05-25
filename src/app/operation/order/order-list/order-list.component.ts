@@ -12,7 +12,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import { NotifierService } from 'angular-notifier';
+import {NotifierService} from 'angular-notifier';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
@@ -176,7 +176,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 notifier: NotifierService
     ) {
         super(orderService);
-        this.notifier = notifier;
+       // this.notifier = notifier;
     }
 
     followOrder(ordercode) {
@@ -189,12 +189,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
         if (this.paramsOrder) {
             this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-                // console.log('JOSN ' + JSON.stringify(ret));
+                console.log('JOSN ' + JSON.stringify(ret));
                 const res: any = ret;
-                // console.log('res send token Subscription ' + JSON.stringify(res));
+                console.log('res send token Subscription ' + JSON.stringify(res));
                 if (res.success) {
                     const rs: any = res.data;
-                    // console.log('Notifi data : ' + JSON.stringify(rs));
+                    console.log('Notifi data : ' + JSON.stringify(rs));
                     this.loadOrderNotifi();
                     this.orderNotiCheck(ordercode);
                     return true;
@@ -219,6 +219,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
+        // this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -243,6 +244,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.startCheck();
         this.checking();
     }
+
     startCheck() {
         Observable.timer(0, 5000)
             .subscribe(() => {
@@ -251,6 +253,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             });
     }
+
     checking() {
         Observable.timer(0, 5000)
             .takeWhile(() => this.alive)
@@ -263,6 +266,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             });
     }
+
     buildChat() {
         this.chatSupporting = this.fb.group({
             messageSupporting: '',
@@ -446,7 +450,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handlePagination(event) {
-        this.page = event.page
+        this.page = event.page;
         this.listOrders();
     }
 
@@ -481,7 +485,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     const totalNotifi = res.data._meta;
                     this.orderNotifi = order_list;
                     this.totalNotifi = totalNotifi.totalCount;
-                    console.log(this.orderNotifi);
+                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
+                }else {
+                    this.orderNotifi = 0;
+                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
                 }
             });
 
@@ -491,13 +498,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (this.orderNotifi === 0) {
             return false;
         }
-        const orderNotifi = this.orderNotifi;
-
-        if (ordercode in orderNotifi) {
+        // this.loadOrderNotifi();
+        /*
+        console.log('orderNotifi : ' + JSON.stringify(this.orderNotifi));
+        if (ordercode in this.orderNotifi) {
             return true;
         }
         return false;
-
+        */
     }
 
     chat(id, code, status) {
@@ -554,37 +562,37 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Confirm order ' + order.id;
         const messagePop1 = 'You have not selected category SOI-' + this.IDPro;
         if (this.checkPur) {
-          this.popup.warning(() => {
             this.popup.warning(() => {
-              const put = this.orderService.createPostParams({
-                // current_status: 'SUPPORTED',
-                checkR2p: this.checkReady2Purchase,
-              }, 'confirmPurchase');
-              this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                if (res.success) {
-                  this.listOrders();
-                  this.popup.success(res.message);
-                } else {
-                  this.popup.error(res.message);
-                }
-              });
-            }, messagePop);
-          }, messagePop1);
+                this.popup.warning(() => {
+                    const put = this.orderService.createPostParams({
+                        // current_status: 'SUPPORTED',
+                        checkR2p: this.checkReady2Purchase,
+                    }, 'confirmPurchase');
+                    this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+                        if (res.success) {
+                            this.listOrders();
+                            this.popup.success(res.message);
+                        } else {
+                            this.popup.error(res.message);
+                        }
+                    });
+                }, messagePop);
+            }, messagePop1);
         } else {
-          this.popup.warning(() => {
-            const put = this.orderService.createPostParams({
-              // current_status: 'SUPPORTED',
-              checkR2p: this.checkReady2Purchase,
-            }, 'confirmPurchase');
-            this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-              if (res.success) {
-                this.listOrders();
-                this.popup.success(res.message);
-              } else {
-                this.popup.error(res.message);
-              }
-            });
-          }, messagePop);
+            this.popup.warning(() => {
+                const put = this.orderService.createPostParams({
+                    // current_status: 'SUPPORTED',
+                    checkR2p: this.checkReady2Purchase,
+                }, 'confirmPurchase');
+                this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+                    if (res.success) {
+                        this.listOrders();
+                        this.popup.success(res.message);
+                    } else {
+                        this.popup.error(res.message);
+                    }
+                });
+            }, messagePop);
         }
     }
 
@@ -667,8 +675,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     cancelOrder(id) {
         const messagePop = 'Do you want Cancel order ' + id;
         this.popup.warning(() => {
-            const put = this.orderService.createPostParams({
-            }, 'updateStatus');
+            const put = this.orderService.createPostParams({}, 'updateStatus');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
                     this.popup.success(res.message);
@@ -790,7 +797,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkUpdateOrderChatRefund = false;
     }
 
-    getChangeAmount(price1, price2 , isInt = false) {
+    getChangeAmount(price1, price2, isInt = false) {
         if (isInt && price1 - price2 < 0) {
             return 0;
         }
@@ -1095,7 +1102,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.statusOd = 4;
             } else {
                 console.log(this.statusOds);
-                for (let i = 1; i < this.statusOds.length ; i++) {
+                for (let i = 1; i < this.statusOds.length; i++) {
                     const current = this.statusOds[i] || undefined;
                     if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
                         this.statusOd = current.id;
@@ -1489,7 +1496,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     confirmArrearsAddfee() {
         const data = {
-            order_code: this.activeOrder.ordercode};
+            order_code: this.activeOrder.ordercode
+        };
         this.orderService.post('order-s/update-arrears', data).subscribe(rs => {
             const res: any = rs;
             if (res.success) {
