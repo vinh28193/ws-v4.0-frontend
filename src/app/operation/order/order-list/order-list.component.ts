@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, NgModule} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
@@ -12,7 +12,7 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
-import {NotifierService} from 'angular-notifier';
+import { NotifierService } from 'angular-notifier';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
@@ -29,6 +29,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
     @ViewChild('customNotification') customNotificationTmpl;
+    @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
+    @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
     public limit: number = 20;
     public page: number = 1;
     public pro: any = {};
@@ -148,6 +150,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public idOrder: any;
+    public modelAddTransaction = {
+        order_code: '',
+        type: 'addfee',
+        amount: 0,
+        description: ''
+    };
     public msg: any = {};
     message;
     typeSearchKeyWord = '';
@@ -167,35 +175,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     ) {
         super(orderService);
         this.notifier = notifier;
-    }
-
-    followOrder(ordercode) {
-        this.checkF = !this.checkF;
-
-        /**Notification**/
-        this.messagingService.receiveMessage();
-        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        this.paramsOrder = this.messagingService.sendSubscription(ordercode);
-        console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
-        if (this.paramsOrder) {
-            this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-                // console.log('JOSN ' + JSON.stringify(ret));
-                const res: any = ret;
-                // console.log('res send token Subscription ' + JSON.stringify(res));
-                if (res.success) {
-                    const rs: any = res.data;
-                    // console.log('Notifi data : ' + JSON.stringify(rs));
-                    this.loadOrderNotifi();
-                    this.orderNotiCheck(ordercode);
-                    return true;
-                } else {
-                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                    return false;
-                }
-            });
-        } else {
-            console.log('Browser chưa cho phép gửi Notification');
-        }
     }
 
     ngOnInit() {
@@ -233,7 +212,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.startCheck();
         this.checking();
     }
-
     startCheck() {
         Observable.timer(0, 5000)
             .subscribe(() => {
@@ -242,7 +220,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             });
     }
-
     checking() {
         Observable.timer(0, 5000)
             .takeWhile(() => this.alive)
@@ -255,7 +232,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             });
     }
-
     buildChat() {
         this.chatSupporting = this.fb.group({
             messageSupporting: '',
@@ -428,9 +404,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return params;
     }
 
-    checkUpdatePayment(status) {
+    checkUpdatePayment(status, total) {
         if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-            if (status === 'CANCEL') {
+            if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
                 return true;
@@ -439,7 +415,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handlePagination(event) {
-        this.page = event.page;
+        this.page = event.page
         this.listOrders();
     }
 
@@ -561,7 +537,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCEL')) {
+        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCELLED')) {
             if (priceCheck > 0) {
                 return true;
             }
@@ -640,7 +616,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Cancel order ' + id;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
-                current_status: 'CANCEL',
             }, 'updateStatus');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
@@ -763,7 +738,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkUpdateOrderChatRefund = false;
     }
 
-    getChangeAmount(price1, price2) {
+    getChangeAmount(price1, price2 , isInt = false) {
+        if (isInt && price1 - price2 < 0) {
+            return 0;
+        }
         return price1 - price2;
     }
 
@@ -1065,7 +1043,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.statusOd = 4;
             } else {
                 console.log(this.statusOds);
-                for (let i = 1; i < this.statusOds.length; i++) {
+                for (let i = 1; i < this.statusOds.length ; i++) {
                     const current = this.statusOds[i] || undefined;
                     if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
                         this.statusOd = current.id;
@@ -1444,6 +1422,31 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             message: msg.message,
             type: msg.type,
             template: this.customNotificationTmpl
+        });
+    }
+
+    handerShowAdddTransaction(event) {
+        this.modelAddTransaction.order_code = event.code;
+        this.AddTransactionModal.show();
+    }
+
+    showArrearsAddfee(order) {
+        this.activeOrder = order;
+        this.arrearsAddfee.show();
+    }
+
+    confirmArrearsAddfee() {
+        const data = {
+            order_code: this.activeOrder.ordercode};
+        this.orderService.post('order-s/update-arrears', data).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.arrearsAddfee.hide();
+                this.popup.success(res.message);
+                this.listOrders();
+            } else {
+                this.popup.error(res.message);
+            }
         });
     }
 }
