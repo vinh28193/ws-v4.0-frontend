@@ -63,7 +63,6 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
 
   pSearch() {
     const value = this.searchF.value;
-    console.log(value);
     const params: any = {};
     if (value.value !== '') {
       params.value = value.value;
