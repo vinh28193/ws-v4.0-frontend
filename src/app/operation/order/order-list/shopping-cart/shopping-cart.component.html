@@ -1,0 +1,284 @@
+<div class="style-card mb-4" *ngFor="let items of ShoppingCar">
+    <div class="row margin-row">
+      <div class="col-md-3 border-col">
+        <div class="mt-1">
+          <ul>
+            <li class="created_at">
+              <span><i class="fa fa-clock-o"></i></span> {{items.data.order.new * 1000 | date: 'dd/MM/yyyy'}}
+            </li>
+            <li class="created_at_timeAgo">
+              <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{items.data.order.new * 1000 | amTimeAgo}}</span>
+            </li>
+            <li class="portal OrderType">
+              <button class="btn btn-default btn-sm">{{items.data.order.portal | uppercase }}</button>
+            </li>
+          </ul>
+        </div>
+
+        <hr style="margin: 5px;">
+        <div class=" mt-1  infor_seller">
+          <ul>
+            <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
+            <li class="sty-font" i18n><i class="fa fa-user mr-1" ></i> Seller Name : <a class="ml-1"  href="{{items.data.order.seller.seller_link_store}}" target="_blank">{{items.data.order.seller.seller_name}}</a></li>
+          </ul>
+        </div>
+        <hr style="margin: 5px;">
+      </div>
+
+      <div class="col-md-3 border-col CUSTOMER_INFO">
+        <h5 class="customer-type-{{items.data.order.customer_type}}"   i18n>CUSTOMER INFO</h5>
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="text-bold mb-0" i18n>BUYER </h5>
+            <div> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{items.data.order.customer_type | uppercase }} </span> </div>
+            <span>{{items.data.order.customer.username}} - {{items.data.order.customer.phone}} - {{items.data.order.customer.email}}</span>
+                                    <!--<a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>-->
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-md-3 hover-row style-col border-col">
+        <div class="row">
+          <div class="col-md-7">
+            <h5 i18n >FINANCE</h5>
+          </div>
+          <div class="col-md-5" style="text-align: right">
+            <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[items._id]" (click)="hideme[items._id] = !hideme[items._id]" i18n>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[items._id]" (click)="hideme[items._id] = !hideme[items._id]" i18n>
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </button>
+            <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+          </div>
+        </div>
+        <div class="row Quantity">
+          <div class="col-md-7 style-padding-right  dong">
+            <span i18n >Quantity</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left">
+            <span>{{items.data.order.total_quantity}}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="Ws-bold-font row Total_Unit_price_product">
+          <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
+            <strong><span i18n>Units Price:</span></strong>
+          </div>
+          <div class="col-md-5 text-right style-padding-left dong">
+                                    <span>{{items.data.order.total_origin_fee_local | number}}đ
+                                  </span>
+            <!--<span>{{order.store_id | currencyStore}}</span>-->
+          </div>
+        </div>
+
+
+        <div [hidden]="!hideme[items._id]">
+
+          <div class="row total_origin_tax_fee_local">
+            <div class="col-md-7 style-padding-right total_fee_amount_local dong">
+              <span i18n >Total origin tax fee local </span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
+                                  <span>
+                                    {{items.data.order.total_origin_tax_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <div class="row Total_origin_shiping_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total origin shiping fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_origin_shipping_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <hr>
+          <div class="row Total_weshop_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total weshop fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_weshop_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <div class="row Total_shiping_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total shiping fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_intl_shipping_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_custom_fee_amount">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total custom fee </span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_custom_fee_amount_local  | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_delivery_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total delivery fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_delivery_fee_local  | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_packing_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total packing fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_packing_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_insection_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total inspection fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_inspection_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_insurance_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total insurance fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_insurance_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <div class="row Total_VAT_amount">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n >Total VAT amount</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.data.order.total_amount_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+        </div>
+
+        <hr style="margin-top: 5px">
+
+        <div class="Ws-bold-font row Total_fee_order">
+          <div class="col-md-7 style-padding-right dong">
+            <span i18n >Total Fee Order :</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left dong">
+            <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
+            <span>{{items.data.order.total_fee_amount_local ? items.data.order.total_fee_amount_local : 0 | currency:'VND'}}</span>
+            <!--<span>{{order.store_id | currencyStore}}</span>-->
+          </div>
+        </div>
+
+        <hr>
+        <div class="row total_amount_local">
+          <div class="col-md-7 style-padding-right dong">
+            <span class="Ws-bold-font" i18n>Total Amout Local</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+                                  <span class="Ws-bold-font">
+                                    {{items.data.order.total_amount_local | currency:'VND'}}
+                                  </span>
+            <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+          </div>
+        </div>
+        <hr>
+
+        <div class="row total_final_amount_local -discount">
+          <div class="col-md-7 style-padding-right dong">
+            <span class="Ws-bold-font" i18n >Total value of orders (-discount)</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+                                  <span class="Ws-bold-font">
+                                    {{items.data.order.total_amount_local.total_final_amount_local | currency:'VND'}}
+                                  </span>
+            <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+          </div>
+        </div>
+
+        <hr>
+        <div class="row Paid">
+          <div class="col-md-6 text-success Ws-bold-font " i18n >Paid</div>
+          <div class="col-md-6 text-right text-success">
+            {{items.data.order.total_paid_amount_local | currency:'VND'}}
+          </div>
+        </div>
+        <div class="row Collect so-tien-thu-them Cod">
+          <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
+          <div class="col-md-6 text-right text-info style-padding-left">{{items.data.order.total_final_amount_local > items.data.order.total_paid_amount_local ? getChangeAmount(items.data.order.total_final_amount_local,items.data.order.total_paid_amount_local) : 0 | currency:'VND'}}</div>
+        </div>
+        <div class="row Refund" *ngIf="items.data.order.total_refund_amount_local">
+          <div id="refund" class="col-md-6" i18n>Refund</div>
+          <div class="col-md-6 text-right style-padding-left">
+            {{items.data.order.total_refund_amount_local | currency:'VND'}}
+          </div>
+        </div>
+
+        <hr>
+      </div>
+      <div class="col-md-3 border-col">
+        <div class="row STATUS">
+          <div class="col-md-7">
+            <h5 i18n>STATUS</h5>
+          </div>
+        </div>
+        <div class="hover-row">
+          <div class="row">
+            <div class="col-md-5 pr-0" i18n >New:</div>
+            <div class="col-md-7 text-right {{items.data.order.new}}" *ngIf="items.data.order.new" >{{items.data.order.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pb-1 pt-1" style="margin-left: 1px">
+      <div class="col-md-12 pl-0 tab-slider--nav">
+        <ul class="tab-slider--tabs st-ul">
+          <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]">
+            <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-12 pl-0 mt-2 tab-slider--container">
+        <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
+          <app-product-shopping-cart *ngIf="pro[items._id]" [products] = "items.data.order.products"></app-product-shopping-cart>
+        </div>
+      </div>
+    </div>
+</div>

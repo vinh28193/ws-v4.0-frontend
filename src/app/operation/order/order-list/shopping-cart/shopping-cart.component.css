@@ -1,0 +1,280 @@
+ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+/*strong {*/
+/*font-weight: bold;*/
+/*}*/
+h5 {
+  font-weight: bold;
+  color: black;
+  font-size: 12px;
+}
+.border-col {
+  border: 1px solid #DFDFDF;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+.style-border {
+  border: none;
+}
+.style-strong {
+  margin-right: 3px;
+}
+.style-nav {
+  margin-left: 15px;
+}
+.style-nav li a {
+  padding: 5px 3px;
+  /*color: black;*/
+  font-size: 13px;
+  border-right: 1px solid #a3afb7;
+}
+.style-col-md-5 {
+  margin-right: 0px;
+  padding-right: 0px;
+}
+.style-padding {
+  padding-right: 25px; padding-left: 0px;
+}
+.input_inline{
+  width: inherit;
+}
+.hover-row .row:hover{
+  background: gray;
+  color: white;
+  border-bottom: 1px dashed;
+  font-weight: 300;
+}
+.style-binCode {
+  text-decoration: underline;
+}
+.font-style {
+  font-weight: 700;
+}
+.style-log {
+  font-size: 11px; padding-top: 3px; padding-bottom: 3px;
+}
+.style-card {
+  border-bottom: 2px solid black; width: 100%;
+}
+.paymentTransaction {
+  border: 1px solid gray; margin-bottom: 10px;
+}
+.style-padding-left {
+  padding-left: 0;
+}
+.style-padding-right {
+  padding-right: 0;
+}
+.style-row {
+  background: #F8FAFC; margin: 0;
+}
+.style-image {
+  width: 100%; border: 1px solid #e1e1e1;
+}
+.originalLink {
+  font-size: 14px; text-align: center;
+}
+.versionOnPayment {
+  font-size: 8px; margin-top: 10px;
+}
+.style-border-finance {
+  border-right: 1px solid #DFDFDF;
+}
+.style-margin-top {
+  margin-top: 10px;
+}
+.customerFee {
+  padding-right: 7px; padding-left: 0;
+}
+.padding-edit {
+  margin-left: 7px;
+}
+.text-line-through {
+  text-decoration: line-through;
+  font-size: 10px;
+}
+.style-margin-bottom {
+  margin-bottom: 1em;
+}
+.style-buy-it-now {
+  width: 85px; height: 20px; padding-top: 0
+}
+.margin-row {
+  margin: 0;
+}
+.width-max {
+  max-width: 1000px;
+}
+.style-chat {
+  margin-right: 3px;
+}
+.style-font-size {
+  font-size: 10px
+}
+.exchangeRate {
+  padding-right: 25px;
+}
+.col-md-auto{
+  padding: 0px;
+  margin: auto;
+
+}
+
+.modal-85 {
+  min-width: 85%;
+}
+.text-info{
+  cursor: pointer;
+}
+.quote-container{
+  margin-top: 20px;
+  position: relative;
+}
+.note{
+  color: #333;
+  position: relative;
+  width: 250px;
+  margin: 0 auto;
+  padding: 20px;
+  font-size: 16px;
+  box-shadow: 0 10px 10px 2px rgba(0,0,0,.3);
+}
+strong {
+  font-weight: bolder;
+}
+.card-header{
+  border-radius: 15px 15px 0 0 !important;
+  border-bottom: 0 !important;
+}
+.style-but {
+  border: 1px solid gray;
+}
+.sty-drop {
+  border-bottom: 1px solid darkgrey;
+}
+.sty-font {
+  font-weight: bold;
+}
+i.fa.fa-filter {
+  float: right;
+  padding-right: 2px;
+}
+.card-header{
+  border-radius: 15px 15px 0 0 !important;
+  border-bottom: 0 !important;
+}
+
+.Ws-bold-font {
+  font-weight: bold;
+  font-size: 11px;
+}
+.st-ul li {
+  float: left;
+}
+.label-edit-fee{
+  text-align: right
+}
+.input-edit-fee input{
+  width: 50%;
+}
+hr {
+  margin: 0;
+}
+.content-listchat-supporting{
+  height: 212px;
+  overflow-x: auto;
+}
+a.delete-chatsupporting{
+  cursor: pointer;
+}
+a.delete-chatsupporting i:hover{
+  color: #e6294b;
+}
+.content-listchat-supporting::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.content-listchat-supporting::-webkit-scrollbar
+{
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+.content-listchat-supporting::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
+}
+.style-row-order .row{
+  border-bottom: 1px dashed darkgrey;
+}
+
+.navbar-expand .navbar-nav {
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+.align-items-center {
+  align-items: center!important;
+}
+.navbar-nav {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+dl, ol, ul {
+  margin-top: 0;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+user agent stylesheet
+ul {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.button {
+  display: inline-block;
+  padding: 11px 16px 10px;
+  margin-right: 4px;
+  background: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 1;
+  -webkit-transition: background-color .2s ease;
+  transition: background-color .2s ease;
+}
+
+.button--primary {
+  background-color: #2B90D9;
+  color: #FFF;
+}
+
+.button--primary:hover,
+.button--primary:focus,
+.button--primary:active {
+  background-color: #2273AD;
+}
+
+.button--secondary {
+  background-color: #DDD;
+  color: #333;
+}
+
+.button--secondary:hover,
+.button--secondary:focus,
+.button--secondary:active {
+  background-color: #CACACA;
+}
