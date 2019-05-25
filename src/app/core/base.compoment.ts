@@ -1,4 +1,5 @@
 import {GlobalService} from './service/global.service';
+import {NotifierService} from 'angular-notifier';
 
 export interface NotifyInterface {
     /**
@@ -21,7 +22,6 @@ export class BaseComponent implements NotifyInterface {
      */
     public loading = false;
     public enableLoading = true;
-
     /**
      * @inheritDoc
      * @param message
@@ -35,7 +35,6 @@ export class BaseComponent implements NotifyInterface {
      * @param {GlobalService} httpClient
      */
     constructor(public httpClient: GlobalService) {
-
     }
 
     /**
@@ -121,7 +120,7 @@ export class BaseComponent implements NotifyInterface {
         return defaultValue;
     }
 
-    copyText(val: string) {
+    copyText(val: string, notifierS: NotifierService) {
         const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';
@@ -133,5 +132,6 @@ export class BaseComponent implements NotifyInterface {
         selBox.select();
         document.execCommand('copy');
         document.body.removeChild(selBox);
+        notifierS.notify('success', 'Copy text ' + val);
     }
 }

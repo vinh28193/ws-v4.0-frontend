@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
 import {OperationDataComponent} from '../../operation-data.component';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {NotifierService} from 'angular-notifier';
 declare var $: any;
 
 @Component({
@@ -36,9 +37,16 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     public updateForm: FormGroup;
     public editFormNote: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
+    private notifier: NotifierService;
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
+    constructor(private orderService: OrderService,
+                private popup: PopupService,
+                private fb: FormBuilder ,
+                public global: ScopeService,
+                notifier: NotifierService
+    ) {
         super(orderService);
+        this.notifier = notifier;
     }
 
     ngOnInit() {
