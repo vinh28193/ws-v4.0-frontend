@@ -1421,10 +1421,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   listShoppingCart() {
     this.checkShoppingCart = true;
-    this.orderService.ListShoppingCart(undefined).subscribe(res => {
-        this.ShoppingCar = res.data._items;
-        this.metaShopping = res.data._meta;
-    });
   }
 }
 

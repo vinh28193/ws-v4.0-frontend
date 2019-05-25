@@ -28,6 +28,8 @@ import { PurchaseInfoComponent } from './order-list/purchase-info/purchase-info.
 import { DeliveryComponent } from './order-list/delivery/delivery.component';
 import { EditLocalComponent } from './order-detail/edit-local/edit-local.component';
 import {NotifierModule, NotifierOptions, NotifierService} from 'angular-notifier';
+import { ShoppingCartComponent } from './order-list/shopping-cart/shopping-cart.component';
+import { ProductShoppingCartComponent } from './order-list/shopping-cart/product-shopping-cart/product-shopping-cart.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -107,6 +109,8 @@ const customNotifierOptions: NotifierOptions = {
         PurchaseInfoComponent,
         DeliveryComponent,
         EditLocalComponent,
+        ShoppingCartComponent,
+        ProductShoppingCartComponent,
     ],
     providers: [
       OrderService,
