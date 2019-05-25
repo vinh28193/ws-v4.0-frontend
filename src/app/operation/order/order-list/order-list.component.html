@@ -801,7 +801,7 @@
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)" [order_code]="order.ordercode"  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [openConfirmOrder]="checkConfirmOrder(order)" (getListOrder)="listOrders()" [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
                                 <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
