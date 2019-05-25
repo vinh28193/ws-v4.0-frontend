@@ -152,7 +152,6 @@
                 <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
                 <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
                 <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart" (click)="listShoppingCart()">Shopping Cart</button>
-                <button class="btn btn-info btn-sm text-white ml-1" i18n (click)="openListOrder()"  *ngIf="checkShoppingCart">List order</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
@@ -833,8 +832,8 @@
                 <div class="grid-view grid-view-custom">
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
-                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <app-shopping-cart></app-shopping-cart>
+                      <div class="card-body pt-0" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                        <app-shopping-cart (backOrder)="handleShopping($event)"></app-shopping-cart>
                       </div>
                     </div>
                   </div>

@@ -1504,8 +1504,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
-  openListOrder() {
-    this.checkShoppingCart = false;
+  handleShopping(event) {
+      console.log(event);
+      if (event) {
+        this.checkShoppingCart = false;
+      }
   }
   listShoppingCart() {
     this.checkShoppingCart = true;
