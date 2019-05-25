@@ -209,7 +209,7 @@
                                 <h5>
                                   <strong class="text-uppercase">
                                     <a target="_blank"
-                                       href="javascript:void (0)" (click)="copyText(order.ordercode)">
+                                       href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong> /
@@ -801,7 +801,7 @@
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)" [order_code]="order.ordercode"  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
+                                <app-order-detail [openConfirmOrder]="checkConfirmOrder(order)" (getListOrder)="listOrders()" [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
                                 <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
@@ -2150,28 +2150,28 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <table class="table table-bordered">
           <thead>
           <tr>
-            <th colspan="2"><h4>Info</h4></th>
+            <th colspan="2"><h4 i18n>Info arrears</h4></th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td><b>Total value of orders</b></td>
+            <td><b i18n>Total value of orders</b></td>
             <td><h4 class="text-info"><b>{{activeOrder.total_final_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           <tr>
-            <td><b>Total amount paided</b></td>
+            <td><b i18n>Total amount paided</b></td>
             <td><h4 class="text-danger"><b>{{activeOrder.total_paid_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           <tr>
-            <td><b>Total amount collect</b></td>
+            <td><b i18n>Total amount collect</b></td>
             <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="confirmArrearsAddfee()">Confirm</button>
-        <button class="btn btn-warning" (click)="arrearsAddfee.hide()">Cancel</button>
+        <button class="btn btn-success" (click)="confirmArrearsAddfee()" i18n>Confirm</button>
+        <button class="btn btn-warning" (click)="arrearsAddfee.hide()" i18n>Cancel</button>
       </div>
     </div>
   </div>

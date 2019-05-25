@@ -4,8 +4,8 @@ import {OrderService} from '../order.service';
 import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
-import {OperationDataComponent} from '../../operation-data.component';
-import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {NotifierService} from 'angular-notifier';
+
 declare var $: any;
 
 @Component({
@@ -21,12 +21,13 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     updateProductId: any;
     productQ: any;
     public code: any;
-    public checkOpen: boolean = false;
+    public checkOpen = false;
     id: any;
     idEdit = 0;
     fee = 0;
     oldfee = 0;
     public hidem: any = {};
+    @Input() openConfirmOrder: boolean;
     @Input() products: any;
     @Input() policy: any;
     @Input() Employee_Purchase: any;
@@ -36,9 +37,17 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     public updateForm: FormGroup;
     public editFormNote: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
+    @Output() getListOrder: EventEmitter<any> = new EventEmitter<any>();
+    private notifier: NotifierService;
 
-    constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder , public global: ScopeService) {
+    constructor(private orderService: OrderService,
+                private popup: PopupService,
+                private fb: FormBuilder ,
+                public global: ScopeService,
+                notifier: NotifierService
+    ) {
         super(orderService);
+        this.notifier = notifier;
     }
 
     ngOnInit() {
@@ -138,9 +147,14 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       }
     }
     checkShowFee(name) {
-      if (name === 'tax_fee_origin' || name === 'origin_shipping_fee' || name === 'weshop_fee' || name === 'intl_shipping_fee' || name === 'import_fee' || name === 'custom_fee' || name === 'product_price_origin') {
-        return true;
-      }
+        if (name === 'tax_fee_origin'
+            || name === 'origin_shipping_fee'
+            || name === 'weshop_fee'
+            || name === 'intl_shipping_fee'
+            || name === 'import_fee'
+            || name === 'custom_fee' || name === 'product_price_origin') {
+            return true;
+        }
     }
     clickUpdateVarian(variant, id) {
         this.id = id;
@@ -229,5 +243,21 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           $('.modal').modal('hide');
         }
       });
+  }
+  confirmOrder(product) {
+      this.popup.warning(() => {
+          const put = {
+              product_id: product.id,
+              OrderScenario: 'confirmPurchase'
+          };
+          this.orderService.put(`order/${product.order_id}`, put).subscribe(res => {
+              if (res.success) {
+                  this.getListOrder.emit({});
+                  this.popup.success(res.message);
+              } else {
+                  this.popup.error(res.message);
+              }
+          });
+      }, 'Do you want confirm purchase product id ' + product.id);
   }
 }
