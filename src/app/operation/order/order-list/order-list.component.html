@@ -2150,28 +2150,28 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <table class="table table-bordered">
           <thead>
           <tr>
-            <th colspan="2"><h4>Info</h4></th>
+            <th colspan="2"><h4 i18n>Info arrears</h4></th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td><b>Total value of orders</b></td>
+            <td><b i18n>Total value of orders</b></td>
             <td><h4 class="text-info"><b>{{activeOrder.total_final_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           <tr>
-            <td><b>Total amount paided</b></td>
+            <td><b i18n>Total amount paided</b></td>
             <td><h4 class="text-danger"><b>{{activeOrder.total_paid_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           <tr>
-            <td><b>Total amount collect</b></td>
+            <td><b i18n>Total amount collect</b></td>
             <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="confirmArrearsAddfee()">Confirm</button>
-        <button class="btn btn-warning" (click)="arrearsAddfee.hide()">Cancel</button>
+        <button class="btn btn-success" (click)="confirmArrearsAddfee()" i18n>Confirm</button>
+        <button class="btn btn-warning" (click)="arrearsAddfee.hide()" i18n>Cancel</button>
       </div>
     </div>
   </div>

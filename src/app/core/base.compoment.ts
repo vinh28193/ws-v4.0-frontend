@@ -122,7 +122,7 @@ export class BaseComponent implements NotifyInterface {
     }
 
     copyText(val: string) {
-        let selBox = document.createElement('textarea');
+        const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';
         selBox.style.top = '0';
