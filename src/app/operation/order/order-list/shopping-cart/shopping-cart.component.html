@@ -1,3 +1,30 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <strong>Total: <span class="text-danger mr-1">{{metaShopping.totalCount}}</span>item </strong>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <span i18n>Showing </span>
+    <select class="form-control-sm select-custom"
+            (change)="handlePerPage($event)">
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="200">200</option>
+      <option value="all" i18n>All</option>
+    </select>
+    <!--span><p i18n>of page</p>{{perPage ? perPage : 0  }}<p i18n>in</p>{{pageCount ? pageCount : 0 }}<p i18n>page in total</p>{{totalCount ? totalCount : 0 }} <p i18n>items</p></span-->
+  </div>
+  <div class="col-md-6">
+    <pagination [boundaryLinks]="true"
+                [totalItems]="perpage"
+                (pageChanged)="handlePagination($event)"
+                [itemsPerPage]="page" class="pagination-sm pull-right"
+                [rotate]="true">
+    </pagination>
+  </div>
+</div>
 <div class="style-card mb-4" *ngFor="let items of ShoppingCar">
     <div class="row margin-row">
       <div class="col-md-3 border-col">

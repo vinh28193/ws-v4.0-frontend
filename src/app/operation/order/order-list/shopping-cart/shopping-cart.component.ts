@@ -15,6 +15,9 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public metaShopping: any = {};
   public hideme: any = {};
   public pro: any = {};
+  public perpage: number;
+  public limit: number = 20;
+  public page: number = 1;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
@@ -25,15 +28,33 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   }
 
   listShoppingCart() {
-    this.orderService.ListShopping(undefined).subscribe(res => {
+    const params: any = {};
+    params.limit = this.limit;
+    params.page = this.page;
+    this.orderService.ListShopping(params).subscribe(res => {
       this.ShoppingCar = res.data._items;
-      console.log(this.ShoppingCar);
       this.metaShopping = res.data._meta;
+      if (this.metaShopping.totalCount >= this.limit) {
+        this.perpage = Math.floor(this.metaShopping.totalCount / this.limit);
+        console.log(this.perpage);
+      } else {
+        this.perpage = 1;
+      }
     });
   }
 
   getChangeAmount(price1, price2) {
     return price1 - price2;
+  }
+
+  handlePagination(event) {
+    this.page = event.page;
+    this.listShoppingCart();
+  }
+
+  handlePerPage(event) {
+    this.limit = event.target.value;
+    this.listShoppingCart();
   }
 
 }
