@@ -511,7 +511,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
             this.checkReady2Purchase = 'no';
         } else {
-            const $idPro: any;
             for (let i = 0; i < order.products.length; i++) {
                 if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
                     this.IDPro = order.products[i]['id'];
