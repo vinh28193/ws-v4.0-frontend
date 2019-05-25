@@ -43,7 +43,8 @@ ng xi18n --output-path=locale && xliffmerge --profile xliffmerge.json vi
 
 ###------Build Prod VI------------
  ng build --prod --i18n-file src/locale/messages.vi.xlf --i18n-format xlf --i18n-locale vi
- 
+ ng build --prod --output-hashing=all --i18n-file src/locale/messages.vi.xlf --i18n-format xlf --i18n-locale vi
+
 
 ####------------FCM --------------- 
 npm install clientjs or bower install clientjs --allow-root
@@ -64,3 +65,5 @@ Như đã lưu ý trong các tài liệu angular-cli , có 2 cách cho phép b�
 --prod hoặc --target = sản xuất sẽ thiết lập một số cờ, bao gồm --output-hashing = tất cả những gì kích hoạt bộ đệm ẩn bộ đệm
 Bạn cũng có thể đặt --output-băm chính nó trên dòng lệnh với một trong các giá trị có thể của nó là [none | all | media | bundles]. Điều này rất hữu ích để thử nghiệm / dàn dựng các bản dựng
 
+####----------Notifiction Cho Weshop ------------------
+https://gurayyarar.github.io/AdminBSBMaterialDesign/pages/ui/notifications.html

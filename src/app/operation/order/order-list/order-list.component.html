@@ -212,7 +212,7 @@
                                 <h5>
                                   <strong class="text-uppercase">
                                     <a target="_blank"
-                                       href="http://weshop.com.vn/order-BIN-{{order.ordercode}}/bill.html">
+                                       href="javascript:void (0)" (click)="copyText(order.ordercode)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong> /
@@ -611,8 +611,8 @@
                                 </div>
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
-                                <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
-                                <div class="col-md-6 text-right text-info style-padding-left">{{order.total_final_amount_local > order.total_paid_amount_local ? getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) : 0 | number}} <span>{{order.store_id | currencyStore}}</span></div>
+                                <div class="col-md-6 text-info cod" i18n >Collect</div>
+                                <div class="col-md-6 text-right text-info style-padding-left">{{getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span></div>
                               </div>
                               <div class="row Refund" *ngIf="order.total_refund_amount_local">
                                 <div id="refund" class="col-md-6" i18n>Refund</div>
@@ -625,6 +625,11 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
+                                  <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true)" (click)="showArrearsAddfee(order)"
+                                          class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
+                                    <i class="fa fa-dollar" aria-hidden="true"></i>
+                                    Arrears
+                                  </button>
                                     <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
@@ -796,7 +801,7 @@
                                 <app-package-item (packageI)="packageItem($event)"  [products] = "order.products" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
                               </div>
                               <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red" [hidden]="!pay[order.id]">
-                                <app-wallet-transactions  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                                <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)" [order_code]="order.ordercode"  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
                                 <app-order-detail [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
@@ -1580,7 +1585,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="row Collect so-tien-thu-them Cod">
               <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
               <div class="col-md-6 text-right text-info style-padding-left">
-                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local) : 0 | number}}
+                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local,true) : 0 | number}}
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
@@ -1622,8 +1627,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="style-row-order">
               <div class="row {{orderList.current_status === 'NEW' ? 'text-warning' : ''}}">
                 <div class="col-md-5 pr-0" i18n >New:</div>
-                <div class="col-md-7 text-right {{orderList.new}}" *ngIf="orderList.new" >
-                  <a href="javascript:void(0)" *ngIf="orderList.new" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                <div class="col-md-7 text-right" *ngIf="orderList.created_at" >
+                  <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
               <div [hidden]="!statusOrderShow[orderList.id]">
@@ -1712,7 +1717,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{ orderList.returned * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'CANCEL' ? 'text-warning' : ''}}">
+              <div class="row {{orderList.current_status === 'CANCELLED' ? 'text-warning' : ''}}">
                 <div class="col-md-6  pr-0" i18n>Cancel:</div>
                 <div class="col-md-6 text-right" *ngIf="orderList.cancelled">
                   <a href="javascript:void(0)" *ngIf="orderList.cancelled" (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
@@ -2113,6 +2118,80 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
       <div class="modal-footer ng-scope">
         <button class="btn btn-danger btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
         <!--<button class="btn btn-success btn-sm" type="button"  data-dismiss="modal" (click)="updateOrderCode()">Update</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #AddTransactionModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Create Transaction Order {{modelAddTransaction.order_code}}</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n >close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-inline">
+          <div class="form-check">
+            <input id="type_addfee" type="radio" value="addfee" name="type_transaction" [(ngModel)]="modelAddTransaction.type" class="form-check-input">
+            <label for="type_addfee" class="form-check-label">AddFee</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" id="type_refurnd" value="refund" name="type_transaction" [(ngModel)]="modelAddTransaction.type" class="form-check-input">
+            <label for="type_refurnd" class="form-check-label">Refund</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amount_transaction">Amount</label>
+          <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount" class="form-control form-control-sm" placeholder="Amount transaction">
+        </div>
+        <div class="form-group">
+          <label for="description_transaction">Description</label>
+          <textarea id="description_transaction" class="form-control form-control-sm" [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #arrearsAddfee="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n >Confirm arrears order {{activeOrder.ordercode}}</h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="arrearsAddfee.hide()">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n >close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th colspan="2"><h4>Info</h4></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><b>Total value of orders</b></td>
+            <td><h4 class="text-info"><b>{{activeOrder.total_final_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+          </tr>
+          <tr>
+            <td><b>Total amount paided</b></td>
+            <td><h4 class="text-danger"><b>{{activeOrder.total_paid_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+          </tr>
+          <tr>
+            <td><b>Total amount collect</b></td>
+            <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="confirmArrearsAddfee()">Confirm</button>
+        <button class="btn btn-warning" (click)="arrearsAddfee.hide()">Cancel</button>
       </div>
     </div>
   </div>
