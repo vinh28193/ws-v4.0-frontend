@@ -126,9 +126,10 @@ export class UsSendingViewsComponent extends TrackingDataComponent implements On
 
     addInfo() {
         this.tracking_Insert.info.push({
-            order_id: '',
+            order_code: '',
             product_id: '',
             purchase_number_invoice: '',
+            quantity: 0,
         });
     }
 
