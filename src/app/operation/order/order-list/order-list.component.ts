@@ -72,6 +72,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public proId: any;
     public codeG: any;
     public checkLoad = false;
+    public checkPur = false;
     public checkLoadG = false;
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
@@ -128,6 +129,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public status: any;
     public checkF = false;
     public store_id: any;
+    public IDPro: any;
     public message1: any;
     public messageContent: any;
     public markID: any;
@@ -509,10 +511,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
             this.checkReady2Purchase = 'no';
         } else {
-            const j = 0;
+            const $idPro: any;
             for (let i = 0; i < order.products.length; i++) {
                 if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
+                    this.IDPro = order.products[i]['id'];
                     this.checkReady2Purchase = 'no';
+                    this.checkPur = true;
                     break;
                 } else {
                     this.checkReady2Purchase = 'yes';
@@ -520,20 +524,40 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
-        this.popup.warning(() => {
-            const put = this.orderService.createPostParams({
+        const messagePop1 = 'You have not selected category SOI-' + this.IDPro;
+        if (this.checkPur) {
+          this.popup.warning(() => {
+            this.popup.warning(() => {
+              const put = this.orderService.createPostParams({
                 // current_status: 'SUPPORTED',
                 checkR2p: this.checkReady2Purchase,
+              }, 'confirmPurchase');
+              this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+                if (res.success) {
+                  this.listOrders();
+                  this.popup.success(res.message);
+                } else {
+                  this.popup.error(res.message);
+                }
+              });
+            }, messagePop);
+          }, messagePop1);
+        } else {
+          this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+              // current_status: 'SUPPORTED',
+              checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
             this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                if (res.success) {
-                    this.listOrders();
-                    this.popup.success(res.message);
-                } else {
-                    this.popup.error(res.message);
-                }
+              if (res.success) {
+                this.listOrders();
+                this.popup.success(res.message);
+              } else {
+                this.popup.error(res.message);
+              }
             });
-        }, messagePop);
+          }, messagePop);
+        }
     }
 
     checkMarkAsJunk(status, priceCheck) {
