@@ -666,7 +666,7 @@
                               <div class="hover-row">
                                 <div class="row">
                                   <div class="col-md-5 pr-0" i18n >New:</div>
-                                  <div class="col-md-7 text-right {{order.new}}" *ngIf="order.new" >{{order.new | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-7 text-right {{order.created_at}}" *ngIf="order.created_at" >{{order.created_at | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                 </div>
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
@@ -1607,8 +1607,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="style-row-order">
               <div class="row {{orderList.current_status === 'NEW' ? 'text-warning' : ''}}">
                 <div class="col-md-5 pr-0" i18n >New:</div>
-                <div class="col-md-7 text-right {{orderList.new}}" *ngIf="orderList.new" >
-                  <a href="javascript:void(0)" *ngIf="orderList.new" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                <div class="col-md-7 text-right" *ngIf="orderList.created_at" >
+                  <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
               <div [hidden]="!statusOrderShow[orderList.id]">
@@ -1697,7 +1697,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{ orderList.returned * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'CANCEL' ? 'text-warning' : ''}}">
+              <div class="row {{orderList.current_status === 'CANCELLED' ? 'text-warning' : ''}}">
                 <div class="col-md-6  pr-0" i18n>Cancel:</div>
                 <div class="col-md-6 text-right" *ngIf="orderList.cancelled">
                   <a href="javascript:void(0)" *ngIf="orderList.cancelled" (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>

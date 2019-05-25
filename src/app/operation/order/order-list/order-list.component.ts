@@ -72,6 +72,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public proId: any;
     public codeG: any;
     public checkLoad = false;
+    public checkPur = false;
     public checkLoadG = false;
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
@@ -128,6 +129,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public status: any;
     public checkF = false;
     public store_id: any;
+    public IDPro: any;
     public message1: any;
     public messageContent: any;
     public markID: any;
@@ -177,6 +179,35 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.notifier = notifier;
     }
 
+    followOrder(ordercode) {
+        this.checkF = !this.checkF;
+
+        /**Notification**/
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        this.paramsOrder = this.messagingService.sendSubscription(ordercode);
+        console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
+        if (this.paramsOrder) {
+            this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
+                // console.log('JOSN ' + JSON.stringify(ret));
+                const res: any = ret;
+                // console.log('res send token Subscription ' + JSON.stringify(res));
+                if (res.success) {
+                    const rs: any = res.data;
+                    // console.log('Notifi data : ' + JSON.stringify(rs));
+                    this.loadOrderNotifi();
+                    this.orderNotiCheck(ordercode);
+                    return true;
+                } else {
+                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
+                    return false;
+                }
+            });
+        } else {
+            console.log('Browser chưa cho phép gửi Notification');
+        }
+    }
+
     ngOnInit() {
         if (this.getParameter('orderCode')) {
             this.keywordSearch = this.getParameter('orderCode');
@@ -213,24 +244,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checking();
     }
     startCheck() {
-      Observable.timer(0, 5000)
-        .subscribe(() => {
-          if (this.message.value != null && this.message.value.notification.from !== '') {
-            this.alive = true;
-          }
-        });
+        Observable.timer(0, 5000)
+            .subscribe(() => {
+                if (this.message.value != null && this.message.value.notification.from !== '') {
+                    this.alive = true;
+                }
+            });
     }
     checking() {
-      Observable.timer(0, 5000)
-        .takeWhile(() => this.alive)
-        .subscribe(() => {
-          if (this.message.value != null) {
-            this.msg = this.message.value;
-            this.showNotification();
-            this.alive = false;
-            this.msg.notification.from = '';
-          }
-        });
+        Observable.timer(0, 5000)
+            .takeWhile(() => this.alive)
+            .subscribe(() => {
+                if (this.message.value != null) {
+                    this.msg = this.message.value;
+                    this.showNotification();
+                    this.alive = false;
+                    this.msg.notification.from = '';
+                }
+            });
     }
     buildChat() {
         this.chatSupporting = this.fb.group({
@@ -406,7 +437,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkUpdatePayment(status, total) {
         if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
-            if (status === 'CANCELLED' || total === 0 || total == null) {
+            if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
                 return true;
@@ -445,13 +476,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.get(`notifications/${fingerprint}`, undefined)
             .subscribe(res => {
                 this.orderNotifi = 0;
-              if (res.success) {
-                const order_list = res.data._items;
-                const totalNotifi = res.data._meta;
-                this.orderNotifi = order_list;
-                this.totalNotifi = totalNotifi.totalCount;
-                console.log(this.orderNotifi);
-              }
+                if (res.success) {
+                    const order_list = res.data._items;
+                    const totalNotifi = res.data._meta;
+                    this.orderNotifi = order_list;
+                    this.totalNotifi = totalNotifi.totalCount;
+                    console.log(this.orderNotifi);
+                }
             });
 
     }
@@ -509,10 +540,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
             this.checkReady2Purchase = 'no';
         } else {
-            const j = 0;
             for (let i = 0; i < order.products.length; i++) {
                 if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
+                    this.IDPro = order.products[i]['id'];
                     this.checkReady2Purchase = 'no';
+                    this.checkPur = true;
                     break;
                 } else {
                     this.checkReady2Purchase = 'yes';
@@ -520,20 +552,40 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
-        this.popup.warning(() => {
-            const put = this.orderService.createPostParams({
+        const messagePop1 = 'You have not selected category SOI-' + this.IDPro;
+        if (this.checkPur) {
+          this.popup.warning(() => {
+            this.popup.warning(() => {
+              const put = this.orderService.createPostParams({
                 // current_status: 'SUPPORTED',
                 checkR2p: this.checkReady2Purchase,
+              }, 'confirmPurchase');
+              this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+                if (res.success) {
+                  this.listOrders();
+                  this.popup.success(res.message);
+                } else {
+                  this.popup.error(res.message);
+                }
+              });
+            }, messagePop);
+          }, messagePop1);
+        } else {
+          this.popup.warning(() => {
+            const put = this.orderService.createPostParams({
+              // current_status: 'SUPPORTED',
+              checkR2p: this.checkReady2Purchase,
             }, 'confirmPurchase');
             this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                if (res.success) {
-                    this.listOrders();
-                    this.popup.success(res.message);
-                } else {
-                    this.popup.error(res.message);
-                }
+              if (res.success) {
+                this.listOrders();
+                this.popup.success(res.message);
+              } else {
+                this.popup.error(res.message);
+              }
             });
-        }, messagePop);
+          }, messagePop);
+        }
     }
 
     checkMarkAsJunk(status, priceCheck) {
@@ -1042,14 +1094,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (this.orderList.current_status === 'READY2PURCHASE') {
                 this.statusOd = 4;
             } else {
-              console.log(this.statusOds);
-              for (let i = 1; i < this.statusOds.length ; i++) {
-                const current = this.statusOds[i] || undefined;
-                if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
-                  this.statusOd = current.id;
-                  break;
+                console.log(this.statusOds);
+                for (let i = 1; i < this.statusOds.length ; i++) {
+                    const current = this.statusOds[i] || undefined;
+                    if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
+                        this.statusOd = current.id;
+                        break;
+                    }
                 }
-              }
             }
             console.log(this.countOP);
             this.formAsignUser = this.fb.group({
@@ -1412,18 +1464,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     //       sale_id: this.allKey,
     //     });
     // }
-  showNotification() {
-    const msg = {
-      message: 'Hi there!',
-      type: 'success'
-    };
+    showNotification() {
+        const msg = {
+            message: 'Hi there!',
+            type: 'success'
+        };
 
-    this.notifier.show({
-      message: msg.message,
-      type: msg.type,
-      template: this.customNotificationTmpl
-    });
-  }
+        this.notifier.show({
+            message: msg.message,
+            type: msg.type,
+            template: this.customNotificationTmpl
+        });
+    }
 
     handerShowAdddTransaction(event) {
         this.modelAddTransaction.order_code = event.code;
