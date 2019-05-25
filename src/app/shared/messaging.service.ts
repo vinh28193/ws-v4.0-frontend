@@ -90,6 +90,13 @@ export class MessagingService {
             });
     }
 
+    /**
+     * @param token
+     * @param fingerprint
+     * @param details
+     * @param userId
+     * @param ordercode
+     */
     sendSubscriptionToServer(token, fingerprint, details, userId, ordercode) {
         const params: any = {};
         params.user = userId;
@@ -130,7 +137,7 @@ export class MessagingService {
         const canvasPrint = client.getCanvasPrint();
         /** UUID Device **/
         const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        // console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
 

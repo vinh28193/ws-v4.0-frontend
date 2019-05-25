@@ -189,7 +189,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
         if (this.paramsOrder) {
             this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
-                console.log('JOSN ' + JSON.stringify(ret));
+                console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
                 const res: any = ret;
                 console.log('res send token Subscription ' + JSON.stringify(res));
                 if (res.success) {
@@ -219,7 +219,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        // this.loadOrderNotifi();
+        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
