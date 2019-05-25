@@ -176,7 +176,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 notifier: NotifierService
     ) {
         super(orderService);
-       // this.notifier = notifier;
+        // this.notifier = notifier;
     }
 
     followOrder(ordercode) {
@@ -208,6 +208,26 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
+    getAllPushNotificationsByUserId() {
+        /*
+         this.notifi.post(`notifications`,).subscribe(ret => {
+                console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
+                const res: any = ret;
+                console.log('res send token Subscription ' + JSON.stringify(res));
+                if (res.success) {
+                    const rs: any = res.data;
+                    console.log('Notifi data : ' + JSON.stringify(rs));
+                    this.loadOrderNotifi();
+                    this.orderNotiCheck(ordercode);
+                    return true;
+                } else {
+                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
+                    return false;
+                }
+          });
+        */
+    }
+
     ngOnInit() {
         if (this.getParameter('orderCode')) {
             this.keywordSearch = this.getParameter('orderCode');
@@ -219,7 +239,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        this.loadOrderNotifi();
+       // this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -486,9 +506,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     this.orderNotifi = order_list;
                     this.totalNotifi = totalNotifi.totalCount;
                     console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
-                }else {
+                } else{
                     this.orderNotifi = 0;
-                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
+                    console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
                 }
             });
 
@@ -499,13 +519,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return false;
         }
         // this.loadOrderNotifi();
-        /*
         console.log('orderNotifi : ' + JSON.stringify(this.orderNotifi));
         if (ordercode in this.orderNotifi) {
             return true;
         }
         return false;
-        */
     }
 
     chat(id, code, status) {
