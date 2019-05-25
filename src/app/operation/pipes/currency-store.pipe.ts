@@ -10,6 +10,9 @@ export class CurrencyStorePipe implements PipeTransform {
             case 1:
                 return 'đ';
                 break;
+            case 7:
+              return 'IDR';
+              break;
             default:
                 return '$';
                 break;

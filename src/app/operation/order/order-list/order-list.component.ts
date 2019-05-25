@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, NgModule} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order-data.component';
 import {OrderService} from '../order.service';
@@ -12,6 +12,10 @@ import {ScopeService} from '../../../core/service/scope.service';
 import {MessagingService} from '../../../shared/messaging.service';
 import {NotificationsService} from '../../../core/service/notifications.service';
 import {StorageService} from '../../../core/service/storage.service';
+import {NotifierService} from 'angular-notifier';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/observable/timer';
 
 declare var jQuery: any;
 declare var $: any;
@@ -24,6 +28,9 @@ declare var $: any;
 export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild(ModalDirective) showPromotion: ModalDirective;
     @ViewChild(ModalDirective) showChatGroup: ModalDirective;
+    @ViewChild('customNotification') customNotificationTmpl;
+    public limit: number = 20;
+    public page: number = 1;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -37,8 +44,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
     public total: any;
+    public countOP: any;
     public chatId: any;
     public totalChat: any;
+    public totalNotifi: any;
     public tracking_code: any;
     public quantityP = 0;
     public quantityC = 0;
@@ -66,6 +75,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkCreateOrderChatRefund = false;
     public checkListOrderChatRefund = false;
     public checkOpenAssignSFO = false;
+    public alive = true;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
@@ -117,6 +127,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkF = false;
     public store_id: any;
     public message1: any;
+    public messageContent: any;
     public markID: any;
     public orderUpdatePurchase: any;
     public moreLog: any = {};
@@ -137,9 +148,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public idOrder: any;
+    public msg: any = {};
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
+    private notifier: NotifierService;
 
     constructor(private orderService: OrderService,
                 private router: Router,
@@ -150,8 +163,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 private messagingService: MessagingService,
                 public  notifi: NotificationsService,
                 public storegate: StorageService,
+                notifier: NotifierService
     ) {
         super(orderService);
+        this.notifier = notifier;
     }
 
     followOrder(ordercode) {
@@ -194,7 +209,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-        this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -216,6 +230,30 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
+        this.startCheck();
+        this.checking();
+    }
+
+    startCheck() {
+        Observable.timer(0, 5000)
+            .subscribe(() => {
+                if (this.message.value != null && this.message.value.notification.from !== '') {
+                    this.alive = true;
+                }
+            });
+    }
+
+    checking() {
+        Observable.timer(0, 5000)
+            .takeWhile(() => this.alive)
+            .subscribe(() => {
+                if (this.message.value != null) {
+                    this.msg = this.message.value;
+                    this.showNotification();
+                    this.alive = false;
+                    this.msg.notification.from = '';
+                }
+            });
     }
 
     buildChat() {
@@ -384,10 +422,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             params.endTime = this.convertDateTime(value.bsRangeValue['1']);
         }
 
-        params.limit = 20;
-        params.page = 1;
-        // this.country = params.store;
-        // this.getProvinces();
+        params.limit = this.limit;
+        params.page = this.page;
         this.loadPolicy(params.store);
         return params;
     }
@@ -403,14 +439,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handlePagination(event) {
-        const page = event.page;
-        this.searchForm.patchValue({page: page});
+        this.page = event.page;
         this.listOrders();
     }
 
     handlePerPage(event) {
-        const value = event.target.value;
-        this.searchForm.patchValue({perPage: value});
+        this.limit = event.target.value;
         this.listOrders();
     }
 
@@ -436,8 +470,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             .subscribe(res => {
                 this.orderNotifi = 0;
                 if (res.success) {
-                    const order_list = res.data.order_list;
+                    const order_list = res.data._items;
+                    const totalNotifi = res.data._meta;
                     this.orderNotifi = order_list;
+                    this.totalNotifi = totalNotifi.totalCount;
+                    console.log(this.orderNotifi);
                 }
             });
 
@@ -565,7 +602,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.email = email;
         this.searchForm.patchValue({
             keyWord: this.email,
-            searchKeyword: 'customer.email'
+            searchKeyword: 'user.email'
         });
         this.listOrders();
     }
@@ -1010,10 +1047,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
 
-    openUpdateOrderCode(ordercode, id) {
+    openUpdateOrderCode(order) {
         this.statusOds = StatusOrder;
-        this.code = ordercode;
-        this.markID = id;
+        this.code = order.ordercode;
+        this.markID = order.id;
         this.checkUpdateOderCode = true;
         this.getSeller();
         this.orderDetail();
@@ -1023,11 +1060,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     orderDetail() {
         this.orderService.get(`order/${this.code}`).subscribe(res => {
             this.orderList = res.data[0];
+            console.log(this.orderList.current_status);
             if (this.orderList.current_status === 'READY2PURCHASE') {
-                this.statusOd = 'ready_purchase';
+                this.statusOd = 4;
             } else {
-                this.statusOd = this.orderList.current_status.toLowerCase();
+                console.log(this.statusOds);
+                for (let i = 1; i < this.statusOds.length; i++) {
+                    const current = this.statusOds[i] || undefined;
+                    if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
+                        this.statusOd = current.id;
+                        break;
+                    }
+                }
             }
+            console.log(this.countOP);
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
             });
@@ -1388,5 +1434,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     //       sale_id: this.allKey,
     //     });
     // }
+    showNotification() {
+        const msg = {
+            message: 'Hi there!',
+            type: 'success'
+        };
+
+        this.notifier.show({
+            message: msg.message,
+            type: msg.type,
+            template: this.customNotificationTmpl
+        });
+    }
 }
 

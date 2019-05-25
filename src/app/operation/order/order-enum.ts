@@ -34,8 +34,8 @@ export const timeKeys = [
     {key: 'order.returned', name: 'Time Return'},
     {key: 'order.cancel', name: 'Time Cancelled'},
     {key: 'order.lost', name: 'Time Lost'},
-    {key: '', name: 'Time Confirm Purchase'},
-    {key: '', name: 'At Customer'},
+    // {key: '', name: 'Time Confirm Purchase'},
+    // {key: '', name: 'At Customer'},
 ];
 export const paymentRequests = [
     {key: 'order.createTime', name: 'New Add fee'},

@@ -27,6 +27,48 @@ import { UpdatePromotionComponent } from './order-list/update-promotion/update-p
 import { PurchaseInfoComponent } from './order-list/purchase-info/purchase-info.component';
 import { DeliveryComponent } from './order-list/delivery/delivery.component';
 import { EditLocalComponent } from './order-detail/edit-local/edit-local.component';
+import {NotifierModule, NotifierOptions, NotifierService} from 'angular-notifier';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'left',
+      distance: 12
+    },
+    vertical: {
+      position: 'bottom',
+      distance: 12,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 5000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
     imports: [
@@ -41,7 +83,8 @@ import { EditLocalComponent } from './order-detail/edit-local/edit-local.compone
         TooltipModule.forRoot(),
         ModalModule.forRoot(),
         PopoverModule.forRoot(),
-        BsDropdownModule.forRoot()
+        BsDropdownModule.forRoot(),
+        NotifierModule.withConfig(customNotifierOptions),
     ],
     declarations: [
         OrderRoutingComponent,
@@ -67,6 +110,7 @@ import { EditLocalComponent } from './order-detail/edit-local/edit-local.compone
     ],
     providers: [
       OrderService,
+      NotifierService
     ]
 })
 export class OrderModule {
