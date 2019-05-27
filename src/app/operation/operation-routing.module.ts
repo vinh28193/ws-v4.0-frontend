@@ -4,6 +4,7 @@ import {OperationRoutingComponent} from './operation-routing.component';
 import {TrackingLogComponent} from './tracking-log/tracking-log.component';
 import {WarehouseComponent} from './warehouse/warehouse.component';
 import {DeliveryNoteComponent} from './delivery-note/delivery-note.component';
+import {WalletComponent} from './wallet/wallet.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
             {
                 path: 'delivery-note',
                 component: DeliveryNoteComponent
+            },
+            {
+                path: 'wallet',
+                component: WalletComponent
             },
         ]
     }
