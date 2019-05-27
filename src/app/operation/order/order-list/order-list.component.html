@@ -680,11 +680,11 @@
                                     <div class="col-md-7 text-right" *ngIf="order.supported" >{{order.supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>
+                                    <div class="col-md-5 pr-0" i18n >Ready2Purchase:</div>
                                     <div class="col-md-7 text-right" *ngIf="order.ready_purchase" >{{order.ready_purchase | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
+                                    <div class="col-md-6 pr-0" i18n>Purchasing:</div>
                                     <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
                                   </div>
                                 </div>
@@ -1646,14 +1646,14 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </div>
                 </div>
                 <div class="row {{orderList.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n >Ready 2 Purchase:</div>
+                  <div class="col-md-5 pr-0" i18n >Ready2Purchase:</div>
                   <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase" >
                     <a href="javascript:void(0)" *ngIf="orderList.ready_purchase" (click)="updateNull('ready_purchase', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                     {{orderList.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
                 </div>
                 <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
-                  <div class="col-md-6 pr-0" i18n>Purchase Start:</div>
+                  <div class="col-md-6 pr-0" i18n>Purchasing:</div>
                   <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
                     <a href="javascript:void(0)" *ngIf="orderList.purchase_start" (click)="updateNull('purchase_start', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                     {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
