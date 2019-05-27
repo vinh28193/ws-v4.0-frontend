@@ -191,7 +191,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paramsOrder = this.messagingService.sendSubscription(ordercode);
         console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
         if (this.paramsOrder) {
-            this.notifi.post(`notifications`, this.paramsOrder).subscribe(ret => {
+            this.orderService.post(`notifications`, this.paramsOrder).subscribe(ret => {
                 console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
                 const res: any = ret;
                 console.log('res send token Subscription ' + JSON.stringify(res));
@@ -498,8 +498,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     unfollowOrder(ordercode) {
         const fingerprint = this.messagingService.UUID();
-        console.log("UUID unfollowOrder: " + fingerprint + " Order Code :" + ordercode);
-        this.orderService.deleteParam('notifications/' + fingerprint, ordercode).subscribe(res => {
+        console.log(ordercode);
+        // console.log("UUID unfollowOrder: " + fingerprint + " Order Code :" + ordercode);
+        this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(res => {
             this.loadOrderNotifi();
             this.orderNotiCheck(ordercode);
         });
