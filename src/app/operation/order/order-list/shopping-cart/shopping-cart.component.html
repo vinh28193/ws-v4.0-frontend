@@ -13,6 +13,7 @@
         </div>
         <div class="col-md-12 mt-2">
           <button class="btn btn-sm btn-success" (click)="listShoppingCart()"><i class="fa fa-search mr-1"></i><span i18n>Search</span></button>
+          <button class="btn btn-sm btn-info" (click)="refreshShopping()"><i class="fa fa-refresh mr-1"></i><span i18n>Refresh</span></button>
           <button class="btn btn-sm btn-danger ml-2" (click)="backOrderShopping()"><i class="fa fa-backward mr-1"></i><span i18n>Back To The List Order</span></button>
         </div>
       </div>
@@ -78,7 +79,11 @@
           <div class="col-md-12">
             <h5 class="text-bold mb-0" i18n>BUYER </h5>
             <div> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{items.data.order.customer_type | uppercase }} </span> </div>
-            <span>{{items.data.order.customer.username}} - {{items.data.order.customer.phone}} - {{items.data.order.customer.email}}</span>
+            <span>{{items.data.order.customer.username}} - {{items.data.order.customer.phone}} - {{items.data.order.customer.email}}
+              <a href="javascript:void(0)" (click)="filterOneCustomer(items.data.order.customer.email)">
+                <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
+              </a>
+            </span>
                                     <!--<a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>-->
           </div>
         </div>

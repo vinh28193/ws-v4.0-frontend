@@ -35,6 +35,8 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
 
   listShoppingCart() {
     const params = this.pSearch();
+    params.limit = this.limit;
+    params.page = this.page;
     this.orderService.ListShopping(params).subscribe(res => {
       this.ShoppingCar = res.data._items;
       this.metaShopping = res.data._meta;
@@ -70,12 +72,25 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     if (value.keyword !== '' && value.keyword !== 0) {
       params.keyword = value.keyword;
     }
-    params.limit = this.limit;
-    params.page = this.page;
     return params;
   }
   backOrderShopping() {
     this.backorderlist = true;
     this.backOrder.emit(this.backorderlist);
+  }
+
+  filterOneCustomer(email) {
+    this.searchF.patchValue({
+      value: email,
+      keyword: 'data.order.customer.email'
+    });
+    this.listShoppingCart();
+  }
+  refreshShopping() {
+    this.searchF.patchValue({
+      value: '',
+      keyword: 0
+    });
+    this.listShoppingCart();
   }
 }
