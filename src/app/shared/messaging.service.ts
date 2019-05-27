@@ -159,9 +159,9 @@ export class MessagingService {
     createPostParams(order: any | {}, scenario?: any | null) {
         const params: any = {};
         params.Order = order;
-        if (this.isValidValue(scenario)) {
-            params.OrderScenario = scenario;
-        }
+        // if (this.isValidValue(scenario)) {
+        //     params.OrderScenario = scenario;
+        // }
         return params;
     }
 }

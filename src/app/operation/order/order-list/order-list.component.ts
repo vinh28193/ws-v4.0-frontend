@@ -166,6 +166,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     typeSearchKeyWord = '';
     keywordSearch = '';
     private notifier: NotifierService;
+    public ArrayListOrder: any = {};
 
     constructor(private orderService: OrderService,
                 private router: Router,
@@ -525,9 +526,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     orderNotiCheck(ordercode) {
-        let ArrayListOrder = [];
-        ArrayListOrder = ['WSVN3490BB4AEC1', 'WSVN34801386BD6','WSVN347C5FF2543' ];
-        if (ArrayListOrder.includes(ordercode)){
+        this.ArrayListOrder = ['WSVN3490BB4AEC1', 'WSVN34801386BD6', 'WSVN347C5FF2543' ];
+        if (this.ArrayListOrder.includes(ordercode)) {
             return true;
         }
         return false;
@@ -1534,14 +1534,16 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
-  handleShopping(event) {
-      console.log(event);
-      if (event) {
-        this.checkShoppingCart = false;
-      }
-  }
-  listShoppingCart() {
-    this.checkShoppingCart = true;
-  }
+
+    handleShopping(event) {
+        console.log(event);
+        if (event) {
+            this.checkShoppingCart = false;
+        }
+    }
+
+    listShoppingCart() {
+        this.checkShoppingCart = true;
+    }
 }
 

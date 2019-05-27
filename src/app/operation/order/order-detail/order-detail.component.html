@@ -170,10 +170,10 @@
                 <strong>{{ProFee.type | ProductFee }}
                   (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
                                     {{ ProFee.amount | currency: 'JPY' : '￥'}}
-                                  </span>
+                  </span>
                   <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
                                     {{ ProFee.amount | currency : 'USD' : '$'}}
-                                  </span>):
+                  </span>):
                 </strong>
               </div>
               <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
