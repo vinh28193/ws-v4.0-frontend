@@ -19,7 +19,7 @@ const client = new ClientJS();
 export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
-    private currentToken: any;
+    currentToken = new BehaviorSubject(null);
     public orderNotifi: any = [];
 
     constructor(
@@ -58,7 +58,7 @@ export class MessagingService {
             () => {
                 const data = {};
                 data[userId] = token;
-                this.angularFireDB.object('fcmTokens/').update(data);
+               return this.angularFireDB.object('fcmTokens/').update(data);
             });
     }
 
@@ -72,6 +72,7 @@ export class MessagingService {
             (token) => {
                 this.currentToken = token;
                 this.updateToken(userId, token);
+                return this.currentToken;
             },
             (err) => {
                 console.error('Unable to get permission to notify.', err);

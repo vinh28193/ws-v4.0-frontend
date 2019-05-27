@@ -239,7 +239,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.currentPage = 1;
         this.perPage = 20;
         this.dateTime = new Date();
-       // this.loadOrderNotifi();
         this.buildChat();
         const maxDateTime: Date = this.dateTime;
         maxDateTime.setDate(this.dateTime.getDate() + 1);
@@ -251,9 +250,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.paymentRequests = paymentRequests;
         this.orderStatus = orderStatus;
         this.load();
+
+        // FCM get Messager
+        // this.loadOrderNotifi();
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
+        const usserId = this.messagingService.getUser(); // 'user001';
+        console.log('usserId :' + usserId);
+        const token_fcm = this.messagingService.currentToken;
+        console.log('token_fcm :' + JSON.stringify(token_fcm));
+        // Policy
         this.loadAllPolicy();
+
+        // View notification
         $(document).on('show.bs.modal', '.modal', function () {
             const zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
@@ -506,7 +515,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     this.orderNotifi = order_list;
                     this.totalNotifi = totalNotifi.totalCount;
                     console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
-                } else{
+                } else {
                     this.orderNotifi = 0;
                     console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
                 }
