@@ -297,7 +297,7 @@
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
                                   <div *ngIf="_scope.CheckSale()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
-                                  <span>{{order.user?.last_name}} - {{order.user?.phone}} - {{order.user?.email}}
+                                  <span>{{order.user?.last_name}} - <a href="tel:{{order.user?.phone}}">{{order.user?.phone}}</a> - {{order.user?.email}}
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
                                 </div>
                               </div>
@@ -315,7 +315,7 @@
                                         </h5>
                                       </div>
                                       <div class="address">
-                                        <span>{{order.receiver_name}} - {{order.receiver_phone}} - {{order.receiver_email}}</span>
+                                        <span>{{order.receiver_name}} - <a href="tel:{{order.receiver_phone}}">{{order.receiver_phone}}</a> - {{order.receiver_email}}</span>
                                         <br>
                                         <span>{{order.receiver_address}} ( {{order.receiver_district_name }} - {{order.receiver_province_name}}) - {{order.receiver_country_name}}</span>
                                       </div>
