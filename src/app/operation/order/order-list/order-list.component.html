@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-md-7">
               <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS</h3>
-              <h3 i18n *ngIf="checkShoppingCart">LISTS SHOPPING CART</h3>
+              <h3 i18n *ngIf="checkShoppingCart">LISTS NEW</h3>
               <!--<span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>-->
             </div>
             <div class="col-md-5 text-right">
@@ -151,7 +151,7 @@
                 <button class="btn btn-sm btn-success" *ngIf="!checkShoppingCart" (click)="listOrders()"><i class="fa fa-search"></i><span i18n>Search</span></button>
                 <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
                 <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
-                <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart" (click)="listShoppingCart()">Shopping Cart</button>
+                <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart" (click)="listShoppingCart()">NEW</button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                 <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
