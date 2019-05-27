@@ -67,7 +67,7 @@
 
             <trans-unit id="ca0d8b5466da734c53492ac12c2db87cfc0e11b2" datatype="html">
                 <source>Package Draft</source>
-                <target state="translated">Package Draft</target>
+                <target state="translated">Kiện Hàng Tạm</target>
 
             <context-group purpose="location"><context context-type="sourcefile">app/operation/operation-routing.component.ts</context><context context-type="linenumber">67</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">5</context></context-group></trans-unit>
             <trans-unit id="5704ec2049d007c5f5fb495a5d8b607e68d58081" datatype="html">
@@ -1062,7 +1062,7 @@
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1073</context></context-group></trans-unit>
                 <trans-unit id="c6af5e481cbfa4769c780bed735815029d2e6276" datatype="html">
                     <source>Total Paid Amount Local</source>
-                    <target state="translated">Tổng số tiền phải trả tại địa phương</target>
+                    <target state="translated">Tổng số tiền quy đổi phải trả </target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1078</context></context-group></trans-unit>
@@ -1214,10 +1214,10 @@
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">67</context></context-group></trans-unit><trans-unit id="47896a84239b956b5ab095b991837c2afb03fb66" datatype="html">
-        <source>Local Name:</source><target state="translated">Tên địa phương:</target>
+        <source>Local Name:</source><target state="translated">Tên tiếng việt:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">75</context></context-group></trans-unit><trans-unit id="0cc1dec590ecd74bef71a865fb364779bc42a749" datatype="html">
-        <source>Category:</source><target state="translated">Thể loại:</target>
+        <source>Category:</source><target state="translated">Danh mục hải quan:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">79</context></context-group></trans-unit><trans-unit id="4d04b0aba131c9744aba6730aea1acee998aa102" datatype="html">
         <source>note for inspection</source><target state="translated">lưu ý kiểm tra</target>
@@ -1226,7 +1226,7 @@
         <source>QTT Set:</source><target state="translated">Bộ QTT:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">92</context></context-group></trans-unit><trans-unit id="5028efd82df034d3b26c77d698be1b0f24661cb6" datatype="html">
-        <source>Fragile:</source><target state="translated">Mong manh:</target>
+        <source>Fragile:</source><target state="translated">Hàng dễ vỡ:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context><context context-type="linenumber">96</context></context-group></trans-unit>
                 <trans-unit id="3cb95c4990cb8609de212bb43b412ce3889d1c4e" datatype="html">
@@ -1483,7 +1483,7 @@
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1951</context></context-group></trans-unit><trans-unit id="ce61895b1c9f6fa0b88b3bde344acad0d4b83f61" datatype="html">
         <source>
                   <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/> Refresh
-                </source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i"/> Làm tươi</target>
+                </source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i"/> Làm mới</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1954</context></context-group></trans-unit><trans-unit id="1a89219823e72dedf4cfe0f8da4bcf08863abb9e" datatype="html">
         <source>Tracking : <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{code}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source><target state="translated">Theo dõi: <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION"/><x id="CLOSE_TAG_SPAN" ctype="x-span"/></target>
@@ -1703,7 +1703,7 @@ Enter to send</source>
 
 
                     <source>Variation</source>
-                    <target state="translated">Biến thể</target>
+                    <target state="translated">Thuộc tính sản phẩm</target>
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context><context context-type="linenumber">34</context></context-group></trans-unit>
                 <trans-unit id="dedb86e845bb7c4ee59af9d7ab8d763661b612c4" datatype="html">
@@ -1915,7 +1915,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
 
 
                 </trans-unit><trans-unit id="6912f95371dc78806081450f50102e1702cc4a81" datatype="html">
-        <source>Add tracking Us Received</source><target state="translated">Thêm theo dõi chúng tôi đã nhận</target>
+        <source>Add tracking Us Received</source><target state="translated">Đánh dấu Kho mỹ đã nhận</target>
 
       </trans-unit>
 
@@ -1945,13 +1945,13 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
         <source>--All Warehouse--</source><target state="translated">--Tất cả kho--</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context><context context-type="linenumber">39</context></context-group></trans-unit><trans-unit id="598629016dc82dfe3c4796b44b182cc7e5ebc237" datatype="html">
-        <source>Pickup Warehouse</source><target state="translated">Kho chứa hàng</target>
+        <source>Pickup Warehouse</source><target state="translated">Kho lấy hàng</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">151</context></context-group></trans-unit><trans-unit id="ee8bcfc533ab5a934c99276a5ff805eb87b86a05" datatype="html">
-        <source>Receive Warehouse</source><target state="translated">Nhận kho</target>
+        <source>Receive Warehouse</source><target state="translated">Kho nhận</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">169</context></context-group></trans-unit><trans-unit id="ac3e04c378c2314bf82153445006756d98ddf41f" datatype="html">
-        <source>Upload Tracking File <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>(<x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>TrackingCode.xlsx<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>)<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source><target state="translated">Tải lên tệp theo dõi <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>( <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>TrackCode.xlsx<x id="CLOSE_LINK" ctype="x-a"/> )<x id="CLOSE_TAG_SPAN" ctype="x-span"/></target>
+        <source>Upload Tracking File <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>(<x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>TrackingCode.xlsx<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>)<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source><target state="translated">Tải lên tệp tracking <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>( <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>TrackCode.xlsx<x id="CLOSE_LINK" ctype="x-a"/> )<x id="CLOSE_TAG_SPAN" ctype="x-span"/></target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">183</context></context-group></trans-unit>
                 <trans-unit id="432dc84cfff9e05e8039af315e1bd32b32d09a7a" datatype="html">
@@ -1990,26 +1990,26 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
 
                 <trans-unit id="5338c1d108c660047a01fc035c935d2cf24fa4e0" datatype="html">
                     <source>Create Manifest From List Warehouse Us Send List Tracking</source>
-                    <target state="translated">Tạo tệp kê khai từ danh sách kho Chúng tôi gửi theo dõi danh sách
+                    <target state="translated">Tạo Lô theo Danh sách tracking kho mỹ gửi
                     </target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">254</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">141</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">141</context></context-group></trans-unit>
                 <trans-unit id="579160f96bd0aed1a92bc363239dff239b467531" datatype="html">
                     <source>--Select Store--</source>
-                    <target state="translated">--Chọn Cửa hàng--</target>
+                    <target state="translated">--Chọn quốc gia--</target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">263</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">163</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">150</context></context-group></trans-unit>
                 <trans-unit id="c16e4ffd78c66ba2b85d53579e9563d61a2f0ce0" datatype="html">
                     <source> Pickup Warehouse</source>
-                    <target state="translated">Kho chứa hàng</target>
+                    <target state="translated">Kho lấy hàng</target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">269</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">156</context></context-group></trans-unit>
                 <trans-unit id="7eb838e686e8cbe621af2fa5aadc9b38909841ef" datatype="html">
                     <source> Name Manifest</source>
-                    <target state="translated">Tên biểu hiện</target>
+                    <target state="translated">Tên Lô</target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">278</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">178</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">165</context></context-group></trans-unit>
@@ -2027,26 +2027,26 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">284</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">171</context></context-group></trans-unit>
                 <trans-unit id="feb5de7ec228c4d4769d4457527f64cc181f22be" datatype="html">
                     <source>SetUp Time In Us WareHosue</source>
-                    <target state="translated">Thời gian thiết lập tại chúng tôi WareHosue</target>
+                    <target state="translated">Thời gian tại kho mỹ</target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">290</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">147</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">177</context></context-group></trans-unit><trans-unit id="31dadb362bf7f7c2afa10e5f96474ccd3977f91f" datatype="html">
-        <source>Datepicker</source><target state="translated">Bảng chọn ngày</target>
+        <source>Datepicker</source><target state="translated">Bảng chọn thời gian</target>
 
 
       </trans-unit><trans-unit id="7374adc7f3f50047940e768433acbfb5aee85b1c" datatype="html">
-        <source>Seller refund tracking <x id="INTERPOLATION" equiv-text="{{sellerRefundForm.tracking}}"/></source><target state="translated">Theo dõi hoàn tiền của người bán <x id="INTERPOLATION"/></target>
+        <source>Seller refund tracking <x id="INTERPOLATION" equiv-text="{{sellerRefundForm.tracking}}"/></source><target state="translated">Tracking Người bán hoàn tiền <x id="INTERPOLATION"/></target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">323</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">216</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">210</context></context-group></trans-unit><trans-unit id="8ae5c2cc173fcd264839c442373c73989236647f" datatype="html">
-        <source>Update Tracking</source><target state="translated">Theo dõi cập nhật</target>
+        <source>Update Tracking</source><target state="translated">Cập nhật Tracking</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">350</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">243</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">237</context></context-group></trans-unit><trans-unit id="99a8a50327813a2b9e8a82484b87a18d3d94c7a9" datatype="html">
-        <source>Update tracking <x id="INTERPOLATION" equiv-text="{{updateForm.tracking}}"/></source><target state="translated">Theo dõi cập nhật <x id="INTERPOLATION"/></target>
+        <source>Update tracking <x id="INTERPOLATION" equiv-text="{{updateForm.tracking}}"/></source><target state="translated">Cập nhật Tracking <x id="INTERPOLATION"/></target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">374</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">267</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">261</context></context-group></trans-unit><trans-unit id="15263bba98e5f43720bcc2e42dd5a63a3273c039" datatype="html">
         <source>Update
                                                     Tracking
-                                                </source><target state="translated">Theo dõi cập nhật</target>
+                                                </source><target state="translated">Cập nhật Tracking</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">409</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">302</context></context-group></trans-unit><trans-unit id="e04bd8bec144ea7d603aa0fde0a5ff394175b45b" datatype="html">
         <source>Cancel
@@ -2055,39 +2055,39 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">413</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">306</context></context-group></trans-unit>
                 <trans-unit id="dc787b0559ffea762e822b4fdafb3f64f2879c87" datatype="html">
                     <source>Merge tracking <x id="INTERPOLATION" equiv-text="{{trackingMerge}}"/></source>
-                    <target state="translated">Hợp nhất theo dõi
+                    <target state="translated">Gộp Tracking
                         <x id="INTERPOLATION"/>
                     </target>
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">437</context></context-group></trans-unit>
                 <trans-unit id="7f8e64261497f0b38cfb8aa12b8f77cbb01a179b" datatype="html">
                     <source>Merge</source>
-                    <target state="translated">Hợp nhất</target>
+                    <target state="translated">Gộp</target>
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">455</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">359</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">353</context></context-group></trans-unit><trans-unit id="d2b7d9aff1f2b76c8ed91095b988c1bdca78320c" datatype="html">
         <source>Update
                           Tracking
-                        </source><target state="translated">Theo dõi cập nhật</target>
+                        </source><target state="translated">Cập nhật Tracking</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">296</context></context-group></trans-unit><trans-unit id="b55ae42cc17e055f3eec49bab1bcea27381e2219" datatype="html">
         <source>Cancel
                         </source><target state="translated">Hủy bỏ</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">300</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-views/tracking-views.component.ts</context><context context-type="linenumber">185</context></context-group></trans-unit><trans-unit id="2630b03348993fd365cfd22d202b13abb38ba106" datatype="html">
-        <source>Merge tracking <x id="INTERPOLATION" equiv-text="{{trackingMerge.data_tracking_code}}"/></source><target state="translated">Hợp nhất theo dõi <x id="INTERPOLATION"/></target>
+        <source>Merge tracking <x id="INTERPOLATION" equiv-text="{{trackingMerge.data_tracking_code}}"/></source><target state="translated">Gộp tracking <x id="INTERPOLATION"/></target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">330</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">324</context></context-group></trans-unit><trans-unit id="6cf01ddf69bd91e520cc0310cf12dd3be7901cce" datatype="html">
-        <source>Create shipmnet</source><target state="translated">Tạo shipmnet</target>
+        <source>Create shipmnet</source><target state="translated">Tạo Vận đơn</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-views/tracking-views.component.ts</context><context context-type="linenumber">141</context></context-group></trans-unit><trans-unit id="47172be55db9412c512d0a28dcadefa972a20378" datatype="html">
         <source>Create Shipment
-                        </source><target state="translated">Tạo lô hàng</target>
+                        </source><target state="translated">Tạo Vận đơn</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-views/tracking-views.component.ts</context><context context-type="linenumber">182</context></context-group></trans-unit><trans-unit id="67f8412f8f45348e04df7b3d3bf66a0db5660a16" datatype="html">
-        <source>Add tracking</source><target state="translated">Thêm theo dõi</target>
+        <source>Add tracking</source><target state="translated">Thêm Tracking</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending-views/us-sending-views.component.ts</context><context context-type="linenumber">162</context></context-group></trans-unit><trans-unit id="43751f413403db7c000c622158201cbab74ad5e4" datatype="html">
-        <source>Insert Tracking</source><target state="translated">Chèn theo dõi</target>
+        <source>Insert Tracking</source><target state="translated">Thêm Tracking</target>
 
       </trans-unit>
 
@@ -2110,25 +2110,25 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
         <source>--All Seller--</source><target state="translated">- Tất cả người bán--</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1771</context></context-group></trans-unit><trans-unit id="c551957b296745d0fc331d1bf157f39e5aef8be8" datatype="html">
-        <source>Price Amount Origin</source><target state="translated">Giá tiền Xuất xứ</target>
+        <source>Price Amount Origin</source><target state="translated">Giá tiền gốc</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1776</context></context-group></trans-unit><trans-unit id="737547d4fbcd015579d16c91ca77f2ea58d677d2" datatype="html">
-        <source>Total Price Amount Local</source><target state="translated">Tổng giá Số lượng địa phương</target>
+        <source>Total Price Amount Local</source><target state="translated">Tổng giá Số lượng quy đổi</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1779</context></context-group></trans-unit><trans-unit id="8053ed7f7707f61db18474c2b2b16d8cd42964e1" datatype="html">
-        <source>Price Amount Local</source><target state="translated">Giá Số lượng Địa phương</target>
+        <source>Price Amount Local</source><target state="translated">Giá Số lượng quy đổi</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1782</context></context-group></trans-unit><trans-unit id="9e7d0359a2488250be3069a3e33695f60a9f503b" datatype="html">
-        <source>Variations</source><target state="translated">Biến thể</target>
+        <source>Variations</source><target state="translated">Thuộc tính</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1785</context></context-group></trans-unit><trans-unit id="6aac700f6329534e15ce6f9a4d526a004c1d1785" datatype="html">
-        <source>Portal</source><target state="translated">Cổng thông tin</target>
+        <source>Portal</source><target state="translated">Portal</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1788</context></context-group></trans-unit><trans-unit id="4fe348140b65bdde803f81dd10fce6ec475d4f82" datatype="html">
         <source>SKU</source><target state="translated">SKU</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1791</context></context-group></trans-unit><trans-unit id="18d37180ef6101e5115cfa0d0cb6c8e4f3909e19" datatype="html">
-        <source>SKU Parent</source><target state="translated">Phụ huynh SKU</target>
+        <source>SKU Parent</source><target state="translated">SKU Gốc</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1794</context></context-group></trans-unit><trans-unit id="616e206cb4f25bd5885fc35925365e43cf5fb929" datatype="html">
         <source>Name:</source><target state="translated">Tên:</target>
@@ -2137,7 +2137,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
         <source>SKU Parent:</source><target state="translated">Phụ huynh SKU:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1821</context></context-group></trans-unit><trans-unit id="26ba2ac669dc6e4b0ffe8a986a5abf6ecbdd277a" datatype="html">
-        <source>Variations:</source><target state="translated">Biến thể:</target>
+        <source>Variations:</source><target state="translated">Thuộc tính:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1825</context></context-group></trans-unit><trans-unit id="d42f5ecfe6e24724bbe83556ff284d59cdb4cbb7" datatype="html">
         <source>Total value Product</source><target state="translated">Tổng giá trị sản phẩm</target>
@@ -2194,7 +2194,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="INTERPOLATION" equiv-text="{{courier.min_delivery_time}}"/> day - <x id="INTERPOLATION_1" equiv-text="{{courier.max_delivery_time}}"/> day<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/></source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="INTERPOLATION"/>ngày-<x id="INTERPOLATION_1"/>ngày<x id="CLOSE_ITALIC_TEXT" ctype="x-i"/></target>
         
       </trans-unit><trans-unit id="3d4debfc8e8ab14d6d2a258beca83a02428bdd5b" datatype="html">
-        <source>Please select courier!</source><target state="translated">Vui lòng chọn chuyển phát nhanh!</target>
+        <source>Please select courier!</source><target state="translated">Vui lòng chọn hãng vận chuyển!</target>
         
       </trans-unit><trans-unit id="acd417024135c9822846a256229798124230cf0c" datatype="html">
         <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>COD:<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/></source><target state="translated"><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>COD:<x id="CLOSE_BOLD_TEXT" ctype="x-b"/></target>
@@ -2241,7 +2241,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context><context context-type="linenumber">64</context></context-group></trans-unit>
                 <trans-unit id="f808771ecff954b88e11fda94db08ecaf5e74537" datatype="html">
                     <source>Condition:</source>
-                    <target state="translated">Điều kiện:</target>
+                    <target state="translated">Trạng thái sản phẩm:</target>
 
 
                 <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-detail/purchase-card/purchase-card.component.ts</context><context context-type="linenumber">67</context></context-group></trans-unit>
