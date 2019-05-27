@@ -369,7 +369,7 @@ export class UsSendingComponent extends TrackingDataComponent implements OnInit 
             const match = type === 'search' ? this.trackingMergeSearch : this.trackingMerge.ext_tracking_code;
             rs = this.tracks._ext.filter(
                 c => c.tracking_code.toUpperCase().indexOf(match.toUpperCase()) !== -1);
-            console.log(rs);
+            // console.log(rs);
         }
         return rs;
     }

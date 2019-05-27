@@ -19,7 +19,7 @@ const client = new ClientJS();
 export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
-    currentToken = new BehaviorSubject(null);
+    public currentToken: any;
     public orderNotifi: any = [];
 
     constructor(

@@ -1,0 +1,253 @@
+<div class="row style-row" *ngFor="let product of products">
+  <div class="col-md-6 border-col">
+    <div class="row">
+      <div class="col-md-2 m-0 p-0">
+        <h5 class="text-center">
+          <a href="" class="badge badge-pill badge-primary ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">SOI-</a>
+        </h5>
+      </div>
+      <div class="col-md-2 p-0 text-center">
+        <div class="images">
+          <img src="{{product.link_img}}" alt="" width="50%">
+        </div>
+        <div class="mt-2">
+          <a href="{{product.link_origin}}" target="_blank" class="originalLink" i18n>Original Link</a>
+        </div>
+        <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
+          <span class="sr-only ng-star-inserted">( )</span>
+          <span class="ng-star-inserted text-center">
+                          <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-warning">★</span>
+                           <span class="star ng-star-inserted text-dark">★</span>
+                           <span class="star ng-star-inserted text-dark">★</span>
+                        </span>
+        </div>
+        <!--div class="btn btn-sm btn-info Version mt-2 row">Version: {{product.version}}</div-->
+        <p></p>
+      </div>
+      <div class="col-md-8 pl-1">
+        <div class="row">
+          <div class="col-md-6 pr-0" style="border-right: 1px solid #d9d9d9">
+            <ul>
+              <li class="product_name">
+                <a href="{{product.product_link}}" target="_blank" tooltip="{{product.product_name}}">
+                  {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. . .'):(product.product_name)}}
+                </a>
+              </li>
+              <li class="sku">
+                <span class="mr-2">Sku:</span>
+                <app-span-label [value]="product.sku"></app-span-label>
+              </li>
+              <li class="seller_id">
+                <span class="mr-2" i18n>Size:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li class="total_weight_temporary">
+                <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
+                <app-span-label [value]="product.total_weight_temporary"></app-span-label>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 pl-1">
+            <ul>
+              <li>
+                <span class="mr-2" i18n>Local Name:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Category:</span>
+                <app-span-label [value]="product.category.origin_name"></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>QTT Set:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Fragile:</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+              <li>
+                <span class="mr-2" i18n>Packing Wood</span>
+                <app-span-label [value]=""></app-span-label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 border-col">
+    <div class="row">
+      <div class="col-md-12 style-border-finance">
+        <div class="row">
+          <div class="col-md-10">
+            <h5 i18n>FINANCE</h5>
+          </div>
+          <!--<div class="col-md-2 text-right">-->
+            <!--<button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]" tooltip="Show Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>-->
+              <!--<i class="fa fa-eye" aria-hidden="true"></i>-->
+            <!--</button>-->
+            <!--<button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]" tooltip="Hide Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>-->
+              <!--<i class="fa fa-eye-slash" aria-hidden="true"></i>-->
+            <!--</button>-->
+          <!--</div>-->
+        </div>
+        <div class="hover-row">
+          <div class="row quantity_customer ">
+            <div class="col-md-7"><strong i18n>Quantity:</strong></div>
+            <div class="col-md-5 text-right Quantity">
+             {{product.quantity_customer}}
+            </div>
+          </div>
+          <div>
+            <div class="row" *ngIf="product.fees.product_price_origin">
+              <div class="col-md-4">
+                {{product.fees.product_price_origin.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.product_price_origin.discount_amount > 0">{{product.fees.product_price_origin.discount_amount  | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.product_price_origin.local_amount  | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.origin_shipping_fee">
+              <div class="col-md-4">
+                {{product.fees.origin_shipping_fee.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.origin_shipping_fee.discount_amount > 0">{{product.fees.origin_shipping_fee.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.origin_shipping_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.tax_fee_origin">
+              <div class="col-md-4">
+                {{product.fees.tax_fee_origin.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.tax_fee_origin.discount_amount > 0">{{product.fees.tax_fee_origin.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.tax_fee_origin.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.weshop_fee">
+              <div class="col-md-4">
+                {{product.fees.weshop_fee.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.weshop_fee.discount_amount > 0">{{product.fees.weshop_fee.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.weshop_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.intl_shipping_fee">
+              <div class="col-md-4">
+                {{product.fees.intl_shipping_fee.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.intl_shipping_fee.discount_amount > 0">{{product.fees.intl_shipping_fee.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.intl_shipping_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.custom_fee">
+              <div class="col-md-4">
+                {{product.fees.custom_fee.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.custom_fee.discount_amount > 0">{{product.fees.custom_fee.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.custom_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.delivery_fee_local">
+              <div class="col-md-4">
+                {{product.fees.delivery_fee_local.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.delivery_fee_local.discount_amount > 0">{{product.fees.delivery_fee_local.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.delivery_fee_local.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.packing_fee">
+              <div class="col-md-4">
+                {{product.fees.packing_fee.name}}
+              </div>
+              <div class="col-md-4">
+                <span *ngIf="product.fees.packing_fee.discount_amount">{{product.fees.packing_fee.discount_amount | currency:'VND'}}</span>
+              </div>
+              <div class="col-md-4 text-right">
+                {{product.fees.packing_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.inspection_fee">
+              <div class="col-md-4">
+                {{product.fees.inspection_fee.name}}
+              </div>
+              <div class="col-md-4">
+                {{product.fees.inspection_fee.discount_amount | number}}đ
+              </div>
+              <div class="col-md-4">
+                {{product.fees.inspection_fee.local_amount | number}}đ
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.insurance_fee">
+              <div class="col-md-4">
+                {{product.fees.insurance_fee.name}}
+              </div>
+              <div class="col-md-4">
+                {{product.fees.insurance_fee.discount_amount | number}}đ
+              </div>
+              <div class="col-md-4">
+                {{product.fees.insurance_fee.local_amount | number}}đ
+              </div>
+            </div>
+            <div class="row" *ngIf="product.fees.vat_fee">
+              <div class="col-md-4">
+                {{product.fees.vat_fee.name}}
+              </div>
+              <div class="col-md-4">
+                {{product.fees.vat_fee.discount_amount | currency:'VND'}}
+              </div>
+              <div class="col-md-4  text-right">
+                {{product.fees.vat_fee.local_amount | currency:'VND'}}
+              </div>
+            </div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row total_fee_product">
+            <div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>
+            <div class="col-md-5 text-right ">{{ product.total_fee_product_local | currency:'VND'}}</div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row total_fee_product">
+            <div class="col-md-7"><strong i18n>Price Amount Product :({{product.price_amount_origin | currency:'VND'}}) </strong></div>
+            <div class="col-md-5 text-right ">{{ product.price_amount_local}}đ</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+              <strong i18n>Total value Product</strong>
+            </div>
+            <div class="col-md-6 text-right ">{{product.total_price_amount_local | currency:'VND'}}</div>
+          </div>
+        </div>
+      </div>
+
+      <p></p>
+
+    </div>
+  </div>
+</div>
