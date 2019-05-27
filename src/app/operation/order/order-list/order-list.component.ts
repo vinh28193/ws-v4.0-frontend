@@ -199,7 +199,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     const rs: any = res.data;
                     console.log('Notifi data : ' + JSON.stringify(rs));
                     this.loadOrderNotifi();
-                    this.orderNotiCheck(ordercode);
+                    // this.orderNotiCheck(ordercode);
                     return true;
                 } else {
                     // console.error('Error notify sendSubscription.' + JSON.stringify(res));
@@ -497,13 +497,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     unfollowOrder(ordercode) {
-        // this.checkF = !this.checkF;
-
         const fingerprint = this.messagingService.UUID();
+        console.log("UUID unfollowOrder: " + fingerprint + " Order Code :" + ordercode);
         this.orderService.deleteParam('notifications/' + fingerprint, ordercode).subscribe(res => {
             this.loadOrderNotifi();
             this.orderNotiCheck(ordercode);
-
         });
     }
 
@@ -515,24 +513,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 if (res.success) {
                     const order_list = res.data._items;
                     const totalNotifi = res.data._meta;
-                    this.orderNotifi = order_list;
-                    this.totalNotifi = totalNotifi.totalCount;
+                    // this.orderNotifi = order_list;
+                    // this.totalNotifi = totalNotifi.totalCount;
                     console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
                 } else {
                     this.orderNotifi = 0;
                     console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
                 }
             });
-
     }
 
     orderNotiCheck(ordercode) {
-        if (this.orderNotifi === 0) {
-            return false;
-        }
-        // this.loadOrderNotifi();
-        console.log('orderNotifi : ' + JSON.stringify(this.orderNotifi));
-        if (ordercode in this.orderNotifi) {
+        let ArrayListOrder = [];
+        ArrayListOrder = ['WSVN3490BB4AEC1', 'WSVN34801386BD6','WSVN347C5FF2543' ];
+        if (ArrayListOrder.includes(ordercode)){
             return true;
         }
         return false;

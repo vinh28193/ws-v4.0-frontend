@@ -7,6 +7,7 @@ import {take} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {NotificationsService} from '../core/service/notifications.service';
 import {StorageService} from '../core/service/storage.service';
+import {GlobalService} from '../core/service/global.service';
 
 // custom-typings.d
 declare let ClientJS: any;
@@ -105,7 +106,7 @@ export class MessagingService {
         params.fingerprint = fingerprint;
         params.details = JSON.stringify(details);
         params.ordercode = ordercode;
-        params.nv = details.os;
+        params.nv = 'WEB'; // details.os;  ---> Môi trường bắn API nhân Notification
         return params;
 
     }
@@ -155,5 +156,12 @@ export class MessagingService {
         return details;
     }
 
-
+    createPostParams(order: any | {}, scenario?: any | null) {
+        const params: any = {};
+        params.Order = order;
+        if (this.isValidValue(scenario)) {
+            params.OrderScenario = scenario;
+        }
+        return params;
+    }
 }
