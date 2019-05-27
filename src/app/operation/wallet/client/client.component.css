@@ -1,0 +1,11 @@
+
+
+.check-active-wallet {
+    font-size: 25px;
+    color: green;
+}
+
+.not-active-wallet {
+    font-size: 25px;
+    color: red;
+}

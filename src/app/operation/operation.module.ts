@@ -31,6 +31,7 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
 import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { ClientComponent } from './wallet/client/client.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { WalletComponent } from './wallet/wallet.component';
         WarehouseComponent,
         StatusTrackingPipe,
         DeliveryNoteComponent,
-        WalletComponent
+        WalletComponent,
+        ClientComponent
     ],
     providers: [
         OperationService

@@ -1,0 +1,186 @@
+<div class="row">
+
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+      Show
+      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(current_page)" >
+        <option value="20">20 rows</option>
+        <option value="20">50 rows</option>
+        <option value="100">100 rows</option>
+        <option value="200">200 rows</option>
+        <option value="500">500 rows</option>
+      </select>
+      ||
+      Showing {{((current_page-1)*limit+1)}} to
+      {{((current_page*limit)>totalclient)?totalclient:(current_page*limit)}} of {{totalclient}} entries
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers"
+         id="example1_paginate">
+      <pagination (pageChanged)="getClients($event.page)" [itemsPerPage]="limit"
+                  [totalItems]="totalclient"></pagination>
+    </div>
+  </div>
+</div>
+<section class="card cat__core__card-with-sidebar cat__core__card-with-sidebar--large">
+  <div class="cat__core__card-sidebar">
+    <div class="cat__apps__messaging__header">
+      <input class="form-control cat__apps__messaging__header__input" (keyup.enter)="getClients(current_page)" [(ngModel)]="keyword" placeholder="ID / Email / UserName / Phone">
+      <i class="icmn-search"></i>
+      <button (click)="getClients(current_page)" ></button>
+    </div>
+    <div class="cat__apps__messaging__list cat__apps__messaging__list--no-avatar">
+      <div *ngFor="let client of clients" (click)="getTotalTransaction(client);"
+           [class]="activeClient.id==client.id?'cat__apps__messaging__tab cat__apps__messaging__tab--selected':'cat__apps__messaging__tab cat__apps__messaging__tab'">
+        <div class="cat__apps__messaging__tab__content">
+          <div class="mb-1">
+            Id Client: <strong>{{client.id}}</strong>
+          </div>
+          <div class="mb-1">
+            Customer Id: <strong>{{client.customer_id}}</strong>
+          </div>
+          <div class="mb-1">
+            User Name: <strong>{{client.username}}</strong>
+          </div>
+          <small class="cat__apps__messaging__tab__time"><i ngClass="{{client.status==1 ? 'icmn-checkmark check-active-wallet' : 'icmn-cancel-circle not-active-wallet' }}"></i></small>
+          <div class="cat__apps__messaging__tab__name">{{client.email}}</div>
+          <div class="cat__apps__messaging__tab__text">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="card-header">
+    <a class="btn btn-sm btn-primary pull-right" data-target="#compose" data-toggle="modal"
+       href="javascript: void(0);">Compose Mail</a>
+    <div class="nav-tabs-horizontal cat__apps__messaging__nav-tabs pull-left">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a aria-expanded="true" class="nav-link active" data-target="#profile2" data-toggle="tab"
+             href="javascript: void(0);" role="tab">
+            <i class="icmn-home"></i>
+            <span class="hidden-md-down">Primary</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a aria-expanded="false" class="nav-link" data-target="#messages2" data-toggle="tab"
+             href="javascript: void(0);" role="tab">
+            <i class="icmn-users"></i>
+            <span class="hidden-md-down">Social</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-target="#settings2" data-toggle="tab" href="javascript: void(0);"
+             role="tab" aria-expanded="false">
+            <i class="icmn-price-tags"></i>
+            <span class="hidden-md-down">Bulk</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-block">
+    <div class="row">
+      <div class="col-xl-3">
+        <div class="cat__core__step cat__core__step--success mb-4">
+                                <span class="cat__core__step__digit">
+                                    <i class="icmn-coin-dollar"></i>
+                                </span>
+          <div class="cat__core__step__desc">
+            <span class="cat__core__step__title" [popover]="balanceTemplate" popoverTitle="Detail">Current Balance</span>
+            <p> {{activeClient.current_balance |currency:'VND'}}</p>
+            <ng-template #balanceTemplate>
+              <table class="table table-hover table-responsive" style="color: black">
+                <tr>
+                  <td>Total Balance:</td>
+                  <td>{{activeClient.current_balance |currency:'VND'}}</td>
+                </tr>
+                <tr>
+                  <td>Freeze</td>
+                  <td>{{activeClient.freeze_balance |currency:'VND'}}</td>
+                </tr>
+                <tr>
+                  <td>Usable</td>
+                  <td>{{activeClient.usable_balance |currency:'VND'}}</td>
+                </tr>
+                <tr>
+                  <td>Withdrawable</td>
+                  <td>{{activeClient.withdrawable_balance |currency:'VND'}}</td>
+                </tr>
+              </table>
+            </ng-template>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="cat__core__step cat__core__step--primary mb-4">
+                                <span class="cat__core__step__digit">
+                                    <i class="icmn-list"></i>
+                                </span>
+          <div class="cat__core__step__desc">
+            <span class="cat__core__step__title">Transaction</span>
+            <p>{{total}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="cat__core__step cat__core__step--danger mb-4">
+                                <span class="cat__core__step__digit">
+                                    <i class="icmn-bullhorn"></i>
+                                </span>
+          <div class="cat__core__step__desc">
+            <span class="cat__core__step__title">Connections</span>
+            <p>Growth: 56%</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="cat__core__step cat__core__step--default mb-4">
+                                <span class="cat__core__step__digit">
+                                    <i class="icmn-price-tags"></i>
+                                </span>
+          <div class="cat__core__step__desc">
+            <span class="cat__core__step__title">Sales</span>
+            <p>Total: 646</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <wallet-transaction [wallet_client_id]="activeClient.id"></wallet-transaction>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<div class="row">
+
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+      Show
+      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(current_page)" >
+        <option value="20">20 rows</option>
+        <option value="20">50 rows</option>
+        <option value="100">100 rows</option>
+        <option value="200">200 rows</option>
+        <option value="500">500 rows</option>
+      </select>
+      ||
+      Showing {{((current_page-1)*limit+1)}} to
+      {{((current_page*limit)>totalclient)?totalclient:(current_page*limit)}} of {{totalclient}} entries
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers"
+         id="example1_paginate">
+      <pagination (pageChanged)="getClients($event.page)" [itemsPerPage]="limit"
+                  [totalItems]="totalclient"></pagination>
+    </div>
+  </div>
+</div>
