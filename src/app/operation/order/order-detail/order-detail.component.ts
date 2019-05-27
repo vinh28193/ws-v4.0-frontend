@@ -282,7 +282,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     let tottalAmount = 0;
     for (let j = 0; j < productFees.length; j++) {
       if (productFees[j]['type'] === 'product_price_origin') {
-        console.log(productFees[j]['amount']);
+        // console.log(productFees[j]['amount']);
         tottalAmount += toNumber(productFees[j]['amount']);
       } if (productFees[j]['type'] === 'origin_shipping_fee') {
         tottalAmount += productFees[j]['amount'];
