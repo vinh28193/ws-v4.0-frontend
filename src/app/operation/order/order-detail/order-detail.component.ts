@@ -5,6 +5,8 @@ import {PopupService} from '../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ScopeService} from '../../../core/service/scope.service';
 import {NotifierService} from 'angular-notifier';
+import {forEach} from '@angular/router/src/utils/collection';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 declare var $: any;
 
@@ -26,6 +28,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     idEdit = 0;
     fee = 0;
     oldfee = 0;
+    public totalAmount = 0;
     public hidem: any = {};
     @Input() openConfirmOrder: boolean;
     @Input() products: any;
@@ -39,6 +42,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
     @Output() getListOrder: EventEmitter<any> = new EventEmitter<any>();
     private notifier: NotifierService;
+    private $j: number;
 
     constructor(private orderService: OrderService,
                 private popup: PopupService,
@@ -260,4 +264,32 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
           });
       }, 'Do you want confirm purchase product id ' + product.id);
   }
+
+  itemSubtotal(productFees) {
+      const tottal: number = 0;
+     for (let j = 0; j < productFees.length; j++) {
+       if (productFees[j]['type'] === 'product_price_origin') {
+         tottal += toNumber(productFees[j]['local_amount']);
+       } if (productFees[j]['type'] === 'origin_shipping_fee') {
+         tottal += productFees[j]['local_amount'];
+       } if (productFees[j]['type'] === 'tax_fee_origin') {
+         tottal += productFees[j]['local_amount'];
+       }
+     }
+     return tottal;
+  }
+  itemSubtotalAmount(productFees) {
+    const tottalAmount: number = 0;
+    for (let j = 0; j < productFees.length; j++) {
+      if (productFees[j]['type'] === 'product_price_origin') {
+        console.log(productFees[j]['amount']);
+        tottalAmount += toNumber(productFees[j]['amount']);
+      } if (productFees[j]['type'] === 'origin_shipping_fee') {
+        tottalAmount += productFees[j]['amount'];
+      } if (productFees[j]['type'] === 'tax_fee_origin') {
+        tottalAmount += productFees[j]['amount'];
+      }
+    }
+    return tottalAmount;
+}
 }
