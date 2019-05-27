@@ -25,8 +25,10 @@ export class ClientComponent extends OperationDataComponent implements OnInit {
         console.log(this.limit);
         const fd = new FormData();
         fd.append('keyword', this.keyword);
+        fd.append('page', this.currentPage.toString());
+        fd.append('limit', this.limit.toString());
         this.currentPage = page;
-        this.service.get('clients/index', fd, this.currentPage, this.limit).subscribe(res => {
+        this.service.get('clients-backend/index', fd).subscribe(res => {
             // this.total = res.total;
             this.clients = res.data;
             this.totalclient = res.total;
@@ -38,10 +40,10 @@ export class ClientComponent extends OperationDataComponent implements OnInit {
     getTotalTransaction(client) {
         if (this.activeClient !== client) {
             this.activeClient = client;
-            let fd = new FormData();
+            const fd = new FormData();
             fd.append('idWallet', client.id);
-            this.walletService.getList('clients/get-total-transaction', fd).subscribe(res => {
-                this.total = res.data;
+            this.service.get('clients/get-total-transaction', fd).subscribe(res => {
+                this.totalCount = res.data;
             });
         }
     }

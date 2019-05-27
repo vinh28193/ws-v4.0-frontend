@@ -3,7 +3,7 @@
   <div class="col-sm-12 col-md-5">
     <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
       Show
-      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(current_page)" >
+      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(currentPage)" >
         <option value="20">20 rows</option>
         <option value="20">50 rows</option>
         <option value="100">100 rows</option>
@@ -11,8 +11,8 @@
         <option value="500">500 rows</option>
       </select>
       ||
-      Showing {{((current_page-1)*limit+1)}} to
-      {{((current_page*limit)>totalclient)?totalclient:(current_page*limit)}} of {{totalclient}} entries
+      Showing {{((currentPage-1)*limit+1)}} to
+      {{((currentPage*limit)>totalclient)?totalclient:(currentPage*limit)}} of {{totalclient}} entries
     </div>
   </div>
   <div class="col-sm-12 col-md-7">
@@ -26,9 +26,9 @@
 <section class="card cat__core__card-with-sidebar cat__core__card-with-sidebar--large">
   <div class="cat__core__card-sidebar">
     <div class="cat__apps__messaging__header">
-      <input class="form-control cat__apps__messaging__header__input" (keyup.enter)="getClients(current_page)" [(ngModel)]="keyword" placeholder="ID / Email / UserName / Phone">
+      <input class="form-control cat__apps__messaging__header__input" (keyup.enter)="getClients(currentPage)" [(ngModel)]="keyword" placeholder="ID / Email / UserName / Phone">
       <i class="icmn-search"></i>
-      <button (click)="getClients(current_page)" ></button>
+      <button (click)="getClients(currentPage)" ></button>
     </div>
     <div class="cat__apps__messaging__list cat__apps__messaging__list--no-avatar">
       <div *ngFor="let client of clients" (click)="getTotalTransaction(client);"
@@ -123,7 +123,7 @@
                                 </span>
           <div class="cat__core__step__desc">
             <span class="cat__core__step__title">Transaction</span>
-            <p>{{total}}</p>
+            <p>{{totalCount}}</p>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <wallet-transaction [wallet_client_id]="activeClient.id"></wallet-transaction>
+        <app-transaction [wallet_client_id]="activeClient.id"></app-transaction>
       </div>
 
     </div>
@@ -162,9 +162,9 @@
 <div class="row">
 
   <div class="col-sm-12 col-md-5">
-    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+    <div class="dataTables_info" role="status" aria-live="polite">
       Show
-      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(current_page)" >
+      <select class="form-control-sm" [(ngModel)]="limit" (change)="getClients(currentPage)" >
         <option value="20">20 rows</option>
         <option value="20">50 rows</option>
         <option value="100">100 rows</option>
@@ -172,13 +172,12 @@
         <option value="500">500 rows</option>
       </select>
       ||
-      Showing {{((current_page-1)*limit+1)}} to
-      {{((current_page*limit)>totalclient)?totalclient:(current_page*limit)}} of {{totalclient}} entries
+      Showing {{((currentPage-1)*limit+1)}} to
+      {{((currentPage*limit)>totalclient)?totalclient:(currentPage*limit)}} of {{totalclient}} entries
     </div>
   </div>
   <div class="col-sm-12 col-md-7">
-    <div class="dataTables_paginate paging_simple_numbers"
-         id="example1_paginate">
+    <div class="dataTables_paginate paging_simple_numbers">
       <pagination (pageChanged)="getClients($event.page)" [itemsPerPage]="limit"
                   [totalItems]="totalclient"></pagination>
     </div>

@@ -26,12 +26,13 @@ import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
 import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
 import {PagingCustomComponent} from './paging-custom/paging-custom.component';
 import { TrackingLogComponent } from './tracking-log/tracking-log.component';
-import {BsDatepickerModule, ModalModule, PaginationModule, TooltipModule, TypeaheadModule} from 'ngx-bootstrap';
+import {BsDatepickerModule, ModalModule, PaginationModule, PopoverModule, TooltipModule, TypeaheadModule} from 'ngx-bootstrap';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
 import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { ClientComponent } from './wallet/client/client.component';
+import { TransactionComponent } from './wallet/transaction/transaction.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ClientComponent } from './wallet/client/client.component';
         PaginationModule.forRoot(),
         BsDatepickerModule.forRoot(),
         TooltipModule.forRoot(),
+        PopoverModule,
     ],
     declarations: [
         OperationRoutingComponent,
@@ -71,7 +73,8 @@ import { ClientComponent } from './wallet/client/client.component';
         StatusTrackingPipe,
         DeliveryNoteComponent,
         WalletComponent,
-        ClientComponent
+        ClientComponent,
+        TransactionComponent
     ],
     providers: [
         OperationService
