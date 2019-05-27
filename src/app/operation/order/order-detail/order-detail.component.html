@@ -218,6 +218,19 @@
                 </div>
               </div>
             </div>
+          <div class="row total_fee_product">
+            <div class="col-md-7"><strong i18n>Item subtotal : </strong>
+              <strong *ngIf="product.productFees">
+                (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ itemSubtotalAmount(product.productFees) | currency: 'JPY' : '￥'}}
+                                  </span>
+                <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                    {{ itemSubtotalAmount(product.productFees) | currency : 'USD' : '$'}}
+                                  </span>):
+              </strong>
+            </div>
+            <div class="col-md-5 text-right style-padding " *ngIf="product.productFees">{{ itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+          </div>
           <hr style="margin: 5px">
           <div class="row total_fee_product">
             <div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>
