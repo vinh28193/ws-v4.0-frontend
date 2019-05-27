@@ -266,7 +266,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
 
   itemSubtotal(productFees) {
-      let tottal: number = 0;
+      let tottal = 0;
      for (let j = 0; j < productFees.length; j++) {
        if (productFees[j]['type'] === 'product_price_origin') {
          tottal += toNumber(productFees[j]['local_amount']);
@@ -279,7 +279,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
      return tottal;
   }
   itemSubtotalAmount(productFees) {
-    let tottalAmount: number = 0;
+    let tottalAmount = 0;
     for (let j = 0; j < productFees.length; j++) {
       if (productFees[j]['type'] === 'product_price_origin') {
         console.log(productFees[j]['amount']);
