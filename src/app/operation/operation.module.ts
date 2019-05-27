@@ -30,6 +30,7 @@ import {BsDatepickerModule, ModalModule, PaginationModule, TooltipModule, Typeah
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
 import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
+import { WalletComponent } from './wallet/wallet.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
         PagingCustomComponent,
         WarehouseComponent,
         StatusTrackingPipe,
-        DeliveryNoteComponent
+        DeliveryNoteComponent,
+        WalletComponent
     ],
     providers: [
         OperationService
