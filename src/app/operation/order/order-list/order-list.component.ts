@@ -1225,7 +1225,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     updateNull(column, id) {
-        // console.log(column);
         const messagePop = 'Do you want Delete';
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
