@@ -180,7 +180,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 notifier: NotifierService
     ) {
         super(orderService);
-        // this.notifier = notifier;
+        this.notifier = notifier;
     }
 
     followOrder(ordercode) {
@@ -1482,29 +1482,32 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return true;
     }
 
-    // checkUpdatePaymentShow(code, status) {
-    //   if (this.checkUpdatePayment(status)) {
-    //     this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-    //       const rs = res;
-    //       this.listLog = rs.data;
-    //     });
-    //   }
-    // }
-    // checkUpdatePaymentOne() {
-    //   const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
-    //   if (pay.length > 0) {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // }
-    // openAssignSaleFollowOrder(order) {
-    //     this.code = order.ordercode;
-    //     this.checkOpenAssignSFO = true;
-    //     this.assignSFO = this.fb.group({
-    //       sale_id: this.allKey,
-    //     });
-    // }
+    /*
+    checkUpdatePaymentShow(code, status) {
+      if (this.checkUpdatePayment(status)) {
+        this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+          const rs = res;
+          this.listLog = rs.data;
+        });
+      }
+    }
+    checkUpdatePaymentOne() {
+      const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+      if (pay.length > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    openAssignSaleFollowOrder(order) {
+        this.code = order.ordercode;
+        this.checkOpenAssignSFO = true;
+        this.assignSFO = this.fb.group({
+          sale_id: this.allKey,
+        });
+    }
+    */
+
     showNotification() {
         const msg = {
             message: 'Hi there!',
