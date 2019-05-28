@@ -190,17 +190,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.paramsOrder = this.messagingService.sendSubscription(ordercode);
-        console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
+        // console.log('this.paramsOrder :' + JSON.stringify(this.paramsOrder));
         if (this.paramsOrder) {
             this.orderService.post(`notifications`, this.paramsOrder).subscribe(ret => {
-                console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
+                // console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
                 const res: any = ret;
-                console.log('res send token Subscription ' + JSON.stringify(res));
+                // console.log('res send token Subscription ' + JSON.stringify(res));
                 if (res.success) {
                     const rs: any = res.data;
-                    console.log('Notifi data : ' + JSON.stringify(rs));
-                    this.loadOrderNotifi();
-                    // this.orderNotiCheck(ordercode);
+                    // console.log('Notifi data : ' + JSON.stringify(rs));
+                    this.getAllPushNotificationsByUserId();
+                    this.orderNotiCheck(ordercode);
                     return true;
                 } else {
                     // console.error('Error notify sendSubscription.' + JSON.stringify(res));
@@ -221,10 +221,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             const res: any = ret;
             if (res.success) {
                 const rs: any = res.data;
-                console.log('rs : ' + JSON.stringify(rs));
-                console.log('rs.order_list : ' + JSON.stringify(rs[0].order_code));
+                // console.log('rs : ' + JSON.stringify(rs));
+                // console.log('rs.order_list : ' + JSON.stringify(rs[0].order_code));
                 const array_list: any = [];
-                console.log('rs.length : ' + JSON.stringify(rs.length));
+                // console.log('rs.length : ' + JSON.stringify(rs.length));
                 for (let i = 0; i <= rs.length - 1; i++) {
                     array_list.push(rs[i].order_code);
                 }
@@ -240,35 +240,25 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     unfollowOrder(ordercode) {
         const fingerprint = this.messagingService.UUID();
-        this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(res => {
-            this.loadOrderNotifi();
-            this.orderNotiCheck(ordercode);
+        this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(
+            ret => {
+                const res: any = ret;
+                if (res.success) {
+                    this.getAllPushNotificationsByUserId();
+                    return this.orderNotiCheck(ordercode);
+                }
         });
     }
 
-    loadOrderNotifi() {
-        const fingerprint = this.messagingService.UUID();
-        this.orderService.get(`notifications/${fingerprint}`, undefined)
-            .subscribe(res => {
-                this.orderNotifi = 0;
-                if (res.success) {
-                    const order_list = res.data._items;
-                    const totalNotifi = res.data._meta;
-                    // this.orderNotifi = order_list;
-                    // this.totalNotifi = totalNotifi.totalCount;
-                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
-                } else {
-                    this.orderNotifi = 0;
-                    console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
-                }
-            });
-    }
 
     orderNotiCheck(ordercode) {
         const dataCheck = this.ArrayListOrder;
         if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
             if (dataCheck.indexOf(ordercode) >= 0) {
+                console.log(' ordercode :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
                 return true;
+            }else if (dataCheck.indexOf(ordercode) <= -1) {
+                return false;
             }
         }
         return false;
@@ -1127,7 +1117,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     orderDetail() {
         this.orderService.get(`order/${this.code}`).subscribe(res => {
             this.orderList = res.data[0];
-            console.log(this.orderList.current_status);
+            // console.log(this.orderList.current_status);
             if (this.orderList.current_status === 'READY2PURCHASE') {
                 this.statusOd = 4;
             } else {
@@ -1140,7 +1130,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     }
                 }
             }
-            console.log(this.countOP);
+           // console.log(this.countOP);
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
             });
@@ -1540,7 +1530,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     handleShopping(event) {
-        console.log(event);
+        // console.log(event);
         if (event) {
             this.checkShoppingCart = false;
         }

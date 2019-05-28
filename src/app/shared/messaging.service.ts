@@ -38,7 +38,7 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('token firebase : ' + this.currentToken);
+                // console.log('token firebase : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
@@ -126,7 +126,7 @@ export class MessagingService {
         const userId = this.getUser();
         const currentToken = this.currentToken;
         if (currentToken) {
-            console.log('currentToken : ' + JSON.stringify(currentToken));
+            // console.log('currentToken : ' + JSON.stringify(currentToken));
             return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
         } else {
             return false;
@@ -139,7 +139,7 @@ export class MessagingService {
         const canvasPrint = client.getCanvasPrint();
         /** UUID Device **/
         const fingerprint = client.getCustomFingerprint(ua, canvasPrint);
-        console.log(' UUID devide : ' + JSON.stringify(fingerprint));
+        // console.log(' UUID devide : ' + JSON.stringify(fingerprint));
         return fingerprint;
     }
 
@@ -156,12 +156,5 @@ export class MessagingService {
         return details;
     }
 
-    createPostParams(order: any | {}, scenario?: any | null) {
-        const params: any = {};
-        params.Order = order;
-        // if (this.isValidValue(scenario)) {
-        //     params.OrderScenario = scenario;
-        // }
-        return params;
-    }
+
 }
