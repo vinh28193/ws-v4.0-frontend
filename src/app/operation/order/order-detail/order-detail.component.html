@@ -1,5 +1,5 @@
 <div class="row style-row" *ngFor="let product of products">
-  <div class="col-md-6 border-col">
+  <div class="col-md-6 border-col" style="padding: 10px;">
     <div class="row">
       <div class="col-md-1 m-0 p-0">
         <h5 class="text-center">
@@ -143,7 +143,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 border-col">
+  <div class="col-md-6 border-col" style="padding: 10px;">
     <div class="row">
       <div class="col-md-12 style-border-finance">
         <div class="row">
@@ -228,7 +228,9 @@
                 </div>
               </div>
             </div>
-          <div class="row total_fee_product">
+
+          <hr style="margin: 5px">
+          <div class="row Item_Subtotal">
             <div class="col-md-7"><strong i18n>Item subtotal : </strong>
               <strong *ngIf="product.productFees">
                 (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
@@ -241,11 +243,14 @@
             </div>
             <div class="col-md-5 text-right style-padding " *ngIf="product.productFees">{{ itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
+
           <hr style="margin: 5px">
+
           <div class="row total_fee_product">
             <div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>
             <div class="col-md-5 text-right style-padding ">{{ product.total_fee_product_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
+
           <hr style="margin: 5px">
 
           <div class="row">
@@ -260,7 +265,6 @@
 
 
       </div>
-
       <p></p>
 
     </div>
