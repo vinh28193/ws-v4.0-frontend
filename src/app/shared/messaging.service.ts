@@ -7,6 +7,7 @@ import {take} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {NotificationsService} from '../core/service/notifications.service';
 import {StorageService} from '../core/service/storage.service';
+import {GlobalService} from '../core/service/global.service';
 
 // custom-typings.d
 declare let ClientJS: any;
@@ -19,7 +20,7 @@ const client = new ClientJS();
 export class MessagingService {
 
     currentMessage = new BehaviorSubject(null);
-    private currentToken: any;
+    public currentToken: any;
     public orderNotifi: any = [];
 
     constructor(
@@ -37,7 +38,7 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                console.log('token firebase : ' + this.currentToken);
+                // console.log('token firebase : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
@@ -58,7 +59,7 @@ export class MessagingService {
             () => {
                 const data = {};
                 data[userId] = token;
-                this.angularFireDB.object('fcmTokens/').update(data);
+               return this.angularFireDB.object('fcmTokens/').update(data);
             });
     }
 
@@ -72,6 +73,7 @@ export class MessagingService {
             (token) => {
                 this.currentToken = token;
                 this.updateToken(userId, token);
+                return this.currentToken;
             },
             (err) => {
                 console.error('Unable to get permission to notify.', err);
@@ -90,6 +92,13 @@ export class MessagingService {
             });
     }
 
+    /**
+     * @param token
+     * @param fingerprint
+     * @param details
+     * @param userId
+     * @param ordercode
+     */
     sendSubscriptionToServer(token, fingerprint, details, userId, ordercode) {
         const params: any = {};
         params.user = userId;
@@ -97,7 +106,7 @@ export class MessagingService {
         params.fingerprint = fingerprint;
         params.details = JSON.stringify(details);
         params.ordercode = ordercode;
-        params.nv = details.os;
+        params.nv = 'WEB'; // details.os;  ---> Môi trường bắn API nhân Notification
         return params;
 
     }
@@ -117,7 +126,7 @@ export class MessagingService {
         const userId = this.getUser();
         const currentToken = this.currentToken;
         if (currentToken) {
-            console.log('currentToken : ' + JSON.stringify(currentToken));
+            // console.log('currentToken : ' + JSON.stringify(currentToken));
             return this.sendSubscriptionToServer(currentToken, fingerprint, details, userId, ordercode);
         } else {
             return false;

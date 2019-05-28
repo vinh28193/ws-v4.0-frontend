@@ -6,13 +6,13 @@
           <div class="row">
             <div class="col-md-7">
               <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS <i class="fa fa-filter" [popover]="showTitle"></i></h3>
+              <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
               <h3 i18n *ngIf="checkShoppingCart">LISTS NEW</h3>
               <ng-template #showTitle style="max-width: 500px">
                 <div>
                   Auto search
                 </div>
               </ng-template>
-              <!--<span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>-->
             </div>
             <div class="col-md-5 text-right">
               <ng-template #customNotification let-notificationData="notification">
@@ -347,9 +347,8 @@
                                   <button (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) " type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </button>
-                                  <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode) " type="button"
-                                          class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang">
-                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true" i18n></i>
+                                  <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode)" type="button" class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang" i18n>
+                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
                                     Quit tracking Order
                                   </button>
                               </div>
@@ -755,7 +754,7 @@
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale() && order.current_status == 'NEW'" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-list mr-2" aria-hidden="true"></i>List template mark order</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="tesst" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-list mr-2" aria-hidden="true"></i>List template mark order</a>
 
 
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>

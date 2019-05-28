@@ -67,3 +67,6 @@ Bạn cũng có thể đặt --output-băm chính nó trên dòng lệnh với m
 
 ####----------Notifiction Cho Weshop ------------------
 https://gurayyarar.github.io/AdminBSBMaterialDesign/pages/ui/notifications.html
+
+
+http://weshop-v4.back-end.local.vn/v1/notifications/1837032863
