@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-md-7">
               <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS <i class="fa fa-filter" [popover]="showTitle"></i></h3>
-              <!--span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span-->
+              <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
               <h3 i18n *ngIf="checkShoppingCart">LISTS NEW</h3>
               <ng-template #showTitle style="max-width: 500px">
                 <div>
