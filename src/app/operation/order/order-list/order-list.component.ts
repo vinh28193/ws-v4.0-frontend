@@ -254,7 +254,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                         }
                         this.ArrayListOrder = dataCheck;
                         if (dataCheck.indexOf(ordercode) >= 0) {
-                            console.log(' ordercode :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
+                            console.log('unfollowOrder  :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
                             return true;
                         } else if (dataCheck.indexOf(ordercode) <= -1) {
                             return false;
