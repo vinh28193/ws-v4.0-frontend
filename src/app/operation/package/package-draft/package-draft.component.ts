@@ -41,6 +41,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     public l_c = 20;
     public limit_page = 9;
     public manifest_id = '';
+    public trackingExt: any = [];
     public trackingMerge: any = {
         data: {},
         type: '',
@@ -69,6 +70,14 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     // form
     public usSendingForm: FormGroup;
     public searchForm: FormGroup;
+    private trackingSellerMerge: any = {
+        data_id: '',
+        ext_id: '',
+        data_tracking_code: '',
+        ext_tracking_code: '',
+        type: '',
+    };
+    private trackingMergeSearch: string | any;
 
     constructor(
         public packageService: PackageDraftService,
@@ -239,6 +248,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
             if (rs.success) {
                 const data: any = rs.data;
                 this.tracks = data._items;
+                this.trackingExt = data._ext;
                 if (type === 'search') {
                     this.manifests = data._manifest ? data._manifest : this.manifests;
                 }
@@ -452,5 +462,67 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
                     break;
             }
         }
+    }
+
+    exportExcel(id) {
+        this.packageService.get('us-sending/' + id).subscribe(
+            rs => {
+                if (rs.success) {
+                    this.popUp.success(rs.message);
+                    location.assign(rs.data.link);
+                } else {
+                    this.popUp.error(rs.message);
+                }
+            }
+        );
+    }
+    regetType(id) {
+        this.packageService.reGetType(id, {}).subscribe(rs => {
+            if (rs.success) {
+                this.popUp.success(rs.message);
+                // this.search();
+            } else {
+                this.popUp.error(rs.message);
+            }
+        });
+    }
+    mergeTrackingEvent(event, type) {
+        this.trackingSellerMerge.data_tracking_code = event.tracking_code;
+        this.trackingSellerMerge.data_id = event.id;
+        this.trackingSellerMerge.type = type;
+        this.mergeTracking.show();
+    }
+    getExtTrackings(type = 'search') {
+        let rs = this.trackingExt;
+        if (this.trackingMerge.ext_tracking_code || this.trackingMergeSearch) {
+            const match = type === 'search' ? this.trackingMergeSearch : this.trackingMerge.ext_tracking_code;
+            rs = this.trackingExt.filter(
+                c => c.tracking_code.toUpperCase().indexOf(match.toUpperCase()) !== -1);
+            // console.log(rs);
+        }
+        return rs;
+    }
+    mergeTackingSeller() {
+        const listCheck = this.getExtTrackings('tracking');
+        if (!listCheck || listCheck === []) {
+            return this.popUp.error('Cannot find tracking code target!');
+        }
+        this.popUp.confirm(() => {
+            this.packageService.post('s-us-send', this.trackingSellerMerge).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.popUp.success(res.message);
+                    this.search('tracking');
+                    this.clearMerge();
+                    this.mergeTracking.hide();
+                } else {
+                    this.popUp.error(res.message);
+                }
+            });
+        }, this.trackingSellerMerge.data_tracking_code + ' merge ' + this.trackingSellerMerge.ext_tracking_code, 'Merge');
+    }
+    setTrackingTarget(id, tracking) {
+        this.trackingSellerMerge.ext_tracking_code = tracking;
+        this.trackingSellerMerge.ext_id = id;
     }
 }
