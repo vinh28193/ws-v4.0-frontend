@@ -1539,5 +1539,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     listShoppingCart() {
         this.checkShoppingCart = true;
     }
+    confirmChangePrice(id) {
+        this.popup.confirm(() => {
+            this.orderService.post('order-s/confirm-change-price', {order_id: id}).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.arrearsAddfee.hide();
+                    this.popup.success(res.message);
+                    this.listOrders();
+                } else {
+                    this.popup.error(res.message);
+                }
+            });
+        }, 'Do you want confirm changing price');
+    }
 }
 

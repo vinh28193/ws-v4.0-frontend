@@ -628,6 +628,11 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
+                                    <button type="button" *ngIf="order.confirm_change_price" (click)="confirmChangePrice(order.id)"
+                                            class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
+                                        <i class="fa fa-dollar" aria-hidden="true"></i>
+                                        Confirm Changing Price
+                                    </button>
                                   <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true)" (click)="showArrearsAddfee(order)"
                                           class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
                                     <i class="fa fa-dollar" aria-hidden="true"></i>

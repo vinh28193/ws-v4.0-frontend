@@ -295,15 +295,23 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
         if (!this.checkShowNotify()) {
             let checkShow = true;
             if (this.orders && this.orders.length > 0) {
-                $.each(this.orders, function (k, v) {
-                    if (v.products && v.products.length > 0) {
-                        $.each(v.products, function (key, product) {
-                            if (product.paidToSeller < product.paidTotal && product.price_make_offer !== product.paidToSeller) {
+                for (let ind = 0; ind < this.orders.length; ind++) {
+                    if (this.orders[ind].products) {
+                        for (let indP = 0; indP < this.orders[ind].products.length; indP++) {
+                            if (this.orders[ind].products[indP].paidToSeller < this.orders[ind].products[indP].paidTotal
+                                && this.orders[ind].products[indP].price_make_offer !== this.orders[ind].products[indP].paidToSeller
+                            ) {
+                                checkShow = false;
+                                break;
+                            } else if (this.orders[ind].products[indP].paidToSeller > this.orders[ind].products[indP].paidTotal) {
                                 checkShow = false;
                             }
-                        });
+                        }
                     }
-                });
+                    if (!checkShow) {
+                        break;
+                    }
+                }
             }
             return checkShow;
         }

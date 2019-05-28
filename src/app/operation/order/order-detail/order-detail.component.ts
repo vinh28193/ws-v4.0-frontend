@@ -292,4 +292,21 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     }
     return tottalAmount;
 }
+    confirmChangePrice(product) {
+        this.popup.warning(() => {
+            const put = {
+                product_id: product.id,
+                order_id: product.order_id
+            };
+            this.orderService.post(`order-s/confirm-change-price`, put).subscribe(res => {
+                const rs: any = res;
+                if (rs.success) {
+                    this.getListOrder.emit({});
+                    this.popup.success(rs.message);
+                } else {
+                    this.popup.error(rs.message);
+                }
+            });
+        }, 'Do you want confirm changing price product id ' + product.id);
+    }
 }
