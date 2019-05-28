@@ -22,6 +22,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     @Input() clickBtn: false;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
+    @ViewChild('popMakeOffer') popMakeOffer: PopoverDirective;
     public current_id = 0;
     public orders: any;
     public form: any;
@@ -273,9 +274,9 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             for (let ind = 0; ind < this.orders.length; ind++) {
                 if (this.orders[ind].products) {
                     for (let indP = 0; indP < this.orders[ind].products.length; indP++) {
-                        if (this.orders[ind].products[indP].price_purchase !== this.orders[ind].products[indP].price
-                            || this.orders[ind].products[indP].us_ship_purchase !== this.orders[ind].products[indP].us_ship
-                            || this.orders[ind].products[indP].us_tax_purchase !== this.orders[ind].products[indP].us_tax
+                        if (this.orders[ind].products[indP].price_purchase > this.orders[ind].products[indP].price
+                            || this.orders[ind].products[indP].us_ship_purchase > this.orders[ind].products[indP].us_ship
+                            || this.orders[ind].products[indP].us_tax_purchase > this.orders[ind].products[indP].us_tax
                         ) {
                             rs = true;
                             break;
@@ -288,5 +289,24 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
             }
         }
         return this.totalChanging && !this.checkChangePrice() && rs;
+    }
+
+    checkShowSaveBtn() {
+        if (!this.checkShowNotify()) {
+            let checkShow = true;
+            if (this.orders && this.orders.length > 0) {
+                $.each(this.orders, function (k, v) {
+                    if (v.products && v.products.length > 0) {
+                        $.each(v.products, function (key, product) {
+                            if (product.paidToSeller < product.paidTotal && product.price_make_offer !== product.paidToSeller) {
+                                checkShow = false;
+                            }
+                        });
+                    }
+                });
+            }
+            return checkShow;
+        }
+        return false;
     }
 }

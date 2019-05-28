@@ -26,18 +26,17 @@
                                        style="border: 1px solid;overflow: hidden;font-size: 10px">
                                     <thead>
                                     <tr style="color: #000">
-                                        <th scope="col" style="width: 2%;border: 1px solid #000;">#</th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Image</th>
-                                        <th scope="col" style="width: 25%;border: 1px solid #000;" i18n>Info Product
-                                        </th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Variation</th>
-                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Customer Qty</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Purchase Qty</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Price</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Shipping Fee</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Tax Fee</th>
-                                        <th scope="col" style="width: 5%;border: 1px solid #000;" i18n>Total Price</th>
-                                        <th scope="col" style="width: 15%;border: 1px solid #000;" i18n>Paid to Seller
+                                        <th scope="col" style="width: 2%;border: 1px solid #3e3e3e3e;">#</th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #3e3e3e3e;" i18n>Image</th>
+                                        <th scope="col" style="width: 25%;border: 1px solid #3e3e3e3e;" i18n>Info Product</th>
+                                        <th scope="col" style="width: 10%;border: 1px solid #3e3e3e3e;" i18n>Variation</th>
+                                        <th scope="col" style="width: 1%;border: 1px solid #3e3e3e3e;" i18n>Customer Qty</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Purchase Qty</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Price</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Shipping Fee</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Tax Fee</th>
+                                        <th scope="col" style="width: 5%;border: 1px solid #3e3e3e3e;" i18n>Total Price</th>
+                                        <th scope="col" style="width: 15%;border: 1px solid #3e3e3e3e;" i18n>Paid to Seller
                                         </th>
                                     </tr>
                                     </thead>
@@ -49,7 +48,7 @@
                                         </td>
                                         <td style="padding: 0px ">
                                             <div class="col-md-12" style="padding: 0px ">
-                                                <div class="col-md-12"
+                                                <div class="col-md-12 productName"
                                                      style="font-size: 12px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 250px;">
                                                     <a
                                                             href="{{product.origin_link}}">{{product.Name}}</a></div>
@@ -97,11 +96,11 @@
                                         </td>
                                         <td>
                                             <span id="Paid_To_Seller">{{ product.paidToSeller | currency : 'USD' : '$'}}</span>&nbsp;&nbsp;<a
-                                                href="javascript:void (0);" #pop="bs-popover"
+                                                href="javascript:void (0);" #popMakeOffer="bs-popover"
                                                 *ngIf="product.paidToSeller < product.paidTotal && product.price_make_offer != product.paidToSeller"
-                                                [popover]="popMakeOffer" [placement]="'left'"><i style="font-size: 16px" class="fa fa-gavel"
+                                                [popover]="popMakeOfferTemplate" [placement]="'left'"><i style="font-size: 16px" class="fa fa-gavel"
                                                                                                  [tooltip]="'Make offer'"></i></a>
-                                            <ng-template #popMakeOffer>
+                                            <ng-template #popMakeOfferTemplate>
                                                 <div class="row" style="min-width: 250px">
                                                     <div class="col-md-12">
                                                         <div>
@@ -117,22 +116,31 @@
                                                         </div>
                                                         <div class="input-group-btn">
                                                             <button class="btn btn-sm btn-info" type="button"
-                                                                    (click)="product.price_make_offer = product.paidToSeller;pop.hide()">
+                                                                    (click)="product.price_make_offer = product.paidToSeller;popMakeOffer.hide()">
                                                                 <i class="fa fa-check"></i></button>
                                                             <button class="btn btn-sm btn-danger" type="button"
-                                                                    (click)="product.price_make_offer = 0; product.note_make_offer = '';pop.hide()">
+                                                                    (click)="product.price_make_offer = 0; product.note_make_offer = '';popMakeOffer.hide()">
                                                                 <i class="fa fa-times"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </ng-template>
                                             <div style="border: 1px #dededede inset;" *ngIf="product.price_make_offer && product.price_make_offer > 0">
-                                                <label>Make Offer: </label>
+                                                <label><span class="text-left">Make Offer: </span><span
+                                                        class="text-right"><i class="fa fa-remove"
+                                                                              style="font-size: 12px;color: red; cursor: pointer;"
+                                                                              (click)="product.price_make_offer = 0; product.note_make_offer = '';"
+                                                                              [tooltip]="'Remove Offer'"></i></span></label>
+                                                <hr style="margin: 0px">
                                                 <div>
-                                                    <i class="fa fa-dollar" ></i>&nbsp; {{ product.price_make_offer | currency : 'USD' : '$'}}
+                                                    <i class="fa fa-dollar"
+                                                       style="color: darkgoldenrod"
+                                                    ></i>&nbsp; {{ product.price_make_offer | currency : 'USD' : '$'}}
                                                 </div>
                                                 <div>
-                                                    <i class="fa fa-comment-dollar" ></i>&nbsp; {{ product.note_make_offer}}
+                                                    <i class="fa fa-comment-dollar"
+                                                       style="color: green"
+                                                    ></i>&nbsp; {{ product.note_make_offer}}
                                                 </div>
                                             </div>
                                         </td>
@@ -303,7 +311,7 @@
 <div class="modal-footer" style="text-align: center;">
     <div class="btn-group">
         <button class="btn btn-danger" (click)="closePop()" i18n>Cancel</button>
-        <button class="btn btn-success" *ngIf="!checkShowNotify() && !checkChangePrice()" (click)="updatePurchase()"
+        <button class="btn btn-success" *ngIf="checkShowSaveBtn()" (click)="updatePurchase()"
                 i18n>Save
         </button>
     </div>
