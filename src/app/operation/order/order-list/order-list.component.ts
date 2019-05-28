@@ -31,8 +31,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild('customNotification') customNotificationTmpl;
     @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
     @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
-    public limit: number = 20;
-    public page: number = 1;
+    public limit = 20;
+    public page = 1;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -167,6 +167,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     keywordSearch = '';
     private notifier: NotifierService;
     public ArrayListOrder: any = {};
+    private tracking_Insert: any = {};
+    @ViewChild('insertTrackingModal') insertTrackingModal: ModalDirective;
 
     constructor(private orderService: OrderService,
                 private router: Router,
@@ -247,7 +249,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     this.getAllPushNotificationsByUserId();
                     const dataCheck = this.ArrayListOrder;
                     if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
-                        for ( let i = 0; i < dataCheck.length; i++){
+                        for ( let i = 0; i < dataCheck.length; i++) {
                             if ( dataCheck[i] === ordercode) {
                                 dataCheck.splice(i, 1);
                             }
@@ -272,7 +274,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (dataCheck.indexOf(ordercode) >= 0) {
                 console.log(' ordercode :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
                 return true;
-            }else if (dataCheck.indexOf(ordercode) <= -1) {
+            } else if (dataCheck.indexOf(ordercode) <= -1) {
                 return false;
             }
         }
@@ -1435,9 +1437,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkShowUpdateStatus(status) {
-        if (status === 'PURCHASED') {
-            return 'SELLER SHIPPED';
-        } else if (status === 'SELLER_SHIPPED') {
+        if (status === 'SELLER_SHIPPED') {
             return 'US RECEIVED';
         } else if (status === 'US_RECEIVED') {
             return 'US SENDING';
@@ -1447,6 +1447,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return 'DELIVERING';
         } else if (status === 'DELIVERING') {
             return 'AT CUSTOMER';
+        } else {
+            return false;
+        }
+    }
+    getClassStatus(status) {
+        if (status === 'SELLER_SHIPPED') {
+            return 'danger';
+        } else if (status === 'US_RECEIVED') {
+            return 'danger';
+        } else if (status === 'US_SENDING') {
+            return 'warning';
+        } else if (status === 'LOCAL_RECEIVED') {
+            return 'info';
+        } else if (status === 'DELIVERING') {
+            return 'success';
         } else {
             return false;
         }
@@ -1570,6 +1585,49 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             });
         }, 'Do you want confirm changing price');
+    }
+    insertTrackingShow(product_id = '') {
+        this.tracking_Insert.info = [];
+        this.addInfo(product_id);
+        this.insertTrackingModal.show();
+    }
+    insertTracking() {
+        console.log(this.tracking_Insert);
+        if (!this.tracking_Insert.tracking_code) {
+            return this.orderService.popup.error('Tracking code cannot null!');
+        }
+        if (!this.tracking_Insert.info.length) {
+            return this.orderService.popup.error('Tracking cannot empty info!');
+        }
+        this.orderService.post('s-us-send/insert-tracking', this.tracking_Insert).subscribe(rs => {
+            const res: any = rs;
+            if (res.success) {
+                this.orderService.popup.success(res.message);
+                this.insertTrackingModal.hide();
+                this.listOrders();
+            } else {
+                this.orderService.popup.error(res.message);
+            }
+        });
+    }
+    addInfo(product_id = '') {
+        this.tracking_Insert.info.push({
+            order_code: '',
+            product_id: product_id,
+            purchase_number_invoice: '',
+            quantity: 0,
+        });
+    }
+
+    removeInfo(ind) {
+        const rs = [];
+        $.each(this.tracking_Insert.info, function (k, v) {
+            if (k !== ind) {
+                rs.push(v);
+            }
+        });
+        this.tracking_Insert.info = rs;
+        console.log('remove: ');
     }
 }
 

@@ -110,6 +110,10 @@
                 <span class="mr-2" i18n>Note Boxme:</span>
                 <app-span-label style="color: red" [value]="product.note_boxme"></app-span-label>
               </li>
+              <li>
+                <span class="mr-2" *ngIf="product.trackingcode" i18n>Tracking Code:</span>
+                <app-span-label style="color: red" [value]="product.trackingcode"></app-span-label>
+              </li>
               <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
                 <i class="fa fa-comments"  ></i>{{product.note_by_customer}}
                 <a href="javascript:void(0)" (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
@@ -127,6 +131,9 @@
                 </li>
               <li *ngIf="product.confirm_change_price">
                 <a href="javascript: void (0);" (click)="confirmChangePrice(product)" class="btn btn-sm btn-outline-success" style="border: none" ><i class="fa fa-check"></i> Confirm changing price</a>
+              </li>
+              <li *ngIf="product.purchased">
+                <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})" class="btn btn-sm btn-outline-info" ><i class="fa fa-check"></i> Add Tracking</a>
               </li>
             </ul>
             <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
