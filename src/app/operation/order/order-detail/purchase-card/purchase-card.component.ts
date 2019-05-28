@@ -1,7 +1,8 @@
-import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {StorageService} from '../../../../core/service/storage.service';
 import {PopupService} from '../../../../core/service/popup.service';
+import {PopoverDirective} from 'ngx-bootstrap';
 
 declare var swal: any;
 declare var $: any;
@@ -21,6 +22,7 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     @Input() clickBtn: false;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
+    @ViewChild('pop') pop: PopoverDirective;
     public current_id = 0;
     public orders: any;
     public form: any;
