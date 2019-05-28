@@ -226,7 +226,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 const array_list: any = [];
                 console.log('rs.length : ' + JSON.stringify(rs.length));
                 for (let i = 0; i <= rs.length - 1; i++) {
-                   array_list.push(rs[i].order_code);
+                    array_list.push(rs[i].order_code);
                 }
                 console.log('array_list: ' + JSON.stringify(array_list));
                 return this.ArrayListOrder = array_list;
@@ -266,13 +266,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     orderNotiCheck(ordercode) {
         const dataCheck = this.ArrayListOrder;
-        console.log('dataCheck :' + JSON.stringify(dataCheck));
-        if (typeof dataCheck != 'undefined' && dataCheck != null && dataCheck.length != null && dataCheck.length > 0) {
-            if (dataCheck.indexOf(ordercode)) {
-                return false;
+        if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
+            if (dataCheck.indexOf(ordercode) >= 0) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 
