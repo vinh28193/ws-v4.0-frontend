@@ -180,7 +180,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 notifier: NotifierService
     ) {
         super(orderService);
-        // this.notifier = notifier;
+        this.notifier = notifier;
     }
 
     followOrder(ordercode) {
@@ -245,7 +245,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 const res: any = ret;
                 if (res.success) {
                     this.getAllPushNotificationsByUserId();
-                    return this.orderNotiCheck(ordercode);
+                    const dataCheck = this.ArrayListOrder;
+                    if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
+                        for ( let i = 0; i < dataCheck.length; i++){
+                            if ( dataCheck[i] === ordercode) {
+                                dataCheck.splice(i, 1);
+                            }
+                        }
+                        this.ArrayListOrder = dataCheck;
+                        if (dataCheck.indexOf(ordercode) >= 0) {
+                            console.log('unfollowOrder  :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
+                            return true;
+                        } else if (dataCheck.indexOf(ordercode) <= -1) {
+                            return false;
+                        }
+                    }
+                    return false;
                 }
         });
     }
@@ -1467,29 +1482,32 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return true;
     }
 
-    // checkUpdatePaymentShow(code, status) {
-    //   if (this.checkUpdatePayment(status)) {
-    //     this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-    //       const rs = res;
-    //       this.listLog = rs.data;
-    //     });
-    //   }
-    // }
-    // checkUpdatePaymentOne() {
-    //   const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
-    //   if (pay.length > 0) {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // }
-    // openAssignSaleFollowOrder(order) {
-    //     this.code = order.ordercode;
-    //     this.checkOpenAssignSFO = true;
-    //     this.assignSFO = this.fb.group({
-    //       sale_id: this.allKey,
-    //     });
-    // }
+    /*
+    checkUpdatePaymentShow(code, status) {
+      if (this.checkUpdatePayment(status)) {
+        this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+          const rs = res;
+          this.listLog = rs.data;
+        });
+      }
+    }
+    checkUpdatePaymentOne() {
+      const pay = this.listLog.filter(c => String(c.action_path) === 'editAdjustPayment');
+      if (pay.length > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    openAssignSaleFollowOrder(order) {
+        this.code = order.ordercode;
+        this.checkOpenAssignSFO = true;
+        this.assignSFO = this.fb.group({
+          sale_id: this.allKey,
+        });
+    }
+    */
+
     showNotification() {
         const msg = {
             message: 'Hi there!',
