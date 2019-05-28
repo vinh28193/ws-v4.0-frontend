@@ -35,7 +35,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
         // console.log(this.authService.redirectURL);
         localStorage.clear();  // Clear Token khi set role moi
 
- // ToDo:Chính xác là bắt và so sánh khi User được set role mới , so sánh với role lưu ở local Store thì cần xóa hết key Trong local store
+       // ToDo:Chính xác là bắt và so sánh khi User được set role mới , so sánh với role lưu ở local Store thì cần xóa hết key Trong local store
     }
 
     login() {
