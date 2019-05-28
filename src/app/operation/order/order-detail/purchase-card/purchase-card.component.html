@@ -2,7 +2,7 @@
     <h3 style="color: #fff" i18n>Purchase cart</h3>
 </div>
 <div class="modal-body">
-    <div *ngIf="orders" class="row">
+    <div *ngIf="orders && orders.length" class="row">
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">
@@ -10,17 +10,17 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <strong i18n>Purchaser:</strong>
-                                <span>{{w}}</span>
+                                <span></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <H4>
                                     <b style="font-family: auto">{{1  | serialNumer}}. </b>
-                                    <i i18n>Order: <strong>{{orders[0].ordercode}}</strong></i>
-                                    <i i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></i>
-                                    <i i18n> - Seller: <b>{{orders[0].sellerId}}</b></i>
-                                    <i i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></i>
+                                    <span i18n>Order: <strong>{{orders[0].ordercode}}</strong></span>
+                                    <span i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></span>
+                                    <span i18n> - Seller: <b>{{orders[0].sellerId}}</b></span>
+                                    <span i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></span>
                                 </H4>
                                 <table class="table table-striped"
                                        style="border: 1px solid;overflow: hidden;font-size: 12px">
