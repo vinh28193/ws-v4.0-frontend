@@ -3,7 +3,7 @@
     padding-left: 5px;
 }
 td, th{
-    border: 1px solid;
+    border: 1px solid #3e3e3e3e;
 }
 
 .input-full {
@@ -14,4 +14,7 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+.productName a:hover{
+    white-space: normal;
 }
