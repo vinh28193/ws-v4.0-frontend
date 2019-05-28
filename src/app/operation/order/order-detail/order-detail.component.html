@@ -110,9 +110,13 @@
                 <span class="mr-2" i18n>Note Boxme:</span>
                 <app-span-label style="color: red" [value]="product.note_boxme"></app-span-label>
               </li>
-              <li>
-                <span class="mr-2" *ngIf="product.trackingcode" i18n>Tracking Code:</span>
-                <app-span-label style="color: red" [value]="product.trackingcode"></app-span-label>
+              <li *ngIf="product.trackingCodes">
+                <span class="mr-2" i18n>Tracking Code (seller):</span>
+                <span *ngFor="let trackingCode of product.trackingCodes"><a>{{trackingCode.tracking_code}}</a>&nbsp;/&nbsp;</span>
+              </li>
+              <li *ngIf="product.packages">
+                <span class="mr-2" i18n>Tracking Code:</span>
+                <span *ngFor="let package_product of product.packages"><a>{{package_product.tracking_code}}</a>&nbsp;/&nbsp;</span>
               </li>
               <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
                 <i class="fa fa-comments"  ></i>{{product.note_by_customer}}
