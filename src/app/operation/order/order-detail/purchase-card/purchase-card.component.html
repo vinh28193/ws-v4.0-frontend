@@ -126,7 +126,7 @@
                                                     </div>
                                                 </div>
                                             </ng-template>
-                                            <div>
+                                            <div style="border: 1px #dededede inset;" *ngIf="product.price_make_offer && product.price_make_offer > 0">
                                                 <label>Make Offer: </label>
                                                 <div>
                                                     <i class="fa fa-dollar" ></i>&nbsp; {{ product.price_make_offer | currency : 'USD' : '$'}}
