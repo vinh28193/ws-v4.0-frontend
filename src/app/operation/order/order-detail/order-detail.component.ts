@@ -269,11 +269,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       let tottal = 0;
      for (let j = 0; j < productFees.length; j++) {
        if (productFees[j]['type'] === 'product_price_origin') {
-         tottal += toNumber(productFees[j]['local_amount']);
+         tottal += Number(productFees[j]['local_amount']);
        } if (productFees[j]['type'] === 'origin_shipping_fee') {
-         tottal += productFees[j]['local_amount'];
+         tottal += Number(productFees[j]['local_amount']);
        } if (productFees[j]['type'] === 'tax_fee_origin') {
-         tottal += productFees[j]['local_amount'];
+         tottal += Number(productFees[j]['local_amount']);
        }
      }
      return tottal;
@@ -283,11 +283,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     for (let j = 0; j < productFees.length; j++) {
       if (productFees[j]['type'] === 'product_price_origin') {
         // console.log(productFees[j]['amount']);
-        tottalAmount += toNumber(productFees[j]['amount']);
+        tottalAmount += Number(productFees[j]['amount']);
       } if (productFees[j]['type'] === 'origin_shipping_fee') {
-        tottalAmount += productFees[j]['amount'];
+        tottalAmount += Number(productFees[j]['amount']);
       } if (productFees[j]['type'] === 'tax_fee_origin') {
-        tottalAmount += productFees[j]['amount'];
+        tottalAmount += Number(productFees[j]['amount']);
       }
     }
     return tottalAmount;

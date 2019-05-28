@@ -26,42 +26,44 @@
                                        style="border: 1px solid;overflow: hidden;font-size: 10px">
                                     <thead>
                                     <tr style="color: #000">
-                                        <th scope="col" style="width: 5%;border: 1px solid #000;">#</th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Order Code</th>
+                                        <th scope="col" style="width: 2%;border: 1px solid #000;">#</th>
                                         <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Image</th>
                                         <th scope="col" style="width: 25%;border: 1px solid #000;" i18n>Info Product
                                         </th>
                                         <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Variation</th>
-                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Quantity Customer</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Quantity  Purchase
-                                        </th>
+                                        <th scope="col" style="width: 1%;border: 1px solid #000;" i18n>Customer Qty</th>
+                                        <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Purchase Qty</th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Price</th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Shipping Fee</th>
                                         <th scope="col" style="width: 8%;border: 1px solid #000;" i18n>Tax Fee</th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #000;" i18n>Total Price</th>
+                                        <th scope="col" style="width: 5%;border: 1px solid #000;" i18n>Total Price</th>
+                                        <th scope="col" style="width: 15%;border: 1px solid #000;" i18n>Paid to Seller
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody *ngFor="let order of orders;let indOrder=index;">
                                     <tr *ngFor="let product of order.products;let indProd = index;">
                                         <td>&emsp; {{indProd + 1}}</td>
                                         <td>
-                                            <p>{{order.ordercode}}</p>
-                                            <span><b>Portal:</b> {{product.ItemType}}</span>
-                                        </td>
-                                        <td>
                                             <img class="img-thumbnail" [src]="product.image" alt="" width="50px"><br>
                                         </td>
-                                        <td>
-                                            <div class="col-md-12">
-                                                <div class="col-md-12"><a
-                                                        href="javascript:void (0);">{{product.Name}}</a></div>
+                                        <td style="padding: 0px ">
+                                            <div class="col-md-12" style="padding: 0px ">
+                                                <div class="col-md-12"
+                                                     style="font-size: 12px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 250px;">
+                                                    <a
+                                                            href="{{product.origin_link}}">{{product.Name}}</a></div>
+                                                <div class="col-md-12"><span><b i18n>SOI:</b> {{product.id}}</span>
+                                                </div>
+                                                <div class="col-md-12"><span><b i18n>Item Type:</b> {{product.ItemType}}</span>
+                                                </div>
                                                 <div class="col-md-12"><span><b i18n>Sku:</b> {{product.sku}}</span>
                                                 </div>
                                                 <div class="col-md-12"><span><b >ParentSku:</b> {{product.ParentSku}}</span></div>
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-6">
-                                                    <span><b i18n>Seller:</b> {{order.seller_name}}</span>
+                                                    <span><b i18n>Seller:</b> {{order.sellerId}}</span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span><b i18n>Condition:</b> {{product.condition}}</span>
@@ -90,12 +92,48 @@
                                                 [(ngModel)]="product.us_tax_purchase"></td>
                                         <td>
                                             <div class="row col-md-12">
-                                                <span (click)="edit_id = product.id" id="detail-paidToseller_{{product.id}}"
-                                                      class="{{edit_id != product.id ? '' : 'hidden-md-up'}}">{{ product.paidToSeller | currency : 'USD' : '$'}}</span>
-                                                <input (change)="edit_id=0;" [(ngModel)]="product.paidToSeller"
-                                                       id="paidToSeller_{{product.id}}"
-                                                       type="{{edit_id == product.id ? 'number' : 'hidden'}}"
-                                                       style="width: 50%">
+                                                <span id="totalPrice">{{ product.paidTotal | currency : 'USD' : '$'}}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="Paid_To_Seller">{{ product.paidToSeller | currency : 'USD' : '$'}}</span>&nbsp;&nbsp;<a
+                                                href="javascript:void (0);" #pop="bs-popover"
+                                                *ngIf="product.paidToSeller < product.paidTotal && product.price_make_offer != product.paidToSeller"
+                                                [popover]="popMakeOffer" [placement]="'left'"><i style="font-size: 16px" class="fa fa-gavel"
+                                                                                                 [tooltip]="'Make offer'"></i></a>
+                                            <ng-template #popMakeOffer>
+                                                <div class="row" style="min-width: 250px">
+                                                    <div class="col-md-12">
+                                                        <div>
+                                                            <h5>Make Offer paid to
+                                                                seller {{ product.paidToSeller | currency : 'USD' : '$'}}</h5>
+                                                        </div>
+                                                        <div class="form-group" style="margin-bottom: 0px;">
+                                                            <label class="form-control-label">Note Make
+                                                                Offer</label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                      placeholder="Note Make Offer"
+                                                                      [(ngModel)]="product.note_make_offer"></textarea>
+                                                        </div>
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-sm btn-info" type="button"
+                                                                    (click)="product.price_make_offer = product.paidToSeller;pop.hide()">
+                                                                <i class="fa fa-check"></i></button>
+                                                            <button class="btn btn-sm btn-danger" type="button"
+                                                                    (click)="product.price_make_offer = 0; product.note_make_offer = '';pop.hide()">
+                                                                <i class="fa fa-times"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <div>
+                                                <label>Make Offer: </label>
+                                                <div>
+                                                    <i class="fa fa-dollar" ></i>&nbsp; {{ product.price_make_offer | currency : 'USD' : '$'}}
+                                                </div>
+                                                <div>
+                                                    <i class="fa fa-comment-dollar" ></i>&nbsp; {{ product.note_make_offer}}
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
