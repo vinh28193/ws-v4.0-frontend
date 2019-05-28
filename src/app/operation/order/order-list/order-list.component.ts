@@ -213,24 +213,68 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     getAllPushNotificationsByUserId() {
-        /*
-         this.notifi.post(`notifications`,).subscribe(ret => {
-                console.log('JOSN Call POST API notifications  ' + JSON.stringify(ret));
-                const res: any = ret;
-                console.log('res send token Subscription ' + JSON.stringify(res));
-                if (res.success) {
-                    const rs: any = res.data;
-                    console.log('Notifi data : ' + JSON.stringify(rs));
-                    this.loadOrderNotifi();
-                    this.orderNotiCheck(ordercode);
-                    return true;
-                } else {
-                    // console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                    return false;
+        const userLogin = this.storegate.get('userLogin');
+        const dataUserLoginParse = JSON.parse(userLogin);
+        const id = dataUserLoginParse.id;
+        const username = dataUserLoginParse.username;
+        this.notifi.get(`notifications/${id}`, username).subscribe(ret => {
+            const res: any = ret;
+            if (res.success) {
+                const rs: any = res.data;
+                console.log('rs : ' + JSON.stringify(rs));
+                console.log('rs.order_list : ' + JSON.stringify(rs[0].order_code));
+                const array_list: any = [];
+                console.log('rs.length : ' + JSON.stringify(rs.length));
+                for (let i = 0; i <= rs.length - 1; i++) {
+                   array_list.push(rs[i].order_code);
                 }
-          });
-        */
+                console.log('array_list: ' + JSON.stringify(array_list));
+                return this.ArrayListOrder = array_list;
+            } else {
+                // console.error('Error notify sendSubscription.' + JSON.stringify(res));
+                return false;
+            }
+        });
+
     }
+
+    unfollowOrder(ordercode) {
+        const fingerprint = this.messagingService.UUID();
+        this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(res => {
+            this.loadOrderNotifi();
+            this.orderNotiCheck(ordercode);
+        });
+    }
+
+    loadOrderNotifi() {
+        const fingerprint = this.messagingService.UUID();
+        this.orderService.get(`notifications/${fingerprint}`, undefined)
+            .subscribe(res => {
+                this.orderNotifi = 0;
+                if (res.success) {
+                    const order_list = res.data._items;
+                    const totalNotifi = res.data._meta;
+                    // this.orderNotifi = order_list;
+                    // this.totalNotifi = totalNotifi.totalCount;
+                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
+                } else {
+                    this.orderNotifi = 0;
+                    console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
+                }
+            });
+    }
+
+    orderNotiCheck(ordercode) {
+        const dataCheck = this.ArrayListOrder;
+        console.log('dataCheck :' + JSON.stringify(dataCheck));
+        if (typeof dataCheck != 'undefined' && dataCheck != null && dataCheck.length != null && dataCheck.length > 0) {
+            if (dataCheck.indexOf(ordercode)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     ngOnInit() {
         if (this.getParameter('orderCode')) {
@@ -259,10 +303,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.loadOrderNotifi();
         this.messagingService.receiveMessage();
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
-        const usserId = this.messagingService.getUser(); // 'user001';
-        console.log('usserId :' + usserId);
-        const token_fcm = this.messagingService.currentToken;
-        console.log('token_fcm :' + JSON.stringify(token_fcm));
+        this.getAllPushNotificationsByUserId();
         // Policy
         this.loadAllPolicy();
 
@@ -497,41 +538,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         // this.getSeller();
     }
 
-    unfollowOrder(ordercode) {
-        const fingerprint = this.messagingService.UUID();
-        console.log(ordercode);
-        // console.log("UUID unfollowOrder: " + fingerprint + " Order Code :" + ordercode);
-        this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(res => {
-            this.loadOrderNotifi();
-            this.orderNotiCheck(ordercode);
-        });
-    }
-
-    loadOrderNotifi() {
-        const fingerprint = this.messagingService.UUID();
-        this.orderService.get(`notifications/${fingerprint}`, undefined)
-            .subscribe(res => {
-                this.orderNotifi = 0;
-                if (res.success) {
-                    const order_list = res.data._items;
-                    const totalNotifi = res.data._meta;
-                    // this.orderNotifi = order_list;
-                    // this.totalNotifi = totalNotifi.totalCount;
-                    console.log('this.orderNotifi :' + JSON.stringify(this.orderNotifi));
-                } else {
-                    this.orderNotifi = 0;
-                    console.log('this.orderNotifi 02 :' + JSON.stringify(this.orderNotifi));
-                }
-            });
-    }
-
-    orderNotiCheck(ordercode) {
-        this.ArrayListOrder = ['WSVN3490BB4AEC1', 'WSVN34801386BD6', 'WSVN347C5FF2543' ];
-        if (this.ArrayListOrder.includes(ordercode)) {
-            return true;
-        }
-        return false;
-    }
 
     chat(id, code, status) {
         this.checkLoad = true;
