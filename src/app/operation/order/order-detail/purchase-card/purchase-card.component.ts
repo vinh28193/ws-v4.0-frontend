@@ -22,7 +22,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     @Input() clickBtn: false;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('pop') pop: PopoverDirective;
     public current_id = 0;
     public orders: any;
     public form: any;
