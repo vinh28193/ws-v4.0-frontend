@@ -20,6 +20,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     @ViewChild('mergeTracking') mergeTracking: ModalDirective;
     @ViewChild('sellerRefundModal') sellerRefundModal: ModalDirective;
     @ViewChild('updateModal') updateModal: ModalDirective;
+    @ViewChild('viewLogTracking') viewLogTracking: ModalDirective;
 
     public tracks: any = [];
     public manifests: any = [];
@@ -30,6 +31,8 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     public trackingWast = '';
     public trackingMiss = '';
     public tabTracking = '';
+    public code_view_log = '';
+    public type_view_log = 'tracking';
     public trackingCodes: any = [];
     public p_m = 1;
     public p_u = 1;
@@ -540,5 +543,10 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
                 }
             });
         }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
+    }
+    viewLog(event) {
+        this.code_view_log = event.code;
+        this.type_view_log = event.type;
+        this.viewLogTracking.show();
     }
 }

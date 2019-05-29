@@ -33,6 +33,7 @@ import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { ClientComponent } from './wallet/client/client.component';
 import { TransactionComponent } from './wallet/transaction/transaction.component';
+import { ViewLogTrackingComponent } from './view-log-tracking/view-log-tracking.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { TransactionComponent } from './wallet/transaction/transaction.component
         WalletComponent,
         ClientComponent,
         TransactionComponent,
+        ViewLogTrackingComponent,
     ],
     providers: [
         OperationService
@@ -97,6 +99,7 @@ import { TransactionComponent } from './wallet/transaction/transaction.component
         CurrencyStorePipe,
         MarkSupportingPipe,
         PagingCustomComponent,
+        ViewLogTrackingComponent,
     ]
 })
 export class OperationModule {

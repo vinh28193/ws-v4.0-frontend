@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title m-b-0" i18n>Package Draft</h3>
+                <h3 class="card-title m-b-0" i18n>Manifest Manager</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -166,7 +166,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftPackageItems">
                                                                     <li class="list-group-item">
-                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
                                                                         <div class="padding-btn">
                                                                             <div><a href="javascript:void (0)" (click)="showSellerRefundModal(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
                                                                             <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
@@ -187,7 +187,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftWastingTrackings">
                                                                     <li class="list-group-item">
-                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
                                                                         <div>
                                                                             <p *ngIf="!trackingMerge || trackingMerge.type != 'wast'"><a href="javascript:void (0)" (click)="merge(packTr,'wast')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}"><i class="fal fa-chain"></i> Merge tracking</a></p>
                                                                         </div>
@@ -199,7 +199,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.draftMissingTrackings">
                                                                     <li class="list-group-item">
-                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
                                                                         <div>
                                                                             <p *ngIf="!trackingMerge || trackingMerge.type != 'miss'" >
                                                                                 <a href="javascript:void (0)" (click)="merge(packTr,'miss')" class="{{trackingMerge.type ? 'mouse-cell' : ''}}">
@@ -223,7 +223,7 @@
                                                             <ul class="list-group">
                                                                 <ng-container *ngFor="let packTr of tracks.unknownTrackings">
                                                                     <li class="list-group-item">
-                                                                        <app-package-info [packTr]="packTr"></app-package-info>
+                                                                        <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
                                                                         <div>
                                                                             <p class="btn-group" >
                                                                                 <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Fill Product Id">
@@ -512,6 +512,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div bsModal #viewLogTracking="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width: 85%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <app-view-log-tracking [code]="code_view_log" [type]="type_view_log"></app-view-log-tracking>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" (click)="viewLogTracking.hide()">Close</button>
+            </div>
+
         </div>
     </div>
 </div>
