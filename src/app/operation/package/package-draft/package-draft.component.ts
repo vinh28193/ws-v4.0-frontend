@@ -95,6 +95,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
         this.buildSearchForm();
         this.buildUsSendingForm();
         this.search();
+        this.loadWarehouse();
     }
 
     buildSearchForm() {
@@ -110,6 +111,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
             store: [''],
             manifest: [''],
             warehouse: [''],
+            warehouse_us: [''],
             date: '',
             file: ['']
         });
@@ -167,6 +169,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
         const fd = new FormData();
         fd.append('store', value.store);
         fd.append('warehouse', value.warehouse);
+        fd.append('warehouse_us', value.warehouse_us);
         fd.append('manifest', value.manifest);
         fd.append('file', this.file);
         fd.append('date', value.date);
@@ -181,7 +184,7 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
                 this.usSendingModal.hide();
             } else {
                 this.popUp.error(rs.message);
-                this.buildUsSendingForm();
+                // this.buildUsSendingForm();
             }
         });
     }
@@ -524,5 +527,18 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     setTrackingTarget(id, tracking) {
         this.trackingSellerMerge.ext_tracking_code = tracking;
         this.trackingSellerMerge.ext_id = id;
+    }
+    mapUnknownUs(id, tracking_code) {
+        this.packageService.popup.confirm(() => {
+            this.packageService.mapUnknownUS(id, {product_id: this.productIds[id]}).subscribe(rs => {
+                const res: any = rs;
+                if (res.success) {
+                    this.packageService.popup.success(res.message);
+                    this.search();
+                } else {
+                    this.packageService.popup.error(res.message);
+                }
+            });
+        }, 'Do you want map product id ' + this.productIds[id] + ' for tracking ' + tracking_code, 'Map');
     }
 }
