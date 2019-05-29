@@ -11,7 +11,7 @@
           <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
         </div>
         <div class="mt-2">
-          <a href="{{product.link_origin}}" target="_blank" class="originalLink" i18n>Original Link</a>
+          <a href="{{product.link_origin}}" *ngIf="!global.checkOperatione() && !global.checkMasterOperation() && !global.checkAccountant() && !global.checkMasterAccountant()" target="_blank" class="originalLink" i18n>Original Link</a>
         </div>
         <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
           <span class="sr-only ng-star-inserted">( )</span>
@@ -84,7 +84,7 @@
               <li>
                 <span class="mr-2" i18n>Category:</span>
                 <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
-                <a class="ml-1" href="javascript:void(0)" *ngIf="!global.checkMkt()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
+                <a class="ml-1" href="javascript:void(0)" *ngIf="!global.checkMkt() && !global.checkOperatione() && !global.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
                   <i class="fa fa-edit text-info"></i>
                 </a>
                 <form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
