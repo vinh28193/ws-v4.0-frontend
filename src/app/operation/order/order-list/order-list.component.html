@@ -670,10 +670,10 @@
                                   <h5 i18n>STATUS</h5>
                                 </div>
                                 <div class="col-md-5" style="text-align: right">
-                                  <div class="btn btn-default btn-sm"  tooltip="Show status" *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                  <div class="btn btn-default btn-sm"   *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
                                     <i  aria-hidden="true" class="fa fa-eye"></i>
                                   </div>
-                                  <div class="btn btn-default btn-sm"  tooltip="Hide status" *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                  <div class="btn btn-default btn-sm"    *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
                                     <i aria-hidden="true" class="fa fa-eye-slash"></i>
                                   </div>
                                 </div>
@@ -1617,10 +1617,10 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <h5 i18n>STATUS</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <div class="btn bg-white btn-sm"  tooltip="Show status" *ngIf="statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm"  *ngIf="statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye"></i>
                 </div>
-                <div class="btn bg-white btn-sm"  tooltip="Hide status" *ngIf="!statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm"  *ngIf="!statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye-slash"></i>
                 </div>
                 <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>

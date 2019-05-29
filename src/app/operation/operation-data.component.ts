@@ -100,14 +100,14 @@ export class OperationDataComponent extends PresentComponent implements OnInit {
 
   getDistricts() {
     let loaded = false;
-    console.log(this.provinces);
+    // console.log(this.provinces);
     if (this.districts.length === 0 && loaded === false) {
       const province = this.getProvince();
       if (province !== null && typeof province === 'object') {
         this.districts = province.districts;
         loaded = true;
       } else {
-          console.log(this.districts);
+         // console.log(this.districts);
         this.districts = [];
       }
     }
