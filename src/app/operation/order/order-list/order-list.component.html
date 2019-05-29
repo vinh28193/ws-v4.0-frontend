@@ -653,10 +653,14 @@
                                   <button *ngIf="checkBuynow(order)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
                                     <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
-                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="updateStatus(order.id)">
-                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}
+                                  <button *ngIf="order.current_status == 'PURCHASED'" type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
+                                          (click)="insertTrackingShow()">
+                                    <i class="fa fa-check"></i> SELLER SHIPPED
                                   </button>
+<!--                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-{{getClassStatus(order.current_status)}} mb-2 mr-2 btn-sm"-->
+<!--                                          (click)="updateStatus(order.id)">-->
+<!--                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}-->
+<!--                                  </button>-->
                                 </div>
                               </div>
                             </div>
@@ -812,7 +816,7 @@
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)" [order_code]="order.ordercode"  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail [openConfirmOrder]="checkConfirmOrder(order)" (getListOrder)="listOrders()" [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
+                                <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)" [openConfirmOrder]="checkConfirmOrder(order)" (getListOrder)="listOrders()" [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
                               </div>
                               <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
                                 <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
@@ -2200,6 +2204,77 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
       <div class="modal-footer">
         <button class="btn btn-success" (click)="confirmArrearsAddfee()" i18n>Confirm</button>
         <button class="btn btn-warning" (click)="arrearsAddfee.hide()" i18n>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #insertTrackingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card m-b-0">
+              <div class="card-body">
+                <div class="card-title">
+                  <h3 i18n>Add tracking</h3>
+                </div>
+                <div class="col-md-12 form-body">
+                  <div class="row">
+                    <div class="col-md-12 form-group m-b-10">
+                      <label for="tracking_code" class="form-control-label">Tracking code</label>
+                      <input type="text" id="tracking_code" class="form-control form-control-sm"
+                             [(ngModel)]="tracking_Insert.tracking_code">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a href="javascript: void (0);" (click)="addInfo()"
+                         style="float: left; padding: 15px; color: green;" data-toggle="tooltip" data-placement="top"
+                         title="Add"><i class="fa fa-plus"></i></a>
+                    </div>
+                  </div>
+                  <div class="row" style="border: 1px solid #3e3e3e3e"
+                       *ngFor="let item of tracking_Insert.info; let ind = index">
+                    <div class="col-md-12">
+                      <a href="javascript: void (0);" (click)="removeInfo(ind)"
+                         style="float: right; padding: 15px; color: red;" data-toggle="tooltip" data-placement="top"
+                         title="Remove"><i class="fa fa-spin fa-remove"></i></a>
+                    </div>
+                    <div class="col-md-6 form-group m-b-10">
+                      <label for="order_id" class="form-control-label">Order code</label>
+                      <input type="text" id="order_id" class="form-control form-control-sm" [(ngModel)]="item.order_code">
+                    </div>
+                    <div class="col-md-6 form-group m-b-10">
+                      <label for="product_id" class="form-control-label">Product id</label>
+                      <input type="text" id="product_id" class="form-control form-control-sm"
+                             [(ngModel)]="item.product_id">
+                    </div>
+                    <div class="col-md-6 form-group m-b-10">
+                      <label for="quantity" class="form-control-label">Quantity</label>
+                      <input type="text" id="quantity" class="form-control form-control-sm"
+                             [(ngModel)]="item.quantity">
+                    </div>
+                    <div class="col-md-6 form-group m-b-10">
+                      <label for="purchase_number_invoice" class="form-control-label">Purchase number invoice</label>
+                      <input type="text" id="purchase_number_invoice" class="form-control form-control-sm"
+                             [(ngModel)]="item.purchase_number_invoice">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="button-group">
+                        <button class="btn btn-sm btn-success" i18n (click)="insertTracking()">Insert Tracking</button>
+                        <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -41,6 +41,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     public editFormNote: FormGroup;
     @Output() editFee: EventEmitter<any> = new EventEmitter<any>();
     @Output() getListOrder: EventEmitter<any> = new EventEmitter<any>();
+    @Output() addTrackingCode: EventEmitter<any> = new EventEmitter<any>();
     private notifier: NotifierService;
     private $j: number;
 

@@ -19,7 +19,7 @@
                                     <b style="font-family: auto">{{1  | serialNumer}}. </b>
                                     <span i18n>Order: <strong>{{orders[0].ordercode}}</strong></span>
                                     <span i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></span>
-                                    <span i18n> - Seller: <b>{{orders[0].sellerId}}</b></span>
+                                    <span i18n> - Seller: <b>{{orders[0].seller}}</b></span>
                                     <span i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></span>
                                 </H4>
                                 <table class="table table-striped"
@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="row col-md-12">
                                                 <div class="col-md-6">
-                                                    <span><b i18n>Seller:</b> {{order.sellerId}}</span>
+                                                    <span><b i18n>Seller:</b> {{order.seller}}</span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span><b i18n>Condition:</b> {{product.condition}}</span>
