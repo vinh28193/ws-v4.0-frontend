@@ -7,21 +7,21 @@
         </div>
         <form action="" [formGroup] = "formSearch">
           <div class="row">
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group ">
               <label for="keyWordGroup" class="form-control-label" i18n>Order Code</label>
               <div class="row ml-0 mr-0" id="keyWordGroup">
                 <input class="form-control form-control-sm" id="valueOrderCode" (keyup.enter)="listMoreLog()" formControlName="valueOrderCode"
                        type="text">
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group ">
               <label for="keyWordGroup" class="form-control-label" i18n>Employees</label>
               <div class="row ml-0 mr-0" id="keyWordGroup1">
                 <input class="form-control form-control-sm" id="valueEmployees" (keyup.enter)="listMoreLog()" formControlName="valueEmployees"
                        type="text">
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group ">
               <label for="keyWordGroup" class="form-control-label" i18n>Arrange the creation time</label>
               <div class="row ml-0 mr-0" id="keyWordGroup3">
                 <select class="form-control form-control-sm" name="valueCreate" id="valueCreate" formControlName="valueCreate">
@@ -30,14 +30,14 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group ">
               <label for="keyWordGroup" class="form-control-label" i18n>Content</label>
               <div class="row ml-0 mr-0" id="keyWordGroup4">
                 <input class="form-control form-control-sm" id="content" name="content" (keyup.enter)="listMoreLog()" formControlName="content"
                        type="text">
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group ">
               <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
               <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
                 <input #drp="bsDaterangepicker"
@@ -56,7 +56,7 @@
                                     </span>
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 form-group mb-0">
+            <div class="col-md-4 col-sm-12 form-group">
               <label for="keyWordGroup" class="form-control-label" i18n>IP</label>
               <div class="row ml-0 mr-0" id="keyWordGroup5">
                 <input class="form-control form-control-sm" id="ip" name="ip" (keyup.enter)="listMoreLog()" formControlName="ip"
