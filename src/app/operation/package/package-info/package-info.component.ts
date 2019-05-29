@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ScopeService} from '../../../core/service/scope.service';
 import {PackageDataComponent} from '../package-data.component';
 import {PackageService} from '../package.service';
@@ -10,6 +10,7 @@ import {PackageService} from '../package.service';
 })
 export class PackageInfoComponent extends PackageDataComponent implements OnInit {
   @Input() packTr: any = [];
+  @Output() viewLog: EventEmitter<any> = new EventEmitter<any>();
   constructor(
       http: PackageService,
       public _scope: ScopeService
@@ -18,6 +19,9 @@ export class PackageInfoComponent extends PackageDataComponent implements OnInit
   }
 
   ngOnInit() {
+  }
+  viewLogInfo(code, type) {
+    this.viewLog.emit({code: code, type: type});
   }
 
 }
