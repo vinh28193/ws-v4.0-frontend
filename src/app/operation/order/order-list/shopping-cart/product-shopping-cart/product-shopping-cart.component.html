@@ -119,8 +119,15 @@
             </div>
             <div>
               <div class="row" *ngIf="product.fees.product_price_origin">
-                <div class="col-md-4">
-                  {{product.fees.product_price_origin.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.product_price_origin.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.product_price_origin.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.product_price_origin.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.product_price_origin.discount_amount > 0">{{product.fees.product_price_origin.discount_amount  | currency:'VND'}}</span>
@@ -130,8 +137,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.origin_shipping_fee">
-                <div class="col-md-4">
-                  {{product.fees.origin_shipping_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.origin_shipping_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.origin_shipping_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.origin_shipping_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.origin_shipping_fee.discount_amount > 0">{{product.fees.origin_shipping_fee.discount_amount | currency:'VND'}}</span>
@@ -141,8 +155,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.tax_fee_origin">
-                <div class="col-md-4">
-                  {{product.fees.tax_fee_origin.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.tax_fee_origin.name}}
+                  ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.tax_fee_origin.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                  <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.tax_fee_origin.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.tax_fee_origin.discount_amount > 0">{{product.fees.tax_fee_origin.discount_amount | currency:'VND'}}</span>
@@ -151,9 +172,31 @@
                   {{product.fees.tax_fee_origin.local_amount | currency:'VND'}}
                 </div>
               </div>
+             <div class="row">
+               <div class="col-md-6 pr-0">
+                 <strong><span i18n>Item subtotal:</span>
+                   ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ itemSubtotalAmount(product.fees.product_price_origin.amount, product.fees.origin_shipping_fee.amount, product.fees.tax_fee_origin.amount) | currency: 'JPY' : '￥'}}
+                                    </span>
+                   <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ itemSubtotalAmount(product.fees.product_price_origin.amount, product.fees.origin_shipping_fee.amount, product.fees.tax_fee_origin.amount) | currency : 'USD' : '$'}}
+                                    </span>)
+                 </strong>
+               </div>
+               <div class="col-md-6 text-right">
+                 {{itemSubtotalLocal(product.fees.product_price_origin.local_amount, product.fees.origin_shipping_fee.local_amount, product.fees.tax_fee_origin.local_amount) | currency: 'VND'}}
+               </div>
+             </div>
               <div class="row" *ngIf="product.fees.weshop_fee">
-                <div class="col-md-4">
-                  {{product.fees.weshop_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.weshop_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.weshop_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.weshop_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.weshop_fee.discount_amount > 0">{{product.fees.weshop_fee.discount_amount | currency:'VND'}}</span>
@@ -163,8 +206,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.intl_shipping_fee">
-                <div class="col-md-4">
-                  {{product.fees.intl_shipping_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.weshop_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.intl_shipping_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.intl_shipping_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.intl_shipping_fee.discount_amount > 0">{{product.fees.intl_shipping_fee.discount_amount | currency:'VND'}}</span>
@@ -174,8 +224,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.custom_fee">
-                <div class="col-md-4">
-                  {{product.fees.custom_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.custom_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.custom_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.custom_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.custom_fee.discount_amount > 0">{{product.fees.custom_fee.discount_amount | currency:'VND'}}</span>
@@ -185,8 +242,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.delivery_fee_local">
-                <div class="col-md-4">
-                  {{product.fees.delivery_fee_local.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.delivery_fee_local.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.delivery_fee_local.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.delivery_fee_local.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.delivery_fee_local.discount_amount > 0">{{product.fees.delivery_fee_local.discount_amount | currency:'VND'}}</span>
@@ -196,8 +260,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.packing_fee">
-                <div class="col-md-4">
-                  {{product.fees.packing_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.packing_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.packing_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.packing_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   <span *ngIf="product.fees.packing_fee.discount_amount">{{product.fees.packing_fee.discount_amount | currency:'VND'}}</span>
@@ -207,8 +278,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.inspection_fee">
-                <div class="col-md-4">
-                  {{product.fees.inspection_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.inspection_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.inspection_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.inspection_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   {{product.fees.inspection_fee.discount_amount | number}}đ
@@ -218,8 +296,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.insurance_fee">
-                <div class="col-md-4">
-                  {{product.fees.insurance_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.insurance_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.insurance_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.insurance_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   {{product.fees.insurance_fee.discount_amount | number}}đ
@@ -229,8 +314,15 @@
                 </div>
               </div>
               <div class="row" *ngIf="product.fees.vat_fee">
-                <div class="col-md-4">
-                  {{product.fees.vat_fee.name}}
+                <div class="col-md-4 pr-0">
+                  <strong>{{product.fees.vat_fee.name}}
+                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.fees.vat_fee.amount  | currency: 'JPY' : '￥'}}
+                                    </span>
+                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.fees.vat_fee.amount | currency : 'USD' : '$'}}
+                                    </span>)
+                  </strong>
                 </div>
                 <div class="col-md-4">
                   {{product.fees.vat_fee.discount_amount | currency:'VND'}}
