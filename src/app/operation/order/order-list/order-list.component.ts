@@ -167,7 +167,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     keywordSearch = '';
     private notifier: NotifierService;
     public ArrayListOrder: any = {};
-    private tracking_Insert: any = {};
+    public tracking_Insert: any = {
+        tracking_code: '',
+        info: []
+    };
     @ViewChild('insertTrackingModal') insertTrackingModal: ModalDirective;
 
     constructor(private orderService: OrderService,
