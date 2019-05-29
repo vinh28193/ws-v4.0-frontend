@@ -314,7 +314,7 @@
                                       <div>
                                         <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px" i18n >RECEIVER
                                           <a href="javascript:void(0)"
-                                             (click)="updateCustomer(order);updateReceiverModal.show()" *ngIf = "!_scope.checkMarketingAccount()">
+                                             (click)="updateCustomer(order);updateReceiverModal.show()" *ngIf = "!_scope.checkMarketingAccount() && !_scope.checkOperatione() && !_scope.checkMasterOperation()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
                                           </a>
                                         </h5>
@@ -354,7 +354,7 @@
                               </div>
 
                               <div class="row col-md-12 pb-1">
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
+                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order)" *ngIf="checkConfirmOrder(order)" i18n >Confirm Orders</button>
                                 <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
                               </div>
@@ -628,7 +628,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt()" (click)="confirmChangePrice(order.id)"
+                                    <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()" (click)="confirmChangePrice(order.id)"
                                             class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
                                         <i class="fa fa-dollar" aria-hidden="true"></i>
                                         Confirm Changing Price
@@ -653,7 +653,7 @@
                                   <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
                                     <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
-                                  <button *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt()" type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
+                                  <button *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()" type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
                                           (click)="insertTrackingShow()">
                                     <i class="fa fa-check"></i> SELLER SHIPPED
                                   </button>

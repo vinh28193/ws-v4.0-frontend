@@ -715,7 +715,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     cancelOrder(id) {
         const messagePop = 'Do you want Cancel order ' + id;
         this.popup.warning(() => {
-            const put = this.orderService.createPostParams({}, 'updateStatus');
+            const put = this.orderService.createPostParams({}, 'cancelOrder');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
                     this.popup.success(res.message);
@@ -1141,16 +1141,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             if (this.orderList.current_status === 'READY2PURCHASE') {
                 this.statusOd = 4;
             } else {
-                console.log(this.statusOds);
                 for (let i = 1; i < this.statusOds.length; i++) {
-                    const current = this.statusOds[i] || undefined;
-                    if (undefined !== current && current.key.toLowerCase() === this.orderList.current_status.toLowerCase()) {
+                    const current = this.statusOds[i];
+                    if (current.name === this.orderList.current_status) {
+                        console.log(current.id);
                         this.statusOd = current.id;
                         break;
                     }
                 }
             }
            // console.log(this.countOP);
+          console.log(this.statusOd);
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
             });
