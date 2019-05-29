@@ -48,7 +48,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     constructor(private orderService: OrderService,
                 private popup: PopupService,
                 private fb: FormBuilder ,
-                public global: ScopeService,
+                public _sp: ScopeService,
                 notifier: NotifierService
     ) {
         super(orderService);

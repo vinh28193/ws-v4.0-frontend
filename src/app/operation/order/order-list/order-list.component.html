@@ -628,7 +628,7 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation()" (click)="confirmChangePrice(order.id)"
+                                    <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()" (click)="confirmChangePrice(order.id)"
                                             class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
                                         <i class="fa fa-dollar" aria-hidden="true"></i>
                                         Confirm Changing Price

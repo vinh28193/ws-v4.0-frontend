@@ -11,7 +11,7 @@
           <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
         </div>
         <div class="mt-2">
-          <a href="{{product.link_origin}}" *ngIf="!global.checkOperatione() && !global.checkMasterOperation() && !global.checkAccountant() && !global.checkMasterAccountant()" target="_blank" class="originalLink" i18n>Original Link</a>
+          <a href="{{product.link_origin}}" *ngIf="!_sp.checkOperatione() && !_sp.checkMasterOperation() && !_sp.checkAccountant() && !_sp.checkMasterAccountant() || !_sp.checkSale()" target="_blank" class="originalLink" i18n>Original Link</a>
         </div>
         <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
           <span class="sr-only ng-star-inserted">( )</span>
@@ -43,14 +43,14 @@
                 <span class="mr-2">Sku:</span>
                 <app-span-label [value]="product.sku"></app-span-label>
               </li>
-              <li class="parent_sku" *ngIf="global.checkSuperAdmin()">
+              <li class="parent_sku" *ngIf="_sp.checkSuperAdmin()">
                 <span class="mr-2" i18n>ParentId:</span>
                 <app-span-label [value]="product.parent_sku"></app-span-label>
               </li>
               <li class="text-danger variations">
                 <span class="mr-2" i18n>Item Variant:</span>
                 <app-span-label [value]="product.variations"></app-span-label>
-                <a href="javascript:void(0);" *ngIf="!global.checkMkt()" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
+                <a href="javascript:void(0);" *ngIf="!_sp.checkMkt()" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
                 <form action="" [formGroup] = "editFormVariant" *ngIf="openEditVariant[product.id]" [hidden]="!openEditVariant[product.id]">
                   <input  type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()" formControlName="variant"  name="variant">
                 </form>
@@ -84,7 +84,7 @@
               <li>
                 <span class="mr-2" i18n>Category:</span>
                 <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
-                <a class="ml-1" href="javascript:void(0)" *ngIf="!global.checkMkt() && !global.checkOperatione() && !global.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
+                <a class="ml-1" href="javascript:void(0)" *ngIf="!_sp.checkMkt() && !_sp.checkOperatione() && !_sp.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
                   <i class="fa fa-edit text-info"></i>
                 </a>
                 <form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
@@ -133,10 +133,10 @@
                 <li *ngIf="openConfirmOrder && product.custom_category_id">
                     <a href="javascript: void (0);" (click)="confirmOrder(product)" class="btn btn-sm btn-outline-info" style="border: none" ><i class="fa fa-check"></i> Confirm purchase</a>
                 </li>
-              <li *ngIf="product.confirm_change_price && !global.checkMkt()">
+              <li *ngIf="product.confirm_change_price && !_sp.checkMkt()">
                 <a href="javascript: void (0);" (click)="confirmChangePrice(product)" class="btn btn-sm btn-outline-success" style="border: none" ><i class="fa fa-check"></i> Confirm changing price</a>
               </li>
-              <li *ngIf="product.purchased && !global.checkMkt()">
+              <li *ngIf="product.purchased && !_sp.checkMkt()">
                 <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})" class="btn btn-sm btn-outline-info" ><i class="fa fa-check"></i> Add Tracking</a>
               </li>
             </ul>
@@ -196,7 +196,7 @@
                   </div>
                 </div>
               <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.type)}} text-right style-padding ">
-                {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !global.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
+                {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !_sp.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
               </div>
               <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
                 <input type="number" width="100%" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
@@ -224,7 +224,7 @@
                       <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="m-l1">{{storeID | currencyStore}}</span>
                     </div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.type)}} text-right style-padding ">
-                      {{ProFee.local_amount ? ProFee.local_amount : 0 | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !global.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
+                      {{ProFee.local_amount ? ProFee.local_amount : 0 | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !_sp.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
                     </div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
                       <input type="number" width="100%" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
