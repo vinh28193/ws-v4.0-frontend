@@ -96,10 +96,10 @@
                                             <table class="table table-primary">
                                                 <thead>
                                                 <tr>
-                                                    <th width="25%" class="{{tabTracking == 'complete' ? 'active-tab-track' : ''}}" (click)="setTabTracking('complete')">Tracking Complete (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('unknown')">Tracking Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'complete' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package')">Package (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package unknown')">Package Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -245,10 +245,11 @@
                                                     <tr>
                                                         <td colspan="4" style="padding: 0px">
                                                             <app-package-view [tab_tracking]="tabTracking"
+                                                                              (viewLogs)="viewLog($event)"
                                                                                 (sellerRefund)="showSellerRefundModal($event)"
                                                                                 (markHold)="markHoldTracking($event.id,$event.hold)"
                                                                                 (splitTracking)="splitTracking($event)"
-                                                                                (updateTracking)="showUpdateForm($event)"
+                                                                                (updatePackage)="showUpdateForm($event)"
                                                                                 [tracking_codes]="trackingCodes">
                                                             </app-package-view>
                                                         </td>
@@ -403,7 +404,7 @@
                         <div class="card m-b-0">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h3 i18n>Update tracking {{updateForm.tracking}}</h3>
+                                    <h3 i18n>Update Package {{updateForm.tracking}}</h3>
                                 </div>
                                 <div class="col-md-12 form-body">
                                     <div class="row">
