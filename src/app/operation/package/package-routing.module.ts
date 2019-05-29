@@ -23,7 +23,7 @@ const routes: Routes = [
                 component: PackageItemComponent
             },
             {
-                path: 'draft',
+                path: 'manifest',
                 component: PackageDraftComponent
             }
         ]

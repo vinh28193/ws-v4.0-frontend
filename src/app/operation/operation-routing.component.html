@@ -55,16 +55,16 @@
                             <span i18n>Warehouse Management</span>
                         </a>
                     </li>
-                    <li *ngIf="checkOperatione()">
-                        <a [routerLink]="['tracking']">
-                            <i class="fa fa-search-location"></i>
-                            <span i18n>Tracking Code</span>
-                        </a>
-                    </li>
+<!--                    <li *ngIf="checkOperatione()">-->
+<!--                        <a [routerLink]="['tracking']">-->
+<!--                            <i class="fa fa-search-location"></i>-->
+<!--                            <span i18n>Tracking Code</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                     <li>
-                        <a [routerLink]="['package/draft']">
+                        <a [routerLink]="['package/manifest']">
                             <i class="fa fa-box-open"></i>
-                            <span i18n>Package Draft</span>
+                            <span i18n>Manifest</span>
                         </a>
                     </li>
                     <li *ngIf="checkSuperAdmin()">

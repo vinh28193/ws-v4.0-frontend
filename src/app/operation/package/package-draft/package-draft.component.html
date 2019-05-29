@@ -206,6 +206,10 @@
                                                                                     <i class="fal fa-chain"></i> Merge tracking
                                                                                 </a>
                                                                             </p>
+                                                                            <p class="btn-group" *ngIf="packTr.type_tracking == 'UNKNOWN'" >
+                                                                                <input class="form-control form-control-sm" [(ngModel)]="productIds[packTr.id]" type="text" placeholder="Fill Product Id">
+                                                                                <button class="btn btn-sm btn-default" (click)="mapUnknownUs(packTr.id, packTr.tracking_code)" >Map <i class="fal fa-map-marker"></i></button>
+                                                                            </p><br>
                                                                             <a href="javascript:void (0)"
                                                                                (click)="mergeTrackingEvent(packTr, 'tracking')"><i
                                                                                     class="fal fa-reply-all"></i> Merge
@@ -279,6 +283,19 @@
                                     <div class="col-md-12 form-body">
                                         <div class="row">
                                             <div class="col-md-6 form-group m-b-10">
+                                                <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
+                                                <input type="datetime-local" class="form-control form-control-sm" placeholder="SetUp Time In Us WareHosue" formControlName="date" />
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <label for="warehouse_us" class="form-control-label" i18n>Pickup Warehouse</label>
+                                                <select class="form-control form-control-sm" name="warehouse_us" id="warehouse_us"
+                                                        formControlName="warehouse_us">
+                                                    <option *ngFor="let wh of warehouses" [value]="wh.id">{{wh.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group m-b-10">
                                                 <label for="store" class="form-control-label" >Store</label>
                                                 <select class="form-control form-control-sm" name="store" id="store"
                                                         formControlName="store">
@@ -288,10 +305,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="store" class="form-control-label" i18n> Pickup Warehouse</label>
-                                                <select class="form-control form-control-sm" name="warehouse" id="warehouse"
+                                                <label for="warehouse_receive" class="form-control-label" i18n>Receive Warehouse</label>
+                                                <select class="form-control form-control-sm" name="warehouse" id="warehouse_receive"
                                                         formControlName="warehouse">
-                                                    <option *ngFor="let wh of listWarehouses" [value]="wh.key">{{wh.value}}</option>
+                                                    <option *ngFor="let wh of warehouses" [value]="wh.id">{{wh.name}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -302,22 +319,15 @@
                                                        formControlName="manifest">
                                             </div>
                                             <div class="col-md-6 form-group m-b-10">
-                                                <label for="store" class="form-control-label" i18n>Upload</label>
-                                                <span i18n>(Download File excel ,Example : TrackingCode.xlsx)</span>
+                                                <label for="store" class="form-control-label" i18n>Upload Tracking File <span>(<a href="../../assets/template/TrackingCode.xlsx">TrackingCode.xlsx</a>)</span></label>
                                                 <input type="file" id="file" formControlName="file" class="form-control form-control-sm" (change)="handleFileChange($event)">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 form-group m-b-10">
-                                                <label for="manifest" class="form-control-label" i18n>SetUp Time In Us WareHosue</label>
-                                                <input type="text" class="form-control" i18n-placeholder="Datepicker" placeholder="Datepicker" bsDatepicker formControlName="date" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="button-group">
                                                     <button class="btn btn-sm btn-success" (click)="create()" i18n>Create</button>
-                                                    <button class="btn btn-sm btn-warning" i18n>Cancel</button>
+                                                    <button class="btn btn-sm btn-warning" (click)="usSendingModal.hide()" i18n>Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
