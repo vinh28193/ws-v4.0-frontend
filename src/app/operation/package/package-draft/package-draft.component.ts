@@ -70,14 +70,14 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
     // form
     public usSendingForm: FormGroup;
     public searchForm: FormGroup;
-    private trackingSellerMerge: any = {
+    public trackingSellerMerge: any = {
         data_id: '',
         ext_id: '',
         data_tracking_code: '',
         ext_tracking_code: '',
         type: '',
     };
-    private trackingMergeSearch: string | any;
+    public trackingMergeSearch: string | any;
 
     constructor(
         public packageService: PackageDraftService,

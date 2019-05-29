@@ -65,7 +65,7 @@
               </li>
               <li class="total_weight_temporary">
                 <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
-                <app-span-label [value]="product.total_weight_temporary"></app-span-label>
+                <app-span-label [value]="(product.total_weight_temporary + ' kg')"></app-span-label>
               </li>
               <li class="total_weight_temporary">
                 <span
@@ -155,10 +155,10 @@
             <h5 i18n>FINANCE</h5>
           </div>
           <div class="col-md-2 text-right">
-            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]" tooltip="Show Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]"   (click)="hidem[product.id] = !hidem[product.id]" i18n>
               <i class="fa fa-eye" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]" tooltip="Hide Free" (click)="hidem[product.id] = !hidem[product.id]" i18n>
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]"   (click)="hidem[product.id] = !hidem[product.id]" i18n>
               <i class="fa fa-eye-slash" aria-hidden="true"></i>
             </button>
           </div>
@@ -220,10 +220,11 @@
                       </strong>
                     </div>
                     <div *ngIf="product.id == ProFee.product_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                      <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" i18n>Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | number}}</span><span class="m-l1">{{storeID | currencyStore}}</span>
+                      <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" i18n>Discount : {{ProFee.discount_amount ? ProFee.discount_amount : 0 | number}}</span>
+                      <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="m-l1">{{storeID | currencyStore}}</span>
                     </div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.type)}} text-right style-padding ">
-                      {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !global.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
+                      {{ProFee.local_amount ? ProFee.local_amount : 0 | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.type) && !global.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
                     </div>
                     <div *ngIf="product.id == ProFee.product_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
                       <input type="number" width="100%" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
