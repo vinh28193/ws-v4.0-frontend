@@ -50,7 +50,7 @@
               <li class="text-danger variations">
                 <span class="mr-2" i18n>Item Variant:</span>
                 <app-span-label [value]="product.variations"></app-span-label>
-                <a href="javascript:void(0);" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
+                <a href="javascript:void(0);" *ngIf="!global.checkMkt()" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
                 <form action="" [formGroup] = "editFormVariant" *ngIf="openEditVariant[product.id]" [hidden]="!openEditVariant[product.id]">
                   <input  type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()" formControlName="variant"  name="variant">
                 </form>
@@ -84,7 +84,7 @@
               <li>
                 <span class="mr-2" i18n>Category:</span>
                 <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
-                <a class="ml-1" href="javascript:void(0)" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
+                <a class="ml-1" href="javascript:void(0)" *ngIf="!global.checkMkt()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
                   <i class="fa fa-edit text-info"></i>
                 </a>
                 <form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
@@ -133,10 +133,10 @@
                 <li *ngIf="openConfirmOrder && product.custom_category_id">
                     <a href="javascript: void (0);" (click)="confirmOrder(product)" class="btn btn-sm btn-outline-info" style="border: none" ><i class="fa fa-check"></i> Confirm purchase</a>
                 </li>
-              <li *ngIf="product.confirm_change_price">
+              <li *ngIf="product.confirm_change_price && !global.checkMkt()">
                 <a href="javascript: void (0);" (click)="confirmChangePrice(product)" class="btn btn-sm btn-outline-success" style="border: none" ><i class="fa fa-check"></i> Confirm changing price</a>
               </li>
-              <li *ngIf="product.purchased">
+              <li *ngIf="product.purchased && !global.checkMkt()">
                 <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})" class="btn btn-sm btn-outline-info" ><i class="fa fa-check"></i> Add Tracking</a>
               </li>
             </ul>
