@@ -14,6 +14,7 @@ export class MoreLogComponent extends OrderDataComponent implements OnInit {
   public limit: number = 20;
   public page: number = 1;
   public moreLogs: any = [];
+  public bsRangeValue: Date[];
   public total: number;
   public type: 'action';
   public formSearch: FormGroup;

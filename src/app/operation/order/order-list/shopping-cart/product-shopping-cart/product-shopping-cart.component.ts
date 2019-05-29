@@ -19,5 +19,13 @@ export class ProductShoppingCartComponent extends OrderDataComponent implements 
 
   ngOnInit() {
   }
+  itemSubtotalAmount(a, b, c) {
+    const totalSubtotalAmount = a + b + c;
+    return totalSubtotalAmount;
+  }
+  itemSubtotalLocal(a, b, c) {
+    const totalSubtotalLocal = a + b + c;
+    return totalSubtotalLocal;
+  }
 
 }

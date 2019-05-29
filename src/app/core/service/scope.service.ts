@@ -115,4 +115,9 @@ export class ScopeService {
       return true;
     }
   }
+  checkMkt() {
+    if (this.checkMasterMarketing() || this.checkMarketing() || this.checkMarketingAccount() || this.checkMarketingAds() || this.checkMarketingIntent() || this.checkAccountant() || this.checkMasterAccountant()) {
+      return true;
+    }
+  }
 }
