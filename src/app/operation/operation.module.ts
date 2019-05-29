@@ -74,7 +74,7 @@ import { TransactionComponent } from './wallet/transaction/transaction.component
         DeliveryNoteComponent,
         WalletComponent,
         ClientComponent,
-        TransactionComponent
+        TransactionComponent,
     ],
     providers: [
         OperationService

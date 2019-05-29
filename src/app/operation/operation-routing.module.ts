@@ -16,6 +16,10 @@ const routes: Routes = [
                 loadChildren: './order/order.module#OrderModule'
             },
             {
+              path: 'more-log',
+              loadChildren: './more-log/more-log.module#MoreLogModule'
+            },
+            {
                 path: 'package',
                 loadChildren: './package/package.module#PackageModule',
             },

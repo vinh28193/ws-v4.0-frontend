@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <h3 i18n>LIST ALL MORE LOGS</h3>
+        </div>
+        <form action="" [formGroup] = "formSearch">
+          <div class="row">
+            <div class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="keyWordGroup" class="form-control-label" i18n>Order Code</label>
+              <div class="row ml-0 mr-0" id="keyWordGroup">
+                <input class="form-control form-control-sm" id="valueOrderCode" (keyup.enter)="listMoreLog()" formControlName="valueOrderCode"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="keyWordGroup" class="form-control-label" i18n>Employees</label>
+              <div class="row ml-0 mr-0" id="keyWordGroup1">
+                <input class="form-control form-control-sm" id="valueEmployees" (keyup.enter)="listMoreLog()" formControlName="valueEmployees"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="keyWordGroup" class="form-control-label" i18n>Arrange the creation time</label>
+              <div class="row ml-0 mr-0" id="keyWordGroup3">
+                <select class="form-control form-control-sm" name="valueCreate" id="valueCreate" formControlName="valueCreate">
+                  <option value="0">Latest creation time</option>
+                  <option value="1">The oldest creative time</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="keyWordGroup" class="form-control-label" i18n>Content</label>
+              <div class="row ml-0 mr-0" id="keyWordGroup4">
+                <input class="form-control form-control-sm" id="content" name="content" (keyup.enter)="listMoreLog()" formControlName="content"
+                       type="text">
+              </div>
+            </div>
+            <div [hidden]="checkShoppingCart" class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
+              <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
+                <input #drp="bsDaterangepicker"
+                       (keyup.enter)="listMoreLog()"
+                       bsDaterangepicker
+                       [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+                       (bsValueChange)="bsRangeValue"
+                       formControlName="bsRangeValue"
+                       class="form-control form-control-sm ">
+                <span class="input-group-btn">
+                                        <button (click)="drp.toggle()"
+                                                [attr.aria-expanded]="drp.isOpen"
+                                                class="btn btn-sm btn-info" type="button"><i
+                                          class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group mb-0">
+              <label for="keyWordGroup" class="form-control-label" i18n>IP</label>
+              <div class="row ml-0 mr-0" id="keyWordGroup5">
+                <input class="form-control form-control-sm" id="ip" name="ip" (keyup.enter)="listMoreLog()" formControlName="ip"
+                       type="text">
+              </div>
+            </div>
+           <div class="col-md-4">
+             <label for="type" class="form-control-label" i18n>Type</label>
+             <select class="form-control form-control-sm" (change)="listMoreLog()" name="type" id="type" formControlName="type">
+               <option value="actionlog" i18n>Action Log</option>
+               <option value="paymentlog" i18n>Payment Log</option>
+               <option value="walletlog" i18n>Wallet Log</option>
+               <option value="send-shipment-log" i18n>Sent Shipment Log</option>
+               <option value="send-shipment-return-log" i18n>Sent Shipment Return Log</option>
+               <option value="boxme-inspect-log" i18n>Boxme Inspect Log</option>
+               <!--<option value="trackinglogs" i18n>Tracking Log</option>-->
+             </select>
+           </div>
+            <div class="col-md-4 pt-4">
+              <div class="button-group pt-1">
+                <button class="btn btn-sm btn-success"  (click)="listMoreLog()"><i class="fa fa-search"></i><span i18n>Search</span></button>
+                <button class="btn btn-sm btn-danger ml-2" (click)="freshMoreLog()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <strong>Total:</strong><span class="text-danger ml-1">{{total}}</span>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <span i18n>Showing </span>
+            <select class="form-control-sm select-custom"
+                    (change)="handlePerPage($event)">
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="all" i18n>All</option>
+            </select>
+            <!--span><p i18n>of page</p>{{perPage ? perPage : 0  }}<p i18n>in</p>{{pageCount ? pageCount : 0 }}<p i18n>page in total</p>{{totalCount ? totalCount : 0 }} <p i18n>items</p></span-->
+          </div>
+          <div class="col-md-6">
+            <pagination [boundaryLinks]="true"
+                        [maxSize]="10"
+                        [totalItems]="total"
+                        (pageChanged)="handlePagination($event)"
+                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                        [rotate]="true">
+            </pagination>
+          </div>
+        </div>
+        <article class="row item-list">
+          <div class="col-md-12">
+            <table class="table table-bordered table-hover table_support_logs table-striped ng-star-inserted">
+              <thead>
+              <tr>
+                <th i18n>Order Code</th>
+                <th i18n>Create time</th>
+                <th i18n>Action</th>
+                <th i18n>Data Input</th>
+                <th i18n>Data Output</th>
+                <th i18n>Employee</th>
+                <th i18n>IP</th>
+                <th i18n>Role</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let log of moreLogs">
+                <td>{{log.id}}</td>
+                <td>{{log.date}}</td>
+                <td>{{log.action_path}}</td>
+                <td>{{log.data_input}}</td>
+                <td>{{log.data_output}}</td>
+                <td *ngIf="!log.user">{{log.user_name}}</td>
+                <!--<td *ngIf="log.user">{{log.user}}</td>-->
+                <td>{{log.request_ip}}</td>
+                <td>{{log.Role}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
