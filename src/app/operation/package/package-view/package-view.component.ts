@@ -65,6 +65,7 @@ export class PackageViewComponent extends PackageDataComponent implements OnInit
   public listChoose: any = [];
   public listIds: any = [];
   public totalWeight = 0;
+  public chooseTabCreate = true;
   constructor(
       public packageService: PackageService,
       public _scope: ScopeService
@@ -362,6 +363,30 @@ export class PackageViewComponent extends PackageDataComponent implements OnInit
           }
         });
       }, 'Do you want create all delivery not now?', 'Create');
+    }
+  }
+  removeList(id) {
+    this.checkBoxs[this.getIdCheckBox(id)] = false;
+    this.clickCheck();
+  }
+  createDeliveryNote() {
+    this.formCreate.weight = this.formCreate.weight ? this.formCreate.weight : this.totalWeight;
+    if (this.getListIds()) {
+      if (this.listIds.length === 0) {
+        return this.packageService.popup.error('Dont have item chosen!');
+      }
+      this.packageService.post('dn', {listPackage: this.listIds, infoDeliveryNote: this.formCreate}).subscribe(rs => {
+        const res: any = rs;
+        if (res.success) {
+          this.packageService.popup.success(res.message);
+          this.insertTrackingModal.hide();
+          this.listChoose = [];
+          this.checkBoxs = [];
+          this.search();
+        } else {
+          this.packageService.popup.error(res.message);
+        }
+      });
     }
   }
 }
