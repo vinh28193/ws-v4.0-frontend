@@ -291,9 +291,9 @@
                                   <i class="fa fa-truck"></i> Warehouse: <b>{{purchase.receive_warehouse_name}}</b>
                                 </div>
                               </div>
-                              <div class="mt-1">
+                              <!--div class="mt-1">
                                 <span i18n>Tracking Code: <a href="javascript:void(0)" data-target="#tracking" (click)="openTracking(order)" data-toggle="modal" data-backdrop="static" data-keyboard="false"> {{order.package?.tracking_code}}</a></span>
-                              </div>
+                              </div-->
                             </div>
 
                             <div class="col-md-3 border-col CUSTOMER_INFO">
@@ -630,12 +630,12 @@
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
                                     <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()" (click)="confirmChangePrice(order.id)"
-                                            class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
+                                            class="btn btn-outline-success btn-sm mr-2 mb-2 Confirm Changing Price" i18n>
                                         <i class="fa fa-dollar" aria-hidden="true"></i>
                                         Confirm Changing Price
                                     </button>
                                     <button type="button" *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
-                                            class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
+                                            class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>
                                       <i class="fa fa-dollar" aria-hidden="true"></i>
                                       Arrears
                                     </button>
