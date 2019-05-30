@@ -791,16 +791,16 @@
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                   <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay() && order.current_status != 'NEW' && _scope.checkAccountant() && _scope.checkMasterAccountant()" (click)="pay[order.id] = !pay[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay() && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased  && order.current_status != 'NEW' && _scope.checkAccountant() && _scope.checkMasterAccountant()" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()  && order.current_status != 'NEW' && _scope.checkAccountant() && _scope.checkMasterAccountant()" (click)="pack[order.id] = !pack[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.current_status != 'NEW' && _scope.checkAccountant() && _scope.checkMasterAccountant()"  (click)="delivevery[order.id] = !delivevery[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"  (click)="delivevery[order.id] = !delivevery[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n >Delivery info</button>
                                 </li>
                               </ul>
