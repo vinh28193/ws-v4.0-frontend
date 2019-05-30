@@ -9668,3 +9668,9 @@ span.label.label-danger {
     font-size: 8px !important;
     padding: 3px!important;
 }
+input#username {
+    padding-left: 13px;
+}
+input#password {
+    padding-left: 13px;
+}

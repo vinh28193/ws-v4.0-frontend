@@ -1299,16 +1299,27 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <thead>
             <tr>
               <th scope="col">STT</th>
-              <th scope="col"><span i18n>Content</span></th>
+              <th scope="col"><span i18n>Content Text</span></th>
+                <th scope="col"><span i18n>Activation</span></th>
+                <th scope="col"><span i18n>Date</span></th>
               <th scope="col">...</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor = 'let chat of chatlists;let i = index'>
               <td>{{i+1}}</td>
-              <td>
-                {{chat}}
-              </td>
+              <td> {{chat.content}} </td>
+                <td>
+                    <a *ngIf="chat.active == 1" class="delete-chatsupporting" (click) = "ActiveChatSupporting(chat.id,0)">
+                          Active
+                    </a>
+                    <a *ngIf="chat.active == 0" class="delete-chatsupporting" (click) = "ActiveChatSupporting(chat.id,0)">
+                        Inactive
+                    </a>
+                </td>
+                <td>
+                    {{chat.date_set}}
+                </td>
               <td>
                 <a class="delete-chatsupporting" (click) = "deleteChatSupporting(i)">
                   <i class="fa fa-trash"></i>

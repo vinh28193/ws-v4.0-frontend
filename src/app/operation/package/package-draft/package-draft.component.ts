@@ -451,16 +451,16 @@ export class PackageDraftComponent extends PackageDataComponent implements OnIni
         } else {
             this.tabTracking = tab;
             switch (tab) {
-                case 'complete':
+                case 'package':
                     this.trackingCodes = this.tracks.draftPackageItems;
                     break;
-                case 'wasting':
+                case 'tracking wasting':
                     this.trackingCodes = this.tracks.draftWastingTrackings;
                     break;
-                case 'missing':
+                case 'tracking missing':
                     this.trackingCodes = this.tracks.draftMissingTrackings;
                     break;
-                case 'unknown':
+                case 'package unknown':
                     this.trackingCodes = this.tracks.unknownTrackings;
                     break;
                 default:

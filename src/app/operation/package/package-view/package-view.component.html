@@ -1,8 +1,8 @@
 <div class="content-block" style="margin: 0px">
   <div class="header-content">
-    <h2>View tracking {{tab_tracking}}</h2>
+    <h2>View {{tab_tracking}}</h2>
   </div>
-  <div class="body-content">
+  <div class="body-content" *ngIf="tab_tracking !== 'package'">
     <div class="col-md-12 row">
       <div class="col-md-3">
         <input type="text" placeholder="Tracking code" class="form-control form-control-sm">
@@ -40,6 +40,52 @@
       </div>
     </div>
   </div>
+  <div class="body-content" *ngIf="tab_tracking === 'package'">
+    <div class="col-md-12 row">
+      <div class="col-md-3">
+        <input type="text" placeholder="Package code" [(ngModel)]="formSearchPackage.package_code" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Tracking code" [(ngModel)]="formSearchPackage.tracking_code" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Order Code" [(ngModel)]="formSearchPackage.order_code" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Product Id" [(ngModel)]="formSearchPackage.product_id" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Customer Id" [(ngModel)]="formSearchPackage.customer_id" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Name" [(ngModel)]="formSearchPackage.name" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Phone" [(ngModel)]="formSearchPackage.phone" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <input type="text" placeholder="Receiver Email" [(ngModel)]="formSearchPackage.email" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-3">
+        <select class="form-control form-control-sm" [(ngModel)]="formSearchPackage.status_create">
+          <option value="">-- Select status create --</option>
+          <option value="create">Created Delivery Note</option>
+          <option value="not-create">Not Create</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 btn-group">
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="searchPackage()"><i class="fal fa-search"></i> Search</button>
+<!--        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="searchFastPackage()"><i class="fal fa-search"></i> Search fast</button>-->
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-refresh"></i> Refresh</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Create Delivery Note</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Create Delivery Note All</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Merge&Create Delivery Note</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Merge&Create Delivery Note All</button>
+      </div>
+    </div>
+  </div>
   <div class="body-content">
     <div class="row ">
       <div class="col-md-12">
@@ -55,7 +101,7 @@
           <ng-container *ngFor="let packTr of tracking_codes">
             <tr>
               <td>
-                <app-package-info [packTr]="packTr"></app-package-info>
+                <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
               </td>
               <td>
                 <ng-container *ngIf="!packTr.order">
@@ -101,15 +147,15 @@
                     </div>
                   </div>
                 </ng-container>
-                <div class="padding-btn" *ngIf="tab_tracking == 'complete'">
+                <div class="padding-btn" *ngIf="tab_tracking == 'package'">
                   <div><a href="javascript:void (0)" (click)="sellerRefundEvent(packTr)"><i class="fal fa-bank"></i> Seller refund</a></div>
                   <div *ngIf="!packTr.hold && packTr.hold != '0'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,1)"><i class="fal fa-bookmark-o"></i> Hold</a></div>
                   <div *ngIf="packTr.hold == '1'" ><a href="javascript:void (0)" (click)="markHoldTracking(packTr.id,0)"><i class="fal fa-bookmark"></i> UnHold</a></div>
                   <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View detail merge</a></div>
                   <div><a href="javascript:void (0)"><i class="fal fa-eye"></i> View Extension</a></div>
-                  <div><a href="javascript:void (0)"
+                  <div *ngIf="!packTr.delivery_note_code"><a href="javascript:void (0)"
                           (click)="showUpdateForm(packTr)"><i
-                          class="fal fa-edit"></i> Update tracking</a>
+                          class="fal fa-edit"></i> Update Package</a>
                   </div>
                   <div><a href="javascript:void (0)" (click)="splitTrackingEvent(packTr)"><i class="fal fa-chain-broken"></i> Split tracking</a></div>
                 </div>

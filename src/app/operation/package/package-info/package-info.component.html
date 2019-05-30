@@ -2,6 +2,7 @@
 
 <h6>{{packTr.tracking_code}}&nbsp;&nbsp;<i class="fa fa-history" [placement]="'top'" [tooltip]="'View History'" (click)="viewLogInfo(packTr.tracking_code, 'tracking')" ></i></h6>
 <div *ngIf="packTr.package_code">Package Code: <b>{{packTr.package_code}}</b>&nbsp;&nbsp;<i class="fa fa-history"  [placement]="'top'"  [tooltip]="'View History'" (click)="viewLogInfo(packTr.package_code, 'package')"></i></div>
+<div *ngIf="packTr.delivery_note_code">Delivery Note Code: <b>{{packTr.delivery_note_code}}</b>&nbsp;&nbsp;<i class="fa fa-history"  [placement]="'top'"  [tooltip]="'View History'" (click)="viewLogInfo(packTr.delivery_note_code, 'delivery note')"></i></div>
 <div>Warehouse Tag: <b>{{packTr.warehouse_tag_boxme}}</b></div>
 <div>Order Id: <b>{{packTr.order_id}}</b></div>
 <div>Product Id: <b>{{packTr.product_id}}</b></div>
