@@ -291,9 +291,9 @@
                                   <i class="fa fa-truck"></i> Warehouse: <b>{{purchase.receive_warehouse_name}}</b>
                                 </div>
                               </div>
-                              <div class="mt-1">
+                              <!--div class="mt-1">
                                 <span i18n>Tracking Code: <a href="javascript:void(0)" data-target="#tracking" (click)="openTracking(order)" data-toggle="modal" data-backdrop="static" data-keyboard="false"> {{order.package?.tracking_code}}</a></span>
-                              </div>
+                              </div-->
                             </div>
 
                             <div class="col-md-3 border-col CUSTOMER_INFO">
@@ -577,7 +577,8 @@
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
-                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
+                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount ? order.coupon?.amount : 0 | number}}
+                                      <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
                               </div>
@@ -629,15 +630,15 @@
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
                                     <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()" (click)="confirmChangePrice(order.id)"
-                                            class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
+                                            class="btn btn-outline-success btn-sm mr-2 mb-2 Confirm Changing Price" i18n>
                                         <i class="fa fa-dollar" aria-hidden="true"></i>
                                         Confirm Changing Price
                                     </button>
-                                  <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
-                                          class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
-                                    <i class="fa fa-dollar" aria-hidden="true"></i>
-                                    Arrears
-                                  </button>
+                                    <button type="button" *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
+                                            class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>
+                                      <i class="fa fa-dollar" aria-hidden="true"></i>
+                                      Arrears
+                                    </button>
                                     <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
@@ -923,7 +924,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mt-2 text-right">
-                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" i18n>Hủy Bỏ</button>
+                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" i18n>Cancel</button>
                 </div>
               </div>
             </div>
@@ -1947,7 +1948,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteC" i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
-              <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentC" i18n-placeholder></textarea>
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Text Content" formControlName="contentC" i18n-placeholder="Nội Dung"></textarea>
             </div>
             <div class="col-md-12 mt-2">
               <select class="form-control form-control-sm" formControlName="statusC" placeholder="status" name="store" i18n-placeholder>

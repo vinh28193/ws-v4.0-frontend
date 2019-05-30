@@ -852,6 +852,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return price1 - price2;
     }
 
+    checkIs(order) {
+        if (order.current_status === 'NEW' || order.current_status === 'SUPPORTED'
+            || order.current_status === 'SUPPORTING' ||  order.current_status === 'REFUNDING'
+            || order.current_status === 'REFUNDED' || order.current_status === 'CANCELLED'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     checkUpdatenow(order) {
         if (this.checkAdminAccess()) {
             // return true;
