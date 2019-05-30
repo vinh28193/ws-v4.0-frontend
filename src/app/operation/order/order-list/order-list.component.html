@@ -577,7 +577,8 @@
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
-                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount | number}} <span>{{order.store_id | currencyStore}}</span>
+                                      <app-span-label [value]="order.coupon?.code"></app-span-label> / {{order.coupon?.amount ? order.coupon?.amount : 0 | number}}
+                                      <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
                               </div>
