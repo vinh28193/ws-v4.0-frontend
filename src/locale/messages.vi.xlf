@@ -882,7 +882,7 @@
             <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">738</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1738</context></context-group></trans-unit>
             <trans-unit id="936ef99639369d90c46db8bfc695b236aadb0ef1" datatype="html">
                 <source>Cancelled:</source>
-                <target state="translated">Huỷ bỏ:</target>
+                <target state="translated">Huỷ:</target>
 
 
             <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">742</context></context-group></trans-unit>
@@ -1532,7 +1532,7 @@
 
 
                 </trans-unit><trans-unit id="f12666b194ee9ab488181c4091f1ef2d0afe9ab8" datatype="html">
-        <source>Cancel:</source><target state="translated">Hủy bỏ:</target>
+        <source>Cancel:</source><target state="translated">Hủy:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1745</context></context-group></trans-unit>
                 <trans-unit id="4619dd89a50ae46f34ae810e71c8756c476a8e3d" datatype="html">
@@ -2169,7 +2169,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">442</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">302</context></context-group></trans-unit><trans-unit id="e04bd8bec144ea7d603aa0fde0a5ff394175b45b" datatype="html">
         <source>Cancel
-                                                </source><target state="translated">Hủy bỏ</target>
+                                                </source><target state="translated">Hủy</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">446</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">306</context></context-group></trans-unit><trans-unit id="cbdf1caff463715fb404957e195fe5c1e65de551" datatype="html">
         <source>Merge tracking <x id="INTERPOLATION" equiv-text="{{trackingSellerMerge.data_tracking_code}}"/></source><target state="translated">Hợp nhất theo dõi <x id="INTERPOLATION"/></target>
@@ -2191,7 +2191,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">296</context></context-group></trans-unit><trans-unit id="b55ae42cc17e055f3eec49bab1bcea27381e2219" datatype="html">
         <source>Cancel
-                        </source><target state="translated">Hủy bỏ</target>
+                        </source><target state="translated">Hủy</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">300</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-views/tracking-views.component.ts</context><context context-type="linenumber">185</context></context-group></trans-unit><trans-unit id="2630b03348993fd365cfd22d202b13abb38ba106" datatype="html">
         <source>Merge tracking <x id="INTERPOLATION" equiv-text="{{trackingMerge.data_tracking_code}}"/></source><target state="translated">Gộp tracking <x id="INTERPOLATION"/></target>
@@ -2213,7 +2213,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
 
                 <trans-unit id="cef1d79eace5eb4d2243fad36730e3e65c757bee" datatype="html">
                     <source>Sent</source>
-                    <target state="translated">Gởi</target>
+                    <target state="translated">Gửi</target>
 
 
 
@@ -2522,7 +2522,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
             <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/package-item/edit-package-item/edit-package-item.component.ts</context><context context-type="linenumber">43</context></context-group></trans-unit>
             <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
                 <source>Cancel</source>
-                <target state="translated">Hủy bỏ</target>
+                <target state="translated">Hủy</target>
 
 
 
