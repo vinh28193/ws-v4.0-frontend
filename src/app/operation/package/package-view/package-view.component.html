@@ -43,34 +43,34 @@
   <div class="body-content" *ngIf="tab_tracking === 'package'">
     <div class="col-md-12 row">
       <div class="col-md-3">
-        <input type="text" placeholder="Package code" [(ngModel)]="formSearchPackage.package_code" class="form-control form-control-sm">
+        <input type="text" placeholder="Package code" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.package_code" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Tracking code" [(ngModel)]="formSearchPackage.tracking_code" class="form-control form-control-sm">
+        <input type="text" placeholder="Tracking code" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.tracking_code" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Order Code" [(ngModel)]="formSearchPackage.order_code" class="form-control form-control-sm">
+        <input type="text" placeholder="Order Code" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.order_code" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Product Id" [(ngModel)]="formSearchPackage.product_id" class="form-control form-control-sm">
+        <input type="text" placeholder="Product Id" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.product_id" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Customer Id" [(ngModel)]="formSearchPackage.customer_id" class="form-control form-control-sm">
+        <input type="text" placeholder="Customer Id" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.customer_id" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Receiver Name" [(ngModel)]="formSearchPackage.name" class="form-control form-control-sm">
+        <input type="text" placeholder="Receiver Name" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.name" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Receiver Phone" [(ngModel)]="formSearchPackage.phone" class="form-control form-control-sm">
+        <input type="text" placeholder="Receiver Phone" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.phone" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <input type="text" placeholder="Receiver Email" [(ngModel)]="formSearchPackage.email" class="form-control form-control-sm">
+        <input type="text" placeholder="Receiver Email" (keydown.enter)="search()" [(ngModel)]="formSearchPackage.email" class="form-control form-control-sm">
       </div>
       <div class="col-md-3">
-        <select class="form-control form-control-sm" [(ngModel)]="formSearchPackage.status_create">
+        <select class="form-control form-control-sm" (change)="search()" [(ngModel)]="formSearchPackage.status">
           <option value="">-- Select status create --</option>
           <option value="create">Created Delivery Note</option>
-          <option value="not-create">Not Create</option>
+          <option value="not_create">Not Create</option>
         </select>
       </div>
     </div>
@@ -78,11 +78,36 @@
       <div class="col-md-12 btn-group">
         <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="searchPackage()"><i class="fal fa-search"></i> Search</button>
 <!--        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="searchFastPackage()"><i class="fal fa-search"></i> Search fast</button>-->
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-refresh"></i> Refresh</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Create Delivery Note</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Create Delivery Note All</button>
-        <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Merge&Create Delivery Note</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="refreshSearch()"><i class="fal fa-refresh"></i> Refresh</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="create1vs1()"><i class="fal fa-plus"></i> Create Delivery Note</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="create1vs1(true)"><i class="fal fa-plus"></i> Create Delivery Note All</button>
+        <button class="btn btn-sm btn-rounded btn-outline-secondary" (click)="showDeliveryNoteModal()"><i class="fal fa-plus"></i> Merge&Create Delivery Note</button>
         <button class="btn btn-sm btn-rounded btn-outline-secondary"><i class="fal fa-plus"></i> Merge&Create Delivery Note All</button>
+      </div>
+      <div class="col-md-12">
+        <div class="row list-summary">
+          <div class="col-md-6">
+            <span i18n>Showing</span>
+            <select class="form-control-sm select-custom"
+                    [(ngModel)]="formSearchPackage.limit" (change)="search()">
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="all">All</option>
+            </select>
+            <span>of page {{formSearchPackage.page}} in {{getTotalPage()}} page in total {{getTotalItem()}} items</span>
+          </div>
+          <div class="col-md-6">
+            <pagination [boundaryLinks]="true"
+                        [totalItems]="totalCount"
+                        (pageChanged)="handlePagination($event)"
+                        [maxSize]="10"
+                        [itemsPerPage]="formSearchPackage.limit" class="pagination-sm pull-right"
+                        [rotate]="true">
+            </pagination>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,14 +117,31 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th width="35%">Tracking Info</th>
+            <th width="5%" *ngIf="tab_tracking === 'package'">
+              <div class="form-check">
+                <input type="checkbox" id="checkAll" [(ngModel)]="checkAll"  (change)="clickCheck()"  class="form-check-input" style="display: none">
+                <label class="form-check-label" for="checkAll">#</label>
+              </div>
+            </th>
+            <th width="30%">Tracking Info</th>
             <th width="35%">Order Info</th>
             <th width="30%">Product Info</th>
           </tr>
           </thead>
           <tbody>
-          <ng-container *ngFor="let packTr of tracking_codes">
+          <ng-container *ngFor="let packTr of tracking_codes;let ind = index;">
             <tr>
+              <td  *ngIf="tab_tracking === 'package'">
+                <div class="form-check">
+                  <input type="checkbox" id="check{{getIdCheckBox(packTr.id)}}"
+                         *ngIf="packTr.hold != 1 && !packTr.shipment_id && !packTr.delivery_note_id"
+                         [(ngModel)]="checkBoxs[getIdCheckBox(packTr.id)]"
+                         (change)="clickCheck()"
+                         class="form-check-input"
+                         style="display: none">
+                  <label class="form-check-label" for="check{{getIdCheckBox(packTr.id)}}">{{ind+1}}</label>
+                </div>
+              </td>
               <td>
                 <app-package-info (viewLog)="viewLog($event)" [packTr]="packTr"></app-package-info>
               </td>
@@ -113,10 +155,10 @@
                   <div>Status Order: <b>{{packTr.order.current_status}}</b></div>
                   <hr>
                   <h6><b>Receiver Info</b></h6>
-                  <div>Customer Id: <b>{{packTr.order.customer_id}}</b></div>
-                  <div>Name: <b>{{packTr.order.receiver_name}}</b></div>
-                  <div>Email: <b>{{packTr.order.receiver_email}}</b></div>
-                  <div>Phone: <b>{{packTr.order.receiver_phone}}</b></div>
+                  <div>Customer Id: <b>{{packTr.order.customer_id}}</b>&nbsp;<i class="fa fa-sort-amount-desc" (click)="formSearchPackage.customer_id = packTr.order.customer_id;search()"></i></div>
+                  <div>Name: <b>{{packTr.order.receiver_name}}</b>&nbsp;<i class="fa fa-sort-amount-desc" (click)="formSearchPackage.name = packTr.order.receiver_name;search()"></i></div>
+                  <div>Email: <b>{{packTr.order.receiver_email}}</b>&nbsp;<i class="fa fa-sort-amount-desc" (click)="formSearchPackage.email = packTr.order.receiver_email;search()"></i></div>
+                  <div>Phone: <b>{{packTr.order.receiver_phone}}</b>&nbsp;<i class="fa fa-sort-amount-desc" (click)="formSearchPackage.phone = packTr.order.receiver_phone;search()"></i></div>
                   <div>Address: <b>{{packTr.order.receiver_address}}</b></div>
                   <div><b>{{packTr.order.receiver_district_name}}, {{packTr.order.receiver_province_name}}</b></div>
                   <div>Post code: <b>{{packTr.order.receiver_post_code}}</b></div>
@@ -167,4 +209,157 @@
       </div>
     </div>
   </div>
+</div>
+<div bsModal #insertTrackingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card m-b-0">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 i18n>Delivery note</h3>
+                                </div>
+                                <div class="col-md-12 form-body">
+                                    <div class="row body-content">
+                                        <div class="col-md-12">
+                                            <h5>
+                                                Receiver info &nbsp;
+                                                <a href="javascript: void (0);" (click)="showInfoReceiver = !showInfoReceiver;"><i class="fa fa-toggle-{{showInfoReceiver ? 'on' : 'off'}}"></i></a>
+                                            </h5>
+                                        </div>
+                                        <div class="row col-md-12" *ngIf="showInfoReceiver">
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Full Name"  [(ngModel)]="formCreate.receiver_name" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Email" [(ngModel)]="formCreate.receiver_email" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="Phone Number" [(ngModel)]="formCreate.receiver_phone" >
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <input class="form-control form-control-sm" placeholder="PostCode" [(ngModel)]="formCreate.receiver_post_code" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 form-group m-b-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-globe"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_country_id" (change)="getChangeCountries()">
+                                                        <option>--Select Country--</option>
+                                                        <option *ngFor="let c of countries" value="{{c.id}}">{{c.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_province_id" (change)="getChangeProvinces()">
+                                                        <option>--Select Province--</option>
+                                                        <option *ngFor="let p of provinces" value="{{p.id}}">{{p.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <select class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_district_id" (change)="getChangeDistricts()">
+                                                        <option>--Select District--</option>
+                                                        <option *ngFor="let d of districts" value="{{d.id}}">{{d.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                    <input class="form-control form-control-sm" [(ngModel)]="formCreate.receiver_address"  placeholder="Address"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row body-content">
+                                        <div class="col-md-12 form-group m-b-10">
+                                            <table class="table table-striped table-sm table-border-all">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="7">Package list</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Package code</th>
+                                                    <th>Length</th>
+                                                    <th>Width</th>
+                                                    <th>Height</th>
+                                                    <th>Weight</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <ng-container *ngFor="let track of listChoose; let ind = index">
+                                                    <tr *ngIf="checkBoxs[getIdCheckBox(track.id)]">
+                                                        <td>{{ind+1}}</td>
+                                                        <td>{{track.package_code}}</td>
+                                                        <td>{{track.dimension_l}} cm</td>
+                                                        <td>{{track.dimension_w}} cm</td>
+                                                        <td>{{track.dimension_h}} cm</td>
+                                                        <td>{{track.weight}} gram</td>
+                                                        <td><button class="btn btn-sm btn-outline-danger" (click)="removeList(track.id)" ><i class="fal fa-trash"></i></button></td>
+                                                    </tr>
+                                                </ng-container>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <b>Total Weight: </b>{{totalWeight}} gram
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm {{chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = true"><i class="fa fa-plus"></i> Create</button>
+                                                <button class="btn btn-sm {{!chooseTabCreate ? 'btn-primary' : 'btn-outline-primary'}}" (click)="chooseTabCreate = false"><i class="fa fa-sign-in"></i> Join</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 body-content">
+                                            <ng-container *ngIf="chooseTabCreate">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Length</th>
+                                                        <th>Width</th>
+                                                        <th>Height</th>
+                                                        <th>Weight</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" [(ngModel)]="formCreate.length" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.width" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.height" class="form-control form-control-sm" ></td>
+                                                        <td><input type="text" [(ngModel)]="formCreate.weight" [value]="totalWeight" class="form-control form-control-sm" ></td>
+                                                    </tr>
+                                                </table>
+                                            </ng-container>
+                                            <ng-container *ngIf="!chooseTabCreate">
+
+                                            </ng-container>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-success" i18n (click)="createDeliveryNote()">Insert Tracking</button>
+                                                <button class="btn btn-sm btn-warning" (click)="insertTrackingModal.hide()" i18n>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

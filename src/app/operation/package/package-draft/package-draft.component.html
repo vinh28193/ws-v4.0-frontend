@@ -96,10 +96,10 @@
                                             <table class="table table-primary">
                                                 <thead>
                                                 <tr>
-                                                    <th width="25%" class="{{tabTracking == 'complete' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package')">Package (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
-                                                    <th width="25%" class="{{tabTracking == 'unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package unknown')">Package Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'package' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package')">Package (<b style="color: red">{{tracks['draftPackageItems_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'tracking wasting' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking wasting')">Tracking Wasting (<b style="color: red">{{tracks['draftWastingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'tracking missing' ? 'active-tab-track' : ''}}" (click)="setTabTracking('tracking missing')">Tracking Missing (<b style="color: red">{{tracks['draftMissingTrackings_total']}}</b>)</th>
+                                                    <th width="25%" class="{{tabTracking == 'package unknown' ? 'active-tab-track' : ''}}" (click)="setTabTracking('package unknown')">Package Unknown (<b style="color: red">{{tracks['unknownTrackings_total']}}</b>)</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -250,7 +250,7 @@
                                                                                 (markHold)="markHoldTracking($event.id,$event.hold)"
                                                                                 (splitTracking)="splitTracking($event)"
                                                                                 (updatePackage)="showUpdateForm($event)"
-                                                                                [tracking_codes]="trackingCodes">
+                                                                                [tracking_codes]="trackingCodes" [manifest_id]="trackingCodes.length ? trackingCodes[0].manifest_id : ''">
                                                             </app-package-view>
                                                         </td>
                                                     </tr>
