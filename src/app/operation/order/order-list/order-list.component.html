@@ -634,11 +634,11 @@
                                         <i class="fa fa-dollar" aria-hidden="true"></i>
                                         Confirm Changing Price
                                     </button>
-                                  <button type="button" *ngIf="getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
-                                          class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
-                                    <i class="fa fa-dollar" aria-hidden="true"></i>
-                                    Arrears
-                                  </button>
+                                    <button type="button" *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
+                                            class="btn btn-outline-danger btn-sm mr-2 mb-2" i18n>
+                                      <i class="fa fa-dollar" aria-hidden="true"></i>
+                                      Arrears
+                                    </button>
                                     <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
                                       <i class="fa fa-comments" aria-hidden="true"></i>
                                      Chat Group WS
