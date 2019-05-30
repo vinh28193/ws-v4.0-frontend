@@ -252,8 +252,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     this.getAllPushNotificationsByUserId();
                     const dataCheck = this.ArrayListOrder;
                     if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
-                        for ( let i = 0; i < dataCheck.length; i++) {
-                            if ( dataCheck[i] === ordercode) {
+                        for (let i = 0; i < dataCheck.length; i++) {
+                            if (dataCheck[i] === ordercode) {
                                 dataCheck.splice(i, 1);
                             }
                         }
@@ -267,7 +267,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     }
                     return false;
                 }
-        });
+            });
     }
 
 
@@ -368,6 +368,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.buildChat();
             this.listChatsSupporting();
         });
+    }
+
+
+    ActiveChatSupporting(index, active) {
+        this.orderService.put(`chatlists/${index}?content=${active}`, `active=${active}`).subscribe(
+            res => {
+                this.listChatsSupporting();
+            });
     }
 
     deleteChatSupporting(index) {
@@ -844,6 +852,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return price1 - price2;
     }
 
+    checkIs(order) {
+        if (order.current_status === 'NEW' || order.current_status === 'SUPPORTED'
+            || order.current_status === 'SUPPORTING' ||  order.current_status === 'REFUNDING'
+            || order.current_status === 'REFUNDED' || order.current_status === 'CANCELLED'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     checkUpdatenow(order) {
         if (this.checkAdminAccess()) {
             // return true;
@@ -1150,8 +1169,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     }
                 }
             }
-           // console.log(this.countOP);
-          console.log(this.statusOd);
+            // console.log(this.countOP);
+            console.log(this.statusOd);
             this.formAsignUser = this.fb.group({
                 statusOrder: this.statusOd,
             });
@@ -1455,6 +1474,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             return false;
         }
     }
+
     getClassStatus(status) {
         if (status === 'SELLER_SHIPPED') {
             return 'danger';
@@ -1576,6 +1596,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     listShoppingCart() {
         this.checkShoppingCart = true;
     }
+
     confirmChangePrice(id) {
         this.popup.confirm(() => {
             this.orderService.post('order-s/confirm-change-price', {order_id: id}).subscribe(rs => {
@@ -1590,11 +1611,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, 'Do you want confirm changing price');
     }
+
     insertTrackingShow(product_id = '') {
         this.tracking_Insert.info = [];
         this.addInfo(product_id);
         this.insertTrackingModal.show();
     }
+
     insertTracking() {
         console.log(this.tracking_Insert);
         if (!this.tracking_Insert.tracking_code) {
@@ -1614,6 +1637,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
+
     addInfo(product_id = '') {
         this.tracking_Insert.info.push({
             order_code: '',
