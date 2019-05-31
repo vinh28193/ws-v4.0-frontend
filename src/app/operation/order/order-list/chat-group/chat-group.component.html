@@ -41,7 +41,7 @@
                       (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds"
                         placeholder="Enter the exchange content. Press Shift + Enter to get down the line. Enter to send" i18n-placeholder />
               <datalist id="dynmicUserIds">
-                <option *ngFor="let item of userList1" [value]="item">{{item}}</option>
+                <option *ngFor="let item of matchesList1" [value]="item">{{item}}</option>
               </datalist>
 
               <div class="input-group-btn">
