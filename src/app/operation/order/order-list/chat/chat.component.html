@@ -37,9 +37,8 @@
         <div class="card-body">
           <div class="input-group">
             <textarea name="" rows="4" class="form-control type_msg" (keydown.enter)="createChat()" formControlName="message"
-                      placeholder="Enter the exchange content.
-Press Shift + Enter to get down the line.
-Enter to send" i18n-placeholder></textarea>
+                      placeholder="Enter the exchange content. Press Shift + Enter to get down the line. Enter to send" i18n-placeholder
+            ></textarea>
                 <div class="input-group-btn">
                   <button style="height: 80px;" class="btn btn-default" (click)="createChat()" i18n>Sent</button>
                 </div>
