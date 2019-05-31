@@ -30,11 +30,10 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
 
   ngOnInit() {
     this.statusOrder = StatusOrder;
-    console.log(this.statusOrder);
     this.searchF = this.fb.group({
       value: '',
       keyword: 0,
-      timeKey: '0',
+      timeKey: 0,
       bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
@@ -49,7 +48,6 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       this.metaShopping = res.data._meta;
       if (this.metaShopping.totalCount >= this.limit) {
         this.perpage = Math.floor(this.metaShopping.totalCount / this.limit);
-        console.log(this.perpage);
       } else {
         this.perpage = 1;
       }
