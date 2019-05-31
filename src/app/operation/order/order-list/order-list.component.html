@@ -782,7 +782,7 @@
                                     </div>
                                   </div>
                                   <div class="btn-group Ws-buuton">
-                                    <button *ngIf="order.mark_supporting" class="btn btn-sm btn-default Ws-buuton"><i class="fa fa-check mr-1"></i>{{order.mark_supporting}}</button>
+                                    <span *ngIf="order.mark_supporting" class="btn btn-sm btn-default Ws-buuton is-support-{{order.mark_supporting}}"><i class="fa fa-check mr-1"></i> Order Is supporting </span>
                                   </div>
                                 </div>
                               </div>
