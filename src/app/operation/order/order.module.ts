@@ -40,6 +40,7 @@ import {NotifierModule, NotifierOptions, NotifierService} from 'angular-notifier
 import { ShoppingCartComponent } from './order-list/shopping-cart/shopping-cart.component';
 import { ProductShoppingCartComponent } from './order-list/shopping-cart/product-shopping-cart/product-shopping-cart.component';
 import { AssignSaleCartComponent } from './order-list/shopping-cart/assign-sale-cart/assign-sale-cart.component';
+import { ScrollTopComponent } from './order-list/scroll-top/scroll-top.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -123,6 +124,7 @@ const customNotifierOptions: NotifierOptions = {
         ShoppingCartComponent,
         ProductShoppingCartComponent,
         AssignSaleCartComponent,
+        ScrollTopComponent,
     ],
     providers: [
       OrderService,
