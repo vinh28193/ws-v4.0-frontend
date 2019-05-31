@@ -39,6 +39,7 @@ import { EditLocalComponent } from './order-detail/edit-local/edit-local.compone
 import {NotifierModule, NotifierOptions, NotifierService} from 'angular-notifier';
 import { ShoppingCartComponent } from './order-list/shopping-cart/shopping-cart.component';
 import { ProductShoppingCartComponent } from './order-list/shopping-cart/product-shopping-cart/product-shopping-cart.component';
+import { AssignSaleCartComponent } from './order-list/shopping-cart/assign-sale-cart/assign-sale-cart.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -121,6 +122,7 @@ const customNotifierOptions: NotifierOptions = {
         EditLocalComponent,
         ShoppingCartComponent,
         ProductShoppingCartComponent,
+        AssignSaleCartComponent,
     ],
     providers: [
       OrderService,

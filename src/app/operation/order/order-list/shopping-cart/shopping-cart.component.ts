@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -22,6 +22,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public backorderlist = false;
   public limit: number = 20;
   public page: number = 1;
+  @Input() listSaleAll: any;
   @Output() backOrder = new EventEmitter();
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
@@ -138,5 +139,10 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     const mySQLDate = [date.getFullYear(), month, day].join('/');
     const mySQLTime = [hours, minutes, seconds].join(':');
     return [mySQLDate, mySQLTime].join(' ');
+  }
+  loadListSale(event) {
+    if (event) {
+      this.listShoppingCart();
+    }
   }
 }

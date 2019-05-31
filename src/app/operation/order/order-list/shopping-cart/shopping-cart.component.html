@@ -123,9 +123,7 @@
 
       <div class="row m-0 p-0 mt-1">
         <ul class="col-md-11">
-          <li><span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Support: {{items.order.saleSupport}} </span></li>
-          <li><span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
-          </li>
+          <app-assign-sale-cart [id] = "items._id" [saleId]="items.order.sale_support_id" (checkSale)="loadListSale($event)" [saleAll]="listSaleAll" [saleSupport]="items.order.support_email"></app-assign-sale-cart>
         </ul>
         <!--<div class="col-md-1 p-0">-->
           <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
