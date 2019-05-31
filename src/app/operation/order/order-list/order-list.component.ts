@@ -226,18 +226,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             const res: any = ret;
             if (res.success) {
                 const rs: any = res.data;
-                // console.log('rs : ' + JSON.stringify(rs));
-                // console.log('rs.order_list : ' + JSON.stringify(rs[0].order_code));
+                // console.log('rs : ' + JSON.stringify(rs)); console.log('rs.order_list : ' + JSON.stringify(rs[0].order_code));
                 const array_list: any = [];
-                // console.log('rs.length : ' + JSON.stringify(rs.length));
                 for (let i = 0; i <= rs.length - 1; i++) {
                     array_list.push(rs[i].order_code);
                 }
-                console.log('array_list: ' + JSON.stringify(array_list));
+                // console.log('array_list: ' + JSON.stringify(array_list));
                 return this.ArrayListOrder = array_list;
             } else {
-                // console.error('Error notify sendSubscription.' + JSON.stringify(res));
-                return false;
+                  return false;
             }
         });
 
@@ -275,7 +272,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const dataCheck = this.ArrayListOrder;
         if (dataCheck && dataCheck.length != null && dataCheck.length > 0) {
             if (dataCheck.indexOf(ordercode) >= 0) {
-                console.log(' ordercode :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
+                // console.log(' ordercode :' + ordercode + ' data : ' + dataCheck.indexOf(ordercode));
                 return true;
             } else if (dataCheck.indexOf(ordercode) <= -1) {
                 return false;
