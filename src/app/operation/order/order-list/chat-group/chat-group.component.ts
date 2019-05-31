@@ -50,6 +50,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         const text_sugest = this.chatGroup.value.message;
         console.log('text_sugest :' + text_sugest);
         this.matchesList1 = [];
+        //  ToDo : @Phuchc thêm text type suppoting
         // Get All Key Chat Suppoted
         this.orderService.get(`chatlists`, 1).subscribe(res => {
             const result1: any = res;
@@ -66,7 +67,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
          if (text_sugest.length >= 2) {
              if ($event.timeStamp - this.lastkeydown1 >= 200) {
                 console.log('auto susgest');
-                // ToDo : thêm text type suppoting
+                // ToDo : @Phuchc thêm text type suppoting
                 this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest) > -1);
                 // this.matchesList1 = this.searchFromArray(this.userData, userId);
             }
