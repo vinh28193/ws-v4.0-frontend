@@ -45,23 +45,24 @@ export class PackageViewComponent extends PackageDataComponent implements OnInit
     tab_tracking: 'complete',
   };
   showInfoReceiver = false;
-  public formCreate: any = {
-    length: 0,
-    width: 0,
-    height: 0,
-    weight: 0,
-    receiver_name: '',
-    receiver_email: '',
-    receiver_phone: '',
-    receiver_district_name: '',
-    receiver_district_id: '',
-    receiver_province_id: '',
-    receiver_province_name: '',
-    receiver_country_name: '',
-    receiver_country_id: '',
-    receiver_address: '',
-    receiver_post_code: '',
-  };
+  public formCreate: any = [];
+  // public formCreate: any = {
+  //   length: 0,
+  //   width: 0,
+  //   height: 0,
+  //   weight: 0,
+  //   receiver_name: '',
+  //   receiver_email: '',
+  //   receiver_phone: '',
+  //   receiver_district_name: '',
+  //   receiver_district_id: '',
+  //   receiver_province_id: '',
+  //   receiver_province_name: '',
+  //   receiver_country_name: '',
+  //   receiver_country_id: '',
+  //   receiver_address: '',
+  //   receiver_post_code: '',
+  // };
   public listChoose: any = [];
   public listIds: any = [];
   public totalWeight = 0;
@@ -383,6 +384,32 @@ export class PackageViewComponent extends PackageDataComponent implements OnInit
           this.listChoose = [];
           this.checkBoxs = [];
           this.search();
+        } else {
+          this.packageService.popup.error(res.message);
+        }
+      });
+    }
+  }
+  SurgesMerge(all = false) {
+    if (!all) {
+      if (this.getListIds(false)) {
+        if (this.listIds.length === 0) {
+          return this.packageService.popup.error('Dont have item chosen!');
+        }
+        this.packageService.post('s-package/merge', {listPackage: this.listIds}).subscribe(rs => {
+          const res: any = rs;
+          if (res.success) {
+            console.log(res);
+          } else {
+            this.packageService.popup.error(res.message);
+          }
+        });
+      }
+    } else {
+      this.packageService.post('s-package/merge', {manifest_id: this.manifest_id}).subscribe(rs => {
+        const res: any = rs;
+        if (res.success) {
+          console.log(res);
         } else {
           this.packageService.popup.error(res.message);
         }
