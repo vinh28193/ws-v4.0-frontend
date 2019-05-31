@@ -618,12 +618,17 @@
                                 <div class="col-md-6 text-info cod" i18n >Collect</div>
                                 <div class="col-md-6 text-right text-info style-padding-left">{{getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span></div>
                               </div>
-                              <div class="row Refund" *ngIf="order.total_refund_amount_local">
-                                <div id="refund" class="col-md-6" i18n>Refund</div>
-                                <div class="col-md-6 text-right style-padding-left">
-                                  {{order.total_refund_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
+
+                              <div class="row Refund" >
+                                <div id="refund" class="col-md-6 text-info Refund2Cus " i18n>Refund</div>
+                                <div class="col-md-6 text-right text-info style-padding-left minnul min" *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                  {{ 0 | number}} <span>{{order.store_id | currencyStore}}</span>
+                                </div>
+                                <div class="col-md-6 text-right text-info style-padding-left min0" *ngIf="order.total_refund_amount_local > 0">
+                                  {{order.total_refund_amount_local ? order.total_refund_amount_local : 0  | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
+
 
                               <hr>
 
@@ -1613,10 +1618,13 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
-            <div class="row Refund" *ngIf="orderList.total_refund_amount_local">
-              <div id="Số tiền thừa" class="col-md-6" i18n>Refund</div>
-              <div class="col-md-6 text-right style-padding-left">
-                {{orderList.total_refund_amount_local | number}} <span>{{orderList.store_id | currencyStore}}</span>
+            <div class="row Refund" >
+              <div id="Số tiền thừa" class="col-md-6 RefundToCus" i18n>Refund</div>
+              <div class="col-md-6 text-right style-padding-left" *ngIf="orderList.total_refund_amount_local == null || orderList.total_refund_amount_local == '' ">
+                {{orderList.total_refund_amount_local  ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
+              </div>
+              <div class="col-md-6 text-right style-padding-left" *ngIf="orderList.total_refund_amount_local >= 0">
+                {{orderList.total_refund_amount_local  ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
           </div>
@@ -1971,7 +1979,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5; max-width: 80%">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>List template mark order</h3>
+        <h3 class="modal-title text-white" i18n>List template mark order for supporting</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
