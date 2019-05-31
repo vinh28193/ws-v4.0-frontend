@@ -22,7 +22,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public backorderlist = false;
   public limit: number = 20;
   public page: number = 1;
-  @Input() listSaleAll: any;
+  @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
