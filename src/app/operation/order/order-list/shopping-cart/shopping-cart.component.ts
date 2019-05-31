@@ -3,6 +3,7 @@ import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
+import {StatusOrder} from '../../order-enum';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,6 +12,8 @@ import {OrderDataComponent} from '../../order-data.component';
 })
 export class ShoppingCartComponent extends OrderDataComponent implements OnInit {
   public ShoppingCar: any = [];
+  public statusOrder: any = [];
+  public bsRangeValue: Date[];
   public metaShopping: any = {};
   public hideme: any = {};
   public pro: any = {};
@@ -26,9 +29,13 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   }
 
   ngOnInit() {
+    this.statusOrder = StatusOrder;
+    console.log(this.statusOrder);
     this.searchF = this.fb.group({
       value: '',
       keyword: 0,
+      timeKey: '0',
+      bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
   }
@@ -72,6 +79,11 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     if (value.keyword !== '' && value.keyword !== 0) {
       params.keyword = value.keyword;
     }
+    if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
+      params.startTime = this.convertDateTime(value.bsRangeValue['0']);
+      params.endTime = this.convertDateTime(value.bsRangeValue['1']);
+    }
+    console.log(params);
     return params;
   }
   backOrderShopping() {
@@ -92,5 +104,42 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       keyword: 0
     });
     this.listShoppingCart();
+  }
+  cancelOrderCart(id, type) {
+    const params: any = {};
+    params.type = type;
+    params.typeUpdate = 'cancelCart';
+    this.orderService.put(`cart/${id}`, params).subscribe( res => {
+        if (res.success) {
+          this.listShoppingCart();
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+    });
+  }
+  confirmOrderCart(id, type) {
+    const params: any = {};
+    params.type = type;
+    params.typeUpdate = 'confirmOrderCart';
+    this.orderService.put(`cart/${id}`, params).subscribe( res => {
+      if (res.success) {
+        this.listShoppingCart();
+        this.popup.success(res.message);
+      } else {
+        this.popup.error(res.message);
+      }
+    });
+  }
+  convertDateTime(value) {
+    const date = new Date(value);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const seconds = ('0' + date.getSeconds()).slice(-2);
+    const mySQLDate = [date.getFullYear(), month, day].join('/');
+    const mySQLTime = [hours, minutes, seconds].join(':');
+    return [mySQLDate, mySQLTime].join(' ');
   }
 }

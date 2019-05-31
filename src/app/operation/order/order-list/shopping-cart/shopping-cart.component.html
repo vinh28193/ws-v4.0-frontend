@@ -1,17 +1,56 @@
 <div class="card-body pt-0">
   <form action="" [formGroup]="searchF">
     <div class="row">
-      <div class="col-md-6 input-group input-group-sm" id="keyWordGroup">
-        <select class=" form-control form-control-sm input-group-addon" name="searchKeyword"
-                id="keyword" formControlName="keyword">
-          <option value="0" i18n>ALL Keyword</option>
-          <option value="data.order.customer.email">Email</option>
-          <option value="data.order.customer.phone">Phone</option>
-        </select>
-        <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()"
-               formControlName="value"
-               type="text">
+      <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
+        <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
+        <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
+          <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyword"
+                  id="keyword" formControlName="keyword">
+            <option value="0" i18n>ALL Keyword</option>
+            <option value="data.order.customer.email">Email</option>
+            <option value="data.order.customer.phone">Phone</option>
+          </select>
+          <input class="form-control form-control-sm" id="value" (keyup.enter)="listOrders()" formControlName="value"
+                 type="text">
+        </div>
       </div>
+      <div class="col-md-6 col-sm-12 form-group">
+        <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
+        <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
+          <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
+                  formControlName="timeKey">
+            <option value="0" i18n>Time Key</option>
+            <option value="created_at">NEW</option>
+            <option value="1">SUPPORTING</option>
+            <option value="1">SUPPORTED</option>
+            <option value="1">CANCELLED</option>
+          </select>
+          <input #drp="bsDaterangepicker"
+                 (keyup.enter)="listShoppingCart()"
+                 bsDaterangepicker
+                 [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+                 (bsValueChange)="bsRangeValue"
+                 formControlName="bsRangeValue"
+                 class="col-sm-7 form-control form-control-sm ">
+          <span class="input-group-btn">
+                                        <button (click)="drp.toggle()"
+                                                [attr.aria-expanded]="drp.isOpen"
+                                                class="btn btn-sm btn-info" type="button"><i
+                                          class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+        </div>
+      </div>
+      <!--<div class="col-md-3 input-group input-group-sm" id="keyWordGroup1">-->
+        <!--<select class=" form-control form-control-sm input-group-addon" name="searchKeyword"-->
+                <!--id="keyword1" formControlName="statusShopping">-->
+          <!--<option value="0" i18n>ALL Status</option>-->
+          <!--<option value="data.order.customer.email">NEW</option>-->
+          <!--<option value="data.order.customer.phone">SUPPORTING</option>-->
+          <!--<option value="data.order.customer.phone">SUPPORTED</option>-->
+          <!--<option value="data.order.customer.phone">CANCELLED</option>-->
+        <!--</select>-->
+      <!--</div>-->
       <div class="col-md-12 mt-2">
         <button class="btn btn-sm btn-success" (click)="listShoppingCart()"><i class="fa fa-search mr-1"></i><span i18n>Search</span>
         </button>
@@ -55,6 +94,12 @@
     <div class="col-md-3 border-col">
       <div class="clearfix"></div>
       <div class="mt-1">
+         <span
+           class="Paid badge badge-pill badge-{{items.key.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+                                    {{items.key.current_status}}
+                                  </span>
+      </div>
+      <div class="mt-1">
         <span><i [class]="items.order.store_id | iconFlag"></i> </span>
         <span class="m-l-5 mt-1">{{items.order.store_id | store}}</span>
         <span
@@ -73,6 +118,18 @@
             <button class="btn btn-default btn-sm">{{items.order.portal | uppercase }}</button>
           </li>
         </ul>
+      </div>
+      <hr style="margin: 5px;">
+
+      <div class="row m-0 p-0 mt-1">
+        <ul class="col-md-11">
+          <li><span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Support: {{items.order.saleSupport}} </span></li>
+          <li><span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
+          </li>
+        </ul>
+        <!--<div class="col-md-1 p-0">-->
+          <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
+        <!--</div>-->
       </div>
       <hr style="margin: 5px;">
       <div class=" mt-1  infor_seller">
@@ -102,6 +159,15 @@
               </a>
             </span>
           <!--<a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group mr-2 mb-2">
+            <button class="btn btn-sm btn-info" *ngIf="items.current_status == 'NEW' || items.current_status == 'SUPPORTING' || items.current_status == 'SUPPORTED'" (click)="confirmOrderCart(items._id, items.type)" >
+              <span i18n>Confirm Order</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -353,9 +419,72 @@
       </div>
       <div class="hover-row">
         <div class="row">
-          <div class="col-md-5 pr-0" i18n>New:</div>
-          <div class="col-md-7 text-right {{items.order.new}}" *ngIf="items.order.new">{{items.order.new
-          * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+          <div class="col-md-5 pr-0" i18n >New:</div>
+          <div class="col-md-7 text-right {{items.order.new}}">{{items.order.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 pr-0" i18n >Supporting:</div>
+          <div class="col-md-7 text-right" *ngIf="items.order.supporting" >{{items.order.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 pr-0" i18n >Supported:</div>
+          <div class="col-md-7 text-right" *ngIf="items.order.supported" >{{items.order.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 pr-0" i18n >Ready2Purchase:</div>
+          <div class="col-md-7 text-right" ></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-0" i18n>Purchasing:</div>
+          <div class="col-md-6 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-0" i18n>Purchased:</div>
+          <div class="col-md-6 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
+          <div class="col-md-6 text-right" ></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-0" i18n>Stock in US:</div>
+          <div class="col-md-6 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 pr-0" i18n>Stock out US:</div>
+          <div class="col-md-6 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>Stock in local:</div>
+          <div class="col-md-7 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>Stock out local:</div>
+          <div class="col-md-7 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>At customer:</div>
+          <div class="col-md-7 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>Returned:</div>
+          <div class="col-md-7 text-right"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>Cancelled:</div>
+          <div class="col-md-7 text-right">{{items.order?.cancelled?.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-5  pr-0" i18n>Lost:</div>
+          <div class="col-md-7 text-right"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group mr-2 mb-2">
+            <button class="btn btn-sm btn-danger" *ngIf="items.key.current_status !== 'CANCELLED'" (click)="cancelOrderCart(items._id, items.type)" >
+              <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
+            </button>
           </div>
         </div>
       </div>
