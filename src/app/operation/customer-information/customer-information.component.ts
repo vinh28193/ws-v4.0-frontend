@@ -41,21 +41,22 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
             }
         }
         this.getProvinces();
-        this.province = '';
-        this.provinceName = null;
-        if (this.provinces.length > 0) {
-            const firstP = this.provinces[0];
-            this.province = firstP.id;
-            this.provinceName = firstP.name;
-            this.getDistricts();
-            this.district = '';
-            this.districtName = null;
-            if (this.districts.length > 0) {
-                const firstD = this.districts[0];
-                this.district = firstD.id;
-                this.districtName = firstD.name;
-            }
-        }
+        this.getDistrict();
+        // this.province = '';
+        // this.provinceName = null;
+        // if (this.provinces === null ) {
+        //     const firstP = this.provinces[0];
+        //     this.province = firstP.id;
+        //     this.provinceName = firstP.name;
+        //     this.getDistricts();
+        //     this.district = '';
+        //     this.districtName = null;
+        //     if (this.districts.length > 0) {
+        //         const firstD = this.districts[this.province];
+        //         this.district = firstD.id;
+        //         this.districtName = firstD.name;
+        //     }
+        // }
     }
 
     ngAfterContentChecked() {

@@ -1,7 +1,7 @@
 <div class="card-body pt-0">
   <form action="" [formGroup]="searchF">
     <div class="row">
-      <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
+      <div class="col-md-6 col-sm-12 form-group m-b-10">
         <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
         <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
           <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyword"
@@ -10,7 +10,7 @@
             <option value="data.order.customer.email">Email</option>
             <option value="data.order.customer.phone">Phone</option>
           </select>
-          <input class="form-control form-control-sm" id="value" (keyup.enter)="listOrders()" formControlName="value"
+          <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()" formControlName="value"
                  type="text">
         </div>
       </div>
