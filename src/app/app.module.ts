@@ -14,7 +14,7 @@ import {RequestInterceptor} from './core/interceptor/request.interceptor';
 import {ExcelModule} from './excel/excel.module';
 import {LogoutComponent} from './logout/logout.component';
 import {MessagingService} from './shared/messaging.service';
-import {AsyncPipe} from '../../node_modules/@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
