@@ -14,7 +14,8 @@ import {ScopeService} from '../../../../../core/service/scope.service';
 export class AssignSaleCartComponent extends OrderDataComponent implements OnInit {
   @Input() id: any;
   @Input() saleSupport: any;
-  @Input() saleAll: any;
+  @Input() type: any;
+  @Input() saleAll: any = [];
   @Input() saleId: any;
   @Output() checkSale = new EventEmitter();
   public loadSale: boolean = false;
@@ -33,6 +34,7 @@ export class AssignSaleCartComponent extends OrderDataComponent implements OnIni
     this.popup.warning(() => {
       const params: any = {};
       params.idSale = this.saleId;
+      params.type = this.type;
       params.typeUpdate = 'assignSaleCart';
       this.orderService.put(`cart/${this.id}`, params).subscribe(res => {
         if (res.success) {
@@ -47,6 +49,7 @@ export class AssignSaleCartComponent extends OrderDataComponent implements OnIni
   }
 
   ngOnInit() {
+    console.log(this.saleAll);
     // this.sales = JSON.parse(localStorage.getItem('systemSale'));
     // this.oldSaleSupport = this.saleSupport;
   }

@@ -123,7 +123,7 @@
 
       <div class="row m-0 p-0 mt-1">
         <ul class="col-md-11">
-          <app-assign-sale-cart [id] = "items._id" [saleId]="items.order.sale_support_id" (checkSale)="loadListSale($event)" [saleAll]="listSaleAll" [saleSupport]="items.order.support_email"></app-assign-sale-cart>
+          <app-assign-sale-cart [id] = "items._id" [saleId]="items.order.sale_support_id" [type] = "items.type" (checkSale)="loadListSale($event)" [saleAll]="listSaleAll" [saleSupport]="items.order.support_email"></app-assign-sale-cart>
         </ul>
         <!--<div class="col-md-1 p-0">-->
           <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
