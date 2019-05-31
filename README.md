@@ -70,3 +70,6 @@ https://gurayyarar.github.io/AdminBSBMaterialDesign/pages/ui/notifications.html
 
 
 http://weshop-v4.back-end.local.vn/v1/notifications/1837032863
+
+#----------CHAT AUTOSUGEST------
+http://www.mukeshkumar.net/articles/angular/3-ways-to-implement-autocomplete-textbox-in-angular-with-typescript-on-large-data
