@@ -173,6 +173,10 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-view/package-view.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/shipment/shipment-list/shipment-list.component.ts</context>
           <context context-type="linenumber">107</context>
         </context-group>
@@ -213,6 +217,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">320</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-view/package-view.component.ts</context>
+          <context context-type="linenumber">352</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/us-sending-views/us-sending-views.component.ts</context>
@@ -280,6 +288,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context>
           <context context-type="linenumber">506</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-view/package-view.component.ts</context>
+          <context context-type="linenumber">353</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
@@ -477,7 +489,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c8354f39536e61139b883f9f2213292d693ef5e3" datatype="html">
@@ -894,6 +906,10 @@
           <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-item/package-item.component.ts</context>
           <context context-type="linenumber">31</context>
         </context-group>
@@ -970,7 +986,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context>
@@ -997,7 +1013,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f3f13217303d139905eec79a2535af481a906c15" datatype="html">
@@ -1012,7 +1028,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="028e0a730aa893e5db23561b6ac9982e9730622c" datatype="html">
@@ -1089,6 +1105,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">35</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="97d3f42fddecba85f8ff19250929e50df861517e" datatype="html">
         <source>ALL Keyword</source>
@@ -1098,7 +1118,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6ac60ef3f4f1249bf26dd9c541aae3b50bcbf6e8" datatype="html">
@@ -1106,6 +1126,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9dd35a9218553de2162f6a0b7189bca507939efa" datatype="html">
@@ -1322,7 +1346,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8461552146452bf4bee07c1815fb3f74bc9bb313" datatype="html">
@@ -1333,7 +1357,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="870091ffde2dac6c220564fc469091bad9a51e13" datatype="html">
@@ -1344,7 +1368,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="61a177afafab60787b83e5466628fdf8c17191f5" datatype="html">
@@ -1431,7 +1455,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">180</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/product-shopping-cart/product-shopping-cart.component.ts</context>
@@ -1483,7 +1507,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">196</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fa879610484ce309a13c822a82d948a69990b5e4" datatype="html">
@@ -1502,7 +1526,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">213</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5d23a88a11fdafeaf92e2e3494aebb6660158cdd" datatype="html">
@@ -1517,7 +1541,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">170</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b8042d543ffb3b6101788165a01a55025a6f4835" datatype="html">
@@ -1532,7 +1556,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">182</context>
+          <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2251e89f7b8e3fecde0e3a2d2273ffcd1f010716" datatype="html">
@@ -1547,7 +1571,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">195</context>
+          <context context-type="linenumber">261</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1a929de728fbe2105835b6c41d3a32479edd6bbf" datatype="html">
@@ -1562,7 +1586,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">207</context>
+          <context context-type="linenumber">273</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c5a614ba573102e201539501943496a0948f464a" datatype="html">
@@ -1577,7 +1601,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">218</context>
+          <context context-type="linenumber">284</context>
         </context-group>
       </trans-unit>
       <trans-unit id="98ddf97c3bb84b637105138fa70c9f54b7302de5" datatype="html">
@@ -1592,7 +1616,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">229</context>
+          <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f2cd96f87c08241ac54e0503b77e0dbc3643c0d2" datatype="html">
@@ -1607,7 +1631,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">306</context>
         </context-group>
       </trans-unit>
       <trans-unit id="435ae0c498ab9d81f5598d5f42cd0b3f24e49f9b" datatype="html">
@@ -1622,7 +1646,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">251</context>
+          <context context-type="linenumber">317</context>
         </context-group>
       </trans-unit>
       <trans-unit id="02d05468717afb27e6930abdb4bfd1efbdb69180" datatype="html">
@@ -1637,7 +1661,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">262</context>
+          <context context-type="linenumber">328</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d5ebe584ab9823b7bc8c2e8a8286853e0e3f47d3" datatype="html">
@@ -1659,7 +1683,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">289</context>
+          <context context-type="linenumber">355</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3a62aacb244046be3ce442ea73ec77fca31d56a4" datatype="html">
@@ -1696,7 +1720,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">301</context>
+          <context context-type="linenumber">367</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7dd71530362325197e733bdd0d5c37e3a6ff7b20" datatype="html">
@@ -1729,7 +1753,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">314</context>
+          <context context-type="linenumber">380</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d4d9163871c0b1b92a068907ca65f355bab8a9be" datatype="html">
@@ -1744,7 +1768,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">326</context>
+          <context context-type="linenumber">392</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6db38aee0a48d26eb4b4661ac20083b2fa17da21" datatype="html">
@@ -1759,7 +1783,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">332</context>
+          <context context-type="linenumber">398</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d80a31b2d80af8803b4b1e7143cd3e91b7cc92d2" datatype="html">
@@ -1774,7 +1798,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">340</context>
+          <context context-type="linenumber">406</context>
         </context-group>
       </trans-unit>
       <trans-unit id="17c825142cbfa569f4ea722a36b52e337a536de8" datatype="html">
@@ -1835,7 +1859,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">351</context>
+          <context context-type="linenumber">417</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2915e05c475c285e59804cd41bf5cc80575519f3" datatype="html">
@@ -1863,7 +1887,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">356</context>
+          <context context-type="linenumber">422</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d855b20126bb348ae6642bfad0b6df5a652e5522" datatype="html">
@@ -1876,6 +1900,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1660</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">426</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="10b541f823694f4faeab5eae0420b6270072e53c" datatype="html">
         <source>Supported:</source>
@@ -1886,6 +1914,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1667</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">430</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b3005188fa236341d2fb72b528da92c690b583eb" datatype="html">
@@ -1898,6 +1930,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1674</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">434</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="14041baff4b2b676c484bc999b50e2c2769f7e4e" datatype="html">
         <source>Purchasing:</source>
@@ -1908,6 +1944,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1681</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">438</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f638d7222532707c2a0f04f34c4e4455629b7412" datatype="html">
@@ -1920,6 +1960,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1689</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">442</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="454c687fd2b1fc1499ce17e6f9bdf68b7b7c86f4" datatype="html">
         <source>Seller shipped:</source>
@@ -1930,6 +1974,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1696</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">446</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d3c9e9f081b4eb8785334c949197ddb6037afa86" datatype="html">
@@ -1942,6 +1990,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1703</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">450</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="9720a4c706246e89b9fde9dede979685ee589f4e" datatype="html">
         <source>Stock out US:</source>
@@ -1952,6 +2004,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1710</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">454</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9a814a6ec8f6e5f6703f1a5dbc61df8c10bac4c6" datatype="html">
@@ -1964,6 +2020,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1717</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">458</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="7a2877e0abdccd12e6f151a6af86295fcc68fbd5" datatype="html">
         <source>Stock out local:</source>
@@ -1974,6 +2034,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1724</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">462</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f50d768d479a702c37e35179338455c15dce861" datatype="html">
@@ -1986,6 +2050,10 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1731</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">466</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="dc1cf826ca17f1c7642e26b4722cf93bd4a1fcd0" datatype="html">
         <source>Returned:</source>
@@ -1997,12 +2065,20 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1738</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">470</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="936ef99639369d90c46db8bfc695b236aadb0ef1" datatype="html">
         <source>Cancelled:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">742</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">474</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fbc1a601010faa530f075b3101968a4d62d0cf60" datatype="html">
@@ -2015,12 +2091,20 @@
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1752</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">478</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="133648b14bf76a10e7b8a210884e6a112eb6e55d" datatype="html">
         <source>Cancel Order</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">754</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">486</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a7b2f372ca6e034cbac4bb63d5855b94d2f557a4" datatype="html">
@@ -2107,7 +2191,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">368</context>
+          <context context-type="linenumber">497</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b202271dc851984d902e9b16a264c8c50248c0f4" datatype="html">
@@ -3674,7 +3758,7 @@ Enter to send</source>
         <source>Back To The List Order</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e9eeeab085bce00fe8b4569f6eb8927467057b95" datatype="html">
@@ -3682,7 +3766,14 @@ Enter to send</source>
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="44af6d2183f91211ce70f1647be09033040ea5a7" datatype="html">
+        <source>Confirm Order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
+          <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8a1388c26fe7acd3699c63defae49c9f6a9a01ad" datatype="html">
@@ -3691,25 +3782,25 @@ Enter to send</source>
           </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">184</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">188</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d2c49e9fad85738d2ef71e65edb71c0929412bdb" datatype="html">
         <source>Total Weight Temporary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a44c5f9b92a5af2d390dbe8c1c680b6881e09eb5" datatype="html">
         <source>Total VAT local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
-          <context context-type="linenumber">274</context>
+          <context context-type="linenumber">340</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0a52234de03370870fdc33fa7fa64825d7f325c9" datatype="html">
@@ -3739,6 +3830,10 @@ Enter to send</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-list/package-list.component.ts</context>
           <context context-type="linenumber">191</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/package/package-view/package-view.component.ts</context>
+          <context context-type="linenumber">223</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187d35846e0aaa1c352c5d9ccae5bc79d7b1a66b" datatype="html">
