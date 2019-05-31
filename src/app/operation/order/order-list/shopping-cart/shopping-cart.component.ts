@@ -81,7 +81,6 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       params.startTime = this.convertDateTime(value.bsRangeValue['0']);
       params.endTime = this.convertDateTime(value.bsRangeValue['1']);
     }
-    console.log(params);
     return params;
   }
   backOrderShopping() {
