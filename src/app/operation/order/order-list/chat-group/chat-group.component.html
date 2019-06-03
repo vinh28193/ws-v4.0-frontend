@@ -38,7 +38,7 @@
           <div class="card-body">
             <div class="input-group">
               <input  type="textarea" name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChatG()" formControlName="message"
-                      (keyup)="getUserIdsFirstWay($event)" id="userIdFirstWay" list="dynmicUserIds"
+                      (keyup)="getUserIdsFirstWay($event)"  list="dynmicUserIds"
                         placeholder="Enter the exchange content. Press Shift + Enter to get down the line. Enter to send" i18n-placeholder />
               <datalist id="dynmicUserIds">
                 <option *ngFor="let item of matchesList1" [value]="item">{{item}}</option>

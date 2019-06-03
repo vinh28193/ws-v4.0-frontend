@@ -59,14 +59,15 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
 
             const array_list: any = [];
             for (let i = 0; i <= this.chatlists.length - 1; i++) {
+              if (this.chatlists[i].active === 1) {
                 array_list.push(this.chatlists[i].content + '-Type: ' + this.chatlists[i].type);
+              }
             }
             console.log('array_list: ' + JSON.stringify(array_list));
             this.userData = array_list;
         });
          if (text_sugest.length >= 2) {
              if ($event.timeStamp - this.lastkeydown1 >= 200) {
-                console.log('auto susgest');
                 // ToDo : @Phuchc thêm text type suppoting
                 this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest) > -1);
                 // this.matchesList1 = this.searchFromArray(this.userData, userId);
