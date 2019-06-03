@@ -4,6 +4,7 @@ import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {getDate} from 'ngx-bootstrap/chronos/utils/date-getters';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
     selector: 'app-chat',
@@ -51,14 +52,14 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
       this.matchesList1 = [];
       //  ToDo : @Phuchc thêm text type suppoting
       // Get All Key Chat Suppoted
-      this.orderService.get(`list-chat-mongo`, 1).subscribe(res => {
+      this.orderService.get(`list-chat-mongo`, undefined).subscribe(res => {
         const result1: any = res;
         this.listChat = result1.data;
 
         const array_list: any = [];
-        for (let i = 0; i <= this.listChat.length - 1; i++) {
-        if (this.listChat[i].active === 1) {
-          array_list.push(this.listChat[i].content + '-Type: ' + this.listChat[i].type);
+        for (let i = 0; i < this.listChat.length; i++) {
+        if (toNumber(this.listChat[i]['status']) === 1) {
+          array_list.push(this.listChat[i]['content'] + '-Type: ' + this.listChat[i]['type']);
         }
       }
       this.userData = array_list;
