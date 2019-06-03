@@ -50,24 +50,21 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
       const text_sugest = this.chatGroup.value.message;
       console.log('text_sugest :' + text_sugest);
       this.matchesList1 = [];
-      //  ToDo : @Phuchc thêm text type suppoting
-      // Get All Key Chat Suppoted
       this.orderService.get(`list-chat-mongo`, undefined).subscribe(res => {
         const result1: any = res;
         this.listChat = result1.data;
-
         const array_list: any = [];
         for (let i = 0; i < this.listChat.length; i++) {
         if (toNumber(this.listChat[i]['status']) === 1) {
-          array_list.push(this.listChat[i]['content'] + '-Type: ' + this.listChat[i]['type']);
+          array_list.push(this.listChat[i].content + '-Type: ' + this.listChat[i].type);
         }
       }
       this.userData = array_list;
     });
     if (text_sugest.length >= 2) {
       if ($event.timeStamp - this.lastkeydown1 >= 200) {
-        // ToDo : @Phuchc thêm text type suppoting
-        this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest) > -1);
+        this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest));
+        console.log(this.matchesList1);
         // this.matchesList1 = this.searchFromArray(this.userData, userId);
       }
     }
