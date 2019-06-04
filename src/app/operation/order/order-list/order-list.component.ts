@@ -222,7 +222,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const dataUserLoginParse = JSON.parse(userLogin);
         const id = dataUserLoginParse.id;
         const username = dataUserLoginParse.username;
-        this.notifi.get(`notifications/${id}`, username).subscribe(ret => {
+        this.orderService.get(`notifications/${id}`, username).subscribe(ret => {
             const res: any = ret;
             if (res.success) {
                 const rs: any = res.data;

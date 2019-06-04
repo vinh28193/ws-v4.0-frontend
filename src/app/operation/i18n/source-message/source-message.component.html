@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-outline-info">
+      <div class="card-header">
+        <h4 class="m-b-0 text-white">Filter</h4>
+      </div>
+      <div class="card-body">
+        <form class="form-body" [formGroup]="filterForm">
+          <div class="row p-t-20">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon col-md-2" style="font-size: smaller">Category</span>
+                    <input class="form-control col-md-10" formControlName="category" type="text"  (keyup.enter)="getSourcesMessage()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon col-md-2" style="font-size: smaller">Language</span>
+                  <select class="form-control col-md-10" formControlName="language" (change)="getSourcesMessage()">
+                    <option value="">All</option>
+                    <option *ngFor="let lang of languages" [value]="lang.language">{{ lang.name }} ({{ lang.name_ascii }})</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/row-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon col-md-2" style="font-size: smaller">Translation</span>
+                    <input class="form-control col-md-10" formControlName="translation" type="text" (keyup.enter)="getSourcesMessage()">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 form-inline form-material">
+            <label>Item per page </label>
+            <select (change)="getSourcesMessage()" class="form-control form-control-sm">
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <pagination [boundaryLinks]="true" [totalItems]="total"
+                        (pageChanged)="current_page=$event.page;getSourcesMessage()"
+                        [maxSize]="10" class="pagination-sm pull-right"
+                        [rotate]="true"></pagination>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Category</th>
+                  <th>Message</th>
+                  <th>Translation</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let source of sourcesMessage">
+                  <td> {{ source.id }} </td>
+                  <td> {{ source.category }} </td>
+                  <td> {{ source.message }} </td>
+                  <td>
+                      <div class="col-md-12 bg-light-part b-l">
+                          <div *ngFor="let mess of source.messages" class="row">
+                                <div class="col-md-12 m-t-5 p-b-5">
+                                    <div  class="ribbon-wrapper card m-b-0">
+                                      <div [class]="getRibbonCssClass(mess.language)">{{ getlanguageCodeLabels(mess.language) }}</div>
+                                      <div class="ribbon-content">
+                                        {{mess.translation}}
+                                      </div>
+                                    </div>
+                                </div>
+                          </div>
+                      </div>
+                  </td>
+                  <td> <button class="btn btn-sm btn-info" (click)="updateSourcesMessage(source)">Update</button></td>
+                </tr>
+                </tbody>
+              </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #updateMessageModal="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ activeSourceMessage ? activeSourceMessage.message : 'Update' }}</h4>
+      </div>
+      <div class="modal-body bg-light-part b-l">
+            <div class="container-fluid">
+              <form class="row" [formGroup]="messagesForm" (ngSubmit)="onSubmit()">
+                  <div class="col-md-12">
+                      <div class="row">
+                        <input type="hidden" formControlName="id">
+                      </div>
+                      <div class="row" formArrayName="messages">
+                          <div *ngFor="let message of messages.controls; let i=index" [formGroupName]="i" class="col-md-12">
+                            <div  class="ribbon-wrapper card">
+                                <div class="ribbon ribbon-default">{{ getlanguageCodeLabels(message.value.language) }}</div>
+                                <div class="ribbon-content">
+                                    <input type="hidden" formControlName="language">
+                                    <input class="form-control" formControlName="translation" type="text">
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <div class="card">
+                          <div class="card-body button-group">
+                            <button type="submit" class="btn btn-success">Save</button> &nbsp;
+                            <button type="button" (click)="revert()" class="btn btn-danger">Revert</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
