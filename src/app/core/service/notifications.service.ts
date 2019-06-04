@@ -39,6 +39,7 @@ export class NotificationsService extends GlobalService {
      * @param params
      */
     get(url: string, params?: any | undefined): Observable<any> {
+        console.log(url);
         if (typeof params !== 'undefined' && typeof params === 'object') {
             params = jQuery.param(params);
             url += '?' + params;
