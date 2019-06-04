@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {I18nService} from '../i18n.service';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {OperationDataComponent} from '../../operation-data.component';
 
 declare var $: any;
@@ -14,30 +14,23 @@ declare var $: any;
 export class SourceMessageComponent extends OperationDataComponent implements OnInit {
 
     @ViewChild(ModalDirective) updateMessageModal: ModalDirective;
-    // filter
     category: any = '';
     language: any = '';
-    translation: any = '';
-    // data
     languages: any = {};
     sourcesMessage: any = [];
-    // for update
-    haveReplacementParts: any;
     activeSourceMessage: any;
-    activeMessages: any;
-    // form Group
     filterForm: FormGroup;
-    messagesForm: FormGroup;
+    messagesForm: any = {
+        id: 0,
+        messages: []
+    };
+    sourceAdd = '';
 
     constructor(private fb: FormBuilder, public i18nService: I18nService) {
         super(i18nService);
     }
 
     ngOnInit() {
-        this.messagesForm = this.fb.group({
-            id: '',
-            messages: this.fb.array([]),
-        });
         this.filterForm = this.fb.group({
             category: '',
             language: '',
@@ -50,7 +43,6 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         });
         this.languages = languageTemp;
     }
-
     getSourcesMessage() {
         this.i18nService.get('i18n', this.filterForm.value).subscribe(res => {
             this.totalCount = res.total;
@@ -88,41 +80,9 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         return label;
     }
 
-    get messages(): FormArray {
-        return this.messagesForm.get('messages') as FormArray;
-    }
-
-    rebuildFilter(category = '', language = '', translation = '') {
-        this.filterForm.reset({
-            category: category,
-            language: language,
-            translation: translation
-        });
-    }
-
     rebuildForm() {
-        this.messagesForm.reset({
-            id: this.activeSourceMessage.id
-        });
-        this.setMessages(this.activeMessages);
-    }
-
-    setMessages(messages) {
-        const messageFGs = messages.map(message => this.fb.group(message));
-        const messageFormArray = this.fb.array(messageFGs);
-        this.messagesForm.setControl('messages', messageFormArray);
-    }
-
-    prepareTranslation() {
-        const formValue = this.messagesForm.value;
-        const messagesDeepCopy = formValue.messages.map(
-            message => Object.assign({}, message)
-        );
-        const saved = {
-            id: formValue.id,
-            messages: messagesDeepCopy
-        };
-        return saved;
+        this.messagesForm.id = this.activeSourceMessage.id;
+        this.messagesForm.messages = this.activeSourceMessage.messages;
     }
 
     revert() {
@@ -130,8 +90,7 @@ export class SourceMessageComponent extends OperationDataComponent implements On
     }
 
     onSubmit() {
-        const translation = this.prepareTranslation();
-        this.i18nService.put('i18n/' + translation.id, {message : translation.messages}).subscribe(res => {
+        this.i18nService.put('i18n/' + this.messagesForm.id, {message: this.messagesForm.messages}).subscribe(res => {
             if (res.success) {
                 this.getSourcesMessage();
                 this.rebuildForm();
@@ -140,10 +99,6 @@ export class SourceMessageComponent extends OperationDataComponent implements On
             }
             this.updateMessageModal.hide();
         });
-    }
-
-    onFilter() {
-
     }
 
     getRibbonCssClass(language?: any) {
@@ -164,8 +119,32 @@ export class SourceMessageComponent extends OperationDataComponent implements On
 
     updateSourcesMessage(source) {
         this.activeSourceMessage = source;
-        this.activeMessages = source.messages;
         this.rebuildForm();
         this.updateMessageModal.show();
+    }
+
+    checkAddSource() {
+        const arrayLang = [];
+        const messagesCurrent = this.messagesForm.messages;
+        $.each(this.languages, function (k, v) {
+            const rs = messagesCurrent.filter(c => c.language === v.language);
+            if (!rs || rs.length === 0) {
+                arrayLang.push(v);
+            }
+        });
+        return arrayLang;
+    }
+
+    addSource() {
+        if (!this.sourceAdd) {
+            this.i18nService.popup.error('Select source!');
+        } else {
+            this.messagesForm.messages.push({
+                id: this.messagesForm.messages[0].id,
+                language: this.sourceAdd,
+                translation: this.messagesForm.messages[0].translation,
+            });
+            this.sourceAdd = '';
+        }
     }
 }

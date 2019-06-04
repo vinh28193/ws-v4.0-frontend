@@ -124,18 +124,15 @@
       </div>
       <div class="modal-body bg-light-part b-l">
             <div class="container-fluid">
-              <form class="row" [formGroup]="messagesForm" (ngSubmit)="onSubmit()">
+              <div class="row">
                   <div class="col-md-12">
-                      <div class="row">
-                        <input type="hidden" formControlName="id">
-                      </div>
-                      <div class="row" formArrayName="messages">
-                          <div *ngFor="let message of messages.controls; let i=index" [formGroupName]="i" class="col-md-12">
+                      <div class="row" *ngIf="messagesForm.messages.length">
+                          <div *ngFor="let message of messagesForm.messages; let i=index" class="col-md-12">
                             <div  class="ribbon-wrapper card">
-                                <div class="ribbon ribbon-default">{{ getlanguageCodeLabels(message.value.language) }}</div>
+                                <div class="{{getRibbonCssClass(message.language)}}">{{ getlanguageCodeLabels(message.language) }}</div>
                                 <div class="ribbon-content">
-                                    <input type="hidden" formControlName="language">
-                                    <input class="form-control" formControlName="translation" type="text">
+                                    <input type="hidden" [(ngModel)]="message.language">
+                                    <input class="form-control" [(ngModel)]="message.translation" type="text">
                                 </div>
                             </div>
                           </div>
@@ -143,15 +140,21 @@
                     <div class="row">
                       <div class="col-md-12 text-center">
                         <div class="card">
+                          <div class="form-inline" style="margin: auto;margin-top: 15px;"  *ngIf="checkAddSource().length">
+                            <select class="form-control" [(ngModel)]="sourceAdd">
+                              <option *ngFor="let sourcMess of checkAddSource()" value="{{sourcMess.language}}">{{getlanguageCodeLabels(sourcMess.language)}}</option>
+                            </select>
+                            <button type="button" (click)="addSource()" class="btn btn-success">Add</button> &nbsp;
+                          </div>
                           <div class="card-body button-group">
-                            <button type="submit" class="btn btn-success">Save</button> &nbsp;
+                            <button type="button" (click)="onSubmit()" class="btn btn-success">Save</button> &nbsp;
                             <button type="button" (click)="revert()" class="btn btn-danger">Revert</button>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-              </form>
+              </div>
             </div>
       </div>
     </div>
