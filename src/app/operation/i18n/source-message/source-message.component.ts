@@ -45,24 +45,34 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         });
         this.getSourcesMessage();
         const languageTemp = [];
-        $.each(this.i18nService.getLanguages(), function (index, item) {
+        $.each(this.getLanguages(), function (index, item) {
             languageTemp.push(item);
         });
         this.languages = languageTemp;
     }
 
     getSourcesMessage() {
-        let fd: FormData;
-        fd = new FormData();
-        fd.append('filterForm', JSON.stringify(this.filterForm.value));
-        fd.append('limit', this.perPage.toString());
-        fd.append('page', this.currentPage.toString());
-        this.i18nService.get('i18n/source-message', fd).subscribe(res => {
+        this.i18nService.get('i18n', this.filterForm.value).subscribe(res => {
             this.totalCount = res.total;
             this.sourcesMessage = res.data;
         });
     }
 
+    getLanguages() {
+        let languages = JSON.parse(localStorage.getItem('languages'));
+        if (!languages) {
+            this.i18nService.get('i18n/get-lang').subscribe(res => {
+                const result: any = res;
+                if (result.success) {
+                    languages = result.data;
+                } else {
+                    this.i18nService.popup.error('Can not connect to server', 'Erorr');
+                }
+                localStorage.setItem('languages', JSON.stringify(languages));
+            });
+        }
+        return languages;
+    }
     getlanguageCodeLabels(code) {
         let label = 'undefined';
         for (let i = 0; i < this.languages.length; i++) {
@@ -72,7 +82,6 @@ export class SourceMessageComponent extends OperationDataComponent implements On
                 } else {
                     label = this.languages[i].name + ' (' + this.languages[i].name_ascii + ')';
                 }
-
                 break;
             }
         }
@@ -122,9 +131,7 @@ export class SourceMessageComponent extends OperationDataComponent implements On
 
     onSubmit() {
         const translation = this.prepareTranslation();
-        const fd = new FormData();
-        fd.append('translation', JSON.stringify(translation));
-        this.i18nService.put('i18n/update-message', fd).subscribe(res => {
+        this.i18nService.put('i18n/' + translation.id, {message : translation.messages}).subscribe(res => {
             if (res.success) {
                 this.getSourcesMessage();
                 this.rebuildForm();

@@ -2,6 +2,16 @@
   <div class="col-md-12">
     <div class="card card-outline-info">
       <div class="card-header">
+        <h4 class="m-b-0 text-white">Language Frontend</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-outline-info">
+      <div class="card-header">
         <h4 class="m-b-0 text-white">Filter</h4>
       </div>
       <div class="card-body">
@@ -85,7 +95,7 @@
                           <div *ngFor="let mess of source.messages" class="row">
                                 <div class="col-md-12 m-t-5 p-b-5">
                                     <div  class="ribbon-wrapper card m-b-0">
-                                      <div [class]="getRibbonCssClass(mess.language)">{{ getlanguageCodeLabels(mess.language) }}</div>
+                                      <div class="{{getRibbonCssClass(mess.language)}}">{{ getlanguageCodeLabels(mess.language) }}</div>
                                       <div class="ribbon-content">
                                         {{mess.translation}}
                                       </div>
