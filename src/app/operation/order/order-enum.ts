@@ -51,7 +51,7 @@ export const paymentRequests = [
     {key: 'order.createTime', name: 'Decline'},
 ];
 export const orderStatus = [
-    // {key: 'NEW', name: 'New order'},
+    {key: 'NEW', name: 'New order'},
     {key: 'SUPPORTING', name: 'Supporting'},
     {key: 'SUPPORTED', name: 'Supported'},
     {key: 'READY2PURCHASE', name: 'Ready2Purchase'},
