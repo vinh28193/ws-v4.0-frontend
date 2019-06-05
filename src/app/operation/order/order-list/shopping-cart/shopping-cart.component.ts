@@ -145,4 +145,20 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       this.listShoppingCart();
     }
   }
+  markAsJunkCart(id, type) {
+    const messagePop = 'Do you want Mark As Junk order ' + id;
+    this.popup.warning(() => {
+      const params: any = {};
+      params.type = type;
+      params.typeUpdate = 'markAsJunk';
+      this.orderService.put(`cart/${id}`, params).subscribe( res => {
+        if (res.success) {
+          this.listShoppingCart();
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
+  }
 }

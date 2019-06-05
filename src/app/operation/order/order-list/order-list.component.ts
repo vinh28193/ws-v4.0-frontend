@@ -654,7 +654,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 current_status: 'JUNK',
-            }, 'updateStatus');
+            }, 'updateStatusJunk');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
                     this.listOrders();
@@ -723,6 +723,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             const put = this.orderService.createPostParams({}, 'cancelOrder');
             this.orderService.put(`order/${id}`, put).subscribe(res => {
                 if (res.success) {
+                    this.listOrders();
                     this.popup.success(res.message);
                 } else {
                     this.popup.error(res.message);
