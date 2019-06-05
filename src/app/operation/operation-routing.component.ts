@@ -15,6 +15,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     loging: any;
     role: any;
     user: any;
+    opentSubmenu = '';
 
     constructor(public activatedRoute: ActivatedRoute
     ) {
@@ -28,6 +29,12 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         this.loging = localStorage.getItem('userLogin');
         this.role = localStorage.getItem('scope');
         this.user = (JSON.parse(this.loging).username);
+        console.log(this.activatedRoute);
+        console.log(this.activatedRoute.firstChild.routeConfig.path);
+        console.log(this.activatedRoute.firstChild.children[0].firstChild.routeConfig.path);
+        console.log(this.activatedRoute.snapshot);
+        console.log(this.activatedRoute.snapshot.url);
+        console.log(this.activatedRoute.snapshot.url.join(''));
     }
 
     closeSidebar() {
@@ -137,4 +144,23 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     }
     return false;
   }
+
+    SubMenuClick(sub) {
+        if (this.opentSubmenu === sub) {
+            this.opentSubmenu = '';
+        } else {
+            this.opentSubmenu = sub;
+        }
+    }
+    checkActiveTab(path, pathChild) {
+        let check = false;
+        if (path || path === '') {
+            check = this.activatedRoute.firstChild && this.activatedRoute.firstChild.routeConfig.path === path;
+        }
+        if (check && pathChild) {
+            check = this.activatedRoute.firstChild.children.length > 0 &&
+                this.activatedRoute.firstChild.children[0].firstChild.routeConfig.path === pathChild;
+        }
+        return check;
+    }
 }
