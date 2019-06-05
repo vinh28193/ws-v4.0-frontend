@@ -4,6 +4,7 @@ import {PopupService} from '../../../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../../order-data.component';
 import {StatusOrder} from '../../order-enum';
+import {ScopeService} from '../../../../core/service/scope.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -25,7 +26,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
 
-  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public __scope: ScopeService) {
     super(orderService);
   }
 
@@ -144,5 +145,22 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     if (event) {
       this.listShoppingCart();
     }
+  }
+
+  markAsJunkShopping(id, type) {
+    const messagePop = 'Do you want Mark As Junk order ' + id;
+    this.popup.warning(() => {
+      const params: any = {};
+      params.type = type;
+      params.typeUpdate = 'markAsJunk';
+      this.orderService.put(`cart/${id}`, params).subscribe(res => {
+        if (res.success) {
+          this.listShoppingCart();
+          this.popup.success(res.message);
+        } else {
+          this.popup.error(res.message);
+        }
+      });
+    }, messagePop);
   }
 }
