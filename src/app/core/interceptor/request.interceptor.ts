@@ -30,11 +30,10 @@ export class RequestInterceptor implements HttpInterceptor {
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         if (req.url.indexOf('authorize') === -1 &&
             req.url.indexOf('access-token') === -1 &&
-            req.url.indexOf('language') === -1 &&
             req.url.indexOf('upload') === -1) {
             return req.clone({setHeaders: {Authorization: 'Bearer ' + token}, withCredentials: true});
         } else {
-            if (req.url.indexOf('cms') !== -1 || req.url.indexOf('language') !== -1 || req.url.indexOf('news') !== -1) {
+            if (req.url.indexOf('cms') !== -1 || req.url.indexOf('news') !== -1) {
                 return req.clone({url: req.url.replace(this.authService.API_URL_BACKEND, environment.API_URL), withCredentials: true});
             } else if (req.url.indexOf('upload') !== -1) {
                 return req.clone({
