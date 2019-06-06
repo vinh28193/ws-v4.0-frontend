@@ -67,6 +67,32 @@ export class ClientService extends GlobalService {
 
     }
 
+  getNoLoad(url: string, params?: any | undefined): Observable<any> {
+    if (typeof params !== 'undefined' && typeof params === 'object') {
+      const data: any = {};
+      $.each(params, function (k, v) {
+        if (v) {
+          data[k] = v;
+        }
+      });
+      params = jQuery.param(data);
+      url += '?' + params;
+    }
+    return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      ).do(
+        (event: HttpEvent<any>) => {
+          this.endLoading();
+          if (event instanceof HttpResponse) {
+            return event;
+            // do stuff with response if you want
+          }
+        }
+      );
+
+  }
+
     post(url, body) {
         this.startLoading();
         return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())

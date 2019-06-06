@@ -49,7 +49,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     getUserIdsFirstWay($event) {
       const text_sugest = this.chatGroup.value.message;
       this.matchesList1 = [];
-      this.orderService.get(`list-chat-mongo`, undefined).subscribe(res => {
+      this.orderService.getNoLoad(`list-chat-mongo`, undefined).subscribe(res => {
         const result1: any = res;
         this.listChat = result1.data;
         const array_list: any = [];

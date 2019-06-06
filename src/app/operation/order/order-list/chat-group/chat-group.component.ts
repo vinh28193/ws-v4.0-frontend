@@ -52,7 +52,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         this.matchesList1 = [];
         //  ToDo : @Phuchc thêm text type suppoting
         // Get All Key Chat Suppoted
-        this.orderService.get(`chatlists`, 1).subscribe(res => {
+        this.orderService.getNoLoad(`chatlists`, 1).subscribe(res => {
             const result1: any = res;
             this.chatlists = result1.data;
             // console.log('data get list : ' + JSON.stringify(this.chatlists));
