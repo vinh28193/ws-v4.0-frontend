@@ -435,7 +435,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-sm btn-danger" *ngIf="items.key.current_status !== 'CANCELLED'" (click)="cancelOrderCart(items._id, items.type)" >
+            <button class="btn btn-sm btn-danger" *ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'" (click)="cancelOrderCart(items._id, items.type)" >
               <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
             </button>
           </div>
