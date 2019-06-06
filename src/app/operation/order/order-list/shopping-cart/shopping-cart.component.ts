@@ -20,8 +20,10 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public pro: any = {};
   public searchF: FormGroup;
   public perpage: number;
+  public totalCart: number;
+  public totalCarts: any;
   public backorderlist = false;
-  public limit: number = 20;
+  public limit: number = 5;
   public page: number = 1;
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
@@ -46,10 +48,12 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     params.limit = this.limit;
     params.page = this.page;
     this.orderService.ListShopping(params).subscribe(res => {
-      this.ShoppingCar = res.data._items;
+      this.ShoppingCar = res.data._items[1];
+      this.totalCarts = res.data._items[0];
+      this.totalCart = this.totalCarts[0]['sum'];
       this.metaShopping = res.data._meta;
-      if (this.metaShopping.totalCount >= this.limit) {
-        this.perpage = Math.floor(this.metaShopping.totalCount / this.limit);
+      if (this.totalCart >= this.limit) {
+        this.perpage = Math.floor(this.totalCart / this.limit) + 1;
       } else {
         this.perpage = 1;
       }
