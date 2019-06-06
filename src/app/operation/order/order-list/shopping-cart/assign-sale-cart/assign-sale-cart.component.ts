@@ -49,8 +49,5 @@ export class AssignSaleCartComponent extends OrderDataComponent implements OnIni
   }
 
   ngOnInit() {
-    console.log(this.saleAll);
-    // this.sales = JSON.parse(localStorage.getItem('systemSale'));
-    // this.oldSaleSupport = this.saleSupport;
   }
 }

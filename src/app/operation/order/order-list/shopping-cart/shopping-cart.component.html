@@ -165,6 +165,7 @@
             <button class="btn btn-sm btn-info" *ngIf="items.current_status == 'NEW' || items.current_status == 'SUPPORTING' || items.current_status == 'SUPPORTED'" (click)="confirmOrderCart(items._id, items.type)" >
               <span i18n>Confirm Order</span>
             </button>
+            <button class="btn btn-secondary mt-2 btn-sm" *ngIf="items.current_status !== 'JUNK'" (click)="markAsJunkCart(items._id, items.type)" i18n>Mark as Junk</button>
           </div>
         </div>
       </div>
