@@ -50,7 +50,9 @@ export class ClientService extends GlobalService {
                 }
             });
             params = jQuery.param(data);
-            url += '?' + params;
+            if (params) {
+                url += '?' + params;
+            }
         }
         return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
             .pipe(

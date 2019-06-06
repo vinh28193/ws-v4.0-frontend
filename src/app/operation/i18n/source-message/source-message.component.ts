@@ -1,0 +1,150 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap';
+import {I18nService} from '../i18n.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {OperationDataComponent} from '../../operation-data.component';
+
+declare var $: any;
+
+@Component({
+    selector: 'app-source-message',
+    templateUrl: './source-message.component.html',
+    styleUrls: ['./source-message.component.css']
+})
+export class SourceMessageComponent extends OperationDataComponent implements OnInit {
+
+    @ViewChild(ModalDirective) updateMessageModal: ModalDirective;
+    category: any = '';
+    language: any = '';
+    languages: any = {};
+    sourcesMessage: any = [];
+    activeSourceMessage: any;
+    filterForm: FormGroup;
+    messagesForm: any = {
+        id: 0,
+        messages: []
+    };
+    sourceAdd = '';
+
+    constructor(private fb: FormBuilder, public i18nService: I18nService) {
+        super(i18nService);
+    }
+
+    ngOnInit() {
+        this.filterForm = this.fb.group({
+            category: '',
+            language: '',
+            translation: ''
+        });
+        this.getSourcesMessage();
+        const languageTemp = [];
+        $.each(this.getLanguages(), function (index, item) {
+            languageTemp.push(item);
+        });
+        this.languages = languageTemp;
+    }
+    getSourcesMessage() {
+        this.i18nService.get('i18n', this.filterForm.value).subscribe(res => {
+            this.totalCount = res.total;
+            this.sourcesMessage = res.data;
+        });
+    }
+
+    getLanguages() {
+        let languages = JSON.parse(localStorage.getItem('languages'));
+        if (!languages) {
+            this.i18nService.get('i18n/get-lang').subscribe(res => {
+                const result: any = res;
+                if (result.success) {
+                    languages = result.data;
+                } else {
+                    this.i18nService.popup.error('Can not connect to server', 'Erorr');
+                }
+                localStorage.setItem('languages', JSON.stringify(languages));
+            });
+        }
+        return languages;
+    }
+    getlanguageCodeLabels(code) {
+        let label = 'undefined';
+        for (let i = 0; i < this.languages.length; i++) {
+            if (this.languages[i].language === code) {
+                if (code === 'en') {
+                    label = this.languages[i].name_ascii;
+                } else {
+                    label = this.languages[i].name + ' (' + this.languages[i].name_ascii + ')';
+                }
+                break;
+            }
+        }
+        return label;
+    }
+
+    rebuildForm() {
+        this.messagesForm.id = this.activeSourceMessage.id;
+        this.messagesForm.messages = this.activeSourceMessage.messages;
+    }
+
+    revert() {
+        this.rebuildForm();
+    }
+
+    onSubmit() {
+        this.i18nService.put('i18n/' + this.messagesForm.id, {message: this.messagesForm.messages}).subscribe(res => {
+            if (res.success) {
+                this.getSourcesMessage();
+                this.rebuildForm();
+            } else {
+                this.i18nService.popup.error(res.message, 'Error');
+            }
+            this.updateMessageModal.hide();
+        });
+    }
+
+    getRibbonCssClass(language?: any) {
+        if (typeof language === 'undefined') {
+            return 'ribbon ribbon-default';
+        }
+        language = String(language);
+        if (language === 'vi') {
+            return 'ribbon ribbon-info';
+        } else if (language === 'en') {
+            return 'ribbon ribbon-success';
+        } else if (language === 'id') {
+            return 'ribbon ribbon-primary';
+        } else {
+            return 'ribbon ribbon-warning';
+        }
+    }
+
+    updateSourcesMessage(source) {
+        this.activeSourceMessage = source;
+        this.rebuildForm();
+        this.updateMessageModal.show();
+    }
+
+    checkAddSource() {
+        const arrayLang = [];
+        const messagesCurrent = this.messagesForm.messages;
+        $.each(this.languages, function (k, v) {
+            const rs = messagesCurrent.filter(c => c.language === v.language);
+            if (!rs || rs.length === 0) {
+                arrayLang.push(v);
+            }
+        });
+        return arrayLang;
+    }
+
+    addSource() {
+        if (!this.sourceAdd) {
+            this.i18nService.popup.error('Select source!');
+        } else {
+            this.messagesForm.messages.push({
+                id: this.messagesForm.messages[0].id,
+                language: this.sourceAdd,
+                translation: this.messagesForm.messages[0].translation,
+            });
+            this.sourceAdd = '';
+        }
+    }
+}
