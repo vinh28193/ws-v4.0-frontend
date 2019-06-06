@@ -77,8 +77,8 @@
             </select>
           </div>
           <div class="col-md-8">
-            <pagination [boundaryLinks]="true" [totalItems]="total"
-                        (pageChanged)="current_page=$event.page;getSourcesMessage()"
+            <pagination [boundaryLinks]="true" [totalItems]="totalCount"
+                        (pageChanged)="pageCount=$event.page;getSourcesMessage()"
                         [maxSize]="10" class="pagination-sm pull-right"
                         [rotate]="true"></pagination>
           </div>
