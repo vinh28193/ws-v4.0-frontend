@@ -22,47 +22,47 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 
 @NgModule({
-    declarations: [
-        AppRoutingComponent,
-        LogoutComponent
+  declarations: [
+    AppRoutingComponent,
+    LogoutComponent
+  ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    ExcelModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+  ],
+  providers:
+    [
+      PopupService,
+      AuthService,
+      EncryptionService,
+      StorageService,
+      AuthService,
+      HttpClient,
+      {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+      MessagingService, AsyncPipe
     ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        ExcelModule,
-        AngularFireDatabaseModule,
-        AngularFireAuthModule,
-        AngularFireMessagingModule,
-        AngularFireModule.initializeApp(environment.firebase),
-    ],
-    providers:
-        [
-            PopupService,
-            AuthService,
-            EncryptionService,
-            StorageService,
-            AuthService,
-            HttpClient,
-            {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-            MessagingService, AsyncPipe
-        ],
-    bootstrap: [AppRoutingComponent]
+  bootstrap: [AppRoutingComponent]
 })
 export class AppModule {
-    // Diagnostic only: inspect router configuration
-    constructor(router: Router) {
-        // Use a custom replacer to display function names in the route configs
-        // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
+  // Diagnostic only: inspect router configuration
+  constructor(router: Router) {
+    // Use a custom replacer to display function names in the route configs
+    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
 
-        // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
-        let url = location.href;
-        url = url.replace('http://', '');
-        url = url.replace('https://', '');
-        const url_arr = url.split('/');
-        // console.log(url_arr);
-        if (!url_arr[1] || url_arr[1] === '/') {
-            location.assign('/operation/order');
-        }
+    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+    let url = location.href;
+    url = url.replace('http://', '');
+    url = url.replace('https://', '');
+    const url_arr = url.split('/');
+    // console.log(url_arr);
+    if (!url_arr[1] || url_arr[1] === '/') {
+      location.assign('/operation/order');
     }
+  }
 }
