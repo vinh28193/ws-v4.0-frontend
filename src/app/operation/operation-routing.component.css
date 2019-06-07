@@ -242,12 +242,27 @@ body {
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
-    font-family: "Font Awesome 5 Free";
+    font-family: "FontAwesome";
     font-weight: 900;
     content: "\f105";
     font-style: normal;
     display: inline-block;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    background: 0 0;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f105";
     font-style: normal;
+    display: inline-block;
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -269,8 +284,8 @@ body {
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
-    content: "\f111";
-    font-family: "Font Awesome 5 Free";
+    content: "\f192";
+    font-family: "FontAwesome";
     font-weight: 400;
     font-style: normal;
     display: inline-block;
@@ -279,9 +294,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin-right: 10px;
-    font-size: 8px;
+    font-size: 15px;
 }
-
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li.active a:before {
+    content: "\f101";
+}
 .sidebar-wrapper .sidebar-menu ul li a span.label,
 .sidebar-wrapper .sidebar-menu ul li a span.badge {
     float: right;
@@ -648,6 +665,12 @@ ul {
     border-radius: 50%;
     font-size: 1.6rem;
 }
+.sty-color ul li a span {
+    color: white;
+}
+.sty-color ul li a i {
+    color: white;
+}
 .sidebar-dropdown > a:after {
     color: white;
 }
@@ -685,3 +708,22 @@ ul {
     padding-right: 0px;
     padding-left: 0px;
 }
+div.sidebar-menu li.active {
+    background: #42afce !important;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-submenu.active{
+    background: #42afce !important;
+    display: block;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-submenu.active ul li.active a.text-success{
+    text-decoration-line: underline;
+    border-bottom: 1px solid;
+    font-style: italic;
+}
+/*.sty-color ul li.active a i{*/
+/*    background: #fff !important;*/
+/*    color: #000 !important;*/
+/*}*/
+/*.sty-color ul li.active a span {*/
+/*    color: #000;*/
+/*}*/

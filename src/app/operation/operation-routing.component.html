@@ -27,70 +27,84 @@
                 </div>
             </div>
             <div class="sidebar-menu sty-color" style="border: none">
-                <style>
-                    .sty-color ul li a span {
-                        color: white;
-                    }
-                    .sty-color ul li a i {
-                        color: white;
-                    }
-                </style>
                 <ul>
-                    <li class="active">
+                    <li class="{{checkActiveTab('',null) ? 'active' : ''}}">
                         <a [routerLink]="['order']">
                             <i class="fa fa-home"></i>
                             <span i18n  data-toggle="tooltip" data-placement="top" title="Thống kê chung" >Statistics all </span>
                         </a>
                     </li>
 
-                    <li>
+                    <li class="{{checkActiveTab('order',null) ? 'active' : ''}}">
                         <a [routerLink]="['order']">
                             <i class="fa fa-shopping-cart"></i>
                             <span i18n>Order</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['warehouse']">
-                            <i class="fa fa-warehouse"></i>
-                            <span i18n>Warehouse Management</span>
-                        </a>
-                    </li>
-<!--                    <li *ngIf="checkOperatione()">-->
-<!--                        <a [routerLink]="['tracking']">-->
-<!--                            <i class="fa fa-search-location"></i>-->
-<!--                            <span i18n>Tracking Code</span>-->
+<!--                    <li class="{{pathName == '/operation/warehouse' ? 'active' : ''}}">-->
+<!--                        <a [routerLink]="['warehouse']">-->
+<!--                            <i class="fa fa-warehouse"></i>-->
+<!--                            <span i18n>Warehouse Management</span>-->
 <!--                        </a>-->
 <!--                    </li>-->
-                    <li>
-                        <a [routerLink]="['package/manifest']">
-                            <i class="fa fa-box-open"></i>
-                            <span i18n>Manifest</span>
+<!--&lt;!&ndash;                    <li *ngIf="checkOperatione()">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a [routerLink]="['tracking']">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fa fa-search-location"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span i18n>Tracking Code</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <a [routerLink]="['package/manifest']">-->
+<!--                            <i class="fa fa-box-open"></i>-->
+<!--                            <span i18n>Manifest</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a [routerLink]="['package']">-->
+<!--                            <i class="fa fa-box"></i>-->
+<!--                            <span i18n>Package</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a [routerLink]="['delivery-note']">-->
+<!--                            <i class="fa fa-calendar-check-o"></i>-->
+<!--                            <span i18n>Delivery Note</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a [routerLink]="['shipment']">-->
+<!--                            <i class="fa fa-truck"></i>-->
+<!--                            <span i18n>Shipment</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                    <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">
+                        <a [routerLink]="['i18n/language-frontend']">
+                            <i class="fa fa-sign-language"></i>
+                            <span i18n>Language Source</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['package']">
-                            <i class="fa fa-box"></i>
-                            <span i18n>Package</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['delivery-note']">
-                            <i class="fa fa-calendar-check-o"></i>
-                            <span i18n>Delivery Note</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['shipment']">
-                            <i class="fa fa-truck"></i>
-                            <span i18n>Shipment</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)">
+<!--                    <li class="sidebar-dropdown {{opentSubmenu == 'i18n' || checkActiveTab('i18n',null) ? 'active' : ''}}">-->
+<!--                        <a href="javascript:void(0)" (click)="SubMenuClick('i18n')">-->
+<!--                            <i class="fa fa-bell"></i>-->
+<!--                            <span i18n>Language</span>-->
+<!--                        </a>-->
+<!--                        <div class="sidebar-submenu {{opentSubmenu == 'i18n' || checkActiveTab('i18n',null) ? 'active' : ''}}">-->
+<!--                            <ul>-->
+<!--                                <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">-->
+<!--                                    <a class="{{checkActiveTab('i18n','language-frontend') ? 'text-success' : 'text-white'}}" [routerLink]="['i18n/language-frontend']" i18n>Frontend</a>-->
+<!--                                </li>-->
+<!--                                <li class="{{checkActiveTab('i18n','language-backend') ? 'active' : ''}}">-->
+<!--                                    <a class="{{checkActiveTab('i18n','language-backend') ? 'text-success' : 'text-white'}}" href="javascript:void(0)" i18n>Backend</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </li>-->
+                    <li class="sidebar-dropdown {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
+                        <a href="javascript:void(0)" (click)="SubMenuClick('notify')">
                             <i class="fa fa-bell"></i>
                             <span i18n>Notification</span>
                         </a>
-                        <div class="sidebar-submenu bg-info">
+                        <div class="sidebar-submenu {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
                             <ul>
                                 <li>
                                     <a class="text-white" href="javascript:void(0)" i18n>Update orders</a>

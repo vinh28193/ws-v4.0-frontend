@@ -23,7 +23,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public totalCart: number;
   public totalCarts: any;
   public backorderlist = false;
-  public limit: number = 5;
+  public limit: number = 20;
   public page: number = 1;
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();

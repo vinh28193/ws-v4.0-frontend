@@ -54,6 +54,7 @@ export class ClientService extends GlobalService {
                 url += '?' + params;
             }
         }
+        console.log(this.getApiURl(url));
         return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
@@ -110,6 +111,21 @@ export class ClientService extends GlobalService {
                 }
             );
     }
+
+  postNoLoad(url, body) {
+    return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      ).do(
+        (event: HttpEvent<any>) => {
+          this.endLoading();
+          if (event instanceof HttpResponse) {
+            return event;
+            // do stuff with response if you want
+          }
+        }
+      );
+  }
 
     put(url, body): Observable<any> {
         this.startLoading();

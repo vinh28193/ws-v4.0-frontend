@@ -342,6 +342,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     this.msg = this.message.value;
                     this.showNotification();
                     this.alive = false;
+                    const params: any = {};
+                    params.title = this.msg.notification.title;
+                    params.body = this.msg.notification.body;
+                    params.link = this.msg.notification.click_action;
+                    this.orderService.postNoLoad('list-notification', params).subscribe(res => {
+                      console.log(res);
+                    });
+                    this.listNotifications();
                     this.msg.notification.from = '';
                 }
             });
@@ -1444,6 +1452,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkChatNote(code, status) {
         const params: any = {};
+        // if (status === 1) {
+        //   console.log('da vào');
+        //   params.statusChat = 0;
+        // }
+        // if (status === 0) {
+        //   params.statusChat = 1;
+        // }
         params.checkStatusValue = 'checkStatusValue';
         this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
             this.loadListTemChat();
@@ -1647,6 +1662,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
         this.tracking_Insert.info = rs;
         console.log('remove: ');
+    }
+    listNotifications() {
+      this.orderService.getNoLoad('list-notification').subscribe(res => {
+        if (res.success) {
+        }
+      });
     }
 }
 
