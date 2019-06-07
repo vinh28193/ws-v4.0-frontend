@@ -54,6 +54,7 @@ export class ClientService extends GlobalService {
                 url += '?' + params;
             }
         }
+        console.log(this.getApiURl(url));
         return this.http.get(this.getApiURl(url), this.getAuthHttpOptions())
             .pipe(
                 catchError(this.handleError)
