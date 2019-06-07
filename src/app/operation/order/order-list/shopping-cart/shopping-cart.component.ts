@@ -48,8 +48,9 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     params.limit = this.limit;
     params.page = this.page;
     this.orderService.ListShopping(params).subscribe(res => {
-      this.ShoppingCar = res.data._items[1];
-      this.totalCarts = res.data._items[0];
+      console.log(res);
+      this.ShoppingCar = res.data.allModels._items;
+      this.totalCarts = res.data.count[0];
       this.totalCart = this.totalCarts[0]['sum'];
       this.metaShopping = res.data._meta;
       if (this.totalCart >= this.limit) {
