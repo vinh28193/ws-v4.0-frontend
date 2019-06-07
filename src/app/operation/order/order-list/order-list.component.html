@@ -2322,7 +2322,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <button class="btn btn-info btn-sm mr-2" (click)="loadListTemChat()" type="submit" i18n>
                   <i class="fa fa-search mr-1"></i> Search
                 </button>
-                <button type="button" class="btn btn-default btn-sm" (click)="refreshListChatTem()" i18n>
+                <button type="button" class="btn btn-success btn-sm" (click)="refreshListChatTem()" i18n>
                   <i class="fa fa-refresh mr-1"></i> Refresh
                 </button>
               </div>
@@ -2331,9 +2331,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </form>
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal"
-                    data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template
-              Order Chat
+            <button class="btn btn-info btn-sm" data-target="#addChatRefund" data-toggle="modal"
+                    data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">
+              <span i18n>Create Template Order Chat</span>
             </button>
           </div>
           <div class="col-md-6">
@@ -2347,17 +2347,17 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <strong>Total: <span class="ml-1 text-danger">{{totalChat}}</span></strong>
+            <strong><span i18n>Total:</span> <span class="ml-1 text-danger">{{totalChat}}</span></strong>
           </div>
         </div>
         <table class="table" style="height: 400px;">
           <thead>
           <tr>
-            <th>Note</th>
-            <th>Content</th>
-            <th>Status</th>
-            <th>Create</th>
-            <th>Action</th>
+            <th i18n>Note</th>
+            <th i18n>Content Chat</th>
+            <th i18n>Status</th>
+            <th i18n>Created At</th>
+            <th i18n>Action</th>
           </tr>
           </thead>
           <tbody>
@@ -2376,7 +2376,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <!--[name]="checkboxAttribute(cn.code,'name')">-->
               <!--</form>-->
             </td>
-            <td>{{cn.time_start}}</td>
+            <td>{{cn.time_start * 1000 | date:'dd/MM/yyyy HH:mm'}}</td>
             <td class="text-center">
               <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#editChatRefund"
                  data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
@@ -2400,7 +2400,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Update Template Mart Order</h3>
+        <h3 class="modal-title text-white"><span i18n>Update Template Mart Order</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption2()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
