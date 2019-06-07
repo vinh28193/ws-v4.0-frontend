@@ -38,7 +38,7 @@ export class MessagingService {
         this.angularFireMessaging.requestToken.subscribe(
             (token) => {
                 this.currentToken = token;
-                // console.log('token firebase : ' + this.currentToken);
+                console.log('token firebase : ' + this.currentToken);
             },
             (err) => {
                 console.error('constructor get token err .', err);
