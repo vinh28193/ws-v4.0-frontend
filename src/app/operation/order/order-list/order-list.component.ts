@@ -63,6 +63,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public currentStatusOrder: any;
     public noTrackingCount: any;
     public orderList: any;
+    public totalNotifications: any;
+    public ListNotifi: any = [];
     public purchase: any;
     public stockin_us: any;
     public countUS: any;
@@ -323,6 +325,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
         this.startCheck();
         this.checking();
+        this.listNotifications();
     }
 
     startCheck() {
@@ -347,9 +350,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     params.body = this.msg.notification.body;
                     params.link = this.msg.notification.click_action;
                     this.orderService.postNoLoad('list-notification', params).subscribe(res => {
-                      console.log(res);
+                      this.listNotifications();
                     });
-                    this.listNotifications();
                     this.msg.notification.from = '';
                 }
             });
@@ -1666,8 +1668,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     listNotifications() {
       this.orderService.getNoLoad('list-notification').subscribe(res => {
         if (res.success) {
+          this.ListNotifi = res.data.model;
+          console.log(this.ListNotifi);
+          this.totalNotifications = res.data.total;
         }
       });
     }
+  readyNotifi(id) {
+    this.orderService.putNoLoad(`list-notification/${id.$oid}`, undefined).subscribe(rs => {
+      if (rs.success) {
+        this.listNotifications();
+      }
+    });
+  }
 }
 

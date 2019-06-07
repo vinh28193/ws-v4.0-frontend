@@ -143,6 +143,21 @@ export class ClientService extends GlobalService {
             );
     }
 
+  putNoLoad(url, body): Observable<any> {
+    return this.http.put(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      ).do(
+        (event: HttpEvent<any>) => {
+          this.endLoading();
+          if (event instanceof HttpResponse) {
+            return event;
+            // do stuff with response if you want
+          }
+        }
+      );
+  }
+
     patch(url, body): Observable<any> {
         this.startLoading();
         return this.http.patch(`${this.getApiURl(url)}`, body, this.getAuthHttpOptions())

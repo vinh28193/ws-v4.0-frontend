@@ -18,21 +18,20 @@
               <li class="dropdown">
                 <a id="dLabel" role="button" class="notifi" data-toggle="dropdown" data-target="#" href="javascript:void(0) ">
                   <i class="fa fa-bell"></i>
-                  <span class="num">4</span>
+                  <span class="num pl-1 pr-1">{{totalNotifications}}</span>
                 </a>
                 <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
 
                   <div class="notification-heading">
-                    <h4 class="menu-title">Notifications</h4>
+                    <h4 class="menu-title mt-2" i18n>Notifications</h4>
                   </div>
                   <div class="notifications-wrapper">
-                    <a class="content" href="#">
+                    <a *ngFor="let notifi of ListNotifi" (click)="readyNotifi(notifi._id)" target="_blank" class="content bg-{{notifi.watched | notificationBackground}}" style="background: {{notifi.watched | notificationBackground}}" href="{{notifi.click_action }}">
                       <div class="notification-item">
-                        <!--<img src="http://www.leapcms.com/images/100pixels1.gif">-->
-                        <h4 class="item-title" style="color: black">Evaluation Deadline
-                          <small style="float: right; font-size: 11px;"> 1 day ago</small>
-                        </h4>
-                        <span style="font-size: 13px">Mr hassan has followed you!</span>
+                        <img src="http://www.leapcms.com/images/100pixels1.gif">
+                        <p class="item-title m-0 p-0" style="font-size: 12px; line-height: 5px;">{{notifi.title}} {{notifi.watched | notificationBackground}}</p>
+                        <span style="font-size: 11px;line-height: 5px;">{{notifi.body}}</span><br>
+                        <small style="font-size: 11px;line-height: 5px; color: dimgray;"> {{notifi.created_at * 1000  | date:'medium'}}</small>
                       </div>
                     </a>
 
