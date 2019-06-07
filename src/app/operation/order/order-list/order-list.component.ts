@@ -1444,13 +1444,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkChatNote(code, status) {
         const params: any = {};
-        // if (status === 1) {
-        //   console.log('da vào');
-        //   params.statusChat = 0;
-        // }
-        // if (status === 0) {
-        //   params.statusChat = 1;
-        // }
         params.checkStatusValue = 'checkStatusValue';
         this.orderService.put(`list-chat-mongo/${code}`, params).subscribe(res => {
             this.loadListTemChat();

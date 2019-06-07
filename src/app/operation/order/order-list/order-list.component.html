@@ -5,8 +5,8 @@
         <div class="card-title">
           <div class="row">
             <div class="col-md-7">
-              <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS <i class="fa fa-filter" [popover]="showTitle"></i></h3>
-              <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' " >{{ message | async | json }}</span>
+              <h3 i18n *ngIf="!checkShoppingCart">LISTS ORDERS </h3>
+              <span *ngIf=" _scope.checkSuperAdmin() &&  message != 'null' ">{{ message | async | json }}</span>
               <h3 i18n *ngIf="checkShoppingCart">LISTS NEW</h3>
               <ng-template #showTitle style="max-width: 500px">
                 <div>
@@ -15,14 +15,38 @@
               </ng-template>
             </div>
             <div class="col-md-5 text-right">
+              <li class="dropdown">
+                <a id="dLabel" role="button" class="notifi" data-toggle="dropdown" data-target="#" href="javascript:void(0) ">
+                  <i class="fa fa-bell"></i>
+                  <span class="num">4</span>
+                </a>
+                <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+
+                  <div class="notification-heading">
+                    <h4 class="menu-title">Notifications</h4>
+                  </div>
+                  <div class="notifications-wrapper">
+                    <a class="content" href="#">
+                      <div class="notification-item">
+                        <!--<img src="http://www.leapcms.com/images/100pixels1.gif">-->
+                        <h4 class="item-title" style="color: black">Evaluation Deadline
+                          <small style="float: right; font-size: 11px;"> 1 day ago</small>
+                        </h4>
+                        <span style="font-size: 13px">Mr hassan has followed you!</span>
+                      </div>
+                    </a>
+
+                  </div>
+                </ul>
+              </li>
               <ng-template #customNotification let-notificationData="notification">
                 <div type="notificationData.type" style="width: 250px;">
                   <div>
-                  <strong class="mr-auto text-left">{{msg.notification.title}}</strong>
+                    <strong class="mr-auto text-left">{{msg.notification.title}}</strong>
                   </div>
                   <hr class="mt-1 mb-1">
                   <div>
-                    <a href="{{msg.notification.click_action}}"  target="_blank">{{msg.notification.body}}</a>
+                    <a href="{{msg.notification.click_action}}" target="_blank">{{msg.notification.body}}</a>
                   </div>
                 </div>
               </ng-template>
@@ -30,7 +54,7 @@
             </div>
           </div>
         </div>
-        <form [formGroup]="searchForm" class="row search-form">
+        <form [formGroup]="searchForm" class="row search-form" style="z-index: 1">
           <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
@@ -39,19 +63,21 @@
                 <option value="ALL" i18n>ALL Keyword</option>
                 <option *ngFor="let item of searchKeys" [value]="item.key">{{item.name}}</option>
               </select>
-              <input class="form-control form-control-sm" id="keyWord" (keyup.enter)="listOrders()" formControlName="keyWord"
+              <input class="form-control form-control-sm" id="keyWord" (keyup.enter)="listOrders()"
+                     formControlName="keyWord"
                      type="text">
             </div>
           </div>
-          <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" style="z-index: 1" class="col-md-6 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
-            <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
-              <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
+            <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker" style="z-index: 1">
+              <select class="col-sm-5 form-control form-control-sm input-group-addon" style="z-index: 1"
+                      name="currentStatus" id="timeKey"
                       formControlName="timeKey">
                 <option [value]="allKey" i18n>Time Key</option>
                 <option value="{{time.key}}" *ngFor="let time of timeKeys">{{time.name}}</option>
               </select>
-              <input #drp="bsDaterangepicker"
+              <input style="z-index: 1" #drp="bsDaterangepicker"
                      (keyup.enter)="listOrders()"
                      bsDaterangepicker
                      [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
@@ -105,18 +131,18 @@
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Product Type</label>
             <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
-              <option [value]="allKey" i18n >--All Product Type--</option>
-              <option value="AMAZON_US" >AMAZON US</option>
-              <option value="AMAZON_JAPAN" >AMAZON JAPAN</option>
-              <option value="OTHER" >OTHER</option>
-              <option value="EBAY" >EBAY</option>
+              <option [value]="allKey" i18n>--All Product Type--</option>
+              <option value="AMAZON_US">AMAZON US</option>
+              <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+              <option value="OTHER">OTHER</option>
+              <option value="EBAY">EBAY</option>
             </select>
           </div>
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label for="paymentStatus" class="form-control-label" i18n>Payment Status</label>
             <select class="form-control form-control-sm" name="store" id="paymentStatus"
                     formControlName="paymentStatus">
-              <option [value]="allKey" i18n >--All Payment Status--</option>
+              <option [value]="allKey" i18n>--All Payment Status--</option>
               <option value="PAID">PAID</option>
               <option value="UNPAID">UNPAID</option>
               <option value="REFUND_PARTIAL">REFUND PARTIAL</option>
@@ -126,42 +152,49 @@
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
-              <option [value]="allKey" i18n >--All Sale--</option>
+              <option [value]="allKey" i18n>--All Sale--</option>
               <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
             </select>
           </div>
-          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10" *ngIf="_scope.checkRoleOption()">
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10"
+               *ngIf="_scope.checkRoleOption()">
             <label class="form-control-label" i18n>Status Order</label>
             <select class="form-control form-control-sm" name="noTracking" id="noTracking" formControlName="noTracking">
-            <option [value]="allKey" i18n>--TracKing--</option>
-            <option value="NO_TRACKING">No Tracking</option>
-            <option value="STOCKIN_US2DAY">2 ngày kho nhập nhưng không xuất hàng về</option>
-            <option value="PURCHASED2DAY">2 ngày đã mua người bán chưa gửi hàng</option>
-            <option value="10STOCKOUT_US">10 ngày hàng nhập kho Mỹ nhưng không có danh sách về Việt Nam</option>
-            <option value="SHIPPED5">5 ngày người bán gửi hàng mà chưa thấy nhập kho</option>
+              <option [value]="allKey" i18n>--TracKing--</option>
+              <option value="NO_TRACKING">No Tracking</option>
+              <option value="STOCKIN_US2DAY">2 ngày kho nhập nhưng không xuất hàng về</option>
+              <option value="PURCHASED2DAY">2 ngày đã mua người bán chưa gửi hàng</option>
+              <option value="10STOCKOUT_US">10 ngày hàng nhập kho Mỹ nhưng không có danh sách về Việt Nam</option>
+              <option value="SHIPPED5">5 ngày người bán gửi hàng mà chưa thấy nhập kho</option>
             </select>
           </div>
           <!--<div class="col-md-3 col-sm-6 form-group m-b-10">-->
-            <!--<label class="form-control-label" i18n>Service</label>-->
-            <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
-              <!--<option [value]="allKey" i18n>&#45;&#45;All Service&#45;&#45;</option>-->
-              <!--<option value=""></option>-->
-              <!--<option value=""></option>-->
-              <!--<option value=""></option>-->
-              <!--<option value=""></option>-->
-            <!--</select>-->
+          <!--<label class="form-control-label" i18n>Service</label>-->
+          <!--<select class="form-control form-control-sm" name="seller" id="policy" formControlName="policy">-->
+          <!--<option [value]="allKey" i18n>&#45;&#45;All Service&#45;&#45;</option>-->
+          <!--<option value=""></option>-->
+          <!--<option value=""></option>-->
+          <!--<option value=""></option>-->
+          <!--<option value=""></option>-->
+          <!--</select>-->
           <!--</div>-->
           <div class="col-md-12 mt-1">
             <div class="button-group">
-                <button class="btn btn-sm btn-success" *ngIf="!checkShoppingCart" (click)="listOrders()"><i class="fa fa-search"></i><span i18n>Search</span></button>
-                <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
-                <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i class="fa fa-file-excel-o"></i> Export Excel</button>
-                <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart" (click)="listShoppingCart()">NEW</button>
+              <button class="btn btn-sm btn-success" *ngIf="!checkShoppingCart" (click)="listOrders()"><i
+                class="fa fa-search"></i><span i18n>Search</span></button>
+              <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i
+                class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
+              <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i
+                class="fa fa-file-excel-o"></i> Export Excel
+              </button>
+              <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart"
+                      (click)="listShoppingCart()">NEW
+              </button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
+              <!--<i class="fa fa-plus mr-1"></i>Add Filter-->
               <!--</button>-->
               <!--<div class="dropdown-menu p-0" style="font-size: 11px">-->
-                <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
+              <!--<a class="dropdown-item p-1" href="javascript:void(0);">Đã thanh toán</a>-->
               <!--</div>-->
             </div>
           </div>
@@ -190,12 +223,23 @@
         <section class="row item-operation mt-2">
           <div class="col-md-12" *ngIf="_scope.checkRoleOption() && !checkShoppingCart">
             <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item </strong>
-            <a href="javascript:void(0)" *ngIf="totalUnPaid > 0" (click)="filterClick('UNPAID')"> <span class="text-danger">|</span> Chưa thanh toán: <span class="text-danger mr-1">{{totalUnPaid}}</span>item </a>
-            <a href="javascript:void(0)" *ngIf="noTrackingCount > 0" (click)="filterClick('NO_TRACKING')"><span class="text-danger">|</span> No Tracking: <span class="text-danger">{{noTrackingCount}}</span>item </a>
-            <a href="javascript:void(0)" *ngIf="purchase2Day > 0" (click)="filterClick('PURCHASED2DAY')"><span class="text-danger">|</span> 2 ngày đã mua người bán chưa gửi hàng: <span class="text-danger mr-1">{{purchase2Day}}</span>item </a>
-            <a href="javascript:void(0)" *ngIf="stockin_us > 0" (click)="filterClick('STOCKIN_US2DAY')"><span class="text-danger">|</span> 2 ngày kho nhập nhưng không xuất hàng về: <span class="text-danger mr-1">{{stockin_us}}</span>item </a>
-            <a href="javascript:void(0)" *ngIf="countPurchase > 0" (click)="filterClick('SHIPPED5')"><span class="text-danger">|</span> 5 ngày người bán gửi hàng mà chưa thấy nhập kho: <span class="text-danger mr-1">{{countPurchase}}</span>item </a>
-            <a  href="javascript:void(0)" *ngIf="countUS > 0" (click)="filterClick('10STOCKOUT_US')"><span class="text-danger">|</span> 10 ngày kho Mỹ nhập nhưng không có danh sách về Viêt Nam: <span class="text-danger mr-1">{{countUS}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="totalUnPaid > 0" (click)="filterClick('UNPAID')"> <span
+              class="text-danger">|</span> Chưa thanh toán: <span class="text-danger mr-1">{{totalUnPaid}}</span>item
+            </a>
+            <a href="javascript:void(0)" *ngIf="noTrackingCount > 0" (click)="filterClick('NO_TRACKING')"><span
+              class="text-danger">|</span> No Tracking: <span class="text-danger">{{noTrackingCount}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="purchase2Day > 0" (click)="filterClick('PURCHASED2DAY')"><span
+              class="text-danger">|</span> 2 ngày đã mua người bán chưa gửi hàng: <span class="text-danger mr-1">{{purchase2Day}}</span>item
+            </a>
+            <a href="javascript:void(0)" *ngIf="stockin_us > 0" (click)="filterClick('STOCKIN_US2DAY')"><span
+              class="text-danger">|</span> 2 ngày kho nhập nhưng không xuất hàng về: <span class="text-danger mr-1">{{stockin_us}}</span>item
+            </a>
+            <a href="javascript:void(0)" *ngIf="countPurchase > 0" (click)="filterClick('SHIPPED5')"><span
+              class="text-danger">|</span> 5 ngày người bán gửi hàng mà chưa thấy nhập kho: <span
+              class="text-danger mr-1">{{countPurchase}}</span>item </a>
+            <a href="javascript:void(0)" *ngIf="countUS > 0" (click)="filterClick('10STOCKOUT_US')"><span
+              class="text-danger">|</span> 10 ngày kho Mỹ nhập nhưng không có danh sách về Viêt Nam: <span
+              class="text-danger mr-1">{{countUS}}</span>item </a>
           </div>
         </section>
 
@@ -224,8 +268,13 @@
                                     class="Paid badge badge-pill badge-{{order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
                                     {{order.current_status}}
                                   </span> /
-                                  <span title="OrderItem-paid" *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)" class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span> <!--check payment transaction-->
-                                  <span title="Order-Unpaid" *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)" class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
+                                  <span title="OrderItem-paid"
+                                        *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)"
+                                        class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span>
+                                  <!--check payment transaction-->
+                                  <span title="Order-Unpaid"
+                                        *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
+                                        class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
@@ -247,7 +296,9 @@
                                     <span style="color: #C1C1C1"><i class="fa fa-clock-o"></i> {{order.created_at | amTimeAgo}}</span>
                                   </li>
                                   <li class="portal OrderType">
-                                    <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version : {{order.version}}</button>
+                                    <button class="btn btn-default btn-sm">{{order.portal | uppercase }} / Version :
+                                      {{order.version}}
+                                    </button>
                                   </li>
                                 </ul>
                               </div>
@@ -257,10 +308,13 @@
                               <div class="mt-1">
                                 <ul>
                                   <li class="purchase_order_id">
-                                    <div class="sty-font purchase_order_id" > <span i18n>Order code </span> {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_order_id}}</span></div>
+                                    <div class="sty-font purchase_order_id"><span i18n>Order code </span> {{order.portal
+                                      | uppercase }} : <span class="ml-1">{{order.purchase_order_id}}</span></div>
                                   </li>
                                   <li class="purchase_transaction">
-                                    <div class="sty-font purchase_transaction_id"> <span i18n>Transaction </span> {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_transaction_id}}</span></div>
+                                    <div class="sty-font purchase_transaction_id"><span i18n>Transaction </span>
+                                      {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_transaction_id}}</span>
+                                    </div>
                                   </li>
                                 </ul>
                               </div>
@@ -269,10 +323,13 @@
 
                               <div class="row m-0 p-0 mt-1">
                                 <ul class="col-md-11">
-                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale" (checkSale)="loadViewSale($event)" [saleSupport] = "order.saleSupport"></app-assign-sale>
+                                  <app-assign-sale [orderId]="order.id" [saleAll]="listSale"
+                                                   (checkSale)="loadViewSale($event)"
+                                                   [saleSupport]="order.saleSupport"></app-assign-sale>
                                 </ul>
                                 <div class="col-md-1 p-0">
-                                  <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
+                                  <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i
+                                    class="fa fa-filter"> </i></a>
                                 </div>
                               </div>
 
@@ -281,7 +338,9 @@
                               <div class=" mt-1  infor_seller">
                                 <ul>
                                   <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
-                                  <li class="sty-font" i18n><i class="fa fa-user mr-1" ></i> Seller Name : <a class="ml-1"  href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a></li>
+                                  <li class="sty-font" i18n><i class="fa fa-user mr-1"></i> Seller Name : <a
+                                    class="ml-1" href="{{order.seller_store}}" target="_blank">{{order.seller_name}}</a>
+                                  </li>
                                 </ul>
                               </div>
                               <hr style="margin: 5px;">
@@ -297,13 +356,16 @@
                             </div>
 
                             <div class="col-md-3 border-col CUSTOMER_INFO">
-                              <h5 class="customer-type-{{order.customer_type}}"   i18n>CUSTOMER INFO</h5>
+                              <h5 class="customer-type-{{order.customer_type}}" i18n>CUSTOMER INFO</h5>
                               <div class="row">
                                 <div class="col-md-12">
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
-                                  <div *ngIf="_scope.CheckSale()"> <span i18n > CUSTOMER TYPE : </span> <span class="text-bold" >{{order.customer_type | uppercase }} </span> </div>
+                                  <div *ngIf="_scope.CheckSale()"><span i18n> CUSTOMER TYPE : </span> <span
+                                    class="text-bold">{{order.customer_type | uppercase }} </span></div>
                                   <span>{{order.user?.last_name}} - <a href="tel:{{order.user?.phone}}">{{order.user?.phone}}</a> - {{order.user?.email}}
-                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>
+                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i
+                                      class="fa fa-filter" data-toggle="tooltip" data-placement="top"
+                                      title="Filter Email BUYER!"> </i></a></span>
                                 </div>
                               </div>
                               <hr style="margin: 5px;">
@@ -312,9 +374,11 @@
                                   <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 2%">
                                       <div>
-                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px" i18n >RECEIVER
+                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
+                                            i18n>RECEIVER
                                           <a href="javascript:void(0)"
-                                             (click)="updateCustomer(order);updateReceiverModal.show()" *ngIf = "!_scope.checkMarketingAccount() && !_scope.checkOperatione() && !_scope.checkMasterOperation()">
+                                             (click)="updateCustomer(order);updateReceiverModal.show()"
+                                             *ngIf="!_scope.checkMarketingAccount() && !_scope.checkOperatione() && !_scope.checkMasterOperation()">
                                             <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
                                           </a>
                                         </h5>
@@ -329,34 +393,50 @@
                                 </div>
                               </div>
                               <div class="row mt-3">
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú của customer hoặc ghi chú cho người nhận." i18n>
-                                  <i class="fa fa-comments"  ></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top"
+                                     title="Ghi chú của customer hoặc ghi chú cho người nhận." i18n>
+                                  <i class="fa fa-comments"></i> Customer note : <strong class="text-danger">{{order.note_by_customer}}</strong>
                                 </div>
-                                <div class="col-md-12" data-toggle="tooltip" data-placement="top" title="Ghi chú cho đơn hàng !" i18n>
-                                  <i class="fa fa-comments"  ></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
+                                <div class="col-md-12" data-toggle="tooltip" data-placement="top"
+                                     title="Ghi chú cho đơn hàng !" i18n>
+                                  <i class="fa fa-comments"></i> Note Orders : <strong class="text-danger">{{order.note}}</strong>
                                 </div>
                               </div>
 
                               <hr>
 
                               <div class="row col-md-12">
-                                  <button type="button" *ngIf="!_scope.checkMarketingAccount()" (click)="chat(order.id, order.ordercode, order.current_status)" class="btn btn-secondary mt-2  btn-sm" data-target="#showChat" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-                                    Chat With Customer
-                                  </button>
-                                  <button (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) " type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
-                                    <i class="fa fa-bell mr-1"></i> push notifi Track Orders
-                                  </button>
-                                  <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode)" type="button" class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang" i18n>
-                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
-                                    Quit tracking Order
-                                  </button>
+                                <button type="button" *ngIf="!_scope.checkMarketingAccount()"
+                                        (click)="chat(order.id, order.ordercode, order.current_status)"
+                                        class="btn btn-secondary mt-2  btn-sm" data-target="#showChat"
+                                        data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                  <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+                                  Chat With Customer
+                                </button>
+                                <button (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) "
+                                        type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
+                                  <i class="fa fa-bell mr-1"></i> push notifi Track Orders
+                                </button>
+                                <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode)"
+                                        type="button" class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang" i18n>
+                                  <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
+                                  Quit tracking Order
+                                </button>
                               </div>
 
                               <div class="row col-md-12 pb-1">
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()" (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()" i18n >More Log</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order)" *ngIf="checkConfirmOrder(order)" i18n >Confirm Orders</button>
-                                <button class="btn btn-secondary mt-2 btn-sm" *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()" (click)="markAsJunk(order.id)" i18n>Mark as Junk</button>
+                                <button class="btn btn-secondary mt-2 btn-sm"
+                                        *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()"
+                                        (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()"
+                                        i18n>More Log
+                                </button>
+                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order)"
+                                        *ngIf="checkConfirmOrder(order)" i18n>Confirm Orders
+                                </button>
+                                <button class="btn btn-secondary mt-2 btn-sm"
+                                        *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
+                                        (click)="markAsJunk(order.id)" i18n>Mark as Junk
+                                </button>
                               </div>
 
 
@@ -364,36 +444,40 @@
 
 
                             <div class="col-md-3 hover-row style-col border-col">
-                                <div class="row">
-                                  <div class="col-md-7">
-                                    <h5 i18n >FINANCE</h5>
-                                  </div>
-                                  <div class="col-md-5" style="text-align: right">
-                                    <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>
-                                      <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </button>
-                                    <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[order.id]" (click)="hideme[order.id] = !hideme[order.id]" i18n>
-                                      <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                    </button>
-                                    <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
-                                  </div>
+                              <div class="row">
+                                <div class="col-md-7">
+                                  <h5 i18n>FINANCE</h5>
                                 </div>
-                                <div class="row Quantity">
-                                  <div class="col-md-7 style-padding-right  dong">
-                                    <span i18n >Quantity</span>
-                                  </div>
-                                  <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
-                                    <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
-                                  </div>
+                                <div class="col-md-5" style="text-align: right">
+                                  <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[order.id]"
+                                          (click)="hideme[order.id] = !hideme[order.id]" i18n>
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                  </button>
+                                  <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[order.id]"
+                                          (click)="hideme[order.id] = !hideme[order.id]" i18n>
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                  </button>
+                                  <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
                                 </div>
+                              </div>
+                              <div class="row Quantity">
+                                <div class="col-md-7 style-padding-right  dong">
+                                  <span i18n>Quantity</span>
+                                </div>
+                                <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
+                                  <span>{{quantityOrder(order.products ,order.products['length'])}}</span>
+                                </div>
+                              </div>
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
                                   <strong><span i18n>Units Price:</span>
-                                    ( <span *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    ( <span
+                                      *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                     </span>
-                                    <span *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                    <span
+                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
                                       {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
                                     </span>)
                                   </strong>
@@ -410,7 +494,7 @@
 
                                 <div class="row total_origin_tax_fee_local">
                                   <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-                                    <span i18n >Total origin tax fee local </span>
+                                    <span i18n>Total origin tax fee local </span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
@@ -422,7 +506,7 @@
 
                                 <div class="row Total_origin_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total origin shiping fee</span>
+                                    <span i18n>Total origin shiping fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -435,7 +519,7 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total weshop fee</span>
+                                    <span i18n>Total weshop fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -447,7 +531,7 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total shiping fee</span>
+                                    <span i18n>Total shiping fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -458,7 +542,7 @@
                                 </div>
                                 <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total custom fee </span>
+                                    <span i18n>Total custom fee </span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -469,7 +553,7 @@
                                 </div>
                                 <div class="row Total_delivery_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total delivery fee</span>
+                                    <span i18n>Total delivery fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -480,7 +564,7 @@
                                 </div>
                                 <div class="row Total_packing_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total packing fee</span>
+                                    <span i18n>Total packing fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -491,7 +575,7 @@
                                 </div>
                                 <div class="row Total_insection_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total inspection fee</span>
+                                    <span i18n>Total inspection fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -502,7 +586,7 @@
                                 </div>
                                 <div class="row Total_insurance_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total insurance fee</span>
+                                    <span i18n>Total insurance fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -514,7 +598,7 @@
 
                                 <div class="row Total_VAT_amount">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n >Total VAT amount</span>
+                                    <span i18n>Total VAT amount</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -529,7 +613,7 @@
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span i18n >Total Fee Order :</span>
+                                  <span i18n>Total Fee Order :</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                   <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
@@ -542,7 +626,7 @@
 
                               <div class="row Quantity">
                                 <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n >Exchage rate:</span>
+                                  <span i18n>Exchage rate:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
                                   <span> {{order.exchange_rate_fee}} </span>
@@ -550,7 +634,7 @@
                               </div>
                               <div class="row exchange_rate_purchase">
                                 <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n >Exchage rate Purchase:  </span>
+                                  <span i18n>Exchage rate Purchase:  </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left Exchage_local">
                                   {{order.exchange_rate_purchase}}
@@ -582,9 +666,11 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row Promotion" *ngIf="order.promotion_id && order.promotion?.discountAmount !== null">
+                              <div class="row Promotion"
+                                   *ngIf="order.promotion_id && order.promotion?.discountAmount !== null">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
+                                  <span class="Ws-bold-font"
+                                        i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
@@ -597,7 +683,7 @@
 
                               <div class="row total_final_amount_local -discount">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n >Total value of orders (-discount)</span>
+                                  <span class="Ws-bold-font" i18n>Total value of orders (-discount)</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
@@ -609,23 +695,29 @@
 
                               <hr>
                               <div class="row Paid">
-                                <div class="col-md-6 text-success Ws-bold-font " i18n >Paid</div>
+                                <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
                                 <div class="col-md-6 text-right text-success">
-                                  {{order.total_paid_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
+                                  {{order.total_paid_amount_local | number}}
+                                  <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
                               <div class="row Collect so-tien-thu-them Cod">
-                                <div class="col-md-6 text-info cod" i18n >Collect</div>
-                                <div class="col-md-6 text-right text-info style-padding-left">{{getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span></div>
+                                <div class="col-md-6 text-info cod" i18n>Collect</div>
+                                <div class="col-md-6 text-right text-info style-padding-left">
+                                  {{getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local) |
+                                  number}} <span>{{order.store_id | currencyStore}}</span></div>
                               </div>
 
-                              <div class="row Refund" >
+                              <div class="row Refund">
                                 <div id="refund" class="col-md-6 text-info Refund2Cus " i18n>Refund</div>
-                                <div class="col-md-6 text-right text-info style-padding-left minnul min" *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                <div class="col-md-6 text-right text-info style-padding-left minnul min"
+                                     *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
                                   {{ 0 | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
-                                <div class="col-md-6 text-right text-info style-padding-left min0" *ngIf="order.total_refund_amount_local > 0">
-                                  {{order.total_refund_amount_local ? order.total_refund_amount_local : 0  | number}} <span>{{order.store_id | currencyStore}}</span>
+                                <div class="col-md-6 text-right text-info style-padding-left min0"
+                                     *ngIf="order.total_refund_amount_local > 0">
+                                  {{order.total_refund_amount_local ? order.total_refund_amount_local : 0 | number}}
+                                  <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
 
@@ -634,39 +726,53 @@
 
                               <div>
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
-                                    <button type="button" *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()" (click)="confirmChangePrice(order.id)"
-                                            class="btn btn-outline-success btn-sm mr-2 mb-2 Confirm Changing Price" i18n>
-                                        <i class="fa fa-dollar" aria-hidden="true"></i>
-                                        Confirm Changing Price
-                                    </button>
-                                    <button type="button" *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()" (click)="showArrearsAddfee(order)"
-                                            class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>
-                                      <i class="fa fa-dollar" aria-hidden="true"></i>
-                                      Arrears
-                                    </button>
-                                    <button type="button" *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()" (click)="chatG(order.id, order.ordercode, order.current_status)" class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-                                      <i class="fa fa-comments" aria-hidden="true"></i>
-                                     Chat Group WS
-                                    </button>
+                                  <button type="button"
+                                          *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()"
+                                          (click)="confirmChangePrice(order.id)"
+                                          class="btn btn-outline-success btn-sm mr-2 mb-2 Confirm Changing Price" i18n>
+                                    <i class="fa fa-dollar" aria-hidden="true"></i>
+                                    Confirm Changing Price
+                                  </button>
+                                  <button type="button"
+                                          *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()"
+                                          (click)="showArrearsAddfee(order)"
+                                          class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>
+                                    <i class="fa fa-dollar" aria-hidden="true"></i>
+                                    Arrears
+                                  </button>
+                                  <button type="button"
+                                          *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()"
+                                          (click)="chatG(order.id, order.ordercode, order.current_status)"
+                                          class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup"
+                                          data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                    Chat Group WS
+                                  </button>
 
-                                  <div *ngIf="checkBuynow(order)" >
-                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"  class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank" (click)="buyNow(order)" i18n>Buy Now</a>
+                                  <div *ngIf="checkBuynow(order)">
+                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"
+                                       class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank"
+                                       (click)="buyNow(order)" i18n>Buy Now</a>
                                   </div>
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
-                                    <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
+                                  <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
-                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button" class="btn btn-secondary mb-2 mr-2 btn-sm" (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
+                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"
+                                          class="btn btn-secondary mb-2 mr-2 btn-sm"
+                                          (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
                                     <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
-                                  <button *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()" type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
-                                          (click)="insertTrackingShow()">
+                                  <button
+                                    *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()"
+                                    type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
+                                    (click)="insertTrackingShow()">
                                     <i class="fa fa-check"></i> SELLER SHIPPED
                                   </button>
-<!--                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-{{getClassStatus(order.current_status)}} mb-2 mr-2 btn-sm"-->
-<!--                                          (click)="updateStatus(order.id)">-->
-<!--                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}-->
-<!--                                  </button>-->
+                                  <!--                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-{{getClassStatus(order.current_status)}} mb-2 mr-2 btn-sm"-->
+                                  <!--                                          (click)="updateStatus(order.id)">-->
+                                  <!--                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}-->
+                                  <!--                                  </button>-->
                                 </div>
                               </div>
                             </div>
@@ -676,113 +782,190 @@
                                   <h5 i18n>STATUS</h5>
                                 </div>
                                 <div class="col-md-5" style="text-align: right">
-                                  <div class="btn btn-default btn-sm"   *ngIf="!statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
-                                    <i  aria-hidden="true" class="fa fa-eye"></i>
+                                  <div class="btn btn-default btn-sm" *ngIf="!statusShow[order.id]"
+                                       (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                    <i aria-hidden="true" class="fa fa-eye"></i>
                                   </div>
-                                  <div class="btn btn-default btn-sm"    *ngIf="statusShow[order.id]" (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
+                                  <div class="btn btn-default btn-sm" *ngIf="statusShow[order.id]"
+                                       (click)="statusShow[order.id] = !statusShow[order.id]" i18n>
                                     <i aria-hidden="true" class="fa fa-eye-slash"></i>
                                   </div>
                                 </div>
                               </div>
                               <div class="hover-row">
                                 <div class="row">
-                                  <div class="col-md-5 pr-0" i18n >New:</div>
-                                  <div class="col-md-7 text-right {{order.created_at}}">{{order.created_at | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-5 pr-0" i18n>New:</div>
+                                  <div class="col-md-7 text-right {{order.created_at}}">{{order.created_at |
+                                    date:'dd/MM/yyyy HH:mm:ss '}}
+                                  </div>
                                 </div>
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Supporting:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.supporting" >{{order.supporting | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-5 pr-0" i18n>Supporting:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.supporting">{{order.supporting |
+                                      date:'dd/MM/yyyy HH:mm:ss '}}
+                                    </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Supported:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.supported" >{{order.supported | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-5 pr-0" i18n>Supported:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.supported">{{order.supported |
+                                      date:'dd/MM/yyyy HH:mm:ss '}}
+                                    </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n >Ready2Purchase:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.ready_purchase" >{{order.ready_purchase | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.ready_purchase">{{order.ready_purchase
+                                      | date:'dd/MM/yyyy HH:mm:ss '}}
+                                    </div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Purchasing:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{ order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{
+                                      order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.purchased">{{ order.purchased |
+                                    date:'dd/MM/yyyy HH:mm:ss '}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.seller_shipped" >{{order.seller_shipped | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-6 text-right" *ngIf="order.seller_shipped">{{order.seller_shipped |
+                                    date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.stockin_us" >{{order.stockin_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.stockin_us">{{order.stockin_us |
+                                    date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Stock out US:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us |
+                                    date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Stock in local:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local |
+                                    date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Stock out local:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local| date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local|
+                                    date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>At customer:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer | date:'dd/MM/yyyy HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer |
+                                    date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Returned:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned |
+                                    date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6  pr-0" i18n>Cancelled:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
+                                    date:'dd/MM/yyyy HH:mm'}}
+                                  </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Lost:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy
+                                    HH:mm'}}
+                                  </div>
                                 </div>
                               </div>
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group mr-2 mb-2">
-                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)" (click)="cancelOrder(order.id)" >
+                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)"
+                                            (click)="cancelOrder(order.id)">
                                       <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
                                     </button>
                                     <div class="btn-group">
-                                      <button   type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" i18n>
-                                         Option
+                                      <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
+                                              aria-haspopup="true" aria-expanded="false" i18n>
+                                        Option
                                       </button>
-                                      <div class="dropdown-menu style-d" style="font-size: 11px" >
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon" data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update Coupon</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" *ngIf="checkCouponPromotion(order.total_paid_amount_local)" id="Cập nhập khuyến mại SUP" href="javascript:void(0);" data-target="#showPromotion" data-toggle="modal" data-backdrop="static" (click)="updatePromotion(order)" data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop " *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null" id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);" (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop " *ngIf="checkShowPayBack(order.total_paid_amount_local)" id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);" (click)="openUpdatePayBack(order)" data-target="#showPayBack" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the Complaint</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() " id="Người bán Refund" href="javascript:void(0);" (click)="openSellerRefund(order)" data-target="#showSellerRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale() && order.current_status == 'NEW'" id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);" data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for feedback</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()" id="tesst" href="javascript:void(0);" data-target="#ListChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-list mr-2" aria-hidden="true"></i>List template mark order</a>
+                                      <div class="dropdown-menu style-d" style="font-size: 11px">
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="checkCouponPromotion(order.total_paid_amount_local)"
+                                           id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon"
+                                           data-toggle="modal" data-backdrop="static" (click)="updateCoupon(order)"
+                                           data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Update
+                                          Coupon</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="checkCouponPromotion(order.total_paid_amount_local)"
+                                           id="Cập nhập khuyến mại SUP" href="javascript:void(0);"
+                                           data-target="#showPromotion" data-toggle="modal" data-backdrop="static"
+                                           (click)="updatePromotion(order)" data-keyboard="false" i18n><i
+                                          class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "
+                                           *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null"
+                                           id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);"
+                                           (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
+                                          class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop "
+                                           *ngIf="checkShowPayBack(order.total_paid_amount_local)"
+                                           id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);"
+                                           (click)="openUpdatePayBack(order)" data-target="#showPayBack"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
+                                          class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Pay back the
+                                          Complaint</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="_scope.checkRoleOption() || _scope.checkOperatione() "
+                                           id="Người bán Refund" href="javascript:void(0);"
+                                           (click)="openSellerRefund(order)" data-target="#showSellerRefund"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
+                                          class="fa fa-reply-all mr-2" aria-hidden="true"></i>Seller Refund</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="_scope.CheckSale() && order.current_status == 'NEW'"
+                                           id="Đánh dấu chờ phản hồi từ shop" href="javascript:void(0);"
+                                           data-target="#orderChatRefund" data-toggle="modal" data-backdrop="static"
+                                           data-keyboard="false" (click)="openOrderChatRefund(order)" i18n><i
+                                          class="fa fa-thumb-tack mr-2" aria-hidden="true"></i>Mark orders waiting for
+                                          feedback</a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.CheckSale()"
+                                           id="tesst" href="javascript:void(0);" data-target="#ListChatRefund"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                           (click)="openListOrderChatRefund(order)" i18n><i class="fa fa-list mr-2"
+                                                                                            aria-hidden="true"></i>List
+                                          template mark order</a>
 
 
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop" *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()" title="Add syntax structure" id="" href="javascript:void(0);" data-target="#orderChatSupporting" (click) = "loadChatSupporting()" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
+                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()"
+                                           title="Add syntax structure" id="" href="javascript:void(0);"
+                                           data-target="#orderChatSupporting" (click)="loadChatSupporting()"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
+                                          class="fa fa-comment-alt mr-2" aria-hidden="true"></i><span i18n>Add syntax structure</span></a>
 
 
-
-                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="update order" href="javascript:void(0);"  data-target="#updateOrderCode" *ngIf="_scope.checkSuperAdmin()" (click)="openUpdateOrderCode(order)" data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Update Order</a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="update order"
+                                           href="javascript:void(0);" data-target="#updateOrderCode"
+                                           *ngIf="_scope.checkSuperAdmin()" (click)="openUpdateOrderCode(order)"
+                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
+                                          class="fa fa-check-circle mr-2" aria-hidden="true"></i>Update Order</a>
                                         <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="assignSaleFollowOd" href="javascript:void(0);"  data-target="#assignSaleFollowOrder" data-toggle="modal" data-backdrop="static" (click)="openAssignSaleFollowOrder(order)" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Assign Sale Follow Order</a>-->
                                       </div>
                                     </div>
                                   </div>
                                   <div class="btn-group Ws-buuton">
-                                    <span *ngIf="order.mark_supporting" class="btn btn-sm btn-default Ws-buuton is-support-{{order.mark_supporting}}"><i class="fa fa-check mr-1"></i> Order Is supporting </span>
+                                    <span *ngIf="order.mark_supporting"
+                                          class="btn btn-sm btn-default Ws-buuton is-support-{{order.mark_supporting}}"><i
+                                      class="fa fa-check mr-1"></i> Order Is supporting </span>
                                   </div>
                                 </div>
                               </div>
@@ -791,44 +974,70 @@
                           <div class="row pb-1 pt-1" style="margin-left: 1px">
                             <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
-                                <li class="tab-slider--trigger" rel="tab1" (click)=" pro[order.id] = !pro[order.id]; loadPro(order.store_id)">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Product</button>
+                                <li class="tab-slider--trigger" rel="tab1"
+                                    (click)=" pro[order.id] = !pro[order.id]; loadPro(order.store_id)">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
-                                  <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
+                                <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay() && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pay[order.id] = !pay[order.id]">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Payment Transaction</button>
+                                <li class="tab-slider--trigger" rel="tab2"
+                                    *ngIf="checkShowPay() && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    (click)="pay[order.id] = !pay[order.id]">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Payment Transaction</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.purchased  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Purchase info</button>
+                                <li class="tab-slider--trigger" rel="tab2"
+                                    *ngIf="order.purchased  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Purchase info</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()" (click)="pack[order.id] = !pack[order.id]">
+                                <li class="tab-slider--trigger" rel="tab2"
+                                    *ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    (click)="pack[order.id] = !pack[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2" *ngIf="order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"  (click)="delivevery[order.id] = !delivevery[order.id]">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n >Delivery info</button>
+                                <li class="tab-slider--trigger" rel="tab2"
+                                    *ngIf="order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    (click)="delivevery[order.id] = !delivevery[order.id]">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Delivery info</button>
                                 </li>
                               </ul>
                             </div>
                             <div class="col-md-12 pl-0 mt-2 tab-slider--container">
-                              <div id="tab5" class="tab-slider--body" [hidden]="!delivevery[order.id]" style="border-bottom: 2px solid red">
-                                <app-delivery *ngIf="delivevery[order.id]" [storeId] = "order.store_id" [orderId] ="order.id"></app-delivery>
+                              <div id="tab5" class="tab-slider--body" [hidden]="!delivevery[order.id]"
+                                   style="border-bottom: 2px solid red">
+                                <app-delivery *ngIf="delivevery[order.id]" [storeId]="order.store_id"
+                                              [orderId]="order.id"></app-delivery>
                               </div>
-                              <div id="tab2" class="tab-slider--body" [hidden]="!pack[order.id]" style="border-bottom: 2px solid red">
-                                <app-package-item (packageI)="packageItem($event)"  [products] = "order.products" *ngIf="pack[order.id]" [orderIDD] = "order.id"  [orderCode] = "order.ordercode"></app-package-item>
+                              <div id="tab2" class="tab-slider--body" [hidden]="!pack[order.id]"
+                                   style="border-bottom: 2px solid red">
+                                <app-package-item (packageI)="packageItem($event)" [products]="order.products"
+                                                  *ngIf="pack[order.id]" [orderIDD]="order.id"
+                                                  [orderCode]="order.ordercode"></app-package-item>
                               </div>
-                              <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red" [hidden]="!pay[order.id]">
-                                <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)" [order_code]="order.ordercode"  [walletTransactions] = "order.walletTransactions"></app-wallet-transactions>
+                              <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red"
+                                   [hidden]="!pay[order.id]">
+                                <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)"
+                                                         [order_code]="order.ordercode"
+                                                         [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
                               </div>
-                              <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]" style="border-bottom: 2px solid red">
-                                <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)" [openConfirmOrder]="checkConfirmOrder(order)" (getListOrder)="listOrders()" [policy] = "getAllPolicy"  [storeID] = "order.store_id" [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''" (editFee)="listOrders()" [order_path]="order.ordercode" [products]="order.products" ></app-order-detail>
+                              <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]"
+                                   style="border-bottom: 2px solid red">
+                                <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
+                                                  [openConfirmOrder]="checkConfirmOrder(order)"
+                                                  (getListOrder)="listOrders()" [policy]="getAllPolicy"
+                                                  [storeID]="order.store_id"
+                                                  [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''"
+                                                  (editFee)="listOrders()" [order_path]="order.ordercode"
+                                                  [products]="order.products"></app-order-detail>
                               </div>
-                              <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]" style="border-bottom: 2px solid red">
-                                <app-purchase-info [order_id]="order.id" [openClick]="click_pur[order.id]"></app-purchase-info>
+                              <div id="tab4" class="tab-slider--body" [hidden]="!pur[order.id]"
+                                   style="border-bottom: 2px solid red">
+                                <app-purchase-info [order_id]="order.id"
+                                                   [openClick]="click_pur[order.id]"></app-purchase-info>
                               </div>
                               <!--<div id="tab1" class="tab-slider&#45;&#45;body" *ngSwitchCase="'pro' + order.id">-->
-                                <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
+                              <!--<app-order-detail (editFee)="listOrders()" [products]="order.products" ></app-order-detail>-->
                               <!--</div>-->
                             </div>
                           </div>
@@ -852,8 +1061,10 @@
                 <div class="grid-view grid-view-custom">
                   <div class="row" style="font-size: 0.7em">
                     <div class="col-md-12">
-                      <div class="card-body pt-0" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
-                        <app-shopping-cart (backOrder)="handleShopping($event)" [listSaleAll]="listSale"></app-shopping-cart>
+                      <div class="card-body pt-0"
+                           style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                        <app-shopping-cart (backOrder)="handleShopping($event)"
+                                           [listSaleAll]="listSale"></app-shopping-cart>
                       </div>
                     </div>
                   </div>
@@ -874,7 +1085,8 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="width: 80em">
       <div class="modal-header ng-scope">
-        <h3 class="modal-title">Order Infor : <span class="label label-warning">{{orderUpdatePurchase?.ordercode}}</span></h3>
+        <h3 class="modal-title">Order Infor : <span
+          class="label label-warning">{{orderUpdatePurchase?.ordercode}}</span></h3>
         <button type="button" class="close" data-dismiss="modal">
           <a href="javascript:void(0)">
             <span aria-hidden="true" (click)="updateOrder.hide()">×</span>
@@ -882,7 +1094,7 @@
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <app-update-order *ngIf="orderUpdatePurchase" [orderUpdatePurchase] = "orderUpdatePurchase"></app-update-order>
+      <app-update-order *ngIf="orderUpdatePurchase" [orderUpdatePurchase]="orderUpdatePurchase"></app-update-order>
     </div>
   </div>
 </div>
@@ -899,7 +1111,7 @@
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat *ngIf="checkLoad" [id] = "orderIdChat"  [status]="statusO" [code]="code"></app-chat>
+                      <app-chat *ngIf="checkLoad" [id]="orderIdChat" [status]="statusO" [code]="code"></app-chat>
                     </div>
                   </div>
                 </div>
@@ -927,12 +1139,14 @@
                 <div class="col-md-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat-group *ngIf="checkLoadG" [id] = "orderIdChat" [status]="statusO" [code]="codeG"></app-chat-group>
+                      <app-chat-group *ngIf="checkLoadG" [id]="orderIdChat" [status]="statusO"
+                                      [code]="codeG"></app-chat-group>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-12 mt-2 text-right">
-                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" i18n>Cancel</button>
+                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()" i18n>Cancel
+                  </button>
                 </div>
               </div>
             </div>
@@ -942,10 +1156,12 @@
     </div>
   </div>
 </div>
-<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #purchaseCard="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" (searchEvent)="listOrders()" [clickBtn]="true" [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
+      <app-purchase-card (closePopup)="purchaseCard.hide()" (searchEvent)="listOrders()" [clickBtn]="true"
+                         [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
 </div>
@@ -972,12 +1188,26 @@
 
                   <div class="container-fluid p-0 pl-2 pr-2 ng-star-inserted">
                     <div class="row btn-group">
-                      <button class="active btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}" (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action</button>
-                      <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}" (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet</button>
-                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}" (click)="loadData('paymentlog', logIdOrder); typeViewLogs = 'payment_logs'">Payment</button>
-                      <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}" (click)="loadData('boxme-inspect-log', logIdOrder); typeViewLogs = 'boxme'">Boxme Inspect</button>
-                      <button class="btn btn-{{typeViewLogs == 'send-shipment-return-logs' ? 'warning' : 'default'}}" (click)="loadData('send-shipment-return-log', logIdOrder); typeViewLogs = 'send-shipment-return-logs'">Send Shipment Return</button>
-                      <button class="btn btn-{{typeViewLogs == 'send-shipment-logs' ? 'success' : 'default'}}" (click)="loadData('send-shipment-log', logIdOrder); typeViewLogs = 'send-shipment-logs'">Send Shipment</button>
+                      <button class="active btn btn-{{typeViewLogs == 'action_logs' ? 'success' : 'default'}}"
+                              (click)="loadData('actionlog', logIdOrder); typeViewLogs = 'action_logs'">Action
+                      </button>
+                      <button class="btn btn-{{typeViewLogs == 'wallet_logs' ? 'primary' : 'default'}}"
+                              (click)="loadData('walletlog', logIdOrder); typeViewLogs = 'wallet_logs'">Wallet
+                      </button>
+                      <button class="btn btn-{{typeViewLogs == 'payment_logs' ? 'secondary' : 'default'}}"
+                              (click)="loadData('paymentlog', logIdOrder); typeViewLogs = 'payment_logs'">Payment
+                      </button>
+                      <button class="btn btn-{{typeViewLogs == 'boxme' ? 'dark' : 'default'}}"
+                              (click)="loadData('boxme-inspect-log', logIdOrder); typeViewLogs = 'boxme'">Boxme Inspect
+                      </button>
+                      <button class="btn btn-{{typeViewLogs == 'send-shipment-return-logs' ? 'warning' : 'default'}}"
+                              (click)="loadData('send-shipment-return-log', logIdOrder); typeViewLogs = 'send-shipment-return-logs'">
+                        Send Shipment Return
+                      </button>
+                      <button class="btn btn-{{typeViewLogs == 'send-shipment-logs' ? 'success' : 'default'}}"
+                              (click)="loadData('send-shipment-log', logIdOrder); typeViewLogs = 'send-shipment-logs'">
+                        Send Shipment
+                      </button>
                     </div>
                     <hr>
                     <div class="row">
@@ -992,11 +1222,16 @@
                         </thead>
                         <tbody *ngIf="listLog.length > 0">
                         <tr *ngFor="let log of listLog">
-                          <td>{{log.date}}<td>
-                            <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right" [popover]="logDetail" popoverTitle="View detail log"></i></a><br>
+                          <td>{{log.date}}
+                          <td>
+                            <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right"
+                                                            [popover]="logDetail"
+                                                            popoverTitle="View detail log"></i></a><br>
                             <ng-template #logDetail style="max-width: 500px">
-                              <strong>Data Input</strong><div [innerHTML]="log.data_input"></div>
-                              <strong>Data Output</strong><div [innerHTML]="log.data_output"></div>
+                              <strong>Data Input</strong>
+                              <div [innerHTML]="log.data_input"></div>
+                              <strong>Data Output</strong>
+                              <div [innerHTML]="log.data_output"></div>
                             </ng-template>
                             {{log.action_path}}
                           </td>
@@ -1005,11 +1240,11 @@
                         </tr>
                         </tbody>
                         <tbody *ngIf="listLog.length == 0">
-                          <tr>
-                            <td colspan="4" class="text-center">
-                              <h3 class="text-danger" i18n>Not Found!</h3>
-                            </td>
-                          </tr>
+                        <tr>
+                          <td colspan="4" class="text-center">
+                            <h3 class="text-danger" i18n>Not Found!</h3>
+                          </td>
+                        </tr>
                         </tbody>
                       </table>
                     </div>
@@ -1025,7 +1260,7 @@
                 (click)="ModalviewMoreLog.hide();">Cancel
         </button>
         <button *ngIf="typeViewLogs == 'support_logs'" class="btn btn-sm btn-primary pull-right" aria-label="Save"
-                (click)="saveLogSupport()" i18n >Save
+                (click)="saveLogSupport()" i18n>Save
         </button>
       </div>
     </div>
@@ -1038,23 +1273,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left" i18n>Update</h4>
-        <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" (click)="updateReceiverModal.hide()" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
       </div>
       <div class="modal-body" *ngIf="checkUpdateCustomer">
         <app-customer-information
-                [orderId]="activeOrder.id"
-                [name]="activeOrder.receiver_name"
-                [phone]="activeOrder.receiver_phone"
-                [email]="activeOrder.receiver_email"
-                [address]="activeOrder.receiver_address"
-                [district]="activeOrder.receiver_district_id"
-                [districtName]="activeOrder.receiver_district_name"
-                [province]="activeOrder.receiver_province_id"
-                [provinceName]="activeOrder.receiver_province_name"
-                [country]="activeOrder.receiver_country_id"
-                [countryName]="activeOrder.receiver_country_name"
-                [postCode]="activeOrder.receiver_post_code"
-                (success)="updateReceiverModal.hide();listOrders()">
+          [orderId]="activeOrder.id"
+          [name]="activeOrder.receiver_name"
+          [phone]="activeOrder.receiver_phone"
+          [email]="activeOrder.receiver_email"
+          [address]="activeOrder.receiver_address"
+          [district]="activeOrder.receiver_district_id"
+          [districtName]="activeOrder.receiver_district_name"
+          [province]="activeOrder.receiver_province_id"
+          [provinceName]="activeOrder.receiver_province_name"
+          [country]="activeOrder.receiver_country_id"
+          [countryName]="activeOrder.receiver_country_name"
+          [postCode]="activeOrder.receiver_post_code"
+          (success)="updateReceiverModal.hide();listOrders()">
         </app-customer-information>
         <h3 *ngIf="!activeOrder">Failed</h3>
       </div>
@@ -1068,13 +1305,16 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n >Update Coupon: <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Coupon: <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
-          <span class="sr-only" i18n >close</span>
+          <span class="sr-only" i18n>close</span>
         </button>
       </div>
-      <app-update-coupon (checkEdit)="handleChangeAmount($event)" (checkOffC)="handCheckPromotion($event)" *ngIf="checkOpenCoupon" [id] = "orderID" [store_id] = "store_id" [coupon_id]="coupon_id"  [ordercode] = "code"></app-update-coupon>
+      <app-update-coupon (checkEdit)="handleChangeAmount($event)" (checkOffC)="handCheckPromotion($event)"
+                         *ngIf="checkOpenCoupon" [id]="orderID" [store_id]="store_id" [coupon_id]="coupon_id"
+                         [ordercode]="code"></app-update-coupon>
     </div>
   </div>
 </div>
@@ -1083,13 +1323,16 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n >Update Promotion: <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Promotion: <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
-          <span class="sr-only" i18n >close</span>
+          <span class="sr-only" i18n>close</span>
         </button>
       </div>
-      <app-update-promotion (checkEdit)="handleChangeAmount($event)" (checkOff)="handCheckPromotion($event)" *ngIf="checkOpenPromotion" [id] = "orderID" [store_id] = "store_id" [promotion_id]="promotion_id" [ordercode] = "code"></app-update-promotion>
+      <app-update-promotion (checkEdit)="handleChangeAmount($event)" (checkOff)="handCheckPromotion($event)"
+                            *ngIf="checkOpenPromotion" [id]="orderID" [store_id]="store_id"
+                            [promotion_id]="promotion_id" [ordercode]="code"></app-update-promotion>
     </div>
   </div>
 </div>
@@ -1100,13 +1343,14 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n>Update Order Ad Just Payment: <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Order Ad Just Payment: <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <form [formGroup] = "editForm" *ngIf="checkOpenAdJustPayment == true">
+      <form [formGroup]="editForm" *ngIf="checkOpenAdJustPayment == true">
         <div class="modal-body ng-scope">
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
@@ -1116,7 +1360,7 @@
             </div>
             <div class="row m-0 mt-3">
               <div class="col-md-6">
-                <label i18n >Total Paid Amount Local</label>
+                <label i18n>Total Paid Amount Local</label>
                 <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
                 <label style="font-size: 2em; color: red">Price :
                   <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
@@ -1126,14 +1370,16 @@
             </div>
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
-                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span
+                class="text-danger">prices</span>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
           <button class="btn btn-success btn-sm" type="button" (click)="confirmAdjustPayment()" i18n>Confirm</button>
-          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel
+          </button>
         </div>
       </form>
     </div>
@@ -1145,13 +1391,14 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Update Order Pay back the Complaint : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Order Pay back the Complaint : <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
-          <span class="sr-only" i18n >Close</span>
+          <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <form [formGroup] = "editForm" *ngIf="checkOpenPayBack == true">
+      <form [formGroup]="editForm" *ngIf="checkOpenPayBack == true">
         <div class="modal-body ng-scope">
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
@@ -1161,9 +1408,9 @@
             </div>
             <div class="row m-0 mt-3">
               <div class="col-md-6">
-                <label i18n >Total refund Amount Local</label>
+                <label i18n>Total refund Amount Local</label>
                 <input type="number" class="form-control form-control-sm" formControlName="total_refund_amount_local">
-                <label style="font-size: 2em; color: red" ><span>Price : </span>
+                <label style="font-size: 2em; color: red"><span>Price : </span>
                   <span *ngIf="store_id === 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
                   <span *ngIf="store_id !== 1">{{this.editForm.get('total_refund_amount_local').value | number}}{{store_id | currencyStore}}</span>
                 </label>
@@ -1171,14 +1418,16 @@
             </div>
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
-                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span
+                class="text-danger">prices</span>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
           <button class="btn btn-success btn-sm" type="button" (click)="updatePayBack()" i18n>Confirm</button>
-          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel
+          </button>
         </div>
       </form>
     </div>
@@ -1190,13 +1439,14 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Update Order Seller Refund : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Order Seller Refund : <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
-      <form [formGroup] = "editForm" *ngIf="checkSellerRefund == true">
+      <form [formGroup]="editForm" *ngIf="checkSellerRefund == true">
         <div class="modal-body ng-scope">
           <div style="border: 1px solid #d9d9d9">
             <div class="row m-0">
@@ -1215,19 +1465,22 @@
               </div>
               <div class="col-md-6">
                 <label i18n>The seller's refund code</label>
-                <input type="text" class="form-control form-control-sm" formControlName="purchase_refund_transaction_id">
+                <input type="text" class="form-control form-control-sm"
+                       formControlName="purchase_refund_transaction_id">
               </div>
             </div>
             <div class="row m-0">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
-                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span class="text-danger">prices</span>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span
+                class="text-danger">prices</span>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer ng-scope">
           <button class="btn btn-success btn-sm" type="button" (click)="updateSellerRefund()" i18n>Confirm</button>
-          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="offOption()" data-dismiss="modal" i18n>Cancel
+          </button>
         </div>
       </form>
     </div>
@@ -1239,30 +1492,32 @@
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white">Mark waiting for feedback from the seller : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white">Mark waiting for feedback from the seller : <span
+          class="label label-primary ng-binding">{{code}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
         </button>
       </div>
       <div class="modal-body ng-scope" *ngIf="checkOrderChatRefund">
-        <form [formGroup] = "editForm">
+        <form [formGroup]="editForm">
           <div class="row m-0 mt-2">
             <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
               <span i18n>Please confirm the information below:</span>
             </div>
           </div>
           <div class="row row mt-2">
-            <div class="col-md-8 mt-1" >
+            <div class="col-md-8 mt-1">
               <div class="mt-2 ml-2" *ngFor="let ChatT of listChatTem">
                 <div *ngIf="ChatT.status == 1">
-                  <input type="radio" formControlName="note_chat" value="{{ChatT.note}}" >
+                  <input type="radio" formControlName="note_chat" value="{{ChatT.note}}">
                   {{ChatT.note}}
                 </div>
               </div>
               <div class="mt-2 ml-5 mb-3">
                 <span class="text-danger">Link to the store</span>
-                <input type="text" class="form-control form-control-sm mt-1" formControlName="link_image" placeholder="Link image" i18n-placeholder>
+                <input type="text" class="form-control form-control-sm mt-1" formControlName="link_image"
+                       placeholder="Link image" i18n-placeholder>
               </div>
             </div>
           </div>
@@ -1270,7 +1525,8 @@
         <form action="" [formGroup]="messageCustomer">
           <div class="alert alert-warning mt-2" role="alert">
             <div class="input-group">
-              <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="tags" formControlName="messageCustomer" rows="3" placeholder="Enter the exchange content.
+              <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="tags"
+                        formControlName="messageCustomer" rows="3" placeholder="Enter the exchange content.
 Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
           </div>
@@ -1278,7 +1534,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-success btn-sm" *ngIf="checkOrderChatRefund" type="button"  (click)="updateMarkWaiting()">Approve</button>
+        <button class="btn btn-success btn-sm" *ngIf="checkOrderChatRefund" type="button" (click)="updateMarkWaiting()">
+          Approve
+        </button>
         <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
       </div>
     </div>
@@ -1297,10 +1555,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </button>
       </div>
       <div class="modal-body ng-scope">
-          <!-- Tab panes -->
-        <form action="" [formGroup] = "chatSupporting">
+        <!-- Tab panes -->
+        <form action="" [formGroup]="chatSupporting">
           <div class="alert row" role="alert">
-            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting" formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4" placeholder="Please enter..." i18n-placeholder></textarea>
+            <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" id="msg_orderchatsupporting"
+                      formControlName="messageSupporting" (keydown.enter)="createChatSupporting()" rows="4"
+                      placeholder="Please enter..." i18n-placeholder></textarea>
           </div>
         </form>
         <div class="content-listchat-supporting">
@@ -1309,28 +1569,28 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <tr>
               <th scope="col">STT</th>
               <th scope="col"><span i18n>Content Text</span></th>
-                <th scope="col"><span i18n>Activation</span></th>
-                <th scope="col"><span i18n>Date</span></th>
+              <th scope="col"><span i18n>Activation</span></th>
+              <th scope="col"><span i18n>Date</span></th>
               <th scope="col">...</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor = 'let chat of chatlists;let i = index'>
+            <tr *ngFor='let chat of chatlists;let i = index'>
               <td>{{i+1}}</td>
-              <td> {{chat.content}} </td>
-                <td>
-                    <a *ngIf="chat.active == 1" class="delete-chatsupporting" (click) = "ActiveChatSupporting(chat.id,0)">
-                          Active
-                    </a>
-                    <a *ngIf="chat.active == 0" class="delete-chatsupporting" (click) = "ActiveChatSupporting(chat.id,0)">
-                        Inactive
-                    </a>
-                </td>
-                <td>
-                    {{chat.date_set}}
-                </td>
+              <td> {{chat.content}}</td>
               <td>
-                <a class="delete-chatsupporting" (click) = "deleteChatSupporting(i)">
+                <a *ngIf="chat.active == 1" class="delete-chatsupporting" (click)="ActiveChatSupporting(chat.id,0)">
+                  Active
+                </a>
+                <a *ngIf="chat.active == 0" class="delete-chatsupporting" (click)="ActiveChatSupporting(chat.id,0)">
+                  Inactive
+                </a>
+              </td>
+              <td>
+                {{chat.date_set}}
+              </td>
+              <td>
+                <a class="delete-chatsupporting" (click)="deleteChatSupporting(i)">
                   <i class="fa fa-trash"></i>
                 </a>
               </td>
@@ -1342,11 +1602,11 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
         </div>
       </div>
-      </div>
-      <div class="modal-footer ng-scope">
-        <button class="btn btn-warning btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
-      </div>
     </div>
+    <div class="modal-footer ng-scope">
+      <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
+    </div>
+  </div>
 </div>
 
 <div id="updateOrderCode" class="modal fade" tabindex="-1" role="dialog"
@@ -1354,7 +1614,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkUpdateOderCode">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span>
+        </h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -1368,21 +1629,23 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row">
               <div class="col-md-7">
-                <h5 i18n >Finance</h5>
+                <h5 i18n>Finance</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]" (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]"
+                        (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]" (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]"
+                        (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
                   <i class="fa fa-eye-slash" aria-hidden="true"></i>
                 </button>
-                <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+                <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
               </div>
             </div>
             <div class="row Quantity">
               <div class="col-md-7 style-padding-right  dong">
-                <span i18n >Quantity</span>
+                <span i18n>Quantity</span>
               </div>
               <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
                 <span>{{quantityOrder(orderList.products ,orderList.products['length'])}}</span>
@@ -1392,10 +1655,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="Ws-bold-font row Total_Unit_price_product">
               <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
                 <strong><span i18n>Units Price:</span>
-                  ( <span *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
+                  ( <span
+                    *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
                                     {{ orderList.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                     </span>
-                  <span *ngIf="orderList.portal !== 'japan' && orderList.portal !== 'AMAZON_JAPAN' && orderList.portal !== 'JAPAN'">
+                  <span
+                    *ngIf="orderList.portal !== 'japan' && orderList.portal !== 'AMAZON_JAPAN' && orderList.portal !== 'JAPAN'">
                                       {{ orderList.total_price_amount_origin | currency : 'USD' : '$'}}
                                     </span>)
                 </strong>
@@ -1412,7 +1677,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
               <div class="row total_origin_tax_fee_local">
                 <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-                  <span i18n >Total origin tax fee local </span>
+                  <span i18n>Total origin tax fee local </span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
@@ -1424,7 +1689,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
               <div class="row Total_origin_shiping_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total origin shiping fee</span>
+                  <span i18n>Total origin shiping fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1437,7 +1702,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <hr>
               <div class="row Total_weshop_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total weshop fee</span>
+                  <span i18n>Total weshop fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1449,7 +1714,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
               <div class="row Total_shiping_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total shiping fee</span>
+                  <span i18n>Total shiping fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1460,7 +1725,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(orderList.products)">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total custom fee </span>
+                  <span i18n>Total custom fee </span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1471,7 +1736,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row Total_delivery_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total delivery fee</span>
+                  <span i18n>Total delivery fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1482,7 +1747,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row Total_packing_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total packing fee</span>
+                  <span i18n>Total packing fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1493,7 +1758,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row Total_insection_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total inspection fee</span>
+                  <span i18n>Total inspection fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1504,7 +1769,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="row Total_insurance_fee">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total insurance fee</span>
+                  <span i18n>Total insurance fee</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1516,7 +1781,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
               <div class="row Total_VAT_amount">
                 <div class="col-md-7 style-padding-right dong">
-                  <span i18n >Total VAT amount</span>
+                  <span i18n>Total VAT amount</span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1531,7 +1796,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
             <div class="Ws-bold-font row Total_fee_orderList">
               <div class="col-md-7 style-padding-right dong">
-                <span i18n >Total Fee order :</span>
+                <span i18n>Total Fee order :</span>
               </div>
               <div class="col-md-5 text-right style-padding-left dong">
                 <!--span>  {{ getTotalorderListFee(orderList.total_amount_local, orderList.total_insurance_fee_local, orderList.total_inspection_fee_local, orderList.total_packing_fee_local, orderList.total_delivery_fee_local, orderList.total_custom_fee_amount_local, orderList.exchange_rate_fee, orderList.total_origin_shipping_fee_local, orderList.total_weshop_fee_local, orderList.total_origin_tax_fee_local, orderList.total_fee_amount_local ) | number}}</span-->
@@ -1544,7 +1809,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
             <div class="row Quantity">
               <div class="col-md-7 style-padding-right  dong">
-                <span i18n >Exchage rate:</span>
+                <span i18n>Exchage rate:</span>
               </div>
               <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
                 <span> {{orderList.exchange_rate_fee}} </span>
@@ -1552,7 +1817,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row exchange_rate_purchase">
               <div class="col-md-7 style-padding-right  dong">
-                <span i18n >Exchage rate Purchase:  </span>
+                <span i18n>Exchage rate Purchase:  </span>
               </div>
               <div class="col-md-5 text-right style-padding-left Exchage_local">
                 {{orderList.exchange_rate_purchase}}
@@ -1598,7 +1863,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
             <div class="row total_final_amount_local -discount">
               <div class="col-md-7 style-padding-right dong">
-                <span class="Ws-bold-font" i18n >Total value of order (-discount)</span>
+                <span class="Ws-bold-font" i18n>Total value of order (-discount)</span>
               </div>
               <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
@@ -1609,25 +1874,28 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <hr>
             <div class="row Paid">
-              <div class="col-md-6 text-success Ws-bold-font " i18n >Paid</div>
+              <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
               <div class="col-md-6 text-right text-success">
                 {{orderList.total_paid_amount_local | number}} <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
             <div class="row Collect so-tien-thu-them Cod">
-              <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n >Collect</div>
+              <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
               <div class="col-md-6 text-right text-info style-padding-left">
-                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ? getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local,true) : 0 | number}}
+                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ?
+                getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local,true) : 0 |
+                number}}
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
-            <div class="row Refund" >
+            <div class="row Refund">
               <div id="Số tiền thừa" class="col-md-6 RefundToCus" i18n>Refund</div>
-              <div class="col-md-6 text-right style-padding-left" *ngIf="orderList.total_refund_amount_local == null || orderList.total_refund_amount_local == '' ">
-                {{orderList.total_refund_amount_local  ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
+              <div class="col-md-6 text-right style-padding-left"
+                   *ngIf="orderList.total_refund_amount_local == null || orderList.total_refund_amount_local == '' ">
+                {{orderList.total_refund_amount_local ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
               </div>
               <div class="col-md-6 text-right style-padding-left" *ngIf="orderList.total_refund_amount_local >= 0">
-                {{orderList.total_refund_amount_local  ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
+                {{orderList.total_refund_amount_local ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
           </div>
@@ -1640,19 +1908,22 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <h5 i18n>STATUS</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <div class="btn bg-white btn-sm"  *ngIf="statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm" *ngIf="statusOrderShow[orderList.id]"
+                     (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye"></i>
                 </div>
-                <div class="btn bg-white btn-sm"  *ngIf="!statusOrderShow[orderList.id]" (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm" *ngIf="!statusOrderShow[orderList.id]"
+                     (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye-slash"></i>
                 </div>
-                <a href="javascript:void (0);" ><i class="fa fa-refresh"></i></a>
+                <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <form action="" [formGroup]="formAsignUser">
-                  <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"  name="statusOrder" id="statusOrder"
+                  <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"
+                          name="statusOrder" id="statusOrder"
                           formControlName="statusOrder">
                     <option [value]="statusOdd.id" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
                   </select>
@@ -1661,37 +1932,46 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="style-row-order">
               <div class="row {{orderList.current_status === 'NEW' ? 'text-warning' : ''}}">
-                <div class="col-md-5 pr-0" i18n >New:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.created_at" >
-                  <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                <div class="col-md-5 pr-0" i18n>New:</div>
+                <div class="col-md-7 text-right" *ngIf="orderList.created_at">
+                  <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy
+                  HH:mm:ss '}}
                 </div>
               </div>
               <div [hidden]="!statusOrderShow[orderList.id]">
                 <div class="row {{orderList.current_status === 'SUPPORTING' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n >Supporting:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supporting" >
-                    <a href="javascript:void(0)" *ngIf="orderList.supporting" (click)="updateNull('supporting', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <div class="col-md-5 pr-0" i18n>Supporting:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.supporting">
+                    <a href="javascript:void(0)" *ngIf="orderList.supporting"
+                       (click)="updateNull('supporting', orderList.id)"><i
+                      class="fa fa-remove mr-2 text-danger"></i></a>
                     {{orderList.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
                 </div>
                 <div class="row {{orderList.current_status === 'SUPPORTED' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n >Supported:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supported" >
-                    <a href="javascript:void(0)" *ngIf="orderList.supported" (click)="updateNull('supported', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <div class="col-md-5 pr-0" i18n>Supported:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.supported">
+                    <a href="javascript:void(0)" *ngIf="orderList.supported"
+                       (click)="updateNull('supported', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                     {{orderList.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
                 </div>
                 <div class="row {{orderList.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n >Ready2Purchase:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase" >
-                    <a href="javascript:void(0)" *ngIf="orderList.ready_purchase" (click)="updateNull('ready_purchase', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
+                  <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase">
+                    <a href="javascript:void(0)" *ngIf="orderList.ready_purchase"
+                       (click)="updateNull('ready_purchase', orderList.id)"><i
+                      class="fa fa-remove mr-2 text-danger"></i></a>
                     {{orderList.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
                 </div>
                 <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
                   <div class="col-md-6 pr-0" i18n>Purchasing:</div>
                   <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
-                    <a href="javascript:void(0)" *ngIf="orderList.purchase_start" (click)="updateNull('purchase_start', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                    <a href="javascript:void(0)" *ngIf="orderList.purchase_start"
+                       (click)="updateNull('purchase_start', orderList.id)"><i
+                      class="fa fa-remove mr-2 text-danger"></i></a>
                     {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                   </div>
                 </div>
@@ -1699,70 +1979,81 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Purchased:</div>
                 <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchased">
-                  <a href="javascript:void(0)" *ngIf="orderList.purchased" (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.purchased"
+                     (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'SELLER_SHIPPED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped" >
-                  <a href="javascript:void(0)" *ngIf="orderList.seller_shipped" (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped">
+                  <a href="javascript:void(0)" *ngIf="orderList.seller_shipped"
+                     (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.seller_shipped * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'STOCKIN_US' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.stockin_us" >
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_us" (click)="updateNull('stockin_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                <div class="col-md-6 text-right" *ngIf="orderList.stockin_us">
+                  <a href="javascript:void(0)" *ngIf="orderList.stockin_us"
+                     (click)="updateNull('stockin_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.stockin_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'STOCKOUT_US' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Stock out US:</div>
                 <div class="col-md-6 text-right" *ngIf="orderList.stockout_us">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockout_us" (click)="updateNull('stockout_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.stockout_us"
+                     (click)="updateNull('stockout_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.stockout_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'STOCKIN_LOCAL' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Stock in local:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.stockin_local">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_local" (click)="updateNull('stockin_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.stockin_local"
+                     (click)="updateNull('stockin_local', orderList.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.stockin_local * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'STOCKOUT_LOCAL' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Stock out local:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.stockout_local">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockout_local" (click)="updateNull('stockout_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.stockout_local"
+                     (click)="updateNull('stockout_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.stockout_local * 1000| date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'AT_CUSTOMER' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>At customer:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.at_customer">
-                  <a href="javascript:void(0)" *ngIf="orderList.at_customer" (click)="updateNull('at_customer', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.at_customer"
+                     (click)="updateNull('at_customer', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.at_customer * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'RETURNED' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Returned:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.returned">
-                  <a href="javascript:void(0)" *ngIf="orderList.returned" (click)="updateNull('returned', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.returned"
+                     (click)="updateNull('returned', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{ orderList.returned * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'CANCELLED' ? 'text-warning' : ''}}">
                 <div class="col-md-6  pr-0" i18n>Cancel:</div>
                 <div class="col-md-6 text-right" *ngIf="orderList.cancelled">
-                  <a href="javascript:void(0)" *ngIf="orderList.cancelled" (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.cancelled"
+                     (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.cancelled * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
               <div class="row {{orderList.current_status === 'LOST' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Lost:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.lost">
-                  <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.lost * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
@@ -1772,15 +2063,15 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <div class="row">
           <table class="table">
             <thead>
-              <tr>
-                <th>#</th>
-                <th i18n>Code</th>
-                <th>Mã kiện</th>
-                <th>Cân tinh/ Sau đóng gỗ</th>
-                <th>Cân tính phí</th>
-                <th i18n>Status</th>
-                <th i18n>History</th>
-              </tr>
+            <tr>
+              <th>#</th>
+              <th i18n>Code</th>
+              <th>Mã kiện</th>
+              <th>Cân tinh/ Sau đóng gỗ</th>
+              <th>Cân tính phí</th>
+              <th i18n>Status</th>
+              <th i18n>History</th>
+            </tr>
             </thead>
             <tbody>
             <tr>
@@ -1797,66 +2088,82 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </div>
         <div class="row" style="border-top: 1px solid #d9d9d9">
           <div class="col-md-12 mt-2 mb-2">
-            <button class="btn btn-default btn-sm" (click)="create[orderList.id] = !create[orderList.id]" i18n>Create product</button>
+            <button class="btn btn-default btn-sm" (click)="create[orderList.id] = !create[orderList.id]" i18n>Create
+              product
+            </button>
           </div>
           <div class="col-md-12" [hidden]="!create[orderList.id]">
             <form [formGroup]="formCreate">
-            <div class="row">
+              <div class="row">
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Link image" formControlName="link_image" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Link image"
+                         formControlName="link_image" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Name product" formControlName="name_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Name product"
+                         formControlName="name_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Link Product" formControlName="link_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Link Product"
+                         formControlName="link_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Link Origin" formControlName="link_origin" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Link Origin"
+                         formControlName="link_origin" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Purchase" formControlName="quantity_purchase" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Purchase"
+                         formControlName="quantity_purchase" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Customer" formControlName="quantity_customer" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Quantity Customer"
+                         formControlName="quantity_customer" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
                   <select class="form-control form-control-sm" name="store" id="seller_id"
                           formControlName="seller_id">
-                    <option [value]="allKey" i18n >--All Seller--</option>
+                    <option [value]="allKey" i18n>--All Seller--</option>
                     <option *ngFor="let seller of listSeller" value="{{seller.id}}">{{seller.seller_name}}</option>
                   </select>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Origin" formControlName="price_amount_origin_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Origin"
+                         formControlName="price_amount_origin_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Total Price Amount Local" formControlName="total_price_amount_local_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Total Price Amount Local"
+                         formControlName="total_price_amount_local_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Local" formControlName="price_amount_local_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Price Amount Local"
+                         formControlName="price_amount_local_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Variations" formControlName="variations_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Variations"
+                         formControlName="variations_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="Portal" formControlName="portal_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="Portal"
+                         formControlName="portal_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="SKU" formControlName="sku_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="SKU" formControlName="sku_pro"
+                         i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
-                  <input type="text" class="form-control form-control-sm" placeholder="SKU Parent" formControlName="sku_parent_pro" i18n-placeholder>
+                  <input type="text" class="form-control form-control-sm" placeholder="SKU Parent"
+                         formControlName="sku_parent_pro" i18n-placeholder>
                 </div>
                 <div class="col-md-6 mb-1">
                   <button class="btn btn-success btn-sm form-control-sm" (click)="createPro()">Create</button>
                 </div>
-            </div>
+              </div>
             </form>
           </div>
         </div>
         <div *ngIf="orderList.product != ''" style="border-top: 1px solid #d9d9d9">
-          <div class="row mt-2 mb-1" *ngFor="let product of orderList.products" style="border-bottom: 1px solid #d9d9d9">
+          <div class="row mt-2 mb-1" *ngFor="let product of orderList.products"
+               style="border-bottom: 1px solid #d9d9d9">
             <div class="col-md-7">
               <div class="row">
                 <div class="col-md-3 pt-1">
@@ -1891,40 +2198,45 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right">
                   <span>{{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}</span>
-                  <i class="fa fa-edit ml-1" (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id, orderList.ordercode)"></i>
+                  <i class="fa fa-edit ml-1"
+                     (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id, orderList.ordercode)"></i>
                 </div>
               </div>
               <div class="row" [hidden]="!quantity[product.id]" *ngIf="checkUpdateQuantity">
                 <div class="origin-amount col-md-3 text-right style-padding ">
-                  <input type="number" width="100%" [(ngModel)]="quantityC" (keydown.enter)="updateQuantityPr()" />
+                  <input type="number" width="100%" [(ngModel)]="quantityC" (keydown.enter)="updateQuantityPr()"/>
                 </div>
                 <div class="origin-amount col-md-3 text-right style-padding ">
-                  <input type="number" width="100%" [(ngModel)]="quantityP" (keydown.enter)="updateQuantityPr()" />
+                  <input type="number" width="100%" [(ngModel)]="quantityP" (keydown.enter)="updateQuantityPr()"/>
                 </div>
                 <div class="origin-amount col-md-3 text-right style-padding ">
-                  <input type="number" width="100%" [(ngModel)]="quantityI" (keydown.enter)="updateQuantityPr()" />
+                  <input type="number" width="100%" [(ngModel)]="quantityI" (keydown.enter)="updateQuantityPr()"/>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-7">
                   <strong><span i18n>Units Price:</span>
-                    ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                    ( <span
+                      *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
                                     {{ product.price_amount_origin | currency: 'JPY' : '￥'}}
                                     </span>
-                    <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                    <span
+                      *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
                                       {{ product.price_amount_origin | currency : 'USD' : '$'}}
                                     </span>)
                   </strong>
                 </div>
                 <div class="col-md-5 text-right">
-                  <strong>{{product.price_amount_local}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong>
+                  <strong>{{product.price_amount_local}}</strong><strong class="m-l1">{{orderList.store_id |
+                  currencyStore}}</strong>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 pr-0 soi-toltal-value text-bold">
                   <strong i18n>Total value Product</strong>
                 </div>
-                <div class="col-md-6 text-right style-padding"><strong>{{product.total_price_amount_local | number}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong></div>
+                <div class="col-md-6 text-right style-padding"><strong>{{product.total_price_amount_local |
+                  number}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong></div>
               </div>
             </div>
           </div>
@@ -1934,7 +2246,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </div>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-danger btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
+        <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
         <!--<button class="btn btn-success btn-sm" type="button"  data-dismiss="modal" (click)="updateOrderCode()">Update</button>-->
       </div>
     </div>
@@ -1956,13 +2268,16 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <form action="" [formGroup]="createTemplate">
           <div class="row">
             <div class="col-md-12 mt-2">
-              <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteC" i18n-placeholder></textarea>
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteC"
+                        i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
-              <textarea class="form-control form-control-sm" rows="3" placeholder="Text Content" formControlName="contentC" i18n-placeholder="Nội Dung"></textarea>
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Text Content"
+                        formControlName="contentC" i18n-placeholder="Nội Dung"></textarea>
             </div>
             <div class="col-md-12 mt-2">
-              <select class="form-control form-control-sm" formControlName="statusC" placeholder="status" name="store" i18n-placeholder>
+              <select class="form-control form-control-sm" formControlName="statusC" placeholder="status" name="store"
+                      i18n-placeholder>
                 <option [value]="1"><span i18n>Show</span></option>
                 <option [value]="0"><span i18n>Hide</span></option>
               </select>
@@ -1989,16 +2304,18 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </button>
       </div>
       <div class="modal-body" *ngIf="checkListOrderChatRefund">
-        <form class="ng-pristine ng-valid" [formGroup] = "formSearchList">
+        <form class="ng-pristine ng-valid" [formGroup]="formSearchList">
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <input name="noteL" placeholder="Thẻ ghi chú" formControlName="noteL" type="text" class="form-control form-control-sm">
+                <input name="noteL" placeholder="Thẻ ghi chú" formControlName="noteL" type="text"
+                       class="form-control form-control-sm">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <input name="contentL" formControlName="contentL" id="contentComment" placeholder="Nội dung" type="text" class="form-control form-control-sm" >
+                <input name="contentL" formControlName="contentL" id="contentComment" placeholder="Nội dung" type="text"
+                       class="form-control form-control-sm">
               </div>
             </div>
             <div class="col-md-4">
@@ -2015,7 +2332,10 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </form>
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template Order Chat</button>
+            <button class="btn btn-default btn-sm" data-target="#addChatRefund" data-toggle="modal"
+                    data-backdrop="static" data-keyboard="false" (click)="openCreateOrderChatRefund()">Create Template
+              Order Chat
+            </button>
           </div>
           <div class="col-md-6">
             <pagination [boundaryLinks]="true"
@@ -2046,19 +2366,23 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <td>{{cn.note}}</td>
             <td>{{cn.content}}</td>
             <td class="text-center">
-              <input type="checkbox" [checked]="true" (change)="checkChatNote(cn.code, cn.status)"  *ngIf="cn.status == 1">
-              <input type="checkbox" [checked]="false" (change)="checkChatNote(cn.code, cn.status)" *ngIf="cn.status == 0">
+              <input type="checkbox" [checked]="true" (change)="checkChatNote(cn.code, cn.status)"
+                     *ngIf="cn.status == 1">
+              <input type="checkbox" [checked]="false" (change)="checkChatNote(cn.code, cn.status)"
+                     *ngIf="cn.status == 0">
               <!--<form action="" [formGroup] = "checkFormShow">-->
-                <!--&lt;!&ndash;<input type="checkbox" formControlName="checkStatusShow">&ndash;&gt;-->
-                <!--<input [id]="checkboxAttribute(cn.code,'id')"-->
-                       <!--type="checkbox" (click)="checkBox(cn.code)"-->
-                       <!--[name]="checkboxAttribute(cn.code,'name')">-->
+              <!--&lt;!&ndash;<input type="checkbox" formControlName="checkStatusShow">&ndash;&gt;-->
+              <!--<input [id]="checkboxAttribute(cn.code,'id')"-->
+              <!--type="checkbox" (click)="checkBox(cn.code)"-->
+              <!--[name]="checkboxAttribute(cn.code,'name')">-->
               <!--</form>-->
             </td>
             <td>{{cn.time_start}}</td>
             <td class="text-center">
-              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#editChatRefund" data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
-              <a href="javascript:void(0)" class="text-danger ml-2" (click)="removeListTemplate(cn.code)"><i class="fa fa-remove"></i></a>
+              <a href="javascript:void(0)" (click)="openUpdateOrderChatRefund(cn)" data-target="#editChatRefund"
+                 data-toggle="modal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i></a>
+              <a href="javascript:void(0)" class="text-danger ml-2" (click)="removeListTemplate(cn.code)"><i
+                class="fa fa-remove"></i></a>
             </td>
           </tr>
           </tbody>
@@ -2087,10 +2411,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <form action="" [formGroup]="updateTemplate">
           <div class="row">
             <div class="col-md-12 mt-2">
-              <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteU" i18n-placeholder></textarea>
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Note" formControlName="noteU"
+                        i18n-placeholder></textarea>
             </div>
             <div class="col-md-12 mt-2">
-              <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentU" i18n-placeholder></textarea>
+              <textarea class="form-control form-control-sm" rows="3" placeholder="Content" formControlName="contentU"
+                        i18n-placeholder></textarea>
             </div>
           </div>
         </form>
@@ -2108,7 +2434,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-sm" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkOpenTracking">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Tracking : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Tracking : <span class="label label-primary ng-binding">{{code}}</span>
+        </h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -2118,13 +2445,15 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <div class="row">
           <div class="col-md-12">
             <ul>
-              <li *ngFor="let trackingLog of listTrackingLog">{{trackingLog.log_type}}- {{trackingLog.created_at * 1000 | date:'dd/MM/yyyy HH:mm'}}</li>
+              <li *ngFor="let trackingLog of listTrackingLog">{{trackingLog.log_type}}- {{trackingLog.created_at * 1000
+                | date:'dd/MM/yyyy HH:mm'}}
+              </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-danger btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
+        <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
         <!--<button class="btn btn-success btn-sm" type="button"  data-dismiss="modal" (click)="updateOrderCode()">Update</button>-->
       </div>
     </div>
@@ -2135,7 +2464,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkOpenAssignSFO">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Assign Sale Follow Order : <span class="label label-primary ng-binding">{{code}}</span></h3>
+        <h3 class="modal-title text-white" i18n>Assign Sale Follow Order : <span class="label label-primary ng-binding">{{code}}</span>
+        </h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -2151,54 +2481,60 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </form>
       </div>
       <div class="modal-footer ng-scope">
-        <button class="btn btn-danger btn-sm" type="button"  data-dismiss="modal" (click)="offOption()">Close</button>
+        <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" (click)="offOption()">Close</button>
         <!--<button class="btn btn-success btn-sm" type="button"  data-dismiss="modal" (click)="updateOrderCode()">Update</button>-->
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" bsModal #AddTransactionModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #AddTransactionModal="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n >Create Transaction Order {{modelAddTransaction.order_code}}</h3>
+        <h3 class="modal-title text-white" i18n>Create Transaction Order {{modelAddTransaction.order_code}}</h3>
         <button type="button" class="close" data-dismiss="modal">
           <span class="text-white" aria-hidden="true">×</span>
-          <span class="sr-only" i18n >close</span>
+          <span class="sr-only" i18n>close</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="form-inline">
           <div class="form-check">
-            <input id="type_addfee" type="radio" value="addfee" name="type_transaction" [(ngModel)]="modelAddTransaction.type" class="form-check-input">
+            <input id="type_addfee" type="radio" value="addfee" name="type_transaction"
+                   [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_addfee" class="form-check-label">AddFee</label>
           </div>
           <div class="form-check">
-            <input type="radio" id="type_refurnd" value="refund" name="type_transaction" [(ngModel)]="modelAddTransaction.type" class="form-check-input">
+            <input type="radio" id="type_refurnd" value="refund" name="type_transaction"
+                   [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_refurnd" class="form-check-label">Refund</label>
           </div>
         </div>
         <div class="form-group">
           <label for="amount_transaction">Amount</label>
-          <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount" class="form-control form-control-sm" placeholder="Amount transaction">
+          <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount"
+                 class="form-control form-control-sm" placeholder="Amount transaction">
         </div>
         <div class="form-group">
           <label for="description_transaction">Description</label>
-          <textarea id="description_transaction" class="form-control form-control-sm" [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
+          <textarea id="description_transaction" class="form-control form-control-sm"
+                    [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" bsModal #arrearsAddfee="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" bsModal #arrearsAddfee="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n >Confirm arrears order {{activeOrder.ordercode}}</h3>
+        <h3 class="modal-title text-white" i18n>Confirm arrears order {{activeOrder.ordercode}}</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="arrearsAddfee.hide()">
           <span class="text-white" aria-hidden="true">×</span>
-          <span class="sr-only" i18n >close</span>
+          <span class="sr-only" i18n>close</span>
         </button>
       </div>
       <div class="modal-body">
@@ -2211,15 +2547,18 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
           <tbody>
           <tr>
             <td><b i18n>Total value of orders</b></td>
-            <td><h4 class="text-info"><b>{{activeOrder.total_final_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+            <td><h4 class="text-info"><b>{{activeOrder.total_final_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b>
+            </h4></td>
           </tr>
           <tr>
             <td><b i18n>Total amount paided</b></td>
-            <td><h4 class="text-danger"><b>{{activeOrder.total_paid_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+            <td><h4 class="text-danger"><b>{{activeOrder.total_paid_amount_local | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b>
+            </h4></td>
           </tr>
           <tr>
             <td><b i18n>Total amount collect</b></td>
-            <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true) | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
+            <td><h4 class="text-megna"><b>{{getChangeAmount(activeOrder.total_final_amount_local,activeOrder.total_paid_amount_local,true)
+              | number}} <span>{{activeOrder.store_id | currencyStore}}</span></b></h4></td>
           </tr>
           </tbody>
         </table>
@@ -2267,7 +2606,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     </div>
                     <div class="col-md-6 form-group m-b-10">
                       <label for="order_id" class="form-control-label">Order code</label>
-                      <input type="text" id="order_id" class="form-control form-control-sm" [(ngModel)]="item.order_code">
+                      <input type="text" id="order_id" class="form-control form-control-sm"
+                             [(ngModel)]="item.order_code">
                     </div>
                     <div class="col-md-6 form-group m-b-10">
                       <label for="product_id" class="form-control-label">Product id</label>
