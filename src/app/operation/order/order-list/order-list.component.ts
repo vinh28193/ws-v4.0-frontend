@@ -31,8 +31,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild('customNotification') customNotificationTmpl;
     @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
     @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
+    @ViewChild('purchaseCard') purchaseCard: ModalDirective;
     public limit = 20;
     public page = 1;
+    public countClickBuyNow :number = 0;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -1679,6 +1681,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.listNotifications();
       }
     });
+  }
+  buynowClick(order) {
+      this.countClickBuyNow = this.countClickBuyNow + 1;
+      this.openUpdateOrder(order);
+      this.purchaseCard.show();
   }
 }
 

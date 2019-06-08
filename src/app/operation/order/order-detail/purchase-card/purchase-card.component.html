@@ -15,28 +15,28 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <H4>
-                                    <b style="font-family: auto">{{1  | serialNumer}}. </b>
-                                    <span i18n>Order: <strong>{{orders[0].ordercode}}</strong></span>
-                                    <span i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></span>
-                                    <span i18n> - Seller: <b>{{orders[0].seller}}</b></span>
-                                    <span i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></span>
-                                </H4>
-                                <table class="table table-striped"
-                                       style="border: 1px solid;overflow: hidden;font-size: 12px">
+<!--                                <H4>-->
+<!--                                    <b style="font-family: auto">{{1  | serialNumer}}. </b>-->
+<!--                                    <span i18n>Order: <strong>{{orders[0].ordercode}}</strong></span>-->
+<!--                                    <span i18n> - Portal: <b>{{orders[0].portal | uppercase }}</b></span>-->
+<!--                                    <span i18n> - Seller: <b>{{orders[0].seller}}</b></span>-->
+<!--                                    <span i18n> - Final Total Amount: <b>{{orders[0].total_amount}}</b></span>-->
+<!--                                </H4>-->
+                                <table class="table table-sm">
                                     <thead>
                                     <tr style="color: #000">
-                                        <th scope="col" style="width: 2%;border: 1px solid #3e3e3e3e;">#</th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #3e3e3e3e;" i18n>Image</th>
-                                        <th scope="col" style="width: 25%;border: 1px solid #3e3e3e3e;" i18n>Info Product</th>
-                                        <th scope="col" style="width: 10%;border: 1px solid #3e3e3e3e;" i18n>Variation</th>
+<!--                                        <th scope="col" style="width: 2%;border: 1px solid #3e3e3e3e;">#</th>-->
+                                        <th scope="col" style="width: 2%;">#</th>
+                                        <th scope="col" style="width: 10%;" i18n>Image</th>
+                                        <th scope="col" style="width: 25%;" i18n>Info Product</th>
+                                        <th scope="col" style="width: 10%;" i18n>Variation</th>
 <!--                                        <th scope="col" style="width: 1%;border: 1px solid #3e3e3e3e;" i18n>Customer Qty</th>-->
-                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Quantity</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Price</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Shipping Fee</th>
-                                        <th scope="col" style="width: 8%;border: 1px solid #3e3e3e3e;" i18n>Tax Fee</th>
-                                        <th scope="col" style="width: 5%;border: 1px solid #3e3e3e3e;" i18n>Total Price</th>
-                                        <th scope="col" style="width: 15%;border: 1px solid #3e3e3e3e;" i18n>Paid to Seller
+                                        <th scope="col" style="width: 8%;" i18n>Quantity</th>
+                                        <th scope="col" style="width: 8%;" i18n>Price</th>
+                                        <th scope="col" style="width: 8%;" i18n>Shipping Fee</th>
+                                        <th scope="col" style="width: 8%;" i18n>Tax Fee</th>
+                                        <th scope="col" style="width: 8%;" i18n>Total Price</th>
+                                        <th scope="col" style="width: 15%;" i18n>Paid to Seller
                                         </th>
                                     </tr>
                                     </thead>
@@ -49,7 +49,7 @@
                                         <td style="padding: 0px ">
                                             <div class="col-md-12" style="padding: 0px ">
                                                 <div class="col-md-12 productName"
-                                                     style="font-size: 12px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 250px;">
+                                                     style="font-size: 12px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 290px;">
                                                     <a
                                                             href="{{product.origin_link}}">{{product.Name}}</a></div>
                                                 <div class="col-md-12"><span><b i18n>SOI:</b> {{product.id}}</span>
@@ -155,9 +155,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <hr>
                         </div>
                         <div class="row pl-2 col-md-12">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="row pl-2">
                                     <div class="col-md-8">
                                         <strong i18n>Total amount can use:</strong>
@@ -234,13 +235,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Export Warehouse</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <select class="input-sm input-full" name="warehouse"
+                                    <div class="col-md-8">
+                                        <select class="form-control form-control-sm" name="warehouse"
                                                 [(ngModel)]="data.warehouse"
                                         >
                                             <option value="0" i18n>--- Select WareHouse ---</option>
@@ -249,13 +250,13 @@
                                     </div>
                                 </div>
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Purchase Account</strong>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <input list="listAccounts" type="text"
                                                [(ngModel)]="data.accountPurchase"
-                                               class="input-sm input-full" placeholder="Chose an account" i18n>
+                                               class="form-control form-control-sm" placeholder="Chose an account" i18n>
                                         <datalist id="listAccounts" *ngIf="listAccount">
                                             <option *ngFor="let account of listAccount" value="{{account.email}}"
                                                     label=" skdjskjdksj"></option>
@@ -263,47 +264,53 @@
                                     </div>
                                 </div>
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Card</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <select class="input-sm input-full" name="cart" [(ngModel)]="data.card_payment">
+                                    <div class="col-md-8">
+                                        <select class="form-control form-control-sm" name="cart" [(ngModel)]="data.card_payment">
                                             <option value="" i18n>--- Select Card ---</option>
                                             <optgroup label="List card" *ngIf="listCard">
                                                 <option *ngFor="let cart_payment of listCard"
                                                         value="{{cart_payment.id}}">{{cart_payment.card_code}}</option>
                                             </optgroup>
                                         </select>
-                                        <br>
-                                        <input type="text" class="input-sm input-full" placeholder="Buck/Giftcard/Point"
+                                    </div>
+                                </div>
+                                <div class="row mt-2 pl-2">
+                                    <div class="col-md-4">
+                                        <strong i18n>Buck/Giftcard</strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Buck/Giftcard/Point"
                                                [(ngModel)]="data.buckAmount" i18n>
                                     </div>
                                 </div>
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Order {{orders[0].portal | uppercase }}  ID</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="input-sm input-full" placeholder="Type order ID"
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Type order ID"
                                                [(ngModel)]="data.orderIdPurchase" i18n>
                                     </div>
                                 </div>
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Paypal Transaction</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="input-sm input-full"
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control form-control-sm"
                                                placeholder="Only ebay Oder and PP Payment" [(ngModel)]="data.PPTranId"
                                                i18n>
                                     </div>
                                 </div>
                                 <div class="row mt-2 pl-2">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <strong i18n>Note</strong>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="input-sm input-full" placeholder="Note"
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Note"
                                                [(ngModel)]="data.note" i18n>
                                     </div>
                                 </div>

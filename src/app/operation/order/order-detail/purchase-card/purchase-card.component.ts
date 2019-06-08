@@ -19,11 +19,12 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     }
 
     @Input() updateProductId: any;
-    @Input() clickBtn: false;
+    @Input() clickBtn = 0;
     @Output() closePopup: EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEvent: EventEmitter<any> = new EventEmitter<any>();
     @ViewChild('popMakeOffer') popMakeOffer: PopoverDirective;
     public current_id = 0;
+    public current_ClickBtn = 0;
     public orders: any;
     public form: any;
     public edit_id = 0;
@@ -48,8 +49,9 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     public identity: any;
 
     ngDoCheck(): void {
-        if ((this.current_id !== this.updateProductId || this.clickBtn) && this.updateProductId !== undefined) {
-            this.clickBtn = false;
+        console.log(this.clickBtn);
+        if ((this.current_id !== this.updateProductId || this.current_ClickBtn !== this.clickBtn) && this.updateProductId !== undefined) {
+            this.current_ClickBtn = this.clickBtn;
             this.orders = null;
             this.current_id = this.updateProductId;
             this.getaccount();
