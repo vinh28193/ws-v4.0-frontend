@@ -728,7 +728,7 @@
                                   <button type="button"
                                           *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()"
                                           (click)="confirmChangePrice(order.id)"
-                                          class="btn btn-outline-success btn-sm mr-2 mb-2 Confirm Changing Price" i18n>
+                                          class="btn btn-outline-success btn-sm mr-2 mb-2" i18n>
                                     <i class="fa fa-dollar" aria-hidden="true"></i>
                                     Confirm Changing Price
                                   </button>
@@ -759,7 +759,7 @@
                                   <!--</button>-->
                                   <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"
                                           class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="openUpdateOrder(order);purchaseCard.show();" i18n>
+                                          (click)="buynowClick(order)" i18n>
                                     <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
                                   <button
@@ -1159,7 +1159,7 @@
      aria-hidden="true">
   <div class="modal-dialog modal-xl" style="max-width: 95%;">
     <div class="modal-content">
-      <app-purchase-card (closePopup)="purchaseCard.hide()" (searchEvent)="listOrders()" [clickBtn]="true"
+      <app-purchase-card (closePopup)="purchaseCard.hide()" (searchEvent)="listOrders()" [clickBtn]="countClickBuyNow"
                          [updateProductId]="updateOrderPurchaseId"></app-purchase-card>
     </div>
   </div>
