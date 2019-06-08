@@ -446,7 +446,7 @@
   <div class="row pb-1 pt-1" style="margin-left: 1px">
     <div class="col-md-12 pl-0 tab-slider--nav">
       <ul class="tab-slider--tabs st-ul">
-        <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]">
+        <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]; loadProCart(items.key.store_id)">
           <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
         </li>
       </ul>
@@ -454,7 +454,7 @@
     <div class="col-md-12 pl-0 mt-2 tab-slider--container">
       <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
         <app-product-shopping-cart *ngIf="pro[items._id]"
-                                   [products]="items.order.products"></app-product-shopping-cart>
+                                   [products]="items.order.products" [policy] = "getPolicyCart"></app-product-shopping-cart>
       </div>
     </div>
   </div>

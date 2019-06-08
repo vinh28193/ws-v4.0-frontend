@@ -40,7 +40,6 @@ export class EditLocalComponent extends OrderDataComponent implements OnInit {
     // console.log(code);
     // this.code = code;
     this.checkOpen = true;
-    this.loadPolicy(this.store_id);
     this.updateForm = this.fb.group({
       policy_id: this.product.custom_category_id,
     });

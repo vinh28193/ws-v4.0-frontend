@@ -11,6 +11,8 @@ import {OrderDataComponent} from '../../../order-data.component';
 })
 export class ProductShoppingCartComponent extends OrderDataComponent implements OnInit {
   @Input() products: any = [];
+  @Input() policy: any = [];
+  public openEditCategoryCart = {};
   public hidem: any = {};
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder) {

@@ -66,8 +66,16 @@
                 <app-span-label [value]=""></app-span-label>
               </li>
               <li>
-                <span class="mr-2" i18n>Category:</span>
-                <app-span-label *ngIf="product.category" [value]="product.category.origin_name"></app-span-label>
+                <app-span-label [value]="product.category.origin_name"></app-span-label>
+                <a class="ml-1" href="javascript:void(0)" (click)="openEditCategory[product.category.alias] = !openEditCategory[product.category.alias]" data-keyboard="false" >
+                  <i class="fa fa-edit text-info"></i>
+                </a>
+                <form action="" [formGroup]="updateForm" *ngIf="openEditCategoryCart[product.id]" [hidden]="!openEditCategoryCart[product.id]">
+                  <input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>
+                  <select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">
+                    <option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>
+                  </select>
+                </form>
               </li>
               <li>
                 <span class="mr-2" i18n>QTT Set:</span>
@@ -357,3 +365,4 @@
       </div>
     </div>
   </div>
+</div>

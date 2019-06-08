@@ -14,6 +14,7 @@ import {ScopeService} from '../../../../core/service/scope.service';
 export class ShoppingCartComponent extends OrderDataComponent implements OnInit {
   public ShoppingCar: any = [];
   public statusOrder: any = [];
+  public getPolicyCart: any = [];
   public bsRangeValue: Date[];
   public metaShopping: any = {};
   public hideme: any = {};
@@ -166,5 +167,18 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
         }
       });
     }, messagePop);
+  }
+
+  loadProCart(storeId) {
+    this.loadPolicyCart(storeId);
+  }
+  loadPolicyCart(id: number | undefined) {
+    if (id) {
+      this.http.getNoLoad(`policy/${id}`).subscribe(res => {
+        this.getPolicyCart = res.data;
+        console.log(this.getPolicyCart);
+      });
+      return this.getPolicyCart;
+    }
   }
 }

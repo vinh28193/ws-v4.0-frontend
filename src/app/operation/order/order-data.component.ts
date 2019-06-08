@@ -40,7 +40,7 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
     }
     loadPolicy(id: number | undefined) {
       if (id) {
-        this.http.get(`policy/${id}`).subscribe(res => {
+        this.http.getNoLoad(`policy/${id}`).subscribe(res => {
           this.getPolicy = res.data;
         });
         return this.getPolicy;
