@@ -29,12 +29,12 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         this.loging = localStorage.getItem('userLogin');
         this.role = localStorage.getItem('scope');
         this.user = (JSON.parse(this.loging).username);
-        console.log(this.activatedRoute);
-        console.log(this.activatedRoute.firstChild.routeConfig.path);
-        console.log(this.activatedRoute.firstChild.children[0].firstChild.routeConfig.path);
-        console.log(this.activatedRoute.snapshot);
-        console.log(this.activatedRoute.snapshot.url);
-        console.log(this.activatedRoute.snapshot.url.join(''));
+        // console.log(this.activatedRoute);
+        // console.log(this.activatedRoute.firstChild.routeConfig.path);
+        // console.log(this.activatedRoute.firstChild.children[0].firstChild.routeConfig.path);
+        // console.log(this.activatedRoute.snapshot);
+        // console.log(this.activatedRoute.snapshot.url);
+        // console.log(this.activatedRoute.snapshot.url.join(''));
     }
 
     closeSidebar() {
