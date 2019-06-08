@@ -1669,7 +1669,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.orderService.getNoLoad('list-notification').subscribe(res => {
         if (res.success) {
           this.ListNotifi = res.data.model;
-          console.log(this.ListNotifi);
           this.totalNotifications = res.data.total;
         }
       });
