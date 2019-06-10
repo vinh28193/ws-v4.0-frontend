@@ -49,7 +49,6 @@ export class PurchaseCardComponent implements OnInit, DoCheck {
     public identity: any;
 
     ngDoCheck(): void {
-        console.log(this.clickBtn);
         if ((this.current_id !== this.updateProductId || this.current_ClickBtn !== this.clickBtn) && this.updateProductId !== undefined) {
             this.current_ClickBtn = this.clickBtn;
             this.orders = null;

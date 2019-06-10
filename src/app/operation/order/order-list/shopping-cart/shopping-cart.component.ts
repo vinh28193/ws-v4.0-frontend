@@ -23,7 +23,11 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public perpage: number;
   public totalCart: number;
   public totalCarts: any;
+  public status: any;
+  public code: any;
   public backorderlist = false;
+  public checkLoad = false;
+  public checkLoadG = false;
   public limit: number = 20;
   public page: number = 1;
   @Input() listSaleAll: any = [];
@@ -168,17 +172,20 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       });
     }, messagePop);
   }
-
-  loadProCart(storeId) {
-    this.loadPolicyCart(storeId);
+  chatCart(code, status) {
+    console.log(code);
+    this.code = code;
+    this.status = status;
+    this.checkLoad = true;
   }
-  loadPolicyCart(id: number | undefined) {
-    if (id) {
-      this.http.getNoLoad(`policy/${id}`).subscribe(res => {
-        this.getPolicyCart = res.data;
-        console.log(this.getPolicyCart);
-      });
-      return this.getPolicyCart;
-    }
+  offModeChat() {
+    this.checkLoadG = false;
+    this.checkLoad = false;
   }
+  // chatG(id, code, status) {
+  //   this.statusO = status;
+  //   this.checkLoadG = true;
+  //   this.orderIdChat = id;
+  //   this.codeG = code;
+  // }
 }

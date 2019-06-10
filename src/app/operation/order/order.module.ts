@@ -41,6 +41,7 @@ import { ShoppingCartComponent } from './order-list/shopping-cart/shopping-cart.
 import { ProductShoppingCartComponent } from './order-list/shopping-cart/product-shopping-cart/product-shopping-cart.component';
 import { AssignSaleCartComponent } from './order-list/shopping-cart/assign-sale-cart/assign-sale-cart.component';
 import { ScrollTopComponent } from './order-list/scroll-top/scroll-top.component';
+import { ChatCartComponent } from './order-list/shopping-cart/chat-cart/chat-cart.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -125,6 +126,7 @@ const customNotifierOptions: NotifierOptions = {
         ProductShoppingCartComponent,
         AssignSaleCartComponent,
         ScrollTopComponent,
+        ChatCartComponent,
     ],
     providers: [
       OrderService,

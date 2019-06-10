@@ -10,7 +10,8 @@
             <option value="data.order.customer.email">Email</option>
             <option value="data.order.customer.phone">Phone</option>
           </select>
-          <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()" formControlName="value"
+          <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()"
+                 formControlName="value"
                  type="text">
         </div>
       </div>
@@ -42,14 +43,14 @@
         </div>
       </div>
       <!--<div class="col-md-3 input-group input-group-sm" id="keyWordGroup1">-->
-        <!--<select class=" form-control form-control-sm input-group-addon" name="searchKeyword"-->
-                <!--id="keyword1" formControlName="statusShopping">-->
-          <!--<option value="0" i18n>ALL Status</option>-->
-          <!--<option value="data.order.customer.email">NEW</option>-->
-          <!--<option value="data.order.customer.phone">SUPPORTING</option>-->
-          <!--<option value="data.order.customer.phone">SUPPORTED</option>-->
-          <!--<option value="data.order.customer.phone">CANCELLED</option>-->
-        <!--</select>-->
+      <!--<select class=" form-control form-control-sm input-group-addon" name="searchKeyword"-->
+      <!--id="keyword1" formControlName="statusShopping">-->
+      <!--<option value="0" i18n>ALL Status</option>-->
+      <!--<option value="data.order.customer.email">NEW</option>-->
+      <!--<option value="data.order.customer.phone">SUPPORTING</option>-->
+      <!--<option value="data.order.customer.phone">SUPPORTED</option>-->
+      <!--<option value="data.order.customer.phone">CANCELLED</option>-->
+      <!--</select>-->
       <!--</div>-->
       <div class="col-md-12 mt-2">
         <button class="btn btn-sm btn-success" (click)="listShoppingCart()"><i class="fa fa-search mr-1"></i><span i18n>Search</span>
@@ -94,10 +95,17 @@
     <div class="col-md-3 border-col">
       <div class="clearfix"></div>
       <div class="mt-1">
-         <span
-           class="Paid badge badge-pill badge-{{items.key.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
-                                    {{items.key.current_status}}
-                                  </span>
+        <h5>
+          <strong class="text-uppercase">
+            <a target="_blank"
+               href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
+              <span class="text-danger">BIN-{{items.order.ordercode}}</span>
+            </a>
+          </strong> /
+          <span class="Paid badge badge-pill badge-{{items.key.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+            {{items.key.current_status}}
+          </span>
+        </h5>
       </div>
       <div class="mt-1">
         <span><i [class]="items.order.store_id | iconFlag"></i> </span>
@@ -123,10 +131,12 @@
 
       <div class="row m-0 p-0 mt-1">
         <ul class="col-md-11">
-          <app-assign-sale-cart [id] = "items._id" [saleId]="items.order.sale_support_id" [type] = "items.type" (checkSale)="loadListSale($event)" [saleAll]="listSaleAll" [saleSupport]="items.order.support_email"></app-assign-sale-cart>
+          <app-assign-sale-cart [id]="items._id" [saleId]="items.order.sale_support_id" [type]="items.type"
+                                (checkSale)="loadListSale($event)" [saleAll]="listSaleAll"
+                                [saleSupport]="items.order.support_email"></app-assign-sale-cart>
         </ul>
         <!--<div class="col-md-1 p-0">-->
-          <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
+        <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
         <!--</div>-->
       </div>
       <hr style="margin: 5px;">
@@ -162,8 +172,20 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-secondary mt-2 mr-2 btn-sm" (click)="confirmOrderCart(items._id, items.type)"  *ngIf="items.key.current_status == 'NEW' || items.key.current_status == 'SUPPORTING' || items.key.current_status == 'SUPPORTED'" i18n >Confirm Order</button>
-            <button class="btn btn-secondary mt-2 btn-sm" *ngIf=" __scope.CheckSale()" (click)="markAsJunkShopping(items._id, items.type)" i18n>Mark as Junk</button>
+            <button type="button"
+                    (click)="chatCart(items.key.orderCode, items.key.current_status)"
+                    class="btn btn-secondary mt-2  btn-sm" data-target="#showChatCar"
+                    data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
+              <i class="fa fa-comments mr-1" aria-hidden="true"></i>
+              Chat With Customer
+            </button>
+            <button class="btn btn-secondary mt-2 mr-2 btn-sm" (click)="confirmOrderCart(items._id, items.type)"
+                    *ngIf="items.key.current_status == 'NEW' || items.key.current_status == 'SUPPORTING' || items.key.current_status == 'SUPPORTED'"
+                    i18n>Confirm Order
+            </button>
+            <button class="btn btn-secondary mt-2 btn-sm" *ngIf=" __scope.CheckSale()"
+                    (click)="markAsJunkShopping(items._id, items.type)" i18n>Mark as Junk
+            </button>
           </div>
         </div>
       </div>
@@ -394,9 +416,9 @@
       <div class="row Collect so-tien-thu-them Cod">
         <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
         <div class="col-md-6 text-right text-info style-padding-left">{{items.order.total_final_amount_local >
-        items.order.total_paid_amount_local ?
+          items.order.total_paid_amount_local ?
           getChangeAmount(items.order.total_final_amount_local, items.order.total_paid_amount_local) : 0 |
-            currency:'VND'}}
+          currency:'VND'}}
         </div>
       </div>
       <div class="row Refund" *ngIf="items.order.total_refund_amount_local">
@@ -416,16 +438,22 @@
       </div>
       <div class="hover-row">
         <div class="row">
-          <div class="col-md-5 pr-0" i18n >New:</div>
-          <div class="col-md-7 text-right {{items.order.new}}">{{items.order.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          <div class="col-md-5 pr-0" i18n>New:</div>
+          <div class="col-md-7 text-right {{items.order.new}}">{{items.order.new * 1000 | date:'dd/MM/yyyy HH:mm:ss
+            '}}
+          </div>
         </div>
         <div class="row">
-          <div class="col-md-5 pr-0" i18n >Supporting:</div>
-          <div class="col-md-7 text-right" *ngIf="items.order.supporting" >{{items.order.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          <div class="col-md-5 pr-0" i18n>Supporting:</div>
+          <div class="col-md-7 text-right" *ngIf="items.order.supporting">{{items.order.supporting * 1000 |
+            date:'dd/MM/yyyy HH:mm:ss '}}
+          </div>
         </div>
         <div class="row">
-          <div class="col-md-5 pr-0" i18n >Supported:</div>
-          <div class="col-md-7 text-right" *ngIf="items.order.supported" >{{items.order.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          <div class="col-md-5 pr-0" i18n>Supported:</div>
+          <div class="col-md-7 text-right" *ngIf="items.order.supported">{{items.order.supported * 1000 |
+            date:'dd/MM/yyyy HH:mm:ss '}}
+          </div>
         </div>
         <div class="row">
           <div class="col-md-5  pr-0" i18n>Cancelled:</div>
@@ -435,7 +463,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-sm btn-danger" *ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'" (click)="cancelOrderCart(items._id, items.type)" >
+            <button class="btn btn-sm btn-danger"
+                    *ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'"
+                    (click)="cancelOrderCart(items._id, items.type)">
               <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
             </button>
           </div>
@@ -446,7 +476,7 @@
   <div class="row pb-1 pt-1" style="margin-left: 1px">
     <div class="col-md-12 pl-0 tab-slider--nav">
       <ul class="tab-slider--tabs st-ul">
-        <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]; loadProCart(items.key.store_id)">
+        <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]">
           <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
         </li>
       </ul>
@@ -454,7 +484,36 @@
     <div class="col-md-12 pl-0 mt-2 tab-slider--container">
       <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
         <app-product-shopping-cart *ngIf="pro[items._id]"
-                                   [products]="items.order.products" [policy] = "getPolicyCart"></app-product-shopping-cart>
+                                   [products]="items.order.products"
+                                   [policy]="getPolicyCart"></app-product-shopping-cart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="showChatCar" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-lg-12 p-0">
+          <div class="card m-b-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12 p-0">
+                  <div class="modal-body p-0">
+                    <div class="ng-star-inserted">
+                      <app-chat-cart *ngIf="checkLoad" [status]="statusO" [code]="code"></app-chat-cart>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 text-right mt-2">
+                  <button class="btn btn-danger btn-sm" data-dismiss="modal" (click)="offModeChat()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

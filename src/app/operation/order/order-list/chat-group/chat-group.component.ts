@@ -48,14 +48,12 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
 
     getUserIdsFirstWay($event) {
         const text_sugest = this.chatGroup.value.message;
-        console.log('text_sugest :' + text_sugest);
         this.matchesList1 = [];
         //  ToDo : @Phuchc thêm text type suppoting
         // Get All Key Chat Suppoted
         this.orderService.getNoLoad(`chatlists`, 1).subscribe(res => {
             const result1: any = res;
             this.chatlists = result1.data;
-            // console.log('data get list : ' + JSON.stringify(this.chatlists));
 
             const array_list: any = [];
             for (let i = 0; i <= this.chatlists.length - 1; i++) {
@@ -110,9 +108,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         const value = this.chatGroup.value;
         const params: any = {};
         if (value.message !== '') {
-
             params.message = value.message;
-            console.log(params.message.toLowerCase());
         }
         if (this.code !== '') {
             params.Order_path = this.code;
@@ -122,7 +118,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         }
         params.type_chat = 'GROUP_WS';
         params.suorce = 'BACK_END';
-        console.log(params);
         return params;
     }
 

@@ -43,8 +43,11 @@ export class OrderService extends OperationService {
     }
 
     postChat(item: any | undefined) {
-        console.log(item);
         return this.post(`chat`, item);
+    }
+
+    listChatMongo(item: any | undefined) {
+      return this.getNoLoad(`list-chat-mongo`, item);
     }
 
     putProduct(url, item: any | undefined) {

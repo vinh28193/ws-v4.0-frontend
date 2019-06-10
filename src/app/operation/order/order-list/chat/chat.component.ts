@@ -49,7 +49,9 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     getUserIdsFirstWay($event) {
       const text_sugest = this.chatGroup.value.message;
       this.matchesList1 = [];
-      this.orderService.getNoLoad(`list-chat-mongo`, undefined).subscribe(res => {
+      const params: any = {};
+      params.show = 1;
+      this.orderService.listChatMongo(params).subscribe(res => {
         const result1: any = res;
         this.listChat = result1.data;
         const array_list: any = [];
@@ -62,7 +64,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     });
     if (text_sugest.length >= 2) {
       if ($event.timeStamp - this.lastkeydown1 >= 200) {
-        this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest));
+        this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest) > -1);
         // this.matchesList1 = this.searchFromArray(this.userData, userId);
       }
     }
