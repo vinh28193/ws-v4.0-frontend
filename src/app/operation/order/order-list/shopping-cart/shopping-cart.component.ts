@@ -15,10 +15,12 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public ShoppingCar: any = [];
   public statusOrder: any = [];
   public getPolicyCart: any = [];
+  public listLog: any = [];
   public bsRangeValue: Date[];
   public metaShopping: any = {};
   public hideme: any = {};
   public pro: any = {};
+  public moreLog: any = {};
   public searchF: FormGroup;
   public perpage: number;
   public totalCart: number;
@@ -26,6 +28,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public IdCar: any;
   public typeCart: any;
   public status: any;
+  public typeViewLogs = 'actionlog';
   public code: any;
   public backorderlist = false;
   public checkLoad = false;
@@ -34,6 +37,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public page: number = 1;
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
+  public logIdOrder: any;
 
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public __scope: ScopeService) {
     super(orderService);
@@ -200,12 +204,14 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   //   this.codeG = code;
   // }
 
-  viewMoreLog(status, code, type = 'item') {
-    // if (this.typeViewLogs === 'actionlog') {
-    //   this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
-    //     const rs = res;
-    //     this.listLog = rs.data;
-    //   });
-    // }
+  viewMoreLogCart(status, code, type = 'item') {
+    this.moreLog.status = status;
+    this.logIdOrder = code;
+    if (this.typeViewLogs === 'actionlog') {
+      this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+        const rs = res;
+        this.listLog = rs.data;
+      });
+    }
   }
 }

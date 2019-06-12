@@ -190,7 +190,7 @@
             </button>
           </div>
           <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-secondary btn-sm" (click)="ModalviewMoreLogCart.show()"
+            <button class="btn btn-secondary btn-sm" (click)="viewMoreLogCart(items.key.current_status, items.key.orderCode);ModalviewMoreLogCart.show()"
                     i18n>More Log
             </button>
           </div>
@@ -619,26 +619,26 @@
                           <th i18n>Role</th>
                         </tr>
                         </thead>
-                        <!--<tbody *ngIf="listLog.length > 0">-->
-                        <!--<tr *ngFor="let log of listLog">-->
-                          <!--<td>{{log.date}}-->
-                          <!--<td>-->
-                            <!--<a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right"-->
-                                                            <!--[popover]="logDetail"-->
-                                                            <!--popoverTitle="View detail log"></i></a><br>-->
-                            <!--<ng-template #logDetail style="max-width: 500px">-->
-                              <!--<strong>Data Input</strong>-->
-                              <!--<div [innerHTML]="log.data_input"></div>-->
-                              <!--<strong>Data Output</strong>-->
-                              <!--<div [innerHTML]="log.data_output"></div>-->
-                            <!--</ng-template>-->
-                            <!--{{log.action_path}}-->
-                          <!--</td>-->
-                          <!--<td>{{log.user_name}}</td>-->
-                          <!--<td>{{log.Role}}</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                        <!--<tbody *ngIf="listLog.length == 0">-->
+                        <tbody *ngIf="listLog.length > 0">
+                        <tr *ngFor="let log of listLog">
+                          <td>{{log.date}}
+                          <td>
+                            <a href="javascript:void(0)"><i class="fa fa-eye" data-placement="right"
+                                                            [popover]="logDetail"
+                                                            popoverTitle="View detail log"></i></a><br>
+                            <ng-template #logDetail style="max-width: 500px">
+                              <strong>Data Input</strong>
+                              <div [innerHTML]="log.data_input"></div>
+                              <strong>Data Output</strong>
+                              <div [innerHTML]="log.data_output"></div>
+                            </ng-template>
+                            {{log.action_path}}
+                          </td>
+                          <td>{{log.user_name}}</td>
+                          <td>{{log.Role}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody *ngIf="listLog.length == 0">
                         <tr>
                           <td colspan="4" class="text-center">
                             <h3 class="text-danger" i18n>Not Found!</h3>
