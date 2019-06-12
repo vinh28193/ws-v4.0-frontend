@@ -17,6 +17,7 @@ declare var $: any;
 export class ChatGroupCartComponent extends OrderDataComponent implements OnInit {
   public chatGroup: FormGroup;
   @Input() code: any = null;
+  @Input() id: any = null;
   @Input() status: any = null;
   @Input() typeCart: any = null;
   public listChatG: any = [];
@@ -107,6 +108,7 @@ export class ChatGroupCartComponent extends OrderDataComponent implements OnInit
     }
     params.type_chat = 'GROUP_WS';
     params._chat = 'CART';
+    params.id = this.id;
     params.suorce = 'BACK_END';
     return params;
   }

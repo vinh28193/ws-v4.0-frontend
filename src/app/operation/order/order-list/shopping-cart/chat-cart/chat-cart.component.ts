@@ -96,6 +96,7 @@ export class ChatCartComponent extends OrderDataComponent implements OnInit {
     params.type_chat = 'WS_CUSTOMER';
     params.type = this.typeCart;
     params.suorce = 'BACK_END';
+    params.id = this.id;
     params._chat = 'CART';
     params.chatCart = 'CHAT_CART';
     return params;

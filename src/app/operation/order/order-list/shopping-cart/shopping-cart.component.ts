@@ -23,6 +23,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public perpage: number;
   public totalCart: number;
   public totalCarts: any;
+  public IdCar: any;
   public typeCart: any;
   public status: any;
   public code: any;
@@ -173,17 +174,17 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       });
     }, messagePop);
   }
-  chatCart(code, status, type) {
-    console.log(code);
+  chatCart(code, status, type, id) {
     this.code = code;
+    this.IdCar = id;
     this.status = status;
     this.typeCart = type;
     this.checkLoad = true;
   }
 
-  chatGroupCart(code, status, type) {
-    console.log(code);
+  chatGroupCart(code, status, type, id) {
     this.code = code;
+    this.IdCar = id;
     this.status = status;
     this.typeCart = type;
     this.checkLoadGroup = true;
@@ -198,4 +199,13 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   //   this.orderIdChat = id;
   //   this.codeG = code;
   // }
+
+  viewMoreLog(status, code, type = 'item') {
+    // if (this.typeViewLogs === 'actionlog') {
+    //   this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+    //     const rs = res;
+    //     this.listLog = rs.data;
+    //   });
+    // }
+  }
 }
