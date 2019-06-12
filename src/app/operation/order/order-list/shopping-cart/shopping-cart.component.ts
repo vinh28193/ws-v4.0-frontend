@@ -23,6 +23,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public perpage: number;
   public totalCart: number;
   public totalCarts: any;
+  public typeCart: any;
   public status: any;
   public code: any;
   public backorderlist = false;
@@ -172,17 +173,19 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       });
     }, messagePop);
   }
-  chatCart(code, status) {
+  chatCart(code, status, type) {
     console.log(code);
     this.code = code;
     this.status = status;
+    this.typeCart = type;
     this.checkLoad = true;
   }
 
-  chatGroupCart(code, status) {
+  chatGroupCart(code, status, type) {
     console.log(code);
     this.code = code;
     this.status = status;
+    this.typeCart = type;
     this.checkLoadGroup = true;
   }
   offModeChat() {

@@ -15,6 +15,7 @@ export class ChatCartComponent extends OrderDataComponent implements OnInit {
   @Input() code: any = null;
   @Input() status: any = null;
   @Input() id: any = null;
+  @Input() typeCart: any = null;
   public matchesList1: any = [];
   public listChat: any = [];
   public userData: any = [];
@@ -89,12 +90,14 @@ export class ChatCartComponent extends OrderDataComponent implements OnInit {
     if (this.code !== '') {
       params.Order_path = this.code;
     }
-    if (this.status === 'NEW') {
-      params.isNew = 'yes';
+    if (this.status === 'NEW' || this.status === 'SUPPORTING') {
+      params.isNew = 'YES';
     }
     params.type_chat = 'WS_CUSTOMER';
+    params.type = this.typeCart;
     params.suorce = 'BACK_END';
-    params.chatCart = 'CHAT_CART'
+    params._chat = 'CART';
+    params.chatCart = 'CHAT_CART';
     return params;
   }
 

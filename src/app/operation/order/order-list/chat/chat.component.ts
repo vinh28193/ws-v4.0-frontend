@@ -95,6 +95,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
             params.isNew = 'yes';
         }
         params.type_chat = 'WS_CUSTOMER';
+        params._chat = 'ORDER';
         params.suorce = 'BACK_END';
         return params;
     }

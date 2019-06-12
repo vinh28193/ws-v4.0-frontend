@@ -116,6 +116,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         if (this.status === 'NEW') {
             params.isNew = 'yes';
         }
+        params._chat = 'ORDER';
         params.type_chat = 'GROUP_WS';
         params.suorce = 'BACK_END';
         return params;

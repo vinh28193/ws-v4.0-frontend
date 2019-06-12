@@ -173,7 +173,7 @@
         <div class="col-md-12">
           <div class="btn-group mr-2 mb-2">
             <button type="button"
-                    (click)="chatCart(items.key.orderCode, items.key.current_status)"
+                    (click)="chatCart(items.key.orderCode, items.key.current_status, items.type)"
                     class="btn btn-secondary mr-2 btn-sm" data-target="#showChatCar"
                     data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
               <i class="fa fa-comments mr-1" aria-hidden="true"></i>
@@ -433,7 +433,7 @@
       <div class="row pt-2 pb-2 no-row">
         <div class="col-md-12">
           <button type="button"
-                  (click)="chatGroupCart(items.key.orderCode, items.key.current_status)"
+                  (click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type)"
                   class="btn btn-secondary mb-2 btn-sm" data-target="#showChatGroup"
                   data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
             <i class="fa fa-comments mr-1" aria-hidden="true"></i>
@@ -515,7 +515,7 @@
                 <div class="col-lg-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat-cart *ngIf="checkLoad" [status]="statusO" [code]="code"></app-chat-cart>
+                      <app-chat-cart *ngIf="checkLoad" [status]="statusO" [code]="code" [typeCart]="typeCart"></app-chat-cart>
                     </div>
                   </div>
                 </div>
@@ -543,7 +543,7 @@
                 <div class="col-md-12 p-0">
                   <div class="modal-body p-0">
                     <div class="ng-star-inserted">
-                      <app-chat-group-cart *ngIf="checkLoadGroup" [status]="statusO" [code]="code"></app-chat-group-cart>
+                      <app-chat-group-cart *ngIf="checkLoadGroup" [status]="statusO" [code]="code" [typeCart]="typeCart"></app-chat-group-cart>
                     </div>
                   </div>
                 </div>
