@@ -82,7 +82,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
             }
         }
         return matches;
-    };
+    }
 
     chatGroupAll() {
         this.orderService.get(`chat/${this.code}`, 1).subscribe(res => {

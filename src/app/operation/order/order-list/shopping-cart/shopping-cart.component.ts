@@ -27,7 +27,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public code: any;
   public backorderlist = false;
   public checkLoad = false;
-  public checkLoadG = false;
+  public checkLoadGroup = false;
   public limit: number = 20;
   public page: number = 1;
   @Input() listSaleAll: any = [];
@@ -178,8 +178,15 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     this.status = status;
     this.checkLoad = true;
   }
+
+  chatGroupCart(code, status) {
+    console.log(code);
+    this.code = code;
+    this.status = status;
+    this.checkLoadGroup = true;
+  }
   offModeChat() {
-    this.checkLoadG = false;
+    this.checkLoadGroup = false;
     this.checkLoad = false;
   }
   // chatG(id, code, status) {

@@ -339,8 +339,13 @@
             </div>
             <hr style="margin: 5px">
             <div class="row total_fee_product">
-              <div class="col-md-7"><strong i18n>Price Amount Product :({{product.price_amount_origin |
-                currency:'VND'}}) </strong></div>
+              <div class="col-md-7"><strong i18n>Price Amount Product :
+                ( <span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{product.price_amount_origin  | currency: 'JPY' : '￥'}}
+                                    </span>
+                <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                      {{ product.price_amount_origin | currency : 'USD' : '$'}}
+                                    </span>) </strong></div>
               <div class="col-md-5 text-right ">{{ product.price_amount_local}}đ</div>
             </div>
             <div class="row">
