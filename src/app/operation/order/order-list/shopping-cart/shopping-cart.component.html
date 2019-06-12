@@ -474,7 +474,7 @@
         </div>
         <div class="row">
           <div class="col-md-5  pr-0" i18n>Cancelled:</div>
-          <div class="col-md-7 text-right">{{items.order?.cancelled?.new * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          <div class="col-md-7 text-right" *ngIf="items.order.cancelled">{{items.order?.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
         </div>
       </div>
       <div class="row">
@@ -656,7 +656,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
-                (click)="ModalviewMoreLog.hide();">Cancel
+                (click)="ModalviewMoreLogCart.hide();">Cancel
         </button>
         <button *ngIf="typeViewLogs == 'support_logs'" class="btn btn-sm btn-primary pull-right" aria-label="Save"
                 (click)="saveLogSupport()" i18n>Save
