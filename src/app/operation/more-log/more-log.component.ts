@@ -4,6 +4,7 @@ import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../order/order-data.component';
 import {MoreLogService} from './more-log.service';
+import {NotificationsService} from '../../core/service/notifications.service';
 
 @Component({
   selector: 'app-more-log',
@@ -18,7 +19,7 @@ export class MoreLogComponent extends OrderDataComponent implements OnInit {
   public total: number;
   public type: 'action';
   public formSearch: FormGroup;
-  constructor(private moreLogService: MoreLogService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(private moreLogService: MoreLogService, private popup: PopupService, public  notifi: NotificationsService, private fb: FormBuilder) {
     super(moreLogService);
   }
 

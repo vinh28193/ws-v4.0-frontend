@@ -205,7 +205,7 @@
           </div>
 
           <hr style="margin: 5px" [hidden]="!hidem[product.id]">
-            <div [hidden]="!hidem[product.id]">
+          <div [hidden]="!hidem[product.id]">
               <div *ngIf="product.productFees && product.productFees.length" >
                 <div *ngFor="let ProFee of product.productFees">
                   <div class="row ProductFees"  *ngIf="!checkShowFee(ProFee.type)">
