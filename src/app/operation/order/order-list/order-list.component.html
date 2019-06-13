@@ -404,41 +404,46 @@
 
                               <hr>
 
-                              <div class="row col-md-12">
-                                <button type="button" *ngIf="!_scope.checkMarketingAccount()"
-                                        (click)="chat(order.id, order.ordercode, order.current_status)"
-                                        class="btn btn-secondary mt-2  btn-sm" data-target="#showChat"
-                                        data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-                                  <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-                                  Chat With Customer
+                              <div class="row col-md-12 pt-2">
+                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" i18n>
+                                  Action
                                 </button>
-                                <button (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) "
-                                        type="button" class="btn btn-secondary mt-2 btn-sm" i18n>
-                                  <i class="fa fa-bell mr-1"></i> push notifi Track Orders
-                                </button>
-                                <button (click)="unfollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode)"
-                                        type="button" class="btn mt-2 btn-secondary btn-sm bo-theo-doi-don-hang" i18n>
-                                  <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
-                                  Quit tracking Order
-                                </button>
+                                <div class="dropdown-menu style-d" style="font-size: 11px">
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     *ngIf="!_scope.checkMarketingAccount()"
+                                     id="chatCustomer" href="javascript:void(0);" data-target="#showChat"
+                                     data-toggle="modal" data-backdrop="static" (click)="chat(order.id, order.ordercode, order.current_status)"
+                                     data-keyboard="false" i18n>
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     id="notifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode)" i18n>
+                                    <i class="fa fa-bell mr-1"></i> push notifi Track Orders
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     id="unNotifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) " i18n>
+                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
+                                    Quit tracking Order
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     href="javascript:void(0);"
+                                     *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()"
+                                     (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()"
+                                     i18n><i class="fa fa-eye mr-1"></i>More Log
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     href="javascript:void(0);"
+                                     (click)="confirmAll(order)"
+                                     *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i>Confirm Orders
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     href="javascript:void(0);"
+                                     *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
+                                     (click)="markAsJunk(order.id)" i18n><i class="fa fa-trash-o mr-1" aria-hidden="true"></i>Mark as Junk
+                                  </a>
+                                </div>
                               </div>
-
-                              <div class="row col-md-12 pb-1">
-                                <button class="btn btn-secondary mt-2 btn-sm"
-                                        *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()"
-                                        (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()"
-                                        i18n>More Log
-                                </button>
-                                <button class="btn btn-secondary mt-2 btn-sm" (click)="confirmAll(order)"
-                                        *ngIf="checkConfirmOrder(order)" i18n>Confirm Orders
-                                </button>
-                                <button class="btn btn-secondary mt-2 btn-sm"
-                                        *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
-                                        (click)="markAsJunk(order.id)" i18n>Mark as Junk
-                                </button>
-                              </div>
-
-
                             </div>
 
 
