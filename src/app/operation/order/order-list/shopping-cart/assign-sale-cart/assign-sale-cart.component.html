@@ -1,5 +1,5 @@
 <li><span class="sty-font"><i class="fa fa-user mr-1 support_email"></i> Sale Support:  </span>
-  {{saleSupport ? saleSupport.username : ""}}
+  {{saleSupport ? saleSupport : ""}}
   <a href="javascript:void(0)" #pop="bs-popover" [popover]="popSaleAssign"><i class="fa fa-edit"></i></a>
   <ng-template #popSaleAssign>
     <div class="row" style="min-width: 250px">
@@ -17,5 +17,5 @@
   </ng-template>
 </li>
 <li *ngIf="scopeS.CheckSale()"><span class="sty-font"><i class="fa fa-envelope mr-1 support_email"></i> Email Sale:  </span>
-  {{saleSupport ? saleSupport.email : ""}}
+  {{saleSupport ? saleSupport : ""}}
 </li>
