@@ -89,6 +89,15 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     this.listShoppingCart();
   }
 
+  loadData(tab, id) {
+    if (tab !== this.typeViewLogs) {
+      this.orderService.get(`${tab}/${id}`, undefined).subscribe(res => {
+        const rs = res;
+        this.listLog = rs.data;
+      });
+    }
+  }
+
   pSearch() {
     const value = this.searchF.value;
     const params: any = {};
