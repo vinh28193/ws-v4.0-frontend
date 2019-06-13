@@ -40,22 +40,10 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   public checkLoadGroup = false;
   public limit: number = 20;
   public page: number = 1;
-  public receiver_name: any = null;
-  public receiver_phone: any = null;
-  public receiver_email: any = null;
-  public receiver_address: any = null;
-  public receiver_district: any = null;
-  public receiver_districtName: any = null;
-  public receiver_province: any = null;
-  public receiver_provinceName: any = null;
-  public receiver_country: any = null;
-  public receiver_countryName: any = null;
-  public receiver_postCode: any = null;
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
   public formEditCustomer: FormGroup;
   public logIdOrder: any;
-
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public __scope: ScopeService, public  notifi: NotifierService) {
     super(orderService);
   }
@@ -69,35 +57,6 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
-  }
-  updateCustomer(order, id, type) {
-    console.log(order);
-    this.id = id;
-    this.type = type;
-    this.checkUpdateCustomer = true;
-    this.activeOrder = order;
-    this.receiver_name = order.receiver_name;
-    this.receiver_phone = order.receiver_phone;
-    this.receiver_email = order.receiver_email;
-    this.receiver_address = order.receiver_address;
-    this.receiver_district = order.receiver_district_id;
-    this.receiver_districtName = order.receiver_district_name;
-    this.receiver_province = order.receiver_province_id;
-    this.receiver_provinceName = order.receiver_province_name;
-    this.receiver_country = order.receiver_country_id;
-    this.receiver_countryName = order.receiver_country_name;
-    this.getCountries();
-    if (!this.isValidValue(this.receiver_country)) {
-      this.receiver_province = [];  // clear old provinces
-      this.receiver_district = []; // clear old districts
-      const firstC = this.receiver_country ? this.receiver_country[0] : false;
-      if (firstC) {
-        this.receiver_country = firstC.id;
-        this.receiver_countryName = firstC.name;
-      }
-    }
-    this.getProvinces();
-    this.getDistrict();
   }
   listShoppingCart() {
     const params = this.pSearch();
@@ -258,61 +217,5 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
         this.listLog = rs.data;
       });
     }
-  }
-
-  updateReceiver() {}
-
-  onCountry(country) {
-    const target = country.target;
-    this.country = target.value;
-    const selectedOptions = target.options;
-    const selectedIndex = selectedOptions.selectedIndex;
-    this.receiver_countryName = selectedOptions[selectedIndex].text;
-    this.provinces = [];  // clear old provinces
-    this.districts = []; // clear old districts
-    this.getProvinces();
-    this.province = '';
-    this.receiver_provinceName = null;
-    if (this.provinces.length > 0) {
-      const firstP = this.provinces[0];
-      this.province = firstP.id;
-      this.receiver_provinceName = firstP.name;
-      this.getDistricts();
-      this.district = '';
-      this.receiver_districtName = null;
-      if (this.districts.length > 0) {
-        const firstD = this.districts[0];
-        this.district = firstD.id;
-        this.receiver_districtName = firstD.name;
-      }
-    }
-  }
-  getInputUnique(attribute: string, unique?: string): string {
-    return attribute + (typeof unique !== 'undefined' ? unique : this.id);
-  }
-
-  onProvince(province) {
-    const target = province.target;
-    this.province = target.value;
-    const selectedOptions = target.options;
-    const selectedIndex = selectedOptions.selectedIndex;
-    this.receiver_provinceName = selectedOptions[selectedIndex].text;
-    this.district = '';
-    this.receiver_districtName = null;
-    this.districts = []; // clear up
-    this.getDistricts();
-    if (this.districts.length > 0) {
-      const first = this.districts[0];
-      this.district = first.id;
-      this.receiver_districtName = first.name;
-    }
-  }
-
-  onDistrict(district) {
-    const target = district.target;
-    this.district = target.value;
-    const selectedOptions = target.options;
-    const selectedIndex = selectedOptions.selectedIndex;
-    this.receiver_districtName = selectedOptions[selectedIndex].text;
   }
 }
