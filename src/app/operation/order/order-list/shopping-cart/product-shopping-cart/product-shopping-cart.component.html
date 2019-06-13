@@ -37,8 +37,7 @@
             <ul>
               <li class="product_name">
                 <a href="{{product.product_link}}" target="_blank" tooltip="{{product.product_name}}">
-                  {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. .
-                  .'):(product.product_name)}}
+                  {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'...'):(product.product_name)}}
                 </a>
               </li>
               <li class="sku">

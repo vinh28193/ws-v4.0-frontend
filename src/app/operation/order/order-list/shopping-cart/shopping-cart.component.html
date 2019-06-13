@@ -160,13 +160,36 @@
           <div><span i18n> CUSTOMER TYPE : </span> <span
             class="text-bold">{{items.order.customer_type | uppercase }} </span>
           </div>
-          <span *ngIf="items.order.customer">{{items.order.customer.username}}
-            - {{items.order.customer.phone}} - {{items.order.customer.email}}
-            <a href="javascript:void(0)" (click)="filterOneCustomer(items.order.customer.email)">
+          <span *ngIf="items.order.buyer_name">{{items.order.buyer_name}}</span>
+            - <span *ngIf="items.order.buyer_phone">{{items.order.buyer_phone}}</span> - <span *ngIf="items.order.buyer_email">{{items.order.buyer_email}}</span>
+            <a href="javascript:void(0)" (click)="filterOneCustomer(items.order.buyer_email)">
                 <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
-              </a>
-            </span>
-          <!--<a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"> </i></a></span>-->
+            </a><br>
+          <span *ngIf="items.order.buyer_address">{{items.order.buyer_address}}</span>(<span *ngIf="items.order.buyer_district_name">{{items.order.buyer_district_name}}</span>
+          - <span *ngIf="items.order.buyer_province_name">{{items.order.buyer_province_name}}</span>)
+        </div>
+      </div>
+      <hr>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12" style="margin-bottom: 2%">
+              <div>
+                <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
+                    i18n>RECEIVER
+                  <a href="javascript:void(0)"
+                     (click)="updateCustomer(items.order);updateReceiverModalCart.show()">
+                    <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+                  </a>
+                </h5>
+              </div>
+              <div class="address">
+                <span *ngIf="items.order.receiver_name">{{items.order.receiver_name}}</span> - <span *ngIf="items.order.receiver_phone">{{items.order.receiver_phone}}</span> - <span *ngIf="items.order.receiver_email">{{items.order.receiver_email}}</span>
+                <br>
+                <span *ngIf="items.order.receiver_address">{{items.order.receiver_address}}</span> ( <span *ngIf="items.order.receiver_district_name">{{items.order.receiver_district_name}}</span> - <span *ngIf="items.order.receiver_province_name">{{items.order.receiver_province_name}})</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row pt-2">
@@ -501,6 +524,9 @@
     <div class="col-md-12 pl-0 mt-2 tab-slider--container">
       <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
         <app-product-shopping-cart *ngIf="pro[items._id]"
+                                   [orderId]="items._id"
+                                   [type] = "items.type"
+                                   [orderCode]="items.orderCode"
                                    [products]="items.order.products"
                                    [policy]="getPolicyCart"></app-product-shopping-cart>
       </div>
@@ -663,5 +689,109 @@
         </button>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #updateReceiverModalCart="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" i18n>Update</h4>
+        <button type="button" (click)="updateReceiverModalCart.hide()" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="checkUpdateCustomer">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">Name</label>
+                  <input type="text" [(ngModel)]="receiver_name"
+                         class="form-control form-control-sm" [id]="getInputUnique('receiver_name')"
+                         [name]="getInputUnique('receiver_name')" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group form-group-sm">
+                  <label  class="form-control-label">Phone</label>
+                  <input type="number" [(ngModel)]="receiver_phone"
+                         class="form-control form-control-sm"
+                         [id]="getInputUnique('receiver_phone')" [name]="getInputUnique('receiver_phone')" [minlength]="9" [maxlength]="12">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">Email</label>
+                  <input required="required" type="email" [(ngModel)]="receiver_email"
+                         class="form-control form-control-sm"
+                         [id]="getInputUnique('receiver_email')" [name]="getInputUnique('receiver_email')">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">Address</label>
+                  <input type="text" [(ngModel)]="receiver_address"
+                         class="form-control form-control-sm" [id]="getInputUnique('receiver_address')"
+                         [name]="getInputUnique('receiver_address')" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">PostCode</label>
+                  <input type="text" [(ngModel)]="postCode" (keyup)="suggestionAddress($event)"
+                         class="form-control form-control-sm" [id]="getInputUnique('postCode')"
+                         [name]="getInputUnique('postCode')" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">Country</label>
+                  <select [(ngModel)]="receiver_country"  class="form-control form-control-sm" [name]="getInputUnique('receiver_country')" [id]="getInputUnique('receiver_country')" (change)="onCountry($event)" required>
+                    <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">Province</label>
+                  <select [(ngModel)]="receiver_province" class="form-control form-control-sm" [name]="getInputUnique('receiver_province')" [id]="getInputUnique('receiver_province')" (change)="onProvince($event)" required>
+                    <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group form-group-sm">
+                  <label class="form-control-label">District</label>
+                  <select [(ngModel)]="receiver_district" class="form-control form-control-sm" [name]="getInputUnique('receiver_district')" [id]="getInputUnique('receiver_district')" (change)="onDistrict($event)" required>
+                    <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <div class="button-group">
+                  <button class="btn btn-sm btn-success pull-right" (click)="updateReceiver()">Update
+                  </button>
+                  <!--button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
+                          (click)="update.hide();"> Cancel
+                  </button-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
