@@ -165,8 +165,8 @@
             <a href="javascript:void(0)" (click)="filterOneCustomer(items.order.buyer_email)">
                 <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
             </a><br>
-          <span *ngIf="items.order.buyer_address">{{items.order.buyer_address}}</span>(<span *ngIf="items.order.buyer_district_name">{{items.order.buyer_district_name}}</span>
-          <span *ngIf="items.order.buyer_province_name"> - {{items.order.buyer_province_name}}</span>)
+          <span *ngIf="items.order.buyer_address">{{items.order.buyer_address}}</span><span *ngIf="order.buyer_province_name || items.order.buyer_district_name">(</span><span *ngIf="items.order.buyer_district_name">{{items.order.buyer_district_name}}</span>
+          <span *ngIf="items.order.buyer_province_name"> - {{items.order.buyer_province_name}}</span><span *ngIf="order.buyer_province_name || items.order.buyer_district_name">)</span>
         </div>
       </div>
       <hr>
@@ -182,7 +182,7 @@
               <div class="address">
                 <span *ngIf="items.order.receiver_name">{{items.order.receiver_name}}</span><span *ngIf="items.order.receiver_phone"> - {{items.order.receiver_phone}}</span><span *ngIf="items.order.receiver_email"> - {{items.order.receiver_email}}</span>
                 <br>
-                <span *ngIf="items.order.receiver_address">{{items.order.receiver_address}}</span> ( <span *ngIf="items.order.receiver_district_name">{{items.order.receiver_district_name}}</span><span *ngIf="items.order.receiver_province_name"> - {{items.order.receiver_province_name}})</span>
+                <span *ngIf="items.order.receiver_address">{{items.order.receiver_address}}</span> <span *ngIf="items.order.receiver_district_name || items.order.receiver_province_name">(</span> <span *ngIf="items.order.receiver_district_name">{{items.order.receiver_district_name}}</span><span *ngIf="items.order.receiver_province_name"> - {{items.order.receiver_province_name}})</span>
               </div>
             </div>
           </div>
@@ -203,11 +203,11 @@
                     i18n>Confirm Order
             </button>
           </div>
-          <div class="btn-group mb-2 mr-2">
-            <button class="btn btn-secondary btn-sm" *ngIf=" __scope.CheckSale()"
-                    (click)="markAsJunkShopping(items._id, items.type)" i18n>Mark as Junk
-            </button>
-          </div>
+          <!--<div class="btn-group mb-2 mr-2">-->
+            <!--<button class="btn btn-secondary btn-sm" *ngIf=" __scope.CheckSale()"-->
+                    <!--(click)="markAsJunkShopping(items._id, items.type)" i18n>Mark as Junk-->
+            <!--</button>-->
+          <!--</div>-->
           <div class="btn-group mr-2 mb-2">
             <button class="btn btn-secondary btn-sm" (click)="viewMoreLogCart(items.key.current_status, items.key.orderCode, items.type);ModalviewMoreLogCart.show()"
                     i18n>More Log
@@ -499,11 +499,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-sm btn-danger"
-                    *ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'"
-                    (click)="cancelOrderCart(items._id, items.type)">
-              <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
-            </button>
+            <!--<button class="btn btn-sm btn-danger"-->
+                    <!--*ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'"-->
+                    <!--(click)="cancelOrderCart(items._id, items.type)">-->
+              <!--<i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>-->
+            <!--</button>-->
           </div>
         </div>
       </div>

@@ -49,6 +49,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   }
 
   ngOnInit() {
+    console.log(this.listSaleAll);
     this.statusOrder = StatusOrder;
     this.searchF = this.fb.group({
       value: '',
