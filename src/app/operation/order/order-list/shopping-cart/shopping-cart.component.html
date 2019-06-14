@@ -7,8 +7,9 @@
           <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyword"
                   id="keyword" formControlName="keyword">
             <option value="0" i18n>ALL Keyword</option>
-            <option value="data.order.customer.email">Email</option>
-            <option value="data.order.customer.phone">Phone</option>
+            <option value="value.ordercode">OrderCode</option>
+            <option value="value.buyer_email">Email</option>
+            <option value="value.buyer_email">Phone</option>
           </select>
           <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()"
                  formControlName="value"
@@ -18,13 +19,13 @@
       <div class="col-md-6 col-sm-12 form-group">
         <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
         <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
-          <select class="col-sm-5 form-control form-control-sm input-group-addon" name="currentStatus" id="timeKey"
+          <select class="form-control form-control-sm" name="currentStatus" id="timeKey"
                   formControlName="timeKey">
             <option value="0" i18n>Time Key</option>
-            <option value="created_at">NEW</option>
-            <option value="1">SUPPORTING</option>
-            <option value="1">SUPPORTED</option>
-            <option value="1">CANCELLED</option>
+            <option value="value.new">NEW</option>
+            <option value="value.supporting">SUPPORTING</option>
+            <option value="value.supported">SUPPORTED</option>
+            <option value="value.cancelled">CANCELLED</option>
           </select>
           <input #drp="bsDaterangepicker"
                  (keyup.enter)="listShoppingCart()"
@@ -42,16 +43,27 @@
                                     </span>
         </div>
       </div>
-      <!--<div class="col-md-3 input-group input-group-sm" id="keyWordGroup1">-->
-      <!--<select class=" form-control form-control-sm input-group-addon" name="searchKeyword"-->
-      <!--id="keyword1" formControlName="statusShopping">-->
-      <!--<option value="0" i18n>ALL Status</option>-->
-      <!--<option value="data.order.customer.email">NEW</option>-->
-      <!--<option value="data.order.customer.phone">SUPPORTING</option>-->
-      <!--<option value="data.order.customer.phone">SUPPORTED</option>-->
-      <!--<option value="data.order.customer.phone">CANCELLED</option>-->
-      <!--</select>-->
-      <!--</div>-->
+      <div class="col-md-3 col-sm-12  form-group m-b-10">
+        <label for="keyword1" class="form-control-label" i18n>Cart Status</label>
+        <select class=" form-control form-control-sm" name="searchKeyword"
+                id="keyword1" formControlName="statusShopping">
+          <option value="0" i18n>ALL Status</option>
+          <option value="NEW">NEW</option>
+          <option value="SUPPORTING">SUPPORTING</option>
+          <option value="SUPPORTED">SUPPORTED</option>
+          <option value="CANCELLED">CANCELLED</option>
+        </select>
+      </div>
+      <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
+        <label class="form-control-label" i18n>Cart Portal</label>
+        <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
+          <option [value]="0" i18n>--All Product Type--</option>
+          <option value="AMAZON_US">AMAZON US</option>
+          <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
+          <option value="OTHER">OTHER</option>
+          <option value="EBAY">EBAY</option>
+        </select>
+      </div>
       <div class="col-md-12 mt-2">
         <button class="btn btn-sm btn-success" (click)="listShoppingCart()"><i class="fa fa-search mr-1"></i><span i18n>Search</span>
         </button>
@@ -102,8 +114,8 @@
               <span class="text-danger">BIN-{{items.order.ordercode}}</span>
             </a>
           </strong> /
-          <span class="Paid badge badge-pill badge-{{items.key.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
-            {{items.key.current_status}}
+          <span class="Paid badge badge-pill badge-{{items.order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+            {{items.order.current_status}}
           </span>
         </h5>
       </div>
@@ -131,9 +143,9 @@
 
       <div class="row m-0 p-0 mt-1">
         <ul class="col-md-11">
-          <app-assign-sale-cart [id]="items._id" [saleId]="items.order.sale_support_id" [type]="items.type"
-                                (checkSale)="loadListSale($event)" [saleAll]="listSaleAll"
-                                [saleSupport]="items.order.support_email"></app-assign-sale-cart>
+          <app-assign-sale-cart [id]="items._id" [saleId]="items.order?.saleSupport?.id" [type]="items.type"
+                                (checkSale)="loadListSale($event)" [saleAll]="listSaleAll" [saleSupportName]="items.order?.saleSupport?.username"
+                                [saleSupport]="items.order?.saleSupport?.email"></app-assign-sale-cart>
         </ul>
         <!--<div class="col-md-1 p-0">-->
         <!--<a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>-->
@@ -198,7 +210,9 @@
               <i class="fa fa-comments mr-1" aria-hidden="true"></i>
               Chat With Customer
             </button>
-            <button class="btn btn-secondary mr-2 btn-sm" (click)="confirmOrderCart(items._id, items.type)"
+          </div>
+          <div class="btn-group mb-2 mr-2">
+            <button class="btn btn-secondary btn-sm" (click)="confirmOrderCart(items._id, items.type)"
                     *ngIf="items.key.current_status == 'NEW' || items.key.current_status == 'SUPPORTING' || items.key.current_status == 'SUPPORTED'"
                     i18n>Confirm Order
             </button>

@@ -14,6 +14,7 @@ import {ScopeService} from '../../../../../core/service/scope.service';
 export class AssignSaleCartComponent extends OrderDataComponent implements OnInit {
   @Input() id: any;
   @Input() saleSupport: any;
+  @Input() saleSupportName: any;
   @Input() type: any;
   @Input() saleAll: any = [];
   @Input() saleId: any;

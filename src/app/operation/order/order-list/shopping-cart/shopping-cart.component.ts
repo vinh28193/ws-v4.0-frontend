@@ -55,6 +55,8 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       value: '',
       keyword: 0,
       timeKey: 0,
+      portal: 0,
+      statusShopping: 0,
       bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
@@ -108,6 +110,15 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     if (value.keyword !== '' && value.keyword !== 0) {
       params.keyword = value.keyword;
     }
+    if (value.timeKey !== '' && value.timeKey !== 0) {
+      params.timeKey = value.timeKey;
+    }
+    if (value.statusShopping !== '' && value.statusShopping !== 0) {
+      params.statusShopping = value.statusShopping;
+    }
+    if (value.portal !== '' && value.portal !== 0) {
+      params.portal = value.portal;
+    }
     if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
       params.startTime = this.convertDateTime(value.bsRangeValue['0']);
       params.endTime = this.convertDateTime(value.bsRangeValue['1']);
@@ -122,14 +133,18 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   filterOneCustomer(email) {
     this.searchF.patchValue({
       value: email,
-      keyword: 'data.order.customer.email'
+      keyword: 'value.buyer_email'
     });
     this.listShoppingCart();
   }
   refreshShopping() {
     this.searchF.patchValue({
       value: '',
-      keyword: 0
+      keyword: 0,
+      timeKey: 0,
+      portal: 0,
+      statusShopping: 0,
+      bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
   }
