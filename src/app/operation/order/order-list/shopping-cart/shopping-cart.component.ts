@@ -44,6 +44,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
   @Output() backOrder = new EventEmitter();
   public formEditCustomer: FormGroup;
   public logIdOrder: any;
+  checkShoppingCart: any;
   constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public __scope: ScopeService, public  notifi: NotifierService) {
     super(orderService);
   }
