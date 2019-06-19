@@ -422,7 +422,7 @@
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </a>
                                   <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     id="unNotifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode) " i18n>
+                                     id="unNotifi" href="javascript:void(0);" (click)="unFollowOrder(order.ordercode)" *ngIf="orderNotiCheck(order.ordercode) " i18n>
                                     <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
                                     Quit tracking Order
                                   </a>

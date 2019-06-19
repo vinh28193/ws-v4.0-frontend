@@ -244,7 +244,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     }
 
-    unfollowOrder(ordercode) {
+    unFollowOrder(ordercode) {
         const fingerprint = this.messagingService.UUID();
         this.orderService.deleteParam(`notifications/${fingerprint}?ordercode=${ordercode}`, `ordercode=${ordercode}`).subscribe(
             ret => {
