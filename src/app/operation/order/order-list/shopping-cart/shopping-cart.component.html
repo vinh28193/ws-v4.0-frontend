@@ -54,7 +54,7 @@
           <option value="CANCELLED">CANCELLED</option>
         </select>
       </div>
-      <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
+      <div class="col-md-3 col-sm-6 form-group m-b-10">
         <label class="form-control-label" i18n>Cart Portal</label>
         <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
           <option [value]="0" i18n>--All Product Type--</option>
@@ -62,6 +62,13 @@
           <option value="AMAZON_JAPAN">AMAZON JAPAN</option>
           <option value="OTHER">OTHER</option>
           <option value="EBAY">EBAY</option>
+        </select>
+      </div>
+      <div class="col-md-3 col-sm-6 form-group m-b-10">
+        <label class="form-control-label" i18n>Potential</label>
+        <select class="form-control form-control-sm" name="portal" id="potential" formControlName="potential">
+          <option [value]= "10" i18n>--All--</option>
+          <option value="1">Potential</option>
         </select>
       </div>
       <div class="col-md-12 mt-2">
@@ -116,7 +123,8 @@
           </strong> /
           <span class="Paid badge badge-pill badge-{{items.order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
             {{items.order.current_status}}
-          </span>
+          </span> <span *ngIf="items.order.potential == 1">/</span>
+          <span class="badge badge-pill badge-warning">{{items.order.potential | potential}}</span>
         </h5>
       </div>
       <div class="mt-1">

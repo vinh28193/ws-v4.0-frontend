@@ -57,6 +57,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       keyword: 0,
       timeKey: 0,
       portal: 0,
+      potential: 10,
       statusShopping: 0,
       bsRangeValue: {start: '', end: ''},
     });
@@ -120,6 +121,9 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
     if (value.portal !== '' && value.portal !== 0) {
       params.portal = value.portal;
     }
+    if (value.potential !== '' && value.potential !== 10) {
+      params.potential = value.potential;
+    }
     if (value.bsRangeValue.length > 0 && value.bsRangeValue !== 'ALL') {
       params.startTime = this.convertDateTime(value.bsRangeValue['0']);
       params.endTime = this.convertDateTime(value.bsRangeValue['1']);
@@ -144,6 +148,7 @@ export class ShoppingCartComponent extends OrderDataComponent implements OnInit 
       keyword: 0,
       timeKey: 0,
       portal: 0,
+      potential: 10,
       statusShopping: 0,
       bsRangeValue: {start: '', end: ''},
     });

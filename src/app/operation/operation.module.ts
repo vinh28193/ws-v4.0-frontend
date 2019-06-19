@@ -34,6 +34,7 @@ import { ClientComponent } from './wallet/client/client.component';
 import { TransactionComponent } from './wallet/transaction/transaction.component';
 import { ViewLogTrackingComponent } from './view-log-tracking/view-log-tracking.component';
 import { NotificationBackgroundPipe } from './pipes/notification-background.pipe';
+import { PotentialPipe } from './pipes/potential.pipe';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { NotificationBackgroundPipe } from './pipes/notification-background.pipe
         TransactionComponent,
         ViewLogTrackingComponent,
         NotificationBackgroundPipe,
+        PotentialPipe,
     ],
     providers: [
         OperationService
@@ -101,7 +103,8 @@ import { NotificationBackgroundPipe } from './pipes/notification-background.pipe
         MarkSupportingPipe,
         PagingCustomComponent,
         ViewLogTrackingComponent,
-        NotificationBackgroundPipe
+        NotificationBackgroundPipe,
+        PotentialPipe,
     ]
 })
 export class OperationModule {
