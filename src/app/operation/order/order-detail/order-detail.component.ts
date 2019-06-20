@@ -79,20 +79,22 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
         } else if ($event.keyCode === 13) {
             console.log('id ' + this.idEdit);
             console.log('fee ' + this.fee);
-            if (this.oldfee === this.fee) {
-                console.log('Không có thay đổi phí');
-                this.idEdit = 0;
-                this.fee = 0;
-                this.updateProductId = 0;
-            } else {
-                const prodFee = this.setFeeChange();
-                this.orderService.putProductFee('update/' + this.idEdit, prodFee).subscribe(rs => {
+            const params: any = {};
+            params.fee = this.fee;
+            // if (this.oldfee === this.fee) {
+            //     console.log('Không có thay đổi phí');
+            //     this.idEdit = 0;
+            //     this.fee = 0;
+            //     this.updateProductId = 0;
+            // } else {
+            //     const prodFee = this.setFeeChange();
+                this.orderService.put(`fee/${this.idEdit}`, params).subscribe(rs => {
                     const res: any = rs;
                     if (res.success) {
                         console.log('Cập nhật thành công!');
                         this.editFee.emit(true);
                     } else {
-                        prodFee.local_amount = this.oldfee;
+                        // prodFee.local_amount = this.oldfee;
                         this.editFee.emit(true);
                         this.popup.error(res.message);
                     }
@@ -100,7 +102,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
                     this.fee = 0;
                     this.updateProductId = 0;
                 });
-            }
+            // }
         }
     }
 
@@ -269,11 +271,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   itemSubtotal(productFees) {
       let tottal = 0;
      for (let j = 0; j < productFees.length; j++) {
-       if (productFees[j]['type'] === 'product_price_origin') {
+       if (productFees[j]['name'] === 'product_price_origin') {
          tottal += Number(productFees[j]['local_amount']);
-       } if (productFees[j]['type'] === 'origin_shipping_fee') {
+       } if (productFees[j]['name'] === 'origin_shipping_fee') {
          tottal += Number(productFees[j]['local_amount']);
-       } if (productFees[j]['type'] === 'tax_fee_origin') {
+       } if (productFees[j]['name'] === 'tax_fee_origin') {
          tottal += Number(productFees[j]['local_amount']);
        }
      }
@@ -282,12 +284,12 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   itemSubtotalAmount(productFees) {
     let tottalAmount = 0;
     for (let j = 0; j < productFees.length; j++) {
-      if (productFees[j]['type'] === 'product_price_origin') {
+      if (productFees[j]['name'] === 'product_price_origin') {
         // console.log(productFees[j]['amount']);
         tottalAmount += Number(productFees[j]['amount']);
-      } if (productFees[j]['type'] === 'origin_shipping_fee') {
+      } if (productFees[j]['name'] === 'origin_shipping_fee') {
         tottalAmount += Number(productFees[j]['amount']);
-      } if (productFees[j]['type'] === 'tax_fee_origin') {
+      } if (productFees[j]['name'] === 'tax_fee_origin') {
         tottalAmount += Number(productFees[j]['amount']);
       }
     }

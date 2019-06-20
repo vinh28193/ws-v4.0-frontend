@@ -1804,7 +1804,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="col-md-5 text-right style-padding-left dong">
                 <!--span>  {{ getTotalorderListFee(orderList.total_amount_local, orderList.total_insurance_fee_local, orderList.total_inspection_fee_local, orderList.total_packing_fee_local, orderList.total_delivery_fee_local, orderList.total_custom_fee_amount_local, orderList.exchange_rate_fee, orderList.total_origin_shipping_fee_local, orderList.total_weshop_fee_local, orderList.total_origin_tax_fee_local, orderList.total_fee_amount_local ) | number}}</span-->
-                <span>{{orderList.total_fee_amount_local ? orderList.total_fee_amount_local : 0 }}</span>
+                <span>{{orderList.total_fee_amount_local | number }}</span>
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
@@ -1816,7 +1816,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <span i18n>Exchage rate:</span>
               </div>
               <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
-                <span> {{orderList.exchange_rate_fee}} </span>
+                <span> {{orderList.exchange_rate_fee | number}} </span>
+                <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
             <div class="row exchange_rate_purchase">
@@ -1824,7 +1825,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <span i18n>Exchage rate Purchase:  </span>
               </div>
               <div class="col-md-5 text-right style-padding-left Exchage_local">
-                {{orderList.exchange_rate_purchase}}
+                {{orderList.exchange_rate_purchase | number}}
               </div>
             </div>
 
