@@ -106,6 +106,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
+    public editFee: FormGroup;
     public formAsignUser: FormGroup;
     public chatSupporting: FormGroup;
     public createTemplate: FormGroup;
@@ -116,6 +117,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public formSearchList: FormGroup;
     public assignSFO: FormGroup;
     public checkOpenAdJustPayment = false;
+    public checkUpdateConfirm = false;
     public checkOpenPromotion = false;
     public checkOpenPayBack = false;
     public checkSellerRefund = false;
@@ -128,6 +130,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     timeKeys: any = [];
     products: any;
     provinces: any = [];
+    OrderAll: any = [];
     public bsRangeValue: Date[];
     paymentRequests: any = [];
     statusOds: any = [];
@@ -154,11 +157,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public prods: any = [];
     public checkUpdateCustomer = false;
     public checkUpdateOrderChatRefund = false;
+    public checkOffUpdatefee = false;
     public checkOpenTracking = false;
+    public checkOffUpdatefeePkd = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
-    public idOrder: any;
+    public pkh: any;
+    public total_inspection_fee_local: any;
+    public total_insurance_fee_local: any;
     public modelAddTransaction = {
         order_code: '',
         type: 'addfee',
@@ -847,6 +854,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkListOrderChatRefund = false;
         this.checkOpenTracking = false;
         this.checkOpenAssignSFO = false;
+        this.checkUpdateConfirm = false;
         $('.modal').modal('hide');
     }
 
@@ -920,6 +928,27 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.editForm = this.fb.group({
             total_refund_amount_local: this.total_refund_amount_local
         });
+    }
+    openConfirmAll(order) {
+        this.OrderAll = order;
+        this.total_inspection_fee_local = order.total_inspection_fee_local
+        this.total_insurance_fee_local = order.total_insurance_fee_local
+        this.checkUpdateConfirm = true;
+    }
+
+    updateFeeOrder(id) {
+      const messagePop = 'Do you want Update Fee ';
+      this.popup.warning(() => {
+        const params: any = {};
+        params.typeUpdate = 'updateFee';
+        params.total_inspection_fee_local = this.total_inspection_fee_local;
+        params.total_insurance_fee_local = this.total_insurance_fee_local;
+        this.orderService.put(`order/${id}`, params).subscribe(res => {
+          this.checkOffUpdatefee = false;
+          this.checkOffUpdatefeePkd = false;
+          this.listOrders();
+        });
+      }, messagePop);
     }
 
     updatePayBack() {
@@ -1686,6 +1715,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.countClickBuyNow = this.countClickBuyNow + 1;
       this.openUpdateOrder(order);
       this.purchaseCard.show();
+  }
+  openEditfeePkd() {
+      this.checkOffUpdatefeePkd = true;
+  }
+  openEditfeee() {
+      this.checkOffUpdatefee = true;
   }
 }
 
