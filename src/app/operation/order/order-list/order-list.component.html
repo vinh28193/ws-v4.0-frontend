@@ -628,7 +628,7 @@
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                   <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
-                                  <span>{{order.total_fee_amount_local ? order.total_fee_amount_local : 0 }}</span>
+                                  <span>{{order.total_fee_amount_local | number }}</span>
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
@@ -640,7 +640,8 @@
                                   <span i18n>Exchage rate:</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
-                                  <span> {{order.exchange_rate_fee}} </span>
+                                  <span> {{order.exchange_rate_fee | number}} </span>
+                                  <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
                               <div class="row exchange_rate_purchase">

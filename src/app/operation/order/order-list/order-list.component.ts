@@ -616,7 +616,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 }
             }
         }
-        const messagePop = 'Do you want Confirm order ' + order.id;
+        const messagePop = 'Do you want Confirm order ' + order.id + 'total fee order' + order.total_fee_amount_local;
         const messagePop1 = 'You have not selected category SOI-' + this.IDPro;
         if (this.checkPur) {
             this.popup.warning(() => {
