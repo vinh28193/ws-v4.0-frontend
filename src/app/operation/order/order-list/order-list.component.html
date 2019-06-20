@@ -418,6 +418,13 @@
                                     <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
                                   </a>
                                   <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                     *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()"
+                                     id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
+                                     data-toggle="modal" data-backdrop="static" (click)="chatG(order.id, order.ordercode, order.current_status)"
+                                     data-keyboard="false" i18n>
+                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
+                                  </a>
+                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
                                      id="notifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)" *ngIf="!orderNotiCheck(order.ordercode)" i18n>
                                     <i class="fa fa-bell mr-1"></i> push notifi Track Orders
                                   </a>
@@ -744,14 +751,6 @@
                                     <i class="fa fa-dollar" aria-hidden="true"></i>
                                     Arrears
                                   </button>
-                                  <button type="button"
-                                          *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()"
-                                          (click)="chatG(order.id, order.ordercode, order.current_status)"
-                                          class="btn btn-secondary btn-sm mr-2 mb-2" data-target="#showChatGroup"
-                                          data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-                                    <i class="fa fa-comments" aria-hidden="true"></i>
-                                    Chat Group WS
-                                  </button>
 
                                   <div *ngIf="checkBuynow(order)">
                                     <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"
@@ -893,10 +892,6 @@
                               <div class="row m-t-10">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group mr-2 mb-2">
-                                    <button class="btn btn-sm btn-danger" *ngIf="checkCancel(order.current_status)"
-                                            (click)="cancelOrder(order.id)">
-                                      <i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>
-                                    </button>
                                     <div class="btn-group">
                                       <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
                                               aria-haspopup="true" aria-expanded="false" i18n>
@@ -961,7 +956,12 @@
                                            href="javascript:void(0);" data-target="#updateOrderCode"
                                            *ngIf="_scope.checkSuperAdmin()" (click)="openUpdateOrderCode(order)"
                                            data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
-                                          class="fa fa-check-circle mr-2" aria-hidden="true"></i>Update Order</a>
+                                          class="fa fa-check-circle mr-2" aria-hidden="true"></i>Update Order
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" id="cancel order"
+                                           href="javascript:void(0);" *ngIf="checkCancel(order.current_status)"
+                                           (click)="cancelOrder(order.id)" ><i class="fa fa-trash mr-2" aria-hidden="true"></i>Update Order
+                                        </a>
                                         <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"  id="assignSaleFollowOd" href="javascript:void(0);"  data-target="#assignSaleFollowOrder" data-toggle="modal" data-backdrop="static" (click)="openAssignSaleFollowOrder(order)" data-keyboard="false" i18n><i class="fa fa-check-circle mr-2" aria-hidden="true" ></i>Assign Sale Follow Order</a>-->
                                       </div>
                                     </div>
