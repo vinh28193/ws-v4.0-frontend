@@ -75,6 +75,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderIdChat: any;
     public code: any;
     public totalOrder: any;
+    public total_custom_fee_amount_local: any;
     public proId: any;
     public codeG: any;
     public checkLoad = false;
@@ -83,7 +84,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkShoppingCart = false;
     public AdjustPaymentOderId = false;
     public checkCreateOrderChatRefund = false;
+    public checkOffUpdatefeePthq = false;
     public checkListOrderChatRefund = false;
+    public checkOffUpdatefeeWeshop = false;
     public checkOpenAssignSFO = false;
     public alive = true;
     public updateOrderId: any;
@@ -152,6 +155,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public total_weshop_fee_local: any;
     public promotion_id: any;
     public activeOrder: any = [];
     public prods: any = [];
@@ -931,8 +935,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     openConfirmAll(order) {
         this.OrderAll = order;
-        this.total_inspection_fee_local = order.total_inspection_fee_local
-        this.total_insurance_fee_local = order.total_insurance_fee_local
+        this.total_inspection_fee_local = order.total_inspection_fee_local;
+        this.total_insurance_fee_local = order.total_insurance_fee_local;
+        this.total_custom_fee_amount_local = order.total_custom_fee_amount_local;
+        this.total_weshop_fee_local = order.total_weshop_fee_local;
         this.checkUpdateConfirm = true;
     }
 
@@ -946,6 +952,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.orderService.put(`order/${id}`, params).subscribe(res => {
           this.checkOffUpdatefee = false;
           this.checkOffUpdatefeePkd = false;
+          this.checkOffUpdatefeePthq = false;
+          this.checkOffUpdatefeeWeshop = false;
           this.listOrders();
         });
       }, messagePop);
@@ -1716,11 +1724,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.openUpdateOrder(order);
       this.purchaseCard.show();
   }
+  openEditfeePthq() {
+      this.checkOffUpdatefeePthq = true;
+  }
   openEditfeePkd() {
       this.checkOffUpdatefeePkd = true;
   }
   openEditfeee() {
       this.checkOffUpdatefee = true;
+  }
+  openEditfeeWeshop() {
+      this.checkOffUpdatefeeWeshop = true;
   }
 }
 

@@ -2665,24 +2665,40 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
       <div class="moda-body" *ngIf="checkUpdateConfirm">
         <div class="card">
           <div class="card-body">
+            <div class="row mt-1">
+              <div class="col-md-6" i18n>Total delivery fee local</div>
+              <div class="col-md-5 pr-0 text-right">
+                {{OrderAll.total_delivery_fee_local | currency:'VND'}}
+              </div>
+            </div>
               <div class="row mt-1">
                 <div class="col-md-6" i18n>Weshop Fee</div>
-                <div class="col-md-6">
-                  {{OrderAll.total_weshop_fee_local | currency:'VND'}}
+                <div class="col-md-5 pr-0 text-right">
+                  {{total_weshop_fee_local | currency:'VND'}}
+                </div>
+                <div class="col-md-1">
+                  <i class="fa fa-edit" (click)="weshop = !weshop; openEditfeeWeshop()"></i>
+                </div>
+              </div>
+              <div class="row text-right" [hidden]="!weshop" *ngIf="checkOffUpdatefeeWeshop">
+                <div class="col-md-12 text-right">
+                  <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_weshop_fee_local" [(ngModel)]="total_weshop_fee_local">
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">Phí chuyển đổi ngoại tệ</div>
-                <div class="col-md-6">{{OrderAll.exchange_rate_fee | currency:'VND'}}</div>
+                <div class="col-md-6" i18n>Exchange rate fee</div>
+                <div class="col-md-5 pr-0 text-right" >{{OrderAll.exchange_rate_fee | currency:'VND'}}</div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">Phí vận chuyển quốc tế</div>
-                <div class="col-md-6">{{OrderAll.total_intl_shipping_fee_local | currency:'VND'}}</div>
+                <div class="col-md-6" i18n>Total intl shipping fee local</div>
+                <div class="col-md-5 pr-0 text-right">{{OrderAll.total_intl_shipping_fee_local | currency:'VND'}}</div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">Phí kiểm hàng</div>
-                <div class="col-md-6">
+                <div class="col-md-6" i18n>Total inspection fee local</div>
+                <div class="col-md-5 pr-0 text-right">
                   {{total_inspection_fee_local | currency:'VND'}}
+                </div>
+                <div class="col-md-1">
                   <i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>
                 </div>
               </div>
@@ -2692,13 +2708,25 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
               </div>
               <div class="row mt-2">
-                <div class="col-md-6">Phí phụ thu hải quan</div>
-                <div class="col-md-6">{{OrderAll.total_custom_fee_amount_local | currency:'VND'}}</div>
+                <div class="col-md-6" i18n>Total custom fee amount local</div>
+                <div class="col-md-5 pr-0 text-right">
+                  {{total_custom_fee_amount_local | currency:'VND'}}
+                </div>
+                <div class="col-md-1">
+                  <i class="fa fa-edit" (click)="pthq = !pthq; openEditfeePthq()"></i>
+                </div>
               </div>
+            <div class="row text-right" [hidden]="!pthq" *ngIf="checkOffUpdatefeePthq">
+              <div class="col-md-12 text-right">
+                <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_custom_fee_amount_local" [(ngModel)]="total_custom_fee_amount_local">
+              </div>
+            </div>
               <div class="row mt-2">
-                <div class="col-md-6">Phí bảo hiểm</div>
-                <div class="col-md-6">
+                <div class="col-md-6" i18n>Total insurance fee local</div>
+                <div class="col-md-5 pr-0 text-right">
                   {{total_insurance_fee_local | currency:'VND'}}
+                </div>
+                <div class="col-md-1">
                   <i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>
                 </div>
               </div>
@@ -2708,7 +2736,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
               </div>
               <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-md-12 text-right">
                   <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)">Confirm Order</button>
                   <button class="btn btn-danger btn-sm" (click)="offOption()">Cancel</button>
                 </div>
