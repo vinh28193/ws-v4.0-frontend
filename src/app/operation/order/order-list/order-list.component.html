@@ -607,14 +607,24 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-
-                                <div class="row Total_VAT_amount">
+                                <div class="row Total_insurance_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total VAT amount</span>
+                                    <span i18n>Total insurance fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_amount_local | number}}
+                                    {{order.total_insurance_fee_local | number}}
+                                  </span>
+                                    <span>{{order.store_id | currencyStore}}</span>
+                                  </div>
+                                </div>
+                                <div class="row Total_VAT_amount">
+                                  <div class="col-md-7 style-padding-right dong">
+                                    <span i18n>Additional Service</span>
+                                  </div>
+                                  <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{order.additional_service | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
