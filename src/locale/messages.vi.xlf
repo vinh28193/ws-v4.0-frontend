@@ -542,7 +542,7 @@
         </context-group>
       </trans-unit><trans-unit id="5beef87b04874755524c0e45ffea58ae86a0d361" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i>"/>More Log
-                                  </source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i"/> Đăng nhập thêm</target>
+                                  </source><target state="translated"><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i>"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i"/> Xem Log</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">440</context>
@@ -1324,7 +1324,7 @@
         
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context><context context-type="linenumber">225</context></context-group></trans-unit><trans-unit id="df5ad18b5ccd7a7d4454640e6e1dbaa93d80f8ce" datatype="html">
         <source>More Log
-            </source><target state="translated">Đăng nhập thêm</target>
+            </source><target state="translated">Xem log</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context><context context-type="linenumber">235</context></context-group></trans-unit><trans-unit id="8a1388c26fe7acd3699c63defae49c9f6a9a01ad" datatype="html">
         <source>
