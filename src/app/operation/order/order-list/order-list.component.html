@@ -186,7 +186,7 @@
               <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i
                 class="fa fa-file-excel-o"></i> Export Excel
               </button>
-              <button class="btn btn-info btn-sm text-white ml-1" i18n *ngIf="!checkShoppingCart"
+              <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart"
                       (click)="listShoppingCart()">NEW
               </button>
               <!--<button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
@@ -2676,9 +2676,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-5 pr-0 text-right">
                   {{total_weshop_fee_local | currency:'VND'}}
                 </div>
-                <div class="col-md-1">
-                  <i class="fa fa-edit" (click)="weshop = !weshop; openEditfeeWeshop()"></i>
-                </div>
+                <!--<div class="col-md-1">-->
+                  <!--<i class="fa fa-edit" (click)="weshop = !weshop; openEditfeeWeshop()"></i>-->
+                <!--</div>-->
               </div>
               <div class="row text-right" [hidden]="!weshop" *ngIf="checkOffUpdatefeeWeshop">
                 <div class="col-md-12 text-right">
@@ -2736,7 +2736,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
               </div>
             <div class="row mt-2">
-              <div class="col-md-6">Additional service</div>
+              <div class="col-md-6" i18n>Additional service</div>
               <div class="col-md-5 pr-0 text-right">
                 {{additional_service | currency:'VND'}}
               </div>

@@ -1290,14 +1290,6 @@
           <context context-type="linenumber">186</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7f5464e30ede1b7835ff3d25fd846a354de39d7d" datatype="html">
-        <source>NEW
-              </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">190</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="74de46425f750b802a7868161aa0fbb86ae28066" datatype="html">
         <source>Order code </source>
         <context-group purpose="location">
@@ -3031,6 +3023,13 @@ Press Shift + Enter to get down the line.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2725</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="99707e030ec29ff41353950f3cee490ab7827779" datatype="html">
+        <source>Additional service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">2739</context>
         </context-group>
       </trans-unit>
       <trans-unit id="883fc4aaa422ccc4f35f7010861930780f2068c1" datatype="html">
