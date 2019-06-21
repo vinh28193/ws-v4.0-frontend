@@ -57,6 +57,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
+    public additional_service = 0;
     public statusO: any;
     public totalUnPaid: any;
     public checkStatusValue: any;
@@ -75,7 +76,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderIdChat: any;
     public code: any;
     public totalOrder: any;
-    public total_custom_fee_amount_local: any;
+    public total_custom_fee_amount_local = 0;
     public proId: any;
     public codeG: any;
     public checkLoad = false;
@@ -87,6 +88,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOffUpdatefeePthq = false;
     public checkListOrderChatRefund = false;
     public checkOffUpdatefeeWeshop = false;
+    public checkOffUpdatefeeDvct = false;
     public checkOpenAssignSFO = false;
     public alive = true;
     public updateOrderId: any;
@@ -155,7 +157,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
-    public total_weshop_fee_local: any;
+    public total_weshop_fee_local = 0;
     public promotion_id: any;
     public activeOrder: any = [];
     public prods: any = [];
@@ -168,8 +170,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public pkh: any;
-    public total_inspection_fee_local: any;
-    public total_insurance_fee_local: any;
+    public total_inspection_fee_local = 0;
+    public total_insurance_fee_local = 0;
     public modelAddTransaction = {
         order_code: '',
         type: 'addfee',
@@ -935,10 +937,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
     openConfirmAll(order) {
         this.OrderAll = order;
-        this.total_inspection_fee_local = order.total_inspection_fee_local;
-        this.total_insurance_fee_local = order.total_insurance_fee_local;
-        this.total_custom_fee_amount_local = order.total_custom_fee_amount_local;
-        this.total_weshop_fee_local = order.total_weshop_fee_local;
+        this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
+        this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
+        this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
+        this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
+        this.additional_service = order.additional_service ? order.additional_service : 0;
         this.checkUpdateConfirm = true;
     }
 
@@ -949,12 +952,17 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.typeUpdate = 'updateFee';
         params.total_inspection_fee_local = this.total_inspection_fee_local;
         params.total_insurance_fee_local = this.total_insurance_fee_local;
+        params.total_custom_fee_amount_local = this.total_insurance_fee_local;
+        params.total_weshop_fee_local = this.total_insurance_fee_local;
+        params.additional_service = this.total_insurance_fee_local;
         this.orderService.put(`order/${id}`, params).subscribe(res => {
           this.checkOffUpdatefee = false;
           this.checkOffUpdatefeePkd = false;
           this.checkOffUpdatefeePthq = false;
           this.checkOffUpdatefeeWeshop = false;
+          this.checkOffUpdatefeeDvct = false;
           this.listOrders();
+          this.notifier.notify('success', 'update fee success');
         });
       }, messagePop);
     }
@@ -1735,6 +1743,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   openEditfeeWeshop() {
       this.checkOffUpdatefeeWeshop = true;
+  }
+  openEditfeeDvct() {
+    this.checkOffUpdatefeeDvct = true;
   }
 }
 

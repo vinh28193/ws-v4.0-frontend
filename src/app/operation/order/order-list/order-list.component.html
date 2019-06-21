@@ -2716,11 +2716,11 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <i class="fa fa-edit" (click)="pthq = !pthq; openEditfeePthq()"></i>
                 </div>
               </div>
-            <div class="row text-right" [hidden]="!pthq" *ngIf="checkOffUpdatefeePthq">
-              <div class="col-md-12 text-right">
-                <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_custom_fee_amount_local" [(ngModel)]="total_custom_fee_amount_local">
+              <div class="row text-right" [hidden]="!pthq" *ngIf="checkOffUpdatefeePthq">
+                <div class="col-md-12 text-right">
+                  <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_custom_fee_amount_local" [(ngModel)]="total_custom_fee_amount_local">
+                </div>
               </div>
-            </div>
               <div class="row mt-2">
                 <div class="col-md-6" i18n>Total insurance fee local</div>
                 <div class="col-md-5 pr-0 text-right">
@@ -2735,6 +2735,20 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_insurance_fee_local" [(ngModel)]="total_insurance_fee_local">
                 </div>
               </div>
+            <div class="row mt-2">
+              <div class="col-md-6">Additional service</div>
+              <div class="col-md-5 pr-0 text-right">
+                {{additional_service | currency:'VND'}}
+              </div>
+              <div class="col-md-1">
+                <i class="fa fa-edit" (click)="dvct = !dvct; openEditfeeDvct()"></i>
+              </div>
+            </div>
+            <div class="row text-right" [hidden]="!dvct" *ngIf="checkOffUpdatefeeDvct">
+              <div class="col-md-12 text-right">
+                <input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="additional_service" [(ngModel)]="additional_service">
+              </div>
+            </div>
               <div class="row mt-4">
                 <div class="col-md-12 text-right">
                   <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)">Confirm Order</button>
