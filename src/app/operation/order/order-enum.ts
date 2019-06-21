@@ -3,7 +3,6 @@ export const searchKeys = [
     {key: 'order.ordercode', name: 'BIN'},
     {key: 'product.id', name: 'SOI'},
     {key: 'product.sku', name: 'SKU'},
-    {key: 'coupon.code', name: 'Coupon Code'},
     {key: 'product.category_id', name: 'Category Id'},
     {key: 'product.product_name', name: 'Product Name'},
     {key: 'email', name: 'Email'},

@@ -2707,13 +2707,25 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-6" i18n>Total inspection fee local</div>
                 <div class="col-md-5 pr-0 text-right">
                   <!--{{total_inspection_fee_local | currency:'VND'}}-->
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="true" checked>
-                    <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
+                  <div *ngIf="check_inspection == 1">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1" [checked]="checked">
+                      <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">
+                      <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="false">
-                    <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
+                  <div *ngIf="check_inspection == 0">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">
+                      <label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0" [checked]="checked">
+                      <label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>
+                    </div>
                   </div>
                 </div>
                 <!--<div class="col-md-1">-->
@@ -2743,13 +2755,26 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-6" i18n>Total insurance fee local</div>
                 <div class="col-md-5 pr-0 text-right">
                   <!--{{total_insurance_fee_local | currency:'VND'}}-->
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio()" [(ngModel)]="check_insurance" value="1">
-                    <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
+                  <div *ngIf="check_insurance == 1">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
+                      <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance3" [value]="0">
+                      <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance" value="0">
-                    <label class="form-check-label" for="check_insurance" style="font-size: 12px">No</label>
+
+                  <div *ngIf="check_insurance == 0">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1">
+                      <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance2" [value]="0" [checked]="checked">
+                      <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
+                    </div>
                   </div>
 
                 </div>
@@ -2765,7 +2790,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="row mt-2">
               <div class="col-md-6" i18n>Additional service</div>
               <div class="col-md-5 pr-0 text-right">
-                {{totalNumberAny(total_inspection_fee_local,total_insurance_fee_local)}}
+                {{totalNumberAny(total_inspection_fee_local,total_insurance_fee_local) | currency: "VND"}}
               </div>
               <div class="col-md-1">
                 <i class="fa fa-edit" (click)="dvct = !dvct; openEditfeeDvct()"></i>

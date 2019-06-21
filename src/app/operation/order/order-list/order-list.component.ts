@@ -1760,8 +1760,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       console.log(this.check_insurance);
   }
   totalNumberAny(x , y) {
-      console.log(x + y);
-      return x + y;
+      const c = toNumber(x) + toNumber(y)
+      return c;
   }
 }
 
