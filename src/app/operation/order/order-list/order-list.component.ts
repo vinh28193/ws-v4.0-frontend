@@ -16,6 +16,7 @@ import {NotifierService} from 'angular-notifier';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
+import {formatNumber} from '@angular/common';
 
 declare var jQuery: any;
 declare var $: any;
@@ -57,6 +58,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
+    public check_insurance = 0;
+    public check_inspection = 0;
     public additional_service = 0;
     public statusO: any;
     public totalUnPaid: any;
@@ -942,6 +945,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
         this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
         this.additional_service = order.additional_service ? order.additional_service : 0;
+        this.check_inspection = order.check_inspection ? order.check_inspection : 0;
+        this.check_insurance = order.check_insurance ? order.check_insurance : 0;
         this.checkUpdateConfirm = true;
     }
 
@@ -954,7 +959,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.total_insurance_fee_local = this.total_insurance_fee_local;
         params.total_custom_fee_amount_local = this.total_insurance_fee_local;
         params.total_weshop_fee_local = this.total_insurance_fee_local;
-        params.additional_service = this.total_insurance_fee_local;
+        params.check_inspection = this.check_inspection;
+        params.check_insurance = this.check_insurance;
+        params.additional_service = this.total_insurance_fee_local + this.total_inspection_fee_local;
         this.orderService.put(`order/${id}`, params).subscribe(res => {
           this.checkOffUpdatefee = false;
           this.checkOffUpdatefeePkd = false;
@@ -1746,6 +1753,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   openEditfeeDvct() {
     this.checkOffUpdatefeeDvct = true;
+  }
+
+  loadRadio() {
+      console.log(this.check_inspection);
+      console.log(this.check_insurance);
+  }
+  totalNumberAny(x , y) {
+      console.log(x + y);
+      return x + y;
   }
 }
 

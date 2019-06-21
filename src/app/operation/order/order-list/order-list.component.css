@@ -577,4 +577,28 @@ ul.dropdown-menu.notifications {
 /*color:#ff2c74;*/
 /*}*/
 
-
+[type=radio] + label:after, [type=radio] + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 4px;
+  width: 12px;
+  height: 12px;
+  z-index: 0;
+  -webkit-transition: .28s ease;
+  -o-transition: .28s ease;
+  transition: .28s ease;
+}
+[type=radio]:not(:checked) + label {
+  padding-left: 25px;
+  height: 25px;
+  line-height: 20px;
+  font-weight: normal;
+}
+[type=radio]:checked + label {
+  padding-left: 26px;
+  height: 25px;
+  line-height: 20px;
+  font-weight: normal;
+}

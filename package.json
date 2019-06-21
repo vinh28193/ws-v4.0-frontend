@@ -42,6 +42,7 @@
     "ngx-bootstrap": "^2.0.5",
     "ngx-daterangepicker-material": "^2.1.0",
     "ngx-i18nsupport": "^0.17.1",
+    "ngx-infinite-scroller": "^0.4.4",
     "ngx-loading": "^2.0.1",
     "ngx-push-notifications": "^7.0.2",
     "ngx-timeago": "^1.0.1",
