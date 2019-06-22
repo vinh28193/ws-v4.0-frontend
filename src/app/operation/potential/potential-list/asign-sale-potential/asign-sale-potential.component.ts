@@ -32,6 +32,7 @@ export class AsignSalePotentialComponent extends OrderDataComponent implements O
   }
 
   assignSale() {
+    console.log(this.saleId);
     const messagePop = 'Do you want assign order ' + this.id + ' to new sale ';
     this.popup.warning(() => {
       const params: any = {};

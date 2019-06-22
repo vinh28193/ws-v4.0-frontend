@@ -15,6 +15,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public getPolicyCart: any = [];
   public activeOrder: any = [];
   public listLog: any = [];
+  public listSale: any = [];
   public bsRangeValue: Date[];
   public metaShopping: any = {};
   public hideme: any = {};
@@ -58,6 +59,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       bsRangeValue: {start: '', end: ''},
     });
     this.listShoppingCart();
+    this.getSale();
   }
   listShoppingCart() {
     const params = this.pSearch();
@@ -246,5 +248,12 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
         this.listLog = rs.data;
       });
     }
+  }
+
+  getSale() {
+    this.potentialService.get('sale-support', undefined).subscribe(rss => {
+      this.listSale = rss;
+      console.log(this.listSale);
+    });
   }
 }

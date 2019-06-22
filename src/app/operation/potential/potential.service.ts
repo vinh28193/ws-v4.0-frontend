@@ -99,17 +99,4 @@ export class PotentialService extends OperationService {
   postPurchaseService(url, item: any | undefined) {
     return this.post('purchase-account/' + url, item);
   }
-  ListShopping(filter: any | undefined) {
-    return   this.get('cart', filter);
-  }
-
-  postChat(item: any | undefined) {
-    return this.post(`chat`, item);
-  }
-
-  listChatMongo(item: any | undefined) {
-    return this.getNoLoad(`list-chat-mongo`, item);
-  }
-
-
 }

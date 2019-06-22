@@ -607,17 +607,6 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insurance_fee">
-                                  <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total insurance fee</span>
-                                  </div>
-                                  <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{order.total_insurance_fee_local | number}}
-                                  </span>
-                                    <span>{{order.store_id | currencyStore}}</span>
-                                  </div>
-                                </div>
                                 <div class="row Total_VAT_amount">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Additional Service</span>
@@ -2678,7 +2667,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <div class="row mt-1">
               <div class="col-md-6"><span i18n>Total delivery fee local</span> / <span i18n>Total origin tax fee</span></div>
               <div class="col-md-5 pr-0 text-right">
-                {{OrderAll.total_delivery_fee_local | currency:'VND'}}/
+                {{OrderAll.total_origin_shipping_fee_local | currency:'VND'}}/
                 {{OrderAll.total_origin_tax_fee_local | currency:'VND'}}
               </div>
             </div>

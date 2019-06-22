@@ -2193,7 +2193,7 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
         <source>Exchange rate fee</source><target state="translated">Phí chuyển đội ngoại tệ</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2700</context></context-group></trans-unit><trans-unit id="eb40bcfa27020b214cba76b0c6edf0c0b5162aa5" datatype="html">
-        <source>Total intl shipping fee local</source><target state="translated">Tổng phí vận chuyển intl địa phương</target>
+        <source>Total intl shipping fee local</source><target state="translated">Tổng phí vận chuyển quốc tế</target>
         
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2704</context></context-group></trans-unit><trans-unit id="d53f4413a408f6ea44572700a2b1a37373464c86" datatype="html">
         <source>Inspection</source><target state="translated">Kiểm tra</target>
