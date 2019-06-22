@@ -15,12 +15,18 @@ import {PotentialService} from './potential.service';
 import {PotentialRoutingModules} from './potential-routing.modules';
 import {PotentialRoutingComponent} from './potential-routing.component';
 import {PotentialListComponent} from './potential-list/potential-list.component';
+import {OperationModule} from '../operation.module';
+import { AsignSalePotentialComponent } from './potential-list/asign-sale-potential/asign-sale-potential.component';
+import { ProductPotentialComponent } from './potential-list/product-potential/product-potential.component';
+import { ChatCustomerPotentialComponent } from './potential-list/chat-customer-potential/chat-customer-potential.component';
+import { ChatGroupPotentialComponent } from './potential-list/chat-group-potential/chat-group-potential.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     PotentialRoutingModules,
+    OperationModule,
     FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
@@ -32,7 +38,7 @@ import {PotentialListComponent} from './potential-list/potential-list.component'
     BsDropdownModule.forRoot(),
     CollapseModule
   ],
-  declarations: [PotentialRoutingComponent, PotentialListComponent],
+  declarations: [PotentialRoutingComponent, PotentialListComponent, AsignSalePotentialComponent, ProductPotentialComponent, ChatCustomerPotentialComponent, ChatGroupPotentialComponent],
   providers: [
     PotentialService
   ]

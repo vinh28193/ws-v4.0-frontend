@@ -9,10 +9,8 @@ import {OperationRoutingComponent} from '../operation-routing.component';
 })
 export class PotentialRoutingComponent extends OperationRoutingComponent implements OnInit {
 
-  constructor(
-    public activatedRoute: ActivatedRoute
-  ) {
-    super(activatedRoute);
+  constructor(public activatedRoute: ActivatedRoute) {
+    super(activatedRoute , );
   }
 
   ngOnInit() {

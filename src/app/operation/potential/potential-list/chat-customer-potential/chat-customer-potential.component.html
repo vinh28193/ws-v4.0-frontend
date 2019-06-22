@@ -1,0 +1,53 @@
+<div class="col-md-12 m-0 col-xl-12 chat">
+  <form action="" [formGroup]="chatGroup" id="chatGroup">
+    <div class="card m-0 p-0">
+      <div class="card-header msg_head">
+        <div class="d-flex bd-highlight">
+          <div class="img_cont">
+            <img src="../../../../../assets/images/users/1.jpg" class="rounded-circle user_img">
+            <span class="online_icon"></span>
+          </div>
+          <div class="user_info">
+            <span style="color: black">Trao đổi với khách hàng</span>
+            <p style="color: black">{{code}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <div *ngFor="let chat of listChat">
+          <div *ngIf="chat.type_chat == 'WS_CUSTOMER'">
+            <div class="d-flex justify-content-start {{chat.user_name !== username ? 'justify-content-start' : 'justify-content-end'}} mb-4">
+              <div class="img_cont_msg" *ngIf="chat.user_name !== username">
+                <img src="../../../../../assets/images/users/4.jpg"
+                     class="rounded-circle user_img_msg">
+              </div>
+              <div>
+                <span class="msg_cotainer_send {{chat.user_name !== username ? 'other-chat' : 'owner-chat'}}" [innerHTML]="chat.message"></span><br>
+                <div class="{{chat.user_name !== username ? 'float-left' : 'float-right'}} mr-2 text-gray">
+                  <span class="mr-2">{{chat.user_name}}</span>
+                  <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
+                  <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="card-body">
+          <div class="input-group">
+            <input  type="textarea" name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChat()" formControlName="message"
+                    (keyup)="getUserIdsFirstWay($event)"  list="dynmicUserIds"
+                    placeholder="Enter the exchange content. Press Shift + Enter to get down the line. Enter to send" i18n-placeholder />
+            <datalist id="dynmicUserIds">
+              <option *ngFor="let item of matchesList1" [value]="item">{{item}}</option>
+            </datalist>
+            <div class="input-group-btn">
+              <button style="height: 80px;" class="btn btn-default" (click)="createChat()" i18n>Sent</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
