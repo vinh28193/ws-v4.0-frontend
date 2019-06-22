@@ -58,6 +58,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantityP = 0;
     public quantityC = 0;
     public quantityI = 0;
+    public policyID = 0;
     public check_insurance = 0;
     public check_inspection = 0;
     public additional_service = 0;
@@ -939,7 +940,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
     openConfirmAll(order) {
+        this.loadPolicy(order.store_id);
         this.OrderAll = order;
+        // this.policyID = order.
         this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
         this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
         this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
@@ -961,7 +964,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.total_weshop_fee_local = this.total_insurance_fee_local;
         params.check_inspection = this.check_inspection;
         params.check_insurance = this.check_insurance;
-        params.additional_service = this.total_insurance_fee_local + this.total_inspection_fee_local;
+        params.additional_service = this.additional_service;
         this.orderService.put(`order/${id}`, params).subscribe(res => {
           this.checkOffUpdatefee = false;
           this.checkOffUpdatefeePkd = false;

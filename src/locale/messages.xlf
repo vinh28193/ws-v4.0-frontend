@@ -2990,53 +2990,60 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="linenumber">2679</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="9a3bd82a58e5681679345ac7612227d7275f4387" datatype="html">
+        <source>Total origin tax fee</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">2679</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2ec6a06caac3554add899cfee5667263de6e7fe7" datatype="html">
         <source>Weshop Fee</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2685</context>
+          <context context-type="linenumber">2686</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1add74c16791120cb7c52160262858c5ff1c6d1b" datatype="html">
         <source>Exchange rate fee</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2699</context>
+          <context context-type="linenumber">2700</context>
         </context-group>
       </trans-unit>
       <trans-unit id="eb40bcfa27020b214cba76b0c6edf0c0b5162aa5" datatype="html">
         <source>Total intl shipping fee local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2703</context>
+          <context context-type="linenumber">2704</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="26864dd1f3a26261cf54b5f7318efe20ec198f73" datatype="html">
-        <source>Total inspection fee local</source>
+      <trans-unit id="d53f4413a408f6ea44572700a2b1a37373464c86" datatype="html">
+        <source>Inspection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2707</context>
+          <context context-type="linenumber">2708</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8c9a9196c0aefdd30f8184cbd567fee380979c8e" datatype="html">
         <source>Total custom fee amount local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2721</context>
+          <context context-type="linenumber">2742</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4fadbee0b484c2a22fa66c4a38fc691c459a0ec4" datatype="html">
-        <source>Total insurance fee local</source>
+      <trans-unit id="56a60fde852fd96d109bf446bdf1bd4f0d24e468" datatype="html">
+        <source>Insurance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2735</context>
+          <context context-type="linenumber">2756</context>
         </context-group>
       </trans-unit>
       <trans-unit id="99707e030ec29ff41353950f3cee490ab7827779" datatype="html">
         <source>Additional service</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
-          <context context-type="linenumber">2749</context>
+          <context context-type="linenumber">2792</context>
         </context-group>
       </trans-unit>
       <trans-unit id="883fc4aaa422ccc4f35f7010861930780f2068c1" datatype="html">
