@@ -274,6 +274,9 @@
                                   <span title="Order-Unpaid"
                                         *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
                                         class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
+                                  <span *ngIf="order.potential == 1">/</span>
+                                  <span class="badge badge-pill badge-warning">{{order.potential | potential}}</span>
+
                                 </h5>
                               </div>
                               <div class="clearfix"></div>
