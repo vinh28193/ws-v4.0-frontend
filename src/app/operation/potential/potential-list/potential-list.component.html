@@ -171,13 +171,13 @@
           <div><span i18n> CUSTOMER TYPE : </span> <span
             class="text-bold">{{items.order.customer_type | uppercase }} </span>
           </div>
-          <span *ngIf="items.order.buyer_name">{{items.order.buyer_name}}</span>
-          <span *ngIf="items.order.buyer_phone"> - {{items.order.buyer_phone}}</span><span *ngIf="items.order.buyer_email"> - {{items.order.buyer_email}}</span>
-          <a href="javascript:void(0)" (click)="filterOneCustomer(items.order.buyer_email)">
+          <span *ngIf="items.key.buyer_name">{{items.key.buyer_name}}</span>
+          <span *ngIf="items.key.buyer_phone"> - {{items.key.buyer_phone}}</span><span *ngIf="items.key.buyer_email"> - {{items.key.buyer_email}}</span>
+          <a href="javascript:void(0)" (click)="filterOneCustomer(items.key.buyer_email)">
             <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
           </a><br>
-          <span *ngIf="items.order.buyer_address">{{items.order.buyer_address}}</span><span *ngIf="items.order.buyer_province_name || items.order.buyer_district_name">(</span><span *ngIf="items.order.buyer_district_name">{{items.order.buyer_district_name}}</span>
-          <span *ngIf="items.order.buyer_province_name"> - {{items.order.buyer_province_name}}</span><span *ngIf="items.order.buyer_province_name || items.order.buyer_district_name">)</span>
+          <span *ngIf="items.key.buyer_address">{{items.key.buyer_address}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">(</span><span *ngIf="items.key.buyer_district_name">{{items.key.buyer_district_name}}</span>
+          <span *ngIf="items.key.buyer_province_name"> - {{items.key.buyer_province_name}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">)</span>
         </div>
       </div>
       <hr>
