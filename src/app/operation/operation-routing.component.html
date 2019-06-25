@@ -83,12 +83,6 @@
 <!--                            <span i18n>Shipment</span>-->
 <!--                        </a>-->
 <!--                    </li>-->
-                    <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">
-                        <a [routerLink]="['i18n/language-frontend']">
-                            <i class="fa fa-language"></i>
-                            <span i18n>Language Source</span>
-                        </a>
-                    </li>
 <!--                    <li class="sidebar-dropdown {{opentSubmenu == 'i18n' || checkActiveTab('i18n',null) ? 'active' : ''}}">-->
 <!--                        <a href="javascript:void(0)" (click)="SubMenuClick('i18n')">-->
 <!--                            <i class="fa fa-bell"></i>-->
@@ -105,18 +99,24 @@
 <!--                            </ul>-->
 <!--                        </div>-->
 <!--                    </li>-->
-                    <li class="sidebar-dropdown {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
-                        <a href="javascript:void(0)" (click)="SubMenuClick('notify')">
+                    <li *ngIf="checkSuperAdmin()" class="sidebar-dropdown {{opentSubmenu == 'system' || checkActiveTab('system',null) ? 'active' : ''}}">
+                        <a href="javascript:void(0)" (click)="SubMenuClick('system')">
                             <i class="fa fa-bell"></i>
-                            <span i18n>Notification</span>
+                            <span i18n>System</span>
                         </a>
-                        <div class="sidebar-submenu {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
+                        <div class="sidebar-submenu {{opentSubmenu == 'system' || checkActiveTab('system',null) ? 'active' : ''}}">
                             <ul>
-                                <li>
-                                    <a class="text-white" href="javascript:void(0)" i18n>Update orders</a>
+                                <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">
+                                    <a [routerLink]="['i18n/language-frontend']">
+                                        <i class="fa fa-language"></i>
+                                        <span i18n>Language Source</span>
+                                    </a>
                                 </li>
-                                <li>
-                                    <a class="text-white" href="javascript:void(0)" i18n>Promotion</a>
+                                <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">
+                                    <a [routerLink]="['user']">
+                                        <i class="fa fa-language"></i>
+                                        <span i18n>User | Customer</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -139,6 +139,22 @@
                       <span i18n>More Log</span>
                     </a>
                   </li>
+                    <li class="sidebar-dropdown {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
+                        <a href="javascript:void(0)" (click)="SubMenuClick('notify')">
+                            <i class="fa fa-bell"></i>
+                            <span i18n>Notification</span>
+                        </a>
+                        <div class="sidebar-submenu {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">
+                            <ul>
+                                <li>
+                                    <a class="text-white" href="javascript:void(0)" i18n>Update orders</a>
+                                </li>
+                                <li>
+                                    <a class="text-white" href="javascript:void(0)" i18n>Promotion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li *ngIf="checkLogin()">
                         <a [routerLink]="['login']">
                             <i class="fa fa-user"></i>

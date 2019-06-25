@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-outline-info">
+      <div class="card-header">
+        <div class="title">
+          <h4 class="m-b-0 text-white">Manager User & Customer</h4>
+        </div>
+       <!-- <div class="search-box row">
+          <div class="col-md-3 form-group">
+            <label class="form-control-label" for="username">User Name</label>
+            <input class="form-control" [(ngModel)]="userSearchForm.username" id="username">
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="form-control-label" for="email">Email</label>
+            <input class="form-control" [(ngModel)]="userSearchForm.email" id="email">
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="form-control-label" for="phone">Phone</label>
+            <input class="form-control" [(ngModel)]="userSearchForm.phone" id="phone">
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="form-control-label" for="type">Type User</label>
+            <select class="form-control" id="type">
+              <option value="0">Customer</option>
+              <option value="1">Employee Ha Noi</option>
+              <option value="2">Employee HCM </option>
+            </select>
+          </div>
+        </div>
+        <div class="search-box row">
+          <div class="button-group">
+            <button class="btn btn-outline-success"><i class="fa fa-search"></i>Search</button>
+          </div>
+        </div>-->
+      </div>
+      <div class="card-body">
+        <div class="">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Type</th>
+              <th>Active</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td></td>
+              <td><input class="form-control-sm" [(ngModel)]="userSearchForm.id" id="id" (change)="searchForm()" (keyup.enter)="searchForm()"></td>
+              <td><input class="form-control-sm" [(ngModel)]="userSearchForm.username" id="username" (change)="searchForm()" (keyup.enter)="searchForm()"></td>
+              <td><input class="form-control-sm" [(ngModel)]="userSearchForm.email" id="email" (change)="searchForm()" (keyup.enter)="searchForm()"></td>
+              <td><input class="form-control-sm" [(ngModel)]="userSearchForm.phone" id="phone" (change)="searchForm()" (keyup.enter)="searchForm()"></td>
+              <td>
+                <select class="form-control-sm" id="type" [(ngModel)]="userSearchForm.type" (change)="searchForm()" (keyup.enter)="searchForm()">
+                  <option value="">Select type</option>
+                  <option value="0">Customer</option>
+                  <option value="1">Employee Ha Noi</option>
+                  <option value="2">Employee HCM </option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control-sm" id="active" [(ngModel)]="userSearchForm.active" (change)="searchForm()" (keyup.enter)="searchForm()">
+                  <option value="">Select Status</option>
+                  <option value="1">Active</option>
+                  <option value="0">UnActive</option>
+                </select>
+              </td>
+            </tr>
+            <tr *ngFor="let datum of data; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{datum.id}}</td>
+              <td>{{datum.username}}</td>
+              <td>{{datum.email}}</td>
+              <td>{{datum.phone}}</td>
+              <td>{{gettype(datum.employee)}}</td>
+              <td>
+
+                <p><b>Status: </b>{{datum.status ? 'Acived' : 'Not Active'}}</p>
+<!--                <p><b>Status: </b>{{datum.status ? 'Acived' : 'Not Active'}}</p>-->
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

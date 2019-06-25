@@ -35,6 +35,7 @@ import { TransactionComponent } from './wallet/transaction/transaction.component
 import { ViewLogTrackingComponent } from './view-log-tracking/view-log-tracking.component';
 import { NotificationBackgroundPipe } from './pipes/notification-background.pipe';
 import { PotentialPipe } from './pipes/potential.pipe';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { PotentialPipe } from './pipes/potential.pipe';
         ViewLogTrackingComponent,
         NotificationBackgroundPipe,
         PotentialPipe,
+        UserComponent,
     ],
     providers: [
         OperationService

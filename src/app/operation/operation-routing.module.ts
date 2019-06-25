@@ -6,7 +6,10 @@ import {WarehouseComponent} from './warehouse/warehouse.component';
 import {DeliveryNoteComponent} from './delivery-note/delivery-note.component';
 import {WalletComponent} from './wallet/wallet.component';
 import {SourceMessageComponent} from './i18n/source-message/source-message.component';
-import {I18nComponent} from './i18n/i18n.component';;
+import {I18nComponent} from './i18n/i18n.component';
+import {UserComponent} from './user/user.component';
+
+;
 
 const routes: Routes = [
     {
@@ -52,6 +55,10 @@ const routes: Routes = [
             {
                 path: 'wallet',
                 component: WalletComponent
+            },
+            {
+                path: 'user',
+                component: UserComponent
             },
             {
                 path: 'i18n',
