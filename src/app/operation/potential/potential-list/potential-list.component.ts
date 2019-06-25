@@ -214,6 +214,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     }, messagePop);
   }
   chatCart(code, status, type, id) {
+    console.log(code);
     this.code = code;
     this.IdCar = id;
     this.status = status;
@@ -239,7 +240,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   //   this.codeG = code;
   // }
 
-  viewMoreLogCart(status, code, type = 'item') {
+  viewMoreLogCart(status, code) {
     this.moreLog.status = status;
     this.logIdOrder = code;
     if (this.typeViewLogs === 'actionlog') {
