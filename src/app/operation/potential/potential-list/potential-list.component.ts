@@ -69,8 +69,8 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     this.potentialService.ListShopping(params).subscribe(res => {
       this.ShoppingCar = res.data.allModels._items;
       console.log(this.ShoppingCar);
-      this.totalCarts = res.data.allModels.count;
-      this.totalCart = this.totalCarts[0]['sum'];
+      this.totalCarts = res.data.allModels.count[0]['sum'];
+      // this.totalCart = this.totalCarts[0]['sum'];
       this.metaShopping = res.data._meta;
       if (this.totalCart >= this.limit) {
         this.perpage = Math.floor(this.totalCart / this.limit) + 1;
