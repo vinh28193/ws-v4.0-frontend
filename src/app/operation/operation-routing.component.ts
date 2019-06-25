@@ -49,7 +49,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
         localStorage.setItem('status-sidebar', this.statusSidebar);
     }
    checkSale() {
-       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('sale')) {
+       if (this.checkMasterSale() || localStorage.getItem('scope') === ('sale')) {
       return true;
     }
   }

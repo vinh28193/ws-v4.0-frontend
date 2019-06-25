@@ -41,7 +41,7 @@
                             <span i18n>Order</span>
                         </a>
                     </li>
-                  <li>
+                  <li *ngIf="checkSale()">
                     <a [routerLink]="['potential']">
                       <i class="fa fa-shopping-cart"></i>
                       <span i18n>Potential</span>
