@@ -13,6 +13,8 @@ declare var jQuery: any;
 
 export class OperationRoutingComponent extends ModuleComponent implements OnInit {
     loging: any;
+    userS: any;
+    employee: any;
     role: any;
     user: any;
     opentSubmenu = '';
@@ -26,6 +28,7 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
     public address: any;
 
     ngOnInit() {
+        this.checkpotential();
         this.loging = localStorage.getItem('userLogin');
         this.role = localStorage.getItem('scope');
         this.user = (JSON.parse(this.loging).username);
@@ -162,5 +165,9 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
                 this.activatedRoute.firstChild.children[0].firstChild.routeConfig.path === pathChild;
         }
         return check;
+    }
+    checkpotential() {
+      this.userS = JSON.parse(localStorage.getItem('userLogin'));
+      this.employee = this.userS.employee;
     }
 }
