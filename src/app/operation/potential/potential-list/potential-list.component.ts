@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {OrderDataComponent} from '../../order/order-data.component';
 import {PopupService} from '../../../core/service/popup.service';
 import {PotentialService} from '../potential.service';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
   selector: 'app-potential-list',
@@ -14,12 +15,14 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public statusOrder: any = [];
   public getPolicyCart: any = [];
   public activeOrder: any = [];
+  public OrderAllCart: any = [];
   public listLog: any = [];
   public listSale: any = [];
   public bsRangeValue: Date[];
   public metaShopping: any = {};
   public hideme: any = {};
   public pro: any = {};
+  public dvct1: any = {};
   public moreLog: any = {};
   public searchF: FormGroup;
   public perpage: number;
@@ -36,12 +39,14 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public checkUpdateCustomer = false;
   public checkLoad = false;
   public checkLoadGroup = false;
+  public checkUpdateConfirmCart = false;
   public limit: number = 20;
   public page: number = 1;
   @Input() listSaleAll: any = [];
   @Output() backOrder = new EventEmitter();
   public formEditCustomer: FormGroup;
   public logIdOrder: any;
+  public total_inspection_fee_local: any;
   checkShoppingCart: any;
   constructor(private potentialService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
     super(potentialService);
@@ -256,5 +261,16 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       this.listSale = rss;
       console.log(this.listSale);
     });
+  }
+  openConfirmCart(order) {
+    console.log(order);
+    this.checkUpdateConfirmCart = true;
+    this.OrderAllCart = order;
+
+  }
+
+  totalNumberAnyCart(x , y, z , g , d, e) {
+    const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
+    return c;
   }
 }
