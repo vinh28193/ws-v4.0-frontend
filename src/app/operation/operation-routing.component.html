@@ -35,13 +35,13 @@
                         </a>
                     </li>
 
-                    <li *ngIf="(checkSale() && employee == 1) || checkSuperAdmin()" class="{{checkActiveTab('order',null) ? 'active' : ''}}">
+                    <li *ngIf="employee == 1 || checkSuperAdmin()" class="{{checkActiveTab('order',null) ? 'active' : ''}}">
                         <a [routerLink]="['order']">
                             <i class="fa fa-shopping-cart"></i>
                             <span i18n>Order</span>
                         </a>
                     </li>
-                  <li *ngIf="(checkSale() && employee == 2) || checkSuperAdmin()" class="{{checkActiveTab('potential',null) ? 'active' : ''}}">
+                  <li *ngIf="employee == 2 || checkSuperAdmin()" class="{{checkActiveTab('potential',null) ? 'active' : ''}}">
                     <a [routerLink]="['potential']">
                       <i class="fa fa-shopping-cart"></i>
                       <span i18n>Potential</span>

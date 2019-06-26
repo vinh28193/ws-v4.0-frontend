@@ -30,8 +30,11 @@ export class AuthService extends GlobalService {
                 case 'superAdmin' :
                     this._redirectURL = '/operation/order';
                     break;
+                // case  'salehcm':
+                //     this._redirectURL = '/operation/potential';
+                //     break;
                 default :
-                    this._redirectURL = '/operation/order';
+                    this._redirectURL = '/operation/potential';
             }
         }
         return this._redirectURL;
