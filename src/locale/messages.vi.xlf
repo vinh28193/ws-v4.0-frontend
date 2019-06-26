@@ -13,11 +13,8 @@
             <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
                 <source>Password</source>
                 <target state="translated">Mật khẩu</target>
-                <context-group purpose="location">
-                    <context context-type="sourcefile">app/login/login.component.ts</context>
-                    <context context-type="linenumber">12</context>
-                </context-group>
-            </trans-unit>
+                
+            <context-group purpose="location"><context context-type="sourcefile">app/login/login.component.ts</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/user/user.component.ts</context><context context-type="linenumber">180</context></context-group></trans-unit>
             <trans-unit id="fe2732ed27e12ca69dbe41cedb1eb5eb8fdc91be" datatype="html">
                 <source>Remember password</source>
                 <target state="translated">Ghi nhớ mật khẩu</target>
@@ -924,7 +921,7 @@
 
 
 
-            <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1102</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1358</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1406</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1454</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1507</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1562</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1629</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2273</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2312</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2416</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2450</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2480</context></context-group></trans-unit><trans-unit id="c66f6cb669963e55d888a22094a1e51acab809d6" datatype="html">
+            <context-group purpose="location"><context context-type="sourcefile">app/operation/user/user.component.ts</context><context context-type="linenumber">260</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1102</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1358</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1406</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1454</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1507</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1562</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1629</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2273</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2312</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2416</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2450</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2480</context></context-group></trans-unit><trans-unit id="c66f6cb669963e55d888a22094a1e51acab809d6" datatype="html">
         <source>Cancel
                   </source><target state="translated">Hủy bỏ</target>
         
@@ -971,10 +968,16 @@
 
 
                 </trans-unit><trans-unit id="6c00e6ee74803f934c2deabdfe3cf19fe0f2d3d7" datatype="html">
-        <source>Assignment</source><target state="translated">Bài tập</target>
+        <source>Assignment</source><target state="translated">Quyền</target>
         
       </trans-unit><trans-unit id="d721894a7838626d6c82cbfb3dfcae4dbb41ec91" datatype="html">
         <source>Type Customer</source><target state="translated">Loại khách hàng</target>
+        
+      </trans-unit><trans-unit id="93c7f6b039edf63ba4164e939f7a3e24b34b419c" datatype="html">
+        <source>Vip Level</source><target state="translated">Cấp độ Vip</target>
+        
+      </trans-unit><trans-unit id="b9df923a9934e974059a788d678e87b1861941eb" datatype="html">
+        <source>Facebook Account Kit Id</source><target state="translated">Id tài khoản Facebook</target>
         
       </trans-unit>
                 <trans-unit id="c36a66f2107e8da5371ebc9d15c2008dff567f46" datatype="html">
@@ -1011,7 +1014,7 @@
 
 
 
-                <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">1283</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/wallet-transactions/wallet-transactions.component.ts</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/package-item/edit-package-item/edit-package-item.component.ts</context><context context-type="linenumber">48</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-coupon/update-coupon.component.ts</context><context context-type="linenumber">67</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/update-promotion/update-promotion.component.ts</context><context context-type="linenumber">82</context></context-group></trans-unit>
+                </trans-unit>
                 <trans-unit id="5cc2a3c21d0a8e86df2d93a2f5e5d8f46eb279f7" datatype="html">
                     <source>Update Coupon: <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="INTERPOLATION" equiv-text="{{code}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source>
                     <target state="translated">Cập nhật phiếu giảm giá:
@@ -1495,7 +1498,10 @@
                     <target state="translated">Trạng thái</target>
 
 
-                </trans-unit><trans-unit id="f12666b194ee9ab488181c4091f1ef2d0afe9ab8" datatype="html">
+                </trans-unit><trans-unit id="019d4bd6a5690f0cfa0ecf346a4e6bf7f0d8debb" datatype="html">
+        <source>Remove</source><target state="translated">Xóa</target>
+        
+      </trans-unit><trans-unit id="f12666b194ee9ab488181c4091f1ef2d0afe9ab8" datatype="html">
         <source>Cancel:</source><target state="translated">Hủy bỏ:</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2054</context></context-group></trans-unit>
@@ -1570,7 +1576,7 @@
 
 
 
-                <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2298</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2434</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context><context context-type="linenumber">126</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/wallet-transactions/wallet-transactions.component.ts</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context><context context-type="linenumber">330</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context><context context-type="linenumber">190</context></context-group><context-group purpose="location"><context context-type="sourcefile">app/operation/tracking/us-sending/us-sending.component.ts</context><context context-type="linenumber">184</context></context-group></trans-unit><trans-unit id="f0ddd831171cd74530447e6fa00e008a2a05f315" datatype="html">
+                </trans-unit><trans-unit id="f0ddd831171cd74530447e6fa00e008a2a05f315" datatype="html">
         <source>List template mark order for supporting</source><target state="translated">Danh sách text đánh dấu SUPPORTING</target>
 
       <context-group purpose="location"><context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context><context context-type="linenumber">2309</context></context-group></trans-unit><trans-unit id="ddd41d10719eba5b4d470684221efe3e3c114770" datatype="html">
@@ -2323,8 +2329,35 @@ Press Shift + Enter to get down the line.</source><target state="translated">Nh�
       </trans-unit><trans-unit id="5ec8530579e95655a690b391b34b1d185cf59632" datatype="html">
         <source>Manager User &amp; Customer</source><target state="translated">Quản lý người dùng và khách hàng</target>
         
-      </trans-unit><trans-unit id="53bd27f7f04c01d32d0a22630e4f5db4a45a9cd6" datatype="html">
-        <source>Add New Account</source><target state="translated">Thêm tài khoản mới</target>
+      </trans-unit><trans-unit id="52cb3a1dbc20365867f39819932e43d19542474d" datatype="html">
+        <source>Add new</source><target state="translated">Thêm mới</target>
+        
+      </trans-unit><trans-unit id="d2a3bfe9ad73fa0ee9818f2c1b6087244d82ff75" datatype="html">
+        <source>Select Status</source><target state="translated">Chọn trạng thái</target>
+        
+      </trans-unit><trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
+        <source>Active</source><target state="translated">Hoạt động</target>
+        
+      </trans-unit><trans-unit id="dcd160e74668f03afdd672fa351c6cba12fa98c0" datatype="html">
+        <source>UnActive</source><target state="translated">Không hoạt động</target>
+        
+      </trans-unit><trans-unit id="c83b838d845690bcb897f775f53b5316535306dc" datatype="html">
+        <source>First Name</source><target state="translated">Tên đầu tiên</target>
+        
+      </trans-unit><trans-unit id="166b2cc65003221ff5f3ec05d5baca41e6821396" datatype="html">
+        <source>Last Name</source><target state="translated">Họ</target>
+        
+      </trans-unit><trans-unit id="4fcb6dbd1b656de4f606e061af0ed606d3fdc547" datatype="html">
+        <source>User Name</source><target state="translated">Tên người dùng</target>
+        
+      </trans-unit><trans-unit id="34557152cff7bc7db72a2a8706794d7fba4bac86" datatype="html">
+        <source>Reset Password</source><target state="translated">Đặt lại mật khẩu</target>
+        
+      </trans-unit><trans-unit id="6934d8edd276d59e050006fe91b695ebad0218f8" datatype="html">
+        <source>Phone</source><target state="translated">Điện thoại</target>
+        
+      </trans-unit><trans-unit id="9284d8deeea9d3b9b5719e2dcc7d5ae120f56160" datatype="html">
+        <source>Locale language</source><target state="translated">Ngôn ngữ địa phương</target>
         
       </trans-unit><trans-unit id="14da5ed7b9bc7a8b409462a028822669e52f1ef2" datatype="html">
         <source>LIST ALL MORE LOGS</source><target state="translated">DANH SÁCH TẤT CẢ CÁC Nhật ký</target>

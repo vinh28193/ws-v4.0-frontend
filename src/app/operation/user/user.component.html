@@ -37,7 +37,7 @@
         <div class="">
             <div class="button-box row">
                 <div class="button-group">
-                    <button class="btn btn-outline-success" (click)="AddUser.show()"><i class="fa fa-plus"></i>Add new</button>
+                    <button class="btn btn-outline-success" (click)="modelUser.id = '';AddUser.show()"><i class="fa fa-plus"></i><span i18n >Add new</span></button>
                 </div>
             </div>
           <table class="table table-striped">
@@ -70,11 +70,14 @@
               </td>
               <td>
                 <select class="form-control-sm" id="active" [(ngModel)]="userSearchForm.active" (change)="searchForm()" (keyup.enter)="searchForm()">
-                  <option value="">Select Status</option>
-                  <option value="1">Active</option>
-                  <option value="0">UnActive</option>
+                  <option value="" i18n >Select Status</option>
+                  <option value="1" i18n >Active</option>
+                  <option value="0" i18n >UnActive</option>
                 </select>
               </td>
+                <td>
+
+                </td>
             </tr>
             <tr *ngFor="let datum of data; let i = index;">
               <td>
@@ -108,12 +111,12 @@
                   <div *ngIf="datum.employee != 1||datum.employee != 2" class="text-success">
                       Type Customer: <b  class="text-dark">{{datum.type_customer == 2 ? 'WhoSale' : 'Retail'}}</b>
                   </div>
-                  <div class="text-success" *ngIf="datum.token_fcm">
-                      Token fcm: <b  class="text-dark">{{datum.token_fcm}}</b>
-                  </div>
-                  <div *ngIf="datum.token_apn" class="text-success">
-                      Token apn: <b  class="text-dark">{{datum.token_apn}}</b>
-                  </div>
+                  <!--<div class="text-success" *ngIf="datum.token_fcm">-->
+                      <!--Token fcm: <b  class="text-dark">{{datum.token_fcm}}</b>-->
+                  <!--</div>-->
+                  <!--<div *ngIf="datum.token_apn" class="text-success">-->
+                      <!--Token apn: <b  class="text-dark">{{datum.token_apn}}</b>-->
+                  <!--</div>-->
                   <div *ngIf="datum.employee != 1||datum.employee != 2" class="text-success">
                       VIP Level: <b  class="text-dark">{{datum.vip}}</b>
                   </div>
@@ -124,7 +127,7 @@
                   {{gettype(datum.employee)}}
                   <p></p>
                   <div class="text-info" *ngIf="datum.employee == 1||datum.employee == 2">
-                      Scopes: {{getScopes(datum.authAssigments)}}
+                      Scopes: {{getScopes(datum.scopeAuth)}}
                   </div>
               </td>
               <td>
@@ -137,6 +140,9 @@
                       Create At: <b  class="text-dark">{{datum.created_at * 1000 | date:'short'}}</b>
                   </div>
               </td>
+                <td>
+                    <button class="btn btn-outline-danger" (click)="showUpdate(datum)"><i class="fa fa-user-edit"></i></button>
+                </td>
             </tr>
             <tr>
               <td colspan="8"></td>
@@ -153,38 +159,59 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left" i18n>Add New Account</h4>
+                <h4 class="modal-title pull-left">{{modelUser.id ? 'Update' : 'Add New'}} Account</h4>
             </div>
             <div class="modal-body bg-light-part b-l">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="first_name" class="form-control-label">First Name</label>
+                            <label for="first_name" class="form-control-label" i18n >First Name</label>
                             <input class="form-control" id="first_name" [(ngModel)]="modelUser.first_name">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="last_name" class="form-control-label">Last Name</label>
+                            <label for="last_name" class="form-control-label" i18n >Last Name</label>
                             <input class="form-control" id="last_name" [(ngModel)]="modelUser.last_name">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="username_form" class="form-control-label">User Name</label>
+                            <label for="username_form" class="form-control-label" i18n >User Name</label>
                             <input class="form-control" id="username_form" [(ngModel)]="modelUser.username">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="Password" class="form-control-label">Password</label>
+                        <div class="col-md-6 form-group" *ngIf="!modelUser.id">
+                            <label for="Password" class="form-control-label" i18n >Password</label>
                             <input class="form-control" id="Password" [(ngModel)]="modelUser.password">
                         </div>
+                        <div class="col-md-6 form-group" *ngIf="modelUser.id">
+                            <label for="reset_Password" class="form-control-label" i18n >Reset Password</label>
+                            <input class="form-control" id="reset_Password" [(ngModel)]="modelUser.reset_pass">
+                        </div>
                         <div class="col-md-6 form-group">
-                            <label for="emailFOrm" class="form-control-label">Email</label>
+                            <label for="emailFOrm" class="form-control-label" i18n >Email</label>
                             <input class="form-control" id="emailFOrm" [(ngModel)]="modelUser.email">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="phone_form" class="form-control-label">Phone</label>
+                            <label for="phone_form" class="form-control-label" i18n >Phone</label>
                             <input class="form-control" id="phone_form" [(ngModel)]="modelUser.phone">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label for="store_id" class="form-control-label">Store Id</label>
+                            <input class="form-control" id="store_id" [(ngModel)]="modelUser.store_id">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="Locale" class="form-control-label" i18n >Locale language</label>
+                            <input class="form-control" id="Locale" [(ngModel)]="modelUser.locale">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="status_form" class="form-control-label" i18n >Status</label>
+                            <input class="form-control" id="status_form" [(ngModel)]="modelUser.status">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="remove" class="form-control-label" i18n >Remove</label>
+                            <input class="form-control" id="remove" [(ngModel)]="modelUser.remove">
                         </div>
                       <div class="col-md-6 form-group">
                         <label for="employee" class="form-control-label" i18n>Employee</label>
-                        <select class="form-control" (change)="authAssigment()" name="employee" id="employee" [(ngModel)]="modelUser.employee">
+                        <select class="form-control" id="employee" [(ngModel)]="modelUser.employee">
                           <option value="">Select type</option>
                           <option value="0">Customer</option>
                           <option value="1">Employee Ha Noi</option>
@@ -195,7 +222,7 @@
                             <label for="scopes" class="form-control-label" i18n>Assignment</label>
                             <input class="form-control" id="scopes" [(ngModel)]="modelUser.authAssigments">
                         </div>
-                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
+                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
                           <label for="typeCustomer" class="form-control-label" i18n>Type Customer</label>
                           <select class="form-control" name="typeCustomer" id="typeCustomer" [(ngModel)]="modelUser.type_customer">
                             <option value="">Select type</option>
@@ -203,16 +230,34 @@
                             <option value="2">WhoSale</option>
                           </select>
                         </div>
-                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
-                            <label for="viplevel" class="form-control-label">Vip Level</label>
+                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
+                            <label for="viplevel" class="form-control-label"  i18n >Vip Level</label>
                             <input class="form-control" id="viplevel" [(ngModel)]="modelUser.vip">
                         </div>
-                      <!--  <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
+                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
+                            <label for="bm_id" class="form-control-label">BoxMe Id</label>
+                            <input class="form-control" id="bm_id" [(ngModel)]="modelUser.bm_wallet_id">
+                        </div>
+                        <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
+                            <label for="account_kit_id" class="form-control-label"  i18n >Facebook Account Kit Id</label>
+                            <input class="form-control" id="account_kit_id" [(ngModel)]="modelUser.facebook_acc_kit_id">
+                        </div>
+                        <!--<div class="col-md-6 form-group">-->
+                            <!--<label for="fcm_token" class="form-control-label">Token FCM</label>-->
+                            <!--<input class="form-control" id="fcm_token" [(ngModel)]="modelUser.token_fcm">-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6 form-group">-->
+                            <!--<label for="apn_token" class="form-control-label">Token Apn</label>-->
+                            <!--<input class="form-control" id="apn_token" [(ngModel)]="modelUser.token_apn">-->
+                        <!--</div>-->
+                      <!--  <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
                             <label for="viplevel" class="form-control-label">Vip Level</label>
                             <input class="form-control" id="viplevel" [(ngModel)]="modelUser.vip">
                         </div>-->
                       <div class="col-md-12">
-                        <button class="btn btn-info" (click)="CreateAccount()">Create</button>
+                        <button *ngIf="modelUser.id" class="btn btn-info" (click)="update()"  i18n >Update</button>
+                        <button *ngIf="!modelUser.id" class="btn ml-1 btn-info" (click)="CreateAccount()"  i18n >Create</button>
+                        <button class="btn ml-1 btn-danger" (click)="AddUser.hide()"  i18n >Close</button>
                       </div>
                     </div>
                 </div>

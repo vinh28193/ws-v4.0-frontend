@@ -29,22 +29,23 @@ export class UserComponent extends OperationDataComponent implements OnInit {
         username: '',
         email: '',
         phone: '',
-        employee: '',
-        status: '',
-        remove: '',
-        type_customer: '',
+        employee: 1,
+        status: 1,
+        remove: 0,
+        type_customer: 1,
         facebook_acc_kit_id: '',
         bm_wallet_id: '',
         authAssigments: '',
         first_name: '',
         last_name: '',
-        locale: '',
-        store_id: '',
+        locale: 'vi-VN',
+        store_id: 1,
         token_apn: '',
         token_fcm: '',
         uuid: '',
-        vip: '',
+        vip: 0,
         password: '',
+        reset_pass: '',
     };
     public data: any;
 
@@ -53,16 +54,13 @@ export class UserComponent extends OperationDataComponent implements OnInit {
     }
 
     searchForm() {
-        this.http.get('user', this.userSearchForm).subscribe(res => {
+        this.http.get('u', this.userSearchForm).subscribe(res => {
             if (res.success) {
                 this.data = res.data;
             } else {
                 this.http.popup.error('Search Fail');
             }
         });
-    }
-    authAssigment() {
-        console.log(this.modelUser.employee);
     }
     gettype(type) {
         switch (parseInt(type)) {
@@ -85,15 +83,65 @@ export class UserComponent extends OperationDataComponent implements OnInit {
         let scopes = '';
         if (assigments && assigments.length > 0 && isArray(assigments)) {
             for (let i = 0; i < assigments.length; i++) {
-                scopes += i === 0 ? assigments[i].item_name : ' | ' + assigments[i].item_name;
+                scopes += i === 0 ? assigments[i].item_name : ',' + assigments[i].item_name;
             }
         }
         return scopes;
     }
 
     CreateAccount() {
-        this.http.post('', this.modelUser).subscribe(res => {
+        this.http.post('u', this.modelUser).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.http.popup.success(rs.message);
+                this.setDefaultModelUser();
+                this.AddUser.hide();
+            } else {
+                this.http.popup.error(rs.message);
+            }
+        });
+    }
 
+    showUpdate(user) {
+        this.modelUser = user;
+        this.modelUser.authAssigments = this.getScopes(user.scopeAuth);
+        this.AddUser.show();
+    }
+    setDefaultModelUser() {
+        this.modelUser = {
+            id: '',
+            username: '',
+            email: '',
+            phone: '',
+            employee: 1,
+            status: 1,
+            remove: 0,
+            type_customer: 1,
+            facebook_acc_kit_id: '',
+            bm_wallet_id: '',
+            authAssigments: '',
+            first_name: '',
+            last_name: '',
+            locale: 'vi-VN',
+            store_id: 1,
+            token_apn: '',
+            token_fcm: '',
+            uuid: '',
+            vip: 0,
+            password: '',
+            reset_pass: '',
+        };
+    }
+    update() {
+        this.http.put('u/' + this.modelUser.id, this.modelUser).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.http.popup.success(rs.message);
+                this.setDefaultModelUser();
+                this.AddUser.hide();
+            } else {
+                this.http.popup.error(rs.message);
+            }
         });
     }
 }
