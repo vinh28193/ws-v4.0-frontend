@@ -75,6 +75,9 @@
                   <option value="0">UnActive</option>
                 </select>
               </td>
+                <td>
+
+                </td>
             </tr>
             <tr *ngFor="let datum of data; let i = index;">
               <td>
@@ -124,7 +127,7 @@
                   {{gettype(datum.employee)}}
                   <p></p>
                   <div class="text-info" *ngIf="datum.employee == 1||datum.employee == 2">
-                      Scopes: {{getScopes(datum.authAssigments)}}
+                      Scopes: {{getScopes(datum.scopeAuth)}}
                   </div>
               </td>
               <td>

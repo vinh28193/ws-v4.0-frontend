@@ -83,7 +83,7 @@ export class UserComponent extends OperationDataComponent implements OnInit {
         let scopes = '';
         if (assigments && assigments.length > 0 && isArray(assigments)) {
             for (let i = 0; i < assigments.length; i++) {
-                scopes += i === 0 ? assigments[i].item_name : ' | ' + assigments[i].item_name;
+                scopes += i === 0 ? assigments[i].item_name : ',' + assigments[i].item_name;
             }
         }
         return scopes;
@@ -104,6 +104,7 @@ export class UserComponent extends OperationDataComponent implements OnInit {
 
     showUpdate(user) {
         this.modelUser = user;
+        this.modelUser.authAssigments = this.getScopes(user.scopeAuth);
         this.AddUser.show();
     }
     setDefaultModelUser() {
