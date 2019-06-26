@@ -61,6 +61,9 @@ export class UserComponent extends OperationDataComponent implements OnInit {
             }
         });
     }
+    authAssigment() {
+        console.log(this.modelUser.employee);
+    }
     gettype(type) {
         switch (parseInt(type)) {
             case 1:
@@ -86,5 +89,11 @@ export class UserComponent extends OperationDataComponent implements OnInit {
             }
         }
         return scopes;
+    }
+
+    CreateAccount() {
+        this.http.post('', this.modelUser).subscribe(res => {
+
+        });
     }
 }

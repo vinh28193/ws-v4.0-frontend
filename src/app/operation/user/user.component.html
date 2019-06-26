@@ -37,7 +37,7 @@
         <div class="">
             <div class="button-box row">
                 <div class="button-group">
-                    <button class="btn btn-outline-success"><i class="fa fa-plus"></i>Add new</button>
+                    <button class="btn btn-outline-success" (click)="AddUser.show()"><i class="fa fa-plus"></i>Add new</button>
                 </div>
             </div>
           <table class="table table-striped">
@@ -182,26 +182,26 @@
                             <label for="phone_form" class="form-control-label">Phone</label>
                             <input class="form-control" id="phone_form" [(ngModel)]="modelUser.phone">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="employee" class="form-control-label">Employee</label>
-                            <select class="form-control-sm" id="employee" [(ngModel)]="modelUser.employee">
-                                <option value="">Select type</option>
-                                <option value="0">Customer</option>
-                                <option value="1">Employee Ha Noi</option>
-                                <option value="2">Employee HCM </option>
-                            </select>
-                        </div>
+                      <div class="col-md-6 form-group">
+                        <label for="employee" class="form-control-label" i18n>Employee</label>
+                        <select class="form-control" (change)="authAssigment()" name="employee" id="employee" [(ngModel)]="modelUser.employee">
+                          <option value="">Select type</option>
+                          <option value="0">Customer</option>
+                          <option value="1">Employee Ha Noi</option>
+                          <option value="2">Employee HCM </option>
+                        </select>
+                      </div>
                         <div class="col-md-6 form-group" *ngIf="modelUser.employee == 1 || modelUser.employee == 2">
-                            <label for="scopes" class="form-control-label">Last Name</label>
+                            <label for="scopes" class="form-control-label">Assignment</label>
                             <input class="form-control" id="scopes" [(ngModel)]="modelUser.authAssigments">
                         </div>
                         <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
-                            <label for="typeCustomer" class="form-control-label">Last Name</label>
-                            <select class="form-control-sm" id="typeCustomer" [(ngModel)]="modelUser.type_customer">
-                                <option value="">Select type</option>
-                                <option value="1">Retail</option>
-                                <option value="2">WhoSale</option>
-                            </select>
+                          <label for="typeCustomer" class="form-control-label" i18n>Type Customer</label>
+                          <select class="form-control" name="typeCustomer" id="typeCustomer" [(ngModel)]="modelUser.type_customer">
+                            <option value="">Select type</option>
+                            <option value="1">Retail</option>
+                            <option value="2">WhoSale</option>
+                          </select>
                         </div>
                         <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
                             <label for="viplevel" class="form-control-label">Vip Level</label>
@@ -211,6 +211,9 @@
                             <label for="viplevel" class="form-control-label">Vip Level</label>
                             <input class="form-control" id="viplevel" [(ngModel)]="modelUser.vip">
                         </div>-->
+                      <div class="col-md-6">
+                        <button class="btn btn-info" (click)="CreateAccount()">Create</button>
+                      </div>
                     </div>
                 </div>
             </div>
