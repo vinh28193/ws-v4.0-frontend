@@ -35,7 +35,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     @ViewChild('purchaseCard') purchaseCard: ModalDirective;
     public limit = 20;
     public page = 1;
-    public countClickBuyNow :number = 0;
+    public countClickBuyNow = 0;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -112,6 +112,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
     public total_refund_amount_local: any;
+    public total_intl_shipping_fee_local: any;
+    public boxed_fee: any;
+    public total_origin_tax_fee_local: any;
     // form Group
     public searchForm: FormGroup;
     public editForm: FormGroup;
@@ -610,8 +613,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     viewMoreLog(status, code, type = 'item') {
         this.moreLog.status = status;
         this.logIdOrder = code;
+        const params: any = {};
+        params.valueCreate = 2;
         if (this.typeViewLogs === 'actionlog') {
-            this.orderService.get(`${this.typeViewLogs}/${code}`, undefined).subscribe(res => {
+            this.orderService.get(`${this.typeViewLogs}/${code}`, params).subscribe(res => {
                 const rs = res;
                 this.listLog = rs.data;
             });
@@ -947,9 +952,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
         this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
         this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
-        this.additional_service = order.additional_service ? order.additional_service : 0;
         this.check_inspection = order.check_inspection ? order.check_inspection : 0;
         this.check_insurance = order.check_insurance ? order.check_insurance : 0;
+        this.total_intl_shipping_fee_local = order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0;
+        this.total_origin_tax_fee_local = order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0;
+        this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
         this.checkUpdateConfirm = true;
     }
 
@@ -960,11 +967,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         params.typeUpdate = 'updateFee';
         params.total_inspection_fee_local = this.total_inspection_fee_local;
         params.total_insurance_fee_local = this.total_insurance_fee_local;
-        params.total_custom_fee_amount_local = this.total_insurance_fee_local;
-        params.total_weshop_fee_local = this.total_insurance_fee_local;
+        params.total_custom_fee_amount_local = this.total_custom_fee_amount_local;
+        params.total_weshop_fee_local = this.total_weshop_fee_local;
         params.check_inspection = this.check_inspection;
         params.check_insurance = this.check_insurance;
-        params.additional_service = this.additional_service;
+        params.additional_service = this.totalNumberAny(this.total_inspection_fee_local, this.total_insurance_fee_local, this.total_custom_fee_amount_local, this.total_origin_tax_fee_local, this.boxed_fee, this.total_intl_shipping_fee_local);
+        params.total_origin_tax_fee_local = this.total_origin_tax_fee_local;
+        params.boxed_fee = this.boxed_fee;
+        params.total_intl_shipping_fee_local = this.total_intl_shipping_fee_local;
         this.orderService.put(`order/${id}`, params).subscribe(res => {
           this.checkOffUpdatefee = false;
           this.checkOffUpdatefeePkd = false;
@@ -1762,8 +1772,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       console.log(this.check_inspection);
       console.log(this.check_insurance);
   }
-  totalNumberAny(x , y) {
-      const c = toNumber(x) + toNumber(y)
+  totalNumberAny(x , y, z , g , d, e) {
+      const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
       return c;
   }
 }

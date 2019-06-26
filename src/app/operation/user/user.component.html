@@ -3,7 +3,7 @@
     <div class="card card-outline-info">
       <div class="card-header">
         <div class="title">
-          <h4 class="m-b-0 text-white">Manager User & Customer</h4>
+          <h4 class="m-b-0 text-white" i18n>Manager User & Customer</h4>
         </div>
        <!-- <div class="search-box row">
           <div class="col-md-3 form-group">
@@ -153,7 +153,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left">Add New Account</h4>
+                <h4 class="modal-title pull-left" i18n>Add New Account</h4>
             </div>
             <div class="modal-body bg-light-part b-l">
                 <div class="container-fluid">
@@ -192,7 +192,7 @@
                         </select>
                       </div>
                         <div class="col-md-6 form-group" *ngIf="modelUser.employee == 1 || modelUser.employee == 2">
-                            <label for="scopes" class="form-control-label">Assignment</label>
+                            <label for="scopes" class="form-control-label" i18n>Assignment</label>
                             <input class="form-control" id="scopes" [(ngModel)]="modelUser.authAssigments">
                         </div>
                         <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 || modelUser.employee != 2">
