@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <thead>
+      <tr>
+        <td>ID</td>
+        <td>From</td>
+        <td>To</td>
+        <td>Rate</td>
+        <td>Sync_at</td>
+        <td>Action</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ex of list">
+        <td>{{ex.id}}</td>
+        <td>{{ex.from}}</td>
+        <td>{{ex.to}}</td>
+        <td>{{ex.rate}}</td>
+        <td>{{ex.sync_at}}</td>
+        <td>
+          <a href="javascript:void(0)" data-target="#updateExchange" data-toggle="modal" data-backdrop="static"
+             data-keyboard="false" (click)="openUpdateEx(ex)">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="updateExchange" class="modal fade" data-target="#myModal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content" *ngIf="checkEX">
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n>Update Exchange rate: <span
+          class="label label-primary ng-binding">{{id}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form formGroup="updateFormEx">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label for="usd1" class="form-control-label" i18n>From</label>
+              <div class="row ml-0 mr-0" id="usd1">
+                <input class="form-control form-control-sm" id="usd"
+                       formControlName="from"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label for="VND1" class="form-control-label" i18n>To</label>
+              <div class="row ml-0 mr-0" id="VND1">
+                <input class="form-control form-control-sm" id="vnd" formControlName="to"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group ">
+              <label for="rate1" class="form-control-label" i18n>Rate</label>
+              <div class="row ml-0 mr-0" id="rate1">
+                <input class="form-control form-control-sm" id="rate"
+                       formControlName="rate"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <button class="btn btn-info" (click)="updateEx()">Update</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

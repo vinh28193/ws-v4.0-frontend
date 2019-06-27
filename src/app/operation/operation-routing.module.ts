@@ -8,6 +8,7 @@ import {WalletComponent} from './wallet/wallet.component';
 import {SourceMessageComponent} from './i18n/source-message/source-message.component';
 import {I18nComponent} from './i18n/i18n.component';
 import {UserComponent} from './user/user.component';
+import {ExchangeRateComponent} from './exchange-rate/exchange-rate.component';
 
 ;
 
@@ -55,6 +56,10 @@ const routes: Routes = [
             {
                 path: 'wallet',
                 component: WalletComponent
+            },
+            {
+              path: 'exchange-rate',
+              component: ExchangeRateComponent
             },
             {
                 path: 'user',

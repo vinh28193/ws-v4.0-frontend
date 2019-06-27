@@ -26,6 +26,9 @@ export class OrderService extends OperationService {
 
     }
 
+    getEx(url, item: any | undefined) {
+      return this.get('ex', item);
+    }
     getPut(url, item: any | undefined) {
         return this.put(`order/${url}`, item);
     }

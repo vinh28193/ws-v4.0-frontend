@@ -112,21 +112,27 @@
                                         <span i18n>Language Source</span>
                                     </a>
                                 </li>
-                                <li class="{{checkActiveTab('i18n','language-frontend') ? 'active' : ''}}">
+                                <li class="{{checkActiveTab('i18n','user') ? 'active' : ''}}">
                                     <a [routerLink]="['user']">
                                         <i class="fa fa-language"></i>
                                       <span>User </span> |<span> Customer</span>
                                     </a>
                                 </li>
+                                <li class="{{checkActiveTab('i18n','exchange-rate') ? 'active' : ''}}">
+                                  <a [routerLink]="['exchange-rate']">
+                                    <i class="fa fa-language"></i>
+                                    <span>Exchange Rate</span>
+                                  </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-globe"></i>
-                            <span i18n>Voucher</span>
-                        </a>
-                    </li>
+                    <!--<li>-->
+                        <!--<a href="javascript:void(0)">-->
+                            <!--<i class="fa fa-globe"></i>-->
+                            <!--<span i18n>Voucher</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a href="javascript:void(0)">
                             <i class="fa fa-dot-circle-o"></i>
@@ -136,7 +142,7 @@
                   <li>
                     <a [routerLink]="['more-log']">
                       <i class="fa fa-eye" aria-hidden="true"></i>
-                      <span i18n>More Log</span>
+                      <span i18n>Tracking Log</span>
                     </a>
                   </li>
                     <li class="sidebar-dropdown {{opentSubmenu == 'notify' || checkActiveTab('notify',null) ? 'active' : ''}}">

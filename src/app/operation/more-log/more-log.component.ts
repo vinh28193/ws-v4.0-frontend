@@ -15,6 +15,7 @@ import {OperationDataComponent} from '../operation-data.component';
 export class MoreLogComponent extends OperationDataComponent implements OnInit {
   public limit = 20;
   public page = 1;
+  public checkShow = false;
   public moreLogs: any = [];
   public bsRangeValue: Date[];
   public total: number;
@@ -34,6 +35,7 @@ export class MoreLogComponent extends OperationDataComponent implements OnInit {
   buildForm() {
     this.formSearch = this.fb.group({
       valueOrderCode: '',
+      valueTrackingCode: '',
       valueEmployees: '',
       valueCreate: '0',
       content: '',
@@ -47,6 +49,9 @@ export class MoreLogComponent extends OperationDataComponent implements OnInit {
     const params: any = {};
     if (value.valueOrderCode !== '') {
       params.ordercode = value.valueOrderCode;
+    }
+    if (value.valueTrackingCode !== '') {
+      params.tracking_code = value.valueTrackingCode;
     }
     if (value.valueEmployees !== '') {
       params.user_name = value.valueEmployees;
@@ -84,8 +89,14 @@ export class MoreLogComponent extends OperationDataComponent implements OnInit {
   }
   listMoreLog() {
     const params = this.valueFormSearch();
-    this.moreLogService.searchMoreLog(params.type, params).subscribe(res => {
+      if (params.type === 'packing-log') {
+        this.checkShow = true;
+      } if (params.type !== 'packing-log') {
+      this.checkShow = false;
+    }
+      this.moreLogService.searchMoreLog(params.type, params).subscribe(res => {
       this.moreLogs = res.data.model;
+      console.log(this.moreLogs);
       this.total = res.data.totalCount;
     });
   }

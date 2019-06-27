@@ -7,10 +7,17 @@
         </div>
         <form action="" [formGroup] = "formSearch">
           <div class="row">
-            <div class="col-md-4 col-sm-12 form-group ">
+            <div class="col-md-4 col-sm-12 form-group " [hidden]="checkShow">
               <label for="keyWordGroup" class="form-control-label" i18n>Order Code</label>
               <div class="row ml-0 mr-0" id="keyWordGroup">
                 <input class="form-control form-control-sm" id="valueOrderCode" (keyup.enter)="listMoreLog()" formControlName="valueOrderCode"
+                       type="text">
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group " [hidden]="!checkShow">
+              <label for="keyTrackingGroup" class="form-control-label" i18n>Tracking Code</label>
+              <div class="row ml-0 mr-0" id="keyTrackingGroup">
+                <input class="form-control form-control-sm" id="valueTrackingCode" (keyup.enter)="listMoreLog()" formControlName="valueTrackingCode"
                        type="text">
               </div>
             </div>
@@ -72,6 +79,7 @@
                <option value="send-shipment-log" i18n>Sent Shipment Log</option>
                <option value="send-shipment-return-log" i18n>Sent Shipment Return Log</option>
                <option value="boxme-inspect-log" i18n>Boxme Inspect Log</option>
+               <option value="packing-log" i18n>Packing Log</option>
                <!--<option value="trackinglogs" i18n>Tracking Log</option>-->
              </select>
            </div>
@@ -111,7 +119,7 @@
             </pagination>
           </div>
         </div>
-        <article class="row item-list">
+        <article *ngIf="!checkShow" class="row item-list">
           <div class="col-md-12">
             <table class="table table-hover table-responsive" style="max-width: 100%">
               <thead>
@@ -119,7 +127,7 @@
                 <th i18n>Order Code</th>
                 <th i18n>Create time</th>
                 <th i18n>Action</th>
-                <th i18n></th>
+                <th i18n>Data Input</th>
                 <th i18n>Data Output</th>
                 <th i18n>Employee</th>
                 <th i18n>IP</th>
@@ -138,6 +146,35 @@
                 <td>{{log.request_ip}}</td>
                 <td>{{log.Role}}</td>
               </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="row item-list" *ngIf="checkShow">
+          <div class="col-md-12">
+            <table class="table table-hover table-responsive" style="max-width: 100%">
+              <thead>
+              <tr>
+                <th i18n>Tracking code</th>
+                <th i18n>Create time</th>
+                <th i18n>Message log</th>
+                <th i18n>Package code</th>
+                <th i18n>Employee</th>
+                <th i18n>IP</th>
+                <th i18n>Role</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let log of moreLogs">
+                  <td>{{log.more_data?.tracking_code}}</td>
+                  <td>{{log.created_at}}</td>
+                  <td>{{log.message_log}}</td>
+                  <td>{{log.package_code}}</td>
+                  <td>{{log.user_name}}</td>
+                  <td>{{log.request_ip}}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>

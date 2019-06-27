@@ -36,6 +36,7 @@ import { ViewLogTrackingComponent } from './view-log-tracking/view-log-tracking.
 import { NotificationBackgroundPipe } from './pipes/notification-background.pipe';
 import { PotentialPipe } from './pipes/potential.pipe';
 import { UserComponent } from './user/user.component';
+import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { UserComponent } from './user/user.component';
         NotificationBackgroundPipe,
         PotentialPipe,
         UserComponent,
+        ExchangeRateComponent,
     ],
     providers: [
         OperationService

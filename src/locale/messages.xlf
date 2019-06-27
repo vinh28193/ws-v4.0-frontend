@@ -80,13 +80,6 @@
           <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="edf3e407cae7ea37af884282579f16743e104a2d" datatype="html">
-        <source>Voucher</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
-          <context context-type="linenumber">127</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="2ca4288ed1c07649870b6489cc42375c91b3617f" datatype="html">
         <source>Weshop coin</source>
         <context-group purpose="location">
@@ -94,8 +87,8 @@
           <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7b20dcb9a4cf10c7c544a6ebc7a0bf23f9aa460e" datatype="html">
-        <source>More Log</source>
+      <trans-unit id="17925e4fde0ee9e5d7d9e5d113de83298a853edc" datatype="html">
+        <source>Tracking Log</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/operation-routing.component.ts</context>
           <context context-type="linenumber">139</context>
@@ -266,6 +259,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-view/package-view.component.ts</context>
           <context context-type="linenumber">353</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">879</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/tracking/tracking-list/tracking-list.component.ts</context>
@@ -998,7 +995,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">653</context>
+          <context context-type="linenumber">657</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6c00e6ee74803f934c2deabdfe3cf19fe0f2d3d7" datatype="html">
@@ -1335,7 +1332,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">651</context>
+          <context context-type="linenumber">655</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1bd5e17c9582661e20763a7634ef07881e33bbd7" datatype="html">
@@ -1372,7 +1369,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">654</context>
+          <context context-type="linenumber">658</context>
         </context-group>
       </trans-unit>
       <trans-unit id="80c8e61e17483da022e60e9326e20d6da54e2087" datatype="html">
@@ -1791,7 +1788,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">238</context>
+          <context context-type="linenumber">242</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/product-potential/product-potential.component.ts</context>
@@ -1855,7 +1852,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">254</context>
+          <context context-type="linenumber">258</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fa879610484ce309a13c822a82d948a69990b5e4" datatype="html">
@@ -1878,7 +1875,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">271</context>
+          <context context-type="linenumber">275</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5d23a88a11fdafeaf92e2e3494aebb6660158cdd" datatype="html">
@@ -1897,7 +1894,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">294</context>
+          <context context-type="linenumber">298</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b8042d543ffb3b6101788165a01a55025a6f4835" datatype="html">
@@ -1916,7 +1913,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">306</context>
+          <context context-type="linenumber">310</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2251e89f7b8e3fecde0e3a2d2273ffcd1f010716" datatype="html">
@@ -1935,7 +1932,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">323</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1a929de728fbe2105835b6c41d3a32479edd6bbf" datatype="html">
@@ -1954,7 +1951,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">335</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c5a614ba573102e201539501943496a0948f464a" datatype="html">
@@ -1973,7 +1970,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">342</context>
+          <context context-type="linenumber">346</context>
         </context-group>
       </trans-unit>
       <trans-unit id="98ddf97c3bb84b637105138fa70c9f54b7302de5" datatype="html">
@@ -1992,7 +1989,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">353</context>
+          <context context-type="linenumber">357</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f2cd96f87c08241ac54e0503b77e0dbc3643c0d2" datatype="html">
@@ -2011,7 +2008,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">364</context>
+          <context context-type="linenumber">368</context>
         </context-group>
       </trans-unit>
       <trans-unit id="435ae0c498ab9d81f5598d5f42cd0b3f24e49f9b" datatype="html">
@@ -2030,7 +2027,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">375</context>
+          <context context-type="linenumber">379</context>
         </context-group>
       </trans-unit>
       <trans-unit id="02d05468717afb27e6930abdb4bfd1efbdb69180" datatype="html">
@@ -2049,7 +2046,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">386</context>
+          <context context-type="linenumber">390</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9503573b35949fd2dae1f7f82ee02dd504f58236" datatype="html">
@@ -2071,7 +2068,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">413</context>
+          <context context-type="linenumber">417</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3a62aacb244046be3ce442ea73ec77fca31d56a4" datatype="html">
@@ -2112,7 +2109,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">425</context>
+          <context context-type="linenumber">429</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7dd71530362325197e733bdd0d5c37e3a6ff7b20" datatype="html">
@@ -2149,7 +2146,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">438</context>
+          <context context-type="linenumber">442</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d4d9163871c0b1b92a068907ca65f355bab8a9be" datatype="html">
@@ -2168,7 +2165,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">450</context>
+          <context context-type="linenumber">454</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6db38aee0a48d26eb4b4661ac20083b2fa17da21" datatype="html">
@@ -2187,7 +2184,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">456</context>
+          <context context-type="linenumber">460</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d80a31b2d80af8803b4b1e7143cd3e91b7cc92d2" datatype="html">
@@ -2206,7 +2203,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">464</context>
+          <context context-type="linenumber">468</context>
         </context-group>
       </trans-unit>
       <trans-unit id="95fad4ba9f8c775469e2f00aa36cc36557579259" datatype="html">
@@ -2261,7 +2258,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">485</context>
+          <context context-type="linenumber">489</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d2529f6f83694e3d1ac07f5ff9f86353a7621765" datatype="html">
@@ -2280,7 +2277,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">490</context>
+          <context context-type="linenumber">494</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d855b20126bb348ae6642bfad0b6df5a652e5522" datatype="html">
@@ -2299,7 +2296,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">496</context>
+          <context context-type="linenumber">500</context>
         </context-group>
       </trans-unit>
       <trans-unit id="10b541f823694f4faeab5eae0420b6270072e53c" datatype="html">
@@ -2318,7 +2315,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">502</context>
+          <context context-type="linenumber">506</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b3005188fa236341d2fb72b528da92c690b583eb" datatype="html">
@@ -2443,7 +2440,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">508</context>
+          <context context-type="linenumber">512</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fbc1a601010faa530f075b3101968a4d62d0cf60" datatype="html">
@@ -2550,7 +2547,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">529</context>
+          <context context-type="linenumber">533</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b202271dc851984d902e9b16a264c8c50248c0f4" datatype="html">
@@ -2565,6 +2562,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">1000</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="59d0b1c6657a2cb402d2492415ecffca7b443fd4" datatype="html">
+        <source>Package Infor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
+          <context context-type="linenumber">1005</context>
         </context-group>
       </trans-unit>
       <trans-unit id="750bc3108dbfc0ff9d19545d9f58f952d045ee65" datatype="html">
@@ -2587,7 +2591,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">591</context>
+          <context context-type="linenumber">595</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0f5102e188ae87df863c3852894e44a1ba4a8114" datatype="html">
@@ -2601,7 +2605,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">614</context>
+          <context context-type="linenumber">618</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4ab4cb601522b9194922554d934c4c30bd93567d" datatype="html">
@@ -2620,7 +2624,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">652</context>
+          <context context-type="linenumber">656</context>
         </context-group>
       </trans-unit>
       <trans-unit id="268859e8bb452edd4c957ea705c08a96ce941615" datatype="html">
@@ -2635,7 +2639,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">679</context>
+          <context context-type="linenumber">683</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b8f78167ef95c21d032b15614e8239cc033a0fd2" datatype="html">
@@ -2655,7 +2659,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">697</context>
+          <context context-type="linenumber">701</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5cc2a3c21d0a8e86df2d93a2f5e5d8f46eb279f7" datatype="html">
@@ -2694,6 +2698,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/package-item/package-item.component.ts</context>
           <context context-type="linenumber">83</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">716</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c551f9ba68c109a2642a9e992d19b68d60672c0e" datatype="html">
@@ -3335,6 +3343,10 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2671</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">723</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="9a3bd82a58e5681679345ac7612227d7275f4387" datatype="html">
         <source>Total origin tax fee</source>
@@ -3346,12 +3358,24 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2826</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">723</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">848</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2ec6a06caac3554add899cfee5667263de6e7fe7" datatype="html">
         <source>Weshop Fee</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2678</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">730</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1add74c16791120cb7c52160262858c5ff1c6d1b" datatype="html">
@@ -3360,12 +3384,20 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2692</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">744</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="eb40bcfa27020b214cba76b0c6edf0c0b5162aa5" datatype="html">
         <source>Total intl shipping fee local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2696</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">748</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d53f4413a408f6ea44572700a2b1a37373464c86" datatype="html">
@@ -3374,12 +3406,20 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2700</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">752</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="56a60fde852fd96d109bf446bdf1bd4f0d24e468" datatype="html">
         <source>Insurance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2748</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">778</context>
         </context-group>
       </trans-unit>
       <trans-unit id="99707e030ec29ff41353950f3cee490ab7827779" datatype="html">
@@ -3388,12 +3428,20 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2784</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">804</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="26291cfa774547c340983cf38f8534a6a15fac49" datatype="html">
         <source>Inspection fee</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2796</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">818</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8d5b4a9e8f92bf8db6cf0c9b0276c8148f94bff5" datatype="html">
@@ -3402,12 +3450,20 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2806</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">828</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="3ef789d2d7fa998a087f695e2fef353c180d63b8" datatype="html">
         <source>Total intl shipping fee</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2816</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">838</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1f6fadda70d72266261d0ac26843981479153f69" datatype="html">
@@ -3416,6 +3472,10 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2836</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">858</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="8c9a9196c0aefdd30f8184cbd567fee380979c8e" datatype="html">
         <source>Total custom fee amount local</source>
@@ -3423,12 +3483,24 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2846</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">868</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="44af6d2183f91211ce70f1647be09033040ea5a7" datatype="html">
         <source>Confirm Order</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">2856</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">220</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">878</context>
         </context-group>
       </trans-unit>
       <trans-unit id="883fc4aaa422ccc4f35f7010861930780f2068c1" datatype="html">
@@ -4377,10 +4449,6 @@ Press Shift + Enter to get down the line.</source>
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
           <context context-type="linenumber">225</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">216</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="df5ad18b5ccd7a7d4454640e6e1dbaa93d80f8ce" datatype="html">
         <source>More Log
@@ -4388,10 +4456,6 @@ Press Shift + Enter to get down the line.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/shopping-cart/shopping-cart.component.ts</context>
           <context context-type="linenumber">235</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">226</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8a1388c26fe7acd3699c63defae49c9f6a9a01ad" datatype="html">
@@ -4408,11 +4472,11 @@ Press Shift + Enter to get down the line.</source>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">242</context>
+          <context context-type="linenumber">246</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">246</context>
+          <context context-type="linenumber">250</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d2c49e9fad85738d2ef71e65edb71c0929412bdb" datatype="html">
@@ -4423,7 +4487,7 @@ Press Shift + Enter to get down the line.</source>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">262</context>
+          <context context-type="linenumber">266</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a44c5f9b92a5af2d390dbe8c1c680b6881e09eb5" datatype="html">
@@ -4434,7 +4498,7 @@ Press Shift + Enter to get down the line.</source>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">398</context>
+          <context context-type="linenumber">402</context>
         </context-group>
       </trans-unit>
       <trans-unit id="880174899654691be4905381a3c152565b1e9977" datatype="html">
@@ -4448,7 +4512,7 @@ Press Shift + Enter to get down the line.</source>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
-          <context context-type="linenumber">475</context>
+          <context context-type="linenumber">479</context>
         </context-group>
       </trans-unit>
       <trans-unit id="83b002783306223d78240ea3ccaefd070c59c635" datatype="html">
@@ -4775,6 +4839,21 @@ Press Shift + Enter to get down the line.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/package/package-draft/package-draft.component.ts</context>
           <context context-type="linenumber">504</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4a012fe943aa6702892dace354de9ac4e69f9bd5" datatype="html">
+        <source>Create Order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">214</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a52001bf5e808948004cdc27e573b2cfa599d6bc" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>More Log
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/operation/potential/potential-list/potential-list.component.ts</context>
+          <context context-type="linenumber">230</context>
         </context-group>
       </trans-unit>
       <trans-unit id="798e74b216b66d2e2bf69e1010058823c823a008" datatype="html">
