@@ -106,11 +106,11 @@ export class SourceMessageComponent extends OperationDataComponent implements On
             return 'ribbon ribbon-default';
         }
         language = String(language);
-        if (language === 'vi') {
+        if (language === 'vi' || language === 'vi-VN') {
             return 'ribbon ribbon-info';
-        } else if (language === 'en') {
+        } else if (language === 'en' || language === 'en-US') {
             return 'ribbon ribbon-success';
-        } else if (language === 'id') {
+        } else if (language === 'id' || language === 'id-ID') {
             return 'ribbon ribbon-primary';
         } else {
             return 'ribbon ribbon-warning';
@@ -139,10 +139,11 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         if (!this.sourceAdd) {
             this.i18nService.popup.error('Select source!');
         } else {
+            console.log(this.activeSourceMessage);
             this.messagesForm.messages.push({
-                id: this.messagesForm.messages[0].id,
+                id: this.activeSourceMessage.id,
                 language: this.sourceAdd,
-                translation: this.messagesForm.messages[0].translation,
+                translation: this.activeSourceMessage.message,
             });
             this.sourceAdd = '';
         }
