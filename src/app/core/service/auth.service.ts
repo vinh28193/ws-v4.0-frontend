@@ -24,9 +24,6 @@ export class AuthService extends GlobalService {
                 case 1:
                     this._redirectURL = '/operation/order';
                     break;
-                // case  'salehcm':
-                //     this._redirectURL = '/operation/potential';
-                //     break;
                 default :
                     this._redirectURL = '/operation/potential';
             }
