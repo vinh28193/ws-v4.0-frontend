@@ -160,6 +160,11 @@ export class GlobalService {
         console.log(error);
     }
 
+    public get employee() {
+      const user = JSON.parse(this.decrypt('userLogin'));
+      return user.employee;
+    }
+
     /**
      * check value if valid
      * @param value

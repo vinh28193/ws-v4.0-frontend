@@ -20,14 +20,8 @@ export class AuthService extends GlobalService {
     private _redirectURL: string;
     public get redirectURL(): string {
         if (!this.isValidValue(this._redirectURL)) {
-            switch (this.scope) {
-                case 'cms':
-                case 'warehouse':
-                case 'operation':
-                case 'sale':
-                case 'master_sale':
-                case 'master_operation':
-                case 'superAdmin' :
+            switch (this.employee) {
+                case 1:
                     this._redirectURL = '/operation/order';
                     break;
                 // case  'salehcm':
