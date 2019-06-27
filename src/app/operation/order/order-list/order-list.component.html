@@ -2790,23 +2790,23 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
             </div>
             <div class="row text-right" [hidden]="!dvct" *ngIf="checkOffUpdatefeeDvct">
-              <div class="col-md-12 text-right" *ngIf="check_inspection == 1">
+              <div class="col-md-12 text-right">
                 <div class="row">
                   <div class="col-md-8 text-right">
                     <a href="javascript:void(0)" tooltip="1,5$/SKU" i18n>Inspection fee</a>
                   </div>
                   <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [(ngModel)]="total_inspection_fee_local">
+                    <input type="number" [disabled]="check_inspection == 0" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [(ngModel)]="total_inspection_fee_local">
                   </div>
                 </div>
               </div>
-              <div class="col-md-12 mt-1 text-right" *ngIf="check_insurance == 1">
+              <div class="col-md-12 mt-1 text-right">
                 <div class="row">
                   <div class="col-md-8 text-right">
                     <a href="javascript:void(0)" tooltip="3%" i18n>Insurance fee</a>
                   </div>
                   <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_insurance_fee_local">
+                    <input type="number" [disabled]="check_insurance == 0" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_insurance_fee_local">
                   </div>
                 </div>
               </div>
