@@ -3,6 +3,7 @@ import {OrderDataComponent} from '../../../order-data.component';
 import {OrderService} from '../../../order.service';
 import {PopupService} from '../../../../../core/service/popup.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 
 @Component({
   selector: 'app-edit-package-item',
@@ -40,7 +41,7 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     if (value.tracking_code !== '') {
       params.tracking_code = value.tracking_code;
     }
-    if (value.box_me_warehouse_tag !== '') {
+    if (value.quantity !== '') {
       params.quantity = value.quantity;
     }
     if (value.weight !== '') {
@@ -55,17 +56,14 @@ export class EditPackageItemComponent extends OrderDataComponent implements OnIn
     if (value.dimension_h !== '') {
       params.dimension_h = value.dimension_h;
     }
-    if (this.orderC !== '') {
-      params.ordercode = this.orderC;
-    }
-    console.log(this.editForm.value);
+    params.ordercode = this.orderC;
     return params;
   }
 
   updatePackage() {
     const params = this.preparPackages();
-    console.log(params);
-    this.orderService.put(`draft-package-item/${this.package.id}`, params).subscribe(res => {
+    this.orderService.put(`p/${this.package.id}`, params).subscribe(res => {
+      console.log(res);
       if (res.success) {
         this.popup.success(res.message);
         this.checkLoadPackage = true;

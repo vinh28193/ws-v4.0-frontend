@@ -18,7 +18,7 @@ const routes: Routes = [
         children: [
             {
                 path: 'order',
-                loadChildren: './order/order.module#OrderModule'
+                loadChildren: './order/order.module#OrderModule',
             },
             {
               path: 'potential',
