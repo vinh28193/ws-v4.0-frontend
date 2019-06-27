@@ -948,8 +948,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.loadPolicy(order.store_id);
         this.OrderAll = order;
         // this.policyID = order.
-        this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
-        this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
         this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
         this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
         this.check_inspection = order.check_inspection ? order.check_inspection : 0;
@@ -957,6 +955,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.total_intl_shipping_fee_local = order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0;
         this.total_origin_tax_fee_local = order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0;
         this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
+         if (this.check_inspection === 1) {
+           this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
+         } if (this.check_inspection === 0) {
+          this.total_inspection_fee_local = 0;
+          } if (this.check_insurance === 1) {
+          this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
+          } if (this.check_insurance === 0) {
+        this.total_insurance_fee_local = 0;
+      }
         this.checkUpdateConfirm = true;
     }
 

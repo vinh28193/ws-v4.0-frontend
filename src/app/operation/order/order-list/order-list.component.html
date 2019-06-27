@@ -999,11 +999,11 @@
                                     (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Purchase info</button>
                                 </li>
-                                <!--<li class="tab-slider&#45;&#45;trigger" rel="tab2"-->
-                                    <!--*ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"-->
-                                    <!--(click)="pack[order.id] = !pack[order.id]">-->
-                                  <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>-->
-                                <!--</li>-->
+                                <li class="tab-slider--trigger" rel="tab2"
+                                    *ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    (click)="pack[order.id] = !pack[order.id]">
+                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Package Infor</button>
+                                </li>
                                 <li class="tab-slider--trigger" rel="tab2"
                                     *ngIf="order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
                                     (click)="delivevery[order.id] = !delivevery[order.id]">
@@ -2790,7 +2790,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
             </div>
             <div class="row text-right" [hidden]="!dvct" *ngIf="checkOffUpdatefeeDvct">
-              <div class="col-md-12 text-right">
+              <div class="col-md-12 text-right" *ngIf="check_inspection == 1">
                 <div class="row">
                   <div class="col-md-8 text-right">
                     <a href="javascript:void(0)" tooltip="1,5$/SKU" i18n>Inspection fee</a>
@@ -2800,7 +2800,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </div>
                 </div>
               </div>
-              <div class="col-md-12 mt-1 text-right">
+              <div class="col-md-12 mt-1 text-right" *ngIf="check_insurance == 1">
                 <div class="row">
                   <div class="col-md-8 text-right">
                     <a href="javascript:void(0)" tooltip="3%" i18n>Insurance fee</a>
