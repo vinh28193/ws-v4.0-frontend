@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OperationDataComponent} from '../operation-data.component';
-import {OrderService} from '../order/order.service';
 import {PopupService} from '../../core/service/popup.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NotifierService} from 'angular-notifier';
 import {OperationService} from '../operation.service';
 
 @Component({

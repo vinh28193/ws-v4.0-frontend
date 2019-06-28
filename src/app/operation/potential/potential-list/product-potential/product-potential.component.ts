@@ -19,7 +19,7 @@ export class ProductPotentialComponent extends OrderDataComponent implements OnI
   @Input() orderCode: any = [];
   public id: any;
 
-  constructor(private orderService: PotentialService, private popup: PopupService, private fb: FormBuilder, public scopeS: ScopeService) {
+  constructor(public orderService: PotentialService, private popup: PopupService, private fb: FormBuilder, public scopeS: ScopeService) {
     super(orderService);
   }
 

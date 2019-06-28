@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {EncryptionService} from '../../core/service/encryption.service';
 import {PopupService} from '../../core/service/popup.service';
 import {OperationService} from '../operation.service';
+import {OrderService} from '../order/order.service';
 
 
 declare var $: any;
@@ -10,7 +11,7 @@ const CACHE_SIZE = 1;
 @Injectable({
   providedIn: 'root'
 })
-export class PotentialService extends OperationService {
+export class PotentialService extends OrderService {
 
   constructor(
     public http: HttpClient,

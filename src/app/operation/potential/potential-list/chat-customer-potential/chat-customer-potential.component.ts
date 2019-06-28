@@ -25,7 +25,7 @@ export class ChatCustomerPotentialComponent extends OrderDataComponent implement
   public username: any;
   public loging: any;
 
-  constructor(private orderService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(public orderService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
 

@@ -48,7 +48,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public logIdOrder: any;
   public total_inspection_fee_local: any;
   checkShoppingCart: any;
-  constructor(private potentialService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(public potentialService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
     super(potentialService);
   }
 

@@ -28,7 +28,7 @@ export class ChatGroupPotentialComponent extends OrderDataComponent implements O
   public subscription: any;
   public chatlists: any = [];
 
-  constructor(private orderService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
+  constructor(public orderService: PotentialService, private popup: PopupService, private fb: FormBuilder) {
     super(orderService);
   }
 
