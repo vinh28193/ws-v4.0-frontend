@@ -42,36 +42,34 @@
         </button>
       </div>
       <div class="modal-body">
-        <form formGroup="updateFormEx">
-          <div class="row">
-            <div class="col-md-12 col-sm-12 form-group ">
-              <label for="usd1" class="form-control-label" i18n>From</label>
-              <div class="row ml-0 mr-0" id="usd1">
-                <input class="form-control form-control-sm" id="usd"
-                       formControlName="from"
-                       type="text">
-              </div>
-            </div>
-            <div class="col-md-12 col-sm-12 form-group ">
-              <label for="VND1" class="form-control-label" i18n>To</label>
-              <div class="row ml-0 mr-0" id="VND1">
-                <input class="form-control form-control-sm" id="vnd" formControlName="to"
-                       type="text">
-              </div>
-            </div>
-            <div class="col-md-12 col-sm-12 form-group ">
-              <label for="rate1" class="form-control-label" i18n>Rate</label>
-              <div class="row ml-0 mr-0" id="rate1">
-                <input class="form-control form-control-sm" id="rate"
-                       formControlName="rate"
-                       type="text">
-              </div>
-            </div>
-            <div class="col-md-6 form-group">
-              <button class="btn btn-info" (click)="updateEx()">Update</button>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group ">
+            <label for="usd1" class="form-control-label" i18n>From</label>
+            <div class="row ml-0 mr-0" id="usd1">
+              <input class="form-control form-control-sm" id="usd"
+                     [(ngModel)] = "exChangeRate.from"
+                     type="text">
             </div>
           </div>
-        </form>
+          <div class="col-md-12 col-sm-12 form-group ">
+            <label for="VND1" class="form-control-label" i18n>To</label>
+            <div class="row ml-0 mr-0" id="VND1">
+              <input class="form-control form-control-sm" id="vnd" [(ngModel)] = "exChangeRate.to"
+                     type="text">
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 form-group ">
+            <label for="rate1" class="form-control-label" i18n>Rate</label>
+            <div class="row ml-0 mr-0" id="rate1">
+              <input class="form-control form-control-sm" id="rate"
+                     [(ngModel)] = "exChangeRate.rate"
+                     type="text">
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <button class="btn btn-info" (click)="updateEx()">Update</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
