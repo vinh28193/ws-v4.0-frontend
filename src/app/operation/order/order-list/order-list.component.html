@@ -364,8 +364,8 @@
                                   <h5 class="text-bold mb-0" i18n>BUYER </h5>
                                   <div *ngIf="_scope.CheckSale()"><span i18n> CUSTOMER TYPE : </span> <span
                                     class="text-bold">{{order.customer_type | uppercase }} </span></div>
-                                  <span>{{order.user?.last_name}} - <a href="tel:{{order.user?.phone}}">{{order.user?.phone}}</a> - {{order.user?.email}}
-                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.user.email)"><i
+                                  <span>{{order.buyer_name}} - <a href="tel:{{order.buyer_phone}}">{{order.buyer_phone}}</a> - {{order.buyer_email}}
+                                    <a href="javascript:void(0)" (click)="filterOneCustome(order.buyer_email)"><i
                                       class="fa fa-filter" data-toggle="tooltip" data-placement="top"
                                       title="Filter Email BUYER!"> </i></a></span>
                                 </div>

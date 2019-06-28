@@ -273,4 +273,11 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
     return c;
   }
+  checkSpAdmin() {
+    if (localStorage.getItem('scope') === 'supperAdmin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-12">
-        <h3 class="mb-2 mt-2">List Exchange Rate</h3>
+        <h3 class="mb-2 mt-2" i18n >List Exchange Rate</h3>
       </div>
     </div>
     <div class="row">
@@ -11,11 +11,11 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Rate</th>
-            <th>Sync_at</th>
-            <th>Action</th>
+            <th i18n >From</th>
+            <th i18n >To</th>
+            <th i18n >Rate</th>
+            <th i18n >Sync_at</th>
+            <th i18n >Action</th>
           </tr>
           </thead>
           <tbody>
@@ -37,9 +37,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <button class="btn btn-outline-dark" (click)="openViewLog()" data-target="#exViewLog" data-toggle="modal">View Log</button>
-      </div>
+      <!--<div class="col-md-12">-->
+        <!--<button class="btn btn-outline-dark" (click)="openViewLog()" data-target="#exViewLog" data-toggle="modal" data-backdrop="static"-->
+                <!--data-keyboard="false" i18n >View Log</button>-->
+      <!--</div>-->
     </div>
   </div>
 </div>
@@ -81,7 +82,7 @@
             </div>
           </div>
           <div class="col-md-6 form-group">
-            <button class="btn btn-info" (click)="updateEx()">Update</button>
+            <button class="btn btn-info" (click)="updateEx()" i18n >Update</button>
           </div>
         </div>
       </div>
@@ -110,10 +111,10 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Time Update</th>
-                  <th>Content</th>
-                  <th>Username</th>
-                  <th>Employee</th>
+                  <th i18n >Time Update</th>
+                  <th i18n >Content</th>
+                  <th i18n >Username</th>
+                  <th i18n >Employee</th>
                   <th>IP</th>
                 </tr>
               </thead>

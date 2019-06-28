@@ -23,6 +23,14 @@ export class ProductPotentialComponent extends OrderDataComponent implements OnI
     super(orderService);
   }
 
+  checkSpAdminP() {
+    if (localStorage.getItem('scope') === 'supperAdmin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   ngOnInit() {
   }
 
