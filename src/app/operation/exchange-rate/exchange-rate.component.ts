@@ -12,12 +12,16 @@ import {OperationService} from '../operation.service';
 export class ExchangeRateComponent extends OperationDataComponent implements OnInit {
   public updateFormEx: FormGroup;
   public list: any = [];
+  public logs: any = [];
   public id: any;
+  public totalLog: any;
   public checkEX = false;
+  public checkViewEX = false;
   public exChangeRate = {
     from: '',
     to: '',
-    rate: ''
+    rate: '',
+    employee: localStorage.getItem('scope')
   }
   constructor(public http: OperationService, private fb: FormBuilder, public popup: PopupService) {
     super(http);
@@ -34,6 +38,7 @@ export class ExchangeRateComponent extends OperationDataComponent implements OnI
   updateEx() {
     this.http.put(`ex/${this.id}`, this.exChangeRate).subscribe(res => {
       if (res.success) {
+        this.ListExchangeRate();
           this.popup.success(res.success);
       } else {
         this.popup.error('Update Exchange rate error');
@@ -47,5 +52,14 @@ export class ExchangeRateComponent extends OperationDataComponent implements OnI
     this.exChangeRate.from = ex.from;
     this.exChangeRate.to = ex.to;
     this.exChangeRate.rate = ex.rate;
+  }
+  openViewLog(id) {
+    this.checkViewEX = true;
+    this.id = id;
+    this.http.get('ex-log', undefined).subscribe(res => {
+      this.logs = res.data.model;
+      this.totalLog = res.data.total;
+      console.log(this.logs);
+    });
   }
 }
