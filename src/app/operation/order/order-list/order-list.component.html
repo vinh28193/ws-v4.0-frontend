@@ -733,7 +733,7 @@
                                 </div>
                                 <div class="col-md-6 text-right text-info style-padding-left min0"
                                      *ngIf="order.total_refund_amount_local > 0">
-                                  {{order.total_refund_amount_local ? order.total_refund_amount_local : 0 | number}}
+                                  {{order.total_refund_amount_local | number}}
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
@@ -992,7 +992,7 @@
                                 <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
                                 <li class="tab-slider--trigger" rel="tab2"
-                                    *ngIf="checkShowPay() && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    *ngIf="checkShowPay() && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
                                     (click)="pay[order.id] = !pay[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Payment Transaction</button>
                                 </li>
