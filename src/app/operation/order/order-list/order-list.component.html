@@ -1034,7 +1034,7 @@
                                    style="border-bottom: 2px solid red">
                                 <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
                                                   [openConfirmOrder]="checkConfirmOrder(order)"
-                                                  (getListOrder)="listOrders()" [policy]="getAllPolicy"
+                                                  (getListOrder)="listOrders()" [policy]="getPolicy"
                                                   [storeID]="order.store_id"
                                                   [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''"
                                                   (editFee)="listOrders()" [order_path]="order.ordercode"
