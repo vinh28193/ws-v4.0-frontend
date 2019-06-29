@@ -48,11 +48,11 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
       }
     }
 
-    loadAllPolicy() {
-      this.http.get(`policy`).subscribe(res => {
-        this.getAllPolicy = res.data;
-      });
-      return this.getAllPolicy;
-    }
+    // loadAllPolicy() {
+    //   this.http.get(`policy`).subscribe(res => {
+    //     this.getAllPolicy = res.data;
+    //   });
+    //   return this.getAllPolicy;
+    // }
 
 }

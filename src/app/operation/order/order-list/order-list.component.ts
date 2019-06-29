@@ -335,7 +335,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.getAllPushNotificationsByUserId();
         // Policy
-        this.loadAllPolicy();
+        // this.loadAllPolicy();
 
         // View notification
         $(document).on('show.bs.modal', '.modal', function () {
