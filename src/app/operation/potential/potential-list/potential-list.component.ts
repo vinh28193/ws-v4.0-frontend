@@ -28,14 +28,17 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public perpage: number;
   public totalCart: number;
   public totalCarts: any;
+  public typeUpdate: any;
   public IdCar: any;
   public id: any;
   public type: any;
-  public typeCart: any;
   public status: any;
+  public typeCart: any;
   public typeViewLogs = 'actionlog';
   public code: any;
   public backorderlist = false;
+  public checkUpdateCustomerCart = false;
+  public checkUpdateCustomerReceiverCart = false;
   public checkUpdateCustomer = false;
   public checkLoad = false;
   public checkLoadGroup = false;
@@ -274,10 +277,26 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     return c;
   }
   checkSpAdmin() {
-    if (localStorage.getItem('scope') === 'supperAdmin') {
+    if (localStorage.getItem('scope') === 'superAdmin') {
       return true;
     } else {
       return false;
     }
+  }
+
+  updateCustomerCart(buyer, code, type) {
+    this.checkUpdateCustomerCart = true;
+    this.activeOrder = buyer;
+    this.typeCart = type;
+    this.typeUpdate = 'updateBuyerCart';
+    this.code = code;
+  }
+  updateCustomerReveiverCart(receiver, code, type) {
+    this.checkUpdateCustomerReceiverCart = true;
+    this.activeOrder = receiver;
+    this.typeCart = type;
+    this.typeUpdate = 'updateReceiverCart';
+    this.code = code;
+    console.log(code);
   }
 }

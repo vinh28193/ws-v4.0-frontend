@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('name')" class="form-control-label">Name</label>
+          <input type="text" [(ngModel)]="name"
+                 class="form-control form-control-sm" [id]="getInputUnique('name')"
+                 [name]="getInputUnique('name')" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('phone')" class="form-control-label">Phone</label>
+          <input type="number" [(ngModel)]="phone"
+                 class="form-control form-control-sm"
+                 [id]="getInputUnique('phone')" [name]="getInputUnique('phone')" [minlength]="9" [maxlength]="12">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('email')" class="form-control-label">Email</label>
+          <input required="required" type="email" [(ngModel)]="email"
+                 class="form-control form-control-sm"
+                 [id]="getInputUnique('email')" [name]="getInputUnique('email')">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('address')" class="form-control-label">Address</label>
+          <input type="text" [(ngModel)]="address"
+                 class="form-control form-control-sm" [id]="getInputUnique('address')"
+                 [name]="getInputUnique('address')" required>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('postCode')" class="form-control-label">PostCode</label>
+          <input type="text" [(ngModel)]="postCode" (keyup)="suggestionAddress($event)"
+                 class="form-control form-control-sm" [id]="getInputUnique('postCode')"
+                 [name]="getInputUnique('postCode')" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('country')" class="form-control-label">Country</label>
+          <select [(ngModel)]="country"  class="form-control form-control-sm" [name]="getInputUnique('country')" [id]="getInputUnique('country')" (change)="onCountry($event)" required>
+            <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('province')" class="form-control-label">Province</label>
+          <select [(ngModel)]="province" class="form-control form-control-sm" [name]="getInputUnique('province')" [id]="getInputUnique('province')" (change)="onProvince($event)" required>
+            <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group form-group-sm">
+          <label [for]="getInputUnique('district')" class="form-control-label">District</label>
+          <select [(ngModel)]="district" class="form-control form-control-sm" [name]="getInputUnique('district')" [id]="getInputUnique('district')" (change)="onDistrict($event)" required>
+            <option *ngFor="let d of districts" [value]="d.id">{{d.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="button-group">
+          <button class="btn btn-sm btn-success pull-right" (click)="updateReceiver()">Update
+          </button>
+          <!--button class="btn btn-sm btn-secondary pull-right" aria-label="Close"
+                  (click)="update.hide();"> Cancel
+          </button-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,7 @@ export class CustomerInformationComponent extends OrderDataComponent implements 
     @Input() country: any = '';
     @Input() countryName: any = '';
     @Input() postCode: any = '';
+    @Input() type: any = '';
     @Output() success: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(private orderService: OrderService, private popup: PopupService, private fb: FormBuilder, public _scopes: ScopeService) {

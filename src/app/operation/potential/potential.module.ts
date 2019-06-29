@@ -20,6 +20,7 @@ import { AsignSalePotentialComponent } from './potential-list/asign-sale-potenti
 import { ProductPotentialComponent } from './potential-list/product-potential/product-potential.component';
 import { ChatCustomerPotentialComponent } from './potential-list/chat-customer-potential/chat-customer-potential.component';
 import { ChatGroupPotentialComponent } from './potential-list/chat-group-potential/chat-group-potential.component';
+import { CustomerInfoCartComponent } from './customer-info-cart/customer-info-cart.component';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { ChatGroupPotentialComponent } from './potential-list/chat-group-potenti
     BsDropdownModule.forRoot(),
     CollapseModule
   ],
-  declarations: [PotentialRoutingComponent, PotentialListComponent, AsignSalePotentialComponent, ProductPotentialComponent, ChatCustomerPotentialComponent, ChatGroupPotentialComponent],
+  declarations: [PotentialRoutingComponent, PotentialListComponent, AsignSalePotentialComponent, ProductPotentialComponent, ChatCustomerPotentialComponent, ChatGroupPotentialComponent, CustomerInfoCartComponent],
   providers: [
     PotentialService
   ]

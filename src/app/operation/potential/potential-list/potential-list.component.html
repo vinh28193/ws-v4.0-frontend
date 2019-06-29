@@ -55,7 +55,7 @@
         </select>
       </div>
       <div class="col-md-3 col-sm-6 form-group m-b-10">
-        <label class="form-control-label" i18n>Cart Portal</label>
+        <label class="form-control-label">Portal</label>
         <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
           <option [value]="0" i18n>--All Product Type--</option>
           <option value="AMAZON_US">AMAZON US</option>
@@ -115,7 +115,6 @@
           <span class="Paid badge badge-pill badge-{{items.order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
             {{items.order.current_status}}
           </span> <span *ngIf="items.order.potential == 1">/</span>
-          <span class="badge badge-pill badge-warning">{{items.order.potential | potential}}</span>
         </h5>
       </div>
       <div class="mt-1">
@@ -161,13 +160,29 @@
         </ul>
       </div>
       <hr style="margin: 5px;">
+      <div class="row mt-1 ">
+        <div class="col-md-12">
+          <span i18n>Type</span>:<span class="badge badge-purple badge-warning">{{items.order.potential | potential}}</span>
+        </div>
+      </div>
+      <hr style="margin: 5px;">
+      <div class="row mt-1 mb-1">
+        <div class="col-md-12">
+          <span *ngIf="checkSpAdmin()">Type</span>:<span class="badge badge-pill badge-warning">{{items.type}}</span>
+        </div>
+      </div>
     </div>
 
     <div class="col-md-3 border-col CUSTOMER_INFO">
       <h5 class="customer-type-{{items.order.customer_type}}" i18n>CUSTOMER INFO</h5>
       <div class="row">
         <div class="col-md-12">
-          <h5 class="text-bold mb-0" i18n>BUYER </h5>
+          <h5 class="text-bold mb-0" i18n>BUYER
+            <a href="javascript:void(0)"
+               (click)="updateCustomerCart(items.key.buyer, items._id, items.type);updateBuyerCartModal.show()">
+              <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+            </a>
+          </h5>
           <div><span i18n> CUSTOMER TYPE : </span> <span
             class="text-bold">{{items.order.customer_type | uppercase }} </span>
           </div>
@@ -188,48 +203,52 @@
               <div>
                 <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
                     i18n>RECEIVER
+                  <a href="javascript:void(0)"
+                     (click)="updateCustomerReveiverCart(items.key.receiver, items._id, items.type); updateReceiverCartModal.show()">
+                    <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+                  </a>
                 </h5>
               </div>
               <div class="address">
-                <span *ngIf="items.order.receiver_name">{{items.order.receiver_name}}</span><span *ngIf="items.order.receiver_phone"> - {{items.order.receiver_phone}}</span><span *ngIf="items.order.receiver_email"> - {{items.order.receiver_email}}</span>
+                <span *ngIf="items.key.receiver.receiver_name">{{items.key.receiver.receiver_name}}</span><span *ngIf="items.key.receiver.receiver_phone"> - {{items.key.receiver.receiver_phone}}</span><span *ngIf="items.key.receiver.receiver_email"> - {{items.key.receiver.receiver_email}}</span>
                 <br>
-                <span *ngIf="items.order.receiver_address">{{items.order.receiver_address}}</span> <span *ngIf="items.order.receiver_district_name || items.order.receiver_province_name">(</span> <span *ngIf="items.order.receiver_district_name">{{items.order.receiver_district_name}}</span><span *ngIf="items.order.receiver_province_name"> - {{items.order.receiver_province_name}})</span>
+                <span *ngIf="items.key.receiver.receiver_address">{{items.key.receiver.receiver_address}}</span> <span *ngIf="items.key.receiver.receiver_district_name || items.key.receiver.receiver_province_name">(</span> <span *ngIf="items.key.receiver.receiver_district_name">{{items.key.receiver.receiver_district_name}}</span><span *ngIf="items.key.receiver.receiver_province_name"> - {{items.key.receiver.receiver_province_name}})</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row pt-2">
-        <div class="col-md-12">
-          <div class="btn-group mr-2 mb-2">
-            <button type="button"
-                    (click)="chatCart(items.order.ordercode, items.order.current_status, items.type, items._id)"
-                    class="btn btn-secondary mr-2 btn-sm" data-target="#showChatCar"
-                    data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-              <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-              Chat With Customer
-            </button>
-          </div>
-          <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-secondary mr-2 btn-sm"><i class="fa fa-plus-square mr-1" aria-hidden="true"></i><span i18n >Create Order</span></button>
-          </div>
-          <div class="btn-group mb-2 mr-2">
-            <button class="btn btn-secondary btn-sm" data-target="#updateConfirmCart" data-toggle="modal" (click)="openConfirmCart(items.order)"  data-backdrop="static" data-keyboard="false"
-                    *ngIf="items.key.current_status == 'NEW' || items.key.current_status == 'SUPPORTING' || items.key.current_status == 'SUPPORTED'">
-              <i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i>
-              <span i18n >Confirm Order</span>
-            </button>
-          </div>
-          <!--<div class="btn-group mb-2 mr-2">-->
-          <!--<button class="btn btn-secondary btn-sm" *ngIf=" __scope.CheckSale()"-->
-          <!--(click)="markAsJunkShopping(items._id, items.type)" i18n>Mark as Junk-->
-          <!--</button>-->
-          <!--</div>-->
-          <div class="btn-group mr-2 mb-2">
-            <button class="btn btn-secondary btn-sm" (click)="viewMoreLogCart(items.order.current_status, items.order.ordercode);ModalviewMoreLogCart.show()"
-                    i18n><i class="fa fa-eye mr-1"></i>More Log
-            </button>
-          </div>
+
+      <div class="row mt-2 col-md-12">
+        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" i18n>
+          Action
+        </button>
+        <div class="dropdown-menu style-d" style="font-size: 11px">
+          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+             id="chatCustomer" href="javascript:void(0);" data-target="#showChatCar"
+             data-toggle="modal" data-backdrop="static" (click)="chatCart(items.order.ordercode, items.order.current_status, items.type, items._id)"
+             data-keyboard="false" i18n>
+            <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
+          </a>
+          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+             id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
+             data-toggle="modal" data-backdrop="static" (click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"
+             data-keyboard="false" i18n>
+            <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
+          </a>
+          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+             href="javascript:void(0);" *ngIf="checkSpAdmin()"
+             (click)="viewMoreLogCart(items.order.current_status, items.order.ordercode);ModalviewMoreLogCart.show()" i18n><i class="fa fa-eye mr-1"></i>More Log
+          </a>
+          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" target="_blank" href="{{items.order.link_payment}}">
+            <i class="fa fa-link mr-1"></i><span i18n>Link Buy Now</span>
+          </a>
+          <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"-->
+             <!--href="javascript:void(0);"-->
+             <!--data-target="#updateConfirmCart" data-toggle="modal" (click)="openConfirmCart(items.order)"  data-backdrop="static" data-keyboard="false">-->
+            <!--<i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i><span i18n>Confirm Orders</span>-->
+          <!--</a>-->
         </div>
       </div>
 
@@ -470,20 +489,20 @@
           {{items.order.total_refund_amount_local | currency:'VND'}}
         </div>
       </div>
-      <hr>
-      <div class="row pt-2 pb-2 no-row">
-        <div class="col-md-12">
-          <button type="button"
-                  (click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"
-                  class="btn btn-secondary mb-2 btn-sm" data-target="#showChatGroup"
-                  data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>
-            <i class="fa fa-comments mr-1" aria-hidden="true"></i>
-            Chat With Group
-          </button>
-        </div>
-      </div>
+      <!--<hr>-->
+      <!--<div class="row pt-2 pb-2 no-row">-->
+        <!--<div class="col-md-12">-->
+          <!--<button type="button"-->
+                  <!--(click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"-->
+                  <!--class="btn btn-secondary mb-2 btn-sm" data-target="#showChatGroup"-->
+                  <!--data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>-->
+            <!--<i class="fa fa-comments mr-1" aria-hidden="true"></i>-->
+            <!--Chat With Group-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
-    <div class="col-md-3 border-col">
+    <div *ngIf="checkSpAdmin()" class="col-md-3 border-col">
       <div class="row STATUS">
         <div class="col-md-7">
           <h5 i18n>STATUS</h5>
@@ -883,5 +902,76 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #updateBuyerCartModal="bs-modal" tabindex="-1" role="dialog"
+           aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" i18n>Update</h4>
+        <button type="button" (click)="updateBuyerCartModal.hide()" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="checkUpdateCustomerCart">
+        <app-customer-info-cart
+          [orderId]="code"
+          [name]="activeOrder.buyer_name"
+          [phone]="activeOrder.buyer_phone"
+          [email]="activeOrder.buyer_email"
+          [address]="activeOrder.buyer_address"
+          [district]="activeOrder.buyer_district_id"
+          [districtName]="activeOrder.buyer_district_name"
+          [province]="activeOrder.buyer_province_id"
+          [provinceName]="activeOrder.buyer_province_name"
+          [country]="activeOrder.buyer_country_id"
+          [countryName]="activeOrder.buyer_country_name"
+          [postCode]="activeOrder.buyer_post_code"
+          [type]="typeCart"
+          [typeUpdate]="typeUpdate"
+          (success)="updateBuyerCartModal.hide();listShoppingCart()">
+        </app-customer-info-cart>
+        <h3 *ngIf="!activeOrder">Failed</h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" bsModal #updateReceiverCartModal="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left" i18n>Update</h4>
+        <button type="button" (click)="updateReceiverCartModal.hide()" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="checkUpdateCustomerReceiverCart">
+        <app-customer-info-cart
+          [orderId]="code"
+          [name]="activeOrder.receiver_name"
+          [phone]="activeOrder.receiver_phone"
+          [email]="activeOrder.receiver_email"
+          [address]="activeOrder.receiver_address"
+          [district]="activeOrder.receiver_district_id"
+          [districtName]="activeOrder.receiver_district_name"
+          [province]="activeOrder.receiver_province_id"
+          [provinceName]="activeOrder.receiver_province_name"
+          [country]="activeOrder.receiver_country_id"
+          [countryName]="activeOrder.receiver_country_name"
+          [postCode]="activeOrder.receiver_post_code"
+          [type]="typeCart"
+          [typeUpdate]="typeUpdate"
+          (success)="updateReceiverCartModal.hide();listShoppingCart()">
+        </app-customer-info-cart>
+        <h3 *ngIf="!activeOrder">Failed</h3>
+      </div>
+    </div>
+
   </div>
 </div>
