@@ -211,9 +211,10 @@
           </div>
           <div *ngIf="!checkShoppingCart" class="col-md-6">
             <pagination [boundaryLinks]="true"
-                        [totalItems]="totalCount"
+                        [maxSize]="10"
+                        [totalItems]="totalOrder"
                         (pageChanged)="handlePagination($event)"
-                        [itemsPerPage]="perPage" class="pagination-sm pull-right"
+                        [itemsPerPage]="limit" class="pagination-sm pull-right"
                         [rotate]="true">
             </pagination>
           </div>
