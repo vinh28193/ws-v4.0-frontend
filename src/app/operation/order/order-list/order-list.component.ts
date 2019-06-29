@@ -1237,7 +1237,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             } else {
                 for (let i = 1; i < this.statusOds.length; i++) {
                     const current = this.statusOds[i];
-                    if (current.name === this.orderList.current_status) {
+                    console.log(this.statusOds[i]['name']);
+                  console.log(this.orderList.current_status);
+                    if (this.statusOds[i]['name'] === this.orderList.current_status) {
                         console.log(current.id);
                         this.statusOd = current.id;
                         break;
