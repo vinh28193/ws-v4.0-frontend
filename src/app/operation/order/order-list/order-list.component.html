@@ -152,7 +152,9 @@
             <label class="form-control-label" i18n>Sale</label>
             <select class="form-control form-control-sm" name="sale" id="sale" formControlName="sale">
               <option [value]="allKey" i18n>--All Sale--</option>
-              <option value="{{sale.id}}" *ngFor="let sale of listSale">{{sale ? sale.username : ""}}</option>
+              <ng-container *ngFor="let sale of listSale">
+                <option value="{{sale.id}}" *ngIf="sale.employee == 1">{{sale ? sale.username : ""}}</option>
+              </ng-container>
             </select>
           </div>
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10"
@@ -446,16 +448,15 @@
                                   </a>
                                   <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
                                      href="javascript:void(0);"
-                                     (click)="openConfirmAll(order)" data-target="#updateConfirm"
-                                     data-toggle="modal" data-backdrop="static" data-keyboard="false"
-                                     *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i>Confirm Orders
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     href="javascript:void(0);"
                                      *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
                                      (click)="markAsJunk(order.id)" i18n><i class="fa fa-trash-o mr-1" aria-hidden="true"></i>Mark as Junk
                                   </a>
                                 </div>
+                                <button class="btn btn-sm ml-2"
+                                   (click)="openConfirmAll(order)" data-target="#updateConfirm"
+                                   data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                   *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i>Confirm Orders
+                                </button>
                               </div>
                             </div>
 
@@ -741,7 +742,7 @@
 
                               <hr>
 
-                              <div>
+                              <div class="row">
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
                                   <button type="button"
                                           *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()"
@@ -783,6 +784,102 @@
                                   <!--                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}-->
                                   <!--                                  </button>-->
                                 </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6" i18n>Packing Wood</div>
+                                <div class="col-md-5 pr-0 text-right">
+                                  <div *ngIf="check_packing_wood == 1">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" style="background-color: red;" name="check_packing_wood" id="wood1" (cdinge)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="1" [checked]="checked">
+                                      <label class="form-check-label" for="wood1" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood2" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="0">
+                                      <label class="form-check-label" for="wood2" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="check_packing_wood == 0">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood4" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="1">
+                                      <label class="form-check-label" for="wood4" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood3" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="0" [checked]="checked">
+                                      <label class="form-check-label" for="wood3" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--<div class="col-md-1">-->
+                                <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
+                                <!--</div>-->
+                              </div>
+                              <div class="row" [hidden]="check_packing_wood == 0" *ngIf="checkOpenEditWood">
+                                <div class="col-md-6 text-right">
+                                  <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee </span></a>
+                                </div>
+                                <div class="col-md-6">
+                                  <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="boxed_fee">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6" i18n>Inspection</div>
+                                <div class="col-md-5 pr-0 text-right">
+                                  <!--{{total_inspection_fee_local | currency:'VND'}}-->
+                                  <div *ngIf="check_inspection == 1">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1" [checked]="checked">
+                                      <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">
+                                      <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="check_inspection == 0">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">
+                                      <label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0" [checked]="checked">
+                                      <label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!--<div class="col-md-1">-->
+                                <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
+                                <!--</div>-->
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6" i18n>Insurance</div>
+                                <div class="col-md-5 pr-0 text-right">
+                                  <!--{{total_insurance_fee_local | currency:'VND'}}-->
+                                  <div *ngIf="check_insurance == 1">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
+                                      <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance3" [value]="0">
+                                      <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+
+                                  <div *ngIf="check_insurance == 0">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1">
+                                      <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance2" [value]="0" [checked]="checked">
+                                      <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <!--<div class="col-md-1">-->
+                                <!--<i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>-->
+                                <!--</div>-->
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
@@ -890,8 +987,7 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Lost:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy
-                                    HH:mm'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}
                                   </div>
                                 </div>
                               </div>
@@ -1946,8 +2042,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-5 pr-0" i18n>New:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.created_at">
                   <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i
-                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy
-                  HH:mm:ss '}}
+                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
               <div [hidden]="!statusOrderShow[orderList.id]">
@@ -2669,190 +2764,6 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
       <div class="moda-body" *ngIf="checkUpdateConfirm">
         <div class="card">
           <div class="card-body">
-            <div class="row mt-1">
-              <div class="col-md-6"><span i18n>Total delivery fee local</span> / <span i18n>Total origin tax fee</span></div>
-              <div class="col-md-5 pr-0 text-right">
-                {{OrderAll.total_origin_shipping_fee_local | currency:'VND'}}/
-                {{OrderAll.total_origin_tax_fee_local | currency:'VND'}}
-              </div>
-            </div>
-              <div class="row mt-1">
-                <div class="col-md-6" i18n>Weshop Fee</div>
-                <div class="col-md-5 pr-0 text-right">
-                  {{total_weshop_fee_local | currency:'VND'}}
-                </div>
-                <!--<div class="col-md-1">-->
-                  <!--<i class="fa fa-edit" (click)="weshop = !weshop; openEditfeeWeshop()"></i>-->
-                <!--</div>-->
-              </div>
-              <div class="row text-right" [hidden]="!weshop" *ngIf="checkOffUpdatefeeWeshop">
-                <div class="col-md-12 text-right">
-                  <input type="number" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_weshop_fee_local" [(ngModel)]="total_weshop_fee_local">
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-6" i18n>Exchange rate fee</div>
-                <div class="col-md-5 pr-0 text-right" >{{OrderAll.exchange_rate_fee | currency:'VND'}}</div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-6" i18n>Total intl shipping fee local</div>
-                <div class="col-md-5 pr-0 text-right">{{OrderAll.total_intl_shipping_fee_local | currency:'VND'}}</div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-6" i18n>Inspection</div>
-                <div class="col-md-5 pr-0 text-right">
-                  <!--{{total_inspection_fee_local | currency:'VND'}}-->
-                  <div *ngIf="check_inspection == 1">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1" [checked]="checked">
-                      <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">
-                      <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
-                    </div>
-                  </div>
-                  <div *ngIf="check_inspection == 0">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">
-                      <label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0" [checked]="checked">
-                      <label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>
-                    </div>
-                  </div>
-                </div>
-                <!--<div class="col-md-1">-->
-                  <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
-                <!--</div>-->
-              </div>
-              <!--<div class="row text-right" [hidden]="!pkh" *ngIf="checkOffUpdatefeePkd">-->
-                <!--<div class="col-md-12 text-right">-->
-                  <!--<input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_inspection_fee_local" [(ngModel)] = 'total_inspection_fee_local'>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="row mt-2">-->
-                <!--<div class="col-md-6" i18n>Total custom fee amount local</div>-->
-                <!--<div class="col-md-5 pr-0 text-right">-->
-                  <!--{{total_custom_fee_amount_local | currency:'VND'}}-->
-                <!--</div>-->
-                <!--<div class="col-md-1">-->
-                  <!--<i class="fa fa-edit" (click)="pthq = !pthq; openEditfeePthq()"></i>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="row text-right" [hidden]="!pthq" *ngIf="checkOffUpdatefeePthq">-->
-                <!--<div class="col-md-12 text-right">-->
-                  <!--<input type="number" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_custom_fee_amount_local" [(ngModel)]="total_custom_fee_amount_local">-->
-                <!--</div>-->
-              <!--</div>-->
-              <div class="row mt-2">
-                <div class="col-md-6" i18n>Insurance</div>
-                <div class="col-md-5 pr-0 text-right">
-                  <!--{{total_insurance_fee_local | currency:'VND'}}-->
-                  <div *ngIf="check_insurance == 1">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
-                      <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance3" [value]="0">
-                      <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
-                    </div>
-                  </div>
-
-                  <div *ngIf="check_insurance == 0">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1">
-                      <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance2" [value]="0" [checked]="checked">
-                      <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
-                    </div>
-                  </div>
-
-                </div>
-                <!--<div class="col-md-1">-->
-                  <!--<i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>-->
-                <!--</div>-->
-              </div>
-              <!--<div class="row text-right" [hidden]="!pbh" *ngIf="checkOffUpdatefee">-->
-                <!--<div class="col-md-12 text-right">-->
-                  <!--<input type="text" class="form-control-sm col-md-6 form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [value]="total_insurance_fee_local" [(ngModel)]="total_insurance_fee_local">-->
-                <!--</div>-->
-              <!--</div>-->
-            <div class="row mt-2">
-              <div class="col-md-6" i18n>Additional service</div>
-              <div class="col-md-5 pr-0 text-right">
-                {{totalNumberAny(total_inspection_fee_local,total_insurance_fee_local, total_intl_shipping_fee_local, total_custom_fee_amount_local, total_origin_tax_fee_local, boxed_fee) | currency: "VND"}}
-              </div>
-              <div class="col-md-1">
-                <i class="fa fa-edit" (click)="dvct = !dvct; openEditfeeDvct()"></i>
-              </div>
-            </div>
-            <div class="row text-right" [hidden]="!dvct" *ngIf="checkOffUpdatefeeDvct">
-              <div class="col-md-12 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="1,5$/SKU" i18n>Inspection fee</a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" [disabled]="check_inspection == 0" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)" [(ngModel)]="total_inspection_fee_local">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 mt-1 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="3%" i18n>Insurance fee</a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" [disabled]="check_insurance == 0" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_insurance_fee_local">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 mt-1 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="Theo thực tế" i18n>Total intl shipping fee</a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_intl_shipping_fee_local">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 mt-1 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="Theo thực tế"><span i18n>Total origin tax fee</span></a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_origin_tax_fee_local">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 mt-1 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee </span></a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="boxed_fee">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12 mt-1 text-right">
-                <div class="row">
-                  <div class="col-md-8 text-right">
-                    <a href="javascript:void(0)" tooltip="Theo chính sách"><span i18n>Total custom fee amount local</span></a>
-                  </div>
-                  <div class="col-md-4">
-                    <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="total_custom_fee_amount_local">
-                  </div>
-                </div>
-              </div>
-            </div>
               <div class="row mt-4">
                 <div class="col-md-12 text-right">
                   <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)" i18n>Confirm Order</button>

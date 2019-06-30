@@ -61,6 +61,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public policyID = 0;
     public check_insurance = 0;
     public check_inspection = 0;
+    public check_packing_wood = 0;
     public additional_service = 0;
     public statusO: any;
     public totalUnPaid: any;
@@ -173,6 +174,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOffUpdatefee = false;
     public checkOpenTracking = false;
     public checkOffUpdatefeePkd = false;
+    public checkOpenEditWood = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -829,6 +831,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             const put = this.orderService.createPostParams({
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
                 check_update_payment: 1,
+                role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
@@ -947,16 +950,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openConfirmAll(order) {
         this.loadPolicy(order.store_id);
         this.OrderAll = order;
-        // this.policyID = order.
-        this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
-        this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
-        this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
-        this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
-        this.check_inspection = order.check_inspection ? order.check_inspection : 0;
-        this.check_insurance = order.check_insurance ? order.check_insurance : 0;
-        this.total_intl_shipping_fee_local = order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0;
-        this.total_origin_tax_fee_local = order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0;
-        this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
         this.checkUpdateConfirm = true;
     }
 
@@ -965,22 +958,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.popup.warning(() => {
         const params: any = {};
         params.typeUpdate = 'updateFee';
-        params.total_inspection_fee_local = this.total_inspection_fee_local;
-        params.total_insurance_fee_local = this.total_insurance_fee_local;
-        params.total_custom_fee_amount_local = this.total_custom_fee_amount_local;
-        params.total_weshop_fee_local = this.total_weshop_fee_local;
-        params.check_inspection = this.check_inspection;
-        params.check_insurance = this.check_insurance;
-        params.additional_service = this.totalNumberAny(this.total_inspection_fee_local, this.total_insurance_fee_local, this.total_custom_fee_amount_local, this.total_origin_tax_fee_local, this.boxed_fee, this.total_intl_shipping_fee_local);
-        params.total_origin_tax_fee_local = this.total_origin_tax_fee_local;
         params.boxed_fee = this.boxed_fee;
         params.total_intl_shipping_fee_local = this.total_intl_shipping_fee_local;
         this.orderService.put(`order/${id}`, params).subscribe(res => {
-          this.checkOffUpdatefee = false;
-          this.checkOffUpdatefeePkd = false;
-          this.checkOffUpdatefeePthq = false;
-          this.checkOffUpdatefeeWeshop = false;
-          this.checkOffUpdatefeeDvct = false;
           this.listOrders();
           this.notifier.notify('success', 'update fee success');
         });
@@ -1771,23 +1751,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   loadRadio() {
-      console.log(this.check_inspection);
-      console.log(this.check_insurance);
+      if (this.check_packing_wood === 1) {
+        this.checkOpenEditWood = true;
+      }
   }
   totalNumberAny(x , y, z , g , d, e) {
-    if (this.check_inspection === 0 && this.check_insurance === 0) {
-      const c = toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
+    if (this.check_packing_wood === 0) {
+      const c = toNumber(z) + toNumber(g) + toNumber(e);
       return c;
-    } if (this.check_inspection === 0) {
-        const c = toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
+    } else {
+        const c = toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
         return c;
-      }  if (this.check_insurance === 0) {
-          const c = toNumber(x) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-          return c;
-      } else {
-          const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-          return c;
-      }
+    }
   }
 }
 

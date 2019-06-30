@@ -146,7 +146,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   filterOneCustomer(email) {
     this.searchF.patchValue({
       value: email,
-      keyword: 'value.buyer_email'
+      keyword: 'key.buyer.buyer_email'
     });
     this.listShoppingCart();
   }

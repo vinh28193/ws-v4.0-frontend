@@ -52,12 +52,6 @@ h5 {
   width: inherit;
 }
 
-.hover-row .row:hover {
-  color: white;
-  border-bottom: 1px dashed;
-  font-weight: 300;
-}
-
 .style-binCode {
   text-decoration: underline;
 }
@@ -601,3 +595,4 @@ ul.dropdown-menu.notifications {
   line-height: 20px;
   font-weight: normal;
 }
+

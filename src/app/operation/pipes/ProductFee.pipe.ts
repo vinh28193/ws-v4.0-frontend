@@ -7,14 +7,14 @@ export class ProductFeePipe implements PipeTransform {
 
     transform(value: any) {
         switch (value) {
-            case 'product_price_origin':
-            case 'product_price_origin ':
+            case 'product_price':
+            case 'product_price ':
                 return 'Product Price';
-            case 'tax_fee_origin':
-            case 'tax_fee_origin ':
+            case 'tax_fee':
+            case 'tax_fee ':
                 return 'Tax Fee';
-            case 'origin_shipping_fee':
-            case 'origin_shipping_fee ':
+            case 'shipping_fee':
+            case 'shipping_fee ':
                 return 'Shipping Fee';
             case 'weshop_fee':
             case 'weshop_fee ':
@@ -40,6 +40,9 @@ export class ProductFeePipe implements PipeTransform {
             case 'import_fee':
             case 'import_fee ':
                 return 'Import Fee';
+            case 'purchase_fee':
+            case 'purchase_fee ':
+              return 'Import Fee';
             default :
                 return 'Unknow Fee';
         }
