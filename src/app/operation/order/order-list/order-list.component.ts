@@ -101,6 +101,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
     public listSale: any = [];
+    public logUpdateOrder: any = [];
     public email: any;
     public sale_support_id: any;
     public productUpdateFee: any;
@@ -957,6 +958,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.check_inspection = order.check_inspection ? order.check_inspection : 0;
         this.check_insurance = order.check_insurance ? order.check_insurance : 0;
         this.checkUpdateConfirm = true;
+        this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe( res => {
+          console.log(res);
+          // this.logUpdateOrder = res;
+        });
     }
 
     updatePayBack() {
