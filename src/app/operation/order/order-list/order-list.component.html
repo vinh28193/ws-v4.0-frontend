@@ -1140,6 +1140,8 @@
                                                   [openConfirmOrder]="checkConfirmOrder(order)"
                                                   (getListOrder)="listOrders()" [policy]="getPolicy"
                                                   [storeID]="order.store_id"
+                                                  [customer_id]="order.customer_id"
+                                                  [item_type]="order.portal"
                                                   [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''"
                                                   (editFee)="listOrders()" [order_path]="order.ordercode"
                                                   [products]="order.products"></app-order-detail>

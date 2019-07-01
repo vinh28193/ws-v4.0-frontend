@@ -174,8 +174,14 @@
           </div>
           <div class="row quantity_customer ">
             <div class="col-md-7"><strong i18n>Quantity:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">
+            <div class="col-md-5 pr-2 text-right style-padding Quantity">
               {{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}
+              <span class="fa fa-edit pl-1" (click)="quantityPro[product.id] = !quantityPro[product.id]; openUpdateQuantity(product.quantity_customer, product.id, product.price_amount_origin)"></span>
+            </div>
+          </div>
+          <div class="row" *ngIf="checkUpdateQuantity">
+            <div class="col-md-12 float-right tex" [hidden]="!quantityPro[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "shipping_quantity">
             </div>
           </div>
           <div *ngFor="let ProFee of product.productFees">
@@ -276,7 +282,7 @@
                 <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
                                     {{ product.price_amount_origin | currency : 'USD' : '$'}}
                                   </span>
-                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id)"></span>):
+                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
               </strong>
             </div>
             <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>

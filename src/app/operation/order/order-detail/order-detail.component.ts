@@ -32,14 +32,19 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public totalAmount = 0;
   public proId: any;
   public hidem: any = {};
+  public quantityPro: any = {};
   @Input() openConfirmOrder: boolean;
   @Input() products: any;
   @Input() policy: any;
+  @Input() item_type: any;
+  @Input() customer_id: any;
   @Input() Employee_Purchase: any;
   @Input() storeID: any;
   @Input() order_path: any;
   public price_amount_origin: any;
+  public shipping_quantity: any;
   public checkUpdatePricePro = false;
+  public checkUpdateQuantity = false;
   public editFormVariant: FormGroup;
   public updateForm: FormGroup;
   public editFormNote: FormGroup;
@@ -334,19 +339,29 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     }, 'Do you want confirm changing price product id ' + product.id);
   }
 
-  openUpdatePricePro(price, id) {
-    console.log(price);
+  openUpdatePricePro(price, id, qtt) {
     this.price_amount_origin = price;
+    this.shipping_quantity = qtt;
     this.checkUpdatePricePro = true;
     this.proId = id;
+  }
+  openUpdateQuantity(quantity, id, price ) {
+    this.shipping_quantity = quantity;
+    this.price_amount_origin = price;
+    this.proId = id;
+    this.checkUpdateQuantity = true;
   }
 
   updatePricePro() {
     const params: any = {};
-    params.price_amount_origin = this.price_amount_origin;
-    params.order_path = this.order_path;
-    params.title = 'Update Product Price';
-    this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
+    params.us_amount = this.price_amount_origin;
+    params.shipping_quantity = this.shipping_quantity;
+    params.target_name = 'product';
+    params.target_id = this.proId;
+    params.store_id = this.storeID;
+    params.item_type = this.item_type;
+    params.customer_id = this.customer_id;
+    this.orderService.getAdditional(params).subscribe(res => {
       this.getListOrder.emit({});
     });
   }
