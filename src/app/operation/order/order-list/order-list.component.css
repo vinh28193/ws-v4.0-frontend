@@ -583,4 +583,7 @@ ul.dropdown-menu.notifications {
   -o-transition: .28s ease;
   transition: .28s ease;
 }
+.table td, .table th {
+  padding-left: 0;
+}
 

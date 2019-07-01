@@ -952,6 +952,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openConfirmAll(order) {
         this.loadPolicy(order.store_id);
         this.OrderAll = order;
+        this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
+        this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
+        this.check_inspection = order.check_inspection ? order.check_inspection : 0;
+        this.check_insurance = order.check_insurance ? order.check_insurance : 0;
         this.checkUpdateConfirm = true;
     }
 
