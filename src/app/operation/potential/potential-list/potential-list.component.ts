@@ -62,6 +62,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       keyword: 0,
       timeKey: 0,
       portal: 0,
+      saleID: 0,
       potential: 10,
       statusShopping: 0,
       bsRangeValue: {start: '', end: ''},
@@ -128,6 +129,9 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     }
     if (value.portal !== '' && value.portal !== 0) {
       params.portal = value.portal;
+    }
+    if (value.saleID !== '' && value.saleID !== 0) {
+      params.saleID = value.saleID;
     }
     if (value.potential !== '' && value.potential !== 10) {
       params.potential = value.potential;

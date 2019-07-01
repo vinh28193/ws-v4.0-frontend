@@ -583,16 +583,4 @@ ul.dropdown-menu.notifications {
   -o-transition: .28s ease;
   transition: .28s ease;
 }
-[type=radio]:not(:checked) + label {
-  padding-left: 25px;
-  height: 25px;
-  line-height: 20px;
-  font-weight: normal;
-}
-[type=radio]:checked + label {
-  padding-left: 26px;
-  height: 25px;
-  line-height: 20px;
-  font-weight: normal;
-}
 

@@ -54,6 +54,16 @@
           <option value="CANCELLED">CANCELLED</option>
         </select>
       </div>
+      <div class="col-md-3 col-sm-12  form-group m-b-10">
+        <label for="saleID" class="form-control-label" i18n>Sale</label>
+        <select class=" form-control form-control-sm" name="searchKeyword"
+                id="saleID" formControlName="saleID">
+          <option value="0" i18n>ALL SALE</option>
+          <ng-container *ngFor="let sale of listSale">
+            <option [value]="sale.id" *ngIf="sale.employee == 2">{{sale.username}}</option>
+          </ng-container>
+        </select>
+      </div>
       <div class="col-md-3 col-sm-6 form-group m-b-10">
         <label class="form-control-label">Portal</label>
         <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">

@@ -790,21 +790,21 @@
                                 <div class="col-md-5 pr-0 text-right">
                                   <div *ngIf="check_packing_wood == 1">
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" style="background-color: red;" name="check_packing_wood" id="wood1" (cdinge)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="1" [checked]="checked">
+                                      <input class="form-check-input form-control-sm" type="radio" style="background-color: red;" name="check_packing_wood" id="wood1" (cdinge)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="1" [checked]="checked">
                                       <label class="form-check-label" for="wood1" style="font-size: 12px">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood2" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="0">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood2" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="0">
                                       <label class="form-check-label" for="wood2" style="font-size: 12px">No</label>
                                     </div>
                                   </div>
                                   <div *ngIf="check_packing_wood == 0">
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood4" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="1">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood4" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="1">
                                       <label class="form-check-label" for="wood4" style="font-size: 12px">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood3" (change)="loadRadio()" [(ngModel)]="check_packing_wood" [value]="0" [checked]="checked">
+                                      <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood3" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="0" [checked]="checked">
                                       <label class="form-check-label" for="wood3" style="font-size: 12px">No</label>
                                     </div>
                                   </div>
@@ -818,7 +818,7 @@
                                   <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee </span></a>
                                 </div>
                                 <div class="col-md-6">
-                                  <input type="number" class="form-control-sm form-control" (keyup.enter)="updateFeeOrder(OrderAll.id)"  [(ngModel)]="boxed_fee">
+                                  <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"  [(ngModel)]="boxed_fee">
                                 </div>
                               </div>
                               <div class="row">
@@ -856,22 +856,22 @@
                                   <!--{{total_insurance_fee_local | currency:'VND'}}-->
                                   <div *ngIf="check_insurance == 1">
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
                                       <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance3" [value]="0">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance3" [value]="0">
                                       <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
                                     </div>
                                   </div>
 
                                   <div *ngIf="check_insurance == 0">
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio()" [(ngModel)]="check_insurance" [value]="1">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1">
                                       <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio()" id="check_insurance2" [value]="0" [checked]="checked">
+                                      <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance2" [value]="0" [checked]="checked">
                                       <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
                                     </div>
                                   </div>
@@ -880,6 +880,13 @@
                                 <!--<div class="col-md-1">-->
                                 <!--<i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>-->
                                 <!--</div>-->
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button class="btn btn-info btn-sm float-right" (click)="updatePackingWood()" *ngIf="OpenUpdate" i18n>
+                                      Update
+                                  </button>
+                                </div>
                               </div>
                             </div>
                             <div class="col-md-3 border-col">
@@ -2764,6 +2771,61 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
       <div class="moda-body" *ngIf="checkUpdateConfirm">
         <div class="card">
           <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th></th>
+                          <th>Chênh lệch USD</th>
+                          <th>Chênh lệch VND</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                    <tr>
+                      <td>Giá sản phẩm</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Phí vận chuyển nội địa</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Thuế bang</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Phí mua hộ</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Phí đóng gỗ</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Phí vận chuyển quốc tế</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Phí chuyển đổi ngoại tệ</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Tổng chênh lệch</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
               <div class="row mt-4">
                 <div class="col-md-12 text-right">
                   <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)" i18n>Confirm Order</button>

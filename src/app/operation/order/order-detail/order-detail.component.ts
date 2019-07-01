@@ -38,7 +38,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   @Input() Employee_Purchase: any;
   @Input() storeID: any;
   @Input() order_path: any;
-  public total_price_amount_local: any;
+  public price_amount_origin: any;
   public checkUpdatePricePro = false;
   public editFormVariant: FormGroup;
   public updateForm: FormGroup;
@@ -335,19 +335,23 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
 
   openUpdatePricePro(price, id) {
-    console.log(id);
-    this.total_price_amount_local = price;
+    console.log(price);
+    this.price_amount_origin = price;
     this.checkUpdatePricePro = true;
     this.proId = id;
   }
 
   updatePricePro() {
     const params: any = {};
-    params.total_price_amount_local = this.total_price_amount_local;
+    params.price_amount_origin = this.price_amount_origin;
     params.order_path = this.order_path;
     params.title = 'Update Product Price';
     this.orderService.put(`product/${this.proId}`, params).subscribe(res => {
       this.getListOrder.emit({});
     });
+  }
+  totalPriceAmountOrigin(a, b ) {
+    const c = toNumber(a) * toNumber(b);
+    return c;
   }
 }

@@ -266,31 +266,43 @@
             <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
           <hr style="margin: 5px">
-
+          <div class="row">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+              <strong i18n>Price amount local</strong>
+              <strong>
+                (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ product.price_amount_origin | currency: 'JPY' : '￥'}}
+                                  </span>
+                <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                    {{ product.price_amount_origin | currency : 'USD' : '$'}}
+                                  </span>
+                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id)"></span>):
+              </strong>
+            </div>
+            <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+          </div>
+          <div class="row" *ngIf="checkUpdatePricePro">
+            <div class="col-md-12 float-right tex" [hidden]="!pricePro[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "price_amount_origin">
+            </div>
+          </div>
+          <hr style="margin: 5px">
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value text-bold">
               <strong i18n>Total price amount local</strong>
               <strong>
                 (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
-                                    {{ product.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                                    {{(totalPriceAmountOrigin(product.price_amount_origin, product.quantity_customer)) | currency: 'JPY' : '￥'}}
                                   </span>
                 <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
-                                    {{ product.total_price_amount_origin | currency : 'USD' : '$'}}
+                                    {{ (totalPriceAmountOrigin(product.price_amount_origin, product.quantity_customer)) | currency : 'USD' : '$'}}
                                   </span>):
               </strong>
             </div>
-            <div class="col-md-6 text-right style-padding pr-2">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
-              <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.total_price_amount_local, product.id)"></span>
-            </div>
-          </div>
-          <div class="row float-right" *ngIf="checkUpdatePricePro">
-            <div class="col-md-12 float-right tex" [hidden]="!pricePro[product.id]">
-              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "total_price_amount_local">
+            <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
             </div>
           </div>
         </div>
-
-
       </div>
       <p></p>
 
