@@ -512,7 +512,14 @@
 
                                 <div class="row total_origin_tax_fee_local">
                                   <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-                                    <span i18n>Total origin tax fee local </span>
+                                    <span i18n>Total origin tax fee local </span>( <span
+                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_origin_tax_fee_amount | currency: 'JPY' : '￥'}}
+                                    </span>
+                                    <span
+                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                      {{ order.total_origin_tax_fee_amount | currency : 'USD' : '$'}}
+                                    </span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
@@ -537,7 +544,14 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total weshop fee</span>
+                                    <span i18n>Total weshop fee</span>( <span
+                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_weshop_fee_amount | currency: 'JPY' : '￥'}}
+                                    </span>
+                                    <span
+                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                      {{ order.total_weshop_fee_amount | currency : 'USD' : '$'}}
+                                    </span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -549,7 +563,14 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total shiping fee</span>
+                                    <span i18n>Total shiping fee</span>( <span
+                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
+                                    {{ order.total_intl_shipping_fee_amount | currency: 'JPY' : '￥'}}
+                                    </span>
+                                    <span
+                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
+                                      {{ order.total_intl_shipping_fee_amount | currency : 'USD' : '$'}}
+                                    </span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
