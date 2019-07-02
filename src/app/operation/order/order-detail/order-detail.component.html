@@ -35,7 +35,7 @@
           <div class="col-md-6 pr-0" style="border-right: 1px solid #d9d9d9">
             <ul>
               <li class="product_name">
-                <a href="{{product.sourceId}}" target="_blank" tooltip="{{product.product_name}}">
+                <a href="{{product.product_link}}" target="_blank" tooltip="{{product.product_name}}">
                   {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. . .'):(product.product_name)}}
                 </a>
               </li>

@@ -1,5 +1,5 @@
 <div *ngIf = "image != ''" class="images-detail">
-  <a href="javascript:void(0)">
+  <a href="{{image}}">
     <img [src]="image" alt="" class="style-image" width="50%" (dblclick)="updateImage()"></a><br>
 </div>
 <div *ngIf = "image == '' || image == null">
