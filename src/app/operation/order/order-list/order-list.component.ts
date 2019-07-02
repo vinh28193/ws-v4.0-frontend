@@ -101,7 +101,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
     public listSale: any = [];
-    public logUpdateOrder: any = [];
+    public logUpdateOrder: any = {};
     public email: any;
     public sale_support_id: any;
     public productUpdateFee: any;
@@ -951,7 +951,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
     openConfirmAll(order) {
-        this.loadPolicy(order.store_id);
+        // this.loadPolicy(order.store_id);
         this.OrderAll = order;
         this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
         this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
@@ -959,8 +959,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.check_insurance = order.check_insurance ? order.check_insurance : 0;
         this.checkUpdateConfirm = true;
         this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe( res => {
-          console.log(res);
-          // this.logUpdateOrder = res;
+          this.logUpdateOrder = res.data.dirty_attribute;
         });
     }
 

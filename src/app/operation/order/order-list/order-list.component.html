@@ -371,7 +371,7 @@
                                     <a href="javascript:void(0)" (click)="filterOneCustome(order.buyer_email)"><i
                                       class="fa fa-filter" data-toggle="tooltip" data-placement="top"
                                       title="Filter Email BUYER!"> </i></a></span>
-                                  <span>{{order.buyer_address}}({{order.buyer_district_name}} - {{order.buyer_province_name}})</span>
+                                  <span>{{order.buyer_address}}({{order.buyer_district_name}} - {{order.buyer_province_name}})</span> - {{order.buyer_country_name}}
                                 </div>
                               </div>
                               <hr style="margin: 5px;">
@@ -2697,50 +2697,45 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     <thead>
                         <tr>
                           <th></th>
-                          <th>Chênh lệch USD</th>
-                          <th>Chênh lệch VND</th>
+                          <th class="text-center">Chênh lệch USD</th>
+                          <th class="text-center">Chênh lệch <span *ngIf="OrderAll.store_id == 1">VND</span><span *ngIf="OrderAll.store_id == 7">IDR</span></th>
                         </tr>
                     </thead>
                   <tbody>
                     <tr>
                       <td>Giá sản phẩm</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
                     </tr>
                     <tr>
                       <td>Phí vận chuyển nội địa</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
                     </tr>
                     <tr>
                       <td>Thuế bang</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_local | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_amount | number}}</td>
                     </tr>
                     <tr>
                       <td>Phí mua hộ</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center">{{logUpdateOrder.total_weshop_fee_amount | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_weshop_fee_local | number}}</td>
                     </tr>
                     <tr>
                       <td>Phí đóng gỗ</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Phí vận chuyển quốc tế</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
                     </tr>
                     <tr>
                       <td>Phí chuyển đổi ngoại tệ</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center"></td>
+                      <td class="text-center"></td>
                     </tr>
                     <tr>
                       <td>Tổng chênh lệch</td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-center">{{logUpdateOrder.total_price_amount_origin | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_fee_amount_local | number}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2775,7 +2770,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <!--</div>-->
             </div>
             <div class="row" [hidden]="check_packing_wood == 0" *ngIf="checkOpenEditWood">
-              <div class="col-md-6 text-right">
+              <div class="col-md-4">
                 <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee </span></a>
               </div>
               <div class="col-md-6">
@@ -2844,7 +2839,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-info btn-sm float-right" (click)="updatePackingWood()" *ngIf="OpenUpdate" i18n>
+                <button class="btn btn-info btn-sm" (click)="updatePackingWood()" *ngIf="OpenUpdate" i18n>
                   Update
                 </button>
               </div>
