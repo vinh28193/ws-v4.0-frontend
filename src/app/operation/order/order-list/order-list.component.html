@@ -2703,14 +2703,14 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     </thead>
                   <tbody>
                     <tr>
-                      <td>Giá sản phẩm</td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
+                      <td>Giá đơn hàng</td>
+                      <td class="text-center">{{logUpdateOrder.total_price_amount_origin | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_origin_fee_local | number}}</td>
                     </tr>
                     <tr>
                       <td>Phí vận chuyển nội địa</td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
+                      <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_amount}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_local}}</td>
                     </tr>
                     <tr>
                       <td>Thuế bang</td>
@@ -2728,14 +2728,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                       <td class="text-center"></td>
                     </tr>
                     <tr>
-                      <td>Phí chuyển đổi ngoại tệ</td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
-                    </tr>
-                    <tr>
                       <td>Tổng chênh lệch</td>
-                      <td class="text-center">{{logUpdateOrder.total_price_amount_origin | number}}</td>
-                      <td class="text-center">{{logUpdateOrder.total_fee_amount_local | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_final_amount_local}}</td>
                     </tr>
                   </tbody>
                 </table>
