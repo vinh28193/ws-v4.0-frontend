@@ -740,6 +740,11 @@
                                   <span>{{order.store_id | currencyStore}}</span>
                                 </div>
                               </div>
+                              <div class="row" *ngIf="order.note_update_payment && order.note_update_payment != null">
+                                <div class="col-md-12 text-danger">
+                                  <span i18n>Note :</span><span>{{order.note_update_payment}}</span>
+                                </div>
+                              </div>
                               <div class="row Collect so-tien-thu-them Cod">
                                 <div class="col-md-6 text-info cod" i18n>Collect</div>
                                 <div class="col-md-6 text-right text-info style-padding-left">
@@ -1399,6 +1404,10 @@
                   <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
+              </div>
+              <div class="col-md-6">
+                <label i18n>Note Update Payment</label>
+                <input type="text" class="form-control form-control-sm" formControlName="note_update_payment">
               </div>
             </div>
             <div class="row m-0">

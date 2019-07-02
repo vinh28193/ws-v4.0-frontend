@@ -65,6 +65,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public additional_service = 0;
     public statusO: any;
     public totalUnPaid: any;
+    public note_update_payment: any;
     public checkStatusValue: any;
     public countPurchase: any;
     public purchase2Day: any;
@@ -820,11 +821,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateAdjustPayment(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_paid_amount_local = order.total_paid_amount_local;
+        this.note_update_payment = order.note_update_payment;
         this.code = order.ordercode;
         this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
-            total_paid_amount_local: this.total_paid_amount_local
+            total_paid_amount_local: this.total_paid_amount_local,
+            note_update_payment: this.note_update_payment,
         });
     }
 
@@ -833,6 +836,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
+                note_update_payment: this.editForm.value.note_update_payment,
                 check_update_payment: 1,
                 role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
