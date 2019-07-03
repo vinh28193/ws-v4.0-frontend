@@ -36,6 +36,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public limit = 20;
     public page = 1;
     public countClickBuyNow = 0;
+    block: any;
     public pro: any = {};
     public pack: any = {};
     public pay: any = {};
@@ -50,6 +51,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
     public total: any;
+    public  url: string;
     public countOP: any;
     public chatId: any;
     public totalChat: any;
@@ -142,6 +144,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOrderChatRefund = false;
     public checkUpdateOderCode = false;
     public checkUpdateQuantity = false;
+    public IMG_URL = 'http://192.168.11.252:8081';
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -1775,6 +1778,28 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   openUpdateJustPayment(order) {
       this.check_update_payment = order.check_update_payment;
+  }
+  customStyle = {
+    selectButton: {
+      'padding': '5px',
+      'font-size': '14px',
+      'margin': '10px auto'
+    },
+    clearButton: {
+      'background-color': '#FFF',
+      'border-radius': '25px',
+      'color': '#000',
+      'margin-left': '10px'
+    },
+    previewPanel: {
+      'display': 'none',
+    }
+  };
+
+  imageUploaded(data, field) {
+    console.log(data);
+    const src = JSON.parse(data.serverResponse._body);
+    this.block[field] = this.IMG_URL + src;
   }
 }
 

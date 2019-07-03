@@ -489,7 +489,7 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <strong><span i18n>Units Price:</span>
+                                  <strong><span i18n>Amount Price:</span>
                                     ( <span
                                       *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
@@ -1406,9 +1406,29 @@
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
               </div>
-              <div class="col-md-6">
-                <label i18n>Link Image</label>
-                <input type="file" class="form-control form-control-sm" formControlName="link_image">
+              <div class="col-md-6 form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    Main block image
+                    <br>
+                    <span class="text-danger">(300x300)</span>
+                  </div>
+                  <div class="col-md-6" style="font-size: 12px;">
+                    <image-upload
+                      [max]="100"
+                      [url]="IMG_URL+'/upload/upcms'"
+                      [buttonCaption]="'Browser..'"
+                      [dropBoxMessage]="'Drop your images here!'"
+                      [extensions]="['jpg','png','gif','sgv','jpeg']"
+                      [preview]="false"
+                      [style]="customStyle"
+                      (onFileUploadFinish)="imageUploaded($event,'image')"
+                    ></image-upload>
+
+                    <input class="form-control" name="image_url" formControlName="link_image"
+                           placeholder="Url image...">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row m-0 mt-2">
@@ -1697,7 +1717,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <hr>
             <div class="Ws-bold-font row Total_Unit_price_product">
               <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                <strong><span i18n>Units Price:</span>
+                <strong><span i18n>Amount Price:</span>
                   ( <span
                     *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
                                     {{ orderList.total_price_amount_origin | currency: 'JPY' : '￥'}}

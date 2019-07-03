@@ -43,6 +43,7 @@ import { AssignSaleCartComponent } from './order-list/shopping-cart/assign-sale-
 import { ScrollTopComponent } from './order-list/scroll-top/scroll-top.component';
 import { ChatCartComponent } from './order-list/shopping-cart/chat-cart/chat-cart.component';
 import { ChatGroupCartComponent } from './order-list/shopping-cart/chat-group-cart/chat-group-cart.component';
+import {ImageUploadModule} from 'angular2-image-upload';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -89,6 +90,7 @@ const customNotifierOptions: NotifierOptions = {
     imports: [
         CommonModule,
         OrderRoutingModule,
+        ImageUploadModule.forRoot(),
         OperationModule,
         FormsModule,
         ReactiveFormsModule,
