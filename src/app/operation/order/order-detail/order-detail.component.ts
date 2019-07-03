@@ -155,22 +155,22 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
 
   checkShowEdit(type) {
-    return (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee');
+    return (type !== 'product_price' && type !== 'tax_fee' && type !== 'origin_shipping');
   }
 
   checkClass(type) {
-    if (type !== 'product_price_origin' && type !== 'tax_fee_origin' && type !== 'origin_shipping_fee') {
+    if (type !== 'product_price' && type !== 'tax_fee' && type !== 'shipping_fee') {
       return 2;
     }
   }
 
   checkShowFee(name) {
-    if (name === 'tax_fee_origin'
-      || name === 'origin_shipping_fee'
-      || name === 'weshop_fee'
-      || name === 'intl_shipping_fee'
+    if (name === 'tax_fee'
+      || name === 'shipping_fee'
+      || name === 'purchase_fee'
+      || name === 'international_shipping_fee'
       || name === 'import_fee'
-      || name === 'custom_fee' || name === 'product_price_origin') {
+      || name === 'custom_fee' || name === 'product_price') {
       return true;
     }
   }
@@ -291,15 +291,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   itemSubtotal(productFees) {
     let tottal = 0;
     for (let j = 0; j < productFees.length; j++) {
-      if (productFees[j]['name'] === 'product_price_origin') {
-        tottal += Number(productFees[j]['local_amount']);
-      }
-      if (productFees[j]['name'] === 'origin_shipping_fee') {
-        tottal += Number(productFees[j]['local_amount']);
-      }
-      if (productFees[j]['name'] === 'tax_fee_origin') {
-        tottal += Number(productFees[j]['local_amount']);
-      }
+      tottal += Number(productFees[j]['local_amount']);
     }
     return tottal;
   }
