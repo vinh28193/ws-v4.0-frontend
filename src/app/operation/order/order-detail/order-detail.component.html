@@ -185,7 +185,7 @@
             </div>
           </div>
           <div *ngFor="let ProFee of product.productFees">
-            <div class="row" *ngIf="checkShowFee(ProFee.name)">
+            <div class="row" *ngIf="checkShowFee(ProFee.name) && ProFee.name != 'purchase_fee'">
               <div *ngIf="product.id == ProFee.target_id" class="name-{{ProFee.name}} type-{{ProFee.name}} text-bold col-md-5 pr-0">
                 <strong>{{ProFee.name | ProductFee }}
                   (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">

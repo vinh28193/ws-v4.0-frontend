@@ -9,7 +9,6 @@
       <th class="text-bold" i18n>Note</th>
       <th class="text-bold" i18n>image</th>
       <th class="text-bold" i18n>Payment Bank</th>
-      <th class="text-bold" i18n>Transaction Link</th>
       <th class="text-bold" i18n>Create</th>
       <th class="text-bold" i18n>Update</th>
       <th class="text-bold" i18n>
@@ -25,9 +24,15 @@
       <td [innerHTML]="walletTransaction.transaction_status"></td>
       <td [innerHTML]="walletTransaction.transaction_description"></td>
       <td [innerHTML]="walletTransaction.note"></td>
-      <td [innerHTML]="walletTransaction.link_image"></td>
-      <td [innerHTML]="walletTransaction.payment_bank_code"></td>
-      <td><a href="{{walletTransaction.third_party_transaction_link}}" target="_blank">{{walletTransaction.third_party_transaction_link}}</a></td>
+      <td><a [href]="walletTransaction.link_image" target="_blank">
+          <img src="{{walletTransaction.link_image}}">
+        </a>
+      </td>
+      <td>
+        <a [href]="walletTransaction.third_party_transaction_link" tooltip="{{walletTransaction.third_party_transaction_link}}" target="_blank">
+          {{walletTransaction.payment_bank_code}}
+        </a>
+      </td>
       <td [innerHTML]="walletTransaction.created_at"></td>
       <td [innerHTML]="walletTransaction.updated_at"></td>
     </tr>
