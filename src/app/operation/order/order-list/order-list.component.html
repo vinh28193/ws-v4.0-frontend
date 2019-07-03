@@ -544,7 +544,7 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total weshop fee</span>( <span
+                                    <span i18n>Purchase fee</span>( <span
                                     *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_weshop_fee_amount | currency: 'JPY' : '￥'}}
                                     </span>
@@ -563,7 +563,7 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total shiping fee</span>( <span
+                                    <span i18n>Shiping fee</span>( <span
                                     *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
                                     {{ order.total_intl_shipping_fee_amount | currency: 'JPY' : '￥'}}
                                     </span>
@@ -581,7 +581,7 @@
                                 </div>
                                 <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total custom fee </span>
+                                    <span i18n>Custom fee </span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -592,7 +592,7 @@
                                 </div>
                                 <div class="row Total_delivery_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total delivery fee</span>
+                                    <span i18n>Delivery fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -603,7 +603,7 @@
                                 </div>
                                 <div class="row Total_packing_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total packing fee</span>
+                                    <span i18n>Packing fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -614,7 +614,7 @@
                                 </div>
                                 <div class="row Total_insection_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total inspection fee</span>
+                                    <span i18n>Inspection fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -625,7 +625,7 @@
                                 </div>
                                 <div class="row Total_insurance_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Total insurance fee</span>
+                                    <span i18n>Insurance fee</span>
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1013,7 +1013,7 @@
                                 <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
                                 <!--</li>-->
                                 <li class="tab-slider--trigger" rel="tab2"
-                                    *ngIf="checkShowPay() && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
+                                    *ngIf="checkShowPay()"
                                     (click)="pay[order.id] = !pay[order.id]; openUpdateJustPayment(order)">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Payment Transaction</button>
                                 </li>
@@ -1408,7 +1408,7 @@
               </div>
               <div class="col-md-6">
                 <label i18n>Link Image</label>
-                <input type="text" class="form-control form-control-sm" formControlName="link_image">
+                <input type="file" class="form-control form-control-sm" formControlName="link_image">
               </div>
             </div>
             <div class="row m-0 mt-2">
