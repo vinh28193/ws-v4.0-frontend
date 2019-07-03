@@ -6,7 +6,9 @@
             <div class="col-md-12 col-sm-12 form-group input-group input-group-sm m-b-5">
                 <select class="form-control form-control-sm" [(ngModel)] = 'saleId'>
                     <option [value]="allKey">--No Sale--</option>
-                    <option *ngFor="let s of sales" [value]="s.id">{{s.username}}</option>
+                    <ng-container *ngFor="let s of sales">
+                      <option *ngIf="s.employee == 1" [value]="s.id">{{s.username}}</option>
+                    </ng-container>
                 </select>
                 <span class="input-group-btn">
                     <button class="btn btn-sm btn-info" type="button" (click)="assignSale();pop.hide()"><i class="fa fa-check"></i></button>

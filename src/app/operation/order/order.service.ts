@@ -41,6 +41,10 @@ export class OrderService extends OperationService {
         return   this.get('order', filter);
     }
 
+    getAdditional(filter: any | undefined) {
+      return   this.get('additional', filter);
+    }
+
     ListShopping(filter: any | undefined) {
       return   this.get('cart', filter);
     }

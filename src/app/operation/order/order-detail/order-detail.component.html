@@ -35,7 +35,7 @@
           <div class="col-md-6 pr-0" style="border-right: 1px solid #d9d9d9">
             <ul>
               <li class="product_name">
-                <a href="{{product.sourceId}}" target="_blank" tooltip="{{product.product_name}}">
+                <a href="{{product.product_link}}" target="_blank" tooltip="{{product.product_name}}">
                   {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. . .'):(product.product_name)}}
                 </a>
               </li>
@@ -59,10 +59,10 @@
                 <span class="mr-2" i18n>Local Seller:</span>
                 <app-span-label [value]="product.seller_id"></app-span-label>
               </li-->
-              <li class="seller_id">
-                <span class="mr-2" i18n>Size:</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
+              <!--<li class="seller_id">-->
+                <!--<span class="mr-2" i18n>Size:</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
               <li class="total_weight_temporary">
                 <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
                 <app-span-label [value]="(product.total_weight_temporary + ' kg')"></app-span-label>
@@ -77,10 +77,10 @@
           </div>
           <div class="col-md-6 pl-1">
             <ul>
-              <li>
-                <span class="mr-2" i18n>Local Name:</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
+              <!--<li>-->
+                <!--<span class="mr-2" i18n>Local Name:</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
               <li>
                 <span class="mr-2" i18n>Category:</span>
                 <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
@@ -94,21 +94,21 @@
                   </select>
                 </form>
               </li>
-              <li>
-                <span class="mr-2" i18n>QTT Set:</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
-              <li>
-                <span class="mr-2" i18n>Fragile:</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
-              <li>
-                <span class="mr-2" i18n>Packing Wood</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
+              <!--<li>-->
+                <!--<span class="mr-2" i18n>QTT Set:</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<span class="mr-2" i18n>Fragile:</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<span class="mr-2" i18n>Packing Wood</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
               <li>
                 <span class="mr-2" i18n>Note Boxme:</span>
-                <app-span-label style="color: red" [value]="product.note_boxme"></app-span-label>
+                <span>{{product.note_boxme}}</span>
               </li>
               <li *ngIf="product.trackingCodes">
                 <span class="mr-2" i18n>Tracking Code (seller):</span>
@@ -174,8 +174,14 @@
           </div>
           <div class="row quantity_customer ">
             <div class="col-md-7"><strong i18n>Quantity:</strong></div>
-            <div class="col-md-5 text-right style-padding Quantity">
+            <div class="col-md-5 pr-2 text-right style-padding Quantity">
               {{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}
+              <span class="fa fa-edit pl-1" (click)="quantityPro[product.id] = !quantityPro[product.id]; openUpdateQuantity(product.quantity_customer, product.id, product.price_amount_origin)"></span>
+            </div>
+          </div>
+          <div class="row" *ngIf="checkUpdateQuantity">
+            <div class="col-md-12 float-right tex" [hidden]="!quantityPro[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "shipping_quantity">
             </div>
           </div>
           <div *ngFor="let ProFee of product.productFees">
@@ -227,7 +233,7 @@
                       {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.name) && !_sp.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
                     </div>
                     <div *ngIf="product.id == ProFee.target_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
-                      <input type="number" width="100%" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
+                      <input type="number" width="100%" [(ngModel)]="fee" (keyup.enter)="updatePricePro()">
                     </div>
                   </div>
                 </div>
@@ -257,18 +263,52 @@
           </div>
 
           <hr style="margin: 5px">
-
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value text-bold">
-              <strong i18n>Total value Product
+              <strong i18n>Price amount local</strong>
+              <strong>
+                (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ product.price_amount_origin | currency: 'JPY' : '￥'}}
+                                  </span>
+                <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                    {{ product.price_amount_origin | currency : 'USD' : '$'}}
+                                  </span>
+                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
+              </strong>
+            </div>
+            <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+          </div>
+          <div class="row" *ngIf="checkUpdatePricePro">
+            <div class="col-md-12 float-right tex" [hidden]="!pricePro[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "price_amount_origin">
+            </div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+              <strong i18n>Total price amount local</strong>
+              <strong>
+                (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
+                                    {{ product.total_final_amount_origin | currency: 'JPY' : '￥'}}
+                                  </span>
+                <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
+                                    {{ product.total_final_amount_origin | currency : 'USD' : '$'}}
+                                  </span>):
+              </strong>
+            </div>
+            <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
+            </div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+              <strong i18n>Total final amount local
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
               </strong>
             </div>
-            <div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+            <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
         </div>
-
-
       </div>
       <p></p>
 

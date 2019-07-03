@@ -26,17 +26,20 @@ export class AsignSalePotentialComponent extends OrderDataComponent implements O
 
   public oldSaleSupport;
   public sales: any = [];
+  public saleALL: any = [];
 
   constructor(public orderService: PotentialService, private popup: PopupService, private fb: FormBuilder, public scopeS: ScopeService) {
     super(orderService);
   }
 
   assignSale() {
-    console.log(this.saleId);
+    this.saleALL = this.saleAll.filter(c => Number(c.id) === Number(this.saleId));
     const messagePop = 'Do you want assign order ' + this.id + ' to new sale ';
     this.popup.warning(() => {
       const params: any = {};
       params.idSale = this.saleId;
+      params.saleName = this.saleALL[0]['username'];
+      params.saleEmail = this.saleALL[0]['email'];
       params.type = this.type;
       params.typeUpdate = 'assignSaleCart';
       this.orderService.put(`cart/${this.id}`, params).subscribe(res => {

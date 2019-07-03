@@ -7,6 +7,7 @@
       <th class="text-bold" i18n>Status</th>
       <th class="text-bold" i18n>Description</th>
       <th class="text-bold" i18n>Note</th>
+      <th class="text-bold" i18n>image</th>
       <th class="text-bold" i18n>Create</th>
       <th class="text-bold" i18n>Update</th>
       <th class="text-bold" i18n>
@@ -17,11 +18,12 @@
   <tbody>
     <tr *ngFor="let walletTransaction of walletTransactions">
       <td [innerHTML]="walletTransaction.transaction_code"></td>
-      <td [innerHTML]="walletTransaction.transaction_amount_local"></td>
+      <td [innerHTML]="walletTransaction.transaction_amount_local | number"></td>
       <td [innerHTML]="walletTransaction.transaction_type"></td>
       <td [innerHTML]="walletTransaction.transaction_status"></td>
       <td [innerHTML]="walletTransaction.transaction_description"></td>
       <td [innerHTML]="walletTransaction.note"></td>
+      <td [innerHTML]="walletTransaction.link_image"></td>
       <td [innerHTML]="walletTransaction.created_at"></td>
       <td [innerHTML]="walletTransaction.updated_at"></td>
     </tr>

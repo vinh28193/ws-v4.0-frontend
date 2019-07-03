@@ -52,13 +52,6 @@ h5 {
   width: inherit;
 }
 
-.hover-row .row:hover {
-  background: gray;
-  color: white;
-  border-bottom: 1px dashed;
-  font-weight: 300;
-}
-
 .style-binCode {
   text-decoration: underline;
 }
@@ -590,15 +583,7 @@ ul.dropdown-menu.notifications {
   -o-transition: .28s ease;
   transition: .28s ease;
 }
-[type=radio]:not(:checked) + label {
-  padding-left: 25px;
-  height: 25px;
-  line-height: 20px;
-  font-weight: normal;
+.table td, .table th {
+  padding-left: 0;
 }
-[type=radio]:checked + label {
-  padding-left: 26px;
-  height: 25px;
-  line-height: 20px;
-  font-weight: normal;
-}
+

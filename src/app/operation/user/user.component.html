@@ -192,23 +192,37 @@
                             <label for="phone_form" class="form-control-label" i18n >Phone</label>
                             <input class="form-control" id="phone_form" [(ngModel)]="modelUser.phone">
                         </div>
-
-                        <div class="col-md-6 form-group">
-                            <label for="store_id" class="form-control-label">Store Id</label>
-                            <input class="form-control" id="store_id" [(ngModel)]="modelUser.store_id">
-                        </div>
+                      <div class="col-md-6 form-group">
+                        <label for="store_id" class="form-control-label" i18n>Status</label>
+                        <select class="form-control form-control-sm" name="store" id="store_id"
+                                [(ngModel)]="modelUser.store_id">
+                          <option [value]="" i18n>Select Store</option>
+                          <option [value]="7" i18n>Indonesia</option>
+                          <option [value]="1" i18n>VietNam</option>
+                        </select>
+                      </div>
                         <div class="col-md-6 form-group">
                             <label for="Locale" class="form-control-label" i18n >Locale language</label>
                             <input class="form-control" id="Locale" [(ngModel)]="modelUser.locale">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="status_form" class="form-control-label" i18n >Status</label>
-                            <input class="form-control" id="status_form" [(ngModel)]="modelUser.status">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="remove" class="form-control-label" i18n >Remove</label>
-                            <input class="form-control" id="remove" [(ngModel)]="modelUser.remove">
-                        </div>
+                      <div class="col-md-6 form-group">
+                        <label for="status_form" class="form-control-label" i18n>Status</label>
+                        <select class="form-control form-control-sm"  name="store" id="status_form"
+                                [(ngModel)]="modelUser.status">
+                          <option [value]="" i18n>Select Status</option>
+                          <option [value]="1" i18n>Active</option>
+                          <option [value]="0" i18n>Inactive</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label for="remove" class="form-control-label" i18n>Status</label>
+                        <select class="form-control form-control-sm" name="store" id="remove"
+                                [(ngModel)]="modelUser.remove">
+                          <option [value]="" i18n>Select</option>
+                          <option [value]="1" i18n>Remove</option>
+                          <option [value]="0" i18n>Not Remove</option>
+                        </select>
+                      </div>
                       <div class="col-md-6 form-group">
                         <label for="employee" class="form-control-label" i18n>Employee</label>
                         <select class="form-control" id="employee" [(ngModel)]="modelUser.employee">

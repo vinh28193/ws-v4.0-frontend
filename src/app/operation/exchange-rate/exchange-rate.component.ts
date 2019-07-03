@@ -53,9 +53,8 @@ export class ExchangeRateComponent extends OperationDataComponent implements OnI
     this.exChangeRate.to = ex.to;
     this.exChangeRate.rate = ex.rate;
   }
-  openViewLog(id) {
+  openViewLog() {
     this.checkViewEX = true;
-    this.id = id;
     this.http.get('ex-log', undefined).subscribe(res => {
       this.logs = res.data.model;
       this.totalLog = res.data.total;

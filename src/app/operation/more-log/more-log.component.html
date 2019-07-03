@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="col-md-4 col-sm-12 form-group ">
-              <label for="keyWordGroup" class="form-control-label">Content</label>
+              <label for="keyWordGroup" class="form-control-label" i18n>Content</label>
               <div class="row ml-0 mr-0" id="keyWordGroup4">
                 <input class="form-control form-control-sm" id="content" name="content" (keyup.enter)="listMoreLog()" formControlName="content"
                        type="text">
@@ -73,13 +73,13 @@
            <div class="col-md-4">
              <label for="type" class="form-control-label" i18n>Type</label>
              <select class="form-control form-control-sm" (change)="listMoreLog()" name="type" id="type" formControlName="type">
-               <option value="actionlog" i18n>Action Log</option>
-               <option value="paymentlog" i18n>Payment Log</option>
-               <option value="walletlog" i18n>Wallet Log</option>
-               <option value="send-shipment-log" i18n>Sent Shipment Log</option>
-               <option value="send-shipment-return-log" i18n>Sent Shipment Return Log</option>
-               <option value="boxme-inspect-log" i18n>Boxme Inspect Log</option>
-               <option value="packing-log" i18n>Packing Log</option>
+               <option value="actionlog">Action Log</option>
+               <option value="paymentlog">Payment Log</option>
+               <option value="walletlog">Wallet Log</option>
+               <option value="send-shipment-log">Sent Shipment Log</option>
+               <option value="send-shipment-return-log">Sent Shipment Return Log</option>
+               <option value="boxme-inspect-log">Boxme Inspect Log</option>
+               <option value="packing-log">Packing Log</option>
                <!--<option value="trackinglogs" i18n>Tracking Log</option>-->
              </select>
            </div>

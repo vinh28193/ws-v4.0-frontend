@@ -46,12 +46,12 @@
               </li>
               <li>
                 <span class="mr-2 text-danger" i18n>Variations:</span>
-                <app-span-label [value]="product.variations"></app-span-label>
+                <app-variation [variation]="product.variations"></app-variation>
               </li>
-              <li class="seller_id">
-                <span class="mr-2" i18n>Size:</span>
-                <app-span-label [value]=""></app-span-label>
-              </li>
+              <!--<li class="seller_id">-->
+                <!--<span class="mr-2" i18n>Size:</span>-->
+                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--</li>-->
               <li class="total_weight_temporary">
                 <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
                 <app-span-label [value]="product.total_weight_temporary"></app-span-label>
@@ -86,7 +86,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6 border-col">
+  <div *ngIf="checkSpAdminP()" class="col-md-6 border-col">
     <div class="row">
       <div class="col-md-12 style-border-finance">
         <div class="row">

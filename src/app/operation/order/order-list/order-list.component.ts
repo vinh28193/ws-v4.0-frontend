@@ -53,6 +53,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public countOP: any;
     public chatId: any;
     public totalChat: any;
+    public exchange_rate_fee: any;
     public totalNotifi: any;
     public tracking_code: any;
     public quantityP = 0;
@@ -61,9 +62,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public policyID = 0;
     public check_insurance = 0;
     public check_inspection = 0;
+    public check_packing_wood = 0;
     public additional_service = 0;
     public statusO: any;
     public totalUnPaid: any;
+    public note_update_payment: any;
     public checkStatusValue: any;
     public countPurchase: any;
     public purchase2Day: any;
@@ -94,11 +97,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOffUpdatefeeWeshop = false;
     public checkOffUpdatefeeDvct = false;
     public checkOpenAssignSFO = false;
+    public OpenUpdate = false;
     public alive = true;
     public updateOrderId: any;
     public updateOrderPurchaseId: any;
     public listSeller: any = [];
     public listSale: any = [];
+    public logUpdateOrder: any = {};
     public email: any;
     public sale_support_id: any;
     public productUpdateFee: any;
@@ -159,11 +164,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public moreLog: any = {};
     public ids: any = [];
     public orderID: any;
+    public ID: any;
     public checkReady2Purchase: any;
     public typeViewLogs = 'actionlog';
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public check_update_payment: any;
     public total_weshop_fee_local = 0;
     public promotion_id: any;
     public activeOrder: any = [];
@@ -173,6 +180,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOffUpdatefee = false;
     public checkOpenTracking = false;
     public checkOffUpdatefeePkd = false;
+    public checkOpenEditWood = false;
     public chatlists: any = [];
     public orderNotifi: any = [];
     public paramsOrder: any = [];
@@ -335,7 +343,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.message = this.messagingService.currentMessage ? this.messagingService.currentMessage : '';
         this.getAllPushNotificationsByUserId();
         // Policy
-        this.loadAllPolicy();
+        // this.loadAllPolicy();
 
         // View notification
         $(document).on('show.bs.modal', '.modal', function () {
@@ -560,7 +568,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkUpdatePayment(status, total) {
-        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale()) {
+        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale() || this._scope.checkMasterAccountant() || this._scope.checkAccountant()) {
             if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
@@ -709,7 +717,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     getSale() {
         this.orderService.get('sale-support', undefined).subscribe(rss => {
             this.listSale = rss;
-            // console.log(this.listSale);
+            console.log(this.listSale);
         });
     }
 
@@ -815,23 +823,34 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     updateAdjustPayment(order) {
         this.AdjustPaymentOderId = order.id;
         this.total_paid_amount_local = order.total_paid_amount_local;
+        this.note_update_payment = order.note_update_payment;
         this.code = order.ordercode;
         this.store_id = order.store_id;
         this.checkOpenAdJustPayment = true;
         this.editForm = this.fb.group({
-            total_paid_amount_local: this.total_paid_amount_local
+            total_paid_amount_local: this.total_paid_amount_local,
+            note_update_payment: this.note_update_payment,
+            link_image: '',
         });
     }
 
     confirmAdjustPayment() {
         const messagePop = 'Do you want Confirm Adjust Payment';
+        const params: any = {};
+        params.note = this.editForm.value.note_update_payment  + ' :update paid ' +  this.editForm.value.total_paid_amount_local;
+        params.link_image = this.editForm.value.link_image;
+        console.log(this.editForm.value.link_image);
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
+                note_update_payment: this.editForm.value.note_update_payment,
                 check_update_payment: 1,
+                role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
+                    this.orderService.put(`pay/${this.code}`, params).subscribe(rs => {
+                    });
                     this.listOrders();
                     this.popup.success(res.message);
                     $('.modal').modal('hide');
@@ -841,7 +860,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
     updateCoupon(order) {
         this.coupon_id = order.coupon_id;
         this.orderID = order.id;
@@ -945,48 +963,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
     openConfirmAll(order) {
-        this.loadPolicy(order.store_id);
+        // this.loadPolicy(order.store_id);
         this.OrderAll = order;
-        // this.policyID = order.
-        this.total_inspection_fee_local = order.total_inspection_fee_local ? order.total_inspection_fee_local : 0;
-        this.total_insurance_fee_local = order.total_insurance_fee_local ? order.total_insurance_fee_local : 0;
-        this.total_custom_fee_amount_local = order.total_custom_fee_amount_local ? order.total_custom_fee_amount_local : 0;
-        this.total_weshop_fee_local = order.total_weshop_fee_local ? order.total_weshop_fee_local : 0;
+        this.exchange_rate_fee = order.exchange_rate_fee;
+        this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
+        this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
         this.check_inspection = order.check_inspection ? order.check_inspection : 0;
         this.check_insurance = order.check_insurance ? order.check_insurance : 0;
-        this.total_intl_shipping_fee_local = order.total_intl_shipping_fee_local ? order.total_intl_shipping_fee_local : 0;
-        this.total_origin_tax_fee_local = order.total_origin_tax_fee_local ? order.total_origin_tax_fee_local : 0;
-        this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
         this.checkUpdateConfirm = true;
-    }
-
-    updateFeeOrder(id) {
-      const messagePop = 'Do you want Update Fee ';
-      this.popup.warning(() => {
-        const params: any = {};
-        params.typeUpdate = 'updateFee';
-        params.total_inspection_fee_local = this.total_inspection_fee_local;
-        params.total_insurance_fee_local = this.total_insurance_fee_local;
-        params.total_custom_fee_amount_local = this.total_custom_fee_amount_local;
-        params.total_weshop_fee_local = this.total_weshop_fee_local;
-        params.check_inspection = this.check_inspection;
-        params.check_insurance = this.check_insurance;
-        params.additional_service = this.totalNumberAny(this.total_inspection_fee_local, this.total_insurance_fee_local, this.total_custom_fee_amount_local, this.total_origin_tax_fee_local, this.boxed_fee, this.total_intl_shipping_fee_local);
-        params.total_origin_tax_fee_local = this.total_origin_tax_fee_local;
-        params.boxed_fee = this.boxed_fee;
-        params.total_intl_shipping_fee_local = this.total_intl_shipping_fee_local;
-        this.orderService.put(`order/${id}`, params).subscribe(res => {
-          this.checkOffUpdatefee = false;
-          this.checkOffUpdatefeePkd = false;
-          this.checkOffUpdatefeePthq = false;
-          this.checkOffUpdatefeeWeshop = false;
-          this.checkOffUpdatefeeDvct = false;
-          this.listOrders();
-          this.notifier.notify('success', 'update fee success');
+        this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe( res => {
+          this.logUpdateOrder = res.data.diff_value;
         });
-      }, messagePop);
     }
-
     updatePayBack() {
         const messagePop = 'Do you want Update Pay Back ' +
             '' + (this.total_refund_amount_local + ' ' +
@@ -1237,7 +1225,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             } else {
                 for (let i = 1; i < this.statusOds.length; i++) {
                     const current = this.statusOds[i];
-                    if (current.name === this.orderList.current_status) {
+                    console.log(this.statusOds[i]['name']);
+                  console.log(this.orderList.current_status);
+                    if (this.statusOds[i]['name'] === this.orderList.current_status) {
                         console.log(current.id);
                         this.statusOd = current.id;
                         break;
@@ -1752,40 +1742,39 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.openUpdateOrder(order);
       this.purchaseCard.show();
   }
-  openEditfeePthq() {
-      this.checkOffUpdatefeePthq = true;
-  }
-  openEditfeePkd() {
-      this.checkOffUpdatefeePkd = true;
-  }
-  openEditfeee() {
-      this.checkOffUpdatefee = true;
-  }
-  openEditfeeWeshop() {
-      this.checkOffUpdatefeeWeshop = true;
-  }
-  openEditfeeDvct() {
-    this.checkOffUpdatefeeDvct = true;
-  }
 
-  loadRadio() {
-      console.log(this.check_inspection);
-      console.log(this.check_insurance);
-  }
-  totalNumberAny(x , y, z , g , d, e) {
-    if (this.check_inspection === 0 && this.check_insurance === 0) {
-      const c = toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-      return c;
-    } if (this.check_inspection === 0) {
-        const c = toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-        return c;
-      }  if (this.check_insurance === 0) {
-          const c = toNumber(x) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-          return c;
-      } else {
-          const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
-          return c;
+  loadRadio(id) {
+      this.OpenUpdate = true;
+      this.ID = id;
+      if (this.check_packing_wood === 1) {
+        this.checkOpenEditWood = true;
       }
+  }
+  totalAll(a, b) {
+    if (this.check_packing_wood === 1) {
+      const c = toNumber(a) + (toNumber(b) * toNumber(this.exchange_rate_fee));
+      return c;
+    } else {
+      const c = toNumber(a);
+      return c;
+    }
+  }
+  updatePackingWood() {
+    const messagePop = 'Do you want Update ';
+    this.popup.warning(() => {
+      const put = this.orderService.createPostParams({
+        check_packing_wood: this.check_packing_wood,
+        boxed_fee: this.boxed_fee,
+      }, 'updateAddFee');
+      this.orderService.put(`order/${this.ID}`, put).subscribe(res => {
+        this.checkOpenEditWood = false;
+        this.listOrders();
+        this.notifier.notify('success', 'update fee success');
+      });
+    }, messagePop);
+  }
+  openUpdateJustPayment(order) {
+      this.check_update_payment = order.check_update_payment;
   }
 }
 

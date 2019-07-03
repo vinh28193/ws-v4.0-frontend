@@ -28,14 +28,17 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public perpage: number;
   public totalCart: number;
   public totalCarts: any;
+  public typeUpdate: any;
   public IdCar: any;
   public id: any;
   public type: any;
-  public typeCart: any;
   public status: any;
+  public typeCart: any;
   public typeViewLogs = 'actionlog';
   public code: any;
   public backorderlist = false;
+  public checkUpdateCustomerCart = false;
+  public checkUpdateCustomerReceiverCart = false;
   public checkUpdateCustomer = false;
   public checkLoad = false;
   public checkLoadGroup = false;
@@ -59,6 +62,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       keyword: 0,
       timeKey: 0,
       portal: 0,
+      saleID: 0,
       potential: 10,
       statusShopping: 0,
       bsRangeValue: {start: '', end: ''},
@@ -126,6 +130,9 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     if (value.portal !== '' && value.portal !== 0) {
       params.portal = value.portal;
     }
+    if (value.saleID !== '' && value.saleID !== 0) {
+      params.saleID = value.saleID;
+    }
     if (value.potential !== '' && value.potential !== 10) {
       params.potential = value.potential;
     }
@@ -143,7 +150,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   filterOneCustomer(email) {
     this.searchF.patchValue({
       value: email,
-      keyword: 'value.buyer_email'
+      keyword: 'key.buyer.buyer_email'
     });
     this.listShoppingCart();
   }
@@ -272,5 +279,28 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   totalNumberAnyCart(x , y, z , g , d, e) {
     const c = toNumber(x) + toNumber(y) + toNumber(z) + toNumber(g) + toNumber(d) + toNumber(e);
     return c;
+  }
+  checkSpAdmin() {
+    if (localStorage.getItem('scope') === 'superAdmin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  updateCustomerCart(buyer, code, type) {
+    this.checkUpdateCustomerCart = true;
+    this.activeOrder = buyer;
+    this.typeCart = type;
+    this.typeUpdate = 'updateBuyerCart';
+    this.code = code;
+  }
+  updateCustomerReveiverCart(receiver, code, type) {
+    this.checkUpdateCustomerReceiverCart = true;
+    this.activeOrder = receiver;
+    this.typeCart = type;
+    this.typeUpdate = 'updateReceiverCart';
+    this.code = code;
+    console.log(code);
   }
 }
