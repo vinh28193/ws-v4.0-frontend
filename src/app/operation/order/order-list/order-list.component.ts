@@ -53,6 +53,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public countOP: any;
     public chatId: any;
     public totalChat: any;
+    public exchange_rate_fee: any;
     public totalNotifi: any;
     public tracking_code: any;
     public quantityP = 0;
@@ -961,6 +962,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openConfirmAll(order) {
         // this.loadPolicy(order.store_id);
         this.OrderAll = order;
+        this.exchange_rate_fee = order.exchange_rate_fee;
         this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
         this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
         this.check_inspection = order.check_inspection ? order.check_inspection : 0;
@@ -970,7 +972,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
           this.logUpdateOrder = res.data.diff_value;
         });
     }
-
     updatePayBack() {
         const messagePop = 'Do you want Update Pay Back ' +
             '' + (this.total_refund_amount_local + ' ' +
@@ -1738,21 +1739,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.openUpdateOrder(order);
       this.purchaseCard.show();
   }
-  openEditfeePthq() {
-      this.checkOffUpdatefeePthq = true;
-  }
-  openEditfeePkd() {
-      this.checkOffUpdatefeePkd = true;
-  }
-  openEditfeee() {
-      this.checkOffUpdatefee = true;
-  }
-  openEditfeeWeshop() {
-      this.checkOffUpdatefeeWeshop = true;
-  }
-  openEditfeeDvct() {
-    this.checkOffUpdatefeeDvct = true;
-  }
 
   loadRadio(id) {
       this.OpenUpdate = true;
@@ -1761,14 +1747,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenEditWood = true;
       }
   }
+  totalAll(a, b) {
+    if (this.check_packing_wood === 1) {
+      const c = toNumber(a) + (toNumber(b) * toNumber(this.exchange_rate_fee));
+      return c;
+    } else {
+      const c = toNumber(a);
+      return c;
+    }
+  }
   updatePackingWood() {
     const messagePop = 'Do you want Update ';
     this.popup.warning(() => {
-      const params: any = {};
-      params.typeUpdate = 'updateFee';
-      params.boxed_fee = this.boxed_fee;
-      params.total_intl_shipping_fee_local = this.total_intl_shipping_fee_local;
-      this.orderService.put(`order/${this.ID}`, params).subscribe(res => {
+      const put = this.orderService.createPostParams({
+        check_packing_wood: this.check_packing_wood,
+        boxed_fee: this.boxed_fee,
+      }, 'updateAddFee');
+      this.orderService.put(`order/${this.ID}`, put).subscribe(res => {
+        this.checkOpenEditWood = false;
         this.listOrders();
         this.notifier.notify('success', 'update fee success');
       });

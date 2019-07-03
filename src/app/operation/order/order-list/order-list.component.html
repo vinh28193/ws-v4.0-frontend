@@ -2728,13 +2728,13 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     </tr>
                     <tr>
                       <td>Phí đóng gỗ</td>
-                      <td class="text-center"></td>
-                      <td class="text-center"></td>
+                      <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
+                      <td class="text-center"><span *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
                     </tr>
                     <tr>
                       <td>Tổng chênh lệch</td>
                       <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
-                      <td class="text-center">{{logUpdateOrder.total_final_amount_local}}</td>
+                      <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee) | number}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2770,7 +2770,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row" [hidden]="check_packing_wood == 0" *ngIf="checkOpenEditWood">
               <div class="col-md-4">
-                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee </span></a>
+                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee ($) </span></a>
               </div>
               <div class="col-md-6">
                 <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"  [(ngModel)]="boxed_fee">
