@@ -1395,17 +1395,23 @@
               <div class="col-md-6">
                 <label i18n>Total Paid Amount Local</label>
                 <input type="number" class="form-control form-control-sm" formControlName="total_paid_amount_local">
+              </div>
+              <div class="col-md-6">
+                <label i18n>Note Update Payment</label>
+                <input type="text" class="form-control form-control-sm" formControlName="note_update_payment">
+              </div>
+              <div class="col-md-6">
                 <label style="font-size: 2em; color: red">Price :
                   <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
               </div>
               <div class="col-md-6">
-                <label i18n>Note Update Payment</label>
-                <input type="text" class="form-control form-control-sm" formControlName="note_update_payment">
+                <label i18n>Link Image</label>
+                <input type="text" class="form-control form-control-sm" formControlName="link_image">
               </div>
             </div>
-            <div class="row m-0">
+            <div class="row m-0 mt-2">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
                 Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span
                 class="text-danger">prices</span>

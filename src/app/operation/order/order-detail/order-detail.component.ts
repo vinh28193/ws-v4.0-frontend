@@ -365,8 +365,4 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       this.getListOrder.emit({});
     });
   }
-  totalPriceAmountOrigin(a, b ) {
-    const c = toNumber(a) * toNumber(b);
-    return c;
-  }
 }

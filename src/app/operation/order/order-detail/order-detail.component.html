@@ -289,10 +289,10 @@
               <strong i18n>Total price amount local</strong>
               <strong>
                 (<span *ngIf="product.portal === 'japan' || product.portal === 'AMAZON_JAPAN' || product.portal === 'JAPAN'">
-                                    {{(totalPriceAmountOrigin(product.price_amount_origin, product.quantity_customer)) | currency: 'JPY' : '￥'}}
+                                    {{ product.total_final_amount_origin | currency: 'JPY' : '￥'}}
                                   </span>
                 <span *ngIf="product.portal !== 'japan' && product.portal !== 'AMAZON_JAPAN' && product.portal !== 'JAPAN'">
-                                    {{ (totalPriceAmountOrigin(product.price_amount_origin, product.quantity_customer)) | currency : 'USD' : '$'}}
+                                    {{ product.total_final_amount_origin | currency : 'USD' : '$'}}
                                   </span>):
               </strong>
             </div>
