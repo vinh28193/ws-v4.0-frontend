@@ -201,10 +201,15 @@
                             <label for="Locale" class="form-control-label" i18n >Locale language</label>
                             <input class="form-control" id="Locale" [(ngModel)]="modelUser.locale">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="status_form" class="form-control-label" i18n >Status</label>
-                            <input class="form-control" id="status_form" [(ngModel)]="modelUser.status">
-                        </div>
+                      <div class="col-md-6 form-group">
+                        <label for="status_form" class="form-control-label" i18n>Status</label>
+                        <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="status_form"
+                                [(ngModel)]="modelUser.status">
+                          <option [value]="" i18n>Select Status</option>
+                          <option [value]="1" i18n>Active</option>
+                          <option [value]="0" i18n>Inactive</option>
+                        </select>
+                      </div>
                         <div class="col-md-6 form-group">
                             <label for="remove" class="form-control-label" i18n >Remove</label>
                             <input class="form-control" id="remove" [(ngModel)]="modelUser.remove">
