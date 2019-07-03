@@ -1580,7 +1580,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkShowPay() {
-        if (this._scope.checkMasterMarketing() || this._scope.checkMarketing() || this._scope.checkMarketingAds()) {
+        if (this._scope.checkMasterMarketing() && this._scope.checkMarketing() && this._scope.checkMarketingAds()) {
             return false;
         }
         return true;
