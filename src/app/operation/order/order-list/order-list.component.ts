@@ -830,6 +830,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.editForm = this.fb.group({
             total_paid_amount_local: this.total_paid_amount_local,
             note_update_payment: this.note_update_payment,
+            link_image: '',
         });
     }
 
@@ -838,6 +839,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const params: any = {};
         params.note = this.editForm.value.note_update_payment  + ' :update paid ' +  this.editForm.value.total_paid_amount_local;
         params.link_image = this.editForm.value.link_image;
+        console.log(this.editForm.value.link_image);
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,

@@ -307,14 +307,14 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   itemSubtotalAmount(productFees) {
     let tottalAmount = 0;
     for (let j = 0; j < productFees.length; j++) {
-      if (productFees[j]['name'] === 'product_price_origin') {
+      if (productFees[j]['name'] === 'product_price') {
         // console.log(productFees[j]['amount']);
         tottalAmount += Number(productFees[j]['amount']);
       }
-      if (productFees[j]['name'] === 'origin_shipping_fee') {
+      if (productFees[j]['name'] === 'shipping_fee') {
         tottalAmount += Number(productFees[j]['amount']);
       }
-      if (productFees[j]['name'] === 'tax_fee_origin') {
+      if (productFees[j]['name'] === 'tax_fee') {
         tottalAmount += Number(productFees[j]['amount']);
       }
     }
