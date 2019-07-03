@@ -834,6 +834,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     confirmAdjustPayment() {
         const messagePop = 'Do you want Confirm Adjust Payment';
+        const params: any = {};
+        params.note = this.editForm.value.note_update_payment;
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
@@ -843,7 +845,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
-                    this.orderService.put(`pay/${this.code}`, undefined).subscribe(rs => {
+                    this.orderService.put(`pay/${this.code}`, params).subscribe(rs => {
                     });
                     this.listOrders();
                     this.popup.success(res.message);
