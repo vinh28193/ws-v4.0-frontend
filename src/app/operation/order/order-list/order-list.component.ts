@@ -169,6 +169,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listLog: any = [];
     public logIdOrder: any;
     public coupon_id: any;
+    public check_update_payment: any;
     public total_weshop_fee_local = 0;
     public promotion_id: any;
     public activeOrder: any = [];
@@ -842,6 +843,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
+                    this.orderService.put(`pay/${this.code}`, undefined).subscribe(rs => {
+                    });
                     this.listOrders();
                     this.popup.success(res.message);
                     $('.modal').modal('hide');
@@ -851,7 +854,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             });
         }, messagePop);
     }
-
     updateCoupon(order) {
         this.coupon_id = order.coupon_id;
         this.orderID = order.id;
@@ -1769,6 +1771,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.notifier.notify('success', 'update fee success');
       });
     }, messagePop);
+  }
+  openUpdateJustPayment(order) {
+      this.check_update_payment = order.check_update_payment;
   }
 }
 

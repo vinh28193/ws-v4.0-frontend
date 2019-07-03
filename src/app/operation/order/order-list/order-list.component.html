@@ -1019,7 +1019,7 @@
                                 <!--</li>-->
                                 <li class="tab-slider--trigger" rel="tab2"
                                     *ngIf="checkShowPay() && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
-                                    (click)="pay[order.id] = !pay[order.id]">
+                                    (click)="pay[order.id] = !pay[order.id]; openUpdateJustPayment(order)">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Payment Transaction</button>
                                 </li>
                                 <li class="tab-slider--trigger" rel="tab2"
@@ -1054,7 +1054,7 @@
                               <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red"
                                    [hidden]="!pay[order.id]">
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)"
-                                                         [order_code]="order.ordercode"
+                                                         [order_code]="order.ordercode" [check_update_payment]="check_update_payment"
                                                          [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]"
