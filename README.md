@@ -73,3 +73,7 @@ http://weshop-v4.back-end.local.vn/v1/notifications/1837032863
 
 #----------CHAT AUTOSUGEST------
 http://www.mukeshkumar.net/articles/angular/3-ways-to-implement-autocomplete-textbox-in-angular-with-typescript-on-large-data
+
+
+#---------------------------------------------
+npm i angular2-image-upload
