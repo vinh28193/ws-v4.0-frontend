@@ -1381,7 +1381,7 @@
               </div>
               <div class="col-md-6">
                 <label style="font-size: 2em; color: red">Price :
-                  <span *ngIf="store_id === 1">{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
+                  <span>{{this.editForm.get('total_paid_amount_local').value | number}}{{store_id | currencyStore}}</span>
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
               </div>

@@ -31,6 +31,13 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
         });
     }
   }
+  checkView() {
+    if (this._sp.checkSuperAdmin()) {
+      return true;
+    }  else  {
+      return false;
+    }
+  }
   addTransaction() {
     this.showPopup.emit({code: this.order_code});
   }
