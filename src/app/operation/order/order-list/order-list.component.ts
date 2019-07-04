@@ -17,6 +17,7 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
 import {formatNumber} from '@angular/common';
+import {environment} from '../../../../environments/environment';
 
 declare var jQuery: any;
 declare var $: any;
@@ -178,6 +179,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public check_update_payment: any;
     public total_weshop_fee_local = 0;
     public promotion_id: any;
+    public image: any;
     public activeOrder: any = [];
     public prods: any = [];
     public checkUpdateCustomer = false;
@@ -843,7 +845,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Confirm Adjust Payment';
         const params: any = {};
         params.note = this.editForm.value.note_update_payment  + ' :update paid ' +  this.editForm.value.total_paid_amount_local;
-        params.link_image = this.IMG_URL + this.src;
+        params.link_image = environment.IMG_URL_WH + this.src;
         console.log(this.editForm.value.link_image);
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
@@ -1800,6 +1802,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   imageUploaded(data, field) {
     this.src = JSON.parse(data.serverResponse._body);
+    this.image = environment.IMG_URL_WH + this.src;
   }
 }
 
