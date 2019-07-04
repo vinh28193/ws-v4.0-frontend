@@ -29,9 +29,10 @@
         </a>
       </td>
       <td>
-        <a [href]="walletTransaction.third_party_transaction_link" tooltip="{{walletTransaction.third_party_transaction_link}}" target="_blank">
+        <a *ngIf="localStorage.getItem('scope') === ('supperAdmin')" [href]="walletTransaction.third_party_transaction_link" tooltip="{{walletTransaction.third_party_transaction_link}}" target="_blank">
           {{walletTransaction.payment_bank_code}}
         </a>
+        <span *ngIf="localStorage.getItem('scope') != ('supperAdmin')">{{walletTransaction.payment_bank_code}}</span>
       </td>
       <td [innerHTML]="walletTransaction.created_at"></td>
       <td [innerHTML]="walletTransaction.updated_at"></td>

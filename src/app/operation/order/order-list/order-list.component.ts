@@ -115,6 +115,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public statusShow: any = {};
     public total_paid_amount_local: any;
     public statusOd: any;
+    public src: any;
     public inputs: any;
     public purchase_amount_refund: any;
     public purchase_amount_buck: any;
@@ -144,6 +145,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOrderChatRefund = false;
     public checkUpdateOderCode = false;
     public checkUpdateQuantity = false;
+    // public IMG_URL = 'https://static-v3.weshop.asia';
     public IMG_URL = 'http://192.168.11.252:8081';
     orderStatus: any = [];
     searchKeys: any = [];
@@ -841,7 +843,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const messagePop = 'Do you want Confirm Adjust Payment';
         const params: any = {};
         params.note = this.editForm.value.note_update_payment  + ' :update paid ' +  this.editForm.value.total_paid_amount_local;
-        params.link_image = this.editForm.value.link_image;
+        params.link_image = this.IMG_URL + this.src;
         console.log(this.editForm.value.link_image);
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
@@ -1797,9 +1799,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   };
 
   imageUploaded(data, field) {
-    console.log(data);
-    const src = JSON.parse(data.serverResponse._body);
-    this.block[field] = this.IMG_URL + src;
+    this.src = JSON.parse(data.serverResponse._body);
   }
 }
 

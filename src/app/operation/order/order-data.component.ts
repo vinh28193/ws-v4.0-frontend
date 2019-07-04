@@ -40,7 +40,6 @@ export class OrderDataComponent extends OperationDataComponent implements OnInit
       if (id) {
         this.http.getNoLoad(`policy/${id}`).subscribe(res => {
           this.getPolicy = res.data;
-          console.log(this.getPolicy);
         });
         return this.getPolicy;
       }
