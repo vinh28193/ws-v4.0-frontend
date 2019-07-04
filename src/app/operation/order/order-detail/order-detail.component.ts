@@ -19,6 +19,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   private tabs: any [];
   public openEditVariant = {};
   public pricePro = {};
+  public packingWW = {};
   public openEditCategory = {};
   public openEditNoteByCustomer = {};
   updateProductId: any;
@@ -32,9 +33,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public totalAmount = 0;
   public proId: any;
   public hidem: any = {};
+  public tax: any = {};
   public quantityPro: any = {};
   @Input() openConfirmOrder: boolean;
   @Input() products: any;
+  @Input() exchangeRate: any;
   @Input() policy: any;
   @Input() item_type: any;
   @Input() customer_id: any;
@@ -42,8 +45,14 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   @Input() storeID: any;
   @Input() order_path: any;
   public price_amount_origin: any;
+  public policyPrice: any;
   public shipping_quantity: any;
+  public shipping_fee: any;
+  public tax_fee: any;
   public checkUpdatePricePro = false;
+  public checkUpdateTax = false;
+  public checkUpdateShipping = false;
+  public checkUpdateWood = false;
   public checkUpdateQuantity = false;
   public editFormVariant: FormGroup;
   public updateForm: FormGroup;
@@ -165,9 +174,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
 
   checkShowFee(name) {
-    if (name === 'tax_fee'
-      || name === 'shipping_fee'
-      || name === 'purchase_fee'
+    if (name === 'purchase_fee'
       || name === 'international_shipping_fee'
       || name === 'import_fee'
       || name === 'custom_fee' || name === 'product_price') {
@@ -289,11 +296,20 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   }
 
   itemSubtotal(productFees) {
-    let tottal = 0;
+    let total = 0;
     for (let j = 0; j < productFees.length; j++) {
-      tottal += Number(productFees[j]['local_amount']);
+      if (productFees[j]['name'] === 'product_price') {
+        // console.log(productFees[j]['amount']);
+        total += Number(productFees[j]['local_amount']);
+      }
+      if (productFees[j]['name'] === 'shipping_fee') {
+        total += Number(productFees[j]['local_amount']);
+      }
+      if (productFees[j]['name'] === 'tax_fee') {
+        total += Number(productFees[j]['local_amount']);
+      }
     }
-    return tottal;
+    return total;
   }
 
   itemSubtotalAmount(productFees) {
@@ -351,10 +367,44 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     params.target_name = 'product';
     params.target_id = this.proId;
     params.store_id = this.storeID;
+    params.us_ship = this.shipping_fee;
+    params.us_tax = this.tax_fee;
     params.item_type = this.item_type;
     params.customer_id = this.customer_id;
     this.orderService.getAdditional(params).subscribe(res => {
       this.getListOrder.emit({});
     });
+  }
+  openUpdatePackingWood(pro) {
+    this.policyPrice = pro.price_policy;
+    this.id = pro.id;
+    this.checkUpdateWood = true;
+  }
+  updatePricePolicy() {
+    const params: any = {};
+    params.policyPrice = this.policyPrice;
+    params.order_path = this.order_path;
+    params.title = 'update price policy';
+    this.orderService.put(`product/${this.id}`, params).subscribe(res => {
+        if (res.success) {
+          this.checkUpdateWood = false;
+        }
+    });
+  }
+  openUpdateShipping(product, fee) {
+    this.checkUpdateShipping = true;
+    this.proId = product.id;
+    this.shipping_fee = fee;
+    this.shipping_quantity = product.quantity;
+  }
+  openUpdateTaxFee(product, fee) {
+    this.checkUpdateTax = true;
+    this.proId = product.id;
+    this.tax_fee = fee;
+    this.shipping_quantity = product.quantity;
+  }
+  totalFinal(a, b) {
+    const c = toNumber(a) + toNumber(b);
+    return c;
   }
 }

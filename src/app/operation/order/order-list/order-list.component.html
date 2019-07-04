@@ -1037,6 +1037,7 @@
                                                   [openConfirmOrder]="checkConfirmOrder(order)"
                                                   (getListOrder)="listOrders()" [policy]="getPolicy"
                                                   [storeID]="order.store_id"
+                                                  [exchangeRate]="order.exchange_rate_fee"
                                                   [customer_id]="order.customer_id"
                                                   [item_type]="order.portal"
                                                   [Employee_Purchase]="order.purchaseAssignee ? order.purchaseAssignee.username : ''"

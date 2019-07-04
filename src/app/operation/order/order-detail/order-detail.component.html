@@ -211,55 +211,74 @@
                   <div *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="view_discount">
                     <span i18n>Discount : {{ProFee.discount_amount | number}}</span><span class="m-l1">{{storeID | currencyStore}}</span>
                   </div>
-                </div>
-              <div *ngIf="product.id == ProFee.target_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.name)}} text-right style-padding ">
-                {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.name) && !_sp.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
               </div>
-              <div *ngIf="product.id == ProFee.target_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
-                <input type="number" width="100%" [(ngModel)]="fee" (keydown)="keydownEvent($event)" />
+              <div *ngIf="product.id == ProFee.target_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.name)}} text-right style-padding ">
+                {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
               </div>
             </div>
           </div>
-
-          <hr style="margin: 5px" [hidden]="!hidem[product.id]">
-            <div [hidden]="!hidem[product.id]">
-              <div *ngIf="product.productFees && product.productFees.length" >
-                <div *ngFor="let ProFee of product.productFees">
-                  <div class="row ProductFees"  *ngIf="!checkShowFee(ProFee.name)">
-                    <div *ngIf="product.id == ProFee.target_id" class="name-{{ProFee.name}} type-{{ProFee.name}} text-bold col-md-5 pr-0">
-                      {{ProFee.amount | currency}}
-                    </div>
-                    <div *ngIf="product.id == ProFee.target_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                      <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" i18n>Discount : {{ProFee.discount_amount| number}}</span>
-                      <span *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="m-l1">{{storeID | currencyStore}}</span>
-                    </div>
-                    <div *ngIf="product.id == ProFee.target_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.name)}} text-right style-padding ">
-                      {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span> <i *ngIf="checkShowEdit(ProFee.name) && !_sp.checkMarketingAccount()" (click)="showEditFee(ProFee)" class="fa fa-edit ml-1" ></i>
-                    </div>
-                    <div *ngIf="product.id == ProFee.target_id && idEdit ==ProFee.id" class="origin-amount col-md-3 text-right style-padding ">
-                      <input type="number" width="100%" [(ngModel)]="fee" (keyup.enter)="updatePricePro()">
-                    </div>
-                  </div>
-                </div>
+          <ng-container *ngFor="let ProFee of product.productFees">
+            <div class="row shipping_fee" *ngIf="ProFee.name == 'shipping_fee'">
+              <div class="col-md-7"><strong i18n>{{ProFee.name | ProductFee}} :
+                ({{ProFee.amount | currency}} <span class="fa fa-edit pl-1" (click)="openUpdateShipping(product, ProFee.amount)"></span>)
+              </strong>
               </div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
+          </ng-container>
+          <div class="row" *ngIf="checkUpdateShipping">
+            <div class="col-md-12 float-right tex">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "shipping_fee">
+            </div>
+          </div>
+          <ng-container *ngFor="let ProFee of product.productFees">
+            <div class="row tax_fee" *ngIf="ProFee.name == 'tax_fee'">
+              <div class="col-md-7"><strong i18n>{{ProFee.name | ProductFee}} : ({{ProFee.amount | currency}} <span
+                class="fa fa-edit pl-1"
+                (click)="tax[product.id] = !tax[product.id]; openUpdateTaxFee(product, ProFee.amount)"></span>)</strong>
+              </div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+            </div>
+          </ng-container>
+          <div class="row" *ngIf="checkUpdateTax">
+            <div class="col-md-12 float-right tex" [hidden]="!tax[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()"
+                     [(ngModel)]="tax_fee">
+            </div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row Item_Subtotal">
+            <div class="col-md-7"><strong i18n>Item subtotal : ({{itemSubtotalAmount(product.productFees) | currency}})</strong>
+            </div>
+            <div class="col-md-5 text-right style-padding ">{{itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+          </div>
 
-          <!--<hr style="margin: 5px">-->
-          <!--<div class="row Item_Subtotal">-->
-            <!--<div class="col-md-7"><strong i18n>Item subtotal : </strong>-->
-
-            <!--</div>-->
-            <!--<div class="col-md-5 text-right style-padding ">{{product.total_final_amount_origin | currency }}</div>-->
-          <!--</div>-->
-
-          <!--<hr style="margin: 5px">-->
+          <hr style="margin: 5px">
+          <div class="row quantity_customer ">
+            <div class="col-md-7"><strong i18n>Price Policy({{product.price_policy | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+            <div class="col-md-5 text-right style-padding Wood">
+              {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
+            </div>
+          </div>
+          <div class="row" *ngIf="checkUpdateWood">
+            <div class="col-md-12 float-right tex" [hidden]="!packingWW[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePolicy()" [(ngModel)] = "policyPrice">
+            </div>
+          </div>
+          <hr style="margin: 5px">
+          <div class="row quantity_customer ">
+            <div class="col-md-7"><strong i18n>Total Final Product({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+            <div class="col-md-5 text-right style-padding Wood">
+              {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
+            </div>
+          </div>
 
           <!--<div class="row total_fee_product">-->
             <!--<div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>-->
             <!--<div class="col-md-5 text-right style-padding ">{{ product.total_fee_product_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>-->
           <!--</div>-->
 
-          <hr style="margin: 5px">
+          <!--<hr style="margin: 5px">-->
           <!--<hr style="margin: 5px">-->
           <!--<div class="row">-->
             <!--<div class="col-md-6 pr-0 soi-toltal-value text-bold">-->
@@ -276,14 +295,14 @@
             <!--<div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span>-->
             <!--</div>-->
           <!--</div>-->
-          <div class="row">
-            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
-              <strong i18n>Total final amount local({{product.total_final_amount_origin | currency}})
-                <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
-              </strong>
-            </div>
-            <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
-          </div>
+          <!--<div class="row">-->
+            <!--<div class="col-md-6 pr-0 soi-toltal-value text-bold">-->
+              <!--<strong i18n>Total final amount local({{product.total_final_amount_origin | currency}})-->
+                <!--&lt;!&ndash;(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):&ndash;&gt;-->
+              <!--</strong>-->
+            <!--</div>-->
+            <!--<div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>-->
+          <!--</div>-->
         </div>
       </div>
       <p></p>

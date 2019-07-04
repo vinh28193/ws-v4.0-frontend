@@ -164,6 +164,8 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       keyword: 0,
       timeKey: 0,
       portal: 0,
+      typePotential: 0,
+      saleID: 0,
       potential: 10,
       statusShopping: 0,
       bsRangeValue: {start: '', end: ''},

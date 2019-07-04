@@ -42,6 +42,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public pack: any = {};
     public pay: any = {};
     public pur: any = {};
+    public shipping: any = {};
     public createC: any = {};
     public delivevery: any = {};
     public quantity: any = {};
@@ -100,6 +101,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOffUpdatefeeWeshop = false;
     public checkOffUpdatefeeDvct = false;
     public checkOpenAssignSFO = false;
+    public checkUpdateShipping = false;
     public OpenUpdate = false;
     public alive = true;
     public updateOrderId: any;

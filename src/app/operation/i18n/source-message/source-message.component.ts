@@ -66,7 +66,7 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         return languages;
     }
     getlanguageCodeLabels(code) {
-        let label = 'undefined';
+        let label = code;
         for (let i = 0; i < this.languages.length; i++) {
             if (this.languages[i].language === code) {
                 if (code === 'en') {
