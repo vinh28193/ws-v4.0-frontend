@@ -388,6 +388,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.orderService.put(`product/${this.id}`, params).subscribe(res => {
         if (res.success) {
           this.checkUpdateWood = false;
+          this.getListOrder.emit({});
         }
     });
   }
