@@ -489,15 +489,8 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <strong><span i18n>Units Price:</span>
-                                    ( <span
-                                      *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_price_amount_origin | currency: 'JPY' : '￥'}}
-                                    </span>
-                                    <span
-                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                      {{ order.total_price_amount_origin | currency : 'USD' : '$'}}
-                                    </span>)
+                                  <strong><span i18n>Amount Price:</span>
+                                    ( <span>{{order.total_price_amount_origin | currency}}</span>)
                                   </strong>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
@@ -512,14 +505,7 @@
 
                                 <div class="row total_origin_tax_fee_local">
                                   <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-                                    <span i18n>Total origin tax fee local </span>( <span
-                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_origin_tax_fee_amount | currency: 'JPY' : '￥'}}
-                                    </span>
-                                    <span
-                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                      {{ order.total_origin_tax_fee_amount | currency : 'USD' : '$'}}
-                                    </span>)
+                                    <span i18n>Total origin tax fee local </span>(<span>{{order.total_origin_tax_fee_amount | currency}}</span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
@@ -544,14 +530,7 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Purchase fee</span>( <span
-                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_weshop_fee_amount | currency: 'JPY' : '￥'}}
-                                    </span>
-                                    <span
-                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                      {{ order.total_weshop_fee_amount | currency : 'USD' : '$'}}
-                                    </span>)
+                                    <span i18n>Purchase fee</span>( <span>{{order.total_weshop_fee_amount | currency}}</span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1406,9 +1385,29 @@
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
               </div>
-              <div class="col-md-6">
-                <label i18n>Link Image</label>
-                <input type="file" class="form-control form-control-sm" formControlName="link_image">
+              <div class="col-md-6 form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    Main block image
+                    <br>
+                    <span class="text-danger">(300x300)</span>
+                  </div>
+                  <div class="col-md-6" style="font-size: 12px;">
+                    <image-upload
+                      [max]="100"
+                      [url]="IMG_URL+'/upload/upcms'"
+                      [buttonCaption]="'Browser..'"
+                      [dropBoxMessage]="'Drop your images here!'"
+                      [extensions]="['jpg','png','gif','sgv','jpeg']"
+                      [preview]="false"
+                      [style]="customStyle"
+                      (onFileUploadFinish)="imageUploaded($event,'image')"
+                    ></image-upload>
+
+                    <input class="form-control" name="image_url" formControlName="link_image"
+                           placeholder="Url image...">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row m-0 mt-2">
@@ -1697,7 +1696,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             <hr>
             <div class="Ws-bold-font row Total_Unit_price_product">
               <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                <strong><span i18n>Units Price:</span>
+                <strong><span i18n>Amount Price:</span>
                   ( <span
                     *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
                                     {{ orderList.total_price_amount_origin | currency: 'JPY' : '￥'}}

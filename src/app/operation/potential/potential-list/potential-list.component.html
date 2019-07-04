@@ -74,11 +74,23 @@
           <option value="EBAY">EBAY</option>
         </select>
       </div>
+      <div class="col-md-3 col-sm-6 form-group m-b-10">
+        <label class="form-control-label">Type</label>
+        <select class="form-control form-control-sm" name="typePotential" id="typePotential" formControlName="typePotential">
+          <option [value]="0" i18n>--All Type--</option>
+          <option value="shopping">SHOPPING</option>
+          <option value="buynow">BUY NOW</option>
+        </select>
+      </div>
       <div class="col-md-12 mt-2">
         <button class="btn btn-sm btn-success" (click)="listShoppingCart()"><i class="fa fa-search mr-1"></i><span i18n>Search</span>
         </button>
         <button class="btn btn-sm btn-info ml-2" (click)="refreshShopping()"><i class="fa fa-refresh mr-1"></i><span
           i18n>Refresh</span></button>
+        <button class="btn btn-sm btn-warning ml-2" (click)="filterType('buynow')"><i class="fa fa-search mr-1"></i><span
+          i18n>BUY NOW</span></button>
+        <button class="btn btn-sm btn-dribbble ml-2" (click)="filterType('shopping')"><i class="fa fa-search mr-1"></i><span
+          i18n>SHOPPING</span></button>
       </div>
     </div>
   </form>
@@ -172,13 +184,13 @@
       <hr style="margin: 5px;">
       <div class="row mt-1 ">
         <div class="col-md-12">
-          <span i18n>Type</span>:<span class="badge badge-purple badge-warning">{{items.order.potential | potential}}</span>
+          <span>Type</span>:<span class="badge badge-purple badge-warning">{{items.order.potential | potential}}</span>
         </div>
       </div>
       <hr style="margin: 5px;">
       <div class="row mt-1 mb-1">
         <div class="col-md-12">
-          <span *ngIf="checkSpAdmin()">Type</span>:<span class="badge badge-pill badge-warning">{{items.type}}</span>
+          <span>Type</span>:<span class="badge badge-pill badge-warning">{{items.type}}</span>
         </div>
       </div>
     </div>
@@ -301,15 +313,8 @@
       <hr>
       <div class="Ws-bold-font row Total_Unit_price_product">
         <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-          <strong><span i18n>Units Price:</span>
-            ( <span
-              *ngIf="items.order.portal === 'japan' || items.order.portal === 'AMAZON_JAPAN' || items.order.portal === 'JAPAN'">
-                                    {{ items.order.total_price_amount_origin | currency: 'JPY' : '￥'}}
-                                    </span>
-            <span
-              *ngIf="items.order.portal !== 'japan' && items.order.portal !== 'AMAZON_JAPAN' && items.order.portal !== 'JAPAN'">
-                                      {{ items.order.total_price_amount_origin | currency : 'USD' : '$'}}
-                                    </span>)
+          <strong><span i18n>Amount Price:</span>
+            <span>{{items.order.total_price_amount_origin | currency}}</span>
           </strong>
         </div>
         <div class="col-md-5 text-right style-padding-left dong">

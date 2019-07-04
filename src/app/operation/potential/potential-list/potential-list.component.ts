@@ -60,6 +60,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     this.searchF = this.fb.group({
       value: '',
       keyword: 0,
+      typePotential: 0,
       timeKey: 0,
       portal: 0,
       saleID: 0,
@@ -120,6 +121,9 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     }
     if (value.keyword !== '' && value.keyword !== 0) {
       params.keyword = value.keyword;
+    }
+    if (value.typePotential !== '' && value.typePotential !== 0) {
+      params.typePotential = value.typePotential;
     }
     if (value.timeKey !== '' && value.timeKey !== 0) {
       params.timeKey = value.timeKey;
@@ -302,5 +306,11 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     this.typeUpdate = 'updateReceiverCart';
     this.code = code;
     console.log(code);
+  }
+  filterType(type) {
+    this.searchF.patchValue({
+      typePotential: type,
+    });
+    this.listShoppingCart();
   }
 }
