@@ -187,7 +187,10 @@
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value text-bold">
               <strong i18n>Unit price</strong>
-              <strong>{{ product.price_amount_origin | currency}}</strong>
+              <strong>
+                ({{product.price_amount_origin | currency}}
+                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
+              </strong>
             </div>
             <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
