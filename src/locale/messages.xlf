@@ -2259,7 +2259,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="5d23a88a11fdafeaf92e2e3494aebb6660158cdd" datatype="html">
-        <source>Total origin tax fee local </source>
+        <source>US domestic </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-list/order-list.component.ts</context>
           <context context-type="linenumber">514</context>
@@ -4068,7 +4068,7 @@ Press Shift + Enter to get down the line.</source>
       </trans-unit>
       <trans-unit id="f67f33d16bbab44663761fec25ca000bba80ac63" datatype="html">
         <source>Total value Product
-                
+
               </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/operation/order/order-detail/order-detail.component.ts</context>

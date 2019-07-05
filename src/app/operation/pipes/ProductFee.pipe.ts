@@ -8,13 +8,13 @@ export class ProductFeePipe implements PipeTransform {
     transform(value: any) {
         switch ((value.trim())) {
             case 'product_price':
-                return 'Product Price';
+                return 'Amount';
             case 'tax_fee':
                 return 'Tax Fee';
             case 'shipping_fee':
-                return 'Shipping Fee';
+                return 'US domestic'
             case 'weshop_fee':
-                return 'Weshop Fee';
+                return 'Purchase Fee'
             case 'intl_shipping_fee':
                 return 'International Shipping Fee';
             case 'custom_fee' :

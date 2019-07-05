@@ -247,15 +247,16 @@
             </div>
           </div>
           <hr style="margin: 5px">
-          <div class="row Item_Subtotal">
+
+          <!--div class="row Item_Subtotal">
             <div class="col-md-7"><strong i18n>Item subtotal : ({{itemSubtotalAmount(product.productFees) | currency}})</strong>
             </div>
             <div class="col-md-5 text-right style-padding ">{{itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
-          </div>
+          </div-->
 
           <hr style="margin: 5px">
           <div class="row quantity_customer ">
-            <div class="col-md-7"><strong i18n>Price Policy({{product.price_policy | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+            <div class="col-md-7"><strong i18n>Packing fee({{product.price_policy | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
             <div class="col-md-5 text-right style-padding Wood">
               {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
             </div>
@@ -267,7 +268,7 @@
           </div>
           <hr style="margin: 5px">
           <div class="row quantity_customer ">
-            <div class="col-md-7"><strong i18n>Total Final Product({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+            <div class="col-md-7"><strong i18n>Total amount({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
             <div class="col-md-5 text-right style-padding Wood">
               {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
             </div>
