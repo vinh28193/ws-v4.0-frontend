@@ -652,40 +652,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.checkReady2Purchase = 'yes';
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
-        const messagePop1 = 'You have not selected category SOI-' + this.IDPro + '- total fee order' + order.total_fee_amount_local;
-        if (this.checkPur) {
-            this.popup.warning(() => {
-                this.popup.warning(() => {
-                    const put = this.orderService.createPostParams({
-                        // current_status: 'SUPPORTED',
-                        checkR2p: this.checkReady2Purchase,
-                    }, 'confirmPurchase');
-                    this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                        if (res.success) {
-                            this.listOrders();
-                            this.popup.success(res.message);
-                        } else {
-                            this.popup.error(res.message);
-                        }
-                    });
-                }, messagePop);
-            }, messagePop1);
-        } else {
-            this.popup.warning(() => {
-                const put = this.orderService.createPostParams({
-                    // current_status: 'SUPPORTED',
-                    checkR2p: this.checkReady2Purchase,
-                }, 'confirmPurchase');
-                this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                    if (res.success) {
-                        this.listOrders();
-                        this.popup.success(res.message);
-                    } else {
-                        this.popup.error(res.message);
-                    }
-                });
-            }, messagePop);
-        }
+        this.popup.warning(() => {
+          const put = this.orderService.createPostParams({
+            // current_status: 'SUPPORTED',
+            checkR2p: this.checkReady2Purchase,
+          }, 'confirmPurchase');
+          this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+            if (res.success) {
+              this.listOrders();
+              this.popup.success(res.message);
+            } else {
+              this.popup.error(res.message);
+            }
+          });
+        }, messagePop);
     }
 
     checkMarkAsJunk(status, priceCheck) {
