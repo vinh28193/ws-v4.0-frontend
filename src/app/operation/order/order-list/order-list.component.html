@@ -1777,7 +1777,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_delivery_fee">
+              <div class="row Total_delivery_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total delivery fee</span>
                 </div>
@@ -1788,7 +1788,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_packing_fee">
+              <div class="row Total_packing_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total packing fee</span>
                 </div>
@@ -1799,7 +1799,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_insection_fee">
+              <div class="row Total_insection_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total inspection fee</span>
                 </div>
@@ -1810,7 +1810,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_insurance_fee">
+              <div class="row Total_insurance_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total insurance fee</span>
                 </div>
@@ -1822,7 +1822,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
               </div>
 
-              <div class="row Total_VAT_amount">
+              <div class="row Total_VAT_amount" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total VAT amount</span>
                 </div>
@@ -1865,19 +1865,6 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="col-md-5 text-right style-padding-left Exchage_local">
                 {{orderList.exchange_rate_purchase | number}}
-              </div>
-            </div>
-
-            <hr>
-            <div class="row total_amount_local">
-              <div class="col-md-7 style-padding-right dong">
-                <span class="Ws-bold-font" i18n>Total Amout Local</span>
-              </div>
-              <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span class="Ws-bold-font">
-                                    {{orderList.total_amount_local | number}}
-                                  </span>
-                <span class="Ws-bold-font">{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
 
