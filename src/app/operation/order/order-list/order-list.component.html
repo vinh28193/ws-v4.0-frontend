@@ -557,7 +557,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
+                                <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products) && checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Custom fee </span>
                                   </div>
@@ -568,7 +568,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_delivery_fee">
+                                <div class="row Total_delivery_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Delivery fee</span>
                                   </div>
@@ -579,7 +579,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_packing_fee">
+                                <div class="row Total_packing_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Packing fee</span>
                                   </div>
@@ -590,7 +590,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insection_fee">
+                                <div class="row Total_insection_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Inspection fee</span>
                                   </div>
@@ -601,7 +601,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insurance_fee" >
+                                <div class="row Total_insurance_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Insurance fee</span>
                                   </div>
@@ -612,7 +612,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_VAT_amount">
+                                <div class="row Total_VAT_amount" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Additional Service</span>
                                   </div>
@@ -657,20 +657,6 @@
                                   {{order.exchange_rate_purchase}}
                                 </div>
                               </div>
-
-                              <hr >
-                              <div class="row total_amount_local">
-                                <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Total Amout Local</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span class="Ws-bold-font">
-                                    {{order.total_amount_local | number}}
-                                  </span>
-                                  <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
-                                </div>
-                              </div>
-
                               <hr>
                               <div class="row Coupon" *ngIf="order.coupon_id && order.coupon?.amount !== ''">
                                 <div class="col-md-7 style-padding-right dong">
