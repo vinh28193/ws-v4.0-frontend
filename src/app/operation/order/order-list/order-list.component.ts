@@ -501,6 +501,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
+            paymentBank: this.allKey,
             paymentStatus: this.allKey,
             bsRangeValue: {start: '', end: ''}
         });
@@ -553,6 +554,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.sale !== '' && value.sale !== 'ALL') {
             params.sale = value.sale;
         }
+        if (value.paymentBank !== '' && value.paymentBank !== 'ALL') {
+          params.paymentBank = value.paymentBank;
+        }
         if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
             params.paymentStatus = value.paymentStatus;
         }
@@ -598,6 +602,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     load() {
         this.getSale();
+        this.loadBank();
         // this.getSeller();
     }
 

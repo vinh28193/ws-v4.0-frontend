@@ -130,32 +130,32 @@
         <h5>
           <strong class="text-uppercase">
             <a target="_blank"
-               href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
-              <span class="text-danger">BIN-{{items.order.ordercode}}</span>
+               href="javascript:void (0)" (click)="copyText(items.value.ordercode, notifier)">
+              <span class="text-danger">BIN-{{items.value.ordercode}}</span>
             </a>
           </strong> /
-          <span class="Paid badge badge-pill badge-{{items.order.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
-            {{items.order.current_status}}
-          </span> <span *ngIf="items.order.potential == 1">/</span>
+          <span class="Paid badge badge-pill badge-{{items.value.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+            {{items.value.current_status}}
+          </span> <span *ngIf="items.value.potential == 1">/</span>
         </h5>
       </div>
       <div class="mt-1">
-        <span><i [class]="items.order.store_id | iconFlag"></i> </span>
-        <span class="m-l-5 mt-1">{{items.order.store_id | store}}</span>
+        <span><i [class]="items.value.store_id | iconFlag"></i> </span>
+        <span class="m-l-5 mt-1">{{items.value.store_id | store}}</span>
         <span
-          class="Paid badge badge-pill badge-{{items.order.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{items.order.type_order}}</span>
+          class="Paid badge badge-pill badge-{{items.value.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{items.value.type_order}}</span>
       </div>
       <div class="mt-1">
         <ul>
           <li class="created_at">
-            <span><i class="fa fa-clock-o"></i></span> {{items.order.new * 1000 | date: 'dd/MM/yyyy'}}
+            <span><i class="fa fa-clock-o"></i></span> {{items.value.new * 1000 | date: 'dd/MM/yyyy'}}
           </li>
           <li class="created_at_timeAgo">
             <span style="color: #C1C1C1"><i
-              class="fa fa-clock-o"></i> {{items.order.new * 1000 | amTimeAgo}}</span>
+              class="fa fa-clock-o"></i> {{items.value.new * 1000 | amTimeAgo}}</span>
           </li>
           <li class="portal OrderType">
-            <button class="btn btn-default btn-sm">{{items.order.portal | uppercase }}</button>
+            <button class="btn btn-default btn-sm">{{items.value.portal | uppercase }}</button>
           </li>
         </ul>
       </div>
@@ -163,28 +163,28 @@
 
       <div class="row m-0 p-0 mt-1">
         <ul class="col-md-11">
-          <app-asign-sale-potential [id]="items._id" [saleId]="items.order?.saleSupport?.id" [type]="items.type"
-                                (checkSale)="loadListSale($event)" [saleAll]="listSale" [saleSupportName]="items.order?.saleSupport?.username"
-                                [saleSupport]="items.order?.saleSupport?.email"></app-asign-sale-potential>
+          <app-asign-sale-potential [id]="items._id" [saleId]="items.value?.saleSupport?.id" [type]="items.type"
+                                (checkSale)="loadListSale($event)" [saleAll]="listSale" [saleSupportName]="items.value?.saleSupport?.username"
+                                [saleSupport]="items.value?.saleSupport?.email"></app-asign-sale-potential>
         </ul>
         <div class="col-md-1 p-0">
-        <a href="javascript:void(0)" (click)="filterOneSale(order.sale_support_id)"><i class="fa fa-filter"> </i></a>
+        <a href="javascript:void(0)" (click)="filterOneSale(value.sale_support_id)"><i class="fa fa-filter"> </i></a>
         </div>
       </div>
       <hr style="margin: 5px;">
       <div class=" mt-1  infor_seller">
         <ul>
-          <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{order.seller_store}}">{{order.seller_store}}</a></li>-->
+          <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{value.seller_store}}">{{value.seller_store}}</a></li>-->
           <li class="sty-font" i18n><i class="fa fa-user mr-1"></i> Seller Name : <a class="ml-1"
-                                                                                     href="{{items.order.seller.seller_link_store}}"
-                                                                                     target="_blank">{{items.order.seller.seller_name}}</a>
+                                                                                     href="{{items.value.seller.seller_link_store}}"
+                                                                                     target="_blank">{{items.value.seller.seller_name}}</a>
           </li>
         </ul>
       </div>
       <hr style="margin: 5px;">
       <div class="row mt-1 ">
         <div class="col-md-12">
-          <span>Type</span>:<span class="badge badge-purple badge-warning">{{items.order.potential | potential}}</span>
+          <span>Type</span>:<span class="badge badge-purple badge-warning">{{items.value.potential | potential}}</span>
         </div>
       </div>
       <hr style="margin: 5px;">
@@ -196,7 +196,7 @@
     </div>
 
     <div class="col-md-3 border-col CUSTOMER_INFO">
-      <h5 class="customer-type-{{items.order.customer_type}}" i18n>CUSTOMER INFO</h5>
+      <h5 class="customer-type-{{items.value.customer_type}}" i18n>CUSTOMER INFO</h5>
       <div class="row">
         <div class="col-md-12">
           <h5 class="text-bold mb-0" i18n>BUYER
@@ -206,7 +206,7 @@
             </a>
           </h5>
           <div><span i18n> CUSTOMER TYPE : </span> <span
-            class="text-bold">{{items.order.customer_type | uppercase }} </span>
+            class="text-bold">{{items.value.customer_type | uppercase }} </span>
           </div>
           <span *ngIf="items.key.buyer.buyer_name">{{items.key.buyer.buyer_name}}</span>
           <span *ngIf="items.key.buyer.buyer_phone"> - {{items.key.buyer.buyer_phone}}</span><span *ngIf="items.key.buyer.buyer_email"> - {{items.key.buyer.buyer_email}}</span>
@@ -249,7 +249,7 @@
         <div class="dropdown-menu style-d" style="font-size: 11px">
           <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
              id="chatCustomer" href="javascript:void(0);" data-target="#showChatCar"
-             data-toggle="modal" data-backdrop="static" (click)="chatCart(items.order.ordercode, items.order.current_status, items.type, items._id)"
+             data-toggle="modal" data-backdrop="static" (click)="chatCart(items.value.ordercode, items.value.current_status, items.type, items._id)"
              data-keyboard="false" i18n>
             <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
           </a>
@@ -261,9 +261,9 @@
           </a>
           <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
              href="javascript:void(0);" *ngIf="checkSpAdmin()"
-             (click)="viewMoreLogCart(items.order.current_status, items.order.ordercode);ModalviewMoreLogCart.show()" i18n><i class="fa fa-eye mr-1"></i>More Log
+             (click)="viewMoreLogCart(items.value.current_status, items.value.ordercode);ModalviewMoreLogCart.show()" i18n><i class="fa fa-eye mr-1"></i>More Log
           </a>
-          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" target="_blank" href="{{items.order.link_payment}}">
+          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" target="_blank" href="{{items.value.link_payment}}">
             <i class="fa fa-link mr-1"></i><span i18n>Link Buy Now</span>
           </a>
           <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"-->
@@ -299,7 +299,7 @@
           <span i18n>Quantity</span>
         </div>
         <div class="col-md-5 text-right style-padding-left">
-          <span>{{items.order.total_quantity}}</span>
+          <span>{{items.value.total_quantity}}</span>
         </div>
       </div>
       <div class="row Quantity">
@@ -307,18 +307,18 @@
           <span i18n>Total Weight Temporary</span>
         </div>
         <div class="col-md-5 text-right style-padding-left">
-          <span>{{items.order.total_weight_temporary}}</span>
+          <span>{{items.value.total_weight_temporary}}</span>
         </div>
       </div>
       <hr>
       <div class="Ws-bold-font row Total_Unit_price_product">
         <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
           <strong><span i18n>Amount Price:</span>
-            <span>{{items.order.total_price_amount_origin | currency}}</span>
+            <span>{{items.value.total_price_amount_origin | currency}}</span>
           </strong>
         </div>
         <div class="col-md-5 text-right style-padding-left dong">
-                                    <span>{{items.order.total_origin_fee_local | currency:'VND'}}
+                                    <span>{{items.value.total_origin_fee_local | currency:'VND'}}
                                   </span>
           <!--<span>{{order.store_id | currencyStore}}</span>-->
         </div>
@@ -333,7 +333,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
-                                    {{items.order.total_origin_tax_fee_local | currency:'VND'}}
+                                    {{items.value.total_origin_tax_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -345,7 +345,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_origin_shipping_fee_local | currency:'VND'}}
+                                    {{items.value.total_origin_shipping_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -358,7 +358,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_weshop_fee_local | currency:'VND'}}
+                                    {{items.value.total_weshop_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -370,7 +370,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_intl_shipping_fee_local | currency:'VND'}}
+                                    {{items.value.total_intl_shipping_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -381,9 +381,9 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_custom_fee_amount_local  | currency:'VND'}}
+                                    {{items.value.total_custom_fee_amount_local  | currency:'VND'}}
                                   </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
+            <!--<span>{{value.store_id | currencyStore}}</span>-->
           </div>
         </div>
         <div class="row Total_delivery_fee">
@@ -392,7 +392,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_delivery_fee_local  | currency:'VND'}}
+                                    {{items.value.total_delivery_fee_local  | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -403,7 +403,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_packing_fee_local | currency:'VND'}}
+                                    {{items.value.total_packing_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -414,7 +414,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_inspection_fee_local | currency:'VND'}}
+                                    {{items.value.total_inspection_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -425,7 +425,7 @@
           </div>
           <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{items.order.total_insurance_fee_local | currency:'VND'}}
+                                    {{items.value.total_insurance_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
@@ -452,7 +452,7 @@
         </div>
         <div class="col-md-5 text-right style-padding-left dong">
           <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
-          <span>{{items.order.total_fee_amount_local ? items.order.total_fee_amount_local : 0 | currency:'VND'}}</span>
+          <span>{{items.value.total_fee_amount_local ? items.value.total_fee_amount_local : 0 | currency:'VND'}}</span>
           <!--<span>{{order.store_id | currencyStore}}</span>-->
         </div>
       </div>
@@ -464,7 +464,7 @@
         </div>
         <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
-                                    {{items.order.total_amount_local | currency:'VND'}}
+                                    {{items.value.total_amount_local | currency:'VND'}}
                                   </span>
           <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
         </div>
@@ -477,7 +477,7 @@
         </div>
         <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
-                                    {{items.order.total_amount_local.total_final_amount_local | currency:'VND'}}
+                                    {{items.value.total_final_amount_local | currency:'VND'}}
                                   </span>
           <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
         </div>
@@ -487,21 +487,21 @@
       <div class="row Paid">
         <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
         <div class="col-md-6 text-right text-success">
-          {{items.order.total_paid_amount_local | currency:'VND'}}
+          {{items.value.total_paid_amount_local | currency:'VND'}}
         </div>
       </div>
       <div class="row Collect so-tien-thu-them Cod">
         <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
-        <div class="col-md-6 text-right text-info style-padding-left">{{items.order.total_final_amount_local >
-          items.order.total_paid_amount_local ?
-          getChangeAmount(items.order.total_final_amount_local, items.order.total_paid_amount_local) : 0 |
+        <div class="col-md-6 text-right text-info style-padding-left">{{items.value.total_final_amount_local >
+          items.value.total_paid_amount_local ?
+          getChangeAmount(items.value.total_final_amount_local, items.value.total_paid_amount_local) : 0 |
           currency:'VND'}}
         </div>
       </div>
-      <div class="row Refund" *ngIf="items.order.total_refund_amount_local">
+      <div class="row Refund" *ngIf="items.value.total_refund_amount_local">
         <div id="refund" class="col-md-6" i18n>Refund</div>
         <div class="col-md-6 text-right style-padding-left">
-          {{items.order.total_refund_amount_local | currency:'VND'}}
+          {{items.value.total_refund_amount_local | currency:'VND'}}
         </div>
       </div>
       <!--<hr>-->
@@ -526,25 +526,25 @@
       <div class="hover-row">
         <div class="row">
           <div class="col-md-5 pr-0" i18n>New:</div>
-          <div class="col-md-7 text-right {{items.order.new}}">{{items.order.new * 1000 | date:'dd/MM/yyyy HH:mm:ss
+          <div class="col-md-7 text-right {{items.value.new}}">{{items.value.new * 1000 | date:'dd/MM/yyyy HH:mm:ss
             '}}
           </div>
         </div>
         <div class="row">
           <div class="col-md-5 pr-0" i18n>Supporting:</div>
-          <div class="col-md-7 text-right" *ngIf="items.order.supporting">{{items.order.supporting * 1000 |
+          <div class="col-md-7 text-right" *ngIf="items.value.supporting">{{items.value.supporting * 1000 |
             date:'dd/MM/yyyy HH:mm:ss '}}
           </div>
         </div>
         <div class="row">
           <div class="col-md-5 pr-0" i18n>Supported:</div>
-          <div class="col-md-7 text-right" *ngIf="items.order.supported">{{items.order.supported * 1000 |
+          <div class="col-md-7 text-right" *ngIf="items.value.supported">{{items.value.supported * 1000 |
             date:'dd/MM/yyyy HH:mm:ss '}}
           </div>
         </div>
         <div class="row">
           <div class="col-md-5  pr-0" i18n>Cancelled:</div>
-          <div class="col-md-7 text-right" *ngIf="items.order.cancelled">{{items.order?.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          <div class="col-md-7 text-right" *ngIf="items.value.cancelled">{{items.value?.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
         </div>
       </div>
       <div class="row">

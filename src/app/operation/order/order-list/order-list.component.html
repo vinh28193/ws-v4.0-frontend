@@ -54,7 +54,7 @@
           </div>
         </div>
         <form [formGroup]="searchForm" class="row search-form" style="z-index: 1">
-          <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-4 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
@@ -67,7 +67,7 @@
                      type="text">
             </div>
           </div>
-          <div [hidden]="checkShoppingCart" style="z-index: 1" class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" style="z-index: 1" class="col-md-4 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon"
@@ -92,13 +92,21 @@
                                     </span>
             </div>
           </div>
-          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-12  form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-4 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label" i18n>Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey" i18n>All Weshop</option>
               <option [value]="1" i18n>Weshop VN</option>
               <option [value]="7" i18n>Weshop ID</option>
+            </select>
+          </div>
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="paymentBank" class="form-control-label" i18n>Payment Bank</label>
+            <select class="form-control form-control-sm" name="store" id="paymentBank"
+                    formControlName="paymentBank">
+              <option [value]="allKey" i18n>--All Payment Bank--</option>
+              <option *ngFor="let bank of allBank" value="bank.code">{{bank.name}}</option>
             </select>
           </div>
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
