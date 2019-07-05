@@ -598,7 +598,7 @@
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_delivery_fee_local  | number}}
+                                    {{order.total_delivery_fee_local ? order.total_delivery_fee_local : 0   | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
@@ -609,7 +609,7 @@
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_packing_fee_local | number}}
+                                    {{order.total_packing_fee_local ? order.total_packing_fee_local : 0 | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
@@ -620,7 +620,7 @@
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_inspection_fee_local | number}}
+                                    {{order.total_inspection_fee_local ? order.total_inspection_fee_local : 0 | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
@@ -631,7 +631,7 @@
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.total_insurance_fee_local | number}}
+                                    {{ order.total_insurance_fee_local ? order.total_insurance_fee_local : 0  | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
@@ -642,7 +642,7 @@
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{order.additional_service | number}}
+                                    {{ order.additional_service ? order.additional_service : 0 | number}}
                                   </span>
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
