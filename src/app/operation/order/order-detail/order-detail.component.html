@@ -164,14 +164,16 @@
           </div>
         </div>
         <div class="hover-row">
-          <div class="row">
+
+          <!--div class="row">
             <div class="col-md-7">
               <strong i18n> Employee Purchase :</strong>
             </div>
             <div class="col-md-5 text-right style-padding Employee Purchase">
               {{Employee_Purchase}}
             </div>
-          </div>
+          </div-->
+
           <div class="row quantity_customer ">
             <div class="col-md-7"><strong i18n>Quantity:</strong></div>
             <div class="col-md-5 pr-2 text-right style-padding Quantity">
@@ -246,9 +248,9 @@
                      [(ngModel)]="tax_fee">
             </div>
           </div>
-          <hr style="margin: 5px">
 
-          <!--div class="row Item_Subtotal">
+          <!--hr style="margin: 5px">
+          <div class="row Item_Subtotal">
             <div class="col-md-7"><strong i18n>Item subtotal : ({{itemSubtotalAmount(product.productFees) | currency}})</strong>
             </div>
             <div class="col-md-5 text-right style-padding ">{{itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
