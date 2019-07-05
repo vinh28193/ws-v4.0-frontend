@@ -13,7 +13,6 @@ import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 export class PotentialListComponent extends OrderDataComponent implements OnInit {
   public ShoppingCar: any = [];
   public statusOrder: any = [];
-  public getPolicyCart: any = [];
   public activeOrder: any = [];
   public OrderAllCart: any = [];
   public listLog: any = [];
@@ -25,7 +24,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public dvct1: any = {};
   public moreLog: any = {};
   public searchF: FormGroup;
-  public perpage: number;
+  public perpage: 1;
   public totalCart: number;
   public totalCarts: any;
   public typeUpdate: any;
@@ -150,6 +149,12 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       keyword: 'key.buyer.buyer_email'
     });
     this.listShoppingCart();
+  }
+  filterOnePhone(phone) {
+    this.searchF.patchValue({
+      value: phone,
+      keyword: 'key.receiver.receiver_phone'
+    });
   }
   refreshShopping() {
     this.searchF.patchValue({

@@ -7,9 +7,10 @@
           <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyword"
                   id="keyword" formControlName="keyword">
             <option value="0" i18n>ALL Keyword</option>
-            <option value="value.ordercode">OrderCode</option>
-            <option value="value.buyer_email">Email</option>
-            <option value="value.buyer_email">Phone</option>
+            <option value="key.ordercode">OrderCode</option>
+            <option value="key.buyer.buyer_email">Email</option>
+            <option value="key.buyer.buyer_phone">Phone Buyer</option>
+            <option value="key.receiver.receiver_phone">Phone Receiver</option>
           </select>
           <input class="form-control form-control-sm" id="value" (keyup.enter)="listShoppingCart()"
                  formControlName="value"
@@ -114,471 +115,476 @@
     </div>
     <div class="col-md-6">
       <pagination [boundaryLinks]="true"
-                  [totalItems]="perpage"
+                  [maxSize]="10"
+                  [totalItems]="totalCarts"
                   (pageChanged)="handlePagination($event)"
-                  [itemsPerPage]="page" class="pagination-sm pull-right"
+                  [itemsPerPage]="perPage" class="pagination-sm pull-right"
                   [rotate]="true">
       </pagination>
     </div>
   </div>
 </div>
-<div class="style-card mb-4" *ngFor="let items of ShoppingCar">
-  <div class="row margin-row">
-    <div class="col-md-3 border-col">
-      <div class="clearfix"></div>
-      <div class="mt-1">
-        <h5>
-          <strong class="text-uppercase">
-            <a target="_blank"
-               href="javascript:void (0)" (click)="copyText(items.value.ordercode, notifier)">
-              <span class="text-danger">BIN-{{items.value.ordercode}}</span>
-            </a>
-          </strong> /
-          <span class="Paid badge badge-pill badge-{{items.value.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+<div>
+  <div class="style-card mb-4" *ngFor="let items of ShoppingCar">
+    <div class="row margin-row">
+      <div class="col-md-3 border-col">
+        <div class="clearfix"></div>
+        <div class="mt-1">
+          <h5>
+            <strong class="text-uppercase">
+              <a target="_blank"
+                 href="javascript:void (0)" (click)="copyText(items.value.ordercode, notifier)">
+                <span class="text-danger">BIN-{{items.value.ordercode}}</span>
+              </a>
+            </strong> /
+            <span class="Paid badge badge-pill badge-{{items.value.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
             {{items.value.current_status}}
           </span> <span *ngIf="items.value.potential == 1">/</span>
-        </h5>
-      </div>
-      <div class="mt-1">
-        <span><i [class]="items.value.store_id | iconFlag"></i> </span>
-        <span class="m-l-5 mt-1">{{items.value.store_id | store}}</span>
-        <span
-          class="Paid badge badge-pill badge-{{items.value.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{items.value.type_order}}</span>
-      </div>
-      <div class="mt-1">
-        <ul>
-          <li class="created_at">
-            <span><i class="fa fa-clock-o"></i></span> {{items.value.new * 1000 | date: 'dd/MM/yyyy'}}
-          </li>
-          <li class="created_at_timeAgo">
+          </h5>
+        </div>
+        <div class="mt-1">
+          <span><i [class]="items.value.store_id | iconFlag"></i> </span>
+          <span class="m-l-5 mt-1">{{items.value.store_id | store}}</span>
+          <span
+            class="Paid badge badge-pill badge-{{items.value.type_order | orderTypeClass}} ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">{{items.value.type_order}}</span>
+        </div>
+        <div class="mt-1">
+          <ul>
+            <li class="created_at">
+              <span><i class="fa fa-clock-o"></i></span> {{items.value.new * 1000 | date: 'dd/MM/yyyy'}}
+            </li>
+            <li class="created_at_timeAgo">
             <span style="color: #C1C1C1"><i
               class="fa fa-clock-o"></i> {{items.value.new * 1000 | amTimeAgo}}</span>
-          </li>
-          <li class="portal OrderType">
-            <button class="btn btn-default btn-sm">{{items.value.portal | uppercase }}</button>
-          </li>
-        </ul>
-      </div>
-      <hr style="margin: 5px;">
+            </li>
+            <li class="portal OrderType">
+              <button class="btn btn-default btn-sm">{{items.value.portal | uppercase }}</button>
+            </li>
+          </ul>
+        </div>
+        <hr style="margin: 5px;">
 
-      <div class="row m-0 p-0 mt-1">
-        <ul class="col-md-11">
-          <app-asign-sale-potential [id]="items._id" [saleId]="items.value?.saleSupport?.id" [type]="items.type"
-                                (checkSale)="loadListSale($event)" [saleAll]="listSale" [saleSupportName]="items.value?.saleSupport?.username"
-                                [saleSupport]="items.value?.saleSupport?.email"></app-asign-sale-potential>
-        </ul>
-        <div class="col-md-1 p-0">
-        <a href="javascript:void(0)" (click)="filterOneSale(value.sale_support_id)"><i class="fa fa-filter"> </i></a>
-        </div>
-      </div>
-      <hr style="margin: 5px;">
-      <div class=" mt-1  infor_seller">
-        <ul>
-          <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{value.seller_store}}">{{value.seller_store}}</a></li>-->
-          <li class="sty-font" i18n><i class="fa fa-user mr-1"></i> Seller Name : <a class="ml-1"
-                                                                                     href="{{items.value.seller.seller_link_store}}"
-                                                                                     target="_blank">{{items.value.seller.seller_name}}</a>
-          </li>
-        </ul>
-      </div>
-      <hr style="margin: 5px;">
-      <div class="row mt-1 ">
-        <div class="col-md-12">
-          <span>Type</span>:<span class="badge badge-purple badge-warning">{{items.value.potential | potential}}</span>
-        </div>
-      </div>
-      <hr style="margin: 5px;">
-      <div class="row mt-1 mb-1">
-        <div class="col-md-12">
-          <span>Type</span>:<span class="badge badge-pill badge-warning">{{items.type}}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3 border-col CUSTOMER_INFO">
-      <h5 class="customer-type-{{items.value.customer_type}}" i18n>CUSTOMER INFO</h5>
-      <div class="row">
-        <div class="col-md-12">
-          <h5 class="text-bold mb-0" i18n>BUYER
-            <a href="javascript:void(0)"
-               (click)="updateCustomerCart(items.key.buyer, items._id, items.type);updateBuyerCartModal.show()">
-              <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
-            </a>
-          </h5>
-          <div><span i18n> CUSTOMER TYPE : </span> <span
-            class="text-bold">{{items.value.customer_type | uppercase }} </span>
+        <div class="row m-0 p-0 mt-1">
+          <ul class="col-md-11">
+            <app-asign-sale-potential [id]="items._id" [saleId]="items.value?.saleSupport?.id" [type]="items.type"
+                                      (checkSale)="loadListSale($event)" [saleAll]="listSale" [saleSupportName]="items.value?.saleSupport?.username"
+                                      [saleSupport]="items.value?.saleSupport?.email"></app-asign-sale-potential>
+          </ul>
+          <div class="col-md-1 p-0">
+            <a href="javascript:void(0)" (click)="filterOneSale(value.sale_support_id)"><i class="fa fa-filter"> </i></a>
           </div>
-          <span *ngIf="items.key.buyer.buyer_name">{{items.key.buyer.buyer_name}}</span>
-          <span *ngIf="items.key.buyer.buyer_phone"> - {{items.key.buyer.buyer_phone}}</span><span *ngIf="items.key.buyer.buyer_email"> - {{items.key.buyer.buyer_email}}</span>
-          <a href="javascript:void(0)" (click)="filterOneCustomer(items.key.buyer.buyer_email)">
-            <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
-          </a><br>
-          <span *ngIf="items.key.buyer_address">{{items.key.buyer_address}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">(</span><span *ngIf="items.key.buyer_district_name">{{items.key.buyer_district_name}}</span>
-          <span *ngIf="items.key.buyer_province_name"> - {{items.key.buyer_province_name}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">)</span>
+        </div>
+        <hr style="margin: 5px;">
+        <div class=" mt-1  infor_seller">
+          <ul>
+            <!--<li class="sty-font"><i class="fa fa-link mr-1" i18n></i> Seller Store : <a  href="{{value.seller_store}}">{{value.seller_store}}</a></li>-->
+            <li class="sty-font" i18n><i class="fa fa-user mr-1"></i> Seller Name : <a class="ml-1"
+                                                                                       href="{{items.value.seller.seller_link_store}}"
+                                                                                       target="_blank">{{items.value.seller.seller_name}}</a>
+            </li>
+          </ul>
+        </div>
+        <hr style="margin: 5px;">
+        <div class="row mt-1 ">
+          <div class="col-md-12">
+            <span>Type</span>:<span class="badge badge-purple badge-warning">{{items.value.potential | potential}}</span>
+          </div>
+        </div>
+        <hr style="margin: 5px;">
+        <div class="row mt-1 mb-1">
+          <div class="col-md-12">
+            <span>Type</span>:<span class="badge badge-pill badge-warning">{{items.type}}</span>
+          </div>
         </div>
       </div>
-      <hr>
-      <div class="row mt-3">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-12" style="margin-bottom: 2%">
-              <div>
-                <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
-                    i18n>RECEIVER
-                  <a href="javascript:void(0)"
-                     (click)="updateCustomerReveiverCart(items.key.receiver, items._id, items.type); updateReceiverCartModal.show()">
-                    <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+
+      <div class="col-md-3 border-col CUSTOMER_INFO">
+        <h5 class="customer-type-{{items.value.customer_type}}" i18n>CUSTOMER INFO</h5>
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="mb-0" i18n>BUYER
+              <a href="javascript:void(0)"
+                 (click)="updateCustomerCart(items.key.buyer, items._id, items.type);updateBuyerCartModal.show()">
+                <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+              </a>
+            </h5>
+            <div><span i18n> CUSTOMER TYPE : </span> <span
+              class="text-bold">{{items.value.customer_type | uppercase }} </span>
+            </div>
+            <span *ngIf="items.key.buyer.buyer_name">{{items.key.buyer.buyer_name}}</span>
+            <span *ngIf="items.key.buyer.buyer_phone"> - {{items.key.buyer.buyer_phone}}</span><span *ngIf="items.key.buyer.buyer_email"> - {{items.key.buyer.buyer_email}}</span>
+            <a href="javascript:void(0)" (click)="filterOneCustomer(items.key.buyer.buyer_email)">
+              <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Email BUYER!"></i>
+            </a><br>
+            <span *ngIf="items.key.buyer_address">{{items.key.buyer_address}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">(</span><span *ngIf="items.key.buyer_district_name">{{items.key.buyer_district_name}}</span>
+            <span *ngIf="items.key.buyer_province_name"> - {{items.key.buyer_province_name}}</span><span *ngIf="items.key.buyer_province_name || items.key.buyer_district_name">)</span>
+          </div>
+        </div>
+        <hr>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12" style="margin-bottom: 2%">
+                <div>
+                  <h5 i18n>RECEIVER
+                    <a href="javascript:void(0)"
+                       (click)="updateCustomerReveiverCart(items.key.receiver, items._id, items.type); updateReceiverCartModal.show()">
+                      <i class="fa fa-edit" style="color: #00a8ff; margin-left: 2px"></i>
+                    </a>
+                  </h5>
+                </div>
+                <div class="address">
+                  <span *ngIf="items.key.receiver.receiver_name">{{items.key.receiver.receiver_name}}</span><span *ngIf="items.key.receiver.receiver_phone"> - {{items.key.receiver.receiver_phone}}
+                  <a href="javascript:void(0)" (click)="filterOnePhone(items.key.receiver.receiver_phone)">
+                    <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Phone Receiver!"></i>
                   </a>
-                </h5>
-              </div>
-              <div class="address">
-                <span *ngIf="items.key.receiver.receiver_name">{{items.key.receiver.receiver_name}}</span><span *ngIf="items.key.receiver.receiver_phone"> - {{items.key.receiver.receiver_phone}}</span><span *ngIf="items.key.receiver.receiver_email"> - {{items.key.receiver.receiver_email}}</span>
-                <br>
-                <span *ngIf="items.key.receiver.receiver_address">{{items.key.receiver.receiver_address}}</span> <span *ngIf="items.key.receiver.receiver_district_name || items.key.receiver.receiver_province_name">(</span> <span *ngIf="items.key.receiver.receiver_district_name">{{items.key.receiver.receiver_district_name}}</span><span *ngIf="items.key.receiver.receiver_province_name"> - {{items.key.receiver.receiver_province_name}})</span>
+                </span><span *ngIf="items.key.receiver.receiver_email"> - {{items.key.receiver.receiver_email}}</span>
+                  <br>
+                  <span *ngIf="items.key.receiver.receiver_address">{{items.key.receiver.receiver_address}}</span> <span *ngIf="items.key.receiver.receiver_district_name || items.key.receiver.receiver_province_name">(</span> <span *ngIf="items.key.receiver.receiver_district_name">{{items.key.receiver.receiver_district_name}}</span><span *ngIf="items.key.receiver.receiver_province_name"> - {{items.key.receiver.receiver_province_name}})</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row mt-2 col-md-12">
-        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" i18n>
-          Action
-        </button>
-        <div class="dropdown-menu style-d" style="font-size: 11px">
-          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-             id="chatCustomer" href="javascript:void(0);" data-target="#showChatCar"
-             data-toggle="modal" data-backdrop="static" (click)="chatCart(items.value.ordercode, items.value.current_status, items.type, items._id)"
-             data-keyboard="false" i18n>
-            <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
-          </a>
-          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-             id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
-             data-toggle="modal" data-backdrop="static" (click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"
-             data-keyboard="false" i18n>
-            <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
-          </a>
-          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-             href="javascript:void(0);" *ngIf="checkSpAdmin()"
-             (click)="viewMoreLogCart(items.value.current_status, items.value.ordercode);ModalviewMoreLogCart.show()" i18n><i class="fa fa-eye mr-1"></i>More Log
-          </a>
-          <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" target="_blank" href="{{items.value.link_payment}}">
-            <i class="fa fa-link mr-1"></i><span i18n>Link Buy Now</span>
-          </a>
-          <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"-->
-             <!--href="javascript:void(0);"-->
-             <!--data-target="#updateConfirmCart" data-toggle="modal" (click)="openConfirmCart(items.order)"  data-backdrop="static" data-keyboard="false">-->
+        <div class="row mt-2 col-md-12">
+          <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" i18n>
+            Action
+          </button>
+          <div class="dropdown-menu style-d" style="font-size: 11px">
+            <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+               id="chatCustomer" href="javascript:void(0);" data-target="#showChatCar"
+               data-toggle="modal" data-backdrop="static" (click)="chatCart(items.value.ordercode, items.value.current_status, items.type, items._id)"
+               data-keyboard="false" i18n>
+              <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
+            </a>
+            <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+               id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
+               data-toggle="modal" data-backdrop="static" (click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"
+               data-keyboard="false" i18n>
+              <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
+            </a>
+            <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+               href="javascript:void(0);" *ngIf="checkSpAdmin()"
+               (click)="viewMoreLogCart(items.value.current_status, items.value.ordercode);ModalviewMoreLogCart.show()" i18n><i class="fa fa-eye mr-1"></i>More Log
+            </a>
+            <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop" target="_blank" href="{{items.value.link_payment}}">
+              <i class="fa fa-link mr-1"></i><span i18n>Link Buy Now</span>
+            </a>
+            <!--<a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"-->
+            <!--href="javascript:void(0);"-->
+            <!--data-target="#updateConfirmCart" data-toggle="modal" (click)="openConfirmCart(items.order)"  data-backdrop="static" data-keyboard="false">-->
             <!--<i class="fa fa-calendar-check-o mr-1" aria-hidden="true"></i><span i18n>Confirm Orders</span>-->
-          <!--</a>-->
-        </div>
-      </div>
-
-    </div>
-
-
-    <div *ngIf="checkSpAdmin()" class="col-md-3 hover-row style-col border-col">
-      <div class="row">
-        <div class="col-md-7">
-          <h5 i18n>FINANCE</h5>
-        </div>
-        <div class="col-md-5" style="text-align: right">
-          <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[items._id]"
-                  (click)="hideme[items._id] = !hideme[items._id]" i18n>
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </button>
-          <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[items._id]"
-                  (click)="hideme[items._id] = !hideme[items._id]" i18n>
-            <i class="fa fa-eye-slash" aria-hidden="true"></i>
-          </button>
-          <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
-        </div>
-      </div>
-      <div class="row Quantity">
-        <div class="col-md-7 style-padding-right  dong">
-          <span i18n>Quantity</span>
-        </div>
-        <div class="col-md-5 text-right style-padding-left">
-          <span>{{items.value.total_quantity}}</span>
-        </div>
-      </div>
-      <div class="row Quantity">
-        <div class="col-md-7 style-padding-right  dong">
-          <span i18n>Total Weight Temporary</span>
-        </div>
-        <div class="col-md-5 text-right style-padding-left">
-          <span>{{items.value.total_weight_temporary}}</span>
-        </div>
-      </div>
-      <hr>
-      <div class="Ws-bold-font row Total_Unit_price_product">
-        <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-          <strong><span i18n>Amount Price:</span>
-            <span>{{items.value.total_price_amount_origin | currency}}</span>
-          </strong>
-        </div>
-        <div class="col-md-5 text-right style-padding-left dong">
-                                    <span>{{items.value.total_origin_fee_local | currency:'VND'}}
-                                  </span>
-          <!--<span>{{order.store_id | currencyStore}}</span>-->
-        </div>
-      </div>
-
-
-      <div [hidden]="!hideme[items._id]">
-
-        <div class="row total_origin_tax_fee_local">
-          <div class="col-md-7 style-padding-right total_fee_amount_local dong">
-            <span i18n>Total origin tax fee local </span>
+            <!--</a>-->
           </div>
-          <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
-                                  <span>
-                                    {{items.value.total_origin_tax_fee_local | currency:'VND'}}
+        </div>
+
+      </div>
+
+
+      <div *ngIf="checkSpAdmin()" class="col-md-3 hover-row style-col border-col">
+        <div class="row">
+          <div class="col-md-7">
+            <h5 i18n>FINANCE</h5>
+          </div>
+          <div class="col-md-5" style="text-align: right">
+            <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[items._id]"
+                    (click)="hideme[items._id] = !hideme[items._id]" i18n>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[items._id]"
+                    (click)="hideme[items._id] = !hideme[items._id]" i18n>
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </button>
+            <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
+          </div>
+        </div>
+        <div class="row Quantity">
+          <div class="col-md-7 style-padding-right  dong">
+            <span i18n>Quantity</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left">
+            <span>{{items.value.total_quantity}}</span>
+          </div>
+        </div>
+        <div class="row Quantity">
+          <div class="col-md-7 style-padding-right  dong">
+            <span i18n>Total Weight Temporary</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left">
+            <span>{{items.value.total_weight_temporary}}Kg</span>
+          </div>
+        </div>
+        <hr>
+        <div class="Ws-bold-font row Total_Unit_price_product">
+          <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
+            <span i18n>Amount Price:</span>
+            <span>{{items.value.total_price_amount_origin | currency}}</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left dong">
+                                    <span>{{items.value.total_origin_fee_local | currency:'VND'}}
                                   </span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
         </div>
 
-        <div class="row Total_origin_shiping_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total origin shiping fee</span>
+
+        <div [hidden]="!hideme[items._id]">
+
+          <div class="row total_origin_tax_fee_local">
+            <div class="col-md-7 style-padding-right total_fee_amount_local dong">
+              <span i18n>Total origin tax fee local </span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
+                                  <span>
+                                    {{items.value.total_origin_tax_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
           </div>
-          <div class="col-md-5 text-right style-padding-left dong">
+
+          <div class="row Total_origin_shiping_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Total origin shiping fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
                                     {{items.value.total_origin_shipping_fee_local | currency:'VND'}}
                                   </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <hr>
+          <div class="row Total_weshop_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Purchase fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_weshop_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <div class="row Total_shiping_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Shiping fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_intl_shipping_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_custom_fee_amount">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Custom fee </span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_custom_fee_amount_local  | currency:'VND'}}
+                                  </span>
+              <!--<span>{{value.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_delivery_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Delivery fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_delivery_fee_local  | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_packing_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Packing fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_packing_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_insection_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Inspection fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_inspection_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+          <div class="row Total_insurance_fee">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Insurance fee</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.value.total_insurance_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+
+          <div class="row Total_VAT_amount">
+            <div class="col-md-7 style-padding-right dong">
+              <span i18n>Total VAT local</span>
+            </div>
+            <div class="col-md-5 text-right style-padding-left dong">
+                                  <span>
+                                    {{items.total_vat_fee_local | currency:'VND'}}
+                                  </span>
+              <!--<span>{{order.store_id | currencyStore}}</span>-->
+            </div>
+          </div>
+        </div>
+
+        <hr style="margin-top: 5px">
+
+        <div class="Ws-bold-font row Total_fee_order">
+          <div class="col-md-7 style-padding-right dong">
+            <span i18n>Total Fee Order :</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left dong">
+            <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
+            <span>{{items.value.total_fee_amount_local ? items.value.total_fee_amount_local : 0 | currency:'VND'}}</span>
             <!--<span>{{order.store_id | currencyStore}}</span>-->
           </div>
         </div>
 
         <hr>
-        <div class="row Total_weshop_fee">
+        <div class="row total_amount_local">
           <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total weshop fee</span>
+            <span class="Ws-bold-font" i18n>Total Amout Local</span>
           </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_weshop_fee_local | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-
-        <div class="row Total_shiping_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total shiping fee</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_intl_shipping_fee_local | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-        <div class="row Total_custom_fee_amount">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total custom fee </span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_custom_fee_amount_local  | currency:'VND'}}
-                                  </span>
-            <!--<span>{{value.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-        <div class="row Total_delivery_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total delivery fee</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_delivery_fee_local  | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-        <div class="row Total_packing_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total packing fee</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_packing_fee_local | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-        <div class="row Total_insection_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total inspection fee</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_inspection_fee_local | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-        <div class="row Total_insurance_fee">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total insurance fee</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.value.total_insurance_fee_local | currency:'VND'}}
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-
-        <div class="row Total_VAT_amount">
-          <div class="col-md-7 style-padding-right dong">
-            <span i18n>Total VAT local</span>
-          </div>
-          <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{items.total_vat_fee_local | currency:'VND'}}kg
-                                  </span>
-            <!--<span>{{order.store_id | currencyStore}}</span>-->
-          </div>
-        </div>
-      </div>
-
-      <hr style="margin-top: 5px">
-
-      <div class="Ws-bold-font row Total_fee_order">
-        <div class="col-md-7 style-padding-right dong">
-          <span i18n>Total Fee Order :</span>
-        </div>
-        <div class="col-md-5 text-right style-padding-left dong">
-          <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
-          <span>{{items.value.total_fee_amount_local ? items.value.total_fee_amount_local : 0 | currency:'VND'}}</span>
-          <!--<span>{{order.store_id | currencyStore}}</span>-->
-        </div>
-      </div>
-
-      <hr>
-      <div class="row total_amount_local">
-        <div class="col-md-7 style-padding-right dong">
-          <span class="Ws-bold-font" i18n>Total Amout Local</span>
-        </div>
-        <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+          <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
                                     {{items.value.total_amount_local | currency:'VND'}}
                                   </span>
-          <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+            <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+          </div>
         </div>
-      </div>
-      <hr>
+        <hr>
 
-      <div class="row total_final_amount_local -discount">
-        <div class="col-md-7 style-padding-right dong">
-          <span class="Ws-bold-font" i18n>Total value of orders (-discount)</span>
-        </div>
-        <div class="col-md-5 text-right style-padding-left total_final_amount_local">
+        <div class="row total_final_amount_local -discount">
+          <div class="col-md-7 style-padding-right dong">
+            <span class="Ws-bold-font" i18n>Total value of orders (-discount)</span>
+          </div>
+          <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
                                     {{items.value.total_final_amount_local | currency:'VND'}}
                                   </span>
-          <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+            <!--<span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>-->
+          </div>
         </div>
-      </div>
 
-      <hr>
-      <div class="row Paid">
-        <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
-        <div class="col-md-6 text-right text-success">
-          {{items.value.total_paid_amount_local | currency:'VND'}}
+        <hr>
+        <div class="row Paid">
+          <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
+          <div class="col-md-6 text-right text-success">
+            {{items.value.total_paid_amount_local | currency:'VND'}}
+          </div>
         </div>
-      </div>
-      <div class="row Collect so-tien-thu-them Cod">
-        <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
-        <div class="col-md-6 text-right text-info style-padding-left">{{items.value.total_final_amount_local >
-          items.value.total_paid_amount_local ?
-          getChangeAmount(items.value.total_final_amount_local, items.value.total_paid_amount_local) : 0 |
-          currency:'VND'}}
+        <div class="row Collect so-tien-thu-them Cod">
+          <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
+          <div class="col-md-6 text-right text-info style-padding-left">{{items.value.total_final_amount_local >
+            items.value.total_paid_amount_local ?
+            getChangeAmount(items.value.total_final_amount_local, items.value.total_paid_amount_local) : 0 |
+            currency:'VND'}}
+          </div>
         </div>
-      </div>
-      <div class="row Refund" *ngIf="items.value.total_refund_amount_local">
-        <div id="refund" class="col-md-6" i18n>Refund</div>
-        <div class="col-md-6 text-right style-padding-left">
-          {{items.value.total_refund_amount_local | currency:'VND'}}
+        <div class="row Refund" *ngIf="items.value.total_refund_amount_local">
+          <div id="refund" class="col-md-6" i18n>Refund</div>
+          <div class="col-md-6 text-right style-padding-left">
+            {{items.value.total_refund_amount_local | currency:'VND'}}
+          </div>
         </div>
-      </div>
-      <!--<hr>-->
-      <!--<div class="row pt-2 pb-2 no-row">-->
+        <!--<hr>-->
+        <!--<div class="row pt-2 pb-2 no-row">-->
         <!--<div class="col-md-12">-->
-          <!--<button type="button"-->
-                  <!--(click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"-->
-                  <!--class="btn btn-secondary mb-2 btn-sm" data-target="#showChatGroup"-->
-                  <!--data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>-->
-            <!--<i class="fa fa-comments mr-1" aria-hidden="true"></i>-->
-            <!--Chat With Group-->
-          <!--</button>-->
+        <!--<button type="button"-->
+        <!--(click)="chatGroupCart(items.key.orderCode, items.key.current_status, items.type, items._id)"-->
+        <!--class="btn btn-secondary mb-2 btn-sm" data-target="#showChatGroup"-->
+        <!--data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n>-->
+        <!--<i class="fa fa-comments mr-1" aria-hidden="true"></i>-->
+        <!--Chat With Group-->
+        <!--</button>-->
         <!--</div>-->
-      <!--</div>-->
+        <!--</div>-->
+      </div>
+      <div *ngIf="checkSpAdmin()" class="col-md-3 border-col">
+        <div class="row STATUS">
+          <div class="col-md-7">
+            <h5 i18n>STATUS</h5>
+          </div>
+        </div>
+        <div class="hover-row">
+          <div class="row">
+            <div class="col-md-5 pr-0" i18n>New:</div>
+            <div class="col-md-7 text-right {{items.value.new}}">{{items.value.new * 1000 | date:'dd/MM/yyyy HH:mm:ss
+              '}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 pr-0" i18n>Supporting:</div>
+            <div class="col-md-7 text-right" *ngIf="items.value.supporting">{{items.value.supporting * 1000 |
+              date:'dd/MM/yyyy HH:mm:ss '}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 pr-0" i18n>Supported:</div>
+            <div class="col-md-7 text-right" *ngIf="items.value.supported">{{items.value.supported * 1000 |
+              date:'dd/MM/yyyy HH:mm:ss '}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5  pr-0" i18n>Cancelled:</div>
+            <div class="col-md-7 text-right" *ngIf="items.value.cancelled">{{items.value?.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="btn-group mr-2 mb-2">
+              <!--<button class="btn btn-sm btn-danger"-->
+              <!--*ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'"-->
+              <!--(click)="cancelOrderCart(items._id, items.type)">-->
+              <!--<i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>-->
+              <!--</button>-->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div *ngIf="checkSpAdmin()" class="col-md-3 border-col">
-      <div class="row STATUS">
-        <div class="col-md-7">
-          <h5 i18n>STATUS</h5>
-        </div>
+    <div class="row pb-1 pt-1" style="margin-left: 1px">
+      <div class="col-md-12 pl-0 tab-slider--nav">
+        <ul class="tab-slider--tabs st-ul">
+          <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]">
+            <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
+          </li>
+        </ul>
       </div>
-      <div class="hover-row">
-        <div class="row">
-          <div class="col-md-5 pr-0" i18n>New:</div>
-          <div class="col-md-7 text-right {{items.value.new}}">{{items.value.new * 1000 | date:'dd/MM/yyyy HH:mm:ss
-            '}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-5 pr-0" i18n>Supporting:</div>
-          <div class="col-md-7 text-right" *ngIf="items.value.supporting">{{items.value.supporting * 1000 |
-            date:'dd/MM/yyyy HH:mm:ss '}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-5 pr-0" i18n>Supported:</div>
-          <div class="col-md-7 text-right" *ngIf="items.value.supported">{{items.value.supported * 1000 |
-            date:'dd/MM/yyyy HH:mm:ss '}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-5  pr-0" i18n>Cancelled:</div>
-          <div class="col-md-7 text-right" *ngIf="items.value.cancelled">{{items.value?.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="btn-group mr-2 mb-2">
-            <!--<button class="btn btn-sm btn-danger"-->
-            <!--*ngIf="items.key.current_status !== 'CANCELLED' && items.key.current_status !== 'JUNK'"-->
-            <!--(click)="cancelOrderCart(items._id, items.type)">-->
-            <!--<i class="fa fa-trash" aria-hidden="true"></i><span i18n>Cancel Order</span>-->
-            <!--</button>-->
-          </div>
+      <div class="col-md-12 pl-0 mt-2 tab-slider--container">
+        <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
+          <app-product-potential *ngIf="pro[items._id]"
+                                 [orderId]="items._id"
+                                 [type] = "items.type"
+                                 [orderCode]="items.value.orderCode"
+                                 [products]="items.value.products"></app-product-potential>
         </div>
       </div>
     </div>
   </div>
-  <div class="row pb-1 pt-1" style="margin-left: 1px">
-    <div class="col-md-12 pl-0 tab-slider--nav">
-      <ul class="tab-slider--tabs st-ul">
-        <li class="tab-slider--trigger" rel="tab1" (click)=" pro[items._id] = !pro[items._id]">
-          <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-12 pl-0 mt-2 tab-slider--container">
-      <div id="tab5" class="tab-slider--body" [hidden]="!pro[items._id]" style="border-bottom: 2px solid red">
-        <app-product-potential *ngIf="pro[items._id]"
-                                   [orderId]="items._id"
-                                   [type] = "items.type"
-                                   [orderCode]="items.orderCode"
-                                   [products]="items.order.products"
-                                   [policy]="getPolicyCart"></app-product-potential>
-      </div>
-    </div>
-  </div>
+  <app-scroll-top-cart></app-scroll-top-cart>
 </div>
 
 <div id="showChatCar" class="modal fade" tabindex="-1" role="dialog"

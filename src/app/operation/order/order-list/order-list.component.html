@@ -259,9 +259,9 @@
             <div class="row grid">
               <div class="col-md-12 pl-0 pr-0">
                 <div class="grid-view grid-view-custom">
-                  <div class="row" style="font-size: 0.7em">
+                  <div class="row">
                     <div class="col-md-12">
-                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 14px; color: black">
                         <div class="style-card mb-4" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.ordercode}}">
 
@@ -388,8 +388,7 @@
                                   <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 2%">
                                       <div>
-                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
-                                            i18n>RECEIVER
+                                        <h5 i18n>RECEIVER
                                           <a href="javascript:void(0)"
                                              (click)="updateCustomer(order);updateReceiverModal.show()"
                                              *ngIf="!_scope.checkMarketingAccount() && !_scope.checkOperatione() && !_scope.checkMasterOperation()">
@@ -497,9 +496,8 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <strong><span i18n>Amount Price:</span>
+                                  <span i18n>Amount Price:</span>
                                     ( <span>{{order.total_price_amount_origin | currency}}</span>)
-                                  </strong>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                     <span>{{order.total_origin_fee_local | number}}
@@ -538,7 +536,7 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Purchase fee</span>( <span>{{order.total_weshop_fee_amount | currency}}</span>)
+                                    <span i18n>Purchase fee</span>( <span>{{order.total_weshop_fee_amount | currency}}</span> = 12%)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -550,14 +548,7 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Shiping fee</span>( <span
-                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_intl_shipping_fee_amount | currency: 'JPY' : '￥'}}
-                                    </span>
-                                    <span
-                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                      {{ order.total_intl_shipping_fee_amount | currency : 'USD' : '$'}}
-                                    </span>)
+                                    <span i18n>Shiping fee</span>( <span>0.5KG</span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -610,7 +601,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insurance_fee">
+                                <div class="row Total_insurance_fee" >
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Insurance fee</span>
                                   </div>
@@ -667,7 +658,7 @@
                                 </div>
                               </div>
 
-                              <hr>
+                              <hr >
                               <div class="row total_amount_local">
                                 <div class="col-md-7 style-padding-right dong">
                                   <span class="Ws-bold-font" i18n>Total Amout Local</span>
@@ -993,7 +984,7 @@
                             <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
                                 <li class="tab-slider--trigger" rel="tab1"
-                                    (click)=" pro[order.id] = !pro[order.id]; loadPro(order.store_id)">
+                                    (click)=" pro[order.id] = !pro[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
@@ -1043,7 +1034,7 @@
                                    style="border-bottom: 2px solid red">
                                 <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
                                                   [openConfirmOrder]="checkConfirmOrder(order)"
-                                                  (getListOrder)="listOrders()" [policy]="getPolicy"
+                                                  (getListOrder)="listOrders()"
                                                   [storeID]="order.store_id"
                                                   [exchangeRate]="order.exchange_rate_fee"
                                                   [customer_id]="order.customer_id"

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScrollTopComponent } from './scroll-top.component';
+import { ScrollTopCartComponent } from './scroll-top-cart.component';
 
 describe('ScrollTopCartComponent', () => {
-  let component: ScrollTopComponent;
-  let fixture: ComponentFixture<ScrollTopComponent>;
+  let component: ScrollTopCartComponent;
+  let fixture: ComponentFixture<ScrollTopCartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScrollTopComponent ]
+      declarations: [ ScrollTopCartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScrollTopComponent);
+    fixture = TestBed.createComponent(ScrollTopCartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -243,18 +243,18 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     $('.modal').modal('hide');
   }
 
-  policyName(id) {
-    const ud = undefined;
-    if (id === null || id === '' || typeof id === undefined) {
-      return ud;
-    }
-    const policyName = this.policy.filter(c => Number(c.id) === Number(id));
-    if (policyName.length > 0) {
-      return policyName[0].name;
-    }
-
-    return ud;
-  }
+  // policyName(id) {
+  //   const ud = undefined;
+  //   if (id === null || id === '' || typeof id === undefined) {
+  //     return ud;
+  //   }
+  //   const policyName = this.policy.filter(c => Number(c.id) === Number(id));
+  //   if (policyName.length > 0) {
+  //     return policyName[0].name;
+  //   }
+  //
+  //   return ud;
+  // }
 
   buildformNote() {
     const value = this.editFormNote.value;

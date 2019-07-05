@@ -22,6 +22,7 @@ import { ChatCustomerPotentialComponent } from './potential-list/chat-customer-p
 import { ChatGroupPotentialComponent } from './potential-list/chat-group-potential/chat-group-potential.component';
 import { CustomerInfoCartComponent } from './customer-info-cart/customer-info-cart.component';
 import { VariationComponent } from './potential-list/product-potential/variation/variation.component';
+import {ScrollTopCartComponent} from './potential-list/scroll-top-cart/scroll-top-cart.component';
 
 
 @NgModule({
@@ -40,7 +41,15 @@ import { VariationComponent } from './potential-list/product-potential/variation
     BsDropdownModule.forRoot(),
     CollapseModule
   ],
-  declarations: [PotentialRoutingComponent, PotentialListComponent, AsignSalePotentialComponent, ProductPotentialComponent, ChatCustomerPotentialComponent, ChatGroupPotentialComponent, CustomerInfoCartComponent, VariationComponent],
+  declarations: [PotentialRoutingComponent,
+    PotentialListComponent,
+    AsignSalePotentialComponent,
+    ProductPotentialComponent,
+    ChatCustomerPotentialComponent,
+    ChatGroupPotentialComponent,
+    CustomerInfoCartComponent,
+    VariationComponent,
+    ScrollTopCartComponent],
   providers: [
     PotentialService
   ]
