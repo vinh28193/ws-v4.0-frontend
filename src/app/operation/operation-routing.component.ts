@@ -58,13 +58,13 @@ export class OperationRoutingComponent extends ModuleComponent implements OnInit
   }
 
    checkMasterSale() {
-       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_sale')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('master_sale')   || localStorage.getItem('scope') === ('operation')  || localStorage.getItem('scope') === ('master_operation')) {
       return true;
     }
   }
 
    checkOperatione() {
-       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('operation')) {
+       if (this.checkSuperAdmin() || localStorage.getItem('scope') === ('operation') || localStorage.getItem('scope') === ('sale')  || localStorage.getItem('scope') === ('master_sale')) {
       return true;
     }
   }
