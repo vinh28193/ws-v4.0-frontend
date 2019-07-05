@@ -495,6 +495,19 @@
                                   <a href="javascript:void (0);"><i class="fa fa-refresh"></i></a>
                                 </div>
                               </div>
+
+                              <div class="row Quantity">
+                                <div class="col-md-7 style-padding-right  dong">
+                                  <span i18n>Exchage rate:</span>
+                                </div>
+                                <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
+                                  <span> {{order.exchange_rate_fee | number}} </span>
+                                  <span>{{order.store_id | currencyStore}}</span>
+                                </div>
+                              </div>
+
+                              <hr>
+
                               <div class="row Quantity">
                                 <div class="col-md-7 style-padding-right  dong">
                                   <span i18n>Quantity</span>
@@ -504,6 +517,7 @@
                                 </div>
                               </div>
                               <hr>
+
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
                                   <span i18n>Amount Price:</span>
@@ -639,7 +653,7 @@
 
                               <div class="Ws-bold-font row Total_fee_order">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span i18n>Total Fee:</span>
+                                  <span i18n>Total Fee</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                   <!--span>  {{ getTotalOrderFee(order.total_amount_local, order.total_insurance_fee_local, order.total_inspection_fee_local, order.total_packing_fee_local, order.total_delivery_fee_local, order.total_custom_fee_amount_local, order.exchange_rate_fee, order.total_origin_shipping_fee_local, order.total_weshop_fee_local, order.total_origin_tax_fee_local, order.total_fee_amount_local ) | number}}</span-->
@@ -650,32 +664,13 @@
 
                               <hr>
 
-                              <div class="row Quantity">
-                                <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n>Exchage rate:</span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left" *ngIf="order.products">
-                                  <span> {{order.exchange_rate_fee | number}} </span>
-                                  <span>{{order.store_id | currencyStore}}</span>
-                                </div>
-                              </div>
-<!--                              <div class="row exchange_rate_purchase">
-                                <div class="col-md-7 style-padding-right  dong">
-                                  <span i18n>Exchage rate Purchase:  </span>
-                                </div>
-                                <div class="col-md-5 text-right style-padding-left Exchage_local">
-                                  {{order.exchange_rate_purchase}}
-                                </div>
-                              </div>-->
-
-                              <hr>
                               <div class="row total_amount_local">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Total Amout</span>
+                                  <span class="Ws-bold-font" i18n>Total Amount</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
-                                    {{order.total_amount_local | number}}
+                                    {{ getTotalAmount(order.total_fee_amount_local , order.total_amount_local ) | number }}
                                   </span>
                                   <span class="Ws-bold-font">{{order.store_id | currencyStore}}</span>
                                 </div>
@@ -693,15 +688,16 @@
                                   </span>
                                 </div>
                               </div>
-                              <div class="row Promotion"
-                                   *ngIf="order.promotion_id && order.promotion?.discountAmount !== null">
+
+
+                              <div class="row Promotion"  *ngIf="(order.promotion_id && order.promotion?.discountAmount !== null) || (order.promotion_id && order.promotion?.discountAmount == '')
+                                   || (order.promotion_id && order.promotion?.discountAmount == null) ">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font"
-                                        i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
+                                  <span class="Ws-bold-font"  i18n>Promotion Code/Discount Amount: </span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
-                                      <app-span-label [value]="order.promotion?.code"></app-span-label> / {{order.promotion?.discountAmount | number}} <span>{{order.store_id | currencyStore}}</span>/{{order.promotion?.discountOverWeight}}g
+                                      <app-span-label [value]="order.promotion?.code"></app-span-label> / {{ order.promotion?.discountAmount ? order.promotion?.discountAmount : 0  | number}} <span>{{order.store_id | currencyStore}}</span>
                                   </span>
                                 </div>
                               </div>
@@ -751,21 +747,24 @@
 
                               <div class="row Remaining_amount del_total_refund_amount_local">
                                 <div id="refund" class="col-md-6 text-info Remaining_amount " i18n>Remaining amount</div>
-                                <div class="col-md-6 text-right text-info style-padding-left minnul min"
-                                     *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                <!--div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
                                   {{ 0 | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
-                                <div class="col-md-6 text-right text-info style-padding-left min0"
-                                     *ngIf="order.total_refund_amount_local > 0">
-                                  {{order.total_refund_amount_local | number}}
-                                  <span>{{order.store_id | currencyStore}}</span>
+                                <div class="col-md-6 text-right text-info style-padding-left min0"  *ngIf="order.total_refund_amount_local > 0">
+                                  {{order.total_refund_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
+                                </div-->
+
+                                <div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                  {{ getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
+
                               </div>
 
                               <hr>
 
                               <div class="row">
                                 <div class="col-md-12 pl-0 mt-2 pb-2">
+
                                   <button type="button"
                                           *ngIf="order.confirm_change_price && !_scope.checkMkt() && !_scope.checkOperatione() && !_scope.checkMasterOperation() && !_scope.checkSale()"
                                           (click)="confirmChangePrice(order.id)"
@@ -773,6 +772,7 @@
                                     <i class="fa fa-dollar" aria-hidden="true"></i>
                                     Confirm Changing Price
                                   </button>
+
                                   <button type="button"
                                           *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()"
                                           (click)="showArrearsAddfee(order)"
@@ -790,17 +790,21 @@
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                   <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
+
+
                                   <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"
                                           class="btn btn-secondary mb-2 mr-2 btn-sm"
                                           (click)="buynowClick(order)" i18n>
                                     <i class="fa fa-shopping-cart"></i> Buy Now
                                   </button>
+
                                   <button
                                     *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()"
                                     type="button" class="btn btn-warning mb-2 mr-2 btn-sm"
                                     (click)="insertTrackingShow()">
                                     <i class="fa fa-check"></i> SELLER SHIPPED
                                   </button>
+
                                   <!--                                  <button *ngIf="checkShowUpdateStatus(order.current_status)" type="button" class="btn btn-{{getClassStatus(order.current_status)}} mb-2 mr-2 btn-sm"-->
                                   <!--                                          (click)="updateStatus(order.id)">-->
                                   <!--                                    <i class="fa fa-check"></i> {{checkShowUpdateStatus(order.current_status)}}-->
@@ -1856,7 +1860,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
             <div class="Ws-bold-font row Total_fee_orderList">
               <div class="col-md-7 style-padding-right dong">
-                <span i18n>Total Fee order :</span>
+                <span i18n>Total Fee:</span>
               </div>
               <div class="col-md-5 text-right style-padding-left dong">
                 <!--span>  {{ getTotalorderListFee(orderList.total_amount_local, orderList.total_insurance_fee_local, orderList.total_inspection_fee_local, orderList.total_packing_fee_local, orderList.total_delivery_fee_local, orderList.total_custom_fee_amount_local, orderList.exchange_rate_fee, orderList.total_origin_shipping_fee_local, orderList.total_weshop_fee_local, orderList.total_origin_tax_fee_local, orderList.total_fee_amount_local ) | number}}</span-->
@@ -1869,23 +1873,15 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 
             <div class="row Quantity">
               <div class="col-md-7 style-padding-right  dong">
-                <span i18n>Exchage rate:</span>
+                <span i18n>Exchage rate</span>
               </div>
               <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
                 <span> {{orderList.exchange_rate_fee | number}} </span>
                 <span>{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
-            <div class="row exchange_rate_purchase">
-              <div class="col-md-7 style-padding-right  dong">
-                <span i18n>Exchage rate Purchase:  </span>
-              </div>
-              <div class="col-md-5 text-right style-padding-left Exchage_local">
-                {{orderList.exchange_rate_purchase | number}}
-              </div>
-            </div>
-
             <hr>
+
             <div class="row Coupon" *ngIf="orderList.coupon_id && orderList.coupon?.amount !== ''">
               <div class="col-md-7 style-padding-right dong">
                 <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
