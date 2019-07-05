@@ -936,7 +936,7 @@
 
 
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop"
-                                           *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()"
+                                           *ngIf="_scope.CheckSale() || _scope.checkTester()"
                                            title="Add syntax structure" id="" href="javascript:void(0);"
                                            data-target="#orderChatSupporting" (click)="loadChatSupporting()"
                                            data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
@@ -1371,31 +1371,31 @@
                   <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
                 </label>
               </div>
-              <!--<div class="col-md-6 form-group">-->
-                <!--<div class="row">-->
-                  <!--<div class="col-md-3">-->
-                    <!--Main block image-->
-                    <!--<br>-->
-                    <!--<span class="text-danger">(300x300)</span>-->
-                  <!--</div>-->
-                  <!--<div class="col-md-6" style="font-size: 12px;">-->
-                    <!--<image-upload-->
-                      <!--[max]="100"-->
-                      <!--[url]="IMG_URL+'/upload/upcms'"-->
-                      <!--[buttonCaption]="'Browser..'"-->
-                      <!--[dropBoxMessage]="'Drop your images here!'"-->
-                      <!--[extensions]="['jpg','png','gif','sgv','jpeg']"-->
-                      <!--[preview]="false"-->
-                      <!--[style]="customStyle"-->
-                      <!--(onFileUploadFinish)="imageUploaded($event,'image')"-->
-                    <!--&gt;</image-upload>-->
+              <div class="col-md-6 form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    Main block image
+                    <br>
+                    <span class="text-danger">(300x300)</span>
+                  </div>
+                  <div class="col-md-6" style="font-size: 12px;">
+                    <image-upload
+                      [max]="100"
+                      [url]="IMG_URL+'/upload/upcms'"
+                      [buttonCaption]="'Browser..'"
+                      [dropBoxMessage]="'Drop your images here!'"
+                      [extensions]="['jpg','png','gif','sgv','jpeg']"
+                      [preview]="false"
+                      [style]="customStyle"
+                      (onFileUploadFinish)="imageUploaded($event,'image')"
+                    ></image-upload>
 
-                    <!--<input class="form-control" name="image_url" formControlName="link_image"-->
-                           <!--placeholder="Url image...">-->
-                    <!--<img src="{{image}}" width="300px" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
+                    <input class="form-control" name="image_url" formControlName="link_image"
+                           placeholder="Url image...">
+                    <img src="{{image}}" width="300px" alt="">
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row m-0 mt-2">
               <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>

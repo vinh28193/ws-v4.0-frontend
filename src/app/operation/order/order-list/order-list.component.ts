@@ -581,7 +581,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkUpdatePayment(status, total) {
-        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale() || this._scope.checkMasterAccountant() || this._scope.checkAccountant()) {
+        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale() || this._scope.checkOperatione() || this._scope.checkMasterOperation() || this._scope.checkMasterAccountant() || this._scope.checkAccountant()) {
             if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
