@@ -854,6 +854,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
                 note_update_payment: this.editForm.value.note_update_payment,
                 check_update_payment: 1,
+                link_image_log: environment.IMG_URL_WH + this.src,
                 role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {

@@ -405,6 +405,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.shipping_quantity = product.quantity;
   }
   totalFinal(a, b) {
+    if (b) {
+
+    }
     const c = toNumber(a) + toNumber(b);
     return c;
   }
