@@ -49,3 +49,6 @@ src/environments/environment.prod.ts
 
 # Json package
 package-lock.json
+
+./git
+git
