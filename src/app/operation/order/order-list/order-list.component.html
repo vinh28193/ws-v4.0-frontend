@@ -54,7 +54,7 @@
           </div>
         </div>
         <form [formGroup]="searchForm" class="row search-form" style="z-index: 1">
-          <div [hidden]="checkShoppingCart" class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-4 col-sm-12 form-group m-b-10">
             <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
               <select class="col-sm-5 form-control form-control-sm input-group-addon" name="searchKeyword"
@@ -67,7 +67,7 @@
                      type="text">
             </div>
           </div>
-          <div [hidden]="checkShoppingCart" style="z-index: 1" class="col-md-6 col-sm-12 form-group m-b-10">
+          <div [hidden]="checkShoppingCart" style="z-index: 1" class="col-md-4 col-sm-12 form-group m-b-10">
             <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
             <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
               <select class="col-sm-5 form-control form-control-sm input-group-addon"
@@ -92,13 +92,21 @@
                                     </span>
             </div>
           </div>
-          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-12  form-group m-b-10">
+          <div [hidden]="checkShoppingCart" class="col-md-4 col-sm-12  form-group m-b-10">
             <label for="store" class="form-control-label" i18n>Store</label>
             <select class="form-control form-control-sm" (change)="prepareSearch()" name="store" id="store"
                     formControlName="store">
               <option [value]="allKey" i18n>All Weshop</option>
               <option [value]="1" i18n>Weshop VN</option>
               <option [value]="7" i18n>Weshop ID</option>
+            </select>
+          </div>
+          <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
+            <label for="paymentBank" class="form-control-label" i18n>Payment Bank</label>
+            <select class="form-control form-control-sm" name="store" id="paymentBank"
+                    formControlName="paymentBank">
+              <option [value]="allKey" i18n>--All Payment Bank--</option>
+              <option *ngFor="let bank of allBank" value="bank.code">{{bank.name}}</option>
             </select>
           </div>
           <div [hidden]="checkShoppingCart" class="col-md-3 col-sm-6 form-group m-b-10">
@@ -251,9 +259,9 @@
             <div class="row grid">
               <div class="col-md-12 pl-0 pr-0">
                 <div class="grid-view grid-view-custom">
-                  <div class="row" style="font-size: 0.7em">
+                  <div class="row">
                     <div class="col-md-12">
-                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 11px; color: black">
+                      <div class="card-body" style="padding-left: 0; padding-right: 0;font-size: 14px; color: black">
                         <div class="style-card mb-4" *ngFor="let order of orders">
                           <div class="row margin-row or-id-{{order.id}} order-code-{{order.ordercode}}">
 
@@ -390,8 +398,7 @@
                                   <div class="row">
                                     <div class="col-md-12" style="margin-bottom: 2%">
                                       <div>
-                                        <h5 style="font-weight: bold; margin-bottom: 0; color: black; font-size: 12px"
-                                            i18n>RECEIVER
+                                        <h5 i18n>RECEIVER
                                           <a href="javascript:void(0)"
                                              (click)="updateCustomer(order);updateReceiverModal.show()"
                                              *ngIf="!_scope.checkMarketingAccount() && !_scope.checkOperatione() && !_scope.checkMasterOperation()">
@@ -499,9 +506,8 @@
                               <hr>
                               <div class="Ws-bold-font row Total_Unit_price_product">
                                 <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
-                                  <strong><span i18n>Amount Price:</span>
+                                  <span i18n>Amount Price:</span>
                                     ( <span>{{order.total_price_amount_origin | currency}}</span>)
-                                  </strong>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left dong">
                                     <span>{{order.total_origin_fee_local | number}}
@@ -540,7 +546,7 @@
                                 <hr>
                                 <div class="row Total_weshop_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Purchase fee</span>( <span>{{order.total_weshop_fee_amount | currency}}</span>)
+                                    <span i18n>Purchase fee</span>( <span>{{order.total_weshop_fee_amount | currency}}</span> = 12%)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -552,14 +558,7 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Shiping fee</span>( <span
-                                    *ngIf="order.portal === 'japan' || order.portal === 'AMAZON_JAPAN' || order.portal === 'JAPAN'">
-                                    {{ order.total_intl_shipping_fee_amount | currency: 'JPY' : '￥'}}
-                                    </span>
-                                    <span
-                                      *ngIf="order.portal !== 'japan' && order.portal !== 'AMAZON_JAPAN' && order.portal !== 'JAPAN'">
-                                      {{ order.total_intl_shipping_fee_amount | currency : 'USD' : '$'}}
-                                    </span>)
+                                    <span i18n>Shiping fee</span>( <span>0.5KG</span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -568,7 +567,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products)">
+                                <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(order.products) && checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Custom fee </span>
                                   </div>
@@ -579,7 +578,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_delivery_fee">
+                                <div class="row Total_delivery_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Delivery fee</span>
                                   </div>
@@ -590,7 +589,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_packing_fee">
+                                <div class="row Total_packing_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Packing fee</span>
                                   </div>
@@ -601,7 +600,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insection_fee">
+                                <div class="row Total_insection_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Inspection fee</span>
                                   </div>
@@ -612,7 +611,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_insurance_fee">
+                                <div class="row Total_insurance_fee" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Insurance fee</span>
                                   </div>
@@ -623,7 +622,7 @@
                                     <span>{{order.store_id | currencyStore}}</span>
                                   </div>
                                 </div>
-                                <div class="row Total_VAT_amount">
+                                <div class="row Total_VAT_amount" *ngIf="checkSPAdmin()">
                                   <div class="col-md-7 style-padding-right dong">
                                     <span i18n>Additional Service</span>
                                   </div>
@@ -974,7 +973,7 @@
 
 
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop"
-                                           *ngIf="_scope.checkSuperAdmin() || _scope.checkTester()"
+                                           *ngIf="_scope.CheckSale() || _scope.checkTester()"
                                            title="Add syntax structure" id="" href="javascript:void(0);"
                                            data-target="#orderChatSupporting" (click)="loadChatSupporting()"
                                            data-toggle="modal" data-backdrop="static" data-keyboard="false"><i
@@ -1008,7 +1007,7 @@
                             <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
                                 <li class="tab-slider--trigger" rel="tab1"
-                                    (click)=" pro[order.id] = !pro[order.id]; loadPro(order.store_id)">
+                                    (click)=" pro[order.id] = !pro[order.id]">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
@@ -1058,7 +1057,7 @@
                                    style="border-bottom: 2px solid red">
                                 <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
                                                   [openConfirmOrder]="checkConfirmOrder(order)"
-                                                  (getListOrder)="listOrders()" [policy]="getPolicy"
+                                                  (getListOrder)="listOrders()"
                                                   [storeID]="order.store_id"
                                                   [exchangeRate]="order.exchange_rate_fee"
                                                   [customer_id]="order.customer_id"
@@ -1790,6 +1789,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
+
               <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(orderList.products)">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total custom fee </span>
@@ -1803,19 +1803,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
 
 
-              <!--div class="row Total_delivery_fee">
-                <div class="col-md-7 style-padding-right dong">
-                  <span i18n>Total delivery fee</span>
-                </div>
-                <div class="col-md-5 text-right style-padding-left dong">
-                                  <span>
-                                    {{orderList.total_delivery_fee_local  | number}}
-                                  </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
-                </div>
-              </div-->
+              <div class="row Total_packing_fee" *ngIf="checkSPAdmin()">
 
-              <div class="row Total_packing_fee">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total packing fee</span>
                 </div>
@@ -1826,7 +1815,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_insection_fee">
+
+              <div class="row Total_insection_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total inspection fee</span>
                 </div>
@@ -1837,7 +1827,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <span>{{orderList.store_id | currencyStore}}</span>
                 </div>
               </div>
-              <div class="row Total_insurance_fee">
+              <div class="row Total_insurance_fee" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total insurance fee</span>
                 </div>
@@ -1849,7 +1839,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
               </div>
 
-              <div class="row Total_VAT_amount">
+              <div class="row Total_VAT_amount" *ngIf="checkSPAdmin()">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total VAT amount</span>
                 </div>
@@ -1892,19 +1882,6 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="col-md-5 text-right style-padding-left Exchage_local">
                 {{orderList.exchange_rate_purchase | number}}
-              </div>
-            </div>
-
-            <hr>
-            <div class="row total_amount_local">
-              <div class="col-md-7 style-padding-right dong">
-                <span class="Ws-bold-font" i18n>Total Amout Local</span>
-              </div>
-              <div class="col-md-5 text-right style-padding-left total_final_amount_local">
-                                  <span class="Ws-bold-font">
-                                    {{orderList.total_amount_local | number}}
-                                  </span>
-                <span class="Ws-bold-font">{{orderList.store_id | currencyStore}}</span>
               </div>
             </div>
 

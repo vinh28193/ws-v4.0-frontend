@@ -23,7 +23,10 @@
                   </div>
                   <div>
                     <span class="msg_cotainer_send {{chat.user_name !== username ? 'other-chat' : 'owner-chat'}}" [innerHTML]="chat.message"></span><br>
-                    <div class="{{chat.user_name !== username ? 'float-left' : 'float-right'}} mr-2 text-gray">
+                    <div class="{{chat.user_name !== username ? 'text-left' : 'text-right'}} pr-2" style="width: 100%" *ngIf="chat.link_image && chat.link_image != null">
+                      <img src="{{chat.link_image}}" alt="">
+                    </div><br>
+                    <div class="{{chat.user_name !== username ? 'float-left' : 'float-right'}} mr-2 text-gray ml-2">
                       <span class="mr-2">{{chat.user_name}}</span>
                       <span *ngIf="checkTime(chat.date)" class="text-darkgray">{{chat.date | amTimeAgo}}</span>
                       <span *ngIf="!checkTime(chat.date)" class="text-darkgray">{{chat.date}}</span>

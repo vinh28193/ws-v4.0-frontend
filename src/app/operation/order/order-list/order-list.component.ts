@@ -501,6 +501,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             page: this.currentPage,
             perPage: this.perPage,
             sale: this.allKey,
+            paymentBank: this.allKey,
             paymentStatus: this.allKey,
             bsRangeValue: {start: '', end: ''}
         });
@@ -553,6 +554,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.sale !== '' && value.sale !== 'ALL') {
             params.sale = value.sale;
         }
+        if (value.paymentBank !== '' && value.paymentBank !== 'ALL') {
+          params.paymentBank = value.paymentBank;
+        }
         if (value.paymentStatus !== '' && value.paymentStatus !== 'ALL') {
             params.paymentStatus = value.paymentStatus;
         }
@@ -577,7 +581,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkUpdatePayment(status, total) {
-        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale() || this._scope.checkMasterAccountant() || this._scope.checkAccountant()) {
+        if (this._scope.checkSuperAdmin() || this._scope.checkTester() || this._scope.checkMasterSale() || this._scope.checkOperatione() || this._scope.checkMasterOperation() || this._scope.checkMasterAccountant() || this._scope.checkAccountant()) {
             if (status === 'CANCELLED' || toNumber(total) > 0) {
                 return false;
             } else {
@@ -598,6 +602,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     load() {
         this.getSale();
+        this.loadBank();
         // this.getSeller();
     }
 
@@ -644,52 +649,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (order.total_paid_amount_local === '0.00' || order.total_paid_amount_local == null || order.total_paid_amount_local === '') {
             this.checkReady2Purchase = 'no';
         } else {
-            for (let i = 0; i < order.products.length; i++) {
-                if (order.products[i]['custom_category_id'] === '' || order.products[i]['custom_category_id'] === null) {
-                    this.IDPro = order.products[i]['id'];
-                    this.checkReady2Purchase = 'no';
-                    this.checkPur = true;
-                    break;
-                } else {
-                    this.checkReady2Purchase = 'yes';
-                }
-            }
+            this.checkReady2Purchase = 'yes';
         }
         const messagePop = 'Do you want Confirm order ' + order.id;
-        const messagePop1 = 'You have not selected category SOI-' + this.IDPro + '- total fee order' + order.total_fee_amount_local;
-        if (this.checkPur) {
-            this.popup.warning(() => {
-                this.popup.warning(() => {
-                    const put = this.orderService.createPostParams({
-                        // current_status: 'SUPPORTED',
-                        checkR2p: this.checkReady2Purchase,
-                    }, 'confirmPurchase');
-                    this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                        if (res.success) {
-                            this.listOrders();
-                            this.popup.success(res.message);
-                        } else {
-                            this.popup.error(res.message);
-                        }
-                    });
-                }, messagePop);
-            }, messagePop1);
-        } else {
-            this.popup.warning(() => {
-                const put = this.orderService.createPostParams({
-                    // current_status: 'SUPPORTED',
-                    checkR2p: this.checkReady2Purchase,
-                }, 'confirmPurchase');
-                this.orderService.put(`order/${order.id}`, put).subscribe(res => {
-                    if (res.success) {
-                        this.listOrders();
-                        this.popup.success(res.message);
-                    } else {
-                        this.popup.error(res.message);
-                    }
-                });
-            }, messagePop);
-        }
+        this.popup.warning(() => {
+          const put = this.orderService.createPostParams({
+            // current_status: 'SUPPORTED',
+            checkR2p: this.checkReady2Purchase,
+          }, 'confirmPurchase');
+          this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+            if (res.success) {
+              this.listOrders();
+              this.popup.success(res.message);
+            } else {
+              this.popup.error(res.message);
+            }
+          });
+        }, messagePop);
     }
 
     checkMarkAsJunk(status, priceCheck) {
@@ -854,6 +830,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
                 note_update_payment: this.editForm.value.note_update_payment,
                 check_update_payment: 1,
+                link_image_log: environment.IMG_URL_WH + this.src,
                 role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
@@ -944,7 +921,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                     || this.checkAdminAccess()))
         );
     }
-
+    checkSPAdmin() {
+        if (this._scope.checkSuperAdmin()) {
+          return true;
+        } else {
+          return false;
+        }
+    }
     checkCancel(item) {
         if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
             if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
@@ -955,9 +938,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     checkConfirmOrder(order) {
         if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
-            if (this._scope.CheckSale() && !this._scope.checkOperatione() && !this._scope.checkMasterOperation()) {
-                return true;
-            }
+          return true;
         }
     }
 

@@ -13,7 +13,6 @@ import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 export class PotentialListComponent extends OrderDataComponent implements OnInit {
   public ShoppingCar: any = [];
   public statusOrder: any = [];
-  public getPolicyCart: any = [];
   public activeOrder: any = [];
   public OrderAllCart: any = [];
   public listLog: any = [];
@@ -25,7 +24,7 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   public dvct1: any = {};
   public moreLog: any = {};
   public searchF: FormGroup;
-  public perpage: number;
+  public perpage: 1;
   public totalCart: number;
   public totalCarts: any;
   public typeUpdate: any;
@@ -77,16 +76,9 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     params.page = this.page;
     params.potential = 1;
     this.potentialService.ListShopping(params).subscribe(res => {
-      this.ShoppingCar = res.data.allModels._items;
-      console.log(this.ShoppingCar);
-      this.totalCarts = res.data.allModels.count[0]['sum'];
-      // this.totalCart = this.totalCarts[0]['sum'];
-      this.metaShopping = res.data._meta;
-      if (this.totalCart >= this.limit) {
-        this.perpage = Math.floor(this.totalCart / this.limit) + 1;
-      } else {
-        this.perpage = 1;
-      }
+      console.log(res.data.model);
+      this.ShoppingCar = res.data.model;
+      this.totalCarts = res.data.total;
     });
   }
 
@@ -157,6 +149,12 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
       keyword: 'key.buyer.buyer_email'
     });
     this.listShoppingCart();
+  }
+  filterOnePhone(phone) {
+    this.searchF.patchValue({
+      value: phone,
+      keyword: 'key.receiver.receiver_phone'
+    });
   }
   refreshShopping() {
     this.searchF.patchValue({

@@ -7,9 +7,8 @@ ul {
 /*font-weight: bold;*/
 /*}*/
 h5 {
-  font-weight: bold;
+  font-weight: 500;
   color: black;
-  font-size: 12px;
 }
 .border-col {
   border: 1px solid #DFDFDF;
@@ -155,9 +154,6 @@ strong {
 .sty-drop {
   border-bottom: 1px solid darkgrey;
 }
-.sty-font {
-  font-weight: bold;
-}
 i.fa.fa-filter {
   float: right;
   padding-right: 2px;
@@ -165,11 +161,6 @@ i.fa.fa-filter {
 .card-header{
   border-radius: 15px 15px 0 0 !important;
   border-bottom: 0 !important;
-}
-
-.Ws-bold-font {
-  font-weight: bold;
-  font-size: 11px;
 }
 .st-ul li {
   float: left;

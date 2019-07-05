@@ -81,19 +81,19 @@
                 <!--<span class="mr-2" i18n>Local Name:</span>-->
                 <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
-              <li>
-                <span class="mr-2" i18n>Category:</span>
-                <app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>
-                <a class="ml-1" href="javascript:void(0)" *ngIf="!_sp.checkMkt() && !_sp.checkOperatione() && !_sp.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >
-                  <i class="fa fa-edit text-info"></i>
-                </a>
-                <form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">
-                  <input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>
-                  <select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">
-                    <option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>
-                  </select>
-                </form>
-              </li>
+              <!--<li>-->
+                <!--<span class="mr-2" i18n>Category:</span>-->
+                <!--<app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>-->
+                <!--<a class="ml-1" href="javascript:void(0)" *ngIf="!_sp.checkMkt() && !_sp.checkOperatione() && !_sp.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >-->
+                  <!--<i class="fa fa-edit text-info"></i>-->
+                <!--</a>-->
+                <!--<form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">-->
+                  <!--<input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>-->
+                  <!--<select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">-->
+                    <!--<option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>-->
+                  <!--</select>-->
+                <!--</form>-->
+              <!--</li>-->
               <!--<li>-->
                 <!--<span class="mr-2" i18n>QTT Set:</span>-->
                 <!--<app-span-label [value]=""></app-span-label>-->
@@ -167,7 +167,7 @@
 
           <!--div class="row">
             <div class="col-md-7">
-              <strong i18n> Employee Purchase :</strong>
+              <span i18n> Employee Purchase :</span>
             </div>
             <div class="col-md-5 text-right style-padding Employee Purchase">
               {{Employee_Purchase}}
@@ -175,7 +175,7 @@
           </div-->
 
           <div class="row quantity_customer ">
-            <div class="col-md-7"><strong i18n>Quantity:</strong></div>
+            <div class="col-md-7"><span i18n>Quantity:</span></div>
             <div class="col-md-5 pr-2 text-right style-padding Quantity">
               {{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}
               <span class="fa fa-edit pl-1" (click)="quantityPro[product.id] = !quantityPro[product.id]; openUpdateQuantity(product.quantity_customer, product.id, product.price_amount_origin)"></span>
@@ -187,12 +187,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
-              <strong i18n>Unit price</strong>
-              <strong>
+            <div class="col-md-6 pr-0 soi-toltal-value">
+              <span i18n>Unit price</span>
                 ({{product.price_amount_origin | currency}}
                 <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
-              </strong>
             </div>
             <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
@@ -204,10 +202,9 @@
           <hr style="margin: 5px">
           <div *ngFor="let ProFee of product.productFees">
             <div class="row" *ngIf="checkShowFee(ProFee.name) && ProFee.name != 'purchase_fee'">
-              <div *ngIf="product.id == ProFee.target_id" class="name-{{ProFee.name}} type-{{ProFee.name}} text-bold col-md-5 pr-0">
-                <strong>{{ProFee.name | ProductFee }}
-                  (<span>{{ProFee.amount}}</span>)
-                </strong>
+              <div *ngIf="product.id == ProFee.target_id" class="name-{{ProFee.name}} type-{{ProFee.name}} col-md-5 pr-0">
+               {{ProFee.name | ProductFee }}
+                  (<span>{{ProFee.amount | currency}}</span>)
               </div>
               <div *ngIf="product.id == ProFee.target_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
                   <div *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="view_discount">
@@ -221,9 +218,8 @@
           </div>
           <ng-container *ngFor="let ProFee of product.productFees">
             <div class="row shipping_fee" *ngIf="ProFee.name == 'shipping_fee'">
-              <div class="col-md-7"><strong i18n>{{ProFee.name | ProductFee}} :
+              <div class="col-md-7"><span i18n>{{ProFee.name | ProductFee}} </span> :
                 ({{ProFee.amount | currency}} <span class="fa fa-edit pl-1" (click)="openUpdateShipping(product, ProFee.amount)"></span>)
-              </strong>
               </div>
               <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
@@ -235,9 +231,9 @@
           </div>
           <ng-container *ngFor="let ProFee of product.productFees">
             <div class="row tax_fee" *ngIf="ProFee.name == 'tax_fee'">
-              <div class="col-md-7"><strong i18n>{{ProFee.name | ProductFee}} : ({{ProFee.amount | currency}} <span
+              <div class="col-md-7"><span i18n>{{ProFee.name | ProductFee}} :</span> ({{ProFee.amount | currency}} <span
                 class="fa fa-edit pl-1"
-                (click)="tax[product.id] = !tax[product.id]; openUpdateTaxFee(product, ProFee.amount)"></span>)</strong>
+                (click)="tax[product.id] = !tax[product.id]; openUpdateTaxFee(product, ProFee.amount)"></span>)
               </div>
               <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
@@ -251,7 +247,7 @@
 
           <!--hr style="margin: 5px">
           <div class="row Item_Subtotal">
-            <div class="col-md-7"><strong i18n>Item subtotal : ({{itemSubtotalAmount(product.productFees) | currency}})</strong>
+            <div class="col-md-7"><span i18n>Item subtotal</span> : ({{itemSubtotalAmount(product.productFees) | currency}})
             </div>
             <div class="col-md-5 text-right style-padding ">{{itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div-->
@@ -271,6 +267,7 @@
           <hr style="margin: 5px">
           <div class="row quantity_customer ">
             <div class="col-md-7"><strong i18n>Total amount({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+
             <div class="col-md-5 text-right style-padding Wood">
               {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
             </div>
