@@ -253,7 +253,7 @@
           </div-->
 
           <hr style="margin: 5px">
-          <div class="row quantity_customer ">
+          <div class="row Packing_fee ">
             <div class="col-md-7"><strong i18n>Packing fee({{product.price_policy | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
             <div class="col-md-5 text-right style-padding Wood">
               {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
@@ -265,13 +265,14 @@
             </div>
           </div>
           <hr style="margin: 5px">
-          <div class="row quantity_customer ">
-            <div class="col-md-7"><strong i18n>Total amount({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
+
+          <!--div class="row Total_amount ">
+            <div class="col-md-7"><strong i18n>packingWW({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
 
             <div class="col-md-5 text-right style-padding Wood">
               {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
             </div>
-          </div>
+          </div-->
 
           <!--<div class="row total_fee_product">-->
             <!--<div class="col-md-7"><strong i18n>Total Fee Product : </strong></div>-->
@@ -295,15 +296,17 @@
             <!--<div class="col-md-6 text-right style-padding">{{product.total_price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span>-->
             <!--</div>-->
           <!--</div>-->
-          <!--<div class="row">-->
-            <!--<div class="col-md-6 pr-0 soi-toltal-value text-bold">-->
-              <!--<strong i18n>Total final amount local({{product.total_final_amount_origin | currency}})-->
-                <!--&lt;!&ndash;(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):&ndash;&gt;-->
-              <!--</strong>-->
-            <!--</div>-->
-            <!--<div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>-->
-          <!--</div>-->
+
+          <div class="row">
+            <div class="col-md-6 pr-0 soi-toltal-value text-bold">
+              <strong i18n>Total amount({{product.total_final_amount_origin | currency}})
+                <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
+              </strong>
+            </div>
+            <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+          </div>
         </div>
+
       </div>
       <p></p>
 
