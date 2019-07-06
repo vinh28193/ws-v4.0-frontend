@@ -245,6 +245,22 @@
             </div>
           </div>
 
+          <ng-container *ngFor="let ProFee of product.productFees">
+            <div class="row tax_fee" *ngIf="ProFee.name == 'custom_fee'">
+              <div class="col-md-7"><span i18n>{{ProFee.name | ProductFee}} :</span> ({{ProFee.amount | currency}} <span
+                class="fa fa-edit pl-1"
+                (click)="custom[product.id] = !custom[product.id]; openUpdateCustomFee(product, ProFee.amount)"></span>)
+              </div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+            </div>
+          </ng-container>
+          <div class="row" *ngIf="checkUpdateCustomFee">
+            <div class="col-md-12 float-right tex" [hidden]="!custom[product.id]">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()"
+                     [(ngModel)]="custom_fee">
+            </div>
+          </div>
+
           <!--hr style="margin: 5px">
           <div class="row Item_Subtotal">
             <div class="col-md-7"><span i18n>Item subtotal</span> : ({{itemSubtotalAmount(product.productFees) | currency}})
@@ -252,19 +268,32 @@
             <div class="col-md-5 text-right style-padding ">{{itemSubtotal(product.productFees) | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
           </div-->
 
-          <hr style="margin: 5px">
-          <div class="row Packing_fee ">
-            <div class="col-md-7"><strong i18n>Packing fee({{product.price_policy | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>
-            <div class="col-md-5 text-right style-padding Wood">
-              {{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
-            </div>
-          </div>
-          <div class="row" *ngIf="checkUpdateWood">
-            <div class="col-md-12 float-right tex" [hidden]="!packingWW[product.id]">
-              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePolicy()" [(ngModel)] = "policyPrice">
-            </div>
-          </div>
-          <hr style="margin: 5px">
+          <!--<hr style="margin: 5px">-->
+          <!--<div class="row Packing_fee ">-->
+            <!--<div class="col-md-7"><span i18n>Packing fee({{product.price_policy | currency}} </span> <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</div>-->
+            <!--<div class="col-md-5 text-right style-padding Wood">-->
+              <!--{{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="row" *ngIf="checkUpdateWood">-->
+            <!--<div class="col-md-12 float-right tex" [hidden]="!packingWW[product.id]">-->
+              <!--<input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePolicy()" [(ngModel)] = "policyPrice">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<hr style="margin: 5px">-->
+
+          <!--<div class="row surcharge ">-->
+            <!--<div class="col-md-7"><span i18n>Surcharge({{product.price_policy | currency}}</span> <span class="fa fa-edit pl-1" (click)="surcharge[product.id] = !surcharge[product.id]; openUpdateSurcharge(product)"></span>):</div>-->
+            <!--<div class="col-md-5 text-right style-padding Wood">-->
+              <!--{{(product.price_policy * exchangeRate) | number}}<span class="m-l1">{{storeID | currencyStore}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="row" *ngIf="checkUpdateSurcharge">-->
+            <!--<div class="col-md-12 float-right tex" [hidden]="!surcharge[product.id]">-->
+              <!--<input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePolicy()" [(ngModel)] = "policyPrice">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<hr style="margin: 5px">-->
 
           <!--div class="row Total_amount ">
             <div class="col-md-7"><strong i18n>packingWW({{totalFinal(product.price_policy, itemSubtotalAmount(product.productFees)) | currency}} <span class="fa fa-edit pl-1" (click)="packingWW[product.id] = !packingWW[product.id]; openUpdatePackingWood(product)"></span>):</strong></div>

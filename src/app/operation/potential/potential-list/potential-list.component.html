@@ -1,7 +1,16 @@
 <div class="card-body pt-0">
   <form action="" [formGroup]="searchF">
     <div class="row">
-      <div class="col-md-6 col-sm-12 form-group m-b-10">
+      <div class="col-md-4 col-sm-12  form-group m-b-10">
+        <label for="store" class="form-control-label" i18n>Store</label>
+        <select class="form-control form-control-sm" (change)="listShoppingCart()" name="store" id="store"
+                formControlName="store">
+          <option value="" i18n>All Weshop</option>
+          <option value="1" i18n>Weshop VN</option>
+          <option value="7" i18n>Weshop ID</option>
+        </select>
+      </div>
+      <div class="col-md-4 col-sm-12 form-group m-b-10">
         <label for="keyWordGroup" class="form-control-label" i18n>Keyword</label>
         <div class="row input-group input-group-sm ml-0 mr-0" id="keyWordGroup">
           <select class="col-sm-5 form-control form-control-sm input-group-addon" name="keyword"
@@ -17,7 +26,7 @@
                  type="text">
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 form-group">
+      <div class="col-md-4 col-sm-12 form-group">
         <label for="dateTimePicker" class="form-control-label" i18n>Time Search</label>
         <div class="row input-group input-group-sm ml-0 mr-0" id="dateTimePicker">
           <select class="form-control form-control-sm" name="currentStatus" id="timeKey"
@@ -66,7 +75,7 @@
         </select>
       </div>
       <div class="col-md-3 col-sm-6 form-group m-b-10">
-        <label class="form-control-label">Portal</label>
+        <label class="form-control-label">Product Type</label>
         <select class="form-control form-control-sm" name="portal" id="portal" formControlName="portal">
           <option [value]="0" i18n>--All Product Type--</option>
           <option value="AMAZON_US">AMAZON US</option>
@@ -234,11 +243,11 @@
                   </h5>
                 </div>
                 <div class="address">
-                  <span *ngIf="items.key.receiver.receiver_name">{{items.key.receiver.receiver_name}}</span><span *ngIf="items.key.receiver.receiver_phone"> - {{items.key.receiver.receiver_phone}}
+                  <span *ngIf="items.key.receiver.receiver_name">{{items.key.receiver.receiver_name}}</span><span *ngIf="items.key.receiver.receiver_phone"> - {{items.key.receiver.receiver_phone}}</span>
                   <a href="javascript:void(0)" (click)="filterOnePhone(items.key.receiver.receiver_phone)">
                     <i class="fa fa-filter" data-toggle="tooltip" data-placement="top" title="Filter Phone Receiver!"></i>
                   </a>
-                </span><span *ngIf="items.key.receiver.receiver_email"> - {{items.key.receiver.receiver_email}}</span>
+                  <span *ngIf="items.key.receiver.receiver_email"> - {{items.key.receiver.receiver_email}}</span>
                   <br>
                   <span *ngIf="items.key.receiver.receiver_address">{{items.key.receiver.receiver_address}}</span> <span *ngIf="items.key.receiver.receiver_district_name || items.key.receiver.receiver_province_name">(</span> <span *ngIf="items.key.receiver.receiver_district_name">{{items.key.receiver.receiver_district_name}}</span><span *ngIf="items.key.receiver.receiver_province_name"> - {{items.key.receiver.receiver_province_name}})</span>
                 </div>

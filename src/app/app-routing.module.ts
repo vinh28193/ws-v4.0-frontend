@@ -6,6 +6,7 @@ import {SelectivePreloadingStrategyService} from './selective-preloading-strateg
 import {AuthGuard} from './core/guard/auth.guard';
 import {ExcelDemoComponent} from './excel/excel-demo/excel-demo.component';
 import {LogoutComponent} from './logout/logout.component';
+import {RegisterComponent} from './register/register.component';
 
 const appRoutes: Routes = [
     {
@@ -24,6 +25,10 @@ const appRoutes: Routes = [
         data: {
             breadcrumb: 'Login'
         },
+    },
+    {
+      path: 'operation/register',
+      component: RegisterComponent
     },
     { path: 'operation/logout', component: LogoutComponent},
     {

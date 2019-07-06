@@ -20,11 +20,13 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppRoutingComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterComponent
   ],
   imports: [
     HttpClientModule,

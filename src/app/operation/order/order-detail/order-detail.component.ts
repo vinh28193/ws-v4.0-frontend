@@ -33,7 +33,9 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public totalAmount = 0;
   public proId: any;
   public hidem: any = {};
+  public surcharge: any = {};
   public tax: any = {};
+  public custom: any = {};
   public quantityPro: any = {};
   @Input() openConfirmOrder: boolean;
   @Input() products: any;
@@ -49,7 +51,10 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public shipping_quantity: any;
   public shipping_fee: any;
   public tax_fee: any;
+  public custom_fee: any;
   public checkUpdatePricePro = false;
+  public checkUpdateSurcharge = false;
+  public checkUpdateCustomFee = false;
   public checkUpdateTax = false;
   public checkUpdateShipping = false;
   public checkUpdateWood = false;
@@ -177,7 +182,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     if (name === 'purchase_fee'
       || name === 'international_shipping_fee'
       || name === 'import_fee'
-      || name === 'custom_fee' || name === 'product_price') {
+     || name === 'product_price') {
       return true;
     }
   }
@@ -368,6 +373,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     params.target_id = this.proId;
     params.store_id = this.storeID;
     params.us_ship = this.shipping_fee;
+    params.custom_fee = this.custom_fee;
     params.us_tax = this.tax_fee;
     params.item_type = this.item_type;
     params.customer_id = this.customer_id;
@@ -380,15 +386,26 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.id = pro.id;
     this.checkUpdateWood = true;
   }
+
+  openUpdateSurcharge(pro) {
+    this.policyPrice = pro.price_policy;
+    this.id = pro.id;
+    this.checkUpdateSurcharge = true;
+  }
   updatePricePolicy() {
     const params: any = {};
     params.policyPrice = this.policyPrice;
     params.order_path = this.order_path;
     params.title = 'update price policy';
+    const paramsList: any = {};
+    paramsList.target_name = 'product';
+    paramsList.target_id = this.id;
+    paramsList.store_id = this.storeID;
     this.orderService.put(`product/${this.id}`, params).subscribe(res => {
         if (res.success) {
-          this.checkUpdateWood = false;
-          this.getListOrder.emit({});
+          this.orderService.getAdditional(paramsList).subscribe(rs => {
+            this.getListOrder.emit({});
+          });
         }
     });
   }
@@ -404,11 +421,11 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.tax_fee = fee;
     this.shipping_quantity = product.quantity;
   }
-  totalFinal(a, b) {
-    if (b) {
 
-    }
-    const c = toNumber(a) + toNumber(b);
-    return c;
+  openUpdateCustomFee(product, fee) {
+    this.checkUpdateCustomFee = true;
+    this.proId = product.id;
+    this.custom_fee = fee;
+    this.shipping_quantity = product.quantity;
   }
 }

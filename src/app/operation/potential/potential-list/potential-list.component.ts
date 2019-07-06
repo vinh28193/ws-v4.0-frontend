@@ -55,12 +55,12 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   }
 
   ngOnInit() {
-    console.log(this.listSaleAll);
     this.searchF = this.fb.group({
       value: '',
       keyword: 0,
       typePotential: 0,
       timeKey: 0,
+      store: '',
       portal: 0,
       saleID: 0,
       potential: 10,
@@ -76,7 +76,6 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     params.page = this.page;
     params.potential = 1;
     this.potentialService.ListShopping(params).subscribe(res => {
-      console.log(res.data.model);
       this.ShoppingCar = res.data.model;
       this.totalCarts = res.data.total;
     });
@@ -128,6 +127,9 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
     }
     if (value.saleID !== '' && value.saleID !== 0) {
       params.saleID = value.saleID;
+    }
+    if (value.store !== '' && value.store !== '') {
+      params.store = value.store;
     }
     if (value.potential !== '' && value.potential !== 10) {
       params.potential = value.potential;
@@ -270,7 +272,6 @@ export class PotentialListComponent extends OrderDataComponent implements OnInit
   getSale() {
     this.potentialService.get('sale-support', undefined).subscribe(rss => {
       this.listSale = rss;
-      console.log(this.listSale);
     });
   }
   openConfirmCart(order) {
