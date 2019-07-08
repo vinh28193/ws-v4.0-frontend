@@ -148,8 +148,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOrderChatRefund = false;
     public checkUpdateOderCode = false;
     public checkUpdateQuantity = false;
-    // public IMG_URL = 'https://static-v3.weshop.asia';
-    public IMG_URL = 'http://192.168.11.252:8081';
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -194,6 +192,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public orderNotifi: any = [];
     public paramsOrder: any = [];
     public pkh: any;
+    public IMG_URL = '';
     public total_inspection_fee_local = 0;
     public total_insurance_fee_local = 0;
     public modelAddTransaction = {
@@ -227,6 +226,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     ) {
         super(orderService);
         this.notifier = notifier;
+          this.IMG_URL = environment.IMG_URL_WH;
     }
 
     followOrder(ordercode) {
