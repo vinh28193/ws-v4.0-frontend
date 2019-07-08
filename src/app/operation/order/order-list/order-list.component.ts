@@ -456,12 +456,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.orders = Object.entries(data._items).map(e => {
                     return e[1];
                 });
+                /**
                 this.totalUnPaid = data._summary.totalUnPaid;
                 this.countPurchase = data._summary.countPurchase;
                 this.purchase2Day = data._summary.countPC;
                 this.stockin_us = data._summary.countStockin;
                 this.noTrackingCount = data._summary.noTracking;
                 this.countUS = data._summary.countUS;
+                */
                 this.totalCount = data.totalCount;
                 this.pageCount = data.pageCount;
                 this.currentPage = data.page;

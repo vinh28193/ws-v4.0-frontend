@@ -37,7 +37,6 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public tax: any = {};
   public custom: any = {};
   public quantityPro: any = {};
-  @Input() openConfirmOrder: boolean;
   @Input() products: any;
   @Input() exchangeRate: any;
   @Input() policy: any;
