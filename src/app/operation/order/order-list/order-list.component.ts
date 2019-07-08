@@ -891,16 +891,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         return price1 - price2;
     }
 
-    getTotalAmount(total_fee, Price)
-    {
+    getTotalAmount(total_fee, Price) {
         return Number(Price) + Number(total_fee);
     }
 
-    getRemainingAmount(order_total_final_amount_local , order_total_paid_amount_local)
-    {
-        let total_paid_amount_local =  Number(order_total_paid_amount_local) ;
-        let total_final_amount_local = Number(order_total_final_amount_local);
-        if( total_paid_amount_local == 0 ) return 0;
+    getRemainingAmount(order_total_final_amount_local , order_total_paid_amount_local) {
+        const total_paid_amount_local =  Number(order_total_paid_amount_local) ;
+        const total_final_amount_local = Number(order_total_final_amount_local);
+        if ( total_paid_amount_local == 0 ) { return 0; }
        return total_final_amount_local - total_paid_amount_local;
     }
 

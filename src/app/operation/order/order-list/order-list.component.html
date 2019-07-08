@@ -573,7 +573,7 @@
 
                                 <div class="row Total_shiping_fee">
                                   <div class="col-md-7 style-padding-right dong">
-                                    <span i18n>Shipping fee</span>( <span>0.5KG</span>)
+                                    <span i18n>Shipping fee</span>( <span>{{order.total_weight_temporary}}</span>)
                                   </div>
                                   <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
@@ -1011,8 +1011,7 @@
                           <div class="row pb-1 pt-1" style="margin-left: 1px">
                             <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
-                                <li class="tab-slider--trigger" rel="tab1"
-                                    (click)=" pro[order.id] = !pro[order.id]">
+                                <li class="tab-slider--trigger" rel="tab1">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
@@ -1058,7 +1057,7 @@
                                                          [order_code]="order.ordercode" [check_update_payment]="check_update_payment"
                                                          [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
                               </div>
-                              <div id="tab" class="tab-slider--body" [hidden]="!pro[order.id]"
+                              <div id="tab" class="tab-slider--body"
                                    style="border-bottom: 2px solid red">
                                 <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
                                                   (getListOrder)="listOrders()"
