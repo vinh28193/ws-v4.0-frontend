@@ -13,7 +13,8 @@ declare var $: any;
 })
 export class SourceMessageComponent extends OperationDataComponent implements OnInit {
 
-    @ViewChild(ModalDirective) updateMessageModal: ModalDirective;
+    @ViewChild('updateMessageModal') updateMessageModal: ModalDirective;
+    @ViewChild('addkey') addkey: ModalDirective;
     category: any = '';
     language: any = '';
     languages: any = {};
@@ -25,6 +26,10 @@ export class SourceMessageComponent extends OperationDataComponent implements On
         messages: []
     };
     sourceAdd = '';
+    formaddkey: any = {
+        category: '',
+        key: '',
+    };
 
     constructor(private fb: FormBuilder, public i18nService: I18nService) {
         super(i18nService);
@@ -48,6 +53,12 @@ export class SourceMessageComponent extends OperationDataComponent implements On
             this.totalCount = res.total;
             this.sourcesMessage = res.data;
         });
+    }
+
+    showAddKey() {
+        this.formaddkey.category = '';
+        this.formaddkey.key = '';
+        this.addkey.show();
     }
 
     getLanguages() {
@@ -147,5 +158,20 @@ export class SourceMessageComponent extends OperationDataComponent implements On
             });
             this.sourceAdd = '';
         }
+    }
+
+    saveKey() {
+        if (!this.formaddkey.category || !this.formaddkey.key) {
+            return this.i18nService.popup.error('Enter all field');
+        }
+        this.i18nService.post('i18n', this.formaddkey).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.i18nService.popup.success(rs.message);
+                this.addkey.hide();
+            } else {
+                this.i18nService.popup.error(rs.message);
+            }
+        });
     }
 }

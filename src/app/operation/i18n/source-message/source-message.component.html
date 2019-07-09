@@ -53,6 +53,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <button class="btn btn-sm btn-info" (click)="getSourcesMessage()"><i class="fa fa-search"></i>&nbsp;Search</button>
+                            <button class="btn btn-sm btn-success" (click)="showAddKey()"><i class="fa fa-plus"></i>&nbsp;Add key</button>
                         </div>
                     </div>
                 </div>
@@ -169,4 +170,44 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade" bsModal #addkey="bs-modal" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Create key language</h4>
+            </div>
+            <div class="modal-body bg-light-part b-l">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="card">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon col-md-2" style="font-size: smaller">Category</span>
+                                                <input class="form-control col-md-10" type="text" [(ngModel)]="formaddkey.category">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon col-md-2" style="font-size: smaller">Translation</span>
+                                                <input class="form-control col-md-10" type="text" [(ngModel)]="formaddkey.key">
+                                            </div>
+                                        </div>
+                                        <div class="card-body button-group">
+                                            <button type="button" (click)="saveKey()" class="btn btn-success">Save</button>
+                                            <button type="button" (click)="addkey.hide()" class="btn btn-danger">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
