@@ -18,6 +18,9 @@ export class GlobalService {
 
     public enableLoading = true;
 
+    public intervalTime: any;
+
+    public hide_loading: any;
     /**
      * constructor service
      * @param {EncryptionService} cryCode
@@ -196,12 +199,32 @@ export class GlobalService {
             return true;
         }
     }
-    startLoading() {
+
+    async startLoading() {
         if (this.enableLoading) {
+            $('#loading').css('width', '10%');
+            await this.delay(100);
             $('#loading').css('display', 'block');
+            this.intervalTime = 10;
+            for (this.intervalTime; this.intervalTime <= 100; this.intervalTime++) {
+                $('#loading').css('width', this.intervalTime + '%');
+                await this.delay(100);
+            }
+            this.hide_loading = true;
+            this.endLoading();
         }
     }
-    endLoading() {
+
+    delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async endLoading() {
+        if (this.intervalTime < 90 && !this.hide_loading) {
+            this.intervalTime = 90;
+            await this.delay(15000);
+        }
         $('#loading').css('display', 'none');
+        this.hide_loading = false;
     }
 }
