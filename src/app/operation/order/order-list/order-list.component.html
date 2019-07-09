@@ -868,57 +868,116 @@
                                     date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.seller_shipped">{{order.seller_shipped |
-                                    date:'dd/MM/yyyy HH:mm'}}
+
+                                <ng-container *ngIf="order.current_status === 'SELLER_SHIPPED'">
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.seller_shipped">{{order.seller_shipped |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0" i18n>Stock in US:</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.stockin_us">{{order.stockin_us |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6 pr-0" i18n>Stock out US:</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5  pr-0" i18n>Stock in local:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5  pr-0" i18n>Stock out local:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local|
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5  pr-0" i18n>At customer:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5  pr-0" i18n>Returned:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-6  pr-0" i18n>Cancelled:</div>
+                                    <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
+                                            date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-5  pr-0" i18n>Lost:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}
+                                    </div>
+                                  </div>
+                                </ng-container>
+                                <div class="row" *ngIf="!purchaseInfo[order.ordercode] || (order.current_status !== 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
+                                  <div class="col-md-12">
+                                    <a href="javascript: void(0);" (click)="purchaseInfo[order.ordercode] = true;">View purchase info >>></a>
                                   </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.stockin_us">{{order.stockin_us |
-                                    date:'dd/MM/yyyy HH:mm'}}
+                                <div class="row" *ngIf="purchaseInfo[order.ordercode] || (order.current_status == 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
+                                  <div class="col-md-12 row ">
+                                    <ng-container *ngIf="order.portal == 'AMAZON'">
+                                      <div class="col-md-5  pr-0" i18n>- Amazon:</div>
+                                      <div class="col-md-7 text-right">
+                                        <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
+                                        <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                      </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="order.portal == 'EBAY'">
+                                      <div class="col-md-12  pr-0" i18n>- Ebay:</div>
+                                      <div class="col-md-5  pr-0 pl-3" i18n>+Order Ebay:</div>
+                                      <div class="col-md-7 text-right">
+                                        <div>
+                                          <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
+                                          <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-5  pr-0 pl-3" i18n>+PayPal Transaction:</div>
+                                      <div class="col-md-7 text-right">
+                                        <div>
+                                          <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
+                                          <span *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
+                                        </div>
+                                      </div>
+                                    </ng-container>
+                                  </div>
+                                  <div class="col-md-12 row ">
+                                    <div class="col-md-5  pr-0 pl-3" i18n>- Tracking:</div>
+                                    <div class="col-md-7 text-right">
+                                      <div *ngIf="order.trackingCodes">
+                                        <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-5  pr-0 pl-3"></div>
+                                    <div class="col-md-7 text-right">
+                                      <div class="btn-group">
+                                        <input class="form-control" [(ngModel)]="trackingCodeIp">
+                                        <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <button class="btn btn-success" (click)="savePurchaseInfo(order)">Save</button>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-6 pr-0" i18n>Stock out US:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us |
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-5  pr-0" i18n>Stock in local:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local |
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-5  pr-0" i18n>Stock out local:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local|
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-5  pr-0" i18n>At customer:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer |
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-5  pr-0" i18n>Returned:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned |
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-6  pr-0" i18n>Cancelled:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
-                                    date:'dd/MM/yyyy HH:mm'}}
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-5  pr-0" i18n>Lost:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}
+                                <div class="row" *ngIf="purchaseInfo[order.ordercode] || (order.current_status == 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
+                                  <div class="col-md-12">
+                                    <a href="javascript: void(0);" (click)="purchaseInfo[order.ordercode] = false;"><<< Hide purchase info</a>
                                   </div>
                                 </div>
                               </div>
@@ -2055,7 +2114,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-7 text-right" *ngIf="orderList.stockin_local">
                   <a href="javascript:void(0)" *ngIf="orderList.stockin_local"
                      (click)="updateNull('stockin_local', orderList.id)"><i
-                    class="fa fa-remove mr-2 text-danger"></i></a>
+                          class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.stockin_local * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>
@@ -2095,7 +2154,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-5  pr-0" i18n>Lost:</div>
                 <div class="col-md-7 text-right" *ngIf="orderList.lost">
                   <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i
-                    class="fa fa-remove mr-2 text-danger"></i></a>
+                          class="fa fa-remove mr-2 text-danger"></i></a>
                   {{orderList.lost * 1000 | date:'dd/MM/yyyy HH:mm'}}
                 </div>
               </div>

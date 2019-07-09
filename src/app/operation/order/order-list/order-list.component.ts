@@ -16,7 +16,6 @@ import {NotifierService} from 'angular-notifier';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
-import {formatNumber} from '@angular/common';
 import {environment} from '../../../../environments/environment';
 
 declare var jQuery: any;
@@ -158,6 +157,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     paymentRequests: any = [];
     statusOds: any = [];
     public listChatTem: any = [];
+    public purchaseInfo: any = [];
     public filter: any = {};
     public status: any;
     public checkF = false;
@@ -205,6 +205,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     message;
     typeSearchKeyWord = '';
     keywordSearch = '';
+    trackingCodeIp = '';
+    purchaseOrder = '';
+    purchaseTransaction = '';
     private notifier: NotifierService;
     public ArrayListOrder: any = {};
     public tracking_Insert: any = {
@@ -1796,9 +1799,37 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
   };
 
-  imageUploaded(data, field) {
-    this.src = JSON.parse(data.serverResponse._body);
-    this.image = environment.IMG_URL_WH + this.src;
-  }
+    imageUploaded(data, field) {
+        this.src = JSON.parse(data.serverResponse._body);
+        this.image = environment.IMG_URL_WH + this.src;
+    }
+
+    pushTracking(trackingCodes = []) {
+        trackingCodes.push(this.trackingCodeIp);
+        let arrayBest = [];
+        for (let ind = 0; ind < trackingCodes.length; ind++) {
+            if (arrayBest.indexOf(trackingCodes[ind]) === -1) {
+                arrayBest.push(trackingCodes[ind]);
+            }
+        }
+        this.trackingCodeIp = '';
+        return arrayBest;
+    }
+    savePurchaseInfo(order) {
+        if(order.current_status === 'READY2PURCHASE'){
+            order.purchase_order_id = this.purchaseOrder;
+            order.purchase_transaction_id = this.purchaseTransaction;
+        }
+        order.trackingCodes = this.pushTracking(order.trackingCodes);
+        this.orderService.post(`order-s/save-purchase-info`, order).subscribe(res => {
+            const rs: any = res;
+            if (rs.success) {
+                this.popup.success(rs.message);
+                this.listOrders();
+            } else {
+                this.popup.error(rs.message);
+            }
+        });
+    }
 }
 
