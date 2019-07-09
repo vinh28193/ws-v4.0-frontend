@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    template: '<div class="loading_new" style="display: none" id="loading">\n' +
+    template: '<div class="loading_new progress-bar" style="display: none" id="loading">\n' +
         '  <div class="loading-inner-new">\n' +
         '    <img src="../../assets/images/loading64.gif">\n' +
         '  </div>\n' +
