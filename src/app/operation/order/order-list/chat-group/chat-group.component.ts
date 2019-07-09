@@ -54,6 +54,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
         this.orderService.getNoLoad(`chatlists`, 1).subscribe(res => {
             const result1: any = res;
             this.chatlists = result1.data;
+            console.log(this.chatlists);
 
             const array_list: any = [];
             for (let i = 0; i <= this.chatlists.length - 1; i++) {
@@ -65,6 +66,7 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
             this.userData = array_list;
         });
          if (text_sugest.length >= 2) {
+           console.log(text_sugest);
              if ($event.timeStamp - this.lastkeydown1 >= 200) {
                 // ToDo : @Phuchc thêm text type suppoting
                 this.matchesList1 = this.userData.filter(v => v.indexOf(text_sugest) > -1);

@@ -1012,7 +1012,7 @@
                             <div class="col-md-12 pl-0 tab-slider--nav">
                               <ul class="tab-slider--tabs st-ul">
                                 <li class="tab-slider--trigger" rel="tab1">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>
+                                  <button class="btn btn-sm bg-white mr-2 style-but" (click)=" pro[order.id] = !pro[order.id]" i18n>Product</button>
                                 </li>
                                 <!--<li class="tab-slider&#45;&#45;trigger" [class.active]="viewMode == 'pro' + order.id" rel="tab2" (click)="viewMode ='pro' + order.id">-->
                                 <!--<button class="btn btn-sm bg-white mr-2 style-but" i18n>Product</button>-->
@@ -1058,7 +1058,7 @@
                                                          [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body"
-                                   style="border-bottom: 2px solid red">
+                                   style="border-bottom: 2px solid red" [hidden]="pro[order.id]">
                                 <app-order-detail (addTrackingCode)="insertTrackingShow($event.product_id)"
                                                   (getListOrder)="listOrders()"
                                                   [storeID]="order.store_id"
@@ -1683,7 +1683,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content" uib-modal-transclude="" *ngIf="checkUpdateOderCode">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>Update Order : <span class="label label-primary ng-binding">{{orderList.ordercode}}</span>
+        <h3 class="modal-title text-white" i18n>Update Order : <span class="label label-primary ng-binding">{{orderOne.ordercode}}</span>
         </h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
@@ -1701,12 +1701,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <h5 i18n>Finance</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[orderList.id]"
-                        (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[markID]"
+                        (click)="orderFee[markID] = !orderFee[markID]" i18n>
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[orderList.id]"
-                        (click)="orderFee[orderList.id] = !orderFee[orderList.id]" i18n>
+                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[markID]"
+                        (click)="orderFee[markID] = !orderFee[markID]" i18n>
                   <i class="fa fa-eye-slash" aria-hidden="true"></i>
                 </button>
                 <!--a href="javascript:void (0);"><i class="fa fa-refresh"></i></a-->
@@ -1716,8 +1716,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n>Quantity</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
-                <span>{{quantityOrder(orderList.products ,orderList.products['length'])}}</span>
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderOne.products != null">
+                <span>{{quantityOrder(orderOne.products ,orderOne.products['length'])}}</span>
               </div>
             </div>
             <hr>
@@ -1725,24 +1725,24 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right Total_Unit_price_product dong">
                 <strong><span i18n>Amount Price:</span>
                   ( <span
-                    *ngIf="orderList.portal === 'japan' || orderList.portal === 'AMAZON_JAPAN' || orderList.portal === 'JAPAN'">
-                                    {{ orderList.total_price_amount_origin | currency: 'JPY' : '￥'}}
+                    *ngIf="orderOne.portal === 'japan' || orderOne.portal === 'AMAZON_JAPAN' || orderOne.portal === 'JAPAN'">
+                                    {{ orderOne.total_price_amount_origin | currency: 'JPY' : '￥'}}
                                     </span>
                   <span
-                    *ngIf="orderList.portal !== 'japan' && orderList.portal !== 'AMAZON_JAPAN' && orderList.portal !== 'JAPAN'">
-                                      {{ orderList.total_price_amount_origin | currency : 'USD' : '$'}}
+                    *ngIf="orderOne.portal !== 'japan' && orderOne.portal !== 'AMAZON_JAPAN' && orderOne.portal !== 'JAPAN'">
+                                      {{ orderOne.total_price_amount_origin | currency : 'USD' : '$'}}
                                     </span>)
                 </strong>
               </div>
               <div class="col-md-5 text-right style-padding-left dong">
-                                    <span>{{orderList.total_origin_fee_local | number}}
+                                    <span>{{orderOne.total_origin_fee_local | number}}
                                   </span>
-                <span>{{orderList.store_id | currencyStore}}</span>
+                <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
 
 
-            <div [hidden]="!orderFee[orderList.id]">
+            <div [hidden]="!orderFee[markID]">
 
               <div class="row total_origin_tax_fee_local">
                 <div class="col-md-7 style-padding-right total_fee_amount_local dong">
@@ -1750,9 +1750,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left total_origin_tax_fee_local dong">
                                   <span>
-                                    {{orderList.total_origin_tax_fee_local | number}}
+                                    {{orderOne.total_origin_tax_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1762,9 +1762,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_origin_shipping_fee_local | number}}
+                                    {{orderOne.total_origin_shipping_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1775,9 +1775,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_weshop_fee_local | number}}
+                                    {{orderOne.total_weshop_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1787,21 +1787,21 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_intl_shipping_fee_local | number}}
+                                    {{orderOne.total_intl_shipping_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
-              <div class="row Total_custom_fee_amount" *ngIf="checkCustomer(orderList.products)">
+              <div class="row Total_custom_fee_amount">
                 <div class="col-md-7 style-padding-right dong">
                   <span i18n>Total custom fee </span>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_custom_fee_amount_local  | number}}
+                                    {{orderOne.total_custom_fee_amount_local  | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1813,9 +1813,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_packing_fee_local | number}}
+                                    {{orderOne.total_packing_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1825,9 +1825,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_inspection_fee_local | number}}
+                                    {{orderOne.total_inspection_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
               <div class="row Total_insurance_fee" *ngIf="checkSPAdmin()">
@@ -1836,9 +1836,9 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_insurance_fee_local | number}}
+                                    {{orderOne.total_insurance_fee_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
 
@@ -1848,23 +1848,23 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
                 <div class="col-md-5 text-right style-padding-left dong">
                                   <span>
-                                    {{orderList.total_vat_amount_local | number}}
+                                    {{orderOne.total_vat_amount_local | number}}
                                   </span>
-                  <span>{{orderList.store_id | currencyStore}}</span>
+                  <span>{{orderOne.store_id | currencyStore}}</span>
                 </div>
               </div>
             </div>
 
             <hr style="margin-top: 5px">
 
-            <div class="Ws-bold-font row Total_fee_orderList">
+            <div class="Ws-bold-font row Total_fee_orderOne">
               <div class="col-md-7 style-padding-right dong">
                 <span i18n>Total Fee:</span>
               </div>
               <div class="col-md-5 text-right style-padding-left dong">
-                <!--span>  {{ getTotalorderListFee(orderList.total_amount_local, orderList.total_insurance_fee_local, orderList.total_inspection_fee_local, orderList.total_packing_fee_local, orderList.total_delivery_fee_local, orderList.total_custom_fee_amount_local, orderList.exchange_rate_fee, orderList.total_origin_shipping_fee_local, orderList.total_weshop_fee_local, orderList.total_origin_tax_fee_local, orderList.total_fee_amount_local ) | number}}</span-->
-                <span>{{orderList.total_fee_amount_local | number }}</span>
-                <span>{{orderList.store_id | currencyStore}}</span>
+                <!--span>  {{ getTotalorderOneFee(orderOne.total_amount_local, orderOne.total_insurance_fee_local, orderOne.total_inspection_fee_local, orderOne.total_packing_fee_local, orderOne.total_delivery_fee_local, orderOne.total_custom_fee_amount_local, orderOne.exchange_rate_fee, orderOne.total_origin_shipping_fee_local, orderOne.total_weshop_fee_local, orderOne.total_origin_tax_fee_local, orderOne.total_fee_amount_local ) | number}}</span-->
+                <span>{{orderOne.total_fee_amount_local | number }}</span>
+                <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
 
@@ -1874,30 +1874,30 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n>Exchage rate</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderList.products != null">
-                <span> {{orderList.exchange_rate_fee | number}} </span>
-                <span>{{orderList.store_id | currencyStore}}</span>
+              <div class="col-md-5 text-right style-padding-left" *ngIf="orderOne.products != null">
+                <span> {{orderOne.exchange_rate_fee | number}} </span>
+                <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
             <hr>
 
-            <div class="row Coupon" *ngIf="orderList.coupon_id && orderList.coupon?.amount !== ''">
+            <div class="row Coupon" *ngIf="orderOne.coupon_id && orderOne.coupon?.amount !== ''">
               <div class="col-md-7 style-padding-right dong">
                 <span class="Ws-bold-font" i18n>Coupon Code / Amount : </span>
               </div>
               <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
-                                      <app-span-label [value]="orderList.coupon?.code"></app-span-label> / {{orderList.coupon?.amount | number}} <span>{{orderList.store_id | currencyStore}}</span>
+                                      <app-span-label [value]="orderOne.coupon?.code"></app-span-label> / {{orderOne.coupon?.amount | number}} <span>{{orderOne.store_id | currencyStore}}</span>
                                   </span>
               </div>
             </div>
-            <div class="row Promotion" *ngIf="orderList.promotion_id && orderList.promotion?.discountAmount !== null">
+            <div class="row Promotion" *ngIf="orderOne.promotion_id && orderOne.promotion?.discountAmount !== null">
               <div class="col-md-7 style-padding-right dong">
                 <span class="Ws-bold-font" i18n>Promotion Code/Discount Amount/Discount Over Weight: </span>
               </div>
               <div class="col-md-5 text-right style-padding-left ">
                                   <span class="Ws-bold-font">
-                                      <app-span-label [value]="orderList.promotion?.code"></app-span-label> / {{orderList.promotion?.discountAmount | number}} <span>{{orderList.store_id | currencyStore}}</span>/{{orderList.promotion?.discountOverWeight}}g
+                                      <app-span-label [value]="orderOne.promotion?.code"></app-span-label> / {{orderOne.promotion?.discountAmount | number}} <span>{{orderOne.store_id | currencyStore}}</span>/{{orderOne.promotion?.discountOverWeight}}g
                                   </span>
               </div>
             </div>
@@ -1910,35 +1910,35 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               </div>
               <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
-                                    {{orderList.total_final_amount_local | number}}
+                                    {{orderOne.total_final_amount_local | number}}
                                   </span>
-                <span class="Ws-bold-font">{{orderList.store_id | currencyStore}}</span>
+                <span class="Ws-bold-font">{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
             <hr>
             <div class="row Paid">
               <div class="col-md-6 text-success Ws-bold-font " i18n>Paid</div>
               <div class="col-md-6 text-right text-success">
-                {{orderList.total_paid_amount_local | number}} <span>{{orderList.store_id | currencyStore}}</span>
+                {{orderOne.total_paid_amount_local | number}} <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
             <div class="row Collect so-tien-thu-them Cod">
               <div id="số tiền còn thiếu" class="col-md-6 text-info cod" i18n>Collect</div>
               <div class="col-md-6 text-right text-info style-padding-left">
-                {{orderList.total_final_amount_local > orderList.total_paid_amount_local ?
-                getChangeAmount(orderList.total_final_amount_local, orderList.total_paid_amount_local,true) : 0 |
+                {{orderOne.total_final_amount_local > orderOne.total_paid_amount_local ?
+                getChangeAmount(orderOne.total_final_amount_local, orderOne.total_paid_amount_local,true) : 0 |
                 number}}
-                <span>{{orderList.store_id | currencyStore}}</span>
+                <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
             <div class="row Refund">
               <div id="Số tiền thừa" class="col-md-6 RefundToCus" i18n>Refund</div>
               <div class="col-md-6 text-right style-padding-left"
-                   *ngIf="orderList.total_refund_amount_local == null || orderList.total_refund_amount_local == '' ">
-                {{orderList.total_refund_amount_local ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
+                   *ngIf="orderOne.total_refund_amount_local == null || orderOne.total_refund_amount_local == '' ">
+                {{orderOne.total_refund_amount_local ? orderOne.total_refund_amount_local : 0 | number}} <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
-              <div class="col-md-6 text-right style-padding-left" *ngIf="orderList.total_refund_amount_local >= 0">
-                {{orderList.total_refund_amount_local ? orderList.total_refund_amount_local : 0 | number}} <span>{{orderList.store_id | currencyStore}}</span>
+              <div class="col-md-6 text-right style-padding-left" *ngIf="orderOne.total_refund_amount_local >= 0">
+                {{orderOne.total_refund_amount_local ? orderOne.total_refund_amount_local : 0 | number}} <span>{{orderOne.store_id | currencyStore}}</span>
               </div>
             </div>
           </div>
@@ -1951,12 +1951,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <h5 i18n>STATUS</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <div class="btn bg-white btn-sm" *ngIf="statusOrderShow[orderList.id]"
-                     (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm" *ngIf="statusOrderShow[orderOne.id]"
+                     (click)="statusOrderShow[orderOne.id] = !statusOrderShow[orderOne.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye"></i>
                 </div>
-                <div class="btn bg-white btn-sm" *ngIf="!statusOrderShow[orderList.id]"
-                     (click)="statusOrderShow[orderList.id] = !statusOrderShow[orderList.id]" i18n>
+                <div class="btn bg-white btn-sm" *ngIf="!statusOrderShow[orderOne.id]"
+                     (click)="statusOrderShow[orderOne.id] = !statusOrderShow[orderOne.id]" i18n>
                   <i aria-hidden="true" class="fa fa-eye-slash"></i>
                 </div>
                 <!--a href="javascript:void (0);"><i class="fa fa-refresh"></i></a-->
@@ -1967,136 +1967,111 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <form action="" [formGroup]="formAsignUser">
                   <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"
                           name="statusOrder" id="statusOrder"
-                          formControlName="statusOrder">
-                    <option [value]="statusOdd.id" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
+                          formControlName="statusOrderF">
+                    <option [value]="statusOdd.key" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
                   </select>
                 </form>
               </div>
             </div>
             <div class="style-row-order">
-              <div class="row {{orderList.current_status === 'NEW' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'NEW' ? 'text-warning' : ''}}">
                 <div class="col-md-5 pr-0" i18n>New:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.created_at">
-                  <a href="javascript:void(0)" *ngIf="orderList.created_at" (click)="updateNull('new', orderList.id)"><i
-                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderList.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
+                <div class="col-md-7 text-right" *ngIf="orderOne.created_at">
+                  <a href="javascript:void(0)" (click)="updateNull('new', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderOne.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div [hidden]="!statusOrderShow[orderList.id]">
-                <div class="row {{orderList.current_status === 'SUPPORTING' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Supporting:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supporting">
-                    <a href="javascript:void(0)" *ngIf="orderList.supporting"
-                       (click)="updateNull('supporting', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'SUPPORTED' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Supported:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supported">
-                    <a href="javascript:void(0)" *ngIf="orderList.supported"
-                       (click)="updateNull('supported', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase">
-                    <a href="javascript:void(0)" *ngIf="orderList.ready_purchase"
-                       (click)="updateNull('ready_purchase', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
-                  <div class="col-md-6 pr-0" i18n>Purchasing:</div>
-                  <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
-                    <a href="javascript:void(0)" *ngIf="orderList.purchase_start"
-                       (click)="updateNull('purchase_start', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
+              <div class="row {{orderOne.current_status === 'CONTACTING' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Contacting:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.contacting">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('contacting', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.contacting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'AWAITING_PAYMENT' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Awaiting Payment At:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.awaiting_payment">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('awaiting_payment_at', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.awaiting_payment * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.ready_purchase">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('ready_purchase', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'PURCHASING' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Purchasing:</div>
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.purchasing">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('purchasing', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.purchasing * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'AWAITING_CONFIRM_PURCHASE' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Awaiting Confirm Purchase:</div>
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.awaiting_confirm_purchase">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('awaiting_confirm_purchase_at', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.awaiting_confirm_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchased">
-                  <a href="javascript:void(0)" *ngIf="orderList.purchased"
-                     (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.purchased">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('purchased', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'SELLER_SHIPPED' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped">
-                  <a href="javascript:void(0)" *ngIf="orderList.seller_shipped"
-                     (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.seller_shipped * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKIN_US' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.stockin_us">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_us"
-                     (click)="updateNull('stockin_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockin_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKOUT_US' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Stock out US:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.stockout_us">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockout_us"
-                     (click)="updateNull('stockout_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockout_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKIN_LOCAL' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Stock in local:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.stockin_local">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_local"
-                     (click)="updateNull('stockin_local', orderList.id)"><i
+              <div class="row {{orderOne.current_status === 'DELIVERING' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Delivering:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.delivering">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('delivering', orderOne.id)"><i
                     class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockin_local * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                  {{orderOne.delivering * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'STOCKOUT_LOCAL' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Stock out local:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.stockout_local">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockout_local"
-                     (click)="updateNull('stockout_local', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderList.stockout_local * 1000| date:'dd/MM/yyyy HH:mm'}}
+              <div class="row {{orderOne.current_status === 'DELEVERED' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Delivered:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.delivered">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('delivered', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.delivered * 1000| date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'AT_CUSTOMER' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>At customer:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.at_customer">
-                  <a href="javascript:void(0)" *ngIf="orderList.at_customer"
-                     (click)="updateNull('at_customer', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderList.at_customer * 1000 | date:'dd/MM/yyyy HH:mm'}}
+              <div class="row {{orderOne.current_status === 'REFUNDED' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Refunded:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.refunded">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('refunded', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.refunded * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'RETURNED' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Returned:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.returned">
-                  <a href="javascript:void(0)" *ngIf="orderList.returned"
-                     (click)="updateNull('returned', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderList.returned * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'CANCELLED' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'CANCELLED' ? 'text-warning' : ''}}">
                 <div class="col-md-6  pr-0" i18n>Cancel:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.cancelled">
-                  <a href="javascript:void(0)" *ngIf="orderList.cancelled"
-                     (click)="updateNull('cancelled', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.cancelled * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                <div class="col-md-6 text-right" *ngIf="orderOne.cancelled">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('cancelled', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'LOST' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Lost:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.lost">
-                  <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i
+              <div class="row {{orderOne.current_status === 'JUNK' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Junk:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.lost">
+                  <a href="javascript:void(0)" (click)="updateNull('lost', orderOne.id)"><i
                     class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.lost * 1000 | date:'dd/MM/yyyy HH:mm'}}
+                  {{orderOne.lost * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
             </div>
@@ -2130,11 +2105,11 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </div>
         <div class="row" style="border-top: 1px solid #d9d9d9">
           <div class="col-md-12 mt-2 mb-2">
-            <button class="btn btn-default btn-sm" (click)="create[orderList.id] = !create[orderList.id]" i18n>Create
+            <button class="btn btn-default btn-sm" (click)="create[markID] = !create[markID]" i18n>Create
               product
             </button>
           </div>
-          <div class="col-md-12" [hidden]="!create[orderList.id]">
+          <div class="col-md-12" [hidden]="!create[markID]">
             <form [formGroup]="formCreate">
               <div class="row">
                 <div class="col-md-6 mb-1">
@@ -2164,7 +2139,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-6 mb-1">
                   <select class="form-control form-control-sm" name="store" id="seller_id"
                           formControlName="seller_id">
-                    <option [value]="allKey" i18n>--All Seller--</option>
+                    <option [value]="" i18n>--All Seller--</option>
                     <option *ngFor="let seller of listSeller" value="{{seller.id}}">{{seller.seller_name}}</option>
                   </select>
                 </div>
@@ -2203,8 +2178,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </form>
           </div>
         </div>
-        <div *ngIf="orderList.product != ''" style="border-top: 1px solid #d9d9d9">
-          <div class="row mt-2 mb-1" *ngFor="let product of orderList.products"
+        <div *ngIf="orderOne.product != ''" style="border-top: 1px solid #d9d9d9">
+          <div class="row mt-2 mb-1" *ngFor="let product of orderOne.products"
                style="border-bottom: 1px solid #d9d9d9">
             <div class="col-md-7">
               <div class="row">
@@ -2241,7 +2216,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-5 text-right">
                   <span>{{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}</span>
                   <i class="fa fa-edit ml-1"
-                     (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id, orderList.ordercode)"></i>
+                     (click)="quantity[product.id] = !quantity[product.id]; clickEdit(product.quantity_purchase, product.quantity_customer, product.quantity_inspect, product.id, orderOne.ordercode)"></i>
                 </div>
               </div>
               <div class="row" [hidden]="!quantity[product.id]" *ngIf="checkUpdateQuantity">
@@ -2269,7 +2244,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </strong>
                 </div>
                 <div class="col-md-5 text-right">
-                  <strong>{{product.price_amount_local}}</strong><strong class="m-l1">{{orderList.store_id |
+                  <strong>{{product.price_amount_local}}</strong><strong class="m-l1">{{orderOne.store_id |
                   currencyStore}}</strong>
                 </div>
               </div>
@@ -2278,12 +2253,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   <strong i18n>Total value Product</strong>
                 </div>
                 <div class="col-md-6 text-right style-padding"><strong>{{product.total_price_amount_local |
-                  number}}</strong><strong class="m-l1">{{orderList.store_id | currencyStore}}</strong></div>
+                  number}}</strong><strong class="m-l1">{{orderOne.store_id | currencyStore}}</strong></div>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="orderList.product == ''" style="border-top: 1px solid #d9d9d9">
+        <div *ngIf="orderOne.product == ''" style="border-top: 1px solid #d9d9d9">
           <h3 class="text-center" i18n>Not Found Product</h3>
         </div>
       </div>
