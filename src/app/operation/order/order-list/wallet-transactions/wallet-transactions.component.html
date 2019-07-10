@@ -34,8 +34,8 @@
         </a>
         <span *ngIf="!checkView()">{{walletTransaction.payment_bank_code}}</span>
       </td>
-      <td> {{walletTransaction.created_at | date:'dd/MM/yyyy HH:mm:ss '}}</td>
-      <td> {{walletTransaction.updated_at | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+      <td> {{walletTransaction.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+      <td> {{walletTransaction.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
     </tr>
   </tbody>
 </table>
