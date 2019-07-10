@@ -138,7 +138,9 @@ h5 {
 .margin-row {
   margin: 0;
 }
-
+.shadow{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
 .width-max {
   max-width: 1000px;
 }
