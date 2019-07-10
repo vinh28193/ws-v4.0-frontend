@@ -782,22 +782,22 @@
                                     Arrears
                                   </button>
 
-<!--                                  <div *ngIf="checkBuynow(order)">-->
-<!--                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"-->
-<!--                                       class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank"-->
-<!--                                       (click)="buyNow(order)" i18n>Buy Now</a>-->
-<!--                                  </div>-->
+                                  <div *ngIf="checkBuynow(order)">
+                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"
+                                       class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank"
+                                       (click)="buyNow(order)" i18n>Buy Now</a>
+                                  </div>
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                   <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
 
 
-<!--                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"-->
-<!--                                          class="btn btn-secondary mb-2 mr-2 btn-sm"-->
-<!--                                          (click)="buynowClick(order)" i18n>-->
-<!--                                    <i class="fa fa-shopping-cart"></i> Buy Now-->
-<!--                                  </button>-->
+                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"
+                                          class="btn btn-secondary mb-2 mr-2 btn-sm"
+                                          (click)="buynowClick(order)" i18n>
+                                    <i class="fa fa-shopping-cart"></i> Buy Now
+                                  </button>
 
                                   <button
                                     *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()"
@@ -838,14 +838,14 @@
                                 </div>
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n>Supporting:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.supporting">{{order.supporting |
+                                    <div class="col-md-5 pr-0" i18n>Contacting:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.contacting">{{order.contacting |
                                       date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <div class="col-md-5 pr-0" i18n>Supported:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.supported">{{order.supported |
+                                    <div class="col-md-5 pr-0" i18n>Awaiting payment:</div>
+                                    <div class="col-md-7 text-right" *ngIf="order.awaiting_payment">{{order.awaiting_payment |
                                       date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
                                   </div>
@@ -857,9 +857,15 @@
                                   </div>
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Purchasing:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.purchase_start">{{
-                                      order.purchase_start | date:'dd/MM/yyyy HH:mm:ss '}}
+                                    <div class="col-md-6 text-right" *ngIf="order.purchasing">{{
+                                      order.purchasing | date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0" i18n>Awaiting Confirm Purchase:</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.awaiting_confirm_purchase">{{order.awaiting_confirm_purchase |
+                                    date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
                                 <div class="row">
@@ -868,115 +874,33 @@
                                     date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
-
-                                <ng-container *ngIf="checkShowStatusSellerShip(order)">
-                                  <div class="row">
-                                    <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.seller_shipped">{{order.seller_shipped |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.stockin_us">{{order.stockin_us |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6 pr-0" i18n>Stock out US:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.stockout_us">{{order.stockout_us |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-5  pr-0" i18n>Stock in local:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.stockin_local">{{order.stockin_local |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-5  pr-0" i18n>Stock out local:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.stockout_local">{{ order.stockout_local|
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-5  pr-0" i18n>At customer:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.at_customer">{{ order.at_customer |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-5  pr-0" i18n>Returned:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.returned">{{ order.returned |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6  pr-0" i18n>Cancelled:</div>
-                                    <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
-                                            date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-5  pr-0" i18n>Lost:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.lost">{{order.lost | date:'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                  </div>
-                                </ng-container>
                                 <div class="row">
-                                  <div class="col-md-12">
-                                      <hr>
-                                    <h6>Purchase Info</h6>
+                                  <div class="col-md-6 pr-0" i18n>Delivering:</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.delivering">{{order.delivering |
+                                    date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
-                                <div class="row" *ngIf="isShowPurchaseInfo(order)">
-                                  <div class="col-md-12 row ">
-                                    <ng-container *ngIf="order.portal == 'AMAZON'">
-                                      <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
-                                      <div class="col-md-7 text-right">
-                                        <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                        <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
-                                      </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="order.portal == 'EBAY'">
-                                      <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
-                                      <div class="col-md-7 text-right">
-                                        <div>
-                                          <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                          <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
-                                      <div class="col-md-7 text-right">
-                                        <div>
-                                          <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
-                                          <span *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
-                                        </div>
-                                      </div>
-                                    </ng-container>
+                                <div class="row">
+                                  <div class="col-md-6 pr-0" i18n>Delivered:</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.delivered">{{order.delivered |
+                                    date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
-                                  <div class="col-md-12 row ">
-                                    <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
-                                    <div class="col-md-7 text-right">
-                                      <div *ngIf="order.trackingCodes">
-                                        <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-5  pr-0 pl-3 mt-2"></div>
-                                    <div class="col-md-7 text-right mt-2">
-                                      <div class="btn-group">
-                                        <input class="form-control" [(ngModel)]="trackingCodeIp">
-                                        <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
-                                      </div>
-                                    </div>
-                                      <div class="col-md-5  pr-0 pl-3">Note</div>
-                                      <div class="col-md-7 text-right">
-                                          <textarea [(ngModel)]="order.purchase_note" rows="6" class="form-control"></textarea>
-                                      </div>
-                                    <div class="col-md-12">
-                                      <button class="btn btn-success" (click)="savePurchaseInfo(order)">Save</button>
-                                    </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0" i18n>Refunded:</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.refunded">{{order.refunded |
+                                    date:'dd/MM/yyyy HH:mm:ss'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6  pr-0" i18n>Cancelled:</div>
+                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
+                                    date:'dd/MM/yyyy HH:mm:ss'}}
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5  pr-0" i18n>Junk:</div>
+                                  <div class="col-md-7 text-right" *ngIf="order.junk">{{order.junk | date:'dd/MM/yyyy HH:mm:ss'}}
                                   </div>
                                 </div>
                               </div>
@@ -2036,85 +1960,68 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-5 pr-0" i18n>New:</div>
                 <div class="col-md-7 text-right" *ngIf="orderOne.created_at">
                   <a href="javascript:void(0)" (click)="updateNull('new', orderOne.id)"><i
-                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderOne.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
+                    class="fa fa-remove mr-2 text-danger"></i></a>{{orderOne.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
-              <div [hidden]="!statusOrderShow[orderList.id]">
-                <div class="row {{orderList.current_status === 'SUPPORTING' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Supporting:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supporting">
-                    <a href="javascript:void(0)" *ngIf="orderList.supporting"
-                       (click)="updateNull('supporting', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.supporting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'SUPPORTED' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Supported:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.supported">
-                    <a href="javascript:void(0)" *ngIf="orderList.supported"
-                       (click)="updateNull('supported', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.supported * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
-                  <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
-                  <div class="col-md-7 text-right" *ngIf="orderList.ready_purchase">
-                    <a href="javascript:void(0)" *ngIf="orderList.ready_purchase"
-                       (click)="updateNull('ready_purchase', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{orderList.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
-                </div>
-                <div class="row {{orderList.current_status === 'PURCHASE_START' ? 'text-warning' : ''}}">
-                  <div class="col-md-6 pr-0" i18n>Purchasing:</div>
-                  <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchase_start">
-                    <a href="javascript:void(0)" *ngIf="orderList.purchase_start"
-                       (click)="updateNull('purchase_start', orderList.id)"><i
-                      class="fa fa-remove mr-2 text-danger"></i></a>
-                    {{ orderList.purchase_start * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
-                  </div>
+              <div class="row {{orderOne.current_status === 'CONTACTING' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Contacting:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.contacting">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('contacting', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.contacting * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'AWAITING_PAYMENT' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Awaiting Payment At:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.awaiting_payment">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('awaiting_payment_at', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.awaiting_payment * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'READY2PURCHASE' ? 'text-warning' : ''}}">
+                <div class="col-md-5 pr-0" i18n>Ready2Purchase:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.ready_purchase">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('ready_purchase', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.ready_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'PURCHASING' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Purchasing:</div>
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.purchasing">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('purchasing', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.purchasing * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'AWAITING_CONFIRM_PURCHASE' ? 'text-warning' : ''}}">
+                <div class="col-md-6 pr-0" i18n>Awaiting Confirm Purchase:</div>
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.awaiting_confirm_purchase">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('awaiting_confirm_purchase_at', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.awaiting_confirm_purchase * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                </div>
+              </div>
+              <div class="row {{orderOne.current_status === 'PURCHASED' ? 'text-warning' : ''}}">
                 <div class="col-md-6 pr-0" i18n>Purchased:</div>
-                <div class="col-md-6 pl-0 text-right" *ngIf="orderList.purchased">
-                  <a href="javascript:void(0)" *ngIf="orderList.purchased"
-                     (click)="updateNull('purchased', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderList.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
+                <div class="col-md-6 pl-0 text-right" *ngIf="orderOne.purchased">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('purchased', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{ orderOne.purchased * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'SELLER_SHIPPED' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.seller_shipped">
-                  <a href="javascript:void(0)" *ngIf="orderList.seller_shipped"
-                     (click)="updateNull('seller_shipped', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.seller_shipped * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKIN_US' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Stock in US:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.stockin_us">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_us"
-                     (click)="updateNull('stockin_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockin_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKOUT_US' ? 'text-warning' : ''}}">
-                <div class="col-md-6 pr-0" i18n>Stock out US:</div>
-                <div class="col-md-6 text-right" *ngIf="orderList.stockout_us">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockout_us"
-                     (click)="updateNull('stockout_us', orderList.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockout_us * 1000 | date:'dd/MM/yyyy HH:mm'}}
-                </div>
-              </div>
-              <div class="row {{orderList.current_status === 'STOCKIN_LOCAL' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Stock in local:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.stockin_local">
-                  <a href="javascript:void(0)" *ngIf="orderList.stockin_local"
-                     (click)="updateNull('stockin_local', orderList.id)"><i
-                          class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.stockin_local * 1000 | date:'dd/MM/yyyy HH:mm'}}
+              <div class="row {{orderOne.current_status === 'DELIVERING' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Delivering:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.delivering">
+                  <a href="javascript:void(0)"
+                     (click)="updateNull('delivering', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.delivering * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
               <div class="row {{orderOne.current_status === 'DELEVERED' ? 'text-warning' : ''}}">
@@ -2141,12 +2048,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{orderOne.cancelled * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderList.current_status === 'LOST' ? 'text-warning' : ''}}">
-                <div class="col-md-5  pr-0" i18n>Lost:</div>
-                <div class="col-md-7 text-right" *ngIf="orderList.lost">
-                  <a href="javascript:void(0)" *ngIf="orderList.lost" (click)="updateNull('lost', orderList.id)"><i
-                          class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{orderList.lost * 1000 | date:'dd/MM/yyyy HH:mm'}}
+              <div class="row {{orderOne.current_status === 'JUNK' ? 'text-warning' : ''}}">
+                <div class="col-md-5  pr-0" i18n>Junk:</div>
+                <div class="col-md-7 text-right" *ngIf="orderOne.lost">
+                  <a href="javascript:void(0)" (click)="updateNull('lost', orderOne.id)"><i
+                    class="fa fa-remove mr-2 text-danger"></i></a>
+                  {{orderOne.lost * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
             </div>
