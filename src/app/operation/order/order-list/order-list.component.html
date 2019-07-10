@@ -1002,7 +1002,7 @@
                                            (click)="updatePromotion(order)" data-keyboard="false" i18n><i
                                           class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
                                         <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "
-                                           
+                                           *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null"
                                            id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);"
                                            (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment"
                                            data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
