@@ -35,7 +35,7 @@
         <span *ngIf="!checkView()">{{walletTransaction.payment_bank_code}}</span>
       </td>
       <td [innerHTML]="walletTransaction.created_at"></td>
-      <td [innerHTML]="walletTransaction.updated_at"></td>
+      <td> {{walletTransaction.updated_at}}</td>
     </tr>
   </tbody>
 </table>
