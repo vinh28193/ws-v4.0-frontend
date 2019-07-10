@@ -1815,8 +1815,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.trackingCodeIp = '';
         return arrayBest;
     }
+    exitTracking(trackingCodes, tracking_code) {
+        const ind = trackingCodes.indexOf(tracking_code);
+        if (ind !== -1) {
+            trackingCodes.splice(ind, 1);
+        }
+        return trackingCodes;
+    }
     savePurchaseInfo(order) {
-        if(order.current_status === 'READY2PURCHASE'){
+        if (order.current_status === 'READY2PURCHASE') {
             order.purchase_order_id = this.purchaseOrder;
             order.purchase_transaction_id = this.purchaseTransaction;
         }
@@ -1830,6 +1837,15 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.popup.error(rs.message);
             }
         });
+    }
+    checkShowStatusSellerShip(order) {
+        return order.current_status !== 'PURCHASED' && order.current_status !== 'READY2PURCHASE' &&
+            order.current_status !== 'NEW' && order.current_status !== 'SUPPORTING' &&
+            order.current_status !== 'SUPPORTED' && order.current_status !== 'SUPPORTED';
+    }
+    isShowPurchaseInfo(order) {
+        return order.current_status !== 'NEW' && order.current_status !== 'SUPPORTING' &&
+            order.current_status !== 'SUPPORTED' && order.current_status !== 'SUPPORTED';
     }
 }
 

@@ -869,7 +869,7 @@
                                   </div>
                                 </div>
 
-                                <ng-container *ngIf="order.current_status === 'SELLER_SHIPPED'">
+                                <ng-container *ngIf="checkShowStatusSellerShip(order)">
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Seller shipped:</div>
                                     <div class="col-md-6 text-right" *ngIf="order.seller_shipped">{{order.seller_shipped |
@@ -924,30 +924,30 @@
                                     </div>
                                   </div>
                                 </ng-container>
-                                <div class="row" *ngIf="!purchaseInfo[order.ordercode] || (order.current_status !== 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
+                                <div class="row">
                                   <div class="col-md-12">
-                                    <a href="javascript: void(0);" (click)="purchaseInfo[order.ordercode] = true;">View purchase info >>></a>
+                                      <hr>
+                                    <h6>Purchase Info</h6>
                                   </div>
                                 </div>
-                                <div class="row" *ngIf="purchaseInfo[order.ordercode] || (order.current_status == 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
+                                <div class="row" *ngIf="isShowPurchaseInfo(order)">
                                   <div class="col-md-12 row ">
                                     <ng-container *ngIf="order.portal == 'AMAZON'">
-                                      <div class="col-md-5  pr-0" i18n>- Amazon:</div>
+                                      <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
                                       <div class="col-md-7 text-right">
                                         <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
                                         <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
                                       </div>
                                     </ng-container>
                                     <ng-container *ngIf="order.portal == 'EBAY'">
-                                      <div class="col-md-12  pr-0" i18n>- Ebay:</div>
-                                      <div class="col-md-5  pr-0 pl-3" i18n>+Order Ebay:</div>
+                                      <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
                                       <div class="col-md-7 text-right">
                                         <div>
                                           <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
                                           <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
                                         </div>
                                       </div>
-                                      <div class="col-md-5  pr-0 pl-3" i18n>+PayPal Transaction:</div>
+                                      <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
                                       <div class="col-md-7 text-right">
                                         <div>
                                           <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
@@ -957,7 +957,7 @@
                                     </ng-container>
                                   </div>
                                   <div class="col-md-12 row ">
-                                    <div class="col-md-5  pr-0 pl-3" i18n>- Tracking:</div>
+                                    <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
                                     <div class="col-md-7 text-right">
                                       <div *ngIf="order.trackingCodes">
                                         <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
@@ -970,14 +970,13 @@
                                         <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
                                       </div>
                                     </div>
+                                      <div class="col-md-5  pr-0 pl-3">Note</div>
+                                      <div class="col-md-7 text-right">
+                                          <textarea [(ngModel)]="order.purchase_note" rows="6" class="form-control"></textarea>
+                                      </div>
                                     <div class="col-md-12">
                                       <button class="btn btn-success" (click)="savePurchaseInfo(order)">Save</button>
                                     </div>
-                                  </div>
-                                </div>
-                                <div class="row" *ngIf="purchaseInfo[order.ordercode] || (order.current_status == 'READY2PURCHASE' && purchaseInfo[order.ordercode])">
-                                  <div class="col-md-12">
-                                    <a href="javascript: void(0);" (click)="purchaseInfo[order.ordercode] = false;"><<< Hide purchase info</a>
                                   </div>
                                 </div>
                               </div>
