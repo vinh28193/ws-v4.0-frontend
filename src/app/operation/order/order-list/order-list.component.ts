@@ -1786,8 +1786,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   openUpdateJustPayment(order) {
       this.check_update_payment = order.check_update_payment;
-      this.checkOpenPaymentTransaction = true;
-      this.loadWalletTransaction(order.ordercode);
+      this.checkOpenPaymentTransaction = !this.checkOpenPaymentTransaction;
+      if (this.checkOpenPaymentTransaction) {
+        this.loadWalletTransaction(order.ordercode);
+      }
   }
   loadWalletTransaction(code) {
     this.orderService.get(`pay/${code}`).subscribe(rs => {
