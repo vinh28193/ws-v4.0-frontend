@@ -782,22 +782,22 @@
                                     Arrears
                                   </button>
 
-                                  <div *ngIf="checkBuynow(order)">
-                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"
-                                       class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank"
-                                       (click)="buyNow(order)" i18n>Buy Now</a>
-                                  </div>
+<!--                                  <div *ngIf="checkBuynow(order)">-->
+<!--                                    <a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"-->
+<!--                                       class="btn btn-secondary btn-sm mr-2 mb-2 add-on" target="_blank"-->
+<!--                                       (click)="buyNow(order)" i18n>Buy Now</a>-->
+<!--                                  </div>-->
 
                                   <!--<button *ngIf="checkUpdatenow(order)" type="button" class="btn btn-secondary mr-2 mb-2 btn-sm" (click)="openUpdateOrder(order);updateOrder.show();">-->
                                   <!--<i class="fa fa-edit mr-1 " aria-hidden="true"></i> Update Order Purchase-->
                                   <!--</button>-->
 
 
-                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"
-                                          class="btn btn-secondary mb-2 mr-2 btn-sm"
-                                          (click)="buynowClick(order)" i18n>
-                                    <i class="fa fa-shopping-cart"></i> Buy Now
-                                  </button>
+<!--                                  <button *ngIf="checkBuynow(order) && !_scope.checkMkt()" type="button"-->
+<!--                                          class="btn btn-secondary mb-2 mr-2 btn-sm"-->
+<!--                                          (click)="buynowClick(order)" i18n>-->
+<!--                                    <i class="fa fa-shopping-cart"></i> Buy Now-->
+<!--                                  </button>-->
 
                                   <button
                                     *ngIf="order.current_status == 'PURCHASED' && !_scope.checkMkt() && !_scope.checkSale() && !_scope.checkMasterSale()"
