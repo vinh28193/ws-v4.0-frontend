@@ -47,6 +47,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public quantity: any = {};
     public create: any = {};
     public click_pur: any = {};
+    public paymentOne: any = {};
     public orders: any = [];
     public ShoppingCar: any = [];
     public listChatCheck: any = [];
@@ -147,6 +148,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public checkOrderChatRefund = false;
     public checkUpdateOderCode = false;
     public checkUpdateQuantity = false;
+    public checkOpenPaymentTransaction = false;
     orderStatus: any = [];
     searchKeys: any = [];
     timeKeys: any = [];
@@ -841,6 +843,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
                 if (res.success) {
                     this.orderService.put(`pay/${this.code}`, params).subscribe(rs => {
+                      if (rs.success) {
+                        this.loadWalletTransaction(this.code);
+                      }
                     });
                     this.listOrders();
                     this.popup.success(res.message);
@@ -1781,6 +1786,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
   openUpdateJustPayment(order) {
       this.check_update_payment = order.check_update_payment;
+      this.checkOpenPaymentTransaction = true;
+      this.loadWalletTransaction(order.ordercode);
+  }
+  loadWalletTransaction(code) {
+    this.orderService.get(`pay/${code}`).subscribe(rs => {
+      this.paymentOne = rs.data;
+    });
   }
   customStyle = {
     selectButton: {

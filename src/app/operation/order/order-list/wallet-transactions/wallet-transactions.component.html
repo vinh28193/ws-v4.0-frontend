@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let walletTransaction of walletTransactions">
+    <tr>
       <td [innerHTML]="walletTransaction.transaction_code"></td>
       <td [innerHTML]="walletTransaction.transaction_amount_local | number"></td>
       <td [innerHTML]="walletTransaction.transaction_type"></td>

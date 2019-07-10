@@ -1110,10 +1110,10 @@
                                                   [orderCode]="order.ordercode"></app-package-item>
                               </div>
                               <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red"
-                                   [hidden]="!pay[order.id]">
+                                   [hidden]="!pay[order.id]" *ngIf="checkOpenPaymentTransaction">
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)"
-                                                         [order_code]="order.ordercode" [check_update_payment]="check_update_payment"
-                                                         [walletTransactions]="order.walletTransactions"></app-wallet-transactions>
+                                                         [order_code]="order.ordercode"
+                                [walletTransaction]="paymentOne"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body"
                                    style="border-bottom: 2px solid red">
