@@ -1762,8 +1762,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n>Quantity</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderOne.products != null">
-                <span>{{quantityOrder(orderOne.products ,orderOne.products['length'])}}</span>
+              <div class="col-md-5 text-right style-padding-left">
+                <span>{{orderOne.total_quantity}}</span>
               </div>
             </div>
             <hr>

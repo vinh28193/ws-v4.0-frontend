@@ -105,6 +105,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public OpenUpdate = false;
   public alive = true;
   public updateOrderId: any;
+  public img_link: any;
   public updateOrderPurchaseId: any;
   public listSeller: any = [];
   public listSale: any = [];
@@ -857,14 +858,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const messagePop = 'Do you want Confirm Adjust Payment';
     const params: any = {};
     params.note = this.editForm.value.note_update_payment + ' :update paid ' + this.editForm.value.total_paid_amount_local;
-    params.link_image = environment.IMG_URL_WH + this.src;
-    console.log(this.editForm.value.link_image);
+    if (this.src) {
+        this.img_link = environment.IMG_URL_WH + this.src;
+    } else {
+      this.img_link = null;
+    }
+    params.link_image = this.img_link;
     this.popup.warning(() => {
       const put = this.orderService.createPostParams({
         total_paid_amount_local: this.editForm.value.total_paid_amount_local,
         note_update_payment: this.editForm.value.note_update_payment,
         check_update_payment: 1,
-        link_image_log: environment.IMG_URL_WH + this.src,
+        link_image_log: this.img_link,
         role: localStorage.getItem('scope')
       }, 'editAdjustPayment');
       this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
