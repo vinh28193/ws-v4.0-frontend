@@ -420,7 +420,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.popup.warning(() => {
         const fd = new FormData();
         fd.append('file', fileUpload[0]);
-        fd.append('typeUpdate', typeUpload);
+        fd.append('type', typeUpload);
         this.orderService.uploadFile('order-save-file', fd).subscribe(res => {
           const rs: any = res;
 
