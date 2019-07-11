@@ -144,3 +144,9 @@ strong {
 .m-l1 {
   margin-left: 2px;
 }
+[type=checkbox]:not(:checked) {
+  opacity: 0;
+}
+[type=checkbox]:checked {
+  opacity: 0;
+}

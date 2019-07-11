@@ -141,6 +141,19 @@
               <li *ngIf="product.purchased && !_sp.checkMkt()">
                 <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})" class="btn btn-sm btn-outline-info" ><i class="fa fa-check"></i> Add Tracking</a>
               </li>
+
+              <li *ngIf="product.check_special == 1">
+                <span class="form-check text-danger">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck" checked>
+                  <label class="form-check-label" for="exampleCheck">Special Product</label>
+                </span>
+              </li>
+              <li *ngIf="product.check_special == 0">
+                <span class="form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Special Product</label>
+                </span>
+              </li>
             </ul>
             <!--<app-edit-local (CheckLoad)="handleCheck($event)" [order_path] = "order_path" [product]="product" [store_id] = "storeID"></app-edit-local>-->
           </div>
