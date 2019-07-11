@@ -61,7 +61,6 @@ export class ChatGroupComponent extends OrderDataComponent implements OnInit {
                 array_list.push(this.chatlists[i].content + '-Type: ' + this.chatlists[i].type);
               }
             }
-            console.log('array_list: ' + JSON.stringify(array_list));
             this.userData = array_list;
         });
          if (text_sugest.length >= 2) {
