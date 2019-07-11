@@ -1450,8 +1450,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.buildListChat();
     params.limit = 20;
     this.orderService.getListTem(params).subscribe(res => {
-      this.listChatTem = res.data;
-      this.totalChat = res.total;
+      this.listChatTem = res.data.model;
+      this.totalChat = res.data.totalCount;
     });
   }
 
