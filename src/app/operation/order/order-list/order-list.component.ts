@@ -195,6 +195,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public orderNotifi: any = [];
   public paramsOrder: any = [];
   public pkh: any;
+  public orderOne: any = {};
   public IMG_URL = '';
   public total_inspection_fee_local = 0;
   public total_insurance_fee_local = 0;
@@ -1261,35 +1262,24 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.code = order.ordercode;
     this.markID = order.id;
     this.checkUpdateOderCode = true;
-    this.getSeller();
+    if (this.orderOne.current_status === 'READY2PURCHASE') {
+      this.formAsignUser = this.fb.group({
+        statusOrderF: 'ready_purchase',
+      });
+    }  else {
+      this.formAsignUser = this.fb.group({
+        statusOrderF: order.current_status.toLocaleLowerCase(),
+      });
+    }
+    this.buildFormCreate();
     this.orderDetail();
+    this.getSeller();
 
   }
 
   orderDetail() {
     this.orderService.get(`order/${this.code}`).subscribe(res => {
-      this.orderList = res.data[0];
-      // console.log(this.orderList.current_status);
-      if (this.orderList.current_status === 'READY2PURCHASE') {
-        this.statusOd = 4;
-      } else {
-        for (let i = 1; i < this.statusOds.length; i++) {
-          const current = this.statusOds[i];
-          console.log(this.statusOds[i]['name']);
-          console.log(this.orderList.current_status);
-          if (this.statusOds[i]['name'] === this.orderList.current_status) {
-            console.log(current.id);
-            this.statusOd = current.id;
-            break;
-          }
-        }
-      }
-      // console.log(this.countOP);
-      console.log(this.statusOd);
-      this.formAsignUser = this.fb.group({
-        statusOrder: this.statusOd,
-      });
-      this.buildFormCreate();
+      this.orderOne = res.data[0];
     });
   }
 
@@ -1307,7 +1297,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.loadForm();
     params.codeAll = this.listChatCheck;
     this.currentStatusOrder = params.status;
-    // console.log(this.currentStatusOrder);
     const put = this.orderService.createPostParams({
       status: params.status,
       current_status: this.currentStatusOrder,
