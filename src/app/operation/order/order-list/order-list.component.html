@@ -2755,21 +2755,21 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     <tr>
                       <td i18n>Customer Fee</td>
                       <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
-                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount * exchange_rate_fee | number}}</td>
                     </tr>
                     <tr>
                       <td i18n>Packing Wood</td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
                     </tr>
-                    <!--<tr>-->
-                      <!--<td i18n>Packing Wood</td>-->
-                      <!--<td class="text-center" collapse="2">{{logUpdateOrder.}}</td>-->
-                    <!--</tr>-->
+                    <tr>
+                      <td i18n>Quantity</td>
+                      <td class="text-center" collapse="2">{{logUpdateOrder.total_quantity}}</td>
+                    </tr>
                     <tr>
                       <td i18n>Total Price Difference</td>
                       <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
-                      <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee) | number}}</td>
+                      <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee, logUpdateOrder.total_custom_fee_amount ? logUpdateOrder.total_custom_fee_amount : 0) | number}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2811,66 +2811,60 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"  [(ngModel)]="boxed_fee">
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-4" i18n>Inspection</div>
-              <div class="col-md-5 pr-0">
-                <!--{{total_inspection_fee_local | currency:'VND'}}-->
-                <div *ngIf="check_inspection == 1">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1" [checked]="checked">
-                    <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">
-                    <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-                <div *ngIf="check_inspection == 0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">
-                    <label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0" [checked]="checked">
-                    <label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-              </div>
-              <!--<div class="col-md-1">-->
-              <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
+            <!--<div class="row">-->
+              <!--<div class="col-md-4" i18n>Inspection</div>-->
+              <!--<div class="col-md-5 pr-0">-->
+                <!--&lt;!&ndash;{{total_inspection_fee_local | currency:'VND'}}&ndash;&gt;-->
+                <!--<div *ngIf="check_inspection == 1">-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1" [checked]="checked">-->
+                    <!--<label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>-->
+                  <!--</div>-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">-->
+                    <!--<label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div *ngIf="check_inspection == 0">-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">-->
+                    <!--<label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>-->
+                  <!--</div>-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="check_inspection" id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0" [checked]="checked">-->
+                    <!--<label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>-->
+                  <!--</div>-->
+                <!--</div>-->
               <!--</div>-->
-            </div>
-            <div class="row">
-              <div class="col-md-4" i18n>Insurance</div>
-              <div class="col-md-5 pr-0">
-                <!--{{total_insurance_fee_local | currency:'VND'}}-->
-                <div *ngIf="check_insurance == 1">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">
-                    <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance3" [value]="0">
-                    <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
-                  </div>
-                </div>
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<div class="col-md-4" i18n>Insurance</div>-->
+              <!--<div class="col-md-5 pr-0">-->
+                <!--&lt;!&ndash;{{total_insurance_fee_local | currency:'VND'}}&ndash;&gt;-->
+                <!--<div *ngIf="check_insurance == 1">-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance1" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1" [checked]="checked">-->
+                    <!--<label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>-->
+                  <!--</div>-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance3" [value]="0">-->
+                    <!--<label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>-->
+                  <!--</div>-->
+                <!--</div>-->
 
-                <div *ngIf="check_insurance == 0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1">
-                    <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance2" [value]="0" [checked]="checked">
-                    <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
-                  </div>
-                </div>
+                <!--<div *ngIf="check_insurance == 0">-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" id="check_insurance4" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance" [value]="1">-->
+                    <!--<label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>-->
+                  <!--</div>-->
+                  <!--<div class="form-check form-check-inline">-->
+                    <!--<input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions" [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance2" [value]="0" [checked]="checked">-->
+                    <!--<label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>-->
+                  <!--</div>-->
+                <!--</div>-->
 
-              </div>
-              <!--<div class="col-md-1">-->
-              <!--<i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>-->
               <!--</div>-->
-            </div>
+            <!--</div>-->
             <div class="row">
               <div class="col-md-12">
                 <button class="btn btn-info btn-sm" (click)="updatePackingWood()" *ngIf="OpenUpdate" i18n>

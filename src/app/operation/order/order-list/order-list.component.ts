@@ -53,6 +53,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
     public total: any;
+    public img_Link: any;
     public  url: string;
     public countOP: any;
     public chatId: any;
@@ -855,6 +856,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     confirmAdjustPayment() {
         const messagePop = 'Do you want Confirm Adjust Payment';
         const params: any = {};
+        if (this.src) {
+          this.img_Link = environment.IMG_URL_WH + this.src;
+        } else {
+          this.img_Link = null;
+        }
         params.note = this.editForm.value.note_update_payment  + ' :update paid ' +  this.editForm.value.total_paid_amount_local;
         params.link_image = environment.IMG_URL_WH + this.src;
         console.log(this.editForm.value.link_image);
@@ -863,7 +869,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 total_paid_amount_local: this.editForm.value.total_paid_amount_local,
                 note_update_payment: this.editForm.value.note_update_payment,
                 check_update_payment: 1,
-                link_image_log: environment.IMG_URL_WH + this.src,
+                link_image_log: this.img_Link,
                 role: localStorage.getItem('scope')
             }, 'editAdjustPayment');
             this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
@@ -984,7 +990,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkConfirmOrder(order) {
-        if (order.current_status === 'NEW' || order.current_status === 'CONTACTING' || order.current_status === 'AWAITING_PAYMENT') {
+        if (order.current_status === 'NEW' || order.current_status === 'CONTACTING' || order.current_status === 'AWAITING_PAYMENT'  || order.current_status === 'SUPPORTED' || order.current_status === 'SUPPORTING') {
           return true;
         }
     }
@@ -1787,12 +1793,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.checkOpenEditWood = true;
       }
   }
-  totalAll(a, b) {
+  totalAll(a, b, d) {
     if (this.check_packing_wood === 1) {
-      const c = toNumber(a) + (toNumber(b) * toNumber(this.exchange_rate_fee));
+      const c = toNumber(a) + (toNumber(b) * toNumber(this.exchange_rate_fee)) + (toNumber(d) * toNumber(this.exchange_rate_fee));
       return c;
     } else {
-      const c = toNumber(a);
+      const c = toNumber(a) + (toNumber(d) * toNumber(this.exchange_rate_fee));
       return c;
     }
   }
