@@ -1286,10 +1286,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   loadForm() {
     const value = this.formAsignUser.value;
     const params: any = {};
-    if (value.statusOrder !== '') {
-      params.status = value.statusOrder;
+    if (value.statusOrderF !== '') {
+      params.status = value.statusOrderF;
     }
-    params.ordercode = this.orderList.ordercode;
+    params.ordercode = this.code;
     return params;
   }
 
