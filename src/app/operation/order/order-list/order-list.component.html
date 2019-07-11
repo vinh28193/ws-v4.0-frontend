@@ -2718,38 +2718,47 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     <thead>
                         <tr>
                           <th></th>
-                          <th class="text-center">Chênh lệch USD</th>
-                          <th class="text-center">Chênh lệch <span *ngIf="OrderAll.store_id == 1">VND</span><span *ngIf="OrderAll.store_id == 7">IDR</span></th>
+                          <th class="text-center" i18n>Price difference USD</th>
+                          <th class="text-center" i18n>Price difference <span *ngIf="OrderAll.store_id == 1">VND</span><span *ngIf="OrderAll.store_id == 7">IDR</span></th>
                         </tr>
                     </thead>
                   <tbody>
                     <tr>
-                      <td>Giá đơn hàng</td>
+                      <td i18n>Price Order</td>
                       <td class="text-center">{{logUpdateOrder.total_price_amount_origin | number}}</td>
                       <td class="text-center">{{logUpdateOrder.total_origin_fee_local | number}}</td>
                     </tr>
                     <tr>
-                      <td>Phí vận chuyển nội địa</td>
+                      <td i18n>Shipping Fee</td>
                       <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_amount}}</td>
                       <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_local}}</td>
                     </tr>
                     <tr>
-                      <td>Thuế bang</td>
+                      <td i18n>Tax Fee</td>
                       <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_local | number}}</td>
                       <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_amount | number}}</td>
                     </tr>
                     <tr>
-                      <td>Phí mua hộ</td>
+                      <td i18n>Purchase fee</td>
                       <td class="text-center">{{logUpdateOrder.total_weshop_fee_amount | number}}</td>
                       <td class="text-center">{{logUpdateOrder.total_weshop_fee_local | number}}</td>
                     </tr>
                     <tr>
-                      <td>Phí đóng gỗ</td>
+                      <td i18n>Customer Fee</td>
+                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
+                    </tr>
+                    <tr>
+                      <td i18n>Packing Wood</td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
                     </tr>
                     <tr>
-                      <td>Tổng chênh lệch</td>
+                      <td i18n>Packing Wood</td>
+                      <td class="text-center" collapse="2">{{logUpdateOrder.}}</td>
+                    </tr>
+                    <tr>
+                      <td i18n>Total Price Difference</td>
                       <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
                       <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee) | number}}</td>
                     </tr>
