@@ -4,113 +4,119 @@ import {EncryptionService} from '../../core/service/encryption.service';
 import {PopupService} from '../../core/service/popup.service';
 import {HttpClient} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { shareReplay, map } from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {shareReplay, map} from 'rxjs/operators';
 
 declare var $: any;
 const CACHE_SIZE = 1;
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class OrderService extends OperationService {
-     // private cache$: Observable<Array<Order>>;
-    // ToDo @Phuchc Cahes https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html  --> Làm review cho Notification
-    // Vi Order Array nhieu doi tuong
+  // private cache$: Observable<Array<Order>>;
+  // ToDo @Phuchc Cahes https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html  --> Làm review cho Notification
+  // Vi Order Array nhieu doi tuong
 
-    constructor(
-        public http: HttpClient,
-        public encryption: EncryptionService,
-        public popup: PopupService) {
-        super(http, encryption, popup);
+  constructor(
+    public http: HttpClient,
+    public encryption: EncryptionService,
+    public popup: PopupService) {
+    super(http, encryption, popup);
 
-    }
+  }
 
-    getEx(url, item: any | undefined) {
-      return this.get('ex', item);
-    }
-    getPut(url, item: any | undefined) {
-        return this.put(`order/${url}`, item);
-    }
+  getEx(url, item: any | undefined) {
+    return this.get('ex', item);
+  }
 
-    // async search(filter: any | undefined) {
-    //     return await  this.get('order', filter).toPromise();
-    // }
+  getPut(url, item: any | undefined) {
+    return this.put(`order/${url}`, item);
+  }
 
-     search(filter: any | undefined) {
-        return   this.get('order', filter);
-    }
+  // async search(filter: any | undefined) {
+  //     return await  this.get('order', filter).toPromise();
+  // }
 
-    getAdditional(filter: any | undefined) {
-      return   this.get('additional', filter);
-    }
+  search(filter: any | undefined) {
+    return this.get('order', filter);
+  }
 
-    ListShopping(filter: any | undefined) {
-      return   this.get('cart', filter);
-    }
+  getAdditional(filter: any | undefined) {
+    return this.get('additional', filter);
+  }
 
-    postChat(item: any | undefined) {
-        return this.post(`chat`, item);
-    }
+  ListShopping(filter: any | undefined) {
+    return this.get('cart', filter);
+  }
 
-    listChatMongo(item: any | undefined) {
-      return this.getNoLoad(`list-chat-mongo`, item);
-    }
+  postChat(item: any | undefined) {
+    return this.post(`chat`, item);
+  }
 
-    putProduct(url, item: any | undefined) {
-        return this.put(`product/${url}`, item);
-    }
+  listChatMongo(item: any | undefined) {
+    return this.getNoLoad(`list-chat-mongo`, item);
+  }
 
-    patchChat(url, item: any | undefined) {
-        return this.patch(`chat-service/${url}`, item);
-    }
+  putProduct(url, item: any | undefined) {
+    return this.put(`product/${url}`, item);
+  }
 
-    putPurchase(url, item: any | undefined) {
-        return this.put('purchase/' + url, item);
-    }
+  patchChat(url, item: any | undefined) {
+    return this.patch(`chat-service/${url}`, item);
+  }
 
-    /**
-     * @param {any | {}} order
-     * @param {any | null} scenario
-     * @return {any[]}
-     */
-    createPostParams(order: any | {}, scenario?: any | null) {
-        const params: any = {};
-        params.Order = order;
-        if (this.isValidValue(scenario)) {
-            params.OrderScenario = scenario;
-        }
-        return params;
-    }
+  putPurchase(url, item: any | undefined) {
+    return this.put('purchase/' + url, item);
+  }
 
-    createCart(url, item: any | undefined) {
-        return this.post('purchase/' + url, item);
+  /**
+   * @param {any | {}} order
+   * @param {any | null} scenario
+   * @return {any[]}
+   */
+  createPostParams(order: any | {}, scenario?: any | null) {
+    const params: any = {};
+    params.Order = order;
+    if (this.isValidValue(scenario)) {
+      params.OrderScenario = scenario;
     }
-    getForPurchase(url, item: any | undefined) {
-        return this.get('purchase-account' + url, item);
-    }
-    getListTem(filter: any | undefined) {
-      return this.get('list-chat-mongo', filter);
-    }
+    return params;
+  }
 
-    getListCardPayment(url, item: any | undefined) {
-        return this.post('card-payment', item);
-    }
+  createCart(url, item: any | undefined) {
+    return this.post('purchase/' + url, item);
+  }
 
-    putProductFee(url, item: any | undefined) {
-        return this.put('fee/' + url, item);
-    }
+  getForPurchase(url, item: any | undefined) {
+    return this.get('purchase-account' + url, item);
+  }
 
-    getListWarehouse(url, item: any | undefined) {
-        return this.get('warehouse', item);
-    }
+  getListTem(filter: any | undefined) {
+    return this.get('list-chat-mongo', filter);
+  }
 
-    removeCartPurchase(id) {
-        return this.delete('purchase/delete/' + id);
-    }
+  getListCardPayment(url, item: any | undefined) {
+    return this.post('card-payment', item);
+  }
 
-    postPurchaseService(url, item: any | undefined) {
-        return this.post('purchase-account/' + url, item);
-    }
+  putProductFee(url, item: any | undefined) {
+    return this.put('fee/' + url, item);
+  }
 
+  getListWarehouse(url, item: any | undefined) {
+    return this.get('warehouse', item);
+  }
+
+  removeCartPurchase(id) {
+    return this.delete('purchase/delete/' + id);
+  }
+
+  postPurchaseService(url, item: any | undefined) {
+    return this.post('purchase-account/' + url, item);
+  }
+
+  uploadFile($url, data) {
+    return this.post($url, data);
+  }
 }
