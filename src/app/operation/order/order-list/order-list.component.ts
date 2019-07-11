@@ -52,7 +52,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public ShoppingCar: any = [];
     public listChatCheck: any = [];
     public listTrackingLog: any = [];
-    public orderLists: any = {};
     public total: any;
     public  url: string;
     public countOP: any;
@@ -84,7 +83,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     public stockin_us: any;
     public countUS: any;
     public metaShopping: any = {};
-    public orderOne: any = {};
     public dateTime: Date;
     public orderIdChat: any;
     public code: any;
@@ -409,19 +407,45 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
 
-    createChatSupporting() {
-        const value = this.chatSupporting.value;
-        const params: any = {};
-        if (value !== '') {
-            params.content = value.messageSupporting;
-            params.content = params.content.replace(/\n/g, '</br>');
-        }
-        // console.log(params);
-        this.orderService.post('chatlists', params).subscribe(res => {
-            this.buildChat();
-            this.listChatsSupporting();
+  public handleFileChange(event) {
+    const fileUpload = event.target.files;
+    const typeUpload = event.target.dataset.typeUpload;
+    if (fileUpload.length === 0 || typeof typeUpload === 'undefined') {
+      this.popup.error('Can not update now, try again !', 'Ejected !');
+    } else {
+      this.popup.warning(() => {
+        const fd = new FormData();
+        fd.append('file', fileUpload[0]);
+        fd.append('typeUpdate', typeUpload);
+        this.orderService.post('order-upload', fd).subscribe(res => {
+          const rs: any = res;
+          this.popup.success(rs.message, 'Info');
+          $('#updateFile').val('');
         });
+      }, 'Update multiple data type ' + typeUpload, 'Confirm');
     }
+  }
+
+  updateFileMultiple(type) {
+    const fileInput = $('#updateFile');
+    fileInput.attr('data-type-upload', type);
+    fileInput.val('');
+    fileInput.trigger('click');
+  }
+
+  createChatSupporting() {
+    const value = this.chatSupporting.value;
+    const params: any = {};
+    if (value !== '') {
+      params.content = value.messageSupporting;
+      params.content = params.content.replace(/\n/g, '</br>');
+    }
+    // console.log(params);
+    this.orderService.post('chatlists', params).subscribe(res => {
+      this.buildChat();
+      this.listChatsSupporting();
+    });
+  }
 
 
     ActiveChatSupporting(index, active) {
@@ -450,36 +474,36 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         });
     }
 
-    listOrders() {
-        const params = this.prepareSearch();
-        this.orderService.search(params).subscribe(res => {
-            const result: any = res;
-            if (result.message === 'Success') {
-                // this.popup.success(result.message);
-                const data: any = result.data;
-                this.orders = data._items;
-                this.totalOrder = data._meta.totalCount;
-                // console.log(' data Order : ' + JSON.stringify(this.orders));
-                this.orders = Object.entries(data._items).map(e => {
-                    return e[1];
-                });
-                /**
-                this.totalUnPaid = data._summary.totalUnPaid;
-                this.countPurchase = data._summary.countPurchase;
-                this.purchase2Day = data._summary.countPC;
-                this.stockin_us = data._summary.countStockin;
-                this.noTrackingCount = data._summary.noTracking;
-                this.countUS = data._summary.countUS;
-                */
-                this.totalCount = data.totalCount;
-                this.pageCount = data.pageCount;
-                this.currentPage = data.page;
-                this.perPage = data.size;
-            } else {
-                this.popup.error(result.message);
-            }
+  listOrders() {
+    const params = this.prepareSearch();
+    this.orderService.search(params).subscribe(res => {
+      const result: any = res;
+      if (result.message === 'Success') {
+        // this.popup.success(result.message);
+        const data: any = result.data;
+        this.orders = data._items;
+        this.totalOrder = data._meta.totalCount;
+        // console.log(' data Order : ' + JSON.stringify(this.orders));
+        this.orders = Object.entries(data._items).map(e => {
+          return e[1];
         });
-    }
+        /**
+         this.totalUnPaid = data._summary.totalUnPaid;
+         this.countPurchase = data._summary.countPurchase;
+         this.purchase2Day = data._summary.countPC;
+         this.stockin_us = data._summary.countStockin;
+         this.noTrackingCount = data._summary.noTracking;
+         this.countUS = data._summary.countUS;
+         */
+        this.totalCount = data._meta.totalCount;
+        this.pageCount = data._meta.pageCount;
+        this.currentPage = data._meta.currentPage;
+        this.perPage = data._meta.perPage;
+      } else {
+        this.popup.error(result.message);
+      }
+    });
+  }
 
     quantityOrder(quantityC, quantityL) {
         let quantityA = 0;
@@ -739,6 +763,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
                 this.listLog = rs.data;
             });
         }
+    }
+
+    checkCustomer(item) {
+        if (item.length > 0) {
+            for (let i = 0; i < item.length; i++) {
+                if (item[i]['custom_category_id'] !== '' && item[i]['custom_category_id'] !== null) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
     }
 
     cancelOrder(id) {
@@ -1210,37 +1246,47 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     openUpdateOrderCode(order) {
         this.statusOds = StatusOrder;
         this.code = order.ordercode;
-        this.orderLists = order;
         this.markID = order.id;
         this.checkUpdateOderCode = true;
-        if (this.orderOne.current_status === 'READY2PURCHASE') {
-          this.formAsignUser = this.fb.group({
-            statusOrderF: 'ready_purchase',
-          });
-        }  else {
-          this.formAsignUser = this.fb.group({
-            statusOrderF: order.current_status.toLocaleLowerCase(),
-          });
-        }
-        this.buildFormCreate();
-        this.orderDetail();
         this.getSeller();
+        this.orderDetail();
 
     }
 
-        orderDetail() {
-            this.orderService.get(`order/${this.code}`).subscribe(res => {
-                this.orderOne = res.data[0];
+    orderDetail() {
+        this.orderService.get(`order/${this.code}`).subscribe(res => {
+            this.orderList = res.data[0];
+            // console.log(this.orderList.current_status);
+            if (this.orderList.current_status === 'READY2PURCHASE') {
+                this.statusOd = 4;
+            } else {
+                for (let i = 1; i < this.statusOds.length; i++) {
+                    const current = this.statusOds[i];
+                    console.log(this.statusOds[i]['name']);
+                  console.log(this.orderList.current_status);
+                    if (this.statusOds[i]['name'] === this.orderList.current_status) {
+                        console.log(current.id);
+                        this.statusOd = current.id;
+                        break;
+                    }
+                }
+            }
+            // console.log(this.countOP);
+            console.log(this.statusOd);
+            this.formAsignUser = this.fb.group({
+                statusOrder: this.statusOd,
             });
-        }
+            this.buildFormCreate();
+        });
+    }
 
     loadForm() {
         const value = this.formAsignUser.value;
         const params: any = {};
-        if (value.statusOrderF !== '') {
-            params.status = value.statusOrderF;
+        if (value.statusOrder !== '') {
+            params.status = value.statusOrder;
         }
-        params.ordercode = this.orderOne.ordercode;
+        params.ordercode = this.orderList.ordercode;
         return params;
     }
 
@@ -1248,6 +1294,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         const params = this.loadForm();
         params.codeAll = this.listChatCheck;
         this.currentStatusOrder = params.status;
+        // console.log(this.currentStatusOrder);
         const put = this.orderService.createPostParams({
             status: params.status,
             current_status: this.currentStatusOrder,
@@ -1329,7 +1376,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         if (value.price_amount_local_pro !== '') {
             params.price_amount_local_pro = value.price_amount_local_pro;
         }
-        if (value.seller_id !== '' || value.seller_id !== '') {
+        if (value.seller_id !== '' || value.seller_id !== 'All Seller') {
             params.seller_id = value.seller_id;
         }
         params.id = this.markID;

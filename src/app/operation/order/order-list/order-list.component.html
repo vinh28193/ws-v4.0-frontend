@@ -207,7 +207,7 @@
               <!--</div>-->
             </div>
           </div>
-          <div *ngIf="!checkShoppingCart" class="col-md-6 pt-3">
+          <div *ngIf="!checkShoppingCart" class="col-md-6">
             <span i18n>Showing </span>
             <select class="form-control-sm select-custom"
                     (change)="handlePerPage($event)">
@@ -217,7 +217,9 @@
               <option value="200">200</option>
               <option value="all" i18n>All</option>
             </select>
-            <!--span><p i18n>of page</p>{{perPage ? perPage : 0  }}<p i18n>in</p>{{pageCount ? pageCount : 0 }}<p i18n>page in total</p>{{totalCount ? totalCount : 0 }} <p i18n>items</p></span-->
+            <span><span i18n> of page </span>{{perPage }}<span
+              i18n> in </span>{{pageCount }}<span
+              i18n> page in total </span>{{totalOrder  }} <span i18n> items</span></span>
           </div>
           <div *ngIf="!checkShoppingCart" class="col-md-6">
             <pagination [boundaryLinks]="true"
@@ -229,8 +231,15 @@
             </pagination>
           </div>
         </form>
-
-        <strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item </strong>
+        <section class="row upload-zone mt-2">
+          <div class="col-md-12 text-right">
+            <input style="display: none" type="file" id="updateFile" (change)="handleFileChange($event)">
+            <div class="button-group">
+                <button class="btn btn-sm btn-danger" (click)="updateFileMultiple('orderEbay')">Upload Order Ebay</button>
+                <button class="btn btn-sm btn-success" (click)="updateFileMultiple('orderEbay')">Upload Order Amazon</button>
+            </div>
+          </div>
+        </section>
         <!--<section class="row item-operation mt-2">-->
           <!--<div class="col-md-12" *ngIf="_scope.checkRoleOption() && !checkShoppingCart">-->
             <!--<strong>Total: <span class="text-danger mr-1">{{totalOrder}}</span>item </strong>-->
