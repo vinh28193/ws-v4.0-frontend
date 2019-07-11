@@ -1875,7 +1875,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   savePurchaseInfo(order) {
-    if (order.current_status === 'READY2PURCHASE') {
+    if (order.current_status === 'READY2PURCHASE' || order.current_status === 'PURCHASING') {
       order.purchase_order_id = this.purchaseOrder;
       order.purchase_transaction_id = this.purchaseTransaction;
     }
