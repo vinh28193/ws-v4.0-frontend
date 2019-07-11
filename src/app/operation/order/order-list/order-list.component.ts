@@ -678,7 +678,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkMarkAsJunk(status, priceCheck) {
-        if ((status !== 'NEW' || status !== 'SUPPORTING' || status !== 'SUPPORTED' || status !== 'CANCELLED')) {
+        if ((status !== 'NEW' || status !== 'CONTACTING' || status !== 'AWAITING_PAYMENT' || status !== 'CANCELLED')) {
             if (priceCheck > 0) {
                 return true;
             }
@@ -901,8 +901,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkIs(order) {
-        if (order.current_status === 'NEW' || order.current_status === 'SUPPORTED'
-            || order.current_status === 'SUPPORTING' ||  order.current_status === 'REFUNDING'
+        if (order.current_status === 'NEW' || order.current_status === 'AWAITING_PAYMENT'
+            || order.current_status === 'CONTACTING' ||  order.current_status === 'REFUNDING'
             || order.current_status === 'REFUNDED' || order.current_status === 'CANCELLED'
         ) {
             return true;
@@ -940,7 +940,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         }
     }
     checkCancel(item) {
-        if (item === 'NEW' || item === 'SUPPORTED' || item === 'SUPPORTING') {
+        if (item === 'NEW' || item === 'CONTACTING' || item === 'AWAITING_PAYMENT') {
             if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
                 return true;
             }
@@ -948,7 +948,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     }
 
     checkConfirmOrder(order) {
-        if (order.current_status === 'NEW' || order.current_status === 'SUPPORTING' || order.current_status === 'SUPPORTED') {
+        if (order.current_status === 'NEW' || order.current_status === 'CONTACTING' || order.current_status === 'AWAITING_PAYMENT') {
           return true;
         }
     }
@@ -1122,7 +1122,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
     updateMarkWaiting() {
         const params = this.prepareMarkWaiting();
-        const messagePop = 'Do you want mark supporting';
+        const messagePop = 'Do you want mark Contacting';
         if (params.message) {
             this.orderService.postChat(params).subscribe(res => {
             });
@@ -1135,7 +1135,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
         this.popup.warning(() => {
             const put = this.orderService.createPostParams({
                 mark_supporting: params.mark,
-                current_status: 'SUPPORTING',
+                current_status: 'CONTACTING',
             }, 'updateMarkSupporting');
             this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
                 if (res.success) {
@@ -1831,14 +1831,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
             }
         });
     }
-    checkShowStatusSellerShip(order) {
-        return order.current_status !== 'PURCHASED' && order.current_status !== 'READY2PURCHASE' &&
-            order.current_status !== 'NEW' && order.current_status !== 'SUPPORTING' &&
-            order.current_status !== 'SUPPORTED' && order.current_status !== 'SUPPORTED';
-    }
     isShowPurchaseInfo(order) {
-        return order.current_status !== 'NEW' && order.current_status !== 'SUPPORTING' &&
-            order.current_status !== 'SUPPORTED' && order.current_status !== 'SUPPORTED';
+        return order.current_status !== 'NEW' && order.current_status !== 'CONTACTING' &&
+            order.current_status !== 'AWAITING_PAYMENT' && order.current_status !== 'AWAITING_PAYMENT';
     }
 }
 
