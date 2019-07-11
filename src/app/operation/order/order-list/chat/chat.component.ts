@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderDataComponent} from '../../order-data.component';
 import {OrderService} from '../../order.service';
 import {PopupService} from '../../../../core/service/popup.service';
@@ -15,6 +15,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
     @Input() code: any = null;
     @Input() status: any = null;
     @Input() id: any = null;
+    @Output() loadOrder = new EventEmitter();
     public matchesList1: any = [];
     public listChat: any = [];
     public userData: any = [];

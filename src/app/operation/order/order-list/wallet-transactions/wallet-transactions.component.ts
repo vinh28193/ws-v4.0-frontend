@@ -12,7 +12,7 @@ import {NotifierService} from 'angular-notifier';
   styleUrls: ['./wallet-transactions.component.css']
 })
 export class WalletTransactionsComponent extends OrderDataComponent implements OnInit {
-  @Input() walletTransactions: any;
+  @Input() walletTransaction: any;
   @Input() check_update_payment: any;
   @Input() order_code = '';
   @Output() showPopup: EventEmitter<any> = new EventEmitter<any>();
@@ -26,10 +26,6 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
   }
 
   ngOnInit() {
-    if (this.check_update_payment === 1) {
-        this.orderService.put(`pay/${this.order_code}`, undefined).subscribe(res => {
-        });
-    }
   }
   checkView() {
     if (this._sp.checkSuperAdmin()) {

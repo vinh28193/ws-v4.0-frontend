@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let walletTransaction of walletTransactions">
+    <tr>
       <td [innerHTML]="walletTransaction.transaction_code"></td>
       <td [innerHTML]="walletTransaction.transaction_amount_local | number"></td>
       <td [innerHTML]="walletTransaction.transaction_type"></td>
@@ -34,8 +34,8 @@
         </a>
         <span *ngIf="!checkView()">{{walletTransaction.payment_bank_code}}</span>
       </td>
-      <td [innerHTML]="walletTransaction.created_at"></td>
-      <td [innerHTML]="walletTransaction.updated_at"></td>
+      <td> {{walletTransaction.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+      <td> {{walletTransaction.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
     </tr>
   </tbody>
 </table>
