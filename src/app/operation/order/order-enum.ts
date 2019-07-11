@@ -60,9 +60,10 @@ export const StatusOrder = [
   {id: 4, key: 'ready_purchase', name: 'READY2PURCHASE'},
   {id: 5, key: 'purchasing', name: 'PURCHASING'},
   {id: 6, key: 'awaiting_confirm_purchase', name: 'AWAITING_CONFIRM_PURCHASE'},
-  {id: 7, key: 'delivering', name: 'DELIVERING'},
-  {id: 8, key: 'delivered', name: 'DELIVERED'},
-  {id: 9, key: 'returned', name: 'RETURNED'},
-  {id: 10, key: 'cancelled', name: 'CANCELLED'},
-  {id: 11, key: 'junk', name: 'JUNK'},
+  {id: 7, key: 'purchased', name: 'PURCHASED'},
+  {id: 8, key: 'delivering', name: 'DELIVERING'},
+  {id: 9, key: 'delivered', name: 'DELIVERED'},
+  {id: 10, key: 'refunded', name: 'REFUNDED'},
+  {id: 11, key: 'cancelled', name: 'CANCELLED'},
+  {id: 12, key: 'junk', name: 'JUNK'}
 ];
