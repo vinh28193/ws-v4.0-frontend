@@ -23,7 +23,7 @@ export const timeKeys = [
     {key: 'order.refunded', name: 'Time Delivered'},
     {key: 'order.delivered', name: 'Time Delivered'},
     {key: 'order.cancel', name: 'Time Cancelled'},
-    {key: 'order.lost', name: 'Time Lost'},
+    {key: 'order.junk', name: 'Time Junk'},
     // {key: '', name: 'Time Confirm Purchase'},
     // {key: '', name: 'At Customer'},
 ];
@@ -52,6 +52,7 @@ export const orderStatus = [
     {key: 'DELIVERED', name: 'Delivered'},
     {key: 'REFUNDED', name: 'Refunded order'},
     {key: 'CANCELLED', name: 'Cancel order'},
+    {key: 'JUNK', name: 'Junk'},
 ];
 export const StatusOrder = [
   {id: 1, key: 'new', name: 'NEW'},
@@ -60,9 +61,10 @@ export const StatusOrder = [
   {id: 4, key: 'ready_purchase', name: 'READY2PURCHASE'},
   {id: 5, key: 'purchasing', name: 'PURCHASING'},
   {id: 6, key: 'awaiting_confirm_purchase', name: 'AWAITING_CONFIRM_PURCHASE'},
-  {id: 7, key: 'delivering', name: 'DELIVERING'},
-  {id: 8, key: 'delivered', name: 'DELIVERED'},
-  {id: 9, key: 'returned', name: 'RETURNED'},
-  {id: 10, key: 'cancelled', name: 'CANCELLED'},
-  {id: 11, key: 'junk', name: 'JUNK'},
+  {id: 7, key: 'purchased', name: 'PURCHASED'},
+  {id: 8, key: 'delivering', name: 'DELIVERING'},
+  {id: 9, key: 'delivered', name: 'DELIVERED'},
+  {id: 10, key: 'refunded', name: 'REFUNDED'},
+  {id: 11, key: 'cancelled', name: 'CANCELLED'},
+  {id: 12, key: 'junk', name: 'JUNK'}
 ];

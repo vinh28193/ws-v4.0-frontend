@@ -91,6 +91,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public proId: any;
   public codeG: any;
   public checkLoad = false;
+  public checkOpenEditInspection = false;
   public checkPur = false;
   public checkLoadG = false;
   public checkShoppingCart = false;
@@ -105,6 +106,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public OpenUpdate = false;
   public alive = true;
   public updateOrderId: any;
+  public inspection_fee: any;
+  public img_link: any;
   public updateOrderPurchaseId: any;
   public listSeller: any = [];
   public listSale: any = [];
@@ -194,6 +197,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public orderNotifi: any = [];
   public paramsOrder: any = [];
   public pkh: any;
+  public orderOne: any = {};
   public IMG_URL = '';
   public total_inspection_fee_local = 0;
   public total_insurance_fee_local = 0;
@@ -857,14 +861,18 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const messagePop = 'Do you want Confirm Adjust Payment';
     const params: any = {};
     params.note = this.editForm.value.note_update_payment + ' :update paid ' + this.editForm.value.total_paid_amount_local;
-    params.link_image = environment.IMG_URL_WH + this.src;
-    console.log(this.editForm.value.link_image);
+    if (this.src) {
+        this.img_link = environment.IMG_URL_WH + this.src;
+    } else {
+      this.img_link = null;
+    }
+    params.link_image = this.img_link;
     this.popup.warning(() => {
       const put = this.orderService.createPostParams({
         total_paid_amount_local: this.editForm.value.total_paid_amount_local,
         note_update_payment: this.editForm.value.note_update_payment,
         check_update_payment: 1,
-        link_image_log: environment.IMG_URL_WH + this.src,
+        link_image_log: this.img_link,
         role: localStorage.getItem('scope')
       }, 'editAdjustPayment');
       this.orderService.put(`order/${this.AdjustPaymentOderId}`, put).subscribe(res => {
@@ -1012,11 +1020,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.exchange_rate_fee = order.exchange_rate_fee;
     this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
     this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
+    this.inspection_fee = order.inspection_fee ? order.inspection_fee : 0;
     this.check_inspection = order.check_inspection ? order.check_inspection : 0;
     this.check_insurance = order.check_insurance ? order.check_insurance : 0;
     this.checkUpdateConfirm = true;
     this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe(res => {
-      this.logUpdateOrder = res.data.diff_value;
+      if (res.data) {
+        this.logUpdateOrder = res.data.diff_value;
+      }
     });
   }
 
@@ -1256,45 +1267,34 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.code = order.ordercode;
     this.markID = order.id;
     this.checkUpdateOderCode = true;
-    this.getSeller();
+    if (this.orderOne.current_status === 'READY2PURCHASE') {
+      this.formAsignUser = this.fb.group({
+        statusOrderF: 'ready_purchase',
+      });
+    }  else {
+      this.formAsignUser = this.fb.group({
+        statusOrderF: order.current_status.toLocaleLowerCase(),
+      });
+    }
+    this.buildFormCreate();
     this.orderDetail();
+    this.getSeller();
 
   }
 
   orderDetail() {
     this.orderService.get(`order/${this.code}`).subscribe(res => {
-      this.orderList = res.data[0];
-      // console.log(this.orderList.current_status);
-      if (this.orderList.current_status === 'READY2PURCHASE') {
-        this.statusOd = 4;
-      } else {
-        for (let i = 1; i < this.statusOds.length; i++) {
-          const current = this.statusOds[i];
-          console.log(this.statusOds[i]['name']);
-          console.log(this.orderList.current_status);
-          if (this.statusOds[i]['name'] === this.orderList.current_status) {
-            console.log(current.id);
-            this.statusOd = current.id;
-            break;
-          }
-        }
-      }
-      // console.log(this.countOP);
-      console.log(this.statusOd);
-      this.formAsignUser = this.fb.group({
-        statusOrder: this.statusOd,
-      });
-      this.buildFormCreate();
+      this.orderOne = res.data[0];
     });
   }
 
   loadForm() {
     const value = this.formAsignUser.value;
     const params: any = {};
-    if (value.statusOrder !== '') {
-      params.status = value.statusOrder;
+    if (value.statusOrderF !== '') {
+      params.status = value.statusOrderF;
     }
-    params.ordercode = this.orderList.ordercode;
+    params.ordercode = this.code;
     return params;
   }
 
@@ -1302,7 +1302,6 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.loadForm();
     params.codeAll = this.listChatCheck;
     this.currentStatusOrder = params.status;
-    // console.log(this.currentStatusOrder);
     const put = this.orderService.createPostParams({
       status: params.status,
       current_status: this.currentStatusOrder,
@@ -1456,8 +1455,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params = this.buildListChat();
     params.limit = 20;
     this.orderService.getListTem(params).subscribe(res => {
-      this.listChatTem = res.data;
-      this.totalChat = res.total;
+      this.listChatTem = res.data.model;
+      this.totalChat = res.data.totalCount;
     });
   }
 
@@ -1796,6 +1795,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.ID = id;
     if (this.check_packing_wood === 1) {
       this.checkOpenEditWood = true;
+    } if (this.check_inspection === 1) {
+      this.checkOpenEditInspection = true;
     }
   }
 
@@ -1881,7 +1882,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   savePurchaseInfo(order) {
-    if (order.current_status === 'READY2PURCHASE') {
+    if (order.current_status === 'READY2PURCHASE' || order.current_status === 'PURCHASING') {
       order.purchase_order_id = this.purchaseOrder;
       order.purchase_transaction_id = this.purchaseTransaction;
     }

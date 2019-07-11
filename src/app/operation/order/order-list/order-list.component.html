@@ -328,19 +328,19 @@
 
                               <hr style="margin: 5px;">
 
-                              <div class="mt-1">
-                                <ul>
-                                  <li class="purchase_order_id">
-                                    <div class="sty-font purchase_order_id"><span i18n>Order code </span> {{order.portal
-                                      | uppercase }} : <span class="ml-1">{{order.purchase_order_id}}</span></div>
-                                  </li>
-                                  <li class="purchase_transaction">
-                                    <div class="sty-font purchase_transaction_id"><span i18n>Transaction </span>
-                                      {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_transaction_id}}</span>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
+<!--                              <div class="mt-1">-->
+<!--                                <ul>-->
+<!--                                  <li class="purchase_order_id">-->
+<!--                                    <div class="sty-font purchase_order_id"><span i18n>Order code </span> {{order.portal-->
+<!--                                      | uppercase }} : <span class="ml-1">{{order.purchase_order_id}}</span></div>-->
+<!--                                  </li>-->
+<!--                                  <li class="purchase_transaction">-->
+<!--                                    <div class="sty-font purchase_transaction_id"><span i18n>Transaction </span>-->
+<!--                                      {{order.portal | uppercase }} : <span class="ml-1">{{order.purchase_transaction_id}}</span>-->
+<!--                                    </div>-->
+<!--                                  </li>-->
+<!--                                </ul>-->
+<!--                              </div>-->
 
                               <hr style="margin: 5px;">
 
@@ -913,56 +913,66 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <hr>
-                                  <h6>Purchase Info</h6>
-                                </div>
-                              </div>
-                              <div class="row" *ngIf="isShowPurchaseInfo(order)">
-                                <div class="col-md-12 row ">
-                                  <ng-container *ngIf="order.portal == 'AMAZON'">
-                                    <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
-                                    <div class="col-md-7 text-right">
-                                      <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                      <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
-                                    </div>
-                                  </ng-container>
-                                  <ng-container *ngIf="order.portal == 'EBAY'">
-                                    <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
-                                    <div class="col-md-7 text-right">
-                                      <div>
-                                        <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                        <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                              <div class="" *ngIf="isShowPurchaseInfo(order)">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <hr>
+                                          <h6>Purchase Info</h6>
                                       </div>
-                                    </div>
-                                    <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
-                                    <div class="col-md-7 text-right">
-                                      <div>
-                                        <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
-                                        <span *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="row ">
+                                          <ng-container *ngIf="order.portal == 'AMAZON'">
+                                              <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
+                                                  <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                              </div>
+                                          </ng-container>
+                                          <ng-container *ngIf="order.portal == 'EBAY'">
+                                              <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <div>
+                                                      <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
+                                                      <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <div>
+                                                      <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
+                                                      <span *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
+                                                  </div>
+                                              </div>
+                                          </ng-container>
                                       </div>
-                                    </div>
-                                  </ng-container>
-                                </div>
-                                <div class="col-md-12 row ">
-                                  <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
-                                  <div class="col-md-7 text-right">
-                                    <div *ngIf="order.trackingCodes">
-                                      <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
-                                    </div>
                                   </div>
-                                  <div class="col-md-5  pr-0 pl-3 mt-2"></div>
-                                  <div class="col-md-7 text-right mt-2">
-                                    <div class="btn-group">
-                                      <input class="form-control" [(ngModel)]="trackingCodeIp">
-                                      <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
-                                    </div>
+                                  <div class="form-group">
+                                      <div class="row ">
+                                          <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
+                                          <div class="col-md-7 text-right">
+                                              <div *ngIf="order.trackingCodes">
+                                                  <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-5  pr-0 pl-3 mt-2"></div>
+                                          <div class="col-md-7 text-right mt-2">
+                                              <div class="btn-group">
+                                                  <input class="form-control" [(ngModel)]="trackingCodeIp">
+                                                  <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
+                                              </div>
+                                          </div>
+                                      </div>
                                   </div>
-                                  <div class="col-md-5  pr-0 pl-3">Note</div>
-                                  <div class="col-md-7 text-right">
-                                    <textarea [(ngModel)]="order.purchase_note" rows="6" class="form-control"></textarea>
+                                  <div class="form-group">
+                                      <div class="row">
+                                          <div class="col-md-5  pr-0 pl-3">Note</div>
+                                          <div class="col-md-7 text-right">
+                                              <textarea [(ngModel)]="order.purchase_note" rows="6" class="form-control"></textarea>
+                                          </div>
+                                      </div>
                                   </div>
+                                <div class="col-md-12 row">
                                   <div class="col-md-12">
                                     <button class="btn btn-success" (click)="savePurchaseInfo(order)">Save</button>
                                   </div>
@@ -1068,11 +1078,11 @@
                                     (click)="pay[order.id] = !pay[order.id]; openUpdateJustPayment(order)">
                                   <button class="btn btn-sm bg-white mr-2 style-but" i18n>Payment Transaction</button>
                                 </li>
-                                <li class="tab-slider--trigger" rel="tab2"
-                                    *ngIf="order.purchased  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
-                                    (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">
-                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Purchase info</button>
-                                </li>
+<!--                                <li class="tab-slider&#45;&#45;trigger" rel="tab2"-->
+<!--                                    *ngIf="order.purchased  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"-->
+<!--                                    (click)="pur[order.id] = !pur[order.id];click_pur[order.id] = true">-->
+<!--                                  <button class="btn btn-sm bg-white mr-2 style-but" i18n>Purchase info</button>-->
+<!--                                </li>-->
                                 <li class="tab-slider--trigger" rel="tab2"
                                     *ngIf="checkShowPay()  && order.current_status != 'NEW' && !_scope.checkAccountant() && !_scope.checkMasterAccountant()"
                                     (click)="pack[order.id] = !pack[order.id]">
@@ -1098,7 +1108,7 @@
                                                   [orderCode]="order.ordercode"></app-package-item>
                               </div>
                               <div id="tab3" class="tab-slider--body" style="border-bottom: 2px solid red"
-                                   [hidden]="!pay[order.id]" *ngIf="checkOpenPaymentTransaction">
+                                   [hidden]="!pay[order.id]">
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event)"
                                                          [order_code]="order.ordercode"
                                 [walletTransaction]="paymentOne"></app-wallet-transactions>
@@ -1762,8 +1772,8 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
               <div class="col-md-7 style-padding-right  dong">
                 <span i18n>Quantity</span>
               </div>
-              <div class="col-md-5 text-right style-padding-left" *ngIf="orderOne.products != null">
-                <span>{{quantityOrder(orderOne.products ,orderOne.products['length'])}}</span>
+              <div class="col-md-5 text-right style-padding-left">
+                <span>{{orderOne.total_quantity}}</span>
               </div>
             </div>
             <hr>
@@ -2088,12 +2098,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{orderOne.delivering * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderOne.current_status === 'DELEVERED' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'DELIVERED' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Delivered:</div>
                 <div class="col-md-7 text-right" *ngIf="orderOne.delivered">
                   <a href="javascript:void(0)"
                      (click)="updateNull('delivered', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderOne.delivered * 1000| date:'dd/MM/yyyy HH:mm:ss'}}
+                  {{ orderOne.delivered * 1000| date:'dd/MM/yyyy HH:mm:ss' }}
                 </div>
               </div>
               <div class="row {{orderOne.current_status === 'REFUNDED' ? 'text-warning' : ''}}">
@@ -2360,7 +2370,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5; max-width: 80%">
     <div class="modal-content" uib-modal-transclude="">
       <div class="modal-header ng-scope bg-success">
-        <h3 class="modal-title text-white" i18n>List template mark order for supporting</h3>
+        <h3 class="modal-title text-white" i18n>List template mark order for contacting</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>Close</span>
@@ -2402,7 +2412,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
           </div>
           <div class="col-md-6">
             <pagination [boundaryLinks]="true"
-                        [totalItems]="totalCount"
+                        [totalItems]="totalChat"
                         (pageChanged)="handlePagination($event)"
                         [itemsPerPage]="perPage" class="pagination-sm pull-right"
                         [rotate]="true">
@@ -2585,6 +2595,10 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
           <textarea id="description_transaction" class="form-control form-control-sm"
                     [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
         </div>
+        <div class="form-group text-right">
+          <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)" i18n>Confirm Order</button>
+          <button class="btn btn-danger btn-sm" (click)="offOption()" i18n>Cancel</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2755,21 +2769,21 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                     <tr>
                       <td i18n>Customer Fee</td>
                       <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
-                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
+                      <td class="text-center">{{logUpdateOrder.total_custom_fee_amount * exchange_rate_fee | number}}</td>
                     </tr>
                     <tr>
                       <td i18n>Packing Wood</td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
                     </tr>
-                    <!--<tr>-->
-                      <!--<td i18n>Packing Wood</td>-->
-                      <!--<td class="text-center" collapse="2">{{logUpdateOrder.}}</td>-->
-                    <!--</tr>-->
+                    <tr>
+                      <td i18n>Quantity</td>
+                      <td class="text-center" collapse="2">{{logUpdateOrder.total_quantity}}</td>
+                    </tr>
                     <tr>
                       <td i18n>Total Price Difference</td>
                       <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
-                      <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee) | number}}</td>
+                      <td class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee, logUpdateOrder.total_custom_fee_amount ? logUpdateOrder.total_custom_fee_amount : 0) | number}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2805,7 +2819,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row" [hidden]="check_packing_wood == 0" *ngIf="checkOpenEditWood">
               <div class="col-md-4">
-                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Total Boxed fee ($) </span></a>
+                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Packing fee ($) </span></a>
               </div>
               <div class="col-md-6">
                 <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"  [(ngModel)]="boxed_fee">
@@ -2836,9 +2850,14 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </div>
                 </div>
               </div>
-              <!--<div class="col-md-1">-->
-              <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
-              <!--</div>-->
+            </div>
+            <div class="row" [hidden]="check_inspection == 0" *ngIf="checkOpenEditInspection">
+              <div class="col-md-4">
+                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Inspection fee ($) </span></a>
+              </div>
+              <div class="col-md-6">
+                <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"  [(ngModel)]="inspection_fee">
+              </div>
             </div>
             <div class="row">
               <div class="col-md-4" i18n>Insurance</div>
@@ -2867,9 +2886,6 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 </div>
 
               </div>
-              <!--<div class="col-md-1">-->
-              <!--<i class="fa fa-edit" (click)="pbh = !pbh; openEditfeee()"></i>-->
-              <!--</div>-->
             </div>
             <div class="row">
               <div class="col-md-12">
