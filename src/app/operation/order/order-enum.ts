@@ -65,5 +65,5 @@ export const StatusOrder = [
   {id: 9, key: 'delivered', name: 'DELIVERED'},
   {id: 10, key: 'refunded', name: 'REFUNDED'},
   {id: 11, key: 'cancelled', name: 'CANCELLED'},
-  {id: 12, key: 'junk', name: 'JUNK'},
+  {id: 12, key: 'junk', name: 'JUNK'}
 ];
