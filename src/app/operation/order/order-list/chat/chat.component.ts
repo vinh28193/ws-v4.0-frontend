@@ -54,7 +54,7 @@ export class ChatComponent extends OrderDataComponent implements OnInit {
       params.show = 1;
       this.orderService.listChatMongo(params).subscribe(res => {
         const result1: any = res;
-        this.listChat = result1.data;
+        this.listChat = res.data.model;
         const array_list: any = [];
         for (let i = 0; i < this.listChat.length; i++) {
         if (toNumber(this.listChat[i]['status']) === 1) {
