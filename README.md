@@ -83,3 +83,12 @@ npm i angular2-image-upload
 
 
 <select _ngcontent-c2="" class="form-control form-control-sm ng-pristine ng-valid ng-touched" formcontrolname="orderStatus" id="orderStatus" name="orderStatus"><option _ngcontent-c2="" value="ALL">--All Status--</option><!----><option _ngcontent-c2="" value="POTENTIAL">Potential</option><option _ngcontent-c2="" value="SUPPORTING">Supporting</option><option _ngcontent-c2="" value="SUPPORTED">Supported</option><option _ngcontent-c2="" value="READY2PURCHASE">Ready2Purchase</option><option _ngcontent-c2="" value="PURCHASING">Purchasing</option><option _ngcontent-c2="" value="PURCHASE_PENDING">Purchase pending</option><option _ngcontent-c2="" value="PURCHASED">Purchased</option><option _ngcontent-c2="" value="EXPWH_STOCKOUT">US warehouse</option><option _ngcontent-c2="" value="">Delivering US</option><option _ngcontent-c2="" value="IMPWH_STOCKIN">Local warehouse</option><option _ngcontent-c2="" value="CUSTOMER_RECEIVED">Success order</option><option _ngcontent-c2="" value="REFUNDED">Refunded order</option><option _ngcontent-c2="" value="CANCELLED">Cancel order</option><option _ngcontent-c2="" value="REPLACED">Replaced order</option><option _ngcontent-c2="" value="JUNK">Junk</option><option _ngcontent-c2="" value="">SanBox</option></select>
+
+
+
+#--------------Deploy Code -----------------
+cd /var/www/ws-operation
+ng build --prod
+
+rm -rf /var/www/ws-operation-dist/*
+cp -r /var/www/ws-operation/dist /var/www/ws-operation-dist/ops-nginx
