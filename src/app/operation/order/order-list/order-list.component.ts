@@ -91,6 +91,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public proId: any;
   public codeG: any;
   public checkLoad = false;
+  public checkOpenEditInspection = false;
   public checkPur = false;
   public checkLoadG = false;
   public checkShoppingCart = false;
@@ -105,6 +106,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public OpenUpdate = false;
   public alive = true;
   public updateOrderId: any;
+  public inspection_fee: any;
   public img_link: any;
   public updateOrderPurchaseId: any;
   public listSeller: any = [];
@@ -1018,6 +1020,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.exchange_rate_fee = order.exchange_rate_fee;
     this.check_packing_wood = order.check_packing_wood ? order.check_packing_wood : 0;
     this.boxed_fee = order.boxed_fee ? order.boxed_fee : 0;
+    this.inspection_fee = order.inspection_fee ? order.inspection_fee : 0;
     this.check_inspection = order.check_inspection ? order.check_inspection : 0;
     this.check_insurance = order.check_insurance ? order.check_insurance : 0;
     this.checkUpdateConfirm = true;
@@ -1790,6 +1793,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.ID = id;
     if (this.check_packing_wood === 1) {
       this.checkOpenEditWood = true;
+    } if (this.check_inspection === 1) {
+      this.checkOpenEditInspection = true;
     }
   }
 
