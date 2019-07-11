@@ -2088,7 +2088,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   {{orderOne.delivering * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                 </div>
               </div>
-              <div class="row {{orderOne.current_status === 'DELEVERED' ? 'text-warning' : ''}}">
+              <div class="row {{orderOne.current_status === 'DELIVERED' ? 'text-warning' : ''}}">
                 <div class="col-md-5  pr-0" i18n>Delivered:</div>
                 <div class="col-md-7 text-right" *ngIf="orderOne.delivered">
                   <a href="javascript:void(0)"
