@@ -2093,7 +2093,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div class="col-md-7 text-right" *ngIf="orderOne.delivered">
                   <a href="javascript:void(0)"
                      (click)="updateNull('delivered', orderOne.id)"><i class="fa fa-remove mr-2 text-danger"></i></a>
-                  {{ orderOne.delivered * 1000| date:'dd/MM/yyyy HH:mm:ss'}}
+                  {{ orderOne.delivered * 1000| date:'dd/MM/yyyy HH:mm:ss' }}
                 </div>
               </div>
               <div class="row {{orderOne.current_status === 'REFUNDED' ? 'text-warning' : ''}}">
