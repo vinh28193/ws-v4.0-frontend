@@ -47,7 +47,7 @@
                 <span class="mr-2" i18n>ParentId:</span>
                 <app-span-label [value]="product.parent_sku"></app-span-label>
               </li>
-              <li class="text-danger variations">
+              <li class="text-danger variations" *ngIf="product.variations">
                 <span class="mr-2" i18n>Item Variant:</span>
                 <app-span-label [value]="product.variations"></app-span-label>
                 <a href="javascript:void(0);" *ngIf="!_sp.checkMkt()" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
