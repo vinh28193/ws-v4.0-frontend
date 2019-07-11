@@ -99,6 +99,18 @@ export class BaseComponent implements NotifyInterface {
     checkAdminAccess() {
         return this.scope === 'superAdmin';
     }
+    checkMasterOperationAccess() {
+        return this.scope === 'master_operation' || this.checkAdminAccess();
+    }
+    checkOperationAccess() {
+        return this.scope === 'operation' || this.checkMasterOperationAccess();
+    }
+    checkMasterSaleAccess() {
+        return this.scope === 'master_sale' || this.checkAdminAccess();
+    }
+    checkSaleAccess() {
+        return this.scope === 'sale' || this.checkMasterSaleAccess();
+    }
     startLoading() {
         if (this.enableLoading) {
             $('#loading').css('display', 'block');
