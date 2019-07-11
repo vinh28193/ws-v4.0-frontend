@@ -839,13 +839,13 @@
                                 <div [hidden]="!statusShow[order.id]">
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n>Contacting:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.contacting">{{order.contacting |
+                                    <div class="col-md-7 text-right" *ngIf="order.contacting">{{order.contacting * 1000 |
                                       date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
                                   </div>
                                   <div class="row">
                                     <div class="col-md-5 pr-0" i18n>Awaiting payment:</div>
-                                    <div class="col-md-7 text-right" *ngIf="order.awaiting_payment">{{order.awaiting_payment |
+                                    <div class="col-md-7 text-right" *ngIf="order.awaiting_payment">{{order.awaiting_payment * 1000 |
                                       date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
                                   </div>
@@ -858,13 +858,13 @@
                                   <div class="row">
                                     <div class="col-md-6 pr-0" i18n>Purchasing:</div>
                                     <div class="col-md-6 text-right" *ngIf="order.purchasing">{{
-                                      order.purchasing | date:'dd/MM/yyyy HH:mm:ss '}}
+                                      order.purchasing * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}
                                     </div>
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Awaiting Confirm Purchase:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.awaiting_confirm_purchase">{{order.awaiting_confirm_purchase |
+                                  <div class="col-md-6 text-right" *ngIf="order.awaiting_confirm_purchase">{{order.awaiting_confirm_purchase * 1000 |
                                     date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
@@ -876,31 +876,31 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Delivering:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.delivering">{{order.delivering |
+                                  <div class="col-md-6 text-right" *ngIf="order.delivering">{{order.delivering * 1000 |
                                     date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6 pr-0" i18n>Delivered:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.delivered">{{order.delivered |
+                                  <div class="col-md-6 text-right" *ngIf="order.delivered">{{order.delivered * 1000 |
                                     date:'dd/MM/yyyy HH:mm:ss '}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Refunded:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.refunded">{{order.refunded |
+                                  <div class="col-md-7 text-right" *ngIf="order.refunded">{{order.refunded * 1000 |
                                     date:'dd/MM/yyyy HH:mm:ss'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-6  pr-0" i18n>Cancelled:</div>
-                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled |
+                                  <div class="col-md-6 text-right" *ngIf="order.cancelled">{{order.cancelled * 1000 |
                                     date:'dd/MM/yyyy HH:mm:ss'}}
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-5  pr-0" i18n>Junk:</div>
-                                  <div class="col-md-7 text-right" *ngIf="order.junk">{{order.junk | date:'dd/MM/yyyy HH:mm:ss'}}
+                                  <div class="col-md-7 text-right" *ngIf="order.junk">{{order.junk * 1000 | date:'dd/MM/yyyy HH:mm:ss'}}
                                   </div>
                                 </div>
                               </div>
