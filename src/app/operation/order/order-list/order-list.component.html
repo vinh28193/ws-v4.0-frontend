@@ -2762,10 +2762,10 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
                       <td class="text-center"><span *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
                     </tr>
-                    <tr>
-                      <td i18n>Packing Wood</td>
-                      <td class="text-center" collapse="2">{{logUpdateOrder.}}</td>
-                    </tr>
+                    <!--<tr>-->
+                      <!--<td i18n>Packing Wood</td>-->
+                      <!--<td class="text-center" collapse="2">{{logUpdateOrder.}}</td>-->
+                    <!--</tr>-->
                     <tr>
                       <td i18n>Total Price Difference</td>
                       <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
