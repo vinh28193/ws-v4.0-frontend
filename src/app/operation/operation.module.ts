@@ -17,99 +17,103 @@ import {SpanLabelComponent} from './span-label/span-label.component';
 import {CurrentStatusPipe} from './pipes/current-status.pipe';
 import {QuotationStatusPipe} from './pipes/quotation-status.pipe';
 import {ProductFeePipe} from './pipes/ProductFee.pipe';
-import { SerialNumerPipe } from './pipes/serial-numer.pipe';
-import { SerialCharPipe } from './pipes/serial-char.pipe';
-import { CurrencyStorePipe } from './pipes/currency-store.pipe';
+import {SerialNumerPipe} from './pipes/serial-numer.pipe';
+import {SerialCharPipe} from './pipes/serial-char.pipe';
+import {CurrencyStorePipe} from './pipes/currency-store.pipe';
 import {TimeMessagePipe} from './pipes/time-message.pipe';
-import { MarkSupportingPipe } from './pipes/mark-supporting.pipe';
-import { TypeTrackingPipe } from './pipes/type-tracking.pipe';
+import {MarkSupportingPipe} from './pipes/mark-supporting.pipe';
+import {TypeTrackingPipe} from './pipes/type-tracking.pipe';
 import {PagingCustomComponent} from './paging-custom/paging-custom.component';
-import { TrackingLogComponent } from './tracking-log/tracking-log.component';
+import {TrackingLogComponent} from './tracking-log/tracking-log.component';
 import {BsDatepickerModule, ModalModule, PaginationModule, PopoverModule, TooltipModule, TypeaheadModule} from 'ngx-bootstrap';
-import { WarehouseComponent } from './warehouse/warehouse.component';
+import {WarehouseComponent} from './warehouse/warehouse.component';
 import {StatusTrackingPipe} from './pipes/status-tracking.pipe';
-import { DeliveryNoteComponent } from './delivery-note/delivery-note.component';
-import { WalletComponent } from './wallet/wallet.component';
-import { ClientComponent } from './wallet/client/client.component';
-import { TransactionComponent } from './wallet/transaction/transaction.component';
-import { ViewLogTrackingComponent } from './view-log-tracking/view-log-tracking.component';
-import { NotificationBackgroundPipe } from './pipes/notification-background.pipe';
-import { PotentialPipe } from './pipes/potential.pipe';
-import { UserComponent } from './user/user.component';
-import { ExchangeRateComponent } from './exchange-rate/exchange-rate.component';
+import {DeliveryNoteComponent} from './delivery-note/delivery-note.component';
+import {WalletComponent} from './wallet/wallet.component';
+import {ClientComponent} from './wallet/client/client.component';
+import {TransactionComponent} from './wallet/transaction/transaction.component';
+import {ViewLogTrackingComponent} from './view-log-tracking/view-log-tracking.component';
+import {NotificationBackgroundPipe} from './pipes/notification-background.pipe';
+import {PotentialPipe} from './pipes/potential.pipe';
+import {UserComponent} from './user/user.component';
+import {ExchangeRateComponent} from './exchange-rate/exchange-rate.component';
+import {InventoryComponent} from './inventory/inventory.component';
+import {InventoryService} from './inventory/inventory.service';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        OperationRoutingModule,
-        LoadingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ModalModule.forRoot(),
-        PaginationModule.forRoot(),
-        BsDatepickerModule.forRoot(),
-        TooltipModule.forRoot(),
-        PopoverModule,
-    ],
-    declarations: [
-        OperationRoutingComponent,
-        CamelizePipe,
-        IconFlagPipe,
-        OrderTypeClassPipe,
-        OrderTypePipe,
-        QuotationPipe,
-        QuotationStatusClassPipe,
-        StorePipe,
-        SpanLabelComponent,
-        TimeMessagePipe,
-        CurrentStatusPipe,
-        ProductFeePipe,
-        SerialNumerPipe,
-        SerialCharPipe,
-        QuotationStatusPipe,
-        CurrencyStorePipe,
-        MarkSupportingPipe,
-        TypeTrackingPipe,
-        TrackingLogComponent,
-        PagingCustomComponent,
-        WarehouseComponent,
-        StatusTrackingPipe,
-        DeliveryNoteComponent,
-        WalletComponent,
-        ClientComponent,
-        TransactionComponent,
-        ViewLogTrackingComponent,
-        NotificationBackgroundPipe,
-        PotentialPipe,
-        UserComponent,
-        ExchangeRateComponent,
-    ],
-    providers: [
-        OperationService
-    ],
-    exports: [
-        CamelizePipe,
-        IconFlagPipe,
-        OrderTypeClassPipe,
-        OrderTypePipe,
-        QuotationPipe,
-        QuotationStatusClassPipe,
-        StorePipe,
-        SpanLabelComponent,
-        TimeMessagePipe,
-        CurrentStatusPipe,
-        ProductFeePipe,
-        SerialNumerPipe,
-        SerialCharPipe,
-        QuotationStatusPipe,
-        CurrencyStorePipe,
-        MarkSupportingPipe,
-        PagingCustomComponent,
-        ViewLogTrackingComponent,
-        NotificationBackgroundPipe,
-        PotentialPipe,
-    ]
+  imports: [
+    CommonModule,
+    OperationRoutingModule,
+    LoadingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TooltipModule.forRoot(),
+    PopoverModule,
+  ],
+  declarations: [
+    OperationRoutingComponent,
+    CamelizePipe,
+    IconFlagPipe,
+    OrderTypeClassPipe,
+    OrderTypePipe,
+    QuotationPipe,
+    QuotationStatusClassPipe,
+    StorePipe,
+    SpanLabelComponent,
+    TimeMessagePipe,
+    CurrentStatusPipe,
+    ProductFeePipe,
+    SerialNumerPipe,
+    SerialCharPipe,
+    QuotationStatusPipe,
+    CurrencyStorePipe,
+    MarkSupportingPipe,
+    TypeTrackingPipe,
+    TrackingLogComponent,
+    PagingCustomComponent,
+    WarehouseComponent,
+    StatusTrackingPipe,
+    DeliveryNoteComponent,
+    WalletComponent,
+    ClientComponent,
+    TransactionComponent,
+    ViewLogTrackingComponent,
+    NotificationBackgroundPipe,
+    PotentialPipe,
+    UserComponent,
+    ExchangeRateComponent,
+    InventoryComponent
+  ],
+  providers: [
+    OperationService,
+    InventoryService
+  ],
+  exports: [
+    CamelizePipe,
+    IconFlagPipe,
+    OrderTypeClassPipe,
+    OrderTypePipe,
+    QuotationPipe,
+    QuotationStatusClassPipe,
+    StorePipe,
+    SpanLabelComponent,
+    TimeMessagePipe,
+    CurrentStatusPipe,
+    ProductFeePipe,
+    SerialNumerPipe,
+    SerialCharPipe,
+    QuotationStatusPipe,
+    CurrencyStorePipe,
+    MarkSupportingPipe,
+    PagingCustomComponent,
+    ViewLogTrackingComponent,
+    NotificationBackgroundPipe,
+    PotentialPipe,
+  ]
 })
 export class OperationModule {
 }

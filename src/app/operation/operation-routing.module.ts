@@ -9,6 +9,7 @@ import {SourceMessageComponent} from './i18n/source-message/source-message.compo
 import {I18nComponent} from './i18n/i18n.component';
 import {UserComponent} from './user/user.component';
 import {ExchangeRateComponent} from './exchange-rate/exchange-rate.component';
+import {InventoryComponent} from './inventory/inventory.component';
 
 ;
 
@@ -69,6 +70,10 @@ const routes: Routes = [
                 path: 'i18n',
                 loadChildren: './i18n/i18n.module#I18nModule',
             },
+          {
+            path: 'inventory',
+            component: InventoryComponent
+          },
         ]
     }
 ];
