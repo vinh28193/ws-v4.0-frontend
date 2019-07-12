@@ -716,7 +716,7 @@
 
                               <div class="row total_final_amount_local -discount">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Paid amount</span>
+                                  <span class="Ws-bold-font" i18n>Payment Amount</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
@@ -728,7 +728,7 @@
 
                               <hr>
                               <div class="row Paid">
-                                <div class="col-md-6 text-success Ws-bold-font " i18n>Customer paid</div>
+                                <div class="col-md-6 text-success Ws-bold-font " i18n>Prepaid Amount</div>
                                 <div class="col-md-6 text-right text-success">
                                   {{order.total_paid_amount_local | number}}
                                   <span>{{order.store_id | currencyStore}}</span>
@@ -755,19 +755,17 @@
                                 </div>
                               </div-->
 
-                              <div class="row Remaining_amount del_total_refund_amount_local">
-                                <div id="refund" class="col-md-6 text-info Remaining_amount " i18n>Remaining amount</div>
-                                <!--div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
-                                  {{ 0 | number}} <span>{{order.store_id | currencyStore}}</span>
-                                </div>
-                                <div class="col-md-6 text-right text-info style-padding-left min0"  *ngIf="order.total_refund_amount_local > 0">
-                                  {{order.total_refund_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
-                                </div-->
-
+                              <div class="row Remaining_amount del_total_refund_amount_local" *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) <= 0">
+                                <div id="refund" class="col-md-6 text-info Remaining_amount " i18n>Remaining Amount</div>
                                 <div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
                                   {{ getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
-
+                              </div>
+                              <div class="row Remaining_amount del_total_refund_amount_local text-danger" *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) > 0">
+                                <div id="refund1" class="col-md-6 Remaining_amount " i18n>Remaining Amount</div>
+                                <div class="col-md-6 text-right style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                  {{ getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span>
+                                </div>
                               </div>
 
                               <hr>
