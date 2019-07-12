@@ -925,23 +925,32 @@
                                           <ng-container *ngIf="order.portal == 'AMAZON'">
                                               <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
                                               <div class="col-md-7 text-right">
-                                                  <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                                  <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                                  <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder[order.ordercode]">
+                                                  <span *ngIf="order.purchase_order_id">
+                                                      <i class="fa fa-edit" (click)="purchaseOrder[order.ordercode] = order.purchase_order_id; order.purchase_order_id = '';"></i>&nbsp;
+                                                      {{order.purchase_order_id}}
+                                                  </span>
                                               </div>
                                           </ng-container>
                                           <ng-container *ngIf="order.portal == 'EBAY'">
                                               <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
                                               <div class="col-md-7 text-right">
                                                   <div>
-                                                      <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder">
-                                                      <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
+                                                      <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder[order.ordercode]">
+                                                      <span *ngIf="order.purchase_order_id">
+                                                          <i class="fa fa-edit" (click)="purchaseOrder[order.ordercode] = order.purchase_order_id; order.purchase_order_id = '';"></i>&nbsp;
+                                                          {{order.purchase_order_id}}
+                                                      </span>
                                                   </div>
                                               </div>
                                               <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
                                               <div class="col-md-7 text-right">
                                                   <div>
-                                                      <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction">
-                                                      <span *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
+                                                      <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction[order.ordercode]">
+                                                      <span *ngIf="order.purchase_transaction_id">
+                                                          <i class="fa fa-edit" (click)="purchaseTransaction[order.ordercode] = order.purchase_transaction_id; order.purchase_transaction_id = '';"></i>&nbsp;
+                                                          {{order.purchase_transaction_id}}
+                                                      </span>
                                                   </div>
                                               </div>
                                           </ng-container>
@@ -952,7 +961,7 @@
                                           <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
                                           <div class="col-md-7 text-right">
                                               <div *ngIf="order.trackingCodes">
-                                                  <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
+                                                  <div *ngFor="let trackingOrder of order.trackingCodes"><i class="fa fa-remove" (click)="confirmExitTracking(order,trackingOrder)"></i>&nbsp;{{trackingOrder}}</div>
                                               </div>
                                           </div>
                                           <div class="col-md-5  pr-0 pl-3 mt-2"></div>

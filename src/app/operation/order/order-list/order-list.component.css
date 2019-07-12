@@ -144,7 +144,9 @@ h5 {
 .width-max {
   max-width: 1000px;
 }
-
+.fa.fa-edit,.fa.fa-remove {
+  cursor: pointer;
+}
 .style-chat {
   margin-right: 3px;
 }
