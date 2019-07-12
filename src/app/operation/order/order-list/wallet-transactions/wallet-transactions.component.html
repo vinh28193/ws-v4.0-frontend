@@ -29,7 +29,7 @@
         </a>
       </td>
       <td>
-        <a *ngIf="checkView()" [href]="walletTransaction.third_party_transaction_link" tooltip="{{walletTransaction.third_party_transaction_link}}" target="_blank">
+        <a *ngIf="checkView()" href="javascript:void(0)">
           {{walletTransaction.payment_bank_code}}
         </a>
         <span *ngIf="!checkView()">{{walletTransaction.payment_bank_code}}</span>

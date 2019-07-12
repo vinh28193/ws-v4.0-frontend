@@ -2070,13 +2070,11 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <form action="" [formGroup]="formAsignUser">
-                  <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"
-                          name="statusOrder" id="statusOrder"
-                          formControlName="statusOrderF">
-                    <option [value]="statusOdd.key" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
-                  </select>
-                </form>
+                <select class="form-control form-control-sm" (change)="updateOrderCode()" style="width: 100%"
+                        name="statusOrder" id="statusOrder"
+                        [(ngModel)]="statusOrderF">
+                  <option [value]="statusOdd.key" *ngFor="let statusOdd of statusOds">{{statusOdd.name}}</option>
+                </select>
               </div>
             </div>
             <div class="style-row-order">
