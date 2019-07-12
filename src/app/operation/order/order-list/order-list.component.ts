@@ -56,6 +56,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public url: string;
   public countOP: any;
   public chatId: any;
+  public statusOrderF: any;
   public totalChat: any;
   public exchange_rate_fee: any;
   public totalNotifi: any;
@@ -1267,17 +1268,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.code = order.ordercode;
     this.markID = order.id;
     this.checkUpdateOderCode = true;
+    this.orderDetail();
     if (this.orderOne.current_status === 'READY2PURCHASE') {
-      this.formAsignUser = this.fb.group({
-        statusOrderF: 'ready_purchase',
-      });
+      this.statusOrderF = 'ready_purchase';
     }  else {
-      this.formAsignUser = this.fb.group({
-        statusOrderF: order.current_status.toLocaleLowerCase(),
-      });
+      this.statusOrderF = this.orderOne.current_status.toLocaleLowerCase();
     }
     this.buildFormCreate();
-    this.orderDetail();
     this.getSeller();
 
   }
@@ -1285,26 +1282,32 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   orderDetail() {
     this.orderService.get(`order/${this.code}`).subscribe(res => {
       this.orderOne = res.data[0];
+      if (res.success) {
+        if (this.orderOne.current_status === 'READY2PURCHASE') {
+          this.statusOrderF = 'ready_purchase';
+        }  else {
+          this.statusOrderF = this.orderOne.current_status.toLocaleLowerCase();
+        }
+      }
     });
   }
 
-  loadForm() {
-    const value = this.formAsignUser.value;
-    const params: any = {};
-    if (value.statusOrderF !== '') {
-      params.status = value.statusOrderF;
-    }
-    params.ordercode = this.code;
-    return params;
-  }
+  // loadForm() {
+  //   const value = this.formAsignUser.value;
+  //   const params: any = {};
+  //   if (value.statusOrderF !== '') {
+  //     params.status = value.statusOrderF;
+  //   }
+  //   params.ordercode = this.code;
+  //   return params;
+  // }
 
   updateOrderCode() {
-    const params = this.loadForm();
+    const params: any = {};
     params.codeAll = this.listChatCheck;
-    this.currentStatusOrder = params.status;
+    params.ordercode = this.code;
     const put = this.orderService.createPostParams({
-      status: params.status,
-      current_status: this.currentStatusOrder,
+      status: this.statusOrderF,
     }, 'updateOrderStatus');
     this.orderService.put(`order/${this.markID}`, put).subscribe(res => {
       if (res.success) {
