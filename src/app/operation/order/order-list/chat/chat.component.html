@@ -37,11 +37,11 @@
         <div class="card-body">
           <div class="input-group">
             <input  type="textarea" name="" class="form-control type_msg" rows="4"  (keydown.enter)="createChat()" formControlName="message"
-                    (keyup)="getUserIdsFirstWay($event)"  list="dynmicUserIds"
+                    (keyup)="getUserIdsFirstWay($event)"
                     placeholder="Enter the exchange content. Press Shift + Enter to get down the line. Enter to send" i18n-placeholder />
-            <datalist id="dynmicUserIds">
-              <option *ngFor="let item of matchesList1" [value]="item">{{item}}</option>
-            </datalist>
+            <!--<datalist id="dynmicUserIds">-->
+              <!--<option *ngFor="let item of matchesList1" [value]="item">{{item}}</option>-->
+            <!--</datalist>-->
                 <div class="input-group-btn">
                   <button style="height: 80px;" class="btn btn-default" (click)="createChat()" i18n>Sent</button>
                 </div>
