@@ -741,7 +741,7 @@
 
                               <div class="row total_final_amount_local -discount">
                                 <div class="col-md-7 style-padding-right dong">
-                                  <span class="Ws-bold-font" i18n>Paid amount</span>
+                                  <span class="Ws-bold-font" i18n>Payment Amount</span>
                                 </div>
                                 <div class="col-md-5 text-right style-padding-left total_final_amount_local">
                                   <span class="Ws-bold-font">
@@ -753,7 +753,7 @@
 
                               <hr>
                               <div class="row Paid">
-                                <div class="col-md-6 text-success Ws-bold-font " i18n>Customer paid</div>
+                                <div class="col-md-6 text-success Ws-bold-font " i18n>Prepaid Amount</div>
                                 <div class="col-md-6 text-right text-success">
                                   {{order.total_paid_amount_local | number}}
                                   <span>{{order.store_id | currencyStore}}</span>
@@ -780,22 +780,17 @@
                                 </div>
                               </div-->
 
-                              <div class="row Remaining_amount del_total_refund_amount_local">
-                                <div id="refund" class="col-md-6 text-info Remaining_amount " i18n>Remaining amount
+                              <div class="row Remaining_amount del_total_refund_amount_local" *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) <= 0">
+                                <div id="refund" class="col-md-6 text-info Remaining_amount " i18n>Remaining Amount</div>
+                                <div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                  {{ getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
-                                <!--div class="col-md-6 text-right text-info style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
-                                  {{ 0 | number}} <span>{{order.store_id | currencyStore}}</span>
+                              </div>
+                              <div class="row Remaining_amount del_total_refund_amount_local text-danger" *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) > 0">
+                                <div id="refund1" class="col-md-6 Remaining_amount " i18n>Remaining Amount</div>
+                                <div class="col-md-6 text-right style-padding-left minnul min"  *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
+                                  {{ getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) | number}} <span>{{order.store_id | currencyStore}}</span>
                                 </div>
-                                <div class="col-md-6 text-right text-info style-padding-left min0"  *ngIf="order.total_refund_amount_local > 0">
-                                  {{order.total_refund_amount_local | number}} <span>{{order.store_id | currencyStore}}</span>
-                                </div-->
-
-                                <div class="col-md-6 text-right text-info style-padding-left minnul min"
-                                     *ngIf="order.total_refund_amount_local == null || order.total_refund_amount_local == 0 ">
-                                  {{ getRemainingAmount(order.total_final_amount_local, order.total_paid_amount_local) | number}}
-                                  <span>{{order.store_id | currencyStore}}</span>
-                                </div>
-
                               </div>
 
                               <hr>
@@ -942,71 +937,73 @@
                                 </div>
                               </div>
                               <div class="" *ngIf="isShowPurchaseInfo(order)">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <hr>
-                                    <h6>Purchase Info</h6>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row ">
-                                    <ng-container *ngIf="order.portal == 'AMAZON'">
-                                      <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
-                                      <div class="col-md-7 text-right">
-                                        <input class="form-control" *ngIf="!order.purchase_order_id"
-                                               [(ngModel)]="purchaseOrder">
-                                        <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
-                                      </div>
-                                    </ng-container>
-                                    <ng-container *ngIf="order.portal == 'EBAY'">
-                                      <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
-                                      <div class="col-md-7 text-right">
-                                        <div>
-                                          <input class="form-control" *ngIf="!order.purchase_order_id"
-                                                 [(ngModel)]="purchaseOrder">
-                                          <span *ngIf="order.purchase_order_id">{{order.purchase_order_id}}</span>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
-                                      <div class="col-md-7 text-right">
-                                        <div>
-                                          <input class="form-control" *ngIf="!order.purchase_transaction_id"
-                                                 [(ngModel)]="purchaseTransaction">
-                                          <span
-                                            *ngIf="order.purchase_transaction_id">{{order.purchase_transaction_id}}</span>
-                                        </div>
-                                      </div>
-                                    </ng-container>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row ">
-                                    <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
-                                    <div class="col-md-7 text-right">
-                                      <div *ngIf="order.trackingCodes">
-                                        <div *ngFor="let trackingOrder of order.trackingCodes">{{trackingOrder}}</div>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-5  pr-0 pl-3 mt-2"></div>
-                                    <div class="col-md-7 text-right mt-2">
-                                      <div class="btn-group">
-                                        <input class="form-control" [(ngModel)]="trackingCodeIp">
-                                        <button class="btn btn-default"
-                                                (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i
-                                          class="fa fa-plus"></i></button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group">
                                   <div class="row">
-                                    <div class="col-md-5  pr-0 pl-3">Note</div>
-                                    <div class="col-md-7 text-right">
-                                      <textarea [(ngModel)]="order.purchase_note" rows="6"
-                                                class="form-control"></textarea>
-                                    </div>
+                                      <div class="col-md-12">
+                                          <hr>
+                                          <h6>Purchase Info</h6>
+                                      </div>
                                   </div>
-                                </div>
+                                  <div class="form-group">
+                                      <div class="row ">
+                                          <ng-container *ngIf="order.portal == 'AMAZON'">
+                                              <div class="col-md-5  pr-0" i18n>Order Amazon:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder[order.ordercode]">
+                                                  <span *ngIf="order.purchase_order_id">
+                                                      <i class="fa fa-edit" (click)="purchaseOrder[order.ordercode] = order.purchase_order_id; order.purchase_order_id = '';"></i>&nbsp;
+                                                      {{order.purchase_order_id}}
+                                                  </span>
+                                              </div>
+                                          </ng-container>
+                                          <ng-container *ngIf="order.portal == 'EBAY'">
+                                              <div class="col-md-5  pr-0 pl-3" i18n>Order Ebay:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <div>
+                                                      <input class="form-control" *ngIf="!order.purchase_order_id" [(ngModel)]="purchaseOrder[order.ordercode]">
+                                                      <span *ngIf="order.purchase_order_id">
+                                                          <i class="fa fa-edit" (click)="purchaseOrder[order.ordercode] = order.purchase_order_id; order.purchase_order_id = '';"></i>&nbsp;
+                                                          {{order.purchase_order_id}}
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-5  pr-0 pl-3" i18n>PayPal Transaction:</div>
+                                              <div class="col-md-7 text-right">
+                                                  <div>
+                                                      <input class="form-control" *ngIf="!order.purchase_transaction_id" [(ngModel)]="purchaseTransaction[order.ordercode]">
+                                                      <span *ngIf="order.purchase_transaction_id">
+                                                          <i class="fa fa-edit" (click)="purchaseTransaction[order.ordercode] = order.purchase_transaction_id; order.purchase_transaction_id = '';"></i>&nbsp;
+                                                          {{order.purchase_transaction_id}}
+                                                      </span>
+                                                  </div>
+                                              </div>
+                                          </ng-container>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="row ">
+                                          <div class="col-md-5  pr-0 pl-3" i18n>Tracking Seller:</div>
+                                          <div class="col-md-7 text-right">
+                                              <div *ngIf="order.trackingCodes">
+                                                  <div *ngFor="let trackingOrder of order.trackingCodes"><i class="fa fa-remove" (click)="confirmExitTracking(order,trackingOrder)"></i>&nbsp;{{trackingOrder}}</div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-5  pr-0 pl-3 mt-2"></div>
+                                          <div class="col-md-7 text-right mt-2">
+                                              <div class="btn-group">
+                                                  <input class="form-control" [(ngModel)]="trackingCodeIp">
+                                                  <button class="btn btn-default" (click)="order.trackingCodes = pushTracking(order.trackingCodes);"><i class="fa fa-plus"></i></button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="row">
+                                          <div class="col-md-5  pr-0 pl-3">Note</div>
+                                          <div class="col-md-7 text-right">
+                                              <textarea [(ngModel)]="order.purchase_note" rows="6" class="form-control"></textarea>
+                                          </div>
+                                      </div>
+                                  </div>
                                 <div class="col-md-12 row">
                                   <div class="col-md-12">
                                     <button class="btn btn-success" (click)="savePurchaseInfo(order)">Save</button>

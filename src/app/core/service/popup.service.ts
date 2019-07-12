@@ -24,7 +24,7 @@ export class PopupService {
   error(message: string, title: any = null || 'Error') {
     swal({
       title: title,
-      text: message,
+      html: message,
       type: 'error',
       confirmButtonClass: 'btn-danger'
     });
@@ -33,7 +33,7 @@ export class PopupService {
   success(message: string, title: any = null || 'Success') {
     swal({
       title: title,
-      text: message,
+      html: message,
       type: 'success',
       confirmButtonClass: 'btn-success',
       confirmButtonText: 'Success'
@@ -43,7 +43,7 @@ export class PopupService {
   warning(funcAction, message, funcDismiss = null) {
     swal({
       title: 'Are you sure ?',
-      text: message,
+      html: message,
       type: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Back',
@@ -73,7 +73,7 @@ export class PopupService {
   warningChat(funcAction, message, funcDismiss = null) {
     swal({
       title: 'Are you sure chat ?',
-      text: message,
+      html: message,
       type: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Back',
@@ -105,7 +105,7 @@ export class PopupService {
   confirm(funcAction, message, action = 'remove') {
     swal({
       title: 'Are you sure?',
-      text: message,
+      html: message,
       type: 'warning',
       showCancelButton: true,
       confirmButtonClass: 'btn-danger',

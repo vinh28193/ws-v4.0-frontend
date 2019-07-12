@@ -213,8 +213,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   typeSearchKeyWord = '';
   keywordSearch = '';
   trackingCodeIp = '';
-  purchaseOrder = '';
-  purchaseTransaction = '';
+  purchaseOrder = [];
+  purchaseTransaction = [];
   private notifier: NotifierService;
   public ArrayListOrder: any = {};
   public tracking_Insert: any = {
@@ -943,7 +943,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   getRemainingAmount(order_total_final_amount_local, order_total_paid_amount_local) {
     const total_paid_amount_local = Number(order_total_paid_amount_local);
     const total_final_amount_local = Number(order_total_final_amount_local);
-    if (total_paid_amount_local == 0) {
+    if (total_paid_amount_local === 0) {
       return 0;
     }
     return total_final_amount_local - total_paid_amount_local;
@@ -1871,7 +1871,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     trackingCodes.push(this.trackingCodeIp);
     let arrayBest = [];
     for (let ind = 0; ind < trackingCodes.length; ind++) {
-      if (arrayBest.indexOf(trackingCodes[ind]) === -1) {
+      if (trackingCodes[ind] && trackingCodes[ind] !== '' && arrayBest.indexOf(trackingCodes[ind]) === -1) {
         arrayBest.push(trackingCodes[ind]);
       }
     }
@@ -1887,10 +1887,20 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return trackingCodes;
   }
 
+    confirmExitTracking(order, tracking_code) {
+        this.orderService.popup.confirm(() => {
+            order.trackingCodes = this.exitTracking(order.trackingCodes, tracking_code);
+        }, 'Do you want remove tracking ' + tracking_code + ' ?');
+    }
   savePurchaseInfo(order) {
     if (order.current_status === 'READY2PURCHASE' || order.current_status === 'PURCHASING') {
-      order.purchase_order_id = this.purchaseOrder;
-      order.purchase_transaction_id = this.purchaseTransaction;
+      order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
+    }
+    if(!order.purchase_order_id) {
+        order.purchase_order_id = this.purchaseOrder[order.ordercode];
+    }
+    if(!order.purchase_transaction_id) {
+        order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
     }
     order.trackingCodes = this.pushTracking(order.trackingCodes);
     this.orderService.post(`order-s/save-purchase-info`, order).subscribe(res => {
