@@ -17,6 +17,7 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
 import {environment} from '../../../../environments/environment';
+import {DomSanitizer} from '@angular/platform-browser';
 
 declare var jQuery: any;
 declare var $: any;
@@ -232,7 +233,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
               private messagingService: MessagingService,
               public  notifi: NotificationsService,
               public storegate: StorageService,
-              notifier: NotifierService
+              notifier: NotifierService,
+              public sanitizer: DomSanitizer
   ) {
     super(orderService);
     this.notifier = notifier;
@@ -478,6 +480,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.chatlists = result1.data;
 
     });
+  }
+
+  orderCheckOut(store, code) {
+    let host = 'https://weshop.com.vn';
+    if (Number(store) === 7) {
+      host = 'https://weshop.co.id';
+    }
+    return this.sanitizer.bypassSecurityTrustUrl(host + '/checkout.html?code=' + code);
   }
 
   listOrders() {
@@ -1887,20 +1897,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return trackingCodes;
   }
 
-    confirmExitTracking(order, tracking_code) {
-        this.orderService.popup.confirm(() => {
-            order.trackingCodes = this.exitTracking(order.trackingCodes, tracking_code);
-        }, 'Do you want remove tracking ' + tracking_code + ' ?');
-    }
+  confirmExitTracking(order, tracking_code) {
+    this.orderService.popup.confirm(() => {
+      order.trackingCodes = this.exitTracking(order.trackingCodes, tracking_code);
+    }, 'Do you want remove tracking ' + tracking_code + ' ?');
+  }
+
   savePurchaseInfo(order) {
     if (order.current_status === 'READY2PURCHASE' || order.current_status === 'PURCHASING') {
       order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
     }
-    if(!order.purchase_order_id) {
-        order.purchase_order_id = this.purchaseOrder[order.ordercode];
+    if (!order.purchase_order_id) {
+      order.purchase_order_id = this.purchaseOrder[order.ordercode];
     }
-    if(!order.purchase_transaction_id) {
-        order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
+    if (!order.purchase_transaction_id) {
+      order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
     }
     order.trackingCodes = this.pushTracking(order.trackingCodes);
     this.orderService.post(`order-s/save-purchase-info`, order).subscribe(res => {
