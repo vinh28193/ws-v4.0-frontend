@@ -2780,7 +2780,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
-        <h3 class="modal-title text-white" i18n>Confirm order: <span
+        <h3 class="modal-title text-white" i18n>Confirm order:<span
           class="label label-primary ng-binding">{{OrderAll.ordercode}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
@@ -2809,13 +2809,13 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </tr>
                   <tr>
                     <td i18n>Shipping Fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_amount}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_local}}</td>
+                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_amount | number}}</td>
+                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_local | number}}</td>
                   </tr>
                   <tr>
                     <td i18n>Tax Fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_local | number}}</td>
                     <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_amount | number}}</td>
+                    <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_local | number}}</td>
                   </tr>
                   <tr>
                     <td i18n>Purchase fee</td>
