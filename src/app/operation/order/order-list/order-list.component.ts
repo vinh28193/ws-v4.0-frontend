@@ -1035,6 +1035,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.check_inspection = order.check_inspection ? order.check_inspection : 0;
     this.check_insurance = order.check_insurance ? order.check_insurance : 0;
     this.checkUpdateConfirm = true;
+    this.logUpdateOrder = {};
     this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe(res => {
       if (res.data) {
         this.logUpdateOrder = res.data.diff_value;
