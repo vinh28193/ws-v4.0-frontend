@@ -2855,11 +2855,12 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                   </tr>
                   <tr>
                     <td i18n>Quantity</td>
-                    <td class="text-center" collapse="2">{{logUpdateOrder.total_quantity}}</td>
+                    <td></td>
+                    <td class="text-center">{{logUpdateOrder.total_quantity |number }}</td>
                   </tr>
                   <tr>
                     <td i18n>Total Price Difference</td>
-                    <td class="text-center">{{logUpdateOrder.total_final_amount_origin}}</td>
+                    <td class="text-center">{{logUpdateOrder.total_final_amount_origin |number}}</td>
                     <td
                       class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee, logUpdateOrder.total_custom_fee_amount ? logUpdateOrder.total_custom_fee_amount : 0) | number}}</td>
                   </tr>
