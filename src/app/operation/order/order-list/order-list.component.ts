@@ -1283,7 +1283,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     if (this.orderOne.current_status === 'READY2PURCHASE') {
       this.statusOrderF = 'ready_purchase';
     } else {
-      this.statusOrderF = this.orderOne.current_status.toLocaleLowerCase();
+      this.statusOrderF = order.current_status.toLocaleLowerCase();
     }
     this.buildFormCreate();
     this.getSeller();
