@@ -34,6 +34,9 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
   @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;
   @ViewChild('purchaseCard') purchaseCard: ModalDirective;
+
+  @ViewChild(ModalDirective) updateOrderPaymentModal: ModalDirective;
+
   public limit = 20;
   public page = 1;
   public countClickBuyNow = 0;
@@ -222,6 +225,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     tracking_code: '',
     info: []
   };
+  public typePayment = 'addPayment';
   @ViewChild('insertTrackingModal') insertTrackingModal: ModalDirective;
 
   constructor(private orderService: OrderService,
@@ -1929,6 +1933,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   isShowPurchaseInfo(order) {
     return order.current_status !== 'NEW' && order.current_status !== 'CONTACTING' &&
       order.current_status !== 'AWAITING_PAYMENT' && order.current_status !== 'AWAITING_PAYMENT';
+  }
+
+  updateOrderPayment($type, $order) {
+    this.typePayment = $type;
+    this.orderOne = $order;
+    return;
   }
 }
 

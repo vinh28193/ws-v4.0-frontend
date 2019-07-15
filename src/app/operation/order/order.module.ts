@@ -44,6 +44,7 @@ import { ScrollTopComponent } from './order-list/scroll-top/scroll-top.component
 import { ChatCartComponent } from './order-list/shopping-cart/chat-cart/chat-cart.component';
 import { ChatGroupCartComponent } from './order-list/shopping-cart/chat-group-cart/chat-group-cart.component';
 import {ImageUploadModule} from 'angular2-image-upload';
+import { OrderUpdatePaymentComponent } from './order-update-payment/order-update-payment.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -131,6 +132,7 @@ const customNotifierOptions: NotifierOptions = {
         ScrollTopComponent,
         ChatCartComponent,
         ChatGroupCartComponent,
+        OrderUpdatePaymentComponent,
     ],
     providers: [
       OrderService,

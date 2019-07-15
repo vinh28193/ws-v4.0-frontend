@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="form-group">
+      <label for="amount_transaction">Amount</label>
+      <input id="amount_transaction" type="number" [(ngModel)]="amount"
+             class="form-control form-control-sm" placeholder="Amount Transaction">
+    </div>
+    <div class="form-group">
+      <label for="description_transaction">Description</label>
+      <textarea id="description_transaction" class="form-control form-control-sm"
+                [(ngModel)]="description" placeholder="Description"></textarea>
+    </div>
+    <div class="form-group text-right">
+      <button class="btn btn-info btn-sm mr-2" (click)="update()">{{type}}</button>
+      <button class="btn btn-danger btn-sm" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -194,7 +194,8 @@
           <!--</div>-->
           <div class="col-md-12 mt-1">
             <div class="button-group">
-              <button style="width: 12%" class="btn btn-sm btn-success" *ngIf="!checkShoppingCart" (click)="listOrders()"><i
+              <button style="width: 12%" class="btn btn-sm btn-success" *ngIf="!checkShoppingCart"
+                      (click)="listOrders()"><i
                 class="fa fa-search mr-1"></i><span i18n>Search</span></button>
               <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i
                 class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
@@ -457,58 +458,71 @@
 
                               <hr>
 
-                              <div class="row mt-2 col-md-12">
-                                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false" i18n>
-                                  Action
-                                </button>
-                                <div class="dropdown-menu style-d" style="font-size: 11px">
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     *ngIf="!_scope.checkMarketingAccount()"
-                                     id="chatCustomer" href="javascript:void(0);" data-target="#showChat"
-                                     data-toggle="modal" data-backdrop="static"
-                                     (click)="chat(order.id, order.ordercode, order.current_status)"
-                                     data-keyboard="false" i18n>
-                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()"
-                                     id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
-                                     data-toggle="modal" data-backdrop="static"
-                                     (click)="chatG(order.id, order.ordercode, order.current_status)"
-                                     data-keyboard="false" i18n>
-                                    <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     id="notifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)"
-                                     *ngIf="!orderNotiCheck(order.ordercode)" i18n>
-                                    <i class="fa fa-bell mr-1"></i> push notifi Track Orders
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     id="unNotifi" href="javascript:void(0);" (click)="unFollowOrder(order.ordercode)"
-                                     *ngIf="orderNotiCheck(order.ordercode) " i18n>
-                                    <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
-                                    Quit tracking Order
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     href="javascript:void(0);"
-                                     *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()"
-                                     (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()"
-                                     i18n><i class="fa fa-eye mr-1"></i>More Log
-                                  </a>
-                                  <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
-                                     href="javascript:void(0);"
-                                     *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
-                                     (click)="markAsJunk(order.id)" i18n><i class="fa fa-trash-o mr-1"
-                                                                            aria-hidden="true"></i>Mark as Junk
-                                  </a>
+                              <div class="row mt-2">
+                                <div class="col-md-12">
+                                  <div class="button-group">
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
+                                              aria-haspopup="true" aria-expanded="false" i18n>
+                                        Action
+                                      </button>
+                                      <div class="dropdown-menu style-d">
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="!_scope.checkMarketingAccount()"
+                                           id="chatCustomer" href="javascript:void(0);" data-target="#showChat"
+                                           data-toggle="modal" data-backdrop="static"
+                                           (click)="chat(order.id, order.ordercode, order.current_status)"
+                                           data-keyboard="false" i18n>
+                                          <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat With Customer
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           *ngIf="!_scope.checkMarketing() && !_scope.checkMasterMarketing()"
+                                           id="chatCustomerG" href="javascript:void(0);" data-target="#showChatGroup"
+                                           data-toggle="modal" data-backdrop="static"
+                                           (click)="chatG(order.id, order.ordercode, order.current_status)"
+                                           data-keyboard="false" i18n>
+                                          <i class="fa fa-comments mr-1" aria-hidden="true"></i>Chat Group WS
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           id="notifi" href="javascript:void(0);" (click)="followOrder(order.ordercode)"
+                                           *ngIf="!orderNotiCheck(order.ordercode)" i18n>
+                                          <i class="fa fa-bell mr-1"></i> push notifi Track Orders
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           id="unNotifi" href="javascript:void(0);"
+                                           (click)="unFollowOrder(order.ordercode)"
+                                           *ngIf="orderNotiCheck(order.ordercode) " i18n>
+                                          <i class="fa fa-bell-slash mr-1" aria-hidden="true"></i>
+                                          Quit tracking Order
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           href="javascript:void(0);"
+                                           *ngIf="_scope.checkSuperAdmin() || _scope.checkTester() || _scope.checkRoleOption() || _scope.checkSale() || _scope.checkMasterSale()"
+                                           (click)="viewMoreLog(order.current_status, order.ordercode); ModalviewMoreLog.show()"
+                                           i18n><i class="fa fa-eye mr-1"></i>More Log
+                                        </a>
+                                        <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
+                                           href="javascript:void(0);"
+                                           *ngIf="!checkMarkAsJunk(order.current_status, order.total_paid_amount_local) && _scope.CheckSale()"
+                                           (click)="markAsJunk(order.id)" i18n><i class="fa fa-trash-o mr-1"
+                                                                                  aria-hidden="true"></i>Mark as Junk
+                                        </a>
+                                      </div>
+                                    </div>
+
+                                    <button class="btn btn-sm ml-2"
+                                            (click)="logUpdateOrder ={};openConfirmAll(order)"
+                                            data-target="#updateConfirm"
+                                            data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                            *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1"
+                                                                                     aria-hidden="true"></i>Confirm
+                                      Orders
+                                    </button>
+                                  </div>
+                                  <div class="button-group">
+
+                                  </div>
                                 </div>
-                                <button class="btn btn-sm ml-2"
-                                        (click)="logUpdateOrder ={};openConfirmAll(order)" data-target="#updateConfirm"
-                                        data-toggle="modal" data-backdrop="static" data-keyboard="false"
-                                        *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1"
-                                                                                 aria-hidden="true"></i>Confirm Orders
-                                </button>
                               </div>
                             </div>
 
@@ -1037,7 +1051,8 @@
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="btn-group mr-2 mb-2">
                                     <div class="btn-group">
-                                      <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"
+                                      <button type="button" class="btn btn-sm btn-block dropdown-toggle"
+                                              data-toggle="dropdown"
                                               aria-haspopup="true" aria-expanded="false" i18n>
                                         Option
                                       </button>
@@ -1115,6 +1130,24 @@
                                     <span *ngIf="order.mark_supporting"
                                           class="btn btn-sm btn-default Ws-buuton is-support-{{order.mark_supporting}}"><i
                                       class="fa fa-check mr-1"></i> Order Is supporting </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row m-t-10"
+                                   *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)">
+                                <div class="col-md-12 p-0 text-center">
+                                  <div class="button-group">
+                                    <div class="btn-group" role="group" aria-label="Update Payment">
+                                      <button type="button" class="btn btn-sm btn-success"
+                                              *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) >0"
+                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('addPayment',order)">
+                                        Add Payment
+                                      </button>
+                                      <button type="button" class="btn btn-sm btn-danger"
+                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('markRefund',order)">
+                                        Mark Refund
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -3002,6 +3035,25 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #updateOrderPaymentModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" i18n>Update order : {{typePayment}}</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>Close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-order-update-payment [order]="orderOne" [type]="typePayment"
+                                  (close)="updateOrderPaymentModal.hide();listOrders()"></app-order-update-payment>
       </div>
     </div>
   </div>
