@@ -939,8 +939,7 @@
                                 </div>
                                 <div class="row" *ngIf="order.cancelled">
                                   <div class="col-md-6  pr-0" i18n>Cancelled:</div>
-                                  <div class="col-md-6 text-right">{{order.cancelled * 1000 |
-                                    date:'dd/MM/yyyy HH:mm:ss'}}
+                                  <div class="col-md-6 text-right">{{order.cancelled | date:'dd/MM/yyyy HH:mm:ss'}}
                                   </div>
                                 </div>
                                 <div class="row" *ngIf="order.junk">
