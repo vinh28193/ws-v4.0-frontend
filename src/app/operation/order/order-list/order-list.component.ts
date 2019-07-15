@@ -1001,7 +1001,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   checkCancel(item) {
-    if (item === 'NEW' || item === 'CONTACTING' || item === 'AWAITING_PAYMENT') {
+    if (item === 'NEW' || item === 'CONTACTING' || item === 'AWAITING_PAYMENT' || item === 'READY2PURCHASE') {
       if (this._scope.CheckSale() || this._scope.checkWarehouse()) {
         return true;
       }
