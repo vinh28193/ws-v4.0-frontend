@@ -1814,6 +1814,28 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.checkOpenEditInspection = true;
     }
   }
+  loadRadioFee(order) {
+    const put = this.orderService.createPostParams({
+      check_insurance: this.check_insurance,
+    }, 'updateAddFee');
+    this.orderService.put(`order/${order.id}`, put).subscribe(res => {
+      this.checkOpenEditWood = false;
+      this.listOrders();
+      this.notifier.notify('success', 'update fee success');
+    });
+    const params: any = {};
+    params.target_name = 'order';
+    params.target_id = order.ordercode;
+    params.store_id = order.store_id;
+     if (this.check_insurance === 1) {
+       params.check_insurance = 'Y';
+     } else {
+       params.check_insurance = 'N';
+     }
+    this.orderService.post('additional', params).subscribe(rs => {
+
+    });
+  }
 
   totalAll(a, b) {
     if (this.check_packing_wood === 1) {
