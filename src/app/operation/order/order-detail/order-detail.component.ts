@@ -376,6 +376,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     params.us_tax = this.tax_fee;
     params.item_type = this.item_type;
     params.customer_id = this.customer_id;
+    params.order_path = this.order_path;
     this.orderService.getAdditional(params).subscribe(res => {
       this.getListOrder.emit({});
     });

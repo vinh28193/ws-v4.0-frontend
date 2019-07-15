@@ -28,16 +28,11 @@ export const timeKeys = [
     // {key: '', name: 'At Customer'},
 ];
 export const paymentRequests = [
-    {key: 'order.createTime', name: 'New Add fee'},
-    {key: 'order.createTime', name: 'Aproved Add fee'},
-    {key: 'order.createTime', name: 'Addffee Requested'},
     {key: 'order.createTime', name: 'Not Has Refund'},
     {key: 'order.createTime', name: 'New Refund'},
     {key: 'order.createTime', name: 'Aproved Refund'},
     {key: 'order.createTime', name: 'Refund Requested'},
     {key: 'order.createTime', name: 'Refund Success'},
-    {key: 'order.createTime', name: 'Addfee Success'},
-    {key: 'order.createTime', name: 'Approve'},
     {key: 'order.createTime', name: 'Decline'},
 ];
 export const orderStatus = [
