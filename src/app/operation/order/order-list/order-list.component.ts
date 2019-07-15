@@ -17,6 +17,7 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/observable/timer';
 import {environment} from '../../../../environments/environment';
+import {DomSanitizer} from '@angular/platform-browser';
 
 declare var jQuery: any;
 declare var $: any;
@@ -232,7 +233,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
               private messagingService: MessagingService,
               public  notifi: NotificationsService,
               public storegate: StorageService,
-              notifier: NotifierService
+              notifier: NotifierService,
+              public sanitizer: DomSanitizer
   ) {
     super(orderService);
     this.notifier = notifier;
@@ -478,6 +480,14 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.chatlists = result1.data;
 
     });
+  }
+
+  orderCheckOut(store, code) {
+    let host = 'https://weshop.com.vn';
+    if (Number(store) === 7) {
+      host = 'https://weshop.co.id';
+    }
+    return this.sanitizer.bypassSecurityTrustUrl(host + '/checkout.html?code=' + code);
   }
 
   listOrders() {
@@ -863,7 +873,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     const params: any = {};
     params.note = this.editForm.value.note_update_payment + ' :update paid ' + this.editForm.value.total_paid_amount_local;
     if (this.src) {
-        this.img_link = environment.IMG_URL_WH + this.src;
+      this.img_link = environment.IMG_URL_WH + this.src;
     } else {
       this.img_link = null;
     }
@@ -1025,6 +1035,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.check_inspection = order.check_inspection ? order.check_inspection : 0;
     this.check_insurance = order.check_insurance ? order.check_insurance : 0;
     this.checkUpdateConfirm = true;
+    this.logUpdateOrder = {};
     this.orderService.get(`additional/${order.ordercode}`, undefined).subscribe(res => {
       if (res.data) {
         this.logUpdateOrder = res.data.diff_value;
@@ -1271,7 +1282,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.orderDetail();
     if (this.orderOne.current_status === 'READY2PURCHASE') {
       this.statusOrderF = 'ready_purchase';
-    }  else {
+    } else {
       this.statusOrderF = this.orderOne.current_status.toLocaleLowerCase();
     }
     this.buildFormCreate();
@@ -1285,7 +1296,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       if (res.success) {
         if (this.orderOne.current_status === 'READY2PURCHASE') {
           this.statusOrderF = 'ready_purchase';
-        }  else {
+        } else {
           this.statusOrderF = this.orderOne.current_status.toLocaleLowerCase();
         }
       }
@@ -1798,7 +1809,8 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.ID = id;
     if (this.check_packing_wood === 1) {
       this.checkOpenEditWood = true;
-    } if (this.check_inspection === 1) {
+    }
+    if (this.check_inspection === 1) {
       this.checkOpenEditInspection = true;
     }
   }
@@ -1829,11 +1841,13 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   openUpdateJustPayment(order) {
+
+    const current = !this.pay[order.id] || true;
+    this.pay = {};
+    this.pay[order.id] = current;
     this.check_update_payment = order.check_update_payment;
     this.checkOpenPaymentTransaction = !this.checkOpenPaymentTransaction;
-    if (this.checkOpenPaymentTransaction) {
-      this.loadWalletTransaction(order.ordercode);
-    }
+    this.loadWalletTransaction(order.ordercode);
   }
 
   loadWalletTransaction(code) {
@@ -1884,20 +1898,21 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     return trackingCodes;
   }
 
-    confirmExitTracking(order, tracking_code) {
-        this.orderService.popup.confirm(() => {
-            order.trackingCodes = this.exitTracking(order.trackingCodes, tracking_code);
-        }, 'Do you want remove tracking ' + tracking_code + ' ?');
-    }
+  confirmExitTracking(order, tracking_code) {
+    this.orderService.popup.confirm(() => {
+      order.trackingCodes = this.exitTracking(order.trackingCodes, tracking_code);
+    }, 'Do you want remove tracking ' + tracking_code + ' ?');
+  }
+
   savePurchaseInfo(order) {
     if (order.current_status === 'READY2PURCHASE' || order.current_status === 'PURCHASING') {
       order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
     }
-    if(!order.purchase_order_id) {
-        order.purchase_order_id = this.purchaseOrder[order.ordercode];
+    if (!order.purchase_order_id) {
+      order.purchase_order_id = this.purchaseOrder[order.ordercode];
     }
-    if(!order.purchase_transaction_id) {
-        order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
+    if (!order.purchase_transaction_id) {
+      order.purchase_transaction_id = this.purchaseTransaction[order.ordercode];
     }
     order.trackingCodes = this.pushTracking(order.trackingCodes);
     this.orderService.post(`order-s/save-purchase-info`, order).subscribe(res => {
