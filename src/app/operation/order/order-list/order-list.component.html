@@ -2991,13 +2991,13 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div *ngIf="check_insurance == 1">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           id="check_insurance1" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance"
+                           id="check_insurance1" (change)="loadRadioFee(OrderAll)" [(ngModel)]="check_insurance"
                            [value]="1" [checked]="checked">
                     <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance3"
+                           [(ngModel)]="check_insurance" (change)="loadRadioFee(OrderAll)" id="check_insurance3"
                            [value]="0">
                     <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
                   </div>
@@ -3006,13 +3006,13 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <div *ngIf="check_insurance == 0">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           id="check_insurance4" (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_insurance"
+                           id="check_insurance4" (change)="loadRadioFee(OrderAll)" [(ngModel)]="check_insurance"
                            [value]="1">
                     <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           [(ngModel)]="check_insurance" (change)="loadRadio(OrderAll.id)" id="check_insurance2"
+                           [(ngModel)]="check_insurance" (change)="loadRadioFee(OrderAll)" id="check_insurance2"
                            [value]="0" [checked]="checked">
                     <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
                   </div>
