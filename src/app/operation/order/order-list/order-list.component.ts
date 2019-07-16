@@ -157,6 +157,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public checkUpdateOderCode = false;
   public checkUpdateQuantity = false;
   public checkOpenPaymentTransaction = false;
+  public transfer_payment = {
+    type: 'transfer',
+    from: '',
+    to: '',
+  };
   orderStatus: any = [];
   searchKeys: any = [];
   timeKeys: any = [];
@@ -1961,6 +1966,34 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     this.typePayment = $type;
     this.orderOne = $order;
     return;
+  }
+
+  createTran() {
+    this.orderService.post('pay', this.modelAddTransaction).subscribe(res => {
+      const rs: any = res;
+      if (rs.success) {
+        this.listOrders();
+        this.popup.success(rs.message);
+        this.AddTransactionModal.hide();
+      } else {
+        this.popup.error(rs.message);
+      }
+    });
+  }
+  transferPaymentPop(orderCode) {
+    this.transfer_payment.to = '';
+    this.transfer_payment.from = orderCode;
+  }
+  transferPayment() {
+    this.orderService.post('pay', this.transfer_payment).subscribe(res => {
+      const rs: any = res;
+      if (rs.success) {
+        this.listOrders();
+        this.popup.success(rs.message);
+      } else {
+        this.popup.error(rs.message);
+      }
+    });
   }
 }
 

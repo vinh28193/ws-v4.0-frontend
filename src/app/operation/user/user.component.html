@@ -120,6 +120,9 @@
                   <div *ngIf="datum.employee != 1||datum.employee != 2" class="text-success">
                       VIP Level: <b  class="text-dark">{{datum.vip}}</b>
                   </div>
+                  <div *ngIf="(datum.employee != 1||datum.employee != 2) && datum.vip > 0" class="text-success">
+                      End time VIP: <b  class="text-dark" *ngIf="datum.vip_end_time">{{datum.vip_end_time * 1000 | date:'short'}}</b> <b  class="text-dark" *ngIf="!datum.vip_end_time">---</b>
+                  </div>
               </td>
               <td>{{datum.email}}</td>
               <td>{{datum.phone}}</td>
@@ -256,18 +259,6 @@
                             <label for="account_kit_id" class="form-control-label"  i18n >Facebook Account Kit Id</label>
                             <input class="form-control" id="account_kit_id" [(ngModel)]="modelUser.facebook_acc_kit_id">
                         </div>
-                        <!--<div class="col-md-6 form-group">-->
-                            <!--<label for="fcm_token" class="form-control-label">Token FCM</label>-->
-                            <!--<input class="form-control" id="fcm_token" [(ngModel)]="modelUser.token_fcm">-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6 form-group">-->
-                            <!--<label for="apn_token" class="form-control-label">Token Apn</label>-->
-                            <!--<input class="form-control" id="apn_token" [(ngModel)]="modelUser.token_apn">-->
-                        <!--</div>-->
-                      <!--  <div class="col-md-6 form-group" *ngIf="modelUser.employee != 1 && modelUser.employee != 2">
-                            <label for="viplevel" class="form-control-label">Vip Level</label>
-                            <input class="form-control" id="viplevel" [(ngModel)]="modelUser.vip">
-                        </div>-->
                       <div class="col-md-12">
                         <button *ngIf="modelUser.id" class="btn btn-info" (click)="update()"  i18n >Update</button>
                         <button *ngIf="!modelUser.id" class="btn ml-1 btn-info" (click)="CreateAccount()"  i18n >Create</button>
