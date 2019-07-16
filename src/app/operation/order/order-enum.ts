@@ -11,8 +11,7 @@ export const searchKeys = [
 export const timeKeys = [
     {key: 'order.created_at', name: 'Time Create Order'},
     {key: 'order.updated_at', name: 'Time Update Order'},
-    // {key: '', name: 'Time Support Time'},
-    {key: '', name: 'Time Payment time'},
+    // {key: 'walletTransactions.created_at', name: 'Time Payment Time Create'},
     {key: 'order.contacting', name: 'Time Contacting'},
     {key: 'order.awaiting_payment', name: 'Time Awaiting Payment'},
     {key: 'order.ready_purchase', name: 'Time Ready2Purchase'},
