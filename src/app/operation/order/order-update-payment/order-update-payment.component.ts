@@ -22,20 +22,23 @@ export class OrderUpdatePaymentComponent extends OrderDataComponent implements O
   }
 
   private _amount = 0;
-  get amount(): number {
-    if (this.type === 'addPayment') {
-      if (this.order.total_paid_amount_local === 0) {
-        this._amount = 0;
-      } else {
-        this._amount = this.order.total_final_amount_local - this.order.total_paid_amount_local;
+  public get amount(): number {
+    if (this._amount === 0) {
+      if (this.type === 'addPayment') {
+        if (this.order.total_paid_amount_local === 0) {
+          this._amount = 0;
+        } else {
+          this._amount = this.order.total_final_amount_local - this.order.total_paid_amount_local;
+        }
+      } else if (this.type === 'markRefund') {
+        this._amount = this.order.total_paid_amount_local;
       }
-    } else if (this.type === 'markRefund') {
-      this._amount = this.order.total_paid_amount_local;
     }
+
     return this._amount;
   }
 
-  set amount(amount: number) {
+  public set amount(amount: number) {
     this._amount = amount;
   }
 
@@ -52,6 +55,7 @@ export class OrderUpdatePaymentComponent extends OrderDataComponent implements O
     fd.append('orderCode', this.order.ordercode);
     fd.append('type', this.type);
     fd.append('amount', String(this.amount));
+    fd.append('description', String(this.description));
     this.http.postNoLoad('order-s/update-payment', fd).subscribe(res => {
       const rs: any = res;
       if (rs.success) {
