@@ -217,6 +217,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     amount: 0,
     description: ''
   };
+  public orderActiveTran: any = {};
   public msg: any = {};
   message;
   typeSearchKeyWord = '';
@@ -1692,11 +1693,22 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
 
-  handerShowAdddTransaction(event) {
-    this.modelAddTransaction.order_code = event.code;
-    this.AddTransactionModal.show();
-  }
+    handerShowAdddTransaction(event, order) {
+        this.modelAddTransaction.order_code = event.code;
+        this.orderActiveTran = order;
+        this.AddTransactionModal.show();
+    }
 
+    getvalueAmount() {
+        if (this.modelAddTransaction.type === 'refund') {
+            this.modelAddTransaction.amount = this.orderActiveTran.total_paid_amount_local;
+        } else if (this.modelAddTransaction.type === 'continue_payment') {
+            this.modelAddTransaction.amount = this.orderActiveTran.total_final_amount_local - this.orderActiveTran.total_paid_amount_local;
+        } else {
+            this.modelAddTransaction.amount = 0;
+        }
+        return this.modelAddTransaction.amount;
+    }
   showArrearsAddfee(order) {
     this.activeOrder = order;
     this.arrearsAddfee.show();

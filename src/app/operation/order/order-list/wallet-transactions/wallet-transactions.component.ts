@@ -84,4 +84,7 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
         break;
     }
   }
+  checkShowUpdate(tran) {
+    return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
+  }
 }
