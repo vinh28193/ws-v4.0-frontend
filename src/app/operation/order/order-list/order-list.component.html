@@ -1152,17 +1152,17 @@
                                    *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)">
                                 <div class="col-md-12 p-0 text-center">
                                   <div class="button-group">
-                                    <div class="btn-group" role="group" aria-label="Update Payment">
-                                      <button type="button" class="btn btn-sm btn-success"
-                                              *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) >0"
-                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('addPayment',order)">
-                                        Add Payment
-                                      </button>
-                                      <button type="button" class="btn btn-sm btn-danger"
-                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('markRefund',order)">
-                                        Mark Refund
-                                      </button>
-                                    </div>
+<!--                                    <div class="btn-group" role="group" aria-label="Update Payment">-->
+<!--                                      <button type="button" class="btn btn-sm btn-success"-->
+<!--                                              *ngIf="getRemainingAmount(order.total_final_amount_local , order.total_paid_amount_local) >0"-->
+<!--                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('addPayment',order)">-->
+<!--                                        Add Payment-->
+<!--                                      </button>-->
+<!--                                      <button type="button" class="btn btn-sm btn-danger"-->
+<!--                                              (click)="updateOrderPaymentModal.show();updateOrderPayment('markRefund',order)">-->
+<!--                                        Mark Refund-->
+<!--                                      </button>-->
+<!--                                    </div>-->
                                   </div>
                                 </div>
                               </div>
