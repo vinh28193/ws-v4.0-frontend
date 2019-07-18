@@ -11,9 +11,9 @@ import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 declare var $: any;
 
 @Component({
-    selector: 'app-order-detail',
-    templateUrl: './order-detail.component.html',
-    styleUrls: ['./order-detail.component.css']
+  selector: 'app-order-detail',
+  templateUrl: './order-detail.component.html',
+  styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   private tabs: any [];
@@ -181,7 +181,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     if (name === 'purchase_fee'
       || name === 'international_shipping_fee'
       || name === 'import_fee'
-     || name === 'product_price') {
+      || name === 'product_price') {
       return true;
     }
   }
@@ -357,7 +357,8 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.checkUpdatePricePro = true;
     this.proId = id;
   }
-  openUpdateQuantity(quantity, id, price ) {
+
+  openUpdateQuantity(quantity, id, price) {
     this.shipping_quantity = quantity;
     this.price_amount_origin = price;
     this.proId = id;
@@ -381,6 +382,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
       this.getListOrder.emit({});
     });
   }
+
   openUpdatePackingWood(pro) {
     this.policyPrice = pro.price_policy;
     this.id = pro.id;
@@ -392,6 +394,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.id = pro.id;
     this.checkUpdateSurcharge = true;
   }
+
   updatePricePolicy() {
     const params: any = {};
     params.policyPrice = this.policyPrice;
@@ -402,19 +405,21 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     paramsList.target_id = this.id;
     paramsList.store_id = this.storeID;
     this.orderService.put(`product/${this.id}`, params).subscribe(res => {
-        if (res.success) {
-          this.orderService.getAdditional(paramsList).subscribe(rs => {
-            this.getListOrder.emit({});
-          });
-        }
+      if (res.success) {
+        this.orderService.getAdditional(paramsList).subscribe(rs => {
+          this.getListOrder.emit({});
+        });
+      }
     });
   }
+
   openUpdateShipping(product, fee) {
     this.checkUpdateShipping = true;
     this.proId = product.id;
     this.shipping_fee = fee;
     this.shipping_quantity = product.quantity;
   }
+
   openUpdateTaxFee(product, fee) {
     this.checkUpdateTax = true;
     this.proId = product.id;
@@ -427,5 +432,19 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.proId = product.id;
     this.custom_fee = fee;
     this.shipping_quantity = product.quantity;
+  }
+
+  acceptIsSpecial(product) {
+    const params: any = {};
+    params.is_special = product.is_special ? 'no' : 'yes';
+    params.order_path = this.order_path;
+    params.title = 'accept product: ' + product.id + ' is ' + (params.is_special === 'yes' ? 'special' : 'non special');
+    this.orderService.put(`product/${product.id}`, params).subscribe(res => {
+      if (res.success) {
+        this.getListOrder.emit({});
+      } else {
+        this.popup.error(res.message);
+      }
+    });
   }
 }
