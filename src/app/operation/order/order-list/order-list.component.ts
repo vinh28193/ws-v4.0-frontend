@@ -30,6 +30,9 @@ declare var $: any;
 export class OrderListComponent extends OrderDataComponent implements OnInit {
   @ViewChild(ModalDirective) showPromotion: ModalDirective;
   @ViewChild(ModalDirective) showChatGroup: ModalDirective;
+
+  @ViewChild(ModalDirective) updateConfirmModal: ModalDirective;
+
   @ViewChild('customNotification') customNotificationTmpl;
   @ViewChild('AddTransactionModal') AddTransactionModal: ModalDirective;
   @ViewChild('arrearsAddfee') arrearsAddfee: ModalDirective;

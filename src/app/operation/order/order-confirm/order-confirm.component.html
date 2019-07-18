@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+              <tr>
+                <th></th>
+                <th class="text-center" i18n>Price difference USD</th>
+                <th class="text-center" i18n>Price difference {{order?.store_id == 1 ? "VND" : "IDR" }}</th>
+              </tr>
+              </thead>
+              <tbody >
+              <tr>
+                <td i18n>Price Order</td>
+                <td class="text-center">{{orderUpdateLog.total_price_amount_origin | number}}</td>
+                <td class="text-center">{{orderUpdateLog.total_origin_fee_local | number}}</td>
+              </tr>
+              <tr>
+                <td i18n>Shipping Fee</td>
+                <td class="text-center">{{orderUpdateLog.total_origin_shipping_fee_amount | number}}</td>
+                <td class="text-center">{{orderUpdateLog.total_origin_shipping_fee_local | number}}</td>
+              </tr>
+              <tr>
+                <td i18n>Tax Fee</td>
+                <td class="text-center">{{orderUpdateLog.total_origin_tax_fee_amount | number}}</td>
+                <td class="text-center">{{orderUpdateLog.total_origin_tax_fee_local | number}}</td>
+              </tr>
+              <tr>
+                <td i18n>Purchase fee</td>
+                <td class="text-center">{{orderUpdateLog.total_weshop_fee_amount | number}}</td>
+                <td class="text-center">{{orderUpdateLog.total_weshop_fee_local | number}}</td>
+              </tr>
+              <tr>
+                <td i18n>Customer Fee</td>
+                <td class="text-center">{{orderUpdateLog.total_custom_fee_amount | number}}</td>
+                <td class="text-center">{{orderUpdateLog.total_custom_fee_amount | number}}</td>
+              </tr>
+              <tr>
+                <td i18n>Quantity</td>
+                <td></td>
+                <td class="text-center">{{orderUpdateLog.total_quantity |number }}</td>
+              </tr>
+              <tr>
+                <td i18n>Total Price Difference</td>
+                <td class="text-center">{{orderUpdateLog.total_final_amount_origin |number}}</td>
+                <td
+                  class="text-center">{{orderUpdateLog.total_final_amount_local | number}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="form-group row mb-0">
+              <div class="col-md-5">
+                <div class="checkbox checkbox-success">
+                  <input id="inspectionInput" type="checkbox" class="custom-control-input"
+                         [checked]="inspection === 'Y'"
+                         (click)="acceptInspection()">
+                  <label for="inspectionInput"> Use Inspection (for {{order.products?.length}} sku)</label>
+                </div>
+              </div>
+              <div class="col-md-3 text-right">
+                {{inspectionAmount}}USD (~{{inspectionAmount * order.exchange_rate_fee}}{{order.store_id === 1 ? 'VND' : 'IDR'}})
+              </div>
+            </div>
+            <div class="form-group row mb-0">
+              <div class="col-md-5">
+                <div class="checkbox checkbox-success">
+                  <input id="insuranceCheckbox"
+                         type="checkbox"
+                         class="custom-control-input"
+                         [checked]="insurance === 'Y'"
+                         (click)="acceptInsurance()">
+                  <label for="insuranceCheckbox"> Use Insurance</label>
+                </div>
+              </div>
+              <div class="col-md-3 text-right">
+                {{insuranceAmount | number}}{{order.store_id === 1 ? 'VND' : 'IDR'}}
+              </div>
+            </div>
+            <div class="form-group row mb-0">
+              <label for="packingWoodInput" class="col-md-3 col-form-label">Packing Wood</label>
+              <div class="col-md-5 input-group input-group-sm">
+                <input class="form-control form-control-sm text-right" type="text" id="packingWoodInput"
+                       [(ngModel)]="packingWoodAmount">
+                <span class="input-group-addon">USD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn btn-info btn-sm mr-2" (click)="confirmOption()" i18n>
+              Confirm {{order.ordercode}}</button>
+            <button class="btn btn-danger btn-sm" (click)="offOption()" i18n>Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

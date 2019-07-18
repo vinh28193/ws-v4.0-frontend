@@ -398,9 +398,12 @@
                               <div class=" mt-1">
                                 <ul>
                                   <li class="sty-font" i18n><i class="fa fa-archive mr-1"></i> Order Boxme : <a
-                                          class="ml-1" href="https://boxme.asia/vi/trackntrace/?tracking_number={{order.order_boxme}}" target="_blank">{{order.order_boxme}}</a>
+                                    class="ml-1"
+                                    href="https://boxme.asia/vi/trackntrace/?tracking_number={{order.order_boxme}}"
+                                    target="_blank">{{order.order_boxme}}</a>
                                   </li>
-                                  <li class="sty-font" i18n><i class="fa fa-archive mr-1"></i> Shipment Boxme : {{order.shipment_boxme}}
+                                  <li class="sty-font" i18n><i class="fa fa-archive mr-1"></i> Shipment Boxme
+                                    : {{order.shipment_boxme}}
                                   </li>
                                 </ul>
                               </div>
@@ -521,7 +524,7 @@
                                     </div>
 
                                     <button class="btn btn-sm ml-2"
-                                            (click)="logUpdateOrder ={};openConfirmAll(order)"
+                                            (click)="orderOne=order;updateConfirmModal.show()"
                                             data-target="#updateConfirm"
                                             data-toggle="modal" data-backdrop="static" data-keyboard="false"
                                             *ngIf="checkConfirmOrder(order)" i18n><i class="fa fa-calendar-check-o mr-1"
@@ -843,13 +846,13 @@
                                     Confirm Changing Price
                                   </button>
 
-<!--                                  <button type="button"-->
-<!--                                          *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()"-->
-<!--                                          (click)="showArrearsAddfee(order)"-->
-<!--                                          class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>-->
-<!--                                    <i class="fa fa-dollar" aria-hidden="true"></i>-->
-<!--                                    Arrears-->
-<!--                                  </button>-->
+                                  <!--                                  <button type="button"-->
+                                  <!--                                          *ngIf="!checkIs(order) && getChangeAmount(order.total_final_amount_local,order.total_paid_amount_local,true) && !_scope.checkMkt()"-->
+                                  <!--                                          (click)="showArrearsAddfee(order)"-->
+                                  <!--                                          class="btn btn-outline-danger btn-sm mr-2 mb-2 Arrears" i18n>-->
+                                  <!--                                    <i class="fa fa-dollar" aria-hidden="true"></i>-->
+                                  <!--                                    Arrears-->
+                                  <!--                                  </button>-->
 
                                   <!--<div *ngIf="checkBuynow(order)">-->
                                   <!--<a *ngFor="let pro of order.products" href="{{getLinkBuynow(pro)}}"-->
@@ -1070,8 +1073,10 @@
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
                                            *ngIf="order.total_paid_amount_local > 0"
                                            href="javascript:void(0);" data-target="#tranferPayment"
-                                           data-toggle="modal" data-backdrop="static" (click)="transferPaymentPop(order.ordercode)"
-                                           data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Transfer Payment</a>
+                                           data-toggle="modal" data-backdrop="static"
+                                           (click)="transferPaymentPop(order.ordercode)"
+                                           data-keyboard="false" i18n><i class="fa fa-gift mr-2" aria-hidden="true"></i>Transfer
+                                          Payment</a>
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop"
                                            *ngIf="checkCouponPromotion(order.total_paid_amount_local)"
                                            id="Cập nhập coupon" href="javascript:void(0);" data-target="#showCoupon"
@@ -1524,7 +1529,7 @@
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
         <h3 class="modal-title text-white" i18n>Transfer payment order: <span
-                class="label label-primary ng-binding">{{transfer_payment.from}}</span></h3>
+          class="label label-primary ng-binding">{{transfer_payment.from}}</span></h3>
         <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>close</span>
@@ -2742,7 +2747,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         </div>
         <div class="form-group text-right">
           <button class="btn btn-info btn-sm mr-2" (click)="createTran()" i18n>Create</button>
-          <button class="btn btn-danger btn-sm"  (click)="AddTransactionModal.hide()" i18n>Cancel</button>
+          <button class="btn btn-danger btn-sm" (click)="AddTransactionModal.hide()" i18n>Cancel</button>
         </div>
       </div>
     </div>
@@ -2868,214 +2873,20 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
   </div>
 </div>
 
-<div id="updateConfirm" class="modal fade" data-target="#myModal" tabindex="-1" role="dialog"
+<div class="modal fade" bsModal #updateConfirmModal="bs-modal" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
     <div class="modal-content">
       <div class="modal-header bg-success ng-scope">
         <h3 class="modal-title text-white" i18n>Confirm order:<span
-          class="label label-primary ng-binding">{{OrderAll.ordercode}}</span></h3>
-        <button type="button" class="close" data-dismiss="modal" (click)="offOption()">
+          class="label label-primary ng-binding">{{orderOne.ordercode}}</span></h3>
+        <button type="button" class="close" data-dismiss="modal">
           <span class="text-white" aria-hidden="true">×</span>
           <span class="sr-only" i18n>close</span>
         </button>
       </div>
-      <div class="moda-body" *ngIf="checkUpdateConfirm">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th class="text-center" i18n>Price difference USD</th>
-                    <th class="text-center" i18n>Price difference <span *ngIf="OrderAll.store_id == 1">VND</span><span
-                      *ngIf="OrderAll.store_id == 7">IDR</span></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td i18n>Price Order</td>
-                    <td class="text-center">{{logUpdateOrder.total_price_amount_origin | number}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_fee_local | number}}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Shipping Fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_amount | number}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_shipping_fee_local | number}}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Tax Fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_amount | number}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_origin_tax_fee_local | number}}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Purchase fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_weshop_fee_amount | number}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_weshop_fee_local | number}}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Customer Fee</td>
-                    <td class="text-center">{{logUpdateOrder.total_custom_fee_amount | number}}</td>
-                    <td class="text-center">{{logUpdateOrder.total_custom_fee_amount * exchange_rate_fee | number}}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Packing Wood</td>
-                    <td class="text-center"><span *ngIf="check_packing_wood == 1">{{boxed_fee |  number}}</span></td>
-                    <td class="text-center"><span
-                      *ngIf="check_packing_wood == 1">{{(boxed_fee) * (exchange_rate_fee) |number}}</span></td>
-                  </tr>
-                  <tr>
-                    <td i18n>Quantity</td>
-                    <td></td>
-                    <td class="text-center">{{logUpdateOrder.total_quantity |number }}</td>
-                  </tr>
-                  <tr>
-                    <td i18n>Total Price Difference</td>
-                    <td class="text-center">{{logUpdateOrder.total_final_amount_origin |number}}</td>
-                    <td
-                      class="text-center">{{totalAll(logUpdateOrder.total_final_amount_local, boxed_fee, logUpdateOrder.total_custom_fee_amount ? logUpdateOrder.total_custom_fee_amount : 0) | number}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" i18n>Packing Wood</div>
-              <div class="col-md-5 pr-0">
-                <div *ngIf="check_packing_wood == 1">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" style="background-color: red;"
-                           name="check_packing_wood" id="wood1" (cdinge)="loadRadio(OrderAll.id)"
-                           [(ngModel)]="check_packing_wood" [value]="1" [checked]="checked">
-                    <label class="form-check-label" for="wood1" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood2"
-                           (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="0">
-                    <label class="form-check-label" for="wood2" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-                <div *ngIf="check_packing_wood == 0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood4"
-                           (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="1">
-                    <label class="form-check-label" for="wood4" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_packing_wood" id="wood3"
-                           (change)="loadRadio(OrderAll.id)" [(ngModel)]="check_packing_wood" [value]="0"
-                           [checked]="checked">
-                    <label class="form-check-label" for="wood3" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-              </div>
-              <!--<div class="col-md-1">-->
-              <!--<i class="fa fa-edit" (click)="pkh = !pkh; openEditfeePkd()"></i>-->
-              <!--</div>-->
-            </div>
-            <div class="row" [hidden]="check_packing_wood == 0" *ngIf="checkOpenEditWood">
-              <div class="col-md-4">
-                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Packing fee ($) </span></a>
-              </div>
-              <div class="col-md-6">
-                <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"
-                       [(ngModel)]="boxed_fee">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" i18n>Inspection</div>
-              <div class="col-md-5 pr-0">
-                <!--{{total_inspection_fee_local | currency:'VND'}}-->
-                <div *ngIf="check_inspection == 1">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection"
-                           id="check_inspection" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1"
-                           [checked]="checked">
-                    <label class="form-check-label" for="check_inspection" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection"
-                           id="check_inspection2" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0">
-                    <label class="form-check-label" for="check_inspection2" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-                <div *ngIf="check_inspection == 0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection"
-                           id="check_inspection1" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="1">
-                    <label class="form-check-label" for="check_inspection1" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="check_inspection"
-                           id="check_inspection3" (change)="loadRadio()" [(ngModel)]="check_inspection" [value]="0"
-                           [checked]="checked">
-                    <label class="form-check-label" for="check_inspection3" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row" [hidden]="check_inspection == 0" *ngIf="checkOpenEditInspection">
-              <div class="col-md-4">
-                <a href="javascript:void(0)" tooltip="Case by case"><span i18n>Inspection fee ($) </span></a>
-              </div>
-              <div class="col-md-6">
-                <input type="number" class="form-control-sm form-control" (keyup.enter)="loadRadio(OrderAll.id)"
-                       [(ngModel)]="inspection_fee">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" i18n>Insurance</div>
-              <div class="col-md-5 pr-0">
-                <!--{{total_insurance_fee_local | currency:'VND'}}-->
-                <div *ngIf="check_insurance == 1">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           id="check_insurance1" (change)="loadRadioFee(OrderAll)" [(ngModel)]="check_insurance"
-                           [value]="1" [checked]="checked">
-                    <label class="form-check-label" for="check_insurance1" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           [(ngModel)]="check_insurance" (change)="loadRadioFee(OrderAll)" id="check_insurance3"
-                           [value]="0">
-                    <label class="form-check-label" for="check_insurance3" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-
-                <div *ngIf="check_insurance == 0">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           id="check_insurance4" (change)="loadRadioFee(OrderAll)" [(ngModel)]="check_insurance"
-                           [value]="1">
-                    <label class="form-check-label" for="check_insurance4" style="font-size: 12px">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input form-control-sm" type="radio" name="inlineRadioOptions"
-                           [(ngModel)]="check_insurance" (change)="loadRadioFee(OrderAll)" id="check_insurance2"
-                           [value]="0" [checked]="checked">
-                    <label class="form-check-label" for="check_insurance2" style="font-size: 12px">No</label>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <button class="btn btn-info btn-sm" (click)="updatePackingWood()" *ngIf="OpenUpdate" i18n>
-                  Update
-                </button>
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col-md-12 text-right">
-                <button class="btn btn-info btn-sm mr-2" (click)="confirmAll(OrderAll)" i18n>Confirm Order</button>
-                <button class="btn btn-danger btn-sm" (click)="offOption()" i18n>Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="modal-body p-0">
+        <app-order-confirm [order]="orderOne" (close)="updateConfirmModal.hide();listOrders()"></app-order-confirm>
       </div>
     </div>
   </div>
