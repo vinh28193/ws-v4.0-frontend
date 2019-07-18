@@ -42,9 +42,9 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
       this.orderService.put('pay/' + code, {type: type}).subscribe(rs => {
         const res: any = rs;
         if (rs.success) {
-          this.popup.success(rs.success);
+          this.popup.success(rs.message);
         } else {
-          this.popup.error(rs.success);
+          this.popup.error(rs.message);
         }
       });
     }, 'Do you want update ' + type + ' status for transaction?', 'Update');
