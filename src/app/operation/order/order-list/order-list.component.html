@@ -2721,16 +2721,16 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <div class="form-inline">
           <div class="form-check">
             <input id="type_addfee" type="radio" value="addfee" name="type_transaction"
-                   [(ngModel)]="modelAddTransaction.type" class="form-check-input">
+                   [(ngModel)]="modelAddTransaction.type"  (change)="getvalueAmount()"  class="form-check-input">
             <label for="type_addfee" class="form-check-label">AddFee</label>
           </div>
           <div class="form-check">
-            <input type="radio" id="type_continue_payment" value="continue_payment" name="type_transaction"
+            <input type="radio" id="type_continue_payment" value="continue_payment" (change)="getvalueAmount()" name="type_transaction"
                    [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_continue_payment" class="form-check-label">Continue Payment</label>
           </div>
           <div class="form-check">
-            <input type="radio" id="type_refurnd" value="refund" name="type_transaction"
+            <input type="radio" id="type_refurnd"  (change)="getvalueAmount()"  value="refund" name="type_transaction"
                    [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_refurnd" class="form-check-label">Refund</label>
           </div>
@@ -2738,7 +2738,7 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
         <div class="form-group">
           <label for="amount_transaction">Amount</label>
           <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount"
-                 class="form-control form-control-sm" [value]="getvalueAmount()" placeholder="Amount transaction">
+                 class="form-control form-control-sm" placeholder="Amount transaction">
         </div>
         <div class="form-group">
           <label for="description_transaction">Description</label>
