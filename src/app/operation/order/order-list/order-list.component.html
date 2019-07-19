@@ -1723,10 +1723,7 @@
                 <label i18n>Seller's refund amount</label>
                 <input type="number" class="form-control form-control-sm" formControlName="purchase_amount_refund">
                 <label style="font-size: 2em; color: red">Price :
-                  <span
-                    *ngIf="store_id === 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
-                  <span
-                    *ngIf="store_id !== 1">{{this.editForm.get('purchase_amount_refund').value | number}}{{store_id | currencyStore}}</span>
+                  <span>${{this.editForm.get('purchase_amount_refund').value | number}}</span>
                 </label>
               </div>
               <div class="col-md-6">
