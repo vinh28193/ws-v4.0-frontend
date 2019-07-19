@@ -534,6 +534,19 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
 
+
+  exportOrder() {
+    const params = this.prepareSearch();
+    this.orderService.exportExcel(params).subscribe(res => {
+      const result: any = res;
+      if (result.success) {
+        window.open(result.data);
+      } else {
+        this.popup.error(result.message);
+      }
+    });
+  }
+
   quantityOrder(quantityC, quantityL) {
     let quantityA = 0;
     for (let i = 0; i < quantityL; i++) {
@@ -1696,22 +1709,23 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     });
   }
 
-    handerShowAdddTransaction(event, order) {
-        this.modelAddTransaction.order_code = event.code;
-        this.orderActiveTran = order;
-        this.AddTransactionModal.show();
-    }
+  handerShowAdddTransaction(event, order) {
+    this.modelAddTransaction.order_code = event.code;
+    this.orderActiveTran = order;
+    this.AddTransactionModal.show();
+  }
 
-    getvalueAmount() {
-        if (this.modelAddTransaction.type === 'refund') {
-            this.modelAddTransaction.amount = this.orderActiveTran.total_paid_amount_local;
-        } else if (this.modelAddTransaction.type === 'continue_payment') {
-            this.modelAddTransaction.amount = this.orderActiveTran.total_final_amount_local - this.orderActiveTran.total_paid_amount_local;
-        } else {
-            this.modelAddTransaction.amount = 0;
-        }
-        return this.modelAddTransaction.amount;
+  getvalueAmount() {
+    if (this.modelAddTransaction.type === 'refund') {
+      this.modelAddTransaction.amount = this.orderActiveTran.total_paid_amount_local;
+    } else if (this.modelAddTransaction.type === 'continue_payment') {
+      this.modelAddTransaction.amount = this.orderActiveTran.total_final_amount_local - this.orderActiveTran.total_paid_amount_local;
+    } else {
+      this.modelAddTransaction.amount = 0;
     }
+    return this.modelAddTransaction.amount;
+  }
+
   showArrearsAddfee(order) {
     this.activeOrder = order;
     this.arrearsAddfee.show();
@@ -1838,6 +1852,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       this.checkOpenEditInspection = true;
     }
   }
+
   loadRadioFee(order) {
     const put = this.orderService.createPostParams({
       check_insurance: this.check_insurance,
@@ -1851,11 +1866,11 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
     params.target_name = 'order';
     params.target_id = order.ordercode;
     params.store_id = order.store_id;
-     if (this.check_insurance === 1) {
-       params.check_insurance = 'Y';
-     } else {
-       params.check_insurance = 'N';
-     }
+    if (this.check_insurance === 1) {
+      params.check_insurance = 'Y';
+    } else {
+      params.check_insurance = 'N';
+    }
     this.orderService.post('additional', params).subscribe(rs => {
 
     });
@@ -1995,10 +2010,12 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       }
     });
   }
+
   transferPaymentPop(orderCode) {
     this.transfer_payment.to = '';
     this.transfer_payment.from = orderCode;
   }
+
   transferPayment() {
     this.orderService.post('pay', this.transfer_payment).subscribe(res => {
       const rs: any = res;

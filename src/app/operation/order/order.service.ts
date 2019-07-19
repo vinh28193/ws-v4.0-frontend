@@ -42,6 +42,10 @@ export class OrderService extends OperationService {
     return this.get('order', filter);
   }
 
+  exportExcel(filter: any) {
+    return this.get('order/export', filter);
+  }
+
   getAdditional(filter: any | undefined) {
     return this.get('additional', filter);
   }

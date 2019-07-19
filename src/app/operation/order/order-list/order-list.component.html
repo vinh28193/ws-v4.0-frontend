@@ -197,7 +197,7 @@
                 class="fa fa-search mr-1"></i><span i18n>Search</span></button>
               <button class="btn btn-sm btn-danger ml-2" *ngIf="!checkShoppingCart" (click)="freshOrder()"><i
                 class="fa fa-refresh mr-1" aria-hidden="true"></i><span i18n>Refresh</span></button>
-              <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n><i
+              <button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart" i18n (click)="exportOrder()"><i
                 class="fa fa-file-excel-o"></i> Export Excel
               </button>
               <!--<button class="btn btn-info btn-sm text-white ml-1" *ngIf="!checkShoppingCart"-->
