@@ -216,7 +216,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   public total_insurance_fee_local = 0;
   public modelAddTransaction = {
     order_code: '',
-    type: 'addfee',
+    type: 'continue_payment',
     amount: 0,
     description: ''
   };
