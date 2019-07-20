@@ -26,13 +26,15 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
 
   ngOnInit() {
   }
+
   checkView() {
     if (this._sp.checkSuperAdmin()) {
       return true;
-    }  else  {
+    } else {
       return false;
     }
   }
+
   addTransaction() {
     this.showPopup.emit({code: this.order_code});
   }
@@ -49,7 +51,11 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
       });
     }, 'Do you want update ' + type + ' status for transaction?', 'Update');
   }
-  getClassType(type) {
+
+  getClassType(type: any | null) {
+    if (typeof type === 'undefined') {
+      return '';
+    }
     switch (type.toLowerCase()) {
       case 'payment':
         return 'text-success';
@@ -65,7 +71,11 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
         break;
     }
   }
-  getClassStatus(status) {
+
+  getClassStatus(status: any | null) {
+    if (typeof status === 'undefined') {
+      return '';
+    }
     switch (status.toLowerCase()) {
       case 'success':
         return 'badge-success';
@@ -84,6 +94,7 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
         break;
     }
   }
+
   checkShowUpdate(tran) {
     return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
   }

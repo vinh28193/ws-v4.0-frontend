@@ -23,10 +23,14 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   public oldOrderCode;
 
+  private couriers;
+
   private _totalConfirmAmount;
   private _packingWoodAmount;
   private _inspectionAmount;
   private _insuranceAmount;
+  private _internationalAmount;
+
 
   constructor(public http: OrderService, private popup: PopupService) {
     super(http);
@@ -44,6 +48,7 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
       this.insurance = 'N';
       this.insuranceAmount = 0;
       this.inspectionAmount = 0;
+      this.internationalAmount = 0;
       this.oldOrderCode = this.order.ordercode;
     }
   }
@@ -91,7 +96,15 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
     this._insuranceAmount = $amount;
   }
 
-  public getInsurance() {
+  public get internationalAmount(): any {
+    return this._internationalAmount;
+  }
+
+  public set internationalAmount(amount: any) {
+    this._internationalAmount = amount;
+  }
+
+  public getCalcInsurance() {
     const params: any = {};
     params.target_name = 'order';
     params.target_id = this.order.ordercode;
@@ -114,11 +127,11 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
     });
   }
 
-  acceptInsurance() {
+  acceptUsedInsurance() {
     this.insurance = this.insurance === 'N' ? 'Y' : 'N';
     this.insuranceAmount = 0;
     if (this.insurance === 'Y') {
-      this.getInsurance();
+      this.getCalcInsurance();
     }
 
   }
@@ -131,11 +144,60 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   }
 
+  canRefreshFee() {
+    return !(this.order.total_intl_shipping_fee_local !== null && Number(this.order.total_intl_shipping_fee_local) > 0);
+  }
+
+  calc($params, callback) {
+    this.http.post('additional', $params).subscribe(rs => {
+      const res: any = rs;
+      if (res.success) {
+        callback(res.data);
+        const fees = res.data.additional_fees;
+        this.couriers = res.data.couriers[0] || {};
+        if (typeof fees['international_shipping_fee'] !== 'undefined') {
+          const intFee = fees['international_shipping_fee'];
+          let local_amount = 0;
+          for (let i = 0; i < intFee.length; i++) {
+            local_amount += Number(intFee[i].local_amount);
+          }
+          this.internationalAmount = local_amount;
+        }
+      }
+    });
+  }
+
+  getCalcInternationalShipping() {
+    const params: any = {};
+    params.target_name = 'order';
+    params.target_id = this.order.ordercode;
+    params.store_id = this.order.store_id;
+    this.http.post('additional', params).subscribe(rs => {
+      const res: any = rs;
+      if (res.success) {
+        const fees = res.data.additional_fees;
+        this.couriers = res.data.couriers[0] || {};
+        if (typeof fees['international_shipping_fee'] !== 'undefined') {
+          const intFee = fees['international_shipping_fee'];
+          let local_amount = 0;
+          for (let i = 0; i < intFee.length; i++) {
+            local_amount += Number(intFee[i].local_amount);
+          }
+          this.internationalAmount = local_amount;
+        }
+      }
+    });
+  }
+
   confirmOption() {
     const params: any = {};
     params.insurance = this.insuranceAmount;
     params.inspection = this.inspectionAmount;
     params.packingWood = this.packingWoodAmount;
+    if (this.canRefreshFee()) {
+      params.international = this.internationalAmount;
+      params.courier = JSON.stringify(this.couriers);
+    }
 
     const messagePop = 'Do you want Confirm order ' + this.order.id;
     this.popup.warning(() => {

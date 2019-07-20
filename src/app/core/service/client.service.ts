@@ -97,7 +97,7 @@ export class ClientService extends GlobalService {
   }
 
     post(url, body) {
-
+      console.log(url);
         this.startLoading();
         return this.http.post(this.getApiURl(url), body, this.getAuthHttpOptions())
             .pipe(
