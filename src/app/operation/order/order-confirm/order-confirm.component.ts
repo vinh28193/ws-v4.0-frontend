@@ -15,8 +15,6 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   public orderUpdateLog: any = {};
 
-  public packing_wood = 'N';
-
   public inspection = 'N';
 
   public insurance = 'N';
@@ -43,12 +41,24 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
   ngDoCheck() {
     if (this.order.ordercode !== this.oldOrderCode) {
       this.loadOrderUpdateLog();
-      this.packing_wood = 'N';
       this.inspection = 'N';
       this.insurance = 'N';
       this.insuranceAmount = 0;
       this.inspectionAmount = 0;
       this.internationalAmount = 0;
+      if (this.order.total_inspection_fee_local !== null) {
+        this.inspection = 'Y';
+        this.insuranceAmount = this.order.total_inspection_fee_local;
+      }
+      if (this.order.total_insurance_fee_local !== null) {
+        this.insurance = 'Y';
+        this.insuranceAmount = this.order.total_insurance_fee_local;
+      }
+
+      if (this.order.total_packing_fee_local !== null) {
+        this.packingWoodAmount = this.roundNumber(Number(this.order.total_packing_fee_local) / Number(this.order.exchange_rate_fee), 2);
+      }
+
       this.oldOrderCode = this.order.ordercode;
     }
   }
@@ -144,7 +154,7 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   }
 
-  canRefreshFee() {
+  canRefreshInternationalShippingFee() {
     return !(this.order.total_intl_shipping_fee_local !== null && Number(this.order.total_intl_shipping_fee_local) > 0);
   }
 
@@ -192,9 +202,11 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
   confirmOption() {
     const params: any = {};
     params.insurance = this.insuranceAmount;
+    params.usedInsurance = this.insurance;
     params.inspection = this.inspectionAmount;
+    params.usedInspection = this.inspection;
     params.packingWood = this.packingWoodAmount;
-    if (this.canRefreshFee()) {
+    if (this.canRefreshInternationalShippingFee()) {
       params.international = this.internationalAmount;
       params.courier = JSON.stringify(this.couriers);
     }
@@ -215,5 +227,10 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   offOption() {
     this.close.emit(true);
+  }
+
+  roundNumber($number, precision = 0) {
+    const factor = Math.pow(10, precision);
+    return Math.round($number * factor) / factor;
   }
 }
