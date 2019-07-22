@@ -56,7 +56,7 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
       }
 
       if (this.order.total_packing_fee_local !== null) {
-        this.packingWoodAmount = this.order.total_packing_fee_local;
+        this.packingWoodAmount = this.roundNumber(Number(this.order.total_packing_fee_local) / Number(this.order.exchange_rate_fee), 2);
       }
 
       this.oldOrderCode = this.order.ordercode;
@@ -227,5 +227,10 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
 
   offOption() {
     this.close.emit(true);
+  }
+
+  roundNumber($number, precision = 0) {
+    const factor = Math.pow(10, precision);
+    return Math.round($number * factor) / factor;
   }
 }
