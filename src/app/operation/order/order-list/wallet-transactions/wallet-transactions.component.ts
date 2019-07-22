@@ -15,6 +15,8 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
   @Input() check_update_payment: any;
   @Input() order_code = '';
   @Output() showPopup: EventEmitter<any> = new EventEmitter<any>();
+  @Output() getListOrder: EventEmitter<any> = new EventEmitter<any>();
+  @Output() refreshTransaction: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private orderService: OrderService,
               private popup: PopupService,
@@ -44,6 +46,8 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
       this.orderService.put('pay/' + code, {type: type}).subscribe(rs => {
         const res: any = rs;
         if (rs.success) {
+            this.getListOrder.emit();
+            this.refreshTransaction.emit();
           this.popup.success(rs.message);
         } else {
           this.popup.error(rs.message);
@@ -96,6 +100,6 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
   }
 
   checkShowUpdate(tran) {
-    return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
+    return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'REFUND' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
   }
 }

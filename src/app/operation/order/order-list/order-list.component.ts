@@ -2004,6 +2004,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
       if (rs.success) {
         this.listOrders();
         this.popup.success(rs.message);
+        this.loadWalletTransaction(this.modelAddTransaction.order_code);
         this.AddTransactionModal.hide();
       } else {
         this.popup.error(rs.message);

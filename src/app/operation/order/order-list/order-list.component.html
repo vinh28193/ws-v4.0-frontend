@@ -1222,6 +1222,8 @@
                                    [hidden]="!pay[order.id]">
                                 <app-wallet-transactions (showPopup)="handerShowAdddTransaction($event,order)"
                                                          [order_code]="order.ordercode"
+                                                         (getListOrder)="listOrders()"
+                                                         (refreshTransaction)="loadWalletTransaction(order.ordercode)"
                                                          [walletTransaction]="paymentOne"></app-wallet-transactions>
                               </div>
                               <div id="tab" class="tab-slider--body"

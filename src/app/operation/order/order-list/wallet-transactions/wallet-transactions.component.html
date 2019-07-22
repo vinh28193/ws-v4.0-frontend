@@ -16,29 +16,29 @@
       </th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td [innerHTML]="walletTransaction.transaction_code"></td>
-      <td [innerHTML]="walletTransaction.transaction_amount_local | number"></td>
-      <td [innerHTML]="walletTransaction.transaction_type" class="font-weight-bold {{getClassType(walletTransaction.transaction_type)}}"></td>
-      <td [innerHTML]="walletTransaction.transaction_status" class="font-weight-bold badge {{getClassStatus(walletTransaction.transaction_status)}}"></td>
-      <td [innerHTML]="walletTransaction.transaction_description"></td>
-      <td [innerHTML]="walletTransaction.note"></td>
-      <td><a [href]="walletTransaction.link_image" target="_blank">
-          <img width="50px" src="{{walletTransaction.link_image}}">
+  <tbody *ngIf="walletTransaction && walletTransaction.length > 0">
+    <tr *ngFor="let tran of walletTransaction">
+      <td [innerHTML]="tran.transaction_code"></td>
+      <td [innerHTML]="tran.transaction_amount_local | number"></td>
+      <td [innerHTML]="tran.transaction_type" class="font-weight-bold {{getClassType(tran.transaction_type)}}"></td>
+      <td [innerHTML]="tran.transaction_status" class="font-weight-bold badge {{getClassStatus(tran.transaction_status)}}"></td>
+      <td [innerHTML]="tran.transaction_description"></td>
+      <td [innerHTML]="tran.note"></td>
+      <td><a [href]="tran.link_image" target="_blank">
+          <img width="50px" src="{{tran.link_image}}">
         </a>
       </td>
       <td>
         <a *ngIf="checkView()" href="javascript:void(0)">
-          {{walletTransaction.payment_bank_code}}
+          {{tran.payment_bank_code}}
         </a>
-        <span *ngIf="!checkView()">{{walletTransaction.payment_bank_code}}</span>
+        <span *ngIf="!checkView()">{{tran.payment_bank_code}}</span>
       </td>
-      <td> {{walletTransaction.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
-      <td> {{walletTransaction.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+      <td> {{tran.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+      <td> {{tran.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
       <td>
-        <button class="btn btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(walletTransaction)" (click)="updateStatus('success',walletTransaction.transaction_code)">Update Success</button>
-        <button class="btn btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(walletTransaction)" (click)="updateStatus('cancel',walletTransaction.transaction_code)">Cancel</button>
+        <button class="btn btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('success',tran.transaction_code)">Update Success</button>
+        <button class="btn btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('cancel',tran.transaction_code)">Cancel</button>
       </td>
     </tr>
   </tbody>
