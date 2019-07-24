@@ -546,11 +546,11 @@
                                   <h5 i18n>FINANCE</h5>
                                 </div>
                                 <div class="col-md-5" style="text-align: right">
-                                  <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!hideme[order.id]"
+                                  <button class="btn btn-sm bg-white" title="Show Fee" *ngIf="!hideme[order.id]"
                                           (click)="hideme[order.id] = !hideme[order.id]" i18n>
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                   </button>
-                                  <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="hideme[order.id]"
+                                  <button class="btn btn-sm bg-white" title="Hide Fee" *ngIf="hideme[order.id]"
                                           (click)="hideme[order.id] = !hideme[order.id]" i18n>
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                   </button>
@@ -1898,11 +1898,11 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
                 <h5 i18n>Finance</h5>
               </div>
               <div class="col-md-5" style="text-align: right">
-                <button class="btn btn-sm bg-white" tooltip="Show Free" *ngIf="!orderFee[markID]"
+                <button class="btn btn-sm bg-white" title="Show Fee" *ngIf="!orderFee[markID]"
                         (click)="orderFee[markID] = !orderFee[markID]" i18n>
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-sm bg-white" tooltip="Hide Free" *ngIf="orderFee[markID]"
+                <button class="btn btn-sm bg-white" title="Hide Fee" *ngIf="orderFee[markID]"
                         (click)="orderFee[markID] = !orderFee[markID]" i18n>
                   <i class="fa fa-eye-slash" aria-hidden="true"></i>
                 </button>
