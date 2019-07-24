@@ -100,6 +100,6 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
   }
 
   checkShowUpdate(tran) {
-    return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'REFUND' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
+    return (tran.transaction_type === 'PAYMENT' || tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'REFUND' || tran.transaction_type === 'CONTINUE_PAYMENT') && (tran.transaction_status === 'QUEUED' || tran.transaction_status  === 'CREATED');
   }
 }

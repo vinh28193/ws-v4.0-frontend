@@ -37,8 +37,11 @@
       <td> {{tran.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
       <td> {{tran.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
       <td>
-        <button class="btn btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('success',tran.transaction_code)">Update Success</button>
-        <button class="btn btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('cancel',tran.transaction_code)">Cancel</button>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('success',tran.transaction_code)">Update Success</button>
+          <button class="btn btn-sm btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('cancel',tran.transaction_code)">Cancel</button>
+        </div>
+
       </td>
     </tr>
   </tbody>
