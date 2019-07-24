@@ -35,11 +35,13 @@ export class OrderConfirmComponent extends OrderDataComponent implements OnInit,
   }
 
   ngOnInit() {
-
+  this.orderUpdateLog = {};
   }
 
   ngDoCheck() {
-    if (this.order.ordercode !== this.oldOrderCode) {
+
+    if (this.order.ordercode != this.oldOrderCode) {
+      this.orderUpdateLog = {};
       this.loadOrderUpdateLog();
       this.inspection = 'N';
       this.insurance = 'N';
