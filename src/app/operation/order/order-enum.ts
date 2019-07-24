@@ -5,6 +5,7 @@ export const searchKeys = [
     {key: 'order.buyer_email', name: 'Email'},
     {key: 'order.buyer_phone', name: 'Phone'},
     {key: 'order.customer_id', name: 'Customer ID'},
+    {key: 'payment_transaction.transaction_code', name: 'Transaction Code'},
     {key: 'order.tracking_codes', name: 'Tracking Code'},
     {key: 'order.order_boxme', name: 'Order Box Me (BM)'},
     {key: 'order.shipment_boxme', name: 'Shipment Box Me (SM)'},
