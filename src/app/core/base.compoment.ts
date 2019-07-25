@@ -1,5 +1,6 @@
 import {GlobalService} from './service/global.service';
 import {NotifierService} from 'angular-notifier';
+import {environment} from '../../environments/environment';
 
 export interface NotifyInterface {
     /**
@@ -22,6 +23,7 @@ export class BaseComponent implements NotifyInterface {
      */
     public loading = false;
     public enableLoading = true;
+    public IMG_URL_UPLOAD = '';
     /**
      * @inheritDoc
      * @param message
@@ -35,6 +37,7 @@ export class BaseComponent implements NotifyInterface {
      * @param {GlobalService} httpClient
      */
     constructor(public httpClient: GlobalService) {
+        this.IMG_URL_UPLOAD = environment.IMG_URL_WH;
     }
 
     /**

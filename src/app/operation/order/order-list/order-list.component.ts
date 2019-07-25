@@ -1711,8 +1711,10 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
   }
 
   handerShowAdddTransaction(event, order) {
+    this.modelAddTransaction.type = 'continue_payment';
     this.modelAddTransaction.order_code = event.code;
     this.orderActiveTran = order;
+    this.getvalueAmount();
     this.AddTransactionModal.show();
   }
 

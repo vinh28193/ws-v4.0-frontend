@@ -48,10 +48,10 @@
     <td>
       <div class="btn-group">
         <button class="btn btn-sm btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)"
-                (click)="updateStatus('success',tran.transaction_code)">Update Success
+                (click)="showUpdatePayment(tran); showAdjustPayment.show();">Update Success
         </button>
         <button class="btn btn-sm btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)"
-                (click)="updateStatus('cancel',tran.transaction_code)">Cancel
+                (click)="updateStatus('cancel',tran.transaction_code,tran.order_code)">Cancel
         </button>
       </div>
 
@@ -59,3 +59,79 @@
   </tr>
   </tbody>
 </table>
+<div bsModal #showAdjustPayment="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" style="background-color: #f5f5f5">
+    <div class="modal-content">
+      <div class="modal-header bg-success ng-scope">
+        <h3 class="modal-title text-white" i18n>Update success transaction: <span
+                class="label label-primary ng-binding">{{editForm.transaction_code}}</span>
+          &nbsp;for order&nbsp;
+          <span
+                  class="label label-warning ng-binding">{{editForm.order_code}}</span>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" (click)="showAdjustPayment.hide()">
+          <span class="text-white" aria-hidden="true">×</span>
+          <span class="sr-only" i18n>Close</span>
+        </button>
+      </div>
+        <div class="modal-body ng-scope">
+          <div style="border: 1px solid #d9d9d9">
+            <div class="row m-0">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #AFEEEE">
+                <span i18n>Please enter the payment amount</span>
+              </div>
+            </div>
+            <div class="row m-0 mt-3">
+              <div class="col-md-6">
+                <label i18n>Total Paid Amount Local</label>
+                <input type="number" [(ngModel)]="editForm.total_paid_amount_local" class="form-control form-control-sm">
+              </div>
+              <div class="col-md-6">
+                <label i18n>Note Update Payment</label>
+                <input type="text" [(ngModel)]="editForm.note_update_payment" class="form-control form-control-sm">
+              </div>
+              <div class="col-md-6">
+                <label style="font-size: 2em; color: red">Price :
+                  <span>{{editForm.total_paid_amount_local | number}}{{editForm.store_id | currencyStore}}</span>
+                  <!--<span *ngIf="store_id !== 1">{{this.editForm.get('total_paid_amount_local').value | currency:'USD'}}</span>-->
+                </label>
+              </div>
+              <div class="col-md-6 form-group">
+                <div class="row">
+                  <div class="col-md-6" style="font-size: 12px;">
+                    <image-upload
+                            [max]="100"
+                            [url]="IMG_URL_UPLOAD+'/upload/upcms'"
+                            [buttonCaption]="'Browser..'"
+                            [dropBoxMessage]="'Drop your images here!'"
+                            [extensions]="['jpg','png','gif','sgv','jpeg']"
+                            [preview]="false"
+                            [style]="customStyle"
+                            (change)="Uploading()"
+                            (onFileUploadFinish)="imageUploaded($event,'image')"
+                    ></image-upload>
+
+                    <input class="form-control" name="image_url" [(ngModel)]="editForm.link_image"
+                           placeholder="Url image...">
+                    <img src="{{editForm.link_image}}" width="300" class="{{class_wait}}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row m-0 mt-2">
+              <div class="col-md-12 pt-2 pb-2" style="background-color: #FFE4B5" i18n>
+                Note: Staff carefully check <span class="text-danger">orders</span> and enter exact <span
+                      class="text-danger">prices</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer ng-scope">
+          <button class="btn btn-success btn-sm" type="button" (click)="updateStatus('success',editForm.transaction_code,editForm.order_code);showAdjustPayment.hide();" i18n>Confirm</button>
+          <button class="btn btn-danger btn-sm" type="button" (click)="showAdjustPayment.hide()" data-dismiss="modal" i18n>Cancel
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
