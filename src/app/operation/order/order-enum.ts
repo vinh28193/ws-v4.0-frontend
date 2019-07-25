@@ -6,10 +6,11 @@ export const searchKeys = [
     {key: 'order.buyer_phone', name: 'Phone'},
     {key: 'order.customer_id', name: 'Customer ID'},
     {key: 'payment_transaction.transaction_code', name: 'Transaction Code'},
-    {key: 'order.tracking_codes', name: 'Tracking Code'},
+    {key: 'order.tracking_codes', name: 'Tracking payment Code'},
+    {key: 'order.purchase_order_id', name: 'Order Amazon | eBay Code'},
+    {key: 'order.purchase_transaction_id', name: 'Transaction eBay Id'},
     {key: 'order.order_boxme', name: 'Order Box Me (BM)'},
     {key: 'order.shipment_boxme', name: 'Shipment Box Me (SM)'},
-    {key: 'order.purchase_transaction_id', name: 'PO Transaction'},
 ];
 export const timeKeys = [
     {key: 'order.created_at', name: 'Time Create Order'},
