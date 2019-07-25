@@ -1,45 +1,61 @@
 <table class="table" style="max-width: 100%">
   <thead>
-    <tr >
-      <th class="text-bold" i18n>Transaction code</th>
-      <th class="text-bold" i18n>Transaction amount local</th>
-      <th class="text-bold" i18n>Transaction type</th>
-      <th class="text-bold" i18n>Status</th>
-      <th class="text-bold" i18n>Description</th>
-      <th class="text-bold" i18n>Note</th>
-      <th class="text-bold" i18n>image</th>
-      <th class="text-bold" i18n>Payment Bank</th>
-      <th class="text-bold" i18n>Create</th>
-      <th class="text-bold" i18n>Update</th>
-      <th class="text-bold" i18n>
-        <button class="btn btn-sm btn-default" (click)="addTransaction()">Add Transaction</button>
-      </th>
-    </tr>
+  <tr>
+    <th class="text-bold" i18n>Transaction code</th>
+    <th class="text-bold" i18n>Transaction amount local</th>
+    <th class="text-bold" i18n>Transaction type</th>
+    <th class="text-bold" i18n>Status</th>
+    <th class="text-bold" i18n>Description</th>
+    <th class="text-bold" i18n>Note</th>
+    <th class="text-bold" i18n>image</th>
+    <th class="text-bold" i18n>Payment Bank</th>
+    <th class="text-bold" i18n>Create</th>
+    <th class="text-bold" i18n>Update</th>
+    <th class="text-bold" i18n>
+      <button class="btn btn-sm btn-default" (click)="addTransaction()">Add Transaction</button>
+    </th>
+  </tr>
   </thead>
   <tbody *ngIf="walletTransaction && walletTransaction.length > 0">
-    <tr *ngFor="let tran of walletTransaction">
-      <td [innerHTML]="tran.transaction_code"></td>
-      <td [innerHTML]="tran.transaction_amount_local | number"></td>
-      <td [innerHTML]="tran.transaction_type" class="font-weight-bold {{getClassType(tran.transaction_type)}}"></td>
-      <td [innerHTML]="tran.transaction_status" class="font-weight-bold badge {{getClassStatus(tran.transaction_status)}}"></td>
-      <td [innerHTML]="tran.transaction_description"></td>
-      <td [innerHTML]="tran.note"></td>
-      <td><a [href]="tran.link_image" target="_blank">
-          <img width="50px" src="{{tran.link_image}}">
-        </a>
-      </td>
-      <td>
-        <a *ngIf="checkView()" href="javascript:void(0)">
-          {{tran.payment_bank_code}}
-        </a>
-        <span *ngIf="!checkView()">{{tran.payment_bank_code}}</span>
-      </td>
-      <td> {{tran.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
-      <td> {{tran.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
-      <td>
-        <button class="btn btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('success',tran.transaction_code)">Update Success</button>
-        <button class="btn btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)" (click)="updateStatus('cancel',tran.transaction_code)">Cancel</button>
-      </td>
-    </tr>
+  <tr *ngFor="let tran of walletTransaction">
+    <td>
+      <a *ngIf="tran.transaction_status != 'SUCCESS'" href="{{getLink(tran.store_id,tran.transaction_code)}}" target="_blank">
+        {{tran.transaction_code}}
+      </a>
+      <span *ngIf="tran.transaction_status == 'SUCCESS'">
+        {{tran.transaction_code}}
+      </span>
+
+    </td>
+    <td [innerHTML]="tran.transaction_amount_local | number"></td>
+    <td [innerHTML]="tran.transaction_type" class="font-weight-bold {{getClassType(tran.transaction_type)}}"></td>
+    <td [innerHTML]="tran.transaction_status"
+        class="font-weight-bold badge {{getClassStatus(tran.transaction_status)}}"></td>
+    <td [innerHTML]="tran.transaction_description"></td>
+    <td [innerHTML]="tran.note"></td>
+    <td><a [href]="tran.link_image" target="_blank">
+      <img width="50px" src="{{tran.link_image}}">
+    </a>
+    </td>
+    <td>
+      <a *ngIf="checkView()" href="javascript:void(0)">
+        {{tran.payment_bank_code}}
+      </a>
+      <span *ngIf="!checkView()">{{tran.payment_bank_code}}</span>
+    </td>
+    <td> {{tran.created_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+    <td> {{tran.updated_at * 1000 | date:'dd/MM/yyyy HH:mm:ss '}}</td>
+    <td>
+      <div class="btn-group">
+        <button class="btn btn-sm btn-success" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)"
+                (click)="updateStatus('success',tran.transaction_code)">Update Success
+        </button>
+        <button class="btn btn-sm btn-danger" style="border-radius: 0px" *ngIf="checkShowUpdate(tran)"
+                (click)="updateStatus('cancel',tran.transaction_code)">Cancel
+        </button>
+      </div>
+
+    </td>
+  </tr>
   </tbody>
 </table>

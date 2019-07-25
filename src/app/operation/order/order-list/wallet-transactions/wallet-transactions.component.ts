@@ -46,8 +46,8 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
       this.orderService.put('pay/' + code, {type: type}).subscribe(rs => {
         const res: any = rs;
         if (rs.success) {
-            this.getListOrder.emit();
-            this.refreshTransaction.emit();
+          this.getListOrder.emit();
+          this.refreshTransaction.emit();
           this.popup.success(rs.message);
         } else {
           this.popup.error(rs.message);
@@ -100,6 +100,14 @@ export class WalletTransactionsComponent extends OrderDataComponent implements O
   }
 
   checkShowUpdate(tran) {
-    return (tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'REFUND' || tran.transaction_type === 'CONTINUE_PAYMENT') && tran.transaction_status === 'QUEUED';
+    return (tran.transaction_type === 'PAYMENT' || tran.transaction_type === 'ADDFEE' || tran.transaction_type === 'REFUND' || tran.transaction_type === 'CONTINUE_PAYMENT') && (tran.transaction_status === 'QUEUED' || tran.transaction_status === 'CREATED');
+  }
+
+  getLink(store, code) {
+    let host = 'https://weshop.com.vn';
+    if (store == 7) {
+       host = 'https://weshop.co.id';
+    }
+    return host + '/checkout.html?code=' + code;
   }
 }

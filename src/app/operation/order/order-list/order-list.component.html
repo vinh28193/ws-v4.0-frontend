@@ -1089,12 +1089,12 @@
                                            data-target="#showPromotion" data-toggle="modal" data-backdrop="static"
                                            (click)="updatePromotion(order)" data-keyboard="false" i18n><i
                                           class="fa fa-gift mr-2" aria-hidden="true"></i>Promotion updates</a>
-                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "
-                                           *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null"
-                                           id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);"
-                                           (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment"
-                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i
-                                          class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>
+<!--                                        <a class="dropdown-item  pt-1 pr-1 pb-1 sty-drop "-->
+<!--                                           *ngIf="checkUpdatePayment(order.current_status, order.total_paid_amount_local) && order.check_update_payment == null"-->
+<!--                                           id="Điều_chỉnh_tiền_thanh_toán SUP" href="javascript:void(0);"-->
+<!--                                           (click)="updateAdjustPayment(order)" data-target="#showAdjustPayment"-->
+<!--                                           data-toggle="modal" data-backdrop="static" data-keyboard="false" i18n><i-->
+<!--                                          class="fa fa-edit mr-2" aria-hidden="true"></i>Adjust payment</a>-->
                                         <a class="dropdown-item pt-1 pr-1 pb-1 sty-drop "
                                            *ngIf="checkShowPayBack(order.total_paid_amount_local)"
                                            id="Trả_lại_tiền_do_Khiếu_Nại OPS" href="javascript:void(0);"
