@@ -537,6 +537,7 @@ export class OrderListComponent extends OrderDataComponent implements OnInit {
 
   exportOrder() {
     const params = this.prepareSearch();
+      params.limit = 'all';
     this.orderService.exportExcel(params).subscribe(res => {
       const result: any = res;
       if (result.success) {
