@@ -3,17 +3,21 @@
     <div class="row">
       <div class="col-md-1 m-0 p-0">
         <h5 class="text-center">
-          <a href="javascript:void (0)" (click)="copyText(product.id,notifier)" class="badge badge-pill badge-primary ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">SOI-{{product.id}}</a>
+          <a href="javascript:void (0)" (click)="copyText(product.id,notifier)"
+             class="badge badge-pill badge-primary ml-1 badge-Paid text-uppercase p-1 ng-star-inserted">SOI-{{product.id}}</a>
         </h5>
       </div>
       <div class="col-md-2 p-0 text-center">
         <div class="images">
-          <app-edit-image [image] = "product.link_img" [idImage] = "product.id"></app-edit-image>
+          <app-edit-image [image]="product.link_img" [idImage]="product.id"></app-edit-image>
         </div>
         <div class="mt-2">
-          <a href="{{product.link_origin}}" *ngIf="!_sp.checkOperatione() && !_sp.checkMasterOperation() && !_sp.checkAccountant() && !_sp.checkMasterAccountant() || !_sp.checkSale()" target="_blank" class="originalLink" i18n>Original Link</a>
+          <a href="{{product.link_origin}}"
+             *ngIf="!_sp.checkOperatione() && !_sp.checkMasterOperation() && !_sp.checkAccountant() && !_sp.checkMasterAccountant() || !_sp.checkSale()"
+             target="_blank" class="originalLink" i18n>Original Link</a>
         </div>
-        <div  aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10" aria-valuetext="null out of 10" aria-disabled="true">
+        <div aria-valuemin="0" class="d-inline-flex" role="slider" tabindex="0" aria-valuemax="10"
+             aria-valuetext="null out of 10" aria-disabled="true">
           <span class="sr-only ng-star-inserted">( )</span>
           <span class="ng-star-inserted text-center">
                           <span class="star ng-star-inserted text-warning">★</span>
@@ -36,7 +40,7 @@
             <ul>
               <li class="product_name">
                 <a href="{{product.product_link}}" target="_blank" tooltip="{{product.product_name}}">
-                  {{ (product.product_name?.length > 25)? ((product.product_name | slice:0:25)+'. . .'):(product.product_name)}}
+                  {{ (product.product_name?.length > 25) ? ((product.product_name | slice:0:25) + '. . .') : (product.product_name)}}
                 </a>
               </li>
               <li class="sku">
@@ -50,9 +54,13 @@
               <li class="text-danger variations" *ngIf="product.variations">
                 <span class="mr-2" i18n>Item Variant:</span>
                 <app-span-label [value]="product.variations"></app-span-label>
-                <a href="javascript:void(0);" *ngIf="!_sp.checkMkt()" (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i class="ml-1 fa fa-edit"></i></a>
-                <form action="" [formGroup] = "editFormVariant" *ngIf="openEditVariant[product.id]" [hidden]="!openEditVariant[product.id]">
-                  <input  type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()" formControlName="variant"  name="variant">
+                <a href="javascript:void(0);" *ngIf="!_sp.checkMkt()"
+                   (click)="openEditVariant[product.id] = !openEditVariant[product.id]; clickUpdateVarian(product.variations, product.id)"><i
+                  class="ml-1 fa fa-edit"></i></a>
+                <form action="" [formGroup]="editFormVariant" *ngIf="openEditVariant[product.id]"
+                      [hidden]="!openEditVariant[product.id]">
+                  <input type="text" class="form-control form-control-sm mt-1 mb-2" (keydown.enter)="editVariantPro()"
+                         formControlName="variant" name="variant">
                 </form>
               </li>
               <!--li class="seller_id">
@@ -60,8 +68,8 @@
                 <app-span-label [value]="product.seller_id"></app-span-label>
               </li-->
               <!--<li class="seller_id">-->
-                <!--<span class="mr-2" i18n>Size:</span>-->
-                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--<span class="mr-2" i18n>Size:</span>-->
+              <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
               <li class="total_weight_temporary">
                 <span class="mr-2 ShippingWeight" i18n>Total weight temporary:</span>
@@ -69,7 +77,7 @@
               </li>
               <li class="total_weight_temporary">
                 <span
-                        class="Paid badge badge-pill badge-{{product.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
+                  class="Paid badge badge-pill badge-{{product.current_status | currentStatus}} badge-Paid text-uppercase p-1 ng-star-inserted">
                                     {{product.current_status}}
                                   </span>
               </li>
@@ -78,33 +86,33 @@
           <div class="col-md-6 pl-1">
             <ul>
               <!--<li>-->
-                <!--<span class="mr-2" i18n>Local Name:</span>-->
-                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--<span class="mr-2" i18n>Local Name:</span>-->
+              <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
               <!--<li>-->
-                <!--<span class="mr-2" i18n>Category:</span>-->
-                <!--<app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>-->
-                <!--<a class="ml-1" href="javascript:void(0)" *ngIf="!_sp.checkMkt() && !_sp.checkOperatione() && !_sp.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >-->
-                  <!--<i class="fa fa-edit text-info"></i>-->
-                <!--</a>-->
-                <!--<form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">-->
-                  <!--<input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>-->
-                  <!--<select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">-->
-                    <!--<option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>-->
-                  <!--</select>-->
-                <!--</form>-->
+              <!--<span class="mr-2" i18n>Category:</span>-->
+              <!--<app-span-label [value]="policyName(product.custom_category_id)"></app-span-label>-->
+              <!--<a class="ml-1" href="javascript:void(0)" *ngIf="!_sp.checkMkt() && !_sp.checkOperatione() && !_sp.checkMasterOperation()" (click)="openEditCategory[product.id] = !openEditCategory[product.id]; clickOpen(product, order_path)" data-keyboard="false" >-->
+              <!--<i class="fa fa-edit text-info"></i>-->
+              <!--</a>-->
+              <!--<form action="" [formGroup]="updateForm" *ngIf="openEditCategory[product.id]" [hidden]="!openEditCategory[product.id]">-->
+              <!--<input class="form-control form-control-sm" formControlName="note_boxme" placeholder="note for inspection" type="text" i18n-placeholder>-->
+              <!--<select class="form-control form-control-sm" (change)="updateCategory(product.id)" formControlName="policy_id">-->
+              <!--<option value="{{it.id}}" *ngFor="let it of policy">{{it.name}}</option>-->
+              <!--</select>-->
+              <!--</form>-->
               <!--</li>-->
               <!--<li>-->
-                <!--<span class="mr-2" i18n>QTT Set:</span>-->
-                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--<span class="mr-2" i18n>QTT Set:</span>-->
+              <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
               <!--<li>-->
-                <!--<span class="mr-2" i18n>Fragile:</span>-->
-                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--<span class="mr-2" i18n>Fragile:</span>-->
+              <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
               <!--<li>-->
-                <!--<span class="mr-2" i18n>Packing Wood</span>-->
-                <!--<app-span-label [value]=""></app-span-label>-->
+              <!--<span class="mr-2" i18n>Packing Wood</span>-->
+              <!--<app-span-label [value]=""></app-span-label>-->
               <!--</li>-->
               <li>
                 <span class="mr-2" i18n>Note for inspect:</span>
@@ -113,43 +121,52 @@
 
               <!--/** TODO 08/07/2019 join tracking_code (draft_extension_tracking_map && package )*/-->
               <!--<li *ngIf="product.trackingCodes">-->
-                <!--<span class="mr-2" i18n>Tracking Code (seller):</span>-->
-                <!--<span *ngFor="let trackingCode of product.trackingCodes"><a>{{trackingCode.tracking_code}}</a>&nbsp;/&nbsp;</span>-->
+              <!--<span class="mr-2" i18n>Tracking Code (seller):</span>-->
+              <!--<span *ngFor="let trackingCode of product.trackingCodes"><a>{{trackingCode.tracking_code}}</a>&nbsp;/&nbsp;</span>-->
               <!--</li>-->
               <!--<li *ngIf="product.packages">-->
-                <!--<span class="mr-2" i18n>Tracking Code:</span>-->
-                <!--<span *ngFor="let package_product of product.packages"><a>{{package_product.tracking_code}}</a>&nbsp;/&nbsp;</span>-->
+              <!--<span class="mr-2" i18n>Tracking Code:</span>-->
+              <!--<span *ngFor="let package_product of product.packages"><a>{{package_product.tracking_code}}</a>&nbsp;/&nbsp;</span>-->
               <!--</li>-->
               <li class="note_by_customer" data-toggle="tooltip" data-placement="top" title="Customer Note Products!">
-                <i class="fa fa-comments"  ></i>{{product.note_by_customer}}
-                <a href="javascript:void(0)" (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
+                <i class="fa fa-comments"></i>{{product.note_by_customer}}
+                <a href="javascript:void(0)"
+                   (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
                   <i class="fa fa-edit" *ngIf="product.note_by_customer != null"></i>
                 </a>
-                <a href="javascript:void(0)" (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
-                  <i class="fa fa-plus-square" *ngIf="product.note_by_customer == '' || product.note_by_customer == null"></i>
+                <a href="javascript:void(0)"
+                   (click)="openEditNoteByCustomer[product.id] = !openEditNoteByCustomer[product.id]; clickOpen(product, order_path)">
+                  <i class="fa fa-plus-square"
+                     *ngIf="product.note_by_customer == '' || product.note_by_customer == null"></i>
                 </a>
-                <form action="" [formGroup] = "editFormNote" *ngIf="openEditNoteByCustomer[product.id]" [hidden]="!openEditNoteByCustomer[product.id]">
-                  <textarea rows="2" class="form-control form-control-sm" (keydown.enter)="editNotePro(product.id)" formControlName="noteCustomer"  name="noteCustomer"></textarea>
+                <form action="" [formGroup]="editFormNote" *ngIf="openEditNoteByCustomer[product.id]"
+                      [hidden]="!openEditNoteByCustomer[product.id]">
+                  <textarea rows="2" class="form-control form-control-sm" (keydown.enter)="editNotePro(product.id)"
+                            formControlName="noteCustomer" name="noteCustomer"></textarea>
                 </form>
               </li>
-                <li *ngIf="openConfirmOrder && product.custom_category_id">
-                    <a href="javascript: void (0);" (click)="confirmOrder(product)" class="btn btn-sm btn-outline-info" style="border: none" ><i class="fa fa-check"></i> Confirm purchase</a>
-                </li>
+              <li *ngIf="openConfirmOrder && product.custom_category_id">
+                <a href="javascript: void (0);" (click)="confirmOrder(product)" class="btn btn-sm btn-outline-info"
+                   style="border: none"><i class="fa fa-check"></i> Confirm purchase</a>
+              </li>
               <li *ngIf="product.confirm_change_price && !_sp.checkMkt()">
-                <a href="javascript: void (0);" (click)="confirmChangePrice(product)" class="btn btn-sm btn-outline-success" style="border: none" ><i class="fa fa-check"></i> Confirm changing price</a>
+                <a href="javascript: void (0);" (click)="confirmChangePrice(product)"
+                   class="btn btn-sm btn-outline-success" style="border: none"><i class="fa fa-check"></i> Confirm
+                  changing price</a>
               </li>
               <li *ngIf="product.purchased && !_sp.checkMkt()">
-                <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})" class="btn btn-sm btn-outline-info" ><i class="fa fa-check"></i> Add Tracking</a>
+                <a href="javascript: void (0);" (click)="addTrackingCode.emit({product_id: product.id})"
+                   class="btn btn-sm btn-outline-info"><i class="fa fa-check"></i> Add Tracking</a>
               </li>
 
-              <li>
+              <li *ngIf="storeID == 7">
                 <div class="checkbox checkbox-success">
                   <input id="insuranceCheckbox"
                          type="checkbox"
                          class="custom-control-input"
                          [checked]="isSpecial(product)"
                          (click)="acceptIsSpecial(product)">
-                  <label for="insuranceCheckbox">Is Special</label>
+                  <label for="insuranceCheckbox">Is Special ({{getSpecialFee(product)}}{{storeID | currencyStore}})</label>
                 </div>
               </li>
             </ul>
@@ -168,10 +185,12 @@
             <h5 i18n>FINANCE</h5>
           </div>
           <div class="col-md-2 text-right">
-            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]"   (click)="hidem[product.id] = !hidem[product.id]" i18n>
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="!hidem[product.id]"
+                    (click)="hidem[product.id] = !hidem[product.id]" i18n>
               <i class="fa fa-eye" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]"   (click)="hidem[product.id] = !hidem[product.id]" i18n>
+            <button class="btn btn-sm" style="background-color: #F8FAFC;" *ngIf="hidem[product.id]"
+                    (click)="hidem[product.id] = !hidem[product.id]" i18n>
               <i class="fa fa-eye-slash" aria-hidden="true"></i>
             </button>
           </div>
@@ -190,41 +209,51 @@
           <div class="row quantity_customer ">
             <div class="col-md-7"><span i18n>Quantity:</span></div>
             <div class="col-md-5 pr-2 text-right style-padding Quantity">
-              {{product.quantity_customer}}/{{product.quantity_purchase?product.quantity_purchase:0}}/{{product.quantity_inspect?product.quantity_inspect:0}}
-              <span class="fa fa-edit pl-1" (click)="quantityPro[product.id] = !quantityPro[product.id]; openUpdateQuantity(product.quantity_customer, product.id, product.price_amount_origin)"></span>
+              {{product.quantity_customer}}/{{product.quantity_purchase ? product.quantity_purchase : 0}}
+              /{{product.quantity_inspect ? product.quantity_inspect : 0}}
+              <span class="fa fa-edit pl-1"
+                    (click)="quantityPro[product.id] = !quantityPro[product.id]; openUpdateQuantity(product.quantity_customer, product.id, product.price_amount_origin)"></span>
             </div>
           </div>
           <div class="row" *ngIf="checkUpdateQuantity">
             <div class="col-md-12 float-right tex" [hidden]="!quantityPro[product.id]">
-              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "shipping_quantity">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()"
+                     [(ngModel)]="shipping_quantity">
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 pr-0 soi-toltal-value">
               <span i18n>Unit price</span>
-                ({{product.price_amount_origin | currency}}
-                <span class="fa fa-edit pl-1" (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
+              ({{product.price_amount_origin | currency}}
+              <span class="fa fa-edit pl-1"
+                    (click)="pricePro[product.id] = !pricePro[product.id]; openUpdatePricePro(product.price_amount_origin, product.id, product.quantity_customer)"></span>):
             </div>
-            <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+            <div class="col-md-6 text-right style-padding">{{product.price_amount_local | number}}<span
+              class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
           <div class="row" *ngIf="checkUpdatePricePro">
             <div class="col-md-12 float-right tex" [hidden]="!pricePro[product.id]">
-              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "price_amount_origin">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()"
+                     [(ngModel)]="price_amount_origin">
             </div>
           </div>
           <hr style="margin: 5px">
           <div *ngFor="let ProFee of product.productFees">
             <div class="row" *ngIf="checkShowFee(ProFee.name) && ProFee.name != 'purchase_fee'">
-              <div *ngIf="product.id == ProFee.target_id" class="name-{{ProFee.name}} type-{{ProFee.name}} col-md-5 pr-0">
-               {{ProFee.name | ProductFee }}
-                  (<span>{{ProFee.amount | currency}}</span>)
+              <div *ngIf="product.id == ProFee.target_id"
+                   class="name-{{ProFee.name}} type-{{ProFee.name}} col-md-5 pr-0">
+                {{ProFee.name | ProductFee }}
+                <span *ngIf="ProFee.name !== 'special_fee'">({{ProFee.amount | currency}})</span>
               </div>
-              <div *ngIf="product.id == ProFee.target_id" class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
-                  <div *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="view_discount">
-                    <span i18n>Discount : {{ProFee.discount_amount | number}}</span><span class="m-l1">{{storeID | currencyStore}}</span>
-                  </div>
+              <div *ngIf="product.id == ProFee.target_id"
+                   class="discount_amount {{ProFee.discount_amount}} col-md-4 text-right style-padding ">
+                <div *ngIf="ProFee.discount_amount !== null && ProFee.discount_amount != 0" class="view_discount">
+                  <span i18n>Discount : {{ProFee.discount_amount | number}}</span><span
+                  class="m-l1">{{storeID | currencyStore}}</span>
+                </div>
               </div>
-              <div *ngIf="product.id == ProFee.target_id && idEdit != ProFee.id" class="origin-amount col-md-3 pr-{{checkClass(ProFee.name)}} text-right style-padding ">
+              <div *ngIf="product.id == ProFee.target_id && idEdit != ProFee.id"
+                   class="origin-amount col-md-3 pr-{{checkClass(ProFee.name)}} text-right style-padding ">
                 {{ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span>
               </div>
             </div>
@@ -232,14 +261,17 @@
           <ng-container *ngFor="let ProFee of product.productFees">
             <div class="row shipping_fee" *ngIf="ProFee.name == 'shipping_fee'">
               <div class="col-md-7"><span i18n>{{ProFee.name | ProductFee}} </span> :
-                ({{ProFee.amount | currency}} <span class="fa fa-edit pl-1" (click)="openUpdateShipping(product, ProFee.amount)"></span>)
+                ({{ProFee.amount | currency}} <span class="fa fa-edit pl-1"
+                                                    (click)="openUpdateShipping(product, ProFee.amount)"></span>)
               </div>
-              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span
+                class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
           </ng-container>
           <div class="row" *ngIf="checkUpdateShipping">
             <div class="col-md-12 float-right tex">
-              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()" [(ngModel)] = "shipping_fee">
+              <input type="text" class="form-control form-control-sm" (keyup.enter)="updatePricePro()"
+                     [(ngModel)]="shipping_fee">
             </div>
           </div>
           <ng-container *ngFor="let ProFee of product.productFees">
@@ -248,7 +280,8 @@
                 class="fa fa-edit pl-1"
                 (click)="tax[product.id] = !tax[product.id]; openUpdateTaxFee(product, ProFee.amount)"></span>)
               </div>
-              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span
+                class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
           </ng-container>
           <div class="row" *ngIf="checkUpdateTax">
@@ -264,7 +297,8 @@
                 class="fa fa-edit pl-1"
                 (click)="custom[product.id] = !custom[product.id]; openUpdateCustomFee(product, ProFee.amount)"></span>)
               </div>
-              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+              <div class="col-md-5 text-right style-padding ">{{ ProFee.local_amount | number}}<span
+                class="m-l1">{{storeID | currencyStore}}</span></div>
             </div>
           </ng-container>
           <div class="row" *ngIf="checkUpdateCustomFee">
@@ -280,7 +314,8 @@
                 <!--(<span class="text-line-through">{{ getTotalValueWithRequestPayment(item) | number}} {{getLocalCurrencyCodeByStore(0)}}</span>):-->
               </strong>
             </div>
-            <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span class="m-l1">{{storeID | currencyStore}}</span></div>
+            <div class="col-md-6 text-right style-padding">{{product.total_final_amount_local | number}}<span
+              class="m-l1">{{storeID | currencyStore}}</span></div>
           </div>
         </div>
 

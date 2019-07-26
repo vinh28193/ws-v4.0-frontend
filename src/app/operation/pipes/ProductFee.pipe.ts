@@ -12,9 +12,9 @@ export class ProductFeePipe implements PipeTransform {
             case 'tax_fee':
                 return 'Tax Fee';
             case 'shipping_fee':
-                return 'US domestic'
+                return 'US domestic';
             case 'weshop_fee':
-                return 'Purchase Fee'
+                return 'Purchase Fee';
             case 'intl_shipping_fee':
                 return 'International Shipping Fee';
             case 'custom_fee' :
@@ -31,8 +31,10 @@ export class ProductFeePipe implements PipeTransform {
                 return 'Import Fee';
             case 'purchase_fee':
               return 'Purchase Fee';
+          case 'special_fee':
+            return 'Special Fee';
             default :
-                return 'Unknow Fee';
+                return 'Unknown Fee';
         }
 
     }

@@ -182,7 +182,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     if (name === 'purchase_fee'
       || name === 'international_shipping_fee'
       || name === 'import_fee'
-      || name === 'product_price') {
+      || name === 'product_price' || name === 'special_fee') {
       return true;
     }
   }
@@ -447,6 +447,21 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
     this.orderService.getAdditional(params).subscribe(res => {
       this.getListOrder.emit({});
     });
+  }
+
+  public getSpecialFee(product) {
+    let value = 0;
+    const fees = product.productFees;
+    if (fees.length === 0) {
+      return value;
+    }
+    for (let i = 0; i < fees.length; i++) {
+      if (fees[i].name === 'special_fee') {
+        value = Number(fees[i].local_amount);
+        break;
+      }
+    }
+    return value;
   }
 
   public isSpecial(product) {
