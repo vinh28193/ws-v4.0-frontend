@@ -147,7 +147,7 @@
                   <input id="insuranceCheckbox"
                          type="checkbox"
                          class="custom-control-input"
-                         [checked]="product.is_special"
+                         [checked]="isSpecial(product)"
                          (click)="acceptIsSpecial(product)">
                   <label for="insuranceCheckbox">Is Special</label>
                 </div>

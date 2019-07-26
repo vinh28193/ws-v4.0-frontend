@@ -51,6 +51,7 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   public shipping_fee: any;
   public tax_fee: any;
   public custom_fee: any;
+  public is_special: any;
   public checkUpdatePricePro = false;
   public checkUpdateSurcharge = false;
   public checkUpdateCustomFee = false;
@@ -437,14 +438,19 @@ export class OrderDetailComponent extends OrderDataComponent implements OnInit {
   acceptIsSpecial(product) {
     const params: any = {};
     params.is_special = product.is_special ? 'no' : 'yes';
+    params.target_name = 'product';
+    params.target_id = product.id;
+    params.store_id = this.storeID;
+    params.customer_id = this.customer_id;
     params.order_path = this.order_path;
     params.title = 'accept product: ' + product.id + ' is ' + (params.is_special === 'yes' ? 'special' : 'non special');
-    this.orderService.put(`product/${product.id}`, params).subscribe(res => {
-      if (res.success) {
-        this.getListOrder.emit({});
-      } else {
-        this.popup.error(res.message);
-      }
+    this.orderService.getAdditional(params).subscribe(res => {
+      this.getListOrder.emit({});
     });
   }
+
+  public isSpecial(product) {
+    return product.is_special === 1;
+  }
+
 }
