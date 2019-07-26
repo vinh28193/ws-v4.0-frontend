@@ -161,12 +161,14 @@
 
               <li *ngIf="storeID == 7">
                 <div class="checkbox checkbox-success">
-                  <input id="insuranceCheckbox"
+                  <input id="isSpecial-{{product.id}}"
                          type="checkbox"
                          class="custom-control-input"
+                         name="checkboxSpecial{{product.id}}"
                          [checked]="isSpecial(product)"
                          (click)="acceptIsSpecial(product)">
-                  <label for="insuranceCheckbox">Is Special ({{getSpecialFee(product)}}{{storeID | currencyStore}})</label>
+                  <label for="insuranceCheckbox">Is Special ({{getSpecialFee(product)}}{{storeID | currencyStore}}
+                    )</label>
                 </div>
               </li>
             </ul>
