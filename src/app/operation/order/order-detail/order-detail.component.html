@@ -167,7 +167,7 @@
                          name="checkboxSpecial{{product.id}}"
                          [checked]="isSpecial(product)"
                          (click)="acceptIsSpecial(product)">
-                  <label for="insuranceCheckbox">Is Special ({{getSpecialFee(product)}}{{storeID | currencyStore}}
+                  <label for="isSpecial-{{product.id}}">Is Special ({{getSpecialFee(product)}}{{storeID | currencyStore}}
                     )</label>
                 </div>
               </li>
