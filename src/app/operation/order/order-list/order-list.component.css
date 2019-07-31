@@ -583,4 +583,7 @@ ul.dropdown-menu.notifications {
 .table td, .table th {
   padding-left: 0;
 }
-
+.active.col-6.form-check, .backgr-grpay {
+  background: #bdb7b7f7;
+  padding: 15px;
+}

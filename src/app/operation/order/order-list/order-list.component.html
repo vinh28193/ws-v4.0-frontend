@@ -2728,30 +2728,32 @@ Press Shift + Enter to get down the line." i18n-placeholder></textarea>
 <!--                   [(ngModel)]="modelAddTransaction.type"  (change)="getvalueAmount()"  class="form-check-input">-->
 <!--            <label for="type_addfee" class="form-check-label">AddFee</label>-->
 <!--          </div>-->
-          <div class="form-check">
+          <div class="form-check col-6 {{modelAddTransaction.type == 'continue_payment' ? 'active' : ''}}">
             <input type="radio" id="type_continue_payment" value="continue_payment" (change)="getvalueAmount()" name="type_transaction"
                    [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_continue_payment" class="form-check-label">Continue Payment</label>
           </div>
-          <div class="form-check">
+          <div class="form-check col-6 {{modelAddTransaction.type == 'refund' ? 'active' : ''}}">
             <input type="radio" id="type_refurnd"  (change)="getvalueAmount()"  value="refund" name="type_transaction"
                    [(ngModel)]="modelAddTransaction.type" class="form-check-input">
             <label for="type_refurnd" class="form-check-label">Refund</label>
           </div>
         </div>
-        <div class="form-group">
-          <label for="amount_transaction">Amount</label>
-          <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount"
-                 class="form-control form-control-sm" placeholder="Amount transaction">
-        </div>
-        <div class="form-group">
-          <label for="description_transaction">Description</label>
-          <textarea id="description_transaction" class="form-control form-control-sm"
-                    [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
-        </div>
-        <div class="form-group text-right">
-          <button class="btn btn-info btn-sm mr-2" (click)="createTran()" i18n>Create</button>
-          <button class="btn btn-danger btn-sm" (click)="AddTransactionModal.hide()" i18n>Cancel</button>
+        <div class="backgr-grpay">
+          <div class="form-group">
+            <label for="amount_transaction">Amount</label>
+            <input id="amount_transaction" type="number" [(ngModel)]="modelAddTransaction.amount"
+                   class="form-control form-control-sm" placeholder="Amount transaction">
+          </div>
+          <div class="form-group">
+            <label for="description_transaction">Description</label>
+            <textarea id="description_transaction" class="form-control form-control-sm"
+                      [(ngModel)]="modelAddTransaction.description" placeholder="Description"></textarea>
+          </div>
+          <div class="form-group text-right">
+            <button class="btn btn-info btn-sm mr-2" (click)="createTran()" i18n>Create</button>
+            <button class="btn btn-danger btn-sm" (click)="AddTransactionModal.hide()" i18n>Cancel</button>
+          </div>
         </div>
       </div>
     </div>
