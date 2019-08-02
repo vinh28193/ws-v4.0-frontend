@@ -2,6 +2,7 @@
 export const searchKeys = [
     {key: 'order.ordercode', name: 'BIN'},
     {key: 'product.id', name: 'SOI'},
+    {key: 'product.product_name', name: 'Product Name'},
     {key: 'order.buyer_email', name: 'Email'},
     {key: 'order.buyer_phone', name: 'Phone'},
     {key: 'order.customer_id', name: 'Customer ID'},
