@@ -284,13 +284,11 @@
                               <div class="card-title">
                                 <h5>
                                   <strong class="text-uppercase">
-                                    <a target="_blank"
-                                       *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)"
+                                    <a  *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)"
                                        href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
-                                    <a target="_blank"
-                                       *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
+                                    <a  *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
                                        href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
