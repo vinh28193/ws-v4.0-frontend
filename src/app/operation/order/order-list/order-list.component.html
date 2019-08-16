@@ -291,7 +291,7 @@
                                     </a>
                                     <a target="_blank"
                                        *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
-                                       [href]="orderCheckOut(order.store_id,order.payment_transaction_code || order.ordercode)">
+                                       [href]="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong> /
@@ -303,9 +303,13 @@
                                         *ngIf="paid(order.total_paid_amount_local, order.walletTransactions)"
                                         class="Paid badge badge-pill badge-success badge-Paid text-uppercase p-1 ng-star-inserted">Paid</span>
                                   <!--check payment transaction-->
-                                  <span title="Order-Unpaid"
-                                        *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
-                                        class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
+
+                                  <a target="_blank"
+                                     *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
+                                     [href]="orderCheckOut(order.store_id,order.payment_transaction_code || order.ordercode)">
+                                     <span title="Order-Unpaid"  class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Unpaid</span>
+                                  </a>
+
                                   <span *ngIf="order.potential == 1">/</span>
                                   <span class="badge badge-pill badge-warning">{{order.potential | potential}}</span>
 
@@ -323,6 +327,13 @@
 
                               <div class="mt-1">
                                 <ul>
+                                  <li class="click2paid">
+                                    <a target="_blank"
+                                       *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
+                                       [href]="orderCheckOut(order.store_id,order.payment_transaction_code || order.ordercode)">
+                                      <span title="Order-Unpaid"  class="Unpaid badge badge-pill badge-warning badge-Unpaid text-uppercase p-1 ng-star-inserted">Click2Paid</span>
+                                    </a>
+                                  </li>
                                   <li class="created_at">
                                     <span><i class="fa fa-clock-o"></i></span> {{order.created_at | date: 'dd/MM/yyyy'}}
                                   </li>
