@@ -291,7 +291,7 @@
                                     </a>
                                     <a target="_blank"
                                        *ngIf="!paid(order.total_paid_amount_local, order.walletTransactions)"
-                                       [href]="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
+                                       href="javascript:void (0)" (click)="copyText(order.ordercode, notifier)">
                                       <span class="text-danger">BIN-{{order.ordercode}}</span>
                                     </a>
                                   </strong> /
